@@ -1,0 +1,583 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
+    <script src="security.js" defer></script>
+    <script defer>authorizeFromToken().then(checkAccess);</script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main">
+<h1>Biochimie Approfondissement</h1>
+<h2>Propriétés physico-chimiques des protéines</h2>
+</header>
+
+
+<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
+</head>
+					<style>
+  .progress-container {
+    width: 90%;
+    max-width: 800px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .flashcard {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 1.3rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .check-icon,
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    stroke: #888;
+    transition: stroke 0.3s;
+  }
+
+  .check-icon {
+    right: 10px;
+  }
+
+  .cross-icon {
+    left: 10px;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon {
+    display: block;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+</style>
+<body>
+<ul class="actions">
+<li><a class="button large" id="restart">Recommencer</a></li>
+</ul>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: 'Qu’est-ce que la dénaturation d’une protéine ?', answer: 'C’est la perte de l’activité biologique d’une protéine due à une altération de sa conformation native.' },
+{ question: 'Quelles liaisons sont rompues lors de la dénaturation ?', answer: 'Les liaisons hydrogène, hydrophobes, électrostatiques et autres liaisons stabilisatrices.' },
+{ question: 'La dénaturation altère-t-elle la structure primaire ?', answer: 'Non, la structure primaire reste intacte car les liaisons peptidiques sont conservées.' },
+{ question: 'Quand la dénaturation est-elle réversible ?',answer: 'Lorsque les modifications structurales sont discrètes.' },
+{ question: 'Quand la dénaturation est-elle irréversible ?', answer: 'Lorsque la protéine ne peut pas reprendre sa conformation native.' },
+{ question: 'Quels sont les effets de la dénaturation ? (3 réponses)', answer: 'Perte d’activité biologique, insolubilisation de la protéine, élévation de la viscosité des solutions protéiques.' },
+{ question: 'Quel est l’effet de l’élévation de la température sur les protéines ?', answer: 'Elle augmente l’agitation moléculaire et rompt les liaisons hydrogène.' },
+{ question: 'Quels exemples illustrent l’effet thermique ?', answer: 'Cuisson des aliments, stérilisation.' },
+{ question: 'Que provoquent les UV et radiations ionisantes gamma ?', answer: 'Photolyse des ponts disulfures et dénaturation de l’ADN et des protéines des virus et bactéries.' },
+{ question: 'Que provoquent les pH extrêmes ?', answer: 'La rupture des liaisons électrostatiques et hydrogène, et la dénaturation des protéines.' },
+{ question: 'Quel exemple illustre l’effet des pH extrêmes ?', answer: 'Précipitation des protéines du lait pour les yaourts.' },
+{ question: 'Quels réactifs rompent les ponts disulfures ?', answer: 'Béta-mercaptoéthanol (BME), Dithiothréitol (DTT).' },
+{ question: 'Les réactifs rompant les ponts disulfures sont-ils réversibles ?', answer: 'Oui, ce sont des réducteurs à effet réversible.' },
+{ question: 'Quels sont des oxydants forts à effet irréversible ?', answer: 'Chlorates, permanganate de potassium (KMnO4).' },
+{ question: 'Quelles molécules sont chaotropiques ?', answer: 'Urée, chlorure de guanidinium.' },
+{ question: 'Comment agissent les agents chaotropiques ?', answer: 'Ils suppriment toutes les liaisons hydrogène intra- et inter-protéiques en interférant avec leur formation.' },
+{ question: 'Quel est le mode d’action des agents chaotropiques ?', answer: 'Ils forment des liaisons hydrogène avec les protéines, les déstructurant.' },
+{ question: 'L’action des agents chaotropiques est-elle réversible ?', answer: 'Oui, par dialyse.' },
+{ question: 'Que sont les détergents ?', answer: 'Des molécules amphiphiles avec une partie hydrophobe et une partie hydrophile.' },
+{ question: 'Quel est le principe des micelles ?', answer: 'Les queues hydrophobes sont au centre, les têtes hydrophiles à la surface.' },
+{ question: 'Quel est le caractère du Triton X-100 ?', answer: 'Détergent non-ionique, très peu dénaturant.' },
+{ question: 'Quel est le caractère du SDS ?', answer: 'Détergent anionique, assez dénaturant.' },
+{ question: 'Dans quels produits trouve-t-on du SDS ?', answer: 'Dentifrice, shampoings.' },
+{ question: 'Quel est le caractère du CTAB ?', answer: 'Détergent cationique (ammonium IVaire), utilisé comme antiseptique.' },
+{ question: 'Quel est le caractère des sulfobétaïnes ?', answer: 'Zwitterioniques, très peu dénaturantes.' },
+{ question: 'À quoi sert la sulfobétaïne dans l’industrie pharmaceutique ?', answer: 'Elle est choisie selon son pHi pour optimiser purification et dénaturation.' },
+{ question: 'De quoi dépend la solubilité des protéines ? (4 réponses)', answer: 'De la température, du pH, de la constante diélectrique et de la force ionique.' },
+{ question: 'Quelle est l’influence d’une élévation modérée de T°C ?', answer: 'Elle augmente légèrement la solubilité.' },
+{ question: 'Quelle est l’influence d’une élévation > 40°C ?', answer: 'Elle provoque une forte diminution de solubilité par dénaturation (thermo-coagulation).' },,
+{ question: 'Comment varie la charge des protéines selon le pH ?', answer: 'pH < pHi : charge + ; pH > pHi : charge - .' },
+{ question: 'Pourquoi la solubilité est-elle minimale au pHi ?', answer: 'Parce que la charge globale est nulle, supprimant les répulsions et favorisant l’agrégation.' },
+{ question: 'Comment varie la solubilité aux pH extrêmes ?', answer: 'Elle diminue en raison de la dénaturation.' },
+{ question: 'Quel effet a une forte constante diélectrique ?', answer: 'Elle amoindrit les interactions électrostatiques entre protéines, favorisant la solubilité.' },
+{ question: 'Quel est l’effet d’un solvant organique comme l’éthanol ?', answer: 'Il diminue la constante diélectrique, renforçant les interactions électrostatiques et favorisant l’agrégation.' },
+{ question: 'À quoi servent les solvants organiques à basse température ?', answer: 'À précipiter les protéines sans les dénaturer.' },
+{ question: 'Quelle est la formule de la force ionique ?', answer: 'u = 0,5 × Σ(C × Z²).' },
+{ question: 'Quel est l’effet d’une faible force ionique ?', answer: 'Elle favorise la solubilisation des protéines.' },
+{ question: 'Quelle méthode utilise les sels pour purifier les protéines ?', answer: 'La méthode de Cohn, utilisant les sels pour séparer albumine et gamma-globulines.' },
+{ question: "Quel autre nom a le poids moléculaire d'une protéine ?", answer: "La masse moléculaire relative." },
+{ question: "Quelle est la dimension du poids moléculaire ?", answer: "Aucune, il n'a pas de dimension." },
+{ question: "Donner un exemple de poids moléculaire. (Albumine)", answer: "Le poids moléculaire de l'albumine est de 67 000." },
+{ question: "Comment s'exprime la masse moléculaire ?", answer: "En dalton." },
+{ question: "Donner un exemple de masse moléculaire. (Albumine)", answer: "La masse moléculaire de l'albumine est de 67 000 Daltons = 67 kDa." },
+{ question: "Quel est le but de la chromatographie d’exclusion ?", answer: "La séparation des protéines en fonction de leur taille." },
+{ question: "Sur quoi est basée la chromatographie d’exclusion ?", answer: "Sur la relation entre le poids moléculaire et la taille de la protéine." },
+{ question: "À quoi sont assimilées les protéines dans la chromatographie d'exclusion ?", answer: "À une sphère." },
+{ question: "Comment se fait l'étalonnage de la colonne en chromatographie d'exclusion ?", answer: "Avec des solutions pures de protéines de poids moléculaires connus." },
+{ question: "De quoi dépend la vitesse de propagation des protéines dans la chromatographie d'exclusion ?", answer: "Elle dépend de leur poids moléculaire." },
+{ question: "Comment migrent les petites protéines dans la colonne ?", answer: "Elles traversent les billes en suivant un chemin complexe et sont éluées les dernières." },
+{ question: "Comment migrent les protéines de taille intermédiaire ?", answer: "Elles traversent la colonne par un chemin moins complexe et sont éluées plus rapidement." },
+{ question: "Comment migrent les grosses protéines ?", answer: "Elles sont exclues du gel et passent à l'extérieur des billes : éluées en premier." },
+{ question: "Quel est l’ordre d’élution des protéines ?", answer: "Selon un ordre de poids moléculaire décroissant." },
+{ question: "Que signifie Vo dans une colonne de chromatographie ?", answer: "Le volume mort de la colonne = volume de solvant à l'extérieur des billes." },
+{ question: "Que signifie Vi dans une colonne de chromatographie ?", answer: "Le volume intérieur de la colonne = volume de solvant imprégnant les billes de gel." },
+{ question: "Quelle est l’équation de Ve en chromatographie d'exclusion ?", answer: "Ve = Vo + KD x Vi." },
+{ question: "Qu'est-ce que KD ?", answer: "La constante de diffusion de la protéine." },
+{ question: "Les colonnes de chromatographie utilisées en industrie ont-elles des tailles fixes ?", answer: "Non, elles sont très variables et peuvent être très grandes." },
+{ question: "Comment varie la charge d’une protéine avec le pH ?", answer: "Elle varie car les protéines sont amphotères." },
+{ question: "Comment est chargée une protéine à pH acide ?", answer: "Chargée positivement (cations), les résidus basiques sont protonés." },
+{ question: "Comment est chargée une protéine à pH basique ?", answer: "Chargée négativement (anions), les résidus acides sont dissociés." },
+{ question: "Qu'est-ce que le pH isoélectrique d’une protéine ?", answer: "Le pH auquel la protéine n’est pas chargée." },
+{ question: "Que permet la précipitation au point isoélectrique ?", answer: "L’isolement et l’obtention d’une protéine à l’état cristallisé." },
+{ question: "Quelle technique utilise la séparation des protéines selon leur charge ?", answer: "La chromatographie d’échange d’ions." },
+{ question: "Quelle phase stationnaire est utilisée comme échangeur d’anions ?", answer: "La DEAE-cellulose (chargée positivement)." },
+{ question: "Quelle phase stationnaire est utilisée comme échangeur de cations ?", answer: "La CM-cellulose (chargée négativement)." },
+{ question: "Quel exemple pathologique peut être mis en évidence par chromatographie d’échange d’ions ?", answer: "La drépanocytose." },
+{ question: "Sur quoi est basée la dialyse ?", answer: "Sur l’aptitude des molécules à traverser une membrane de porosité définie." },
+{ question: "Quelle membrane est utilisée en dialyse ?", answer: "Une membrane d’acétate de cellulose." },
+{ question: "Quels types de molécules traversent la membrane de dialyse ?", answer: "Celles dont la taille est inférieure au diamètre des pores." },
+{ question: "Quel est le principe de la diffusion en dialyse ?", answer: "Diffusion passive du plus concentré vers le moins concentré." },
+{ question: "Que se passe-t-il à l’équilibre en dialyse ?", answer: "La concentration des petites molécules est identique de chaque côté." },
+{ question: "Pourquoi utilise-t-on la dialyse ?", answer: "Pour éliminer les sels, l'urée, changer un tampon, ou isoler des Ig." }
+]; 
+
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+let currentIndex = 0;
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    btnContainer.appendChild(toggleBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    `;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    card.appendChild(checkIcon);
+    card.appendChild(crossIcon);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    updateProgress();
+  }
+}
+
+document.getElementById("restart").addEventListener("click", () => {
+  flashcards = [...originalData];
+  currentIndex = 0;
+  updateProgress();
+  showCard(currentIndex);
+});
+
+showCard(currentIndex);
+updateProgress();
+</script>
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="bioch13.html">Structure du génome</a></li>
+                        <li><a href="bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="biocell4.html">Le cytosol</a></li>
+                        <li><a href="biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="shs2.html">Science et médecine</a></li>
+                        <li><a href="shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="anat1.html">Organisation générale</a></li>
+                        <li><a href="anat2.html">Ostéologie</a></li>
+                        <li><a href="anat3.html">Arthrologie</a></li>
+                        <li><a href="anat4.html">Myologie</a></li>
+                        <li><a href="anat5.html">Le rachis</a></li>
+                        <li><a href="anat6.html">Membre supérieur</a></li>
+                        <li><a href="anat7.html">Membre inférieur</a></li>
+                        <li><a href="anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="anat9.html">Appareil digestif</a></li>
+                        <li><a href="anat10.html">Région pelvienne</a></li>
+                        <li><a href="anat11.html">Région cervicale</a></li>
+                        <li><a href="anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="anatapp1.html">Rachis</a></li>
+                        <li><a href="anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="anatapp12.html">Région cervicale</a></li>
+                        <li><a href="anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="chimie1.html">Nomenclature</a></li>
+                        <li><a href="chimie2.html">Stéréochimie</a></li>
+                        <li><a href="chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="chimie5.html">Les Alcènes</a></li>
+                        <li><a href="chimie6.html">Les Alcynes</a></li>
+                        <li><a href="chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
