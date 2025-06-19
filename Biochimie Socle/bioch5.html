@@ -1,0 +1,596 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Diploma Santé - Plateforme de Flashcards</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	    <script src="/security.js" defer></script>
+    <script defer>authorizeFromToken().then(checkAccess);</script>
+</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="/index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+									<ul class="icons">
+										<li><a href="https://diploma-sante.fr/" class="fas fa-globe"><span class="label"></span></a></li>
+										<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Biochimie Socle</h1>
+										<h2>Structure des lipides I</h2>
+									</header>
+
+
+						<span class="image main"><img src="/images/pic02.jpg" alt="" /></span>
+					</head>
+					<style>
+  .progress-container {
+    width: 90%;
+    max-width: 800px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .flashcard {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 1.3rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .check-icon,
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    stroke: #888;
+    transition: stroke 0.3s;
+  }
+
+  .check-icon {
+    right: 10px;
+  }
+
+  .cross-icon {
+    left: 10px;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon {
+    display: block;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+</style>
+					<body>
+					<ul class="actions">
+						<li><a class="button large" id="restart">Recommencer</a></li>
+					</ul>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+					  <script>
+					    const flashcardsData = [
+  { question: "Quelle est la principale caractéristique de la solubilité des lipides ?", answer: "Ils ont une très faible solubilité dans l'eau à cause de leur chaîne aliphatique hydrophobe." },
+  { question: "Dans quels types de solvants les lipides sont-ils solubles ?", answer: "Solvants organiques : chloroforme, éther, benzène." },
+  { question: "À partir de combien d’atomes de carbone les acides gras deviennent-ils particulièrement hydrophobes ?", answer: "Plus de 10 atomes de carbone." },
+  { question: "Combien d'énergie fournit 1g de lipides ?", answer: "9 kcal." },
+  { question: "Quel pourcentage du poids du corps représentent les lipides ?", answer: "20 %." },
+  { question: "D’où vient le mot “lipide” ?", answer: "Du grec “lipos” qui signifie “graisse”." },
+  { question: "Quel est le rôle nutritionnel principal des lipides ?", answer: "Réserve énergétique sous forme de triglycérides." },
+  { question: "Quel est le rôle structural des lipides ?", answer: "Ils forment des membranes (bicouches lipidiques) essentielles à la vie." },
+  { question: "Quels rôles informationnels peuvent jouer les lipides ?", answer: "Certains sont des hormones ou des messagers intracellulaires." },
+  { question: "Dans quels domaines les lipides sont-ils utilisés ?", answer: "Industrie agroalimentaire, cosmétique, médecine." },
+  { question: "Que sont les hétérolipides ?", answer: "Lipides complexes formés de C, H, O + P ou N." },
+  { question: "Quels lipides sont classés comme hétérolipides ?", answer: "Sphingolipides et glycéro-phospholipides." },
+  { question: "Que sont les homolipides ?", answer: "Lipides composés uniquement de C, H et O." },
+  { question: "Quels sont les types de lipides classés comme homolipides ?", answer: "Acides gras et glycérides." },
+  { question: "Quel est le rôle principal des glycérides ?", answer: "Réserves énergétiques." },
+  { question: "Combien d'atomes de carbone possèdent généralement les acides gras ?", answer: "Un nombre pair." },
+  { question: "Quelle est la fonction portée par l'extrémité C1 des acides gras ?", answer: "Fonction acide carboxylique (COOH)." },
+  { question: "Comment est composée la chaîne aliphatique d’un acide gras ?", answer: "Linéaire, composée d’atomes de carbone et d’hydrogène." },
+  { question: "Quelle est l'extrémité terminale des acides gras ?", answer: "Un groupe méthyle = CH3." },
+  { question: "Qu’est-ce que Ca dans la numérotation des acides gras ?", answer: "Ancienne numérotation : correspond au C2." },
+  { question: "Qu’est-ce que Cβ dans la numérotation des acides gras ?", answer: "Correspond au C3, siège de l’oxydation par β-oxydation." },
+  { question: "Quelle est la terminaison des acides gras saturés ?", answer: "-ique." },
+  { question: "Quelle est la terminaison des acides gras insaturés ?", answer: "-éique." },
+  { question: "Qu’est-ce qu’un AGMI ?", answer: "Acide gras monoinsaturé (1 double-liaison)." },
+  { question: "Qu’est-ce qu’un AGPI ?", answer: "Acide gras polyinsaturé (plusieurs doubles-liaisons)." },
+  { question: "Quelle est la configuration majoritaire des doubles-liaisons ?", answer: "Configuration **cis**." },
+  { question: "Que provoque une double-liaison **cis** dans la chaîne aliphatique ?", answer: "Une courbure et une augmentation de la fluidité." },
+  { question: "Quelle est l’origine des AG trans ?", answer: "Alimentation ou hydrogénation partielle industrielle." },
+  { question: "Les AG trans ont-ils un effet sur la santé ?", answer: "Oui, ils augmentent le risque de maladies cardiovasculaires." },
+  { question: "Comment doit-on gérer la consommation d’AG trans ?", answer: "Elle doit être limitée." },
+  { question: "Comment se lit la série d’un acide gras insaturé ?", answer: "En comptant depuis CH3, position de la dernière double-liaison." },
+  { question: "Que signifie la notation C16:1Δ9 ?", answer: "Acide à 16 C avec une double liaison entre C9 et C10." },
+  { question: "Quelle est la série d’un acide gras C16:1Δ9 ?", answer: "n-7 (16-9)." },
+  { question: "Quel est le nom usuel de l’acide C4:0 ?", answer: "Acide butyrique." },
+  { question: "Où trouve-t-on l’acide butyrique ?", answer: "Lait des ruminants." },
+  { question: "Quel est le nom usuel de l’acide C12:0 ?", answer: "Acide laurique." },
+  { question: "Où trouve-t-on l’acide laurique ?", answer: "Huiles végétales." },
+  { question: "Quel est le nom usuel de l’acide C14:0 ?", answer: "Acide myristique." },
+  { question: "Où trouve-t-on l’acide myristique ?", answer: "Huiles végétales." },
+  { question: "Quel est le nom usuel de l’acide C16:0 ?", answer: "Acide palmitique." },
+  { question: "Où trouve-t-on l’acide palmitique ?", answer: "Graisses animales." },
+  { question: "Quelle est la particularité de l’acide palmitique ?", answer: "C’est le 1er AG synthétisé dans l’organisme." },
+  { question: "Quel est le nom usuel de l’acide C18:0 ?", answer: "Acide stéarique." },
+  { question: "Où trouve-t-on l’acide stéarique ?", answer: "Graisses animales sous forme de triglycérides." },
+  { question: "Quel est le nom usuel de l’acide C20:0 ?", answer: "Acide arachidique." },
+  { question: "Où trouve-t-on l’acide arachidique ?", answer: "Graisses animales sous forme de triglycérides." },
+  { question: 'Quelle est la formule de l’acide palmitoléique ?', answer: 'C16:1 Δ9 (ou C16:1-n-7)' },
+  { question: 'Quelle est la formule de l’acide oléique ?', answer: 'C18:1 Δ9' },
+  { question: 'Quelle est la formule de l’acide linoléique ?', answer: 'C18:2 Δ9,12' },
+  { question: 'Quelle est la formule de l’acide linolénique ?', answer: 'C18:3 Δ9,12,15' },
+  { question: 'Quelle est la formule de l’acide γ-linolénique ?', answer: 'C18:3 Δ6,9,12' },
+  { question: 'Quelle est la formule de l’acide dihomo-γ-linolénique ?', answer: 'C20:3 Δ8,11,14' },
+  { question: 'Quelle est la formule de l’acide arachidonique ?', answer: 'C20:4 Δ5,8,11,14' },
+  { question: 'Quelle est la formule de l’EPA ?', answer: 'C20:5 Δ5,8,11,14,17' },
+  { question: 'Quelle est la formule du DHA ?', answer: 'C22:6 Δ4,7,10,13,16,19' },
+  { question: 'Quelle enzyme permet la synthèse de l’acide palmitoléïque à partir de l’acide palmitique ?', answer: 'Δ9 désaturase' },
+  { question: 'Citer 2 acides gras indispensables ?', answer: 'Acide linoléique (C18:2 Δ9,12) et acide linolénique (C18:3 Δ9,12,15)' },
+  { question: 'Pourquoi les AG indispensables ne peuvent-ils pas être synthétisés par l’homme ?', answer: 'Car les désaturases Δ12 et Δ15 sont absentes chez l’humain' },
+  { question: 'Qui est le chef de file des AG n-7 ?', answer: 'Acide palmitoléique' },
+  { question: 'Qui est le chef de file des AG n-9 ?', answer: 'Acide oléique' },
+  { question: 'Qui est le chef de file des AG n-6 ?', answer: 'Acide linoléique' },
+  { question: 'Qui est le chef de file des AG n-3 ?', answer: 'Acide linolénique' },
+  { question: 'Quel est le rôle des désaturases ?', answer: 'Introduire des doubles liaisons dans la chaîne aliphatique des acides gras' },
+  { question: 'Comment les désaturases animales reconnaissent-elles les AG ?', answer: 'Par leur extrémité COOH' },
+  { question: 'Quelle est l’amplitude maximale d’action des désaturases animales ?', answer: '9 carbones à partir du COOH' },
+  { question: 'Donnez 3 exemples de désaturases animales.', answer: 'Δ5, Δ6, Δ9 désaturases' },
+  { question: 'Comment les désaturases végétales reconnaissent-elles les AG ?', answer: 'Par leur extrémité CH₃' },
+  { question: 'Donnez 3 exemples de désaturases végétales.', answer: 'Δ9, Δ12, Δ15 désaturases' },
+  { question: 'Combien de carbones séparent deux doubles liaisons ?', answer: '3 carbones (séparés par un méthylène CH₂)' },
+  { question: 'Peut-on changer de série (n-3, n-6, etc.) lors de la désaturation ?', answer: 'Non, aucune interconversion entre séries n’est possible' },
+  { question: 'Quelle enzyme permet la conversion de C16:1 Δ9 (palmitoléique) en C16:2 Δ6,9 ?', answer: 'Δ6 désaturase' },
+  { question: 'Tous les AG dérivés de l’acide palmitoléique sont-ils de la série n-7 ?', answer: 'Oui' },
+  { question: 'Quel est le précurseur de la synthèse de l’EPA et du DHA ?', answer: 'Acide linolénique (C18:3 Δ9,12,15)' },
+  { question: 'Quel est le précurseur de la synthèse de l’acide arachidonique ?', answer: 'Acide linoléique (C18:2 Δ9,12)' },
+  { question: 'Que fait une élongase ?', answer: 'Ajoute un groupe acétyl-CoA (+2C) sur un AG' },
+  { question: 'Est-ce que le DHA est-il considéré comme essentiel ?', answer: 'Oui.' },
+  { question: 'Pourquoi l’acide arachidonique n’est-il pas essentiel ?', answer: 'Il peut être synthétisé à partir de l’acide linoléique' },
+  { question: 'Les voies de synthèse de l’acide arachidonique et de l’EPA sont-elles indépendantes ?', answer: 'Non, elles sont en compétition car utilisent les mêmes enzymes' },
+  { question: 'Dans quels aliments trouve-t-on de l’acide linolénique ?', answer: 'Huiles de colza, soja, noix' },
+  { question: 'Dans quels aliments trouve-t-on EPA et DHA ?', answer: 'Poissons' },
+  { question: 'Dans quels aliments trouve-t-on l’acide arachidonique ?', answer: 'Viandes rouges et œufs' },
+  { question: 'À quoi sont associés les AG w3 ?', answer: 'Bon développement du cerveau, fonction rétinienne, prévention cardiovasculaire' },
+  { question: 'À quoi sont associés les AG w6 ?', answer: 'Effets pro-inflammatoires' },
+  { question: 'Quel est le ratio recommandé w6/w3 ?', answer: '4' },
+  { question: 'Quel est le ratio actuel w6/w3 ?', answer: 'Entre 8 et 10' },
+];
+
+					 	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+let currentIndex = 0;
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    btnContainer.appendChild(toggleBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    `;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    card.appendChild(checkIcon);
+    card.appendChild(crossIcon);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    updateProgress();
+  }
+}
+
+document.getElementById("restart").addEventListener("click", () => {
+  flashcards = [...originalData];
+  currentIndex = 0;
+  updateProgress();
+  showCard(currentIndex);
+});
+
+showCard(currentIndex);
+updateProgress();
+</script>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+								<!-- Menu -->
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="/index.html">Accueil</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="/Biochimie%20Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="/Biochimie%20App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="/Biochimie%20App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="/Biochimie%20App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="/Biochimie%20App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="/Biochimie%20App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="/Biochimie%20App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="/Biochimie%20App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="/Biologie%20cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="/shs2.html">Science et médecine</a></li>
+                        <li><a href="/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="/Anatomie%20Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="/Anatomie%20Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="/Anatomie%20Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="/Anatomie%20Socle/anat4.html">Myologie</a></li>
+                        <li><a href="/Anatomie%20Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="/Anatomie%20Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="/Anatomie%20Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="/Anatomie%20Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="/Anatomie%20Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="/Anatomie%20Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="/Anatomie%20Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="/Anatomie%20Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="/anatapp1.html">Rachis</a></li>
+                        <li><a href="/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="/chimie1.html">Nomenclature</a></li>
+                        <li><a href="/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+							
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
