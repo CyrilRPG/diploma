@@ -284,40 +284,79 @@ function createContent(content) {
     wrapper.appendChild(img);
     return wrapper;
   }
+  // Par défaut : rien
   return document.createElement("div");
 }
 
 function showCard(index) {
-  if (index < flashcards.length) {
-    container.innerHTML = "";
-    const data = flashcards[index];
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
 
     const card = document.createElement("div");
-    card.className = "flashcard";
+    card.classList.add("flashcard", "show");
 
     const inner = document.createElement("div");
-    inner.className = "flashcard-inner";
+    inner.classList.add("flashcard-inner");
 
     const front = document.createElement("div");
-    front.className = "flashcard-front";
-    front.appendChild(createContent(data.question));
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
 
     const back = document.createElement("div");
-    back.className = "flashcard-back";
-    back.appendChild(createContent(data.answer));
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
 
     const btnContainer = document.createElement("div");
-    btnContainer.className = "flashcard-button";
+    btnContainer.classList.add("flashcard-button");
 
-    const checkIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    btnContainer.appendChild(toggleBtn);
+
+    const checkIcon = document.createElement("span");
     checkIcon.classList.add("check-icon");
-    checkIcon.setAttribute("viewBox", "0 0 24 24");
-    checkIcon.innerHTML = '<path fill="none" stroke="currentColor" stroke-width="2" d="M5 13l4 4L19 7"/>';
+    checkIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    `;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
 
-    const crossIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const crossIcon = document.createElement("span");
     crossIcon.classList.add("cross-icon");
-    crossIcon.setAttribute("viewBox", "0 0 24 24");
-    crossIcon.innerHTML = '<path fill="none" stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
 
     inner.appendChild(front);
     inner.appendChild(back);
