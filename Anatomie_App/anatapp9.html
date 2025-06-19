@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/assets/css/main.css" />
+<script src="/security.js" defer></script>
+<script defer>authorizeFromToken().then(checkAccess);</script>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+<!-- Main -->
+<div id="main">
+<div class="inner">
+<!-- Header -->
+<header id="header">
+<a href="/index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+</ul>
+</header>
+<!-- Content -->
+<section>
+<header class="main">
+<h1>Anatomie Approfondissement</h1>
+<h2>Appareil digestif II</h2>
+</header>
+<span class="image main"><img src="/images/pic02.jpg" alt="" /></span>
+<style>
+  .progress-container {
+    width: 90%;
+    max-width: 800px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+  }
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .flashcard {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 1.3rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .check-icon,
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    stroke: #888;
+    transition: stroke 0.3s;
+  }
+  .check-icon { right: 10px; }
+  .cross-icon { left: 10px; }
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon {
+    display: block;
+  }
+  .check-icon:hover { stroke: #27ae60; }
+  .cross-icon:hover { stroke: #e74c3c; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-100%); opacity: 0; }
+  }
+  @keyframes slideRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+</style>
+<ul class="actions">
+<li><a class="button large" id="restart">Recommencer</a></li>
+</ul>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+<script>
+const flashcardsData = [
+  { question: "Quelle comparaison de forme peut-on donner au foie ?", answer: "Un ballon de rugby coupé dans un plan transversal oblique." },
+  { question: "Quelle est l'orientation de la face pariétale du foie ?", answer: "Elle est ventrale, convexe et regarde vers l'avant." },
+  { question: "Quelle est l'orientation de la face viscérale du foie ?", answer: "Elle est inférieure, dorsale et orientée vers l'arrière et le bas." },
+  { question: "Comment est le bord inférieur du foie ?", answer: "Il est tranchant et devient palpable lors d'hépatomégalie." },
+  { question: "Quel est le rôle de la capsule hépatique ?", answer: "Envelopper et maintenir le parenchyme hépatique qui est friable." },
+  { question: "Quel rôle général joue le foie ?", answer: "Filtration et stockage de produits métaboliques sous forme de glycogène." },
+  { question: "Par où la veine porte pénètre-t-elle dans le foie ?", answer: "Par le hile sur la face inférieure." },
+  { question: "Vers quel vaisseau se drainent les veines sus-hépatiques ?", answer: "Elles se jettent dans la veine cave inférieure située derrière le foie." },
+  { question: "Quels ligaments renforcent le ligament coronaire ?", answer: "Les ligaments triangulaires droit et gauche." },
+  { question: "Quel ligament sépare le lobe droit du lobe gauche ?", answer: "Le ligament falciforme." },
+  { question: "D'où provient le ligament rond ?", answer: "C'est le vestige de la veine ombilicale." },
+  { question: "Quel lobe hépatique est proéminent et traverse la ligne médiane ?", answer: "Le lobe droit." },
+  { question: "Quel conduit émerge du hile du foie ?", answer: "Le conduit hépatique commun." },
+  { question: "D'où provient le conduit cystique ?", answer: "De la vésicule biliaire qui sert de réservoir de bile." },
+  { question: "Comment se forme le conduit cholédoque ?", answer: "Par la réunion du conduit hépatique commun et du conduit cystique." },
+  { question: "Quelle conséquence peut avoir l'obstruction des voies biliaires ?", answer: "La bile reflue dans le sang et les tissus." },
+  { question: "Qu'est-ce que le hile du foie ?", answer: "Une profonde scissure où entrent les branches de la veine porte et d'où sort le conduit hépatique commun." },
+  { question: "Où se situe le lobe caudé ?", answer: "En arrière du hile entre la veine cave inférieure et le sillon ombilical." },
+  { question: "Où se trouve le lobe carré ?", answer: "En avant du hile hépatique." },
+  { question: "Quelle empreinte du foie est en rapport avec l'angle colique droit ?", answer: "L'empreinte colique." },
+  { question: "Quelle empreinte se situe derrière l'empreinte colique ?", answer: "L'empreinte rénale." },
+  { question: "Où se situe l'empreinte de la vésicule biliaire ?", answer: "En avant du hile, vers le bord ventral du lobe droit." },
+  { question: "Avec quels vaisseaux communique le hile de la rate ?", answer: "Avec l'artère et la veine splénique." },
+  { question: "Quelle est l'orientation du grand axe de la rate ?", answer: "Il est dirigé vers le bas et l'avant." },
+  { question: "Quelles sont les dimensions de la rate ?", answer: "Environ 12 cm de haut, 8 cm de large et 4 cm d'épaisseur." },
+  { question: "Quel rôle joue la rate ?", answer: "Elle participe à la régulation des éléments figurés du sang." },
+  { question: "Pourquoi une rupture splénique est-elle grave ?", answer: "Elle provoque une hémorragie abondante dans la cavité péritonéale." },
+  { question: "Qu'est-ce que la splénomégalie ?", answer: "Une augmentation du volume de la rate." },
+  { question: "Comment est le bord ventral de la rate ?", answer: "Tranchant et crénelé." },
+  { question: "Quelle face de la rate porte le hile ?", answer: "La face antéro-médiale dite gastrique." },
+  { question: "Avec quoi la face antéro-médiale de la rate est-elle en rapport ?", answer: "Avec la grande courbure de l'estomac." },
+  { question: "Avec quel organe la face postéro-médiale de la rate est-elle en rapport ?", answer: "Avec le rein gauche." },
+  { question: "Quelle face de la rate est appliquée contre le diaphragme ?", answer: "La face latérale ou pariétale." },
+  { question: "Quel est le rapport de la base de la rate ?", answer: "Elle regarde l'angle colique gauche." },
+  { question: "Quelle est la longueur de l'intestin grêle déroulé ?", answer: "Environ 6 à 8 mètres." },
+  { question: "Quel est le diamètre moyen de l'intestin grêle ?", answer: "2 à 3 centimètres." },
+  { question: "Quel est le rôle des villosités intestinales ?", answer: "Augmenter la surface d'échange pour absorber les nutriments." },
+  { question: "Où débute le jéjunum ?", answer: "Au niveau de l'angle duodéno-jéjunal sur le flanc gauche en L1." },
+  { question: "Comment sont disposées les anses du jéjunum ?", answer: "Elles sont plutôt horizontales et enroulées." },
+  { question: "Comment sont disposées les anses de l'iléum ?", answer: "Elles sont plutôt verticales." },
+  { question: "Où l'iléum se jette-t-il ?", answer: "Dans le caecum au niveau de la jonction iléo-caecale pourvue d'une valvule." },
+  { question: "Quel est le rôle du mésentère ?", answer: "Envelopper les anses jejunales et iléales et leur permettre une certaine mobilité." },
+  { question: "Quelle artère vascularise l'intestin grêle ?", answer: "L'artère mésentérique supérieure." },
+  { question: "Quelle veine assure le retour veineux digestif ?", answer: "La veine mésentérique supérieure." },
+  { question: "Quelle est la longueur de la racine du mésentère ?", answer: "Environ 15 à 18 cm." },
+  { question: "Autour de quelle structure la racine du mésentère s'enroule-t-elle ?", answer: "Autour de l'angle duodéno-jéjunal." },
+  { question: "Quel segment du duodénum la racine du mésentère traverse-t-elle ?", answer: "Le troisième duodénum." },
+  { question: "Où se termine la racine du mésentère ?", answer: "À la jonction iléo-caecale qu'elle enveloppe." },
+  { question: "Quelle est la longueur totale du côlon ?", answer: "Environ 1,40 m." },
+  { question: "Quel est le diamètre du côlon ?", answer: "6 à 8 cm, plus large que l'intestin grêle." },
+  { question: "Combien de parties comprend le côlon ?", answer: "Cinq parties et deux angles coliques." },
+  { question: "Comment se nomme l'inflammation de l'appendice ?", answer: "L'appendicite, pouvant évoluer vers une péritonite." },
+  { question: "Quel est le diamètre du caecum ?", answer: "7 à 8 cm." },
+  { question: "Quelle est la longueur de l'appendice ?", answer: "Entre 10 et 15 cm." },
+  { question: "Quelle est la longueur du côlon transverse ?", answer: "Environ 50 cm." },
+  { question: "Dans quel plan se situe le côlon transverse ?", answer: "Dans un plan frontal." },
+  { question: "Quelle est la longueur du côlon descendant ?", answer: "Environ 25 cm." },
+  { question: "Quelle est la longueur du côlon sigmoïde ?", answer: "Environ 40 cm." },
+  { question: "Pourquoi dit-on que le côlon sigmoïde est lisse ?", answer: "Parce qu'il ne présente pas d'haustrations." },
+  { question: "Où se termine le côlon sigmoïde ?", answer: "À la jonction recto-sigmoïdienne formant l'ampoule rectale." },
+  { question: "Quelle artère irrigue le côlon droit ?", answer: "L'artère mésentérique supérieure." },
+  { question: "Quel est le rôle du côlon droit ?", answer: "La réabsorption hydro-électrolytique." },
+  { question: "Quelle artère irrigue le côlon gauche ?", answer: "L'artère mésentérique inférieure." },
+  { question: "Quel est le rôle du côlon gauche ?", answer: "Finir la digestion et stocker les matières fécales." },
+  { question: "Sur quelles parties du côlon observe-t-on des haustrations ?", answer: "Sur le côlon ascendant, transverse et descendant." },
+  { question: "Quelle partie du côlon n'a pas de haustrations ?", answer: "Le côlon sigmoïde." },
+  { question: "Que sont les bandelettes coliques ?", answer: "Des épaississements de la musculeuse externe." },
+  { question: "Quel est le rôle des bandelettes ?", answer: "Assurer le péristaltisme en favorisant la progression du bol alimentaire." },
+  { question: "Quel mésocôlon permet la mobilité du côlon transverse ?", answer: "Le mésocôlon transverse, flottant et long." },
+  { question: "À quel niveau naît le mésocôlon transverse ?", answer: "Au niveau du deuxième duodénum dans un plan horizontal." },
+  { question: "Quel organe est traversé par le mésocôlon transverse ?", answer: "La tête du pancréas qu'il barre." },
+  { question: "Où finit le mésocôlon transverse ?", answer: "À l'angle colique gauche." },
+  { question: "Pourquoi les mésocolons ascendant et descendant rendent-ils ces segments fixes ?", answer: "Parce qu'ils s'accolent rapidement à la paroi postérieure par une racine très courte." },
+  { question: "Quelle artère vascularise le côlon ascendant ?", answer: "L'artère mésentérique supérieure." },
+  { question: "Quelle artère vascularise le côlon descendant ?", answer: "L'artère mésentérique inférieure." },
+  { question: "Que forment les gouttières pariéto-coliques ?", answer: "Des espaces entre le côlon et le péritoine pariétal postérieur permettant l'écoulement infectieux." },
+  { question: "Quel est le rôle du méso-sigmoïde ?", answer: "Envelopper le côlon sigmoïde et lui permettre d'être mobile autour de sa racine postérieure." },
+  { question: "Qu'est-ce qu'un volvulus du côlon sigmoïde ?", answer: "La torsion du côlon sur lui-même entraînant une occlusion intestinale." },
+  { question: "Dans quelles circonstances peut survenir un volvulus ?", answer: "Après un repas très abondant, surtout après un jeûne." }
+];
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+let currentIndex = 0;
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+function showCard(index) {
+  if (index < flashcards.length) {
+    container.innerHTML = "";
+    const data = flashcards[index];
+    const card = document.createElement("div");
+    card.className = "flashcard";
+    const inner = document.createElement("div");
+    inner.className = "flashcard-inner";
+    const front = document.createElement("div");
+    front.className = "flashcard-front";
+    front.appendChild(createContent(data.question));
+    const back = document.createElement("div");
+    back.className = "flashcard-back";
+    back.appendChild(createContent(data.answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "flashcard-button";
+    const checkIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    checkIcon.classList.add("check-icon");
+    checkIcon.setAttribute("viewBox", "0 0 24 24");
+    checkIcon.innerHTML = '<path fill="none" stroke="currentColor" stroke-width="2" d="M5 13l4 4L19 7"/>';
+    const crossIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.setAttribute("viewBox", "0 0 24 24");
+    crossIcon.innerHTML = '<path fill="none" stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    card.appendChild(checkIcon);
+    card.appendChild(crossIcon);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    updateProgress();
+  }
+}
+document.getElementById("restart").addEventListener("click", () => {
+  flashcards = [...originalData];
+  currentIndex = 0;
+  updateProgress();
+  showCard(currentIndex);
+});
+showCard(currentIndex);
+updateProgress();
+</script>
+</section>
+</div>
+</div>
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+<!-- Menu -->
+<nav id="menu">
+<header class="major">
+<h2>Menu</h2>
+</header>
+<ul>
+<li><a href="/index.html">Accueil</a></li>
+<li>
+<span class="opener">Biochimie Socle</span>
+<ul>
+<li><a href="/Biochimie%20Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+<li><a href="/Biochimie%20Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+<li><a href="/Biochimie%20Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+<li><a href="/Biochimie%20Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+<li><a href="/Biochimie%20Socle/bioch5.html">Structure des lipides I</a></li>
+<li><a href="/Biochimie%20Socle/bioch6.html">Structure des lipides II</a></li>
+<li><a href="/Biochimie%20Socle/bioch7.html">Structure des lipides III</a></li>
+<li><a href="/Biochimie%20Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+<li><a href="/Biochimie%20Socle/bioch9.html">Bioénergétique I</a></li>
+<li><a href="/Biochimie%20Socle/bioch10.html">Bioénergétique II</a></li>
+<li><a href="/Biochimie%20Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+<li><a href="/Biochimie%20Socle/bioch12.html">Cinétique enzymatique</a></li>
+<li><a href="/Biochimie%20Socle/bioch13.html">Structure du génome</a></li>
+<li><a href="/Biochimie%20Socle/bioch14.html">Organisation et expression du génome</a></li>
+<li><a href="/Biochimie%20Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">Biochimie App</span>
+<ul>
+<li><a href="/Biochimie%20App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+<li><a href="/Biochimie%20App/biochapp2.html">Glycoconjugés - glycoprotéines</a></li>
+<li><a href="/Biochimie%20App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+<li><a href="/Biochimie%20App/biochapp4.html">Stabilité et évolution du génome</a></li>
+<li><a href="/Biochimie%20App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+<li><a href="/Biochimie%20App/biochapp6.html">Phosphorylations oxydatives</a></li>
+<li><a href="/Biochimie%20App/biochapp7.html">Cycle de Krebs</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">Biologie cellulaire</span>
+<ul>
+<li><a href="/Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+<li><a href="/Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+<li><a href="/Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+<li><a href="/Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+<li><a href="/Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+<li><a href="/Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+<li><a href="/Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+<li><a href="/Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+<li><a href="/Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+<li><a href="/Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+<li><a href="/Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+<li><a href="/Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+<li><a href="/Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+<li><a href="/Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+<li><a href="/Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+<li><a href="/Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+<li><a href="/Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+<li><a href="/Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">SHS socle</span>
+<ul>
+<li><a href="/shs1.html">L'histoire du droit de la santé</a></li>
+<li><a href="/shs2.html">Science et médecine</a></li>
+<li><a href="/shs3.html">De la vulnerabilité au métissage</a></li>
+<li><a href="/shs4.html">Santé, sociologie et anthropologie</a></li>
+<li><a href="/shs5.html">Qu'est-ce que l'économie ?</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">SHS App</span>
+<ul>
+</ul>
+</li>
+<li>
+<span class="opener">Anatomie socle</span>
+<ul>
+<li><a href="/Anatomie_Socle/anat1.html">Organisation générale</a></li>
+<li><a href="/Anatomie_Socle/anat2.html">Ostéologie</a></li>
+<li><a href="/Anatomie_Socle/anat3.html">Arthrologie</a></li>
+<li><a href="/Anatomie_Socle/anat4.html">Myologie</a></li>
+<li><a href="/Anatomie_Socle/anat5.html">Le rachis</a></li>
+<li><a href="/Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+<li><a href="/Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+<li><a href="/Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+<li><a href="/Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+<li><a href="/Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+<li><a href="/Anatomie_Socle/anat11.html">Région cervicale</a></li>
+<li><a href="/Anatomie_Socle/anat12.html">Système nerveux</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">Anatomie App</span>
+<ul>
+<li><a href="/anatapp1.html">Rachis</a></li>
+<li><a href="/anatapp2.html">Epaule/Bras</a></li>
+<li><a href="/anatapp3.html">Avant bras/Main</a></li>
+<li><a href="/anatapp4.html">Hanche/Cuisse</a></li>
+<li><a href="/anatapp5.html">Jambe/Pied</a></li>
+<li><a href="/anatapp6.html">Appareil cardiovasculaire</a></li>
+<li><a href="/anatapp7.html">Appareil respiratoire</a></li>
+<li><a href="/anatapp8.html">Appareil digestif I</a></li>
+<li><a href="/anatapp9.html">Appareil digestif II</a></li>
+<li><a href="/anatapp10.html">Région pelvienne I (Haut)</a></li>
+<li><a href="/anatapp11.html">Région pelvienne II (Bas)</a></li>
+<li><a href="/anatapp12.html">Région cervicale</a></li>
+<li><a href="/anatapp13.html">Système nerveux</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">Chimie socle</span>
+<ul>
+<li><a href="/chimie1.html">Nomenclature</a></li>
+<li><a href="/chimie2.html">Stéréochimie</a></li>
+<li><a href="/chimie3.html">Effets inductifs et mésomères</a></li>
+<li><a href="/chimie4.html">Mécanismes réactionnels</a></li>
+<li><a href="/chimie5.html">Les Alcènes</a></li>
+<li><a href="/chimie6.html">Les Alcynes</a></li>
+<li><a href="/chimie7.html">Fonctions monovalentes</a></li>
+<li><a href="/chimie8.html">Fonctions divalentes</a></li>
+<li><a href="/chimie9.html">Fonctions trivalentes</a></li>
+</ul>
+</li>
+<li>
+<span class="opener">Chimie App</span>
+<ul>
+<li><a href="/chimieapp1.html">Thermodynamique</a></li>
+<li><a href="/chimieapp2.html">Oxydoréduction</a></li>
+<li><a href="/chimieapp3.html">Atomistique</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+</div>
+</div>
+</div>
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
