@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="/security.js" defer></script>
+    <script defer>authorizeFromToken().then(checkAccess);</script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="/index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main">
+<h1>Anatomie Approfondissement</h1>
+<h2>Région cervicale</h2>
+</header>
+
+
+<span class="image main"><img src="/images/pic02.jpg" alt="" /></span>
+
+					<style>
+  .progress-container {
+    width: 90%;
+    max-width: 800px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .flashcard {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 1.3rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .check-icon,
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    stroke: #888;
+    transition: stroke 0.3s;
+  }
+
+  .check-icon {
+    right: 10px;
+  }
+
+  .cross-icon {
+    left: 10px;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon {
+    display: block;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+</style>
+
+</head>
+<body>
+<ul class="actions">
+<li><a class="button large" id="restart">Recommencer</a></li>
+</ul>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData = [
+  { question: "Quels sont les objectifs de l'étude de la région cervicale ?", answer: "Décrire ses zones topographiques, la thyroïde et la vascularisation." },
+  { question: "Combien de vertèbres compose la colonne cervicale ?", answer: "Sept vertèbres." },
+  { question: "Quel relief osseux se palpe derrière l'oreille ?", answer: "Le processus mastoïde." },
+  { question: "Quels os encadrent le processus mastoïde ?", answer: "L'écaille occipitale en arrière et le conduit auditif externe avec l'os temporal en avant." },
+  { question: "Avec quel os la mandibule s'articule-t-elle ?", answer: "Avec l'os temporal au niveau de l'articulation temporo-mandibulaire." },
+  { question: "À quelle hauteur se projette l'angle mandibulaire ?", answer: "Au niveau du disque C3-C4." },
+  { question: "Où se situe l'os hyoïde ?", answer: "Sous la mandibule, en regard de C4." },
+  { question: "Quel cartilage forme le relief médian du larynx ?", answer: "Le cartilage thyroïde." },
+  { question: "Comment la clavicule ferme-t-elle la région latéro-cervicale ?", answer: "Elle s'articule avec le manubrium sternal." },
+  { question: "Où se fixe le muscle sterno-cléido-mastoïdien en haut ?", answer: "Sur la mastoïde." },
+  { question: "Quel relief musculaire recouvre la région latérale du cou ?", answer: "Le sterno-cléido-mastoïdien." },
+  { question: "Quel mouvement permet ce muscle ?", answer: "La rotation de la tête du côté opposé." },
+  { question: "Quelles sont les insertions du muscle trapèze ?", answer: "Base du crâne, épine de la scapula et clavicule." },
+  { question: "Quelles sont les trois parties de la région latérale du cou ?", answer: "La région latéro-pharyngée, la région sterno-cléido-mastoïdienne et le creux supra-claviculaire." },
+  { question: "Quel relief cartilagineux domine la région médiane du cou ?", answer: "Le cartilage thyroïde." },
+  { question: "Quels éléments forment la limite inférieure de cette région ?", answer: "Le manubrium sternal et les clavicules." },
+  { question: "Quel muscle du plancher buccal présente deux ventres ?", answer: "Le muscle digastrique." },
+  { question: "Comment se présente la glande thyroïde ?", answer: "Deux lobes réunis par un isthme médian." },
+  { question: "Quel type de glande est la thyroïde ?", answer: "Une glande endocrine." },
+  { question: "Pourquoi peut-on la palper lors de la déglutition ?", answer: "Elle s'élève avec le cartilage thyroïde." },
+  { question: "Où se situe la loge viscérale sur une coupe en C6 ?", answer: "En avant du rachis, sur la ligne médiane." },
+  { question: "Quels muscles recouvrent cette loge ?", answer: "Les sterno-cléido-mastoïdiens entourés de l'aponévrose superficielle." },
+  { question: "Quels viscères composent l'axe aéro-digestif ?", answer: "La trachée, l'œsophage et la thyroïde." },
+  { question: "Où se trouvent les loges vasculaires ?", answer: "De chaque côté derrière le sterno-cléido-mastoïdien." },
+  { question: "À quelle hauteur se projette le cartilage thyroïde ?", answer: "À hauteur de C5." },
+  { question: "Quel cartilage en forme de bague se projette en C6 ?", answer: "Le cartilage cricoïde." },
+  { question: "Quelle intervention peut se faire entre les anneaux trachéaux ?", answer: "Une trachéotomie." },
+  { question: "Comment sont orientés les muscles du pharynx ?", answer: "En demi-cercles superposés formant un entonnoir." },
+  { question: "De quel tronc proviennent la carotide commune droite et la subclavière droite ?", answer: "Du tronc brachio-céphalique." },
+  { question: "À quel niveau se divise la carotide commune ?", answer: "Au niveau de C4." },
+  { question: "Quel trajet suit la carotide interne ?", answer: "Elle monte dans la région latéro-pharyngée, traverse le canal carotidien et se termine dans la boîte crânienne." },
+  { question: "Quelle est la principale zone irriguée par la carotide externe ?", answer: "La face et la région faciale." },
+  { question: "De quelle artère naît l'artère vertébrale ?", answer: "De l'artère subclavière." },
+  { question: "Par où l'artère vertébrale pénètre-t-elle le crâne ?", answer: "Par le foramen magnum après avoir traversé les foramens transversaires." },
+  { question: "Quelle veine accompagne la carotide interne ?", answer: "La veine jugulaire interne." },
+  { question: "Quels conduits forment les voies aériennes ?", answer: "Les fosses nasales, le larynx puis la trachée." },
+  { question: "Quelle est la voie des aliments ?", answer: "Ils passent par le pharynx puis l'œsophage." },
+  { question: "Quel rôle joue l'épiglotte ?", answer: "Elle ferme le larynx lors de la déglutition pour éviter les fausses routes." },
+  { question: "Où débute l'œsophage ?", answer: "Sous le pharynx, à hauteur de C6." },
+  { question: "Où se situe le nasopharynx ?", answer: "Derrière les fosses nasales." },
+  { question: "Où se situe l'oropharynx ?", answer: "Derrière la cavité buccale." },
+  { question: "Qu'est-ce que le laryngopharynx ?", answer: "La partie basse du pharynx où se croisent voies aériennes et digestives." },
+  { question: "Comment les lobes thyroïdiens sont-ils reliés ?", answer: "Par l'isthme sur la ligne médiane." },
+  { question: "Quelle forme présentent les lobes de la thyroïde ?", answer: "Triangulaires, évasés en bas et coniques en haut." },
+  { question: "Quelle face est recouverte par le sterno-cléido-mastoïdien ?", answer: "La face ventrale de chaque lobe." },
+  { question: "À quoi sont reliées les faces médiales ?", answer: "Aux anneaux trachéaux par des ligaments." },
+  { question: "À quoi répond la face postéro-latérale de la thyroïde ?", answer: "Aux loges vasculaires du cou." },
+  { question: "Dans quelle enveloppe est contenue la thyroïde ?", answer: "Dans l'aponévrose cervicale profonde au sein de la loge viscérale." },
+  { question: "Que fait la thyroïde lors de la déglutition ?", answer: "Elle ascensionne vers le haut." },
+  { question: "À quelle hauteur se forment la trachée et l'œsophage ?", answer: "Au niveau de C6 sous le larynx." }
+];
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+let currentIndex = 0;
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    btnContainer.appendChild(toggleBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    `;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    card.appendChild(checkIcon);
+    card.appendChild(crossIcon);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    updateProgress();
+  }
+}
+
+document.getElementById("restart").addEventListener("click", () => {
+  flashcards = [...originalData];
+  currentIndex = 0;
+  updateProgress();
+  showCard(currentIndex);
+});
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="/index.html">Accueil</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="/Biochimie%20Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="/Biochimie%20Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="/Biochimie%20App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="/Biochimie%20App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="/Biochimie%20App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="/Biochimie%20App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="/Biochimie%20App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="/Biochimie%20App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="/Biochimie%20App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="/Biologie%20cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="/Biologie%20cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="/shs2.html">Science et médecine</a></li>
+                        <li><a href="/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="/Anatomie%20Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="/Anatomie%20Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="/Anatomie%20Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="/Anatomie%20Socle/anat4.html">Myologie</a></li>
+                        <li><a href="/Anatomie%20Socle/anat5.html">Région cervicale</a></li>
+                        <li><a href="/Anatomie%20Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="/Anatomie%20Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="/Anatomie%20Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="/Anatomie%20Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="/Anatomie%20Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="/Anatomie%20Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="/Anatomie%20Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="/anatapp1.html">Rachis</a></li>
+                        <li><a href="/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="/chimie1.html">Nomenclature</a></li>
+                        <li><a href="/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>
