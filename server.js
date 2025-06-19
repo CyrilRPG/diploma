@@ -75,6 +75,11 @@ app.get('/validate', async (req, res) => {
   }
 });
 
+app.get("/anatapp:page.html", (req, res) => {
+  const file = `anatapp${req.params.page}.html`;
+  res.sendFile(path.join(__dirname, "Anatomie_App", file));
+});
+
 const PORT = process.env.PORT || 3000;
 app.use(express.static(__dirname));
 app.listen(PORT, () => {
