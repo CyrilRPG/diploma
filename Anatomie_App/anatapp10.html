@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/assets/css/main.css" />
+<script src="/security.js" defer></script>
+<script defer>authorizeFromToken().then(checkAccess);</script>
+</head>
+<body class="is-preload">
+<div id="wrapper">
+<div id="main">
+<div class="inner">
+<header id="header">
+<a href="/index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+</ul>
+</header>
+<section>
+<header class="main">
+<h1>Anatomie Approfondissement</h1>
+<h2>Haut appareil urinaire - Région pelvienne</h2>
+</header>
+<span class="image main"><img src="/images/pic02.jpg" alt="" /></span>
+<style>
+.progress-container{width:90%;max-width:800px;height:20px;background-color:#eee;border-radius:10px;overflow:hidden;margin:0 auto 2rem;}
+.progress-bar{height:100%;background-color:#00aeef;width:0%;transition:width 0.3s;}
+.flashcards-container{display:flex;flex-direction:column;align-items:center;gap:2rem;}
+.flashcard{width:90%;max-width:800px;height:400px;perspective:1500px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.flashcard-inner{position:relative;width:100%;height:100%;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.15);background-color:white;transition:transform 0.6s;transform-style:preserve-3d;}
+.flashcard.show-answer .flashcard-inner{transform:rotateY(180deg);}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;border-radius:15px;backface-visibility:hidden;display:flex;justify-content:center;align-items:center;padding:2rem;font-size:1.2rem;text-align:center;}
+.flashcard-front{background-color:white;color:#333;box-shadow:inset 0 0 40px rgba(0,174,239,0.15);}
+.flashcard-back{background-color:#73C3EC;color:white;transform:rotateY(180deg);box-shadow:inset 0 0 50px rgba(255,255,255,0.5);font-size:1.3rem;text-shadow:0 0 4px rgba(255,255,255,0.3);}
+.flashcard-button{margin-top:1rem;display:flex;justify-content:center;width:100%;}
+.check-icon,.cross-icon{display:none;position:absolute;top:10px;font-size:1.8rem;cursor:pointer;z-index:10;stroke:#888;transition:stroke 0.3s;}
+.check-icon{right:10px;}
+.cross-icon{left:10px;}
+.flashcard.show-answer .check-icon,.flashcard.show-answer .cross-icon{display:block;}
+.check-icon:hover{stroke:#27ae60;}
+.cross-icon:hover{stroke:#e74c3c;}
+.slide-left{animation:slideLeft 0.4s forwards;}
+.slide-right{animation:slideRight 0.4s forwards;}
+@keyframes slideLeft{from{transform:translateX(0);opacity:1;}to{transform:translateX(-100%);opacity:0;}}
+@keyframes slideRight{from{transform:translateX(0);opacity:1;}to{transform:translateX(100%);opacity:0;}}
+</style>
+</head>
+<body>
+<ul class="actions">
+<li><a class="button large" id="restart">Recommencer</a></li>
+</ul>
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+<script>
+const flashcardsData=[
+{question:"Qu'est-ce que la région sous-péritonéale ?",answer:"La zone recouverte par le péritoine postérieur au niveau du petit bassin."},
+{question:"Où se situe le cul-de-sac péritonéal entre ampoule rectale et organes génitaux ?",answer:"Dans la partie déclive du petit bassin."},
+{question:"Quels organes forment l'appareil urinaire ?",answer:"Les deux reins situés de part et d'autre de la colonne lombaire."},
+{question:"Jusqu'où remonte le rein droit ?",answer:"Jusqu'à la face inférieure du foie."},
+{question:"Les reins sont-ils dans la cavité abdominale ?",answer:"Non, ils sont plaqués en arrière, tapissés par le péritoine postérieur."},
+{question:"Quel est l'organe excréteur de l'urine ?",answer:"Le rein qui produit l'urine ensuite conduite vers la vessie."},
+{question:"Quelle est la forme et la taille moyenne d'un rein ?",answer:"Un organe ovoïde en forme de haricot d'environ 12 cm sur 6 cm pour 3 cm d'épaisseur."},
+{question:"Comment est orienté le grand axe du rein ?",answer:"Le pôle supérieur se rapproche de la ligne médiane."},
+{question:"Quelles faces et bords possède le rein ?",answer:"Deux faces ventrale et dorsale séparées par un bord latéral arrondi et un bord médial où se trouve le hile."},
+{question:"Que traverse le hile du rein ?",answer:"Les cavités excrétrices qui forment le bassinet et l'uretère."},
+{question:"Comment le bassinet se prolonge-t-il ?",answer:"Il s'effile pour former l'uretère puis l'urètre conduisant l'urine à la vessie."},
+{question:"Quel est le trajet de l'uretère ?",answer:"Il descend en paravertébral depuis la région lombaire haute vers la vessie, abordant progressivement le pelvis par l'arrière."},
+{question:"Quelle glande coiffe le pôle supérieur du rein ?",answer:"La glande surrénale, endocrine, séparée du rein par de la graisse."},
+{question:"Quelle est la forme des glandes surrénales ?",answer:"À gauche elle évoque une goutte d'eau et à droite un triangle."},
+{question:"D'où provient l'artère rénale ?",answer:"De l'aorte abdominale, elle se divise en deux branches polaires."},
+{question:"Quelle structure accompagne l'artère rénale ?",answer:"La veine rénale, située en avant de l'artère."},
+{question:"Qu'est-ce que le pédicule vasculaire du rein ?",answer:"L'ensemble formé par l'artère et la veine rénales pénétrant le hile."},
+{question:"Pourquoi opère-t-on souvent le rein par voie postérieure ?",answer:"Pour éviter la zone ventrale très vascularisée du pédicule."},
+{question:"Par quoi commence la collecte de l'urine dans le rein ?",answer:"Par le néphron, composé d'un glomérule puis d'un tube contourné."},
+{question:"Où se jettent les tubes contournés ?",answer:"Dans les papilles rénales qui se réunissent en calices mineurs puis majeurs."},
+{question:"À partir de quelle structure est-on dans les voies excrétrices extra-rénales ?",answer:"Dès le bassinet ou pelvis rénal."},
+{question:"Que forment les tubes collecteurs dans le parenchyme ?",answer:"Des pyramides rénales constituant la médullaire."},
+{question:"Comment la corticale se dispose-t-elle par rapport aux pyramides ?",answer:"Elle entoure la périphérie et s'immisce entre elles pour créer les colonnes rénales."},
+{question:"À quel niveau vertébral se projettent les hiles rénaux ?",answer:"Environ au niveau de L1-L2."},
+{question:"Quelle est la position relative de l'aorte et de la veine cave inférieure ?",answer:"L'aorte est paramédiane gauche et la veine cave paramédiane droite."},
+{question:"Quels sont les trois plans de collatérales de l'aorte abdominale ?",answer:"Des branches ventrales digestives, latérales rénales et dorsales pour la moelle."},
+{question:"Comment le péritoine pariétal recouvre-t-il la région postérieure ?",answer:"Il chemine de l'arrière vers l'avant avant de devenir péritoine viscéral."}
+];
+const container=document.getElementById("flashcards");
+const progressBar=document.getElementById("progressBar");
+const originalData=[...flashcardsData];
+let flashcards=[...originalData];
+let currentIndex=0;
+function updateProgress(){const total=originalData.length;const progress=Math.min(currentIndex/total,1);progressBar.style.width=`${progress*100}%`;}
+function createContent(content){if(typeof content==="string"){const div=document.createElement("div");div.textContent=content;return div;}if(typeof content==="object"&&content.type==="image"){const wrapper=document.createElement("div");wrapper.style.textAlign="center";if(content.caption){const caption=document.createElement("div");caption.textContent=content.caption;caption.style.marginBottom="6px";caption.style.fontStyle="italic";caption.style.fontSize="0.9em";wrapper.appendChild(caption);}const img=document.createElement("img");img.src=content.src;img.alt=content.alt||"";img.style.maxWidth="100%";img.style.height="auto";wrapper.appendChild(img);return wrapper;}return document.createElement("div");}
+function showCard(index){container.innerHTML="";if(flashcards[index]){const{question,answer}=flashcards[index];const card=document.createElement("div");card.classList.add("flashcard","show");const inner=document.createElement("div");inner.classList.add("flashcard-inner");const front=document.createElement("div");front.classList.add("flashcard-front");front.appendChild(createContent(question));const back=document.createElement("div");back.classList.add("flashcard-back");back.appendChild(createContent(answer));const btnContainer=document.createElement("div");btnContainer.classList.add("flashcard-button");const toggleBtn=document.createElement("button");toggleBtn.classList.add("button","large");toggleBtn.textContent="Voir la réponse";btnContainer.appendChild(toggleBtn);const checkIcon=document.createElement("span");checkIcon.classList.add("check-icon");checkIcon.innerHTML=`<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='#888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12'/></svg>`;checkIcon.addEventListener("click",e=>{e.stopPropagation();card.classList.add("slide-right");setTimeout(()=>{currentIndex++;updateProgress();showCard(currentIndex);},400);});const crossIcon=document.createElement("span");crossIcon.classList.add("cross-icon");crossIcon.innerHTML=`<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='#888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>`;crossIcon.addEventListener("click",e=>{e.stopPropagation();card.classList.add("slide-left");setTimeout(()=>{const removed=flashcards.splice(currentIndex,1)[0];flashcards.splice(currentIndex+5,0,removed);showCard(currentIndex);},400);});card.addEventListener("click",()=>{const isAnswerVisible=card.classList.toggle("show-answer");toggleBtn.textContent=isAnswerVisible?"Cacher la réponse":"Voir la réponse";});inner.appendChild(front);inner.appendChild(back);card.appendChild(inner);card.appendChild(btnContainer);card.appendChild(checkIcon);card.appendChild(crossIcon);container.appendChild(card);}else{container.innerHTML="<p>Plus de flashcards disponibles.</p>";updateProgress();}}
+document.getElementById("restart").addEventListener("click",()=>{flashcards=[...originalData];currentIndex=0;updateProgress();showCard(currentIndex);});
+showCard(currentIndex);updateProgress();
+</script>
+</section>
+</div>
+</div>
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="/index.html">Accueil</a></li>
+<li><span class="opener">Biochimie Socle</span>
+<ul>
+<li><a href="/Biochimie%20Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+<li><a href="/Biochimie%20Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+<li><a href="/Biochimie%20Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+<li><a href="/Biochimie%20Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+<li><a href="/Biochimie%20Socle/bioch5.html">Structure des lipides I</a></li>
+<li><a href="/Biochimie%20Socle/bioch6.html">Structure des lipides II</a></li>
+<li><a href="/Biochimie%20Socle/bioch7.html">Structure des lipides III</a></li>
+<li><a href="/Biochimie%20Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+<li><a href="/Biochimie%20Socle/bioch9.html">Bioénergétique I</a></li>
+<li><a href="/Biochimie%20Socle/bioch10.html">Bioénergétique II</a></li>
+<li><a href="/Biochimie%20Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+<li><a href="/Biochimie%20Socle/bioch12.html">Cinétique enzymatique</a></li>
+<li><a href="/Biochimie%20Socle/bioch13.html">Structure du génome</a></li>
+<li><a href="/Biochimie%20Socle/bioch14.html">Organisation et expression du génome</a></li>
+<li><a href="/Biochimie%20Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+</ul>
+</li>
+<li><span class="opener">Biochimie App</span>
+<ul>
+<li><a href="/Biochimie%20App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+<li><a href="/Biochimie%20App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+<li><a href="/Biochimie%20App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+<li><a href="/Biochimie%20App/biochapp4.html">Stabilité et évolution du génome</a></li>
+<li><a href="/Biochimie%20App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+<li><a href="/Biochimie%20App/biochapp6.html">Phosphorylations oxydatives</a></li>
+</ul>
+</li>
+<li><span class="opener">SHS socle</span>
+<ul>
+<li><a href="/shs1.html">L'histoire du droit de la santé</a></li>
+<li><a href="/shs2.html">Science et médecine</a></li>
+<li><a href="/shs3.html">De la vulnerabilité au métissage</a></li>
+<li><a href="/shs4.html">Santé, sociologie et anthropologie</a></li>
+<li><a href="/shs5.html">Qu'est-ce que l'économie ?</a></li>
+</ul>
+</li>
+<li><span class="opener">SHS App</span>
+<ul>
+</ul>
+</li>
+<li><span class="opener">Anatomie socle</span>
+<ul>
+<li><a href="/Anatomie%20Socle/anat1.html">Organisation générale</a></li>
+<li><a href="/Anatomie%20Socle/anat2.html">Ostéologie</a></li>
+<li><a href="/Anatomie%20Socle/anat3.html">Arthrologie</a></li>
+<li><a href="/Anatomie%20Socle/anat4.html">Myologie</a></li>
+<li><a href="/Anatomie%20Socle/anat5.html">Membres inférieurs Jambe/Pied</a></li>
+<li><a href="/Anatomie%20Socle/anat6.html">Membre supérieur</a></li>
+<li><a href="/Anatomie%20Socle/anat7.html">Membre inférieur</a></li>
+<li><a href="/Anatomie%20Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+<li><a href="/Anatomie%20Socle/anat9.html">Appareil digestif</a></li>
+<li><a href="/Anatomie%20Socle/anat10.html">Région pelvienne</a></li>
+<li><a href="/Anatomie%20Socle/anat11.html">Région cervicale</a></li>
+<li><a href="/Anatomie%20Socle/anat12.html">Système nerveux</a></li>
+</ul>
+</li>
+<li><span class="opener">Anatomie App</span>
+<ul>
+<li><a href="/anatapp1.html">Rachis</a></li>
+<li><a href="/anatapp2.html">Epaule/Bras</a></li>
+<li><a href="/anatapp3.html">Avant bras/Main</a></li>
+<li><a href="/anatapp4.html">Hanche/Cuisse</a></li>
+<li><a href="/anatapp5.html">Jambe/Pied</a></li>
+<li><a href="/anatapp6.html">Appareil cardiovasculaire</a></li>
+<li><a href="/anatapp7.html">Appareil respiratoire</a></li>
+<li><a href="/anatapp8.html">Appareil digestif I</a></li>
+<li><a href="/anatapp9.html">Appareil digestif II</a></li>
+<li><a href="/anatapp10.html">Région pelvienne I (Haut)</a></li>
+<li><a href="/anatapp11.html">Région pelvienne II (Bas)</a></li>
+<li><a href="/anatapp12.html">Région cervicale</a></li>
+<li><a href="/anatapp13.html">Système nerveux</a></li>
+</ul>
+</li>
+<li><span class="opener">Chimie socle</span>
+<ul>
+<li><a href="/chimie1.html">Nomenclature</a></li>
+<li><a href="/chimie2.html">Stéréochimie</a></li>
+<li><a href="/chimie3.html">Effets inductifs et mésomères</a></li>
+<li><a href="/chimie4.html">Mécanismes réactionnels</a></li>
+<li><a href="/chimie5.html">Les Alcènes</a></li>
+<li><a href="/chimie6.html">Les Alcynes</a></li>
+<li><a href="/chimie7.html">Fonctions monovalentes</a></li>
+<li><a href="/chimie8.html">Fonctions divalentes</a></li>
+<li><a href="/chimie9.html">Fonctions trivalentes</a></li>
+</ul>
+</li>
+<li><span class="opener">Chimie App</span>
+<ul>
+<li><a href="/chimieapp1.html">Thermodynamique</a></li>
+<li><a href="/chimieapp2.html">Oxydoréduction</a></li>
+<li><a href="/chimieapp3.html">Atomistique</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<footer id="footer"><p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p></footer>
+</div>
+</div>
+</div>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
