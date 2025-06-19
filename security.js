@@ -5,10 +5,17 @@ async function verifierToken() {
   }
 
   const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
+  let token = params.get("token");
+
+  // Sauvegarde du token pour les navigations suivantes
+  if (token) {
+    localStorage.setItem("jwtToken", token);
+  } else {
+    token = localStorage.getItem("jwtToken");
+  }
 
   if (!token) {
-    console.warn("❌ Aucun token trouvé dans l'URL.");
+    console.warn("❌ Aucun token trouvé dans l'URL ou le stockage.");
     window.location.href = "unauthorized.html";
     return;
   }
@@ -29,6 +36,7 @@ async function verifierToken() {
 
     if (json.errors) {
       console.warn("❌ Token invalide ou refusé :", json.errors[0].message);
+      localStorage.removeItem("jwtToken");
       window.location.href = "unauthorized.html";
     } else {
       console.log("✅ Token valide. Accès autorisé.");
@@ -37,6 +45,7 @@ async function verifierToken() {
 
   } catch (err) {
     console.error("❌ Erreur de requête :", err);
+    localStorage.removeItem("jwtToken");
     window.location.href = "unauthorized.html";
   }
 }
