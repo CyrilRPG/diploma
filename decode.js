@@ -8,4 +8,11 @@ function decodeJWT(token) {
   }
 }
 
-module.exports = { decodeJWT };
+function isTokenExpired(decoded) {
+  if (!decoded || typeof decoded.exp !== 'number') {
+    return true;
+  }
+  return decoded.exp * 1000 < Date.now();
+}
+
+module.exports = { decodeJWT, isTokenExpired };
