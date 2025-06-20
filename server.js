@@ -8,6 +8,10 @@ const fetchFn = typeof fetch === 'function'
 const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
 const EXOATECH_TOKEN = 'TON_X_TOKEN_ICI'; // <-- à remplacer absolument
 
+// Dictionnaire pour garder en mémoire le dernier token valide pour chaque
+// utilisateur. Lorsqu'un nouveau token est validé, l'ancien devient obsolète.
+const latestTokens = {};
+
 function decodeJWT(token) {
   try {
     const base64Payload = token.split('.')[1];
@@ -29,6 +33,16 @@ app.get('/validate', async (req, res) => {
       reason: 'Token JWT invalide ou non décodable',
       tokenClient: token,
       decodedPayload: decoded
+    });
+  }
+
+  // Si un token différent a déjà été validé pour cet utilisateur,
+  // on considère celui-ci comme obsolète.
+  if (latestTokens[clientId] && latestTokens[clientId] !== token) {
+    return res.json({
+      ok: false,
+      reason: 'Token obsolète',
+      tokenClient: token
     });
   }
 
@@ -56,6 +70,11 @@ app.get('/validate', async (req, res) => {
     }
 
     const valid = clientId === exoId;
+
+    if (valid) {
+      // On mémorise ce token comme le plus récent pour cet utilisateur
+      latestTokens[clientId] = token;
+    }
 
     return res.json({
       ok: valid,
