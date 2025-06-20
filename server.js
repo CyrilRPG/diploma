@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const { decodeJWT } = require('./decode');
 
 const fetchFn = typeof fetch === 'function'
   ? fetch
@@ -12,16 +13,6 @@ const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
 // Dictionnaire pour garder en mémoire le dernier token valide pour chaque
 // utilisateur. Lorsqu'un nouveau token est validé, l'ancien devient obsolète.
 const latestTokens = {};
-
-function decodeJWT(token) {
-  try {
-    const base64Payload = token.split('.')[1];
-    const jsonPayload = Buffer.from(base64Payload, 'base64').toString();
-    return JSON.parse(jsonPayload);
-  } catch (e) {
-    return null;
-  }
-}
 
 function sendJSON(res, status, obj) {
   res.writeHead(status, { 'Content-Type': 'application/json' });
@@ -151,6 +142,10 @@ const server = http.createServer((req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
+  });
+}
+
+module.exports = { server };
