@@ -46,6 +46,12 @@ async function verifierToken() {
     return;
   }
 
+  if (typeof decoded.exp === "number" && decoded.exp * 1000 < Date.now()) {
+    console.warn("❌ Token expir\u00e9.");
+    window.location.href = "unauthorized.html";
+    return;
+  }
+
   // Aucune validation réseau n'est effectuée pour permettre l'utilisation hors ligne.
   console.log("✅ Token détecté :", decoded);
 }
