@@ -1,13 +1,12 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const url = require('url');
+const express = require('express');
+const app = express();
 
 const fetchFn = typeof fetch === 'function'
   ? fetch
   : (...args) => import('node-fetch').then(({ default: f }) => f(...args));
 
 const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
+const EXOATECH_TOKEN = 'TON_X_TOKEN_ICI'; // <-- à remplacer absolument
 
 // Dictionnaire pour garder en mémoire le dernier token valide pour chaque
 // utilisateur. Lorsqu'un nouveau token est validé, l'ancien devient obsolète.
@@ -23,33 +22,28 @@ function decodeJWT(token) {
   }
 }
 
-function sendJSON(res, status, obj) {
-  res.writeHead(status, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(obj));
-}
-
-async function handleValidate(req, res, query) {
-  const token = query.token;
+app.get('/validate', async (req, res) => {
+  const token = req.query.token;
   const decoded = decodeJWT(token);
   const clientId = decoded?.id?.toString();
 
   if (!token || !decoded || !clientId) {
-    sendJSON(res, 200, {
+    return res.json({
       ok: false,
       reason: 'Token JWT invalide ou non décodable',
       tokenClient: token,
       decodedPayload: decoded
     });
-    return;
   }
 
+  // Si un token différent a déjà été validé pour cet utilisateur,
+  // on considère celui-ci comme obsolète.
   if (latestTokens[clientId] && latestTokens[clientId] !== token) {
-    sendJSON(res, 200, {
+    return res.json({
       ok: false,
       reason: 'Token obsolète',
       tokenClient: token
     });
-    return;
   }
 
   try {
@@ -57,6 +51,8 @@ async function handleValidate(req, res, query) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // On utilise le token fourni par le client pour vérifier qu'il est
+        // toujours accepté par l'API Exoatech.
         'X-Token': token,
       },
       body: JSON.stringify({
@@ -68,89 +64,45 @@ async function handleValidate(req, res, query) {
     const exoId = json?.data?.me?.id?.toString();
 
     if (!exoId) {
-      sendJSON(res, 200, {
+      return res.json({
         ok: false,
         reason: 'Réponse Exoatech invalide ou vide',
         debugExoatech: json
       });
-      return;
     }
 
     const valid = clientId === exoId;
 
     if (valid) {
+      // On mémorise ce token comme le plus récent pour cet utilisateur
       latestTokens[clientId] = token;
     }
 
-    sendJSON(res, 200, {
+    return res.json({
       ok: valid,
       tokenClient: token,
       clientId,
       expectedUserId: exoId,
       decodedPayload: decoded,
-      reason: valid ? undefined : "Le clientId ne correspond pas à l’id Exoatech"
+      reason: valid ? undefined : 'Le clientId ne correspond pas à l’id Exoatech'
     });
+
   } catch (err) {
-    sendJSON(res, 500, {
+    return res.status(500).json({
       ok: false,
       reason: 'Erreur serveur',
       error: err.toString()
     });
   }
-}
+});
 
-function getContentType(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
-  switch (ext) {
-    case '.html': return 'text/html';
-    case '.js': return 'application/javascript';
-    case '.css': return 'text/css';
-    case '.png': return 'image/png';
-    case '.jpg':
-    case '.jpeg': return 'image/jpeg';
-    case '.svg': return 'image/svg+xml';
-    default: return 'application/octet-stream';
-  }
-}
-
-function serveFile(res, filePath) {
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404);
-      res.end('Not found');
-      return;
-    }
-    res.writeHead(200, { 'Content-Type': getContentType(filePath) });
-    res.end(data);
-  });
-}
-
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  const pathname = parsedUrl.pathname;
-
-  if (pathname === '/validate') {
-    handleValidate(req, res, parsedUrl.query);
-    return;
-  }
-
-  const anatMatch = pathname.match(/^\/anatapp(\d+)\.html$/);
-  if (anatMatch) {
-    const file = `anatapp${anatMatch[1]}.html`;
-    const filePath = path.join(__dirname, 'Anatomie_App', file);
-    serveFile(res, filePath);
-    return;
-  }
-
-  let filePath = path.join(__dirname, pathname);
-  if (pathname === '/' || pathname === '') {
-    filePath = path.join(__dirname, 'index.html');
-  }
-
-  serveFile(res, filePath);
+app.get("/anatapp:page.html", (req, res) => {
+  const file = `anatapp${req.params.page}.html`;
+  res.sendFile(path.join(__dirname, "Anatomie_App", file));
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+app.use(express.static(__dirname));
+app.listen(PORT, () => {
   console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
 });
