@@ -5,13 +5,24 @@ async function verifierToken() {
   }
 
   const params = new URLSearchParams(window.location.search);
-  let token = params.get("token");
+  const urlToken = params.get("token");
+  const storedToken = localStorage.getItem("jwtToken");
 
-  // Sauvegarde du token pour les navigations suivantes
-  if (token) {
-    localStorage.setItem("jwtToken", token);
-  } else {
-    token = localStorage.getItem("jwtToken");
+  // Si un token est présent dans l'URL, il devient le nouveau token stocké
+  if (urlToken) {
+    if (urlToken !== storedToken) {
+      localStorage.setItem("jwtToken", urlToken);
+    }
+  }
+
+  const token = localStorage.getItem("jwtToken");
+
+  // Si un token était dans l'URL mais ne correspond plus au dernier token stocké,
+  // on considère qu'il est obsolète
+  if (urlToken && urlToken !== token) {
+    console.warn("❌ Ancien token détecté. Accès refusé.");
+    window.location.href = "unauthorized.html";
+    return;
   }
 
   if (!token) {
