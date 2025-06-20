@@ -31,6 +31,24 @@ async function verifierToken() {
     return;
   }
 
+  // Validation supplémentaire auprès de notre serveur pour s'assurer que
+  // le token correspond bien au dernier utilisé par cet utilisateur.
+  try {
+    const validRes = await fetch(`/validate?token=${encodeURIComponent(token)}`);
+    const validJson = await validRes.json();
+    if (!validJson.ok) {
+      console.warn("❌ Token obsolète ou invalide :", validJson.reason);
+      localStorage.removeItem("jwtToken");
+      window.location.href = "unauthorized.html";
+      return;
+    }
+  } catch (err) {
+    console.error("❌ Erreur de validation du token :", err);
+    localStorage.removeItem("jwtToken");
+    window.location.href = "unauthorized.html";
+    return;
+  }
+
   try {
     const response = await fetch("https://diploma.exoteach.com/medibox2-api/graphql", {
       method: "POST",
