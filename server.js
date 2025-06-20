@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
-const { decodeJWT } = require('./decode');
+const { decodeJWT, isTokenExpired } = require('./decode');
 
 const fetchFn = typeof fetch === 'function'
   ? fetch
@@ -23,6 +23,15 @@ async function handleValidate(req, res, query) {
   const token = query.token;
   const decoded = decodeJWT(token);
   const clientId = decoded?.id?.toString();
+
+  if (isTokenExpired(decoded)) {
+    sendJSON(res, 200, {
+      ok: false,
+      reason: 'Token expir\u00e9',
+      tokenClient: token
+    });
+    return;
+  }
 
   if (!token || !decoded || !clientId) {
     sendJSON(res, 200, {
