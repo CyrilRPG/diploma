@@ -1,3 +1,13 @@
+function decodeJWT(token) {
+  try {
+    const base64Payload = token.split(".")[1];
+    const jsonPayload = atob(base64Payload);
+    return JSON.parse(jsonPayload);
+  } catch {
+    return null;
+  }
+}
+
 async function verifierToken() {
   // 🚫 Évite une boucle : si on est déjà sur unauthorized.html, on ne vérifie rien
   if (window.location.pathname.endsWith("unauthorized.html")) {
@@ -9,10 +19,8 @@ async function verifierToken() {
   const storedToken = localStorage.getItem("jwtToken");
 
   // Si un token est présent dans l'URL, il devient le nouveau token stocké
-  if (urlToken) {
-    if (urlToken !== storedToken) {
-      localStorage.setItem("jwtToken", urlToken);
-    }
+  if (urlToken && urlToken !== storedToken) {
+    localStorage.setItem("jwtToken", urlToken);
   }
 
   const token = localStorage.getItem("jwtToken");
@@ -31,52 +39,15 @@ async function verifierToken() {
     return;
   }
 
-  // Validation supplémentaire auprès de notre serveur pour s'assurer que
-  // le token correspond bien au dernier utilisé par cet utilisateur.
-  try {
-    const validRes = await fetch(`/validate?token=${encodeURIComponent(token)}`);
-    const validJson = await validRes.json();
-    if (!validJson.ok) {
-      console.warn("❌ Token obsolète ou invalide :", validJson.reason);
-      localStorage.removeItem("jwtToken");
-      window.location.href = "unauthorized.html";
-      return;
-    }
-  } catch (err) {
-    console.error("❌ Erreur de validation du token :", err);
-    localStorage.removeItem("jwtToken");
+  const decoded = decodeJWT(token);
+  if (!decoded) {
+    console.warn("❌ Token illisible.");
     window.location.href = "unauthorized.html";
     return;
   }
 
-  try {
-    const response = await fetch("https://diploma.exoteach.com/medibox2-api/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Token": token,
-      },
-      body: JSON.stringify({
-        query: "{ me { id name } }", // requête protégée à adapter selon l’API
-      }),
-    });
-
-    const json = await response.json();
-
-    if (json.errors) {
-      console.warn("❌ Token invalide ou refusé :", json.errors[0].message);
-      localStorage.removeItem("jwtToken");
-      window.location.href = "unauthorized.html";
-    } else {
-      console.log("✅ Token valide. Accès autorisé.");
-      console.log("Données :", json.data);
-    }
-
-  } catch (err) {
-    console.error("❌ Erreur de requête :", err);
-    localStorage.removeItem("jwtToken");
-    window.location.href = "unauthorized.html";
-  }
+  // Aucune validation réseau n'est effectuée pour permettre l'utilisation hors ligne.
+  console.log("✅ Token détecté :", decoded);
 }
 
 // ▶️ Lancer la vérification au chargement
