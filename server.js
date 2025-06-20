@@ -51,7 +51,9 @@ app.get('/validate', async (req, res) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': EXOATECH_TOKEN,
+        // On utilise le token fourni par le client pour vérifier qu'il est
+        // toujours accepté par l'API Exoatech.
+        'X-Token': token,
       },
       body: JSON.stringify({
         query: `query { me { id email username } }`
