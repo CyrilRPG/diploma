@@ -47,13 +47,26 @@ async function verifierToken() {
   }
 
   if (typeof decoded.exp === "number" && decoded.exp * 1000 < Date.now()) {
-    console.warn("❌ Token expir\u00e9.");
+    console.warn("❌ Token expiré.");
     window.location.href = "unauthorized.html";
     return;
   }
 
-  // Aucune validation réseau n'est effectuée pour permettre l'utilisation hors ligne.
-  console.log("✅ Token détecté :", decoded);
+  try {
+    const resp = await fetch(`/validate?token=${encodeURIComponent(token)}`);
+    const json = await resp.json();
+    if (!json.ok) {
+      console.warn("❌ Token refusé :", json.reason);
+      window.location.href = "unauthorized.html";
+      return;
+    }
+  } catch (err) {
+    console.warn("❌ Erreur de validation du token:", err);
+    window.location.href = "unauthorized.html";
+    return;
+  }
+
+  console.log("✅ Token détecté et validé :", decoded);
 }
 
 // ▶️ Lancer la vérification au chargement
