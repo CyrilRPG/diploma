@@ -4,9 +4,13 @@ const path = require('path');
 const url = require('url');
 const { decodeJWT, isTokenExpired } = require('./decode');
 
-const fetchFn = typeof fetch === 'function'
+let fetchFn = typeof fetch === 'function'
   ? fetch
   : (...args) => import('node-fetch').then(({ default: f }) => f(...args));
+
+function setFetch(fn) {
+  fetchFn = fn;
+}
 
 const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
 
@@ -157,4 +161,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { server };
+module.exports = { server, setFetch };
