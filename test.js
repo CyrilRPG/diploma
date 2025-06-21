@@ -126,6 +126,25 @@ async function testRevokedPersistence() {
   setFetch(undefined);
 }
 
+async function testTokenReplacement() {
+  fs.writeFileSync(revokedFile, '[]');
+  ({ server, setFetch, _testing } = loadServer());
+  const srv = await startServer(server);
+  setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
+
+  const oldToken = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 300 });
+  let res = await requestValidate(srv, oldToken);
+  assert.strictEqual(res.ok, true);
+
+  const newToken = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 10 });
+  res = await requestValidate(srv, newToken);
+  assert.strictEqual(res.ok, true);
+  assert.strictEqual(_testing.revokedTokens.has(oldToken), true);
+
+  srv.close();
+  setFetch(undefined);
+}
+
 async function runTests() {
   testDecodeValid();
   testDecodeInvalid();
@@ -133,6 +152,7 @@ async function runTests() {
   await testValidate(true);
   await testValidate(false);
   await testValidateExpiry();
+  await testTokenReplacement();
   await testRevokedPersistence();
 }
 
