@@ -14,9 +14,54 @@ function setFetch(fn) {
 
 const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
 
+// Durée de validité de chaque token stocké (8h)
+const TOKEN_VALIDITY_MS = 8 * 60 * 60 * 1000;
+
+// Fichier où sont mémorisés les tokens expirés ou révoqués
+const REVOKED_FILE = path.join(__dirname, 'revokedTokens.json');
+
 // Dictionnaire pour garder en mémoire le dernier token valide pour chaque
 // utilisateur. Lorsqu'un nouveau token est validé, l'ancien devient obsolète.
 const latestTokens = {};
+// Tokens valides temporairement (token -> { userId, expiresAt })
+const validTokens = new Map();
+// Ensemble des tokens expirés/révoqués
+let revokedTokens = new Set();
+
+try {
+  const data = fs.readFileSync(REVOKED_FILE, 'utf8');
+  revokedTokens = new Set(JSON.parse(data));
+} catch {
+  revokedTokens = new Set();
+}
+
+function saveRevokedTokens() {
+  try {
+    fs.writeFileSync(
+      REVOKED_FILE,
+      JSON.stringify([...revokedTokens], null, 2)
+    );
+  } catch {
+    // ignore write errors
+  }
+}
+
+function purgeExpiredTokens() {
+  const now = Date.now();
+  for (const [tok, rec] of validTokens) {
+    if (now > rec.expiresAt) {
+      revokeToken(tok);
+    }
+  }
+}
+
+setInterval(purgeExpiredTokens, 60 * 60 * 1000);
+
+function revokeToken(token) {
+  revokedTokens.add(token);
+  validTokens.delete(token);
+  saveRevokedTokens();
+}
 
 function sendJSON(res, status, obj) {
   res.writeHead(status, { 'Content-Type': 'application/json' });
@@ -25,10 +70,7 @@ function sendJSON(res, status, obj) {
 
 async function handleValidate(req, res, query) {
   const token = query.token;
-  const decoded = decodeJWT(token);
-  const clientId = decoded?.id?.toString();
-
-  if (isTokenExpired(decoded)) {
+  if (revokedTokens.has(token)) {
     sendJSON(res, 200, {
       ok: false,
       reason: 'Token expir\u00e9',
@@ -37,7 +79,22 @@ async function handleValidate(req, res, query) {
     return;
   }
 
-  if (!token || !decoded || !clientId) {
+  let decoded = decodeJWT(token);
+  const clientId = decoded?.id?.toString();
+
+  const record = validTokens.get(token);
+  if (record && Date.now() > record.expiresAt) {
+    revokeToken(token);
+    sendJSON(res, 200, {
+      ok: false,
+      reason: 'Token expir\u00e9',
+      tokenClient: token
+    });
+    return;
+  }
+
+  if (!token || !decoded || !clientId || isTokenExpired(decoded)) {
+    revokeToken(token);
     sendJSON(res, 200, {
       ok: false,
       reason: 'Token JWT invalide ou non décodable',
@@ -87,8 +144,10 @@ async function handleValidate(req, res, query) {
           });
           return;
         }
+        revokeToken(current);
       }
       latestTokens[clientId] = token;
+      validTokens.set(token, { userId: clientId, expiresAt: Date.now() + TOKEN_VALIDITY_MS });
     }
 
     sendJSON(res, 200, {
@@ -166,4 +225,8 @@ if (require.main === module) {
   });
 }
 
-module.exports = { server, setFetch };
+module.exports = {
+  server,
+  setFetch,
+  _testing: { validTokens, revokedTokens, revokeToken, purgeExpiredTokens }
+};

@@ -29,16 +29,26 @@ function testTokenExpiry() {
 }
 
 const http = require('http');
-const { server, setFetch } = require('./server');
+const fs = require('fs');
+const path = require('path');
+
+const revokedFile = path.join(__dirname, 'revokedTokens.json');
+
+function loadServer() {
+  delete require.cache[require.resolve('./server')];
+  return require('./server');
+}
+
+let { server, setFetch, _testing } = loadServer();
 
 function createToken(payload) {
   const base64 = Buffer.from(JSON.stringify(payload)).toString('base64');
   return `h.${base64}.s`;
 }
 
-function startServer() {
+function startServer(srvInstance = server) {
   return new Promise((resolve) => {
-    const srv = server.listen(0, () => resolve(srv));
+    const srv = srvInstance.listen(0, () => resolve(srv));
   });
 }
 
@@ -69,12 +79,61 @@ async function testValidate(okExpected) {
   assert.strictEqual(result.ok, okExpected);
 }
 
+async function testValidateExpiry() {
+  const payload = { id: 123, exp: Math.floor(Date.now() / 1000) + 60 };
+  const token = createToken(payload);
+  const srv = await startServer();
+  setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
+
+  const result1 = await requestValidate(srv, token);
+  assert.strictEqual(result1.ok, true);
+
+  const { validTokens, revokedTokens } = _testing;
+  const rec = validTokens.get(token);
+  rec.expiresAt = Date.now() - 1000; // expire manually
+
+  const result2 = await requestValidate(srv, token);
+  assert.strictEqual(result2.ok, false);
+  assert.strictEqual(revokedTokens.has(token), true);
+
+  srv.close();
+  setFetch(undefined);
+}
+
+async function testRevokedPersistence() {
+  fs.writeFileSync(revokedFile, '[]');
+  _testing.revokedTokens.clear();
+
+  let srv = await startServer();
+  setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
+
+  const token = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 60 });
+  const res1 = await requestValidate(srv, token);
+  assert.strictEqual(res1.ok, true);
+
+  _testing.revokeToken(token);
+  srv.close();
+  setFetch(undefined);
+
+  ({ server, setFetch, _testing } = loadServer());
+  srv = await startServer(server);
+  setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
+
+  const res2 = await requestValidate(srv, token);
+  assert.strictEqual(res2.ok, false);
+
+  srv.close();
+  setFetch(undefined);
+}
+
 async function runTests() {
   testDecodeValid();
   testDecodeInvalid();
   testTokenExpiry();
   await testValidate(true);
   await testValidate(false);
+  await testValidateExpiry();
+  await testRevokedPersistence();
 }
 
 runTests().then(() => {
