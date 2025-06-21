@@ -69,7 +69,7 @@ app.get('/validate', async (req, res) => {
       const current = latestTokens[clientId];
       if (current && current !== token) {
         const currentDecoded = decodeJWT(current);
-        if (currentDecoded?.exp && decoded.exp <= currentDecoded.exp) {
+        if (currentDecoded?.exp && decoded.exp < currentDecoded.exp) {
           return res.json({
             ok: false,
             reason: 'Token obsol\u00e8te',
