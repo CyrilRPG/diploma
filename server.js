@@ -47,14 +47,7 @@ async function handleValidate(req, res, query) {
     return;
   }
 
-  if (latestTokens[clientId] && latestTokens[clientId] !== token) {
-    sendJSON(res, 200, {
-      ok: false,
-      reason: 'Token obsolète',
-      tokenClient: token
-    });
-    return;
-  }
+
 
   try {
     const response = await fetchFn(TOKEN_ENDPOINT, {
@@ -83,6 +76,18 @@ async function handleValidate(req, res, query) {
     const valid = clientId === exoId;
 
     if (valid) {
+      const current = latestTokens[clientId];
+      if (current && current !== token) {
+        const currentDecoded = decodeJWT(current);
+        if (currentDecoded?.exp && decoded.exp <= currentDecoded.exp) {
+          sendJSON(res, 200, {
+            ok: false,
+            reason: 'Token obsolète',
+            tokenClient: token
+          });
+          return;
+        }
+      }
       latestTokens[clientId] = token;
     }
 
