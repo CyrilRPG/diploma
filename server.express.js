@@ -36,15 +36,7 @@ app.get('/validate', async (req, res) => {
     });
   }
 
-  // Si un token différent a déjà été validé pour cet utilisateur,
-  // on considère celui-ci comme obsolète.
-  if (latestTokens[clientId] && latestTokens[clientId] !== token) {
-    return res.json({
-      ok: false,
-      reason: 'Token obsolète',
-      tokenClient: token
-    });
-  }
+
 
   try {
     const response = await fetchFn(TOKEN_ENDPOINT, {
@@ -74,6 +66,17 @@ app.get('/validate', async (req, res) => {
     const valid = clientId === exoId;
 
     if (valid) {
+      const current = latestTokens[clientId];
+      if (current && current !== token) {
+        const currentDecoded = decodeJWT(current);
+        if (currentDecoded?.exp && decoded.exp <= currentDecoded.exp) {
+          return res.json({
+            ok: false,
+            reason: 'Token obsol\u00e8te',
+            tokenClient: token
+          });
+        }
+      }
       // On mémorise ce token comme le plus récent pour cet utilisateur
       latestTokens[clientId] = token;
     }
@@ -84,7 +87,7 @@ app.get('/validate', async (req, res) => {
       clientId,
       expectedUserId: exoId,
       decodedPayload: decoded,
-      reason: valid ? undefined : 'Le clientId ne correspond pas à l’id Exoatech'
+      reason: valid ? undefined : 'Le clientId ne correspond pas \u00e0 l\u2019id Exoatech'
     });
 
   } catch (err) {
