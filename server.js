@@ -135,15 +135,8 @@ async function handleValidate(req, res, query) {
     if (valid) {
       const current = latestTokens[clientId];
       if (current && current !== token) {
-        const currentDecoded = decodeJWT(current);
-        if (currentDecoded?.exp && decoded.exp <= currentDecoded.exp) {
-          sendJSON(res, 200, {
-            ok: false,
-            reason: 'Token obsolète',
-            tokenClient: token
-          });
-          return;
-        }
+        // Un nouveau token doit toujours remplacer l'ancien,
+        // peu importe sa date d'expiration.
         revokeToken(current);
       }
       latestTokens[clientId] = token;
