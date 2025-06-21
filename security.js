@@ -18,23 +18,11 @@ async function verifierToken() {
   const urlToken = params.get("token");
   const storedToken = localStorage.getItem("jwtToken");
 
-  // Si un token était déjà présent et qu'un autre est fourni dans l'URL,
-  // on considère qu'il s'agit d'un lien obsolète
-  if (urlToken && storedToken && urlToken !== storedToken) {
-    console.warn("❌ Ancien token détecté. Accès refusé.");
-    window.location.href = "unauthorized.html";
-    return;
-  }
-
-  // Si un token est présent dans l'URL, il devient le nouveau token stocké
-  if (urlToken) {
-    localStorage.setItem("jwtToken", urlToken);
-  }
-
-  const token = localStorage.getItem("jwtToken");
+  // On tente d'abord le token fourni dans l'URL, sinon celui déjà stocké
+  const token = urlToken || storedToken;
 
   if (!token) {
-    console.warn("❌ Aucun token trouvé dans l'URL ou le stockage.");
+    console.warn("❌ Aucun token trouv\u00e9 dans l'URL ou le stockage.");
     window.location.href = "unauthorized.html";
     return;
   }
@@ -59,6 +47,10 @@ async function verifierToken() {
       console.warn("❌ Token refusé :", json.reason);
       window.location.href = "unauthorized.html";
       return;
+    }
+    if (urlToken && urlToken !== storedToken) {
+      // Le nouveau token est valide : on remplace l'ancien stocké
+      localStorage.setItem("jwtToken", urlToken);
     }
   } catch (err) {
     console.warn("❌ Erreur de validation du token:", err);
