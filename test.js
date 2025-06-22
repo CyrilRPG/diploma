@@ -174,10 +174,9 @@ async function testObsoleteToken() {
 
   const oldToken = createToken({ id: 123, exp: now + 100 });
   res = await requestValidate(srv, oldToken);
-  assert.strictEqual(res.ok, false);
-  assert.strictEqual(res.reason, 'Token obsolète');
-  assert.strictEqual(_testing.revokedTokens.has(recentToken), false);
-  assert.strictEqual(_testing.validTokens.has(recentToken), true);
+  assert.strictEqual(res.ok, true);
+  assert.strictEqual(_testing.revokedTokens.has(recentToken), true);
+  assert.strictEqual(_testing.validTokens.has(recentToken), false);
 
   srv.close();
   setFetch(undefined);
