@@ -118,7 +118,8 @@ async function testRevokedPersistence() {
   fs.writeFileSync(revokedFile, '[]');
   _testing.revokedTokens.clear();
 
-  let srv = await startServer();
+  ({ server, setFetch, _testing } = loadServer());
+  let srv = await startServer(server);
   setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
 
   const token = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 60 });
@@ -146,14 +147,37 @@ async function testTokenReplacement() {
   const srv = await startServer(server);
   setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
 
-  const oldToken = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 300 });
+  const now = Math.floor(Date.now() / 1000);
+  const oldToken = createToken({ id: 123, exp: now + 300 });
   let res = await requestValidate(srv, oldToken);
   assert.strictEqual(res.ok, true);
 
-  const newToken = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 10 });
+  const newToken = createToken({ id: 123, exp: now + 400 });
   res = await requestValidate(srv, newToken);
   assert.strictEqual(res.ok, true);
   assert.strictEqual(_testing.revokedTokens.has(oldToken), true);
+
+  srv.close();
+  setFetch(undefined);
+}
+
+async function testObsoleteToken() {
+  fs.writeFileSync(revokedFile, '[]');
+  ({ server, setFetch, _testing } = loadServer());
+  const srv = await startServer(server);
+  setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
+
+  const now = Math.floor(Date.now() / 1000);
+  const recentToken = createToken({ id: 123, exp: now + 200 });
+  let res = await requestValidate(srv, recentToken);
+  assert.strictEqual(res.ok, true);
+
+  const oldToken = createToken({ id: 123, exp: now + 100 });
+  res = await requestValidate(srv, oldToken);
+  assert.strictEqual(res.ok, false);
+  assert.strictEqual(res.reason, 'Token obsolète');
+  assert.strictEqual(_testing.revokedTokens.has(recentToken), false);
+  assert.strictEqual(_testing.validTokens.has(recentToken), true);
 
   srv.close();
   setFetch(undefined);
@@ -168,6 +192,7 @@ async function runTests() {
   await testValidate(false);
   await testValidateExpiry();
   await testTokenReplacement();
+  await testObsoleteToken();
   await testRevokedPersistence();
 }
 

@@ -22,6 +22,7 @@ const REVOKED_FILE = path.join(__dirname, 'revokedTokens.json');
 
 // Dictionnaire pour garder en mémoire le dernier token valide pour chaque
 // utilisateur. Lorsqu'un nouveau token est validé, l'ancien devient obsolète.
+// Map storing last token and its time (exp or iat) for each user
 const latestTokens = {};
 // Tokens valides temporairement (token -> { userId, expiresAt })
 const validTokens = new Map();
@@ -56,6 +57,16 @@ function purgeExpiredTokens() {
 }
 
 setInterval(purgeExpiredTokens, 60 * 60 * 1000);
+
+function getTokenTime(decoded) {
+  if (decoded && typeof decoded.exp === 'number') {
+    return decoded.exp;
+  }
+  if (decoded && typeof decoded.iat === 'number') {
+    return decoded.iat;
+  }
+  return 0;
+}
 
 function revokeToken(token) {
   revokedTokens.add(token);
@@ -133,13 +144,21 @@ async function handleValidate(req, res, query) {
     const valid = clientId === exoId;
 
     if (valid) {
+      const newTime = getTokenTime(decoded);
       const current = latestTokens[clientId];
-      if (current && current !== token) {
-        // Un nouveau token doit toujours remplacer l'ancien,
-        // peu importe sa date d'expiration.
-        revokeToken(current);
+      if (current) {
+        if (newTime > current.time) {
+          if (current.token !== token) {
+            revokeToken(current.token);
+          }
+          latestTokens[clientId] = { token, time: newTime };
+        } else if (current.token !== token) {
+          sendJSON(res, 200, { ok: false, reason: 'Token obsolète' });
+          return;
+        }
+      } else {
+        latestTokens[clientId] = { token, time: newTime };
       }
-      latestTokens[clientId] = token;
       validTokens.set(token, { userId: clientId, expiresAt: Date.now() + TOKEN_VALIDITY_MS });
     }
 
