@@ -16,6 +16,12 @@ function decodeJWT(token) {
   }
 }
 
+async function hashToken(str) {
+  const buf = new TextEncoder().encode(str);
+  const digest = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 async function verifierToken() {
   // 🚫 Évite une boucle : si on est déjà sur unauthorized.html, on ne vérifie rien
   if (window.location.pathname.endsWith("unauthorized.html")) {
@@ -24,47 +30,53 @@ async function verifierToken() {
 
   const params = new URLSearchParams(window.location.search);
   const urlToken = params.get("token");
-  const storedToken = localStorage.getItem("jwtToken");
+  const urlLink = params.get("link");
+  const sessionToken = sessionStorage.getItem("jwtToken");
+  const sessionLink = sessionStorage.getItem("linkToken");
 
-  // On tente d'abord le token fourni dans l'URL, sinon celui déjà stocké
-  const token = urlToken || storedToken;
+  const token = urlToken || sessionToken;
+  const link = urlLink || sessionLink;
 
-  if (!token) {
+  if (!token && !link) {
     console.warn("❌ Aucun token trouv\u00e9 dans l'URL ou le stockage.");
     window.location.href = "unauthorized.html";
     return;
   }
 
-  const decoded = decodeJWT(token);
-  if (!decoded) {
+  const decoded = token ? decodeJWT(token) : null;
+  if (!decoded && token) {
     console.warn("❌ Token illisible.");
     window.location.href = "unauthorized.html";
     return;
   }
-  const clientId = (decoded?.id ?? decoded?.sub)?.toString();
-  if (!clientId) {
+  const clientId = decoded ? (decoded?.id ?? decoded?.sub)?.toString() : null;
+  if (token && !clientId) {
     console.warn("❌ Token sans identifiant utilisateur.");
     window.location.href = "unauthorized.html";
     return;
   }
 
-  if (typeof decoded.exp === "number" && decoded.exp * 1000 < Date.now()) {
+  if (decoded && typeof decoded.exp === "number" && decoded.exp * 1000 < Date.now()) {
     console.warn("❌ Token expiré.");
     window.location.href = "unauthorized.html";
     return;
   }
 
   try {
-    const resp = await fetch(`/validate?token=${encodeURIComponent(token)}`);
+    const query = token ? `token=${encodeURIComponent(token)}` : `link=${encodeURIComponent(link)}`;
+    const resp = await fetch(`/validate?${query}`);
     const json = await resp.json();
     if (!json.ok) {
       console.warn("❌ Token refusé :", json.reason);
       window.location.href = "unauthorized.html";
       return;
     }
-    if (urlToken && urlToken !== storedToken) {
-      // Le nouveau token est valide : on remplace l'ancien stocké
-      localStorage.setItem("jwtToken", urlToken);
+    if (urlToken) {
+      sessionStorage.setItem("jwtToken", urlToken);
+      const h = await hashToken(urlToken);
+      localStorage.setItem("jwtTokenHash", h);
+    } else if (urlLink) {
+      sessionStorage.setItem("linkToken", urlLink);
     }
   } catch (err) {
     console.warn("❌ Erreur de validation du token:", err);
