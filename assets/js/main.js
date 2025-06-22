@@ -260,3 +260,26 @@
 			});
 
 })(jQuery);
+
+// Keyboard shortcuts for flashcards
+document.addEventListener('keydown', function(e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+
+    var card = document.querySelector('.flashcard');
+    if (!card) return;
+
+    if (e.code === 'Space') {
+        e.preventDefault();
+        var btn = card.querySelector('button');
+        var visible = card.classList.toggle('show-answer');
+        if (btn) btn.textContent = visible ? 'Cacher la réponse' : 'Voir la réponse';
+    } else if (e.code === 'ArrowRight') {
+        e.preventDefault();
+        var ok = card.querySelector('.check-icon');
+        if (ok) ok.click();
+    } else if (e.code === 'ArrowLeft') {
+        e.preventDefault();
+        var ko = card.querySelector('.cross-icon');
+        if (ko) ko.click();
+    }
+});
