@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 
 const fetchFn = typeof fetch === 'function'
@@ -11,6 +12,7 @@ const EXOATECH_TOKEN = 'TON_X_TOKEN_ICI'; // <-- à remplacer absolument
 // Dictionnaire pour garder en mémoire le dernier token valide pour chaque
 // utilisateur. Lorsqu'un nouveau token est validé, l'ancien devient obsolète.
 const latestTokens = {};
+const revokedTokens = new Set();
 
 function decodeJWT(token) {
   try {
@@ -24,6 +26,15 @@ function decodeJWT(token) {
 
 app.get('/validate', async (req, res) => {
   const token = req.query.token;
+
+  if (revokedTokens.has(token)) {
+    return res.json({
+      ok: false,
+      reason: 'Token expir\u00e9',
+      tokenClient: token
+    });
+  }
+
   const decoded = decodeJWT(token);
   const clientId = decoded?.id?.toString();
 
@@ -68,17 +79,8 @@ app.get('/validate', async (req, res) => {
     if (valid) {
       const current = latestTokens[clientId];
       if (current && current !== token) {
-        const currentDecoded = decodeJWT(current);
-        // Utiliser la date d'émission (iat) pour déterminer quel token est le plus récent
-        if (currentDecoded?.iat && decoded.iat && decoded.iat <= currentDecoded.iat) {
-          return res.json({
-            ok: false,
-            reason: 'Token obsol\u00e8te',
-            tokenClient: token
-          });
-        }
+        revokedTokens.add(current);
       }
-      // On mémorise ce token comme le plus récent pour cet utilisateur
       latestTokens[clientId] = token;
     }
 
