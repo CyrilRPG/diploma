@@ -194,7 +194,7 @@
 </head>
 <body>
 <ul class="actions">
-<li><a class="button large" id="restart">Recommencer</a></li>
+<li><a class="button large" id="reset">Réinitialiser</a></li>
 </ul>
 <div class="progress-container">
   <div class="progress-bar" id="progressBar"></div>
@@ -266,7 +266,9 @@ const container = document.getElementById("flashcards");
 const progressBar = document.getElementById("progressBar");
 const originalData = [...flashcardsData];
 let flashcards = [...originalData];
-let currentIndex = 0;
+const pageId = location.pathname.split("/" ).pop().replace(".html","" );
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
 
 function updateProgress() {
   const total = originalData.length;
@@ -349,6 +351,7 @@ function showCard(index) {
       card.classList.add("slide-right");
       setTimeout(() => {
         currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
         updateProgress();
         showCard(currentIndex);
       }, 400);
@@ -392,7 +395,8 @@ function showCard(index) {
   }
 }
 
-document.getElementById("restart").addEventListener("click", () => {
+document.getElementById("reset").addEventListener("click", () => {
+  localStorage.removeItem(progressKey);
   flashcards = [...originalData];
   currentIndex = 0;
   updateProgress();
