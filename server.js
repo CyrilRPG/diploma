@@ -146,20 +146,14 @@ async function handleValidate(req, res, query) {
     if (valid) {
       const newTime = getTokenTime(decoded);
       const current = latestTokens[clientId];
-      if (current) {
-        if (newTime > current.time) {
-          if (current.token !== token) {
-            revokeToken(current.token);
-          }
-          latestTokens[clientId] = { token, time: newTime };
-        } else if (current.token !== token) {
-          sendJSON(res, 200, { ok: false, reason: 'Token obsolète' });
-          return;
-        }
-      } else {
-        latestTokens[clientId] = { token, time: newTime };
+      if (current && current.token !== token) {
+        revokeToken(current.token);
       }
-      validTokens.set(token, { userId: clientId, expiresAt: Date.now() + TOKEN_VALIDITY_MS });
+      latestTokens[clientId] = { token, time: newTime };
+      validTokens.set(token, {
+        userId: clientId,
+        expiresAt: Date.now() + TOKEN_VALIDITY_MS,
+      });
     }
 
     sendJSON(res, 200, {
