@@ -1,7 +1,15 @@
+function base64UrlToBase64(str) {
+  str = str.replace(/-/g, '+').replace(/_/g, '/');
+  const pad = str.length % 4;
+  if (pad) str += '='.repeat(4 - pad);
+  return str;
+}
+
 function decodeJWT(token) {
   try {
     const base64Payload = token.split(".")[1];
-    const jsonPayload = atob(base64Payload);
+    const base64 = base64UrlToBase64(base64Payload);
+    const jsonPayload = atob(base64);
     return JSON.parse(jsonPayload);
   } catch {
     return null;
