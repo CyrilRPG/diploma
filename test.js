@@ -1,5 +1,10 @@
 const assert = require('assert');
+const crypto = require('crypto');
 const { decodeJWT, isTokenExpired } = require('./decode');
+
+function hashToken(tok) {
+  return crypto.createHash('sha256').update(tok).digest('hex');
+}
 
 function testDecodeValid() {
   const payload = { id: 123, name: 'test' };
@@ -52,10 +57,11 @@ function startServer(srvInstance = server) {
   });
 }
 
-function requestValidate(srv, token) {
+function requestValidate(srv, value, kind = 'token') {
   const port = srv.address().port;
+  const param = kind === 'link' ? 'link' : 'token';
   return new Promise((resolve, reject) => {
-    http.get(`http://localhost:${port}/validate?token=${encodeURIComponent(token)}`,
+    http.get(`http://localhost:${port}/validate?${param}=${encodeURIComponent(value)}`,
       res => {
         let data = '';
         res.on('data', chunk => data += chunk);
@@ -94,6 +100,8 @@ async function testValidateSub() {
 }
 
 async function testValidateExpiry() {
+  fs.writeFileSync(revokedFile, '[]');
+  _testing.revokedTokens.clear();
   const payload = { id: 123, exp: Math.floor(Date.now() / 1000) + 60 };
   const token = createToken(payload);
   const srv = await startServer();
@@ -102,13 +110,12 @@ async function testValidateExpiry() {
   const result1 = await requestValidate(srv, token);
   assert.strictEqual(result1.ok, true);
 
-  const { validTokens, revokedTokens } = _testing;
-  const rec = validTokens.get(token);
-  rec.expiresAt = Date.now() - 1000; // expire manually
+  const { revokeToken, revokedTokens } = _testing;
+  revokeToken(token);
 
   const result2 = await requestValidate(srv, token);
   assert.strictEqual(result2.ok, false);
-  assert.strictEqual(revokedTokens.has(token), true);
+  assert.strictEqual(revokedTokens.has(hashToken(token)), true);
 
   srv.close();
   setFetch(undefined);
@@ -155,7 +162,7 @@ async function testTokenReplacement() {
   const newToken = createToken({ id: 123, exp: now + 400 });
   res = await requestValidate(srv, newToken);
   assert.strictEqual(res.ok, true);
-  assert.strictEqual(_testing.revokedTokens.has(oldToken), true);
+  assert.strictEqual(_testing.revokedTokens.has(hashToken(oldToken)), true);
 
   srv.close();
   setFetch(undefined);
@@ -174,9 +181,35 @@ async function testObsoleteToken() {
 
   const oldToken = createToken({ id: 123, exp: now + 100 });
   res = await requestValidate(srv, oldToken);
-  assert.strictEqual(res.ok, true);
-  assert.strictEqual(_testing.revokedTokens.has(recentToken), true);
-  assert.strictEqual(_testing.validTokens.has(recentToken), false);
+  assert.strictEqual(res.ok, false);
+  assert.strictEqual(_testing.revokedTokens.has(hashToken(oldToken)), true);
+  assert.strictEqual(_testing.validTokens.has(oldToken), false);
+  assert.strictEqual(_testing.validTokens.has(recentToken), true);
+
+  srv.close();
+  setFetch(undefined);
+}
+
+async function testGenerateLink() {
+  fs.writeFileSync(revokedFile, '[]');
+  ({ server, setFetch, _testing } = loadServer());
+  const srv = await startServer(server);
+  setFetch(async () => ({ json: async () => ({ data: { me: { id: '123' } } }) }));
+
+  const token = createToken({ id: 123, exp: Math.floor(Date.now() / 1000) + 60 });
+  const port = srv.address().port;
+  const linkResp = await new Promise((resolve, reject) => {
+    http.get(`http://localhost:${port}/generate-link?token=${encodeURIComponent(token)}`, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => resolve(JSON.parse(data)));
+    }).on('error', reject);
+  });
+  assert.strictEqual(linkResp.ok, true);
+  const link = linkResp.linkToken;
+
+  const resVal = await requestValidate(srv, link, 'link');
+  assert.strictEqual(resVal.ok, true);
 
   srv.close();
   setFetch(undefined);
@@ -192,6 +225,7 @@ async function runTests() {
   await testValidateExpiry();
   await testTokenReplacement();
   await testObsoleteToken();
+  await testGenerateLink();
   await testRevokedPersistence();
 }
 
