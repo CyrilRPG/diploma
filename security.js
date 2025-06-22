@@ -41,6 +41,12 @@ async function verifierToken() {
     window.location.href = "unauthorized.html";
     return;
   }
+  const clientId = (decoded?.id ?? decoded?.sub)?.toString();
+  if (!clientId) {
+    console.warn("❌ Token sans identifiant utilisateur.");
+    window.location.href = "unauthorized.html";
+    return;
+  }
 
   if (typeof decoded.exp === "number" && decoded.exp * 1000 < Date.now()) {
     console.warn("❌ Token expiré.");

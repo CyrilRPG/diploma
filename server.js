@@ -80,7 +80,7 @@ async function handleValidate(req, res, query) {
   }
 
   let decoded = decodeJWT(token);
-  const clientId = decoded?.id?.toString();
+  const clientId = (decoded?.id ?? decoded?.sub)?.toString();
 
   const record = validTokens.get(token);
   if (record && Date.now() > record.expiresAt) {
