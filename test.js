@@ -79,6 +79,20 @@ async function testValidate(okExpected) {
   assert.strictEqual(result.ok, okExpected);
 }
 
+async function testValidateSub() {
+  const payload = { sub: 321, exp: Math.floor(Date.now() / 1000) + 60 };
+  const token = createToken(payload);
+  const srv = await startServer();
+  setFetch(async () => ({
+    json: async () => ({ data: { me: { id: '321' } } })
+  }));
+
+  const result = await requestValidate(srv, token);
+  srv.close();
+  setFetch(undefined);
+  assert.strictEqual(result.ok, true);
+}
+
 async function testValidateExpiry() {
   const payload = { id: 123, exp: Math.floor(Date.now() / 1000) + 60 };
   const token = createToken(payload);
@@ -150,6 +164,7 @@ async function runTests() {
   testDecodeInvalid();
   testTokenExpiry();
   await testValidate(true);
+  await testValidateSub();
   await testValidate(false);
   await testValidateExpiry();
   await testTokenReplacement();
