@@ -69,7 +69,8 @@ app.get('/validate', async (req, res) => {
       const current = latestTokens[clientId];
       if (current && current !== token) {
         const currentDecoded = decodeJWT(current);
-        if (currentDecoded?.exp && decoded.exp < currentDecoded.exp) {
+        // Utiliser la date d'émission (iat) pour déterminer quel token est le plus récent
+        if (currentDecoded?.iat && decoded.iat && decoded.iat <= currentDecoded.iat) {
           return res.json({
             ok: false,
             reason: 'Token obsol\u00e8te',
