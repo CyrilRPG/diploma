@@ -22,6 +22,8 @@ const TOKEN_VALIDITY_MS = 8 * 60 * 60 * 1000;
 const REVOKED_FILE = path.join(__dirname, 'revokedTokens.json');
 // Durée de conservation des tokens révoqués (30 jours)
 const REVOKED_RETENTION_MS = 30 * 24 * 60 * 60 * 1000;
+// Nombre maximal de tokens révoqués conservés
+const REVOKED_MAX_SIZE = 1000;
 // Durée de validité d'un linkToken (1h)
 const LINK_TOKEN_MS = 60 * 60 * 1000;
 
@@ -80,7 +82,19 @@ function cleanupRevokedTokens() {
       revokedTokens.delete(hash);
     }
   }
+  enforceRevokedLimit();
   saveRevokedTokens();
+}
+
+function enforceRevokedLimit() {
+  if (revokedTokens.size <= REVOKED_MAX_SIZE) {
+    return;
+  }
+  const entries = [...revokedTokens.entries()].sort((a, b) => a[1] - b[1]);
+  const excess = revokedTokens.size - REVOKED_MAX_SIZE;
+  for (let i = 0; i < excess; i++) {
+    revokedTokens.delete(entries[i][0]);
+  }
 }
 
 setInterval(purgeExpiredTokens, 60 * 60 * 1000);
@@ -104,6 +118,7 @@ function revokeToken(token) {
   const hash = hashToken(token);
   revokedTokens.set(hash, Date.now());
   validTokens.delete(token);
+  enforceRevokedLimit();
   saveRevokedTokens();
 }
 
