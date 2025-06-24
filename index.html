@@ -34,7 +34,8 @@
 											<h1>Diploma Santé<br /></h1>
 											<p>Plateforme de Flashcards</p>
 										</header>
-										<p>Boostez vos révisions en santé avec des flashcards efficaces, spécialement pensées pour les étudiants de l'USPN !</p>
+                                                                       <p>Boostez vos révisions en santé avec des flashcards efficaces, spécialement pensées pour les étudiants de l'USPN !</p>
+                                                                       <p id="courseSummary" style="color:#00aeef;"><span class="icon solid fa-star"></span> Cours complétés: <span id="completedCourses"></span>/<span id="totalCourses"></span></p>
 									</div>
 									<span class="image">
 										<img src="images/pic01.jpg" alt="" />
@@ -261,8 +262,16 @@
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-                        <script src="assets/js/darkmode.js"></script>
+                         <script src="assets/js/main.js"></script>
+                         <script src="assets/js/darkmode.js"></script>
+                         <script>
+                           document.addEventListener("DOMContentLoaded", function() {
+                             const completed = Object.keys(localStorage).filter(k => k.startsWith('progress_')).length;
+                             const total = 79;
+                             document.getElementById('completedCourses').textContent = completed;
+                             document.getElementById('totalCourses').textContent = total;
+                           });
+                         </script>
 
 	</body>
 </html>

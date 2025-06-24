@@ -328,3 +328,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// Add blue check icons in the menu for completed courses
+document.addEventListener('DOMContentLoaded', function() {
+  var links = document.querySelectorAll('#menu a[href$=".html"]');
+  links.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (!href) return;
+    var filename = href.split('/').pop().replace(/\.html$/, '');
+    var key = 'progress_' + filename;
+    if (localStorage.getItem(key) && !link.querySelector('.fa-check')) {
+      var icon = document.createElement('span');
+      icon.className = 'icon solid fa-check';
+      icon.style.color = '#00aeef';
+      icon.style.marginLeft = '0.25em';
+      link.appendChild(icon);
+    }
+  });
+});
