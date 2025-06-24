@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var section = document.createElement('section');
     section.id = 'search';
     section.className = 'alt';
-    section.innerHTML = '<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search"></form>';
+    section.innerHTML = '<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Rechercher"></form>';
     sidebarInner.insertBefore(section, sidebarInner.firstChild);
   }
 
