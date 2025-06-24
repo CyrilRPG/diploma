@@ -451,12 +451,14 @@ function showCard(index) {
     container.appendChild(card);
   } else {
     container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    localStorage.setItem("completed_" + pageId, "true");
     updateProgress();
   }
 }
 
 document.getElementById("reset").addEventListener("click", () => {
   localStorage.removeItem(progressKey);
+  localStorage.removeItem("completed_" + pageId);
   flashcards = [...originalData];
   currentIndex = 0;
   updateProgress();

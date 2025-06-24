@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var href = link.getAttribute('href');
     if (!href) return;
     var filename = href.split('/').pop().replace(/\.html$/, '');
-    var key = 'progress_' + filename;
+    var key = 'completed_' + filename;
     if (localStorage.getItem(key) && !link.querySelector('.fa-check')) {
       var icon = document.createElement('span');
       icon.className = 'icon solid fa-check';
