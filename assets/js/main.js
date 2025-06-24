@@ -283,3 +283,48 @@ document.addEventListener('keydown', function(e) {
         if (ko) ko.click();
     }
 });
+// Inject search bar and enable filtering of menu courses
+document.addEventListener('DOMContentLoaded', function() {
+  var sidebarInner = document.querySelector('#sidebar .inner');
+  if (sidebarInner && !document.getElementById('search')) {
+    var section = document.createElement('section');
+    section.id = 'search';
+    section.className = 'alt';
+    section.innerHTML = '<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search"></form>';
+    sidebarInner.insertBefore(section, sidebarInner.firstChild);
+  }
+
+  var input = document.querySelector('#sidebar #query');
+  var menu = document.getElementById('menu');
+  if (!input || !menu) return;
+
+  var openers = menu.querySelectorAll('span.opener');
+  input.addEventListener('input', function() {
+    var q = input.value.toLowerCase().trim();
+    // Filter links
+    menu.querySelectorAll('li').forEach(function(li) {
+      if (li.querySelector('.opener')) return;
+      var link = li.querySelector('a');
+      if (!link) return;
+      var match = link.textContent.toLowerCase().includes(q);
+      li.style.display = q === '' || match ? '' : 'none';
+    });
+    // Update categories
+    openers.forEach(function(opener) {
+      var sub = opener.nextElementSibling;
+      if (!sub) return;
+      var visible = q === '' || sub.querySelector('li:not([style*="display: none"])');
+      opener.parentElement.style.display = visible ? '' : 'none';
+      if (q === '') {
+        opener.classList.remove('active');
+        sub.style.display = '';
+      } else if (visible) {
+        opener.classList.add('active');
+        sub.style.display = '';
+      } else {
+        opener.classList.remove('active');
+        sub.style.display = 'none';
+      }
+    });
+  });
+});
