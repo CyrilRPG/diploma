@@ -463,7 +463,20 @@ function showCard(index) {
       }, 400);
     });
 
-    card.addEventListener("click", () => {
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25l1.938 3.92L14 4.75l-3 2.93L11.875 12 8 10l-3.875 2 1.875-4.32-3-2.93 4.062-.58L8 .25z"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
       const isAnswerVisible = card.classList.toggle("show-answer");
       toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
     });
@@ -474,6 +487,7 @@ function showCard(index) {
     card.appendChild(btnContainer);
     card.appendChild(checkIcon);
     card.appendChild(crossIcon);
+    card.appendChild(favIcon);
 
     container.appendChild(card);
   } else {
@@ -672,6 +686,7 @@ updateProgress();
 <script src="../assets/js/util.js"></script>
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/darkmode.js"></script>
+<script src="../assets/js/favorites.js"></script>
 
 </body>
 </html>
