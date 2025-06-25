@@ -440,17 +440,16 @@
         });
         const favIcon = document.createElement('span');
         favIcon.classList.add('favorite-icon');
-        favIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25l1.938 3.92L14 4.75l-3 2.93L11.875 12 8 10l-3.875 2 1.875-4.32-3-2.93 4.062-.58L8 .25z"/></svg>';
-        function updateFav() {
-          if (isFavorite({question, answer})) favIcon.classList.add('active');
-          else favIcon.classList.remove('active');
-        }
+        favIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25l1.938 3.92L14 4.75l-3 2.93L11.875 12 8 10l-3.875 2 1.875-4.32-3-2.93 4.062-.58L8 .25z"/><line x1="2" y1="2" x2="14" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="2" x2="2" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
         favIcon.addEventListener('click', (e) => {
           e.stopPropagation();
-          toggleFavorite({question, answer});
-          updateFav();
+          removeFavorite({question, answer});
+          flashcards.splice(currentIndex, 1);
+          originalData.splice(currentIndex, 1);
+          if (currentIndex >= flashcards.length) currentIndex = flashcards.length - 1;
+          updateProgress();
+          showCard(currentIndex);
         });
-        updateFav();
         card.addEventListener('click', () => {
           const isAnswerVisible = card.classList.toggle('show-answer');
           toggleBtn.textContent = isAnswerVisible ? 'Cacher la réponse' : 'Voir la réponse';
