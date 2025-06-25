@@ -26,12 +26,167 @@
           <header class="main">
             <h1>Flashcards favorites</h1>
           </header>
+          						<span class="image main"><img src="../images/pic02.jpg" alt="" /></span>
+					</head>
+					<style>
+  .progress-container {
+    width: 90%;
+    max-width: 800px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+  }
 
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .flashcard {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 1.3rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .check-icon,
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    stroke: #888;
+    transition: stroke 0.3s;
+  }
+
+  .check-icon {
+    right: 10px;
+  }
+
+  .cross-icon {
+    left: 10px;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon {
+    display: block;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+</style>
+<ul class="actions">
+						<li><a class="button large" id="reset">Réinitialiser</a></li>
+					</ul>
           <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
           </div>
           <div class="flashcards-container" id="flashcards"></div>
-          <p style="text-align:center"><button id="reset" class="button small">Réinitialiser</button></p>
         </section>
       </div>
     </div>
@@ -184,27 +339,11 @@
 								<footer id="footer">
 									<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
 								</footer>
-        <!-- Menu copied from index -->
-        <section id="search" class="alt">
-          <form method="post" action="#">
-            <input type="text" name="query" id="query" placeholder="Rechercher">
-          </form>
-        </section>
-        <nav id="menu">
-          <header class="major">
-            <h2>Menu</h2>
-          </header>
-          <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="favorites.html">Favoris</a></li>
-          </ul>
-        </nav>
-        <footer id="footer">
-          <p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
-        </footer>
       </div>
     </div>
   </div>
+
+  
 
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/browser.min.js"></script>
@@ -212,7 +351,8 @@
   <script src="assets/js/util.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/darkmode.js"></script>
-<script src="assets/js/favorites.js"></script>
+  <script src="assets/js/favorites.js"></script>
+  <script>
     const flashcardsData = getFavorites();
     const container = document.getElementById('flashcards');
     const progressBar = document.getElementById('progressBar');
@@ -300,17 +440,16 @@
         });
         const favIcon = document.createElement('span');
         favIcon.classList.add('favorite-icon');
-        favIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25l1.938 3.92L14 4.75l-3 2.93L11.875 12 8 10l-3.875 2 1.875-4.32-3-2.93 4.062-.58L8 .25z"/></svg>';
-        function updateFav() {
-          if (isFavorite({question, answer})) favIcon.classList.add('active');
-          else favIcon.classList.remove('active');
-        }
+        favIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25l1.938 3.92L14 4.75l-3 2.93L11.875 12 8 10l-3.875 2 1.875-4.32-3-2.93 4.062-.58L8 .25z"/><line x1="2" y1="2" x2="14" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="2" x2="2" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
         favIcon.addEventListener('click', (e) => {
           e.stopPropagation();
-          toggleFavorite({question, answer});
-          updateFav();
+          removeFavorite({question, answer});
+          flashcards.splice(currentIndex, 1);
+          originalData.splice(currentIndex, 1);
+          if (currentIndex >= flashcards.length) currentIndex = flashcards.length - 1;
+          updateProgress();
+          showCard(currentIndex);
         });
-        updateFav();
         card.addEventListener('click', () => {
           const isAnswerVisible = card.classList.toggle('show-answer');
           toggleBtn.textContent = isAnswerVisible ? 'Cacher la réponse' : 'Voir la réponse';
