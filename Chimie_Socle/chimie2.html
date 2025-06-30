@@ -225,13 +225,11 @@
 { question: "Quelles sont les trois représentations spatiales principales ?", answer: "Cram, Newman, Fischer", },
 { question: "Dans la représentation de Fischer, que représentent les traits horizontaux ?", answer: "Des groupements en avant du plan", },
 { question: "Dans la représentation de Fischer, que représentent les traits verticaux ?", answer: "Des groupements en arrière du plan", },
-{ question: "Quelle est la technique du fer à cheval ?", answer: "Technique pour passer de Cram à Fischer en aplatissant la molécule", },
 { question: "Comment passe-t-on de Cram à Newman ?", answer: "On se place d’un côté de la molécule et on projette la partie avant et arrière selon la position de l’observateur", },
 { question: "Qu’est-ce qu’un carbone asymétrique ?", answer: "Un carbone hybridé sp3 portant 4 substituants différents (C*)", },
 { question: "À quoi servent les règles de Cahn-Ingold-Prelog (CIP) ?", answer: "À établir la priorité des substituants autour d’un carbone asymétrique", },
 { question: "Comment déterminer la configuration R/S ?", answer: "Placer le plus petit substituant en arrière, observer l’ordre décroissant de priorité des trois autres. Horaire = R, antihoraire = S", },
 { question: "Dans la détermination CIP de la configuration R/S, que faire si le plus petit substituant est orienté vers l’observateur ?", answer: "Prendre l’inverse de la configuration trouvée", },
-{ question: "Comment traiter les liaisons multiples pour R/S ?", answer: "Comme autant de liaisons simples avec l’atome concerné", },
 { question: "Qu’est-ce qu’une molécule chirale ?", answer: "Molécule non superposable à son image dans un miroir et sans plan ou centre de symétrie", },
 { question: "Une molécule avec un seul C* est-elle toujours chirale ?", answer: "Oui", },
 { question: "Quelle propriété physique traduit la chiralité ?", answer: "L’activité optique (pouvoir rotatoire)", },
@@ -245,7 +243,6 @@
 { question: "Dans une configuration E, les groupes prioritaires sont... ?", answer: "De part et d’autre de la double liaison", },
 { question: "Qu’est-ce que l’isomérie cis/trans ?", answer: "Isomérie géométrique : cis = même côté, trans = côtés opposés du plan", },
 { question: "Combien de stéréoisomères existe-t-il pour une molécule avec n C* ?", answer: "2^n stéréoisomères de configuration maximum", },
-{ question: "Combien de couples d’énantiomères pour une molécule avec n C* ?", answer: "2^(n-1) couples maximum", },
 { question: "Qu’est-ce que la série D/L des sucres ?", answer: "Définition de la configuration selon la position du OH sur le carbone le plus bas (D = droite, L = gauche)", },
 { question: "Comment détermine-t-on la série D/L d’un acide aminé ?", answer: "En regardant la position du NH2 sur le carbone le plus haut (D = droite, L = gauche)", },
 { question: "Quel sucre n’a pas de carbone asymétrique ?", answer: "Le dihydroxyacétone", },
@@ -257,7 +254,7 @@
 { question: { type: "image", src: "../images/ex3_ch3chohcl.svg", alt: "CH3-CH(OH)-Cl", caption: "Déterminer la configuration absolue (H en arrière)" }, answer: "Configuration S" },
 { question: { type: "image", src: "../images/ex4_but2ene.svg", alt: "CH3-CH=CH-CH3", caption: "Existe-t-il une isomérie géométrique ?" }, answer: "Oui, ce composé présente des isomères Z et E" },
 { question: { type: "image", src: "../images/ex5_fischer_DL.svg", alt: "Représentation de Fischer", caption: "OH du carbone le plus bas à droite : série ?" }, answer: "Série D" },
-{ question: { type: "image", src: "../images/ex6_fischer_asym.svg", alt: "Fischer asymétrique", caption: "Le carbone central est-il asymétrique ? Configuration ?" }, answer: "Oui, configuration S" },
+{ question: { type: "image", src: "../images/ex6_fischer_asym.svg", alt: "Fischer asymétrique", caption: "Le carbone central est-il asymétrique ? Configuration ?" }, answer: "Oui, configuration R" },
 { question: { type: "image", src: "../images/ex7_cram.svg", alt: "Représentation de Cram", caption: "Quelle est la configuration R/S ? (H en arrière)" }, answer: "Configuration R" },
 { question: { type: "image", src: "../images/ex8_ethane.svg", alt: "Conformations de l'éthane", caption: "Quelle conformation est la plus stable ?" }, answer: "La conformation décalée est plus stable car elle minimise les répulsions" },
 { question: { type: "image", src: "../images/ex9_newman.svg", alt: "Représentation de Newman", caption: "De quelle conformation s'agit-il ?" }, answer: "Conformation décalée, plus stable qu'un conformère éclipsé" },
@@ -311,7 +308,7 @@ function createContent(content) {
     img.style.maxHeight = "100%";
     img.style.height = "auto";
     img.style.objectFit = "contain";
-    if (content.src && content.src.endsWith(".svg")) {
+    if (content.src && (content.src.endsWith(".svg") || content.src.startsWith("data:image/svg+xml"))) {
       img.classList.add("svg-dark");
     }
 
