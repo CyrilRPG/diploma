@@ -314,9 +314,10 @@ const server = http.createServer((req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 if (require.main === module) {
-  server.listen(PORT, () => {
-    console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
+  server.listen(PORT, HOST, () => {
+    console.log(`✅ Serveur lancé sur http://${HOST}:${PORT}`);
   });
 }
 
