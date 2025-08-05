@@ -1,12 +1,14 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 
 const fetchFn = typeof fetch === 'function'
   ? fetch
   : (...args) => import('node-fetch').then(({ default: f }) => f(...args));
 
-const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
-const EXOATECH_TOKEN = 'TON_X_TOKEN_ICI'; // <-- à remplacer absolument
+// Permet de personnaliser l'API et le token via des variables d'environnement
+const TOKEN_ENDPOINT = process.env.TOKEN_ENDPOINT || 'https://diploma.exoteach.com/medibox2-api/graphql';
+const EXOATECH_TOKEN = process.env.EXOATECH_TOKEN || 'TON_X_TOKEN_ICI'; // <-- à remplacer absolument en production
 
 function decodeJWT(token) {
   try {
@@ -76,7 +78,9 @@ app.get('/validate', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.use(express.static(__dirname));
+// Sert les fichiers statiques situés dans le dossier "public" (HTML, images, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.listen(PORT, () => {
   console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
 });
