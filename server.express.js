@@ -36,7 +36,7 @@ app.get('/validate', async (req, res) => {
   }
 
   const decoded = decodeJWT(token);
-  const clientId = decoded?.id?.toString();
+  const clientId = (decoded?.id ?? decoded?.sub ?? decoded?.creatorUserId)?.toString();
 
   if (!token || !decoded || !clientId) {
     return res.json({

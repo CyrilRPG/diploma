@@ -124,7 +124,7 @@ function revokeToken(token) {
 
 async function verifyExoToken(token) {
   const decoded = decodeJWT(token);
-  const clientId = (decoded?.id ?? decoded?.sub)?.toString();
+  const clientId = (decoded?.id ?? decoded?.sub ?? decoded?.creatorUserId)?.toString();
 
   if (!token || !decoded || !clientId || isTokenExpired(decoded)) {
     return { ok: false, reason: 'Token JWT invalide ou non décodable', decoded, clientId };
