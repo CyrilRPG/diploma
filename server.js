@@ -215,7 +215,7 @@ async function handleValidate(req, res, query) {
     if (valid) {
       const newTime = getTokenTime(decoded);
       const current = latestTokens[clientId];
-      if (!current || newTime > current.time) {
+      if (!current || newTime >= current.time) {
         if (current && current.token !== token) {
           revokeToken(current.token);
         }
