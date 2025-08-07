@@ -49,7 +49,7 @@ async function verifierToken() {
     window.location.href = "unauthorized.html";
     return;
   }
-  const clientId = decoded ? (decoded?.id ?? decoded?.sub)?.toString() : null;
+  const clientId = decoded ? (decoded?.id ?? decoded?.sub ?? decoded?.creatorUserId)?.toString() : null;
   if (token && !clientId) {
     console.warn("❌ Token sans identifiant utilisateur.");
     window.location.href = "unauthorized.html";

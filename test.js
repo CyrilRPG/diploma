@@ -99,6 +99,20 @@ async function testValidateSub() {
   assert.strictEqual(result.ok, true);
 }
 
+async function testValidateCreatorId() {
+  const payload = { creatorUserId: 555, exp: Math.floor(Date.now() / 1000) + 60 };
+  const token = createToken(payload);
+  const srv = await startServer();
+  setFetch(async () => ({
+    json: async () => ({ data: { me: { id: '555' } } })
+  }));
+
+  const result = await requestValidate(srv, token);
+  srv.close();
+  setFetch(undefined);
+  assert.strictEqual(result.ok, true);
+}
+
 async function testValidateExpiry() {
   fs.writeFileSync(revokedFile, '[]');
   _testing.revokedTokens.clear();
@@ -221,6 +235,7 @@ async function runTests() {
   testTokenExpiry();
   await testValidate(true);
   await testValidateSub();
+  await testValidateCreatorId();
   await testValidate(false);
   await testValidateExpiry();
   await testTokenReplacement();
