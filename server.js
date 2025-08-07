@@ -5,16 +5,6 @@ const url = require('url');
 const crypto = require('crypto');
 const { decodeJWT, isTokenExpired } = require('./decode');
 
-let fetchFn = typeof fetch === 'function'
-  ? fetch
-  : (...args) => import('node-fetch').then(({ default: f }) => f(...args));
-
-function setFetch(fn) {
-  fetchFn = fn;
-}
-
-const TOKEN_ENDPOINT = 'https://diploma.exoteach.com/medibox2-api/graphql';
-
 // Durée de validité de chaque token stocké (8h)
 const TOKEN_VALIDITY_MS = 8 * 60 * 60 * 1000;
 
@@ -130,40 +120,9 @@ async function verifyExoToken(token) {
     return { ok: false, reason: 'Token JWT invalide ou non décodable', decoded, clientId };
   }
 
-  try {
-    const response = await fetchFn(TOKEN_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Token': token,
-      },
-      body: JSON.stringify({ query: `query { me { id } }` })
-    });
-
-    const json = await response.json();
-    const exoId = json?.data?.me?.id?.toString();
-
-    if (!exoId) {
-      return { ok: false, reason: 'Réponse Exoatech invalide ou vide', debugExoatech: json };
-    }
-
-    const valid = clientId === exoId;
-    return { ok: valid, clientId, exoId, decoded, debugExoatech: json };
-  } catch (err) {
-    // Si la v\u00e9rification distante \u00e9choue (par exemple absence de
-    // connexion), on accepte le token sur la base des v\u00e9rifications locales
-    // pour \u00e9viter un rejet inappropri\u00e9.
-    return {
-      ok: true,
-      clientId,
-      exoId: clientId,
-      decoded,
-      reason: 'Validation distante indisponible',
-      offline: true,
-      error: err.toString(),
-    };
-  }
+  return { ok: true, clientId, exoId: clientId, decoded };
 }
+
 
 function sendJSON(res, status, obj) {
   res.writeHead(status, { 'Content-Type': 'application/json' });
@@ -334,6 +293,5 @@ if (require.main === module) {
 
 module.exports = {
   server,
-  setFetch,
   _testing: { validTokens, revokedTokens, revokeToken, purgeExpiredTokens, linkTokens }
 };
