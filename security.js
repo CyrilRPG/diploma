@@ -1,5 +1,4 @@
-const VERIFY_URL = 'https://api.exoteach.com/verifytoken';
-const API_KEY = '2a7dd57cabdd18494317dc2e536ae761e781abe418ca16bb95d89f2181a9733f';
+const VERIFY_URL = '/validate';
 
 function base64UrlToBase64(str) {
   str = str.replace(/-/g, '+').replace(/_/g, '/');
@@ -55,18 +54,10 @@ async function verifierToken() {
   }
 
   try {
-    const resp = await fetch(VERIFY_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-      },
-      body: JSON.stringify({ token }),
-    });
-
+    const resp = await fetch(`${VERIFY_URL}?token=${encodeURIComponent(token)}`);
     const data = await resp.json();
-    if (resp.status !== 200 || data.message !== 'ok') {
-      console.warn('❌ Token refusé :', data.message);
+    if (resp.status !== 200 || !data.ok) {
+      console.warn('❌ Token refusé :', data.reason);
       window.location.href = 'unauthorized.html';
       return;
     }
