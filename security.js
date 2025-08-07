@@ -22,6 +22,8 @@ async function hashToken(str) {
   return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+const TOKEN_VALIDITY_MS = 8 * 60 * 60 * 1000; // 8 hours
+
 async function verifierToken() {
   // 🚫 Évite une boucle : si on est déjà sur unauthorized.html, on ne vérifie rien
   if (window.location.pathname.endsWith("unauthorized.html")) {
@@ -33,9 +35,27 @@ async function verifierToken() {
   const urlLink = params.get("link");
   const sessionToken = sessionStorage.getItem("jwtToken");
   const sessionLink = sessionStorage.getItem("linkToken");
+  const tokenExpiresAt = parseInt(sessionStorage.getItem("tokenExpiresAt"), 10);
+  const storedHash = localStorage.getItem("jwtTokenHash");
 
   const token = urlToken || sessionToken;
   const link = urlLink || sessionLink;
+
+  if (!urlToken && sessionToken) {
+    if (tokenExpiresAt && Date.now() > tokenExpiresAt) {
+      console.warn("❌ Token expiré (8h).");
+      window.location.href = "unauthorized.html";
+      return;
+    }
+    if (storedHash) {
+      const currentHash = await hashToken(sessionToken);
+      if (currentHash !== storedHash) {
+        console.warn("❌ Token modifié.");
+        window.location.href = "unauthorized.html";
+        return;
+      }
+    }
+  }
 
   if (!token && !link) {
     console.warn("❌ Aucun token trouv\u00e9 dans l'URL ou le stockage.");
@@ -73,6 +93,7 @@ async function verifierToken() {
     }
     if (urlToken) {
       sessionStorage.setItem("jwtToken", urlToken);
+      sessionStorage.setItem("tokenExpiresAt", (Date.now() + TOKEN_VALIDITY_MS).toString());
       const h = await hashToken(urlToken);
       localStorage.setItem("jwtTokenHash", h);
     } else if (urlLink) {
