@@ -150,7 +150,18 @@ async function verifyExoToken(token) {
     const valid = clientId === exoId;
     return { ok: valid, clientId, exoId, decoded, debugExoatech: json };
   } catch (err) {
-    return { ok: false, reason: 'Erreur serveur', error: err.toString(), isError: true };
+    // Si la v\u00e9rification distante \u00e9choue (par exemple absence de
+    // connexion), on accepte le token sur la base des v\u00e9rifications locales
+    // pour \u00e9viter un rejet inappropri\u00e9.
+    return {
+      ok: true,
+      clientId,
+      exoId: clientId,
+      decoded,
+      reason: 'Validation distante indisponible',
+      offline: true,
+      error: err.toString(),
+    };
   }
 }
 
