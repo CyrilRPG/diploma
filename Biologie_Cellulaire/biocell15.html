@@ -4,10 +4,10 @@
 <title>Diploma Santé - Plateforme de Flashcards</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="../assets/css/main.css" />
-<link rel="icon" type="image/jpeg" href="../images/diploma.jpeg" />
-    <script src="../security.js" defer></script>
-    <script src="../assets/js/favorites.js"></script>
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
 </head>
 <body class="is-preload">
 
@@ -20,7 +20,7 @@
 
 <!-- Header -->
 <header id="header">
-<a href="../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
 <ul class="icons">
 <li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
 <li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
@@ -30,23 +30,83 @@
 
 <!-- Content -->
 <section>
-<header class="main">
-<h1>Biologie cellulaire</h1>
-<h2>La matrice extra cellulaire</h2>
-</header>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>La matrice extra cellulaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
 
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
 
-<span class="image main"><img src="../images/pic02.jpg" alt="" /></span>
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
 
-					<style>
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
   .progress-container {
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;
     height: 20px;
     background-color: #eee;
     border-radius: 10px;
     overflow: hidden;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
   }
 
   .progress-bar {
@@ -56,33 +116,42 @@
     transition: width 0.3s;
   }
 
+
+
+  /* Flashcards plein écran optimisées */
   .flashcards-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
   }
 
   .flashcard {
-    width: 90%;
-    max-width: 800px;
-    height: 400px;
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
     perspective: 1500px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 
   .flashcard-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
     background-color: white;
     transition: transform 0.6s;
+    overflow: visible;
     transform-style: preserve-3d;
   }
 
@@ -95,13 +164,13 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 20px;
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-    font-size: 1.2rem;
+    padding: 3rem;
+    font-size: 2rem;
     text-align: center;
   }
 
@@ -114,9 +183,12 @@
   .flashcard-back {
     background-color: #73C3EC;
     color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
     transform: rotateY(180deg);
     box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
-    font-size: 1.3rem;
+    font-size: 2.2rem;
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
   }
 
@@ -124,40 +196,286 @@
     margin-top: 1rem;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
+    flex-wrap: wrap;
   }
 
+          /* Boutons repositionnés DANS flashcard-inner */
   .check-icon,
-  .cross-icon {
+  .cross-icon,
+  .favorite-icon {
     display: none;
     position: absolute;
-    top: 10px;
-    font-size: 1.8rem;
     cursor: pointer;
-    z-index: 10;
-    stroke: #888;
-    transition: stroke 0.3s;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
   }
 
   .check-icon {
-    right: 10px;
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
   }
 
   .cross-icon {
-    left: 10px;
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
   }
 
-  .flashcard.show-answer .check-icon,
-  .flashcard.show-answer .cross-icon {
-    display: block;
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
   }
 
   .check-icon:hover {
     stroke: #27ae60;
+    opacity: 1;
   }
 
   .cross-icon:hover {
     stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
   }
 
   .slide-left {
@@ -189,13 +507,38 @@
       opacity: 0;
     }
   }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
 </style>
 
 </head>
 <body>
-<ul class="actions">
-<li><a class="button large" id="reset">Réinitialiser</a></li>
-</ul>
 <div class="progress-container">
   <div class="progress-bar" id="progressBar"></div>
 </div>
@@ -346,7 +689,7 @@
 { question: "Comment sont disposées les extrémités N-ter de la laminine ?", answer: "En triple hélice", },
 { question: "Comment sont disposées les extrémités C-ter de la laminine ?", answer: "En structure en croix", },
 { question: "À quoi peut se lier la laminine ? (4 réponses)", answer: "Au collagène de type IV, aux protéoglycannes (ex: perlecan), aux intégrines, au nidogène", },
-{ question: "Quel est le rôle d’interaction de la laminine avec les cellules ?", answer: "Elle permet l’adhérence cellule/MEC via les intégrines", },
+{ question: "Quel est le rôle d’interactions de la laminine avec les cellules ?", answer: "Elle permet l’adhérence cellule/MEC via les intégrines", },
 { question: "Comment sont formées les chaînes des glycosaminoglycanes (GAG) ?", answer: "Ce sont de longues chaînes polysaccharidiques non ramifiées, linéaires, formées de disaccharides répétés A et B.", },
 { question: "Quelle est la nature chimique du sucre A dans les GAG ?", answer: "Le sucre A est souvent modifié en glucuronate ou iduronate.", },
 { question: "Quelle est la nature chimique du sucre B dans les GAG ?", answer: "Le sucre B est un sucre aminé, comme la N-acétylglucosamine ou la N-acétylgalactosamine, et/ou sulfaté.", },
@@ -413,6 +756,7 @@ let flashcards = [...originalData];
 const pageId = location.pathname.split("/" ).pop().replace(".html","");
 const progressKey = "progress_" + pageId;
 let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
 
 function updateProgress() {
   const total = originalData.length;
@@ -481,15 +825,30 @@ function showCard(index) {
     toggleBtn.classList.add("button", "large");
     toggleBtn.textContent = "Voir la réponse";
 
-    btnContainer.appendChild(toggleBtn);
 
-    const checkIcon = document.createElement("span");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
     checkIcon.classList.add("check-icon");
-    checkIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    `;
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
     checkIcon.addEventListener("click", (e) => {
       e.stopPropagation();
       card.classList.add("slide-right");
@@ -504,7 +863,7 @@ function showCard(index) {
     const crossIcon = document.createElement("span");
     crossIcon.classList.add("cross-icon");
     crossIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
         <line x1="18" y1="6" x2="6" y2="18" />
         <line x1="6" y1="6" x2="18" y2="18" />
       </svg>
@@ -522,7 +881,7 @@ function showCard(index) {
 
         const favIcon = document.createElement("span");
     favIcon.classList.add("favorite-icon");
-    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
     function updateFav() {
       if (isFavorite({question, answer})) favIcon.classList.add("active");
       else favIcon.classList.remove("active");
@@ -540,28 +899,57 @@ card.addEventListener("click", () => {
 
     inner.appendChild(front);
     inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
     card.appendChild(inner);
     card.appendChild(btnContainer);
-    card.appendChild(checkIcon);
-    card.appendChild(crossIcon);
-    card.appendChild(favIcon);
 
     container.appendChild(card);
   } else {
-    container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
     localStorage.setItem("completed_" + pageId, "true");
     updateProgress();
   }
 }
 
-document.getElementById("reset").addEventListener("click", () => {
-  localStorage.removeItem(progressKey);
-  localStorage.removeItem("completed_" + pageId);
-  flashcards = [...originalData];
-  currentIndex = 0;
-  updateProgress();
-  showCard(currentIndex);
-});
+
 
 showCard(currentIndex);
 updateProgress();
@@ -591,7 +979,7 @@ updateProgress();
                     <h2>Menu</h2>
                   </header>
                   <ul>
-                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="../../index.html">Accueil</a></li>
                     <li><a href="../favorites.html">Favoris</a></li>
                     <li>
                       <span class="opener">Biochimie Socle</span>
@@ -735,13 +1123,13 @@ updateProgress();
 </div>
 
 <!-- Scripts -->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/browser.min.js"></script>
-<script src="../assets/js/breakpoints.min.js"></script>
-<script src="../assets/js/util.js"></script>
-<script src="../assets/js/main.js"></script>
-<script src="../assets/js/darkmode.js"></script>
-<script src="../assets/js/favorites.js"></script>
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
 
 </body>
 </html>
