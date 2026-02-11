@@ -1,0 +1,824 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS - Éthique et droit</h1><h2>Introduction au droit de la santé</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-100%); opacity: 0; }
+  }
+
+  @keyframes slideRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+  { question: "Qu'est-ce que le droit ?", answer: "L'ensemble des règles qui permettent aux citoyens de vivre ensemble et qui organisent la vie en société." },
+  { question: "Quelle est la définition du droit selon Boris Stark ?", answer: "« L'ensemble des règles de conduite qui gouvernent les rapports entre les hommes et dont le respect est assuré par l'autorité publique. »" },
+  { question: "Quel est le rôle de l'autorité publique dans le droit ?", answer: "Faire respecter le droit." },
+  { question: "Qu'est-ce que le droit de la santé ?", answer: "L'ensemble des règles applicables aux activités dont l'objet est d'améliorer, restaurer, protéger la santé des personnes." },
+  { question: "Quels sont les 4 domaines du droit de la santé ?", answer: "1) Réglementations des activités médicales et paramédicales\n2) Réglementations en matière de santé publique\n3) Organisation des activités des professionnels de santé\n4) Organisation des services publics et privés de santé" },
+  { question: "Le droit de la santé est-il une branche du droit à part entière ?", answer: "Non, il est polymorphe et relève de plusieurs branches du droit comme le droit privé et le droit public." },
+  { question: "Qu'étudie le droit privé en santé ?", answer: "La responsabilité civile ou pénale des professionnels de santé ou des établissements de santé privés en cas de faute." },
+  { question: "Qu'étudie le droit public en santé ?", answer: "La responsabilité administrative des établissements de santé du secteur public ou de l'État en cas de faute." },
+  { question: "Qu'est-ce que le droit médical ?", answer: "L'ensemble des normes juridiques qui régissent et encadrent les droits, les obligations et les activités des professionnels de santé (très axé sur l'activité médicale)." },
+  { question: "Qu'est-ce que la bioéthique ?", answer: "L'ensemble de recherches, de discours et de pratiques, généralement pluridisciplinaires, ayant pour objet de clarifier ou de résoudre des questions à portée éthique suscitées par l'avancement et l'application des technosciences biomédicales." },
+  { question: "Qu'est-ce que la déontologie ?", answer: "La « science des devoirs » : ensemble des règles établies par la profession régissant l'exercice professionnel, inscrites dans un code de déontologie ayant une valeur légale." },
+  { question: "Quels professionnels de santé possèdent un code de déontologie ?", answer: "Les médecins, les infirmiers, les chirurgiens-dentistes, les pharmaciens et les sage-femmes." },
+  { question: "Qu'est-ce que le droit hospitalier ?", answer: "Les règles de droit applicables au sein des établissements de santé publics et privés (qui n'ont pas les mêmes règles)." },
+  { question: "Qu'est-ce que le droit pharmaceutique ?", answer: "L'ensemble des normes juridiques qui régissent et encadrent les professions et activités pharmaceutiques, le développement, la production et l'usage des produits de santé." },
+  { question: "Qu'est-ce que le droit de la sécurité sociale ?", answer: "L'ensemble des règles juridiques qui concernent la sécurité sociale. Il existe un code de la Sécurité Sociale." },
+  { question: "Quelle organisation a défini la santé en 1946 et comment ?", answer: "L'OMS dans sa Constitution : « Un état complet de bien-être physique, mental et social et ne consiste pas seulement en une absence de maladie ou d'infirmité. »" },
+  { question: "Quels textes internationaux de l'ONU reconnaissent le droit à la santé ?", answer: "La Déclaration Universelle des Droits de l'Homme (1948) et le Pacte international relatif aux droits sociaux, économiques et culturels (1976)." },
+  { question: "Quels droits liés à la santé sont garantis par la Convention Européenne des Droits de l'Homme (1950-1953) ?", answer: "Le droit à la vie, l'interdiction des traitements inhumains et dégradants, le respect de la vie privée et la protection de la santé." },
+  { question: "Qu'est-ce que la Convention d'Oviedo (1997-1999) ?", answer: "La Convention sur les Droits de l'Homme et la biomédecine." },
+  { question: "Que garantit le préambule de la Constitution de 1946 en matière de santé ?", answer: "Pour tous, la protection de la santé, la sécurité matérielle, le repos et les loisirs (notamment à l'enfant, à la mère et aux vieux travailleurs)." },
+  { question: "La protection de la santé a-t-elle une valeur constitutionnelle ?", answer: "Oui, c'est un droit de valeur constitutionnelle." },
+  { question: "Que prévoit l'article 16 du Code civil concernant le corps humain ?", answer: "Le respect du corps humain." },
+  { question: "Quels sont les éléments du Code civil liés à la santé ?", answer: "Le respect du corps humain (art. 16), la protection juridique des majeurs (tutelle, curatelle, sauvegarde de justice, mandat de protection future — art. 414+), et le droit de la responsabilité (contrats et obligations)." },
+  { question: "Quelles infractions du Code pénal concernent le domaine de la santé ?", answer: "Violation du secret professionnel, faux certificats médicaux, atteinte involontaire à l'intégrité de la personne, omission de porter secours, exercice illégal de la médecine." },
+  { question: "Quand a été créé le Code de la Santé publique ?", answer: "En 1953." },
+  { question: "Que régule le Code de la Santé publique ?", answer: "Protection générale de la santé, santé de la famille/mère/enfant, lutte contre les maladies et dépendances, professions de santé, produits de santé, établissements et services de santé. Il comprend aussi des sanctions pénales." },
+  { question: "Qu'est-ce que le code de déontologie en droit de la santé ?", answer: "Des règles de bonnes pratiques obligatoires, organisées par les ordres professionnels, inscrites dans la section réglementaire du Code de la Santé publique, opposables au praticien (font acte de loi)." },
+  { question: "Qu'est-ce que la jurisprudence ?", answer: "Les réglementations édictées par les procès passés. La justice doit toujours être la même d'un procès à l'autre. Certaines jurisprudences ont ensuite fait acte de loi (arrêts du Conseil d'État, Cour de cassation)." },
+  { question: "Quel est le contexte de l'arrêt Mercier (1936) ?", answer: "Une radiodermite développée par une patiente venue pour une radiothérapie de la face." },
+  { question: "Qu'a établi l'arrêt Mercier (1936) ?", answer: "L'existence d'un contrat entre le malade et le médecin, une obligation de moyens (et non de résultat) découlant de ce contrat, et le fondement de la responsabilité du médecin." },
+  { question: "Quelle est la différence entre obligation de moyens et obligation de résultat ?", answer: "L'obligation de moyens impose de tout faire pour réussir mais permet l'échec. L'obligation de résultat exige le résultat." },
+  { question: "À quoi s'engage le médecin selon l'arrêt Mercier ?", answer: "À donner des soins consciencieux, attentifs et conformes aux données acquises de la science." },
+  { question: "Qu'a établi l'arrêt Teyssier (1942) ?", answer: "L'obligation du recueil du consentement du malade avant des examens ou un traitement, dans le respect de la personne humaine." },
+  { question: "Quelle est la conséquence d'un défaut de consentement selon l'arrêt Teyssier ?", answer: "C'est une atteinte grave aux droits du malade qui engage la responsabilité du médecin." },
+  { question: "Que prévoit l'article 25 de la Déclaration Universelle des Droits de l'Homme (1948) ?", answer: "Toute personne a droit à un niveau de vie suffisant pour assurer sa santé, son bien-être et ceux de sa famille, incluant les soins médicaux et les services sociaux nécessaires." },
+  { question: "Qu'affirme la loi n°70-1318 de 1970 (réforme hospitalière) ?", answer: "Le droit du malade au libre choix de son praticien et de son établissement de soin. Elle est fondamentale pour l'organisation des hôpitaux et la création des CHU." },
+  { question: "Quel est l'objet de la loi « Informatique et libertés » de 1978 ?", answer: "La protection des personnes à l'égard du traitement automatisé des données nominatives. Révisée en 2004 et 2017/2019." },
+  { question: "Quel est l'objet de la loi Huriet de 1988 ?", answer: "La protection des personnes se prêtant à des recherches biomédicales (première loi sur l'expérimentation sur des humains)." },
+  { question: "Quel est l'objet de la loi n°90-527 de 1990 ?", answer: "Les droits des personnes hospitalisées pour troubles mentaux. Les pratiques sont très encadrées car les patients ne peuvent consentir du fait de leurs pathologies." },
+  { question: "Quelles sont les 3 lois de bioéthique de 1994 ?", answer: "1) Traitement des données nominatives pour la recherche en santé\n2) Respect du corps humain (inviolabilité, non-patrimonialité, consentement)\n3) Don et utilisation des éléments du corps, PMA, diagnostic prénatal" },
+  { question: "Que prévoit la 2e loi de bioéthique de 1994 sur le corps humain ?", answer: "Inviolabilité du corps humain, impossibilité pour le corps d'être l'objet d'un droit patrimonial évaluable en argent, et obligation du consentement." },
+  { question: "Que prévoit la 3e loi de bioéthique de 1994 ?", answer: "Consentement préalable ou présumé et révocable à tout moment, gratuité, anonymat, respect des règles de sécurité sanitaire, statut de l'embryon, don d'organes." },
+  { question: "Qu'est-ce que la loi du 4 mars 2002 (loi Kouchner) ?", answer: "La loi relative aux droits des malades et à la qualité du système de santé (loi de démocratie sanitaire), visant une médecine plus humaine où le patient est au centre de la prise en charge." },
+  { question: "Quels sont les objectifs de la loi Kouchner (4 mars 2002) ?", answer: "Relation médecin/patient équilibrée, fin du paternalisme médical, promotion du « droit de savoir » pour consentir de manière éclairée." },
+  { question: "Qu'est-ce que la loi Claeys-Léonetti de 2005 (complétée en 2016) ?", answer: "La loi relative aux droits des patients en fin de vie, encadrant des pratiques déjà existantes." },
+  { question: "Qu'est-ce que la loi n°2007-308 du 5 mars 2007 ?", answer: "La réforme de la protection juridique des majeurs (pour les majeurs ayant besoin d'être sous tutelle)." },
+  { question: "Qu'est-ce que la loi HPST de 2009 ?", answer: "La réforme de l'Hôpital relative aux patients, à la santé et aux territoires : modernisation des établissements, accès aux soins de qualité, prévention et santé publique, organisation territoriale." },
+  { question: "Qu'est-ce que la loi Jardé de 2012 ?", answer: "La loi relative aux recherches impliquant la personne humaine, pour protéger l'individu et favoriser la recherche par l'expérimentation humaine." },
+  { question: "Quel article du Code civil encadre le respect de la dignité ?", answer: "L'article 16 : « La loi assure la primauté de la personne, interdit toute atteinte à la dignité de celle-ci et garantit le respect de l'être humain dès le commencement de la vie. »" },
+  { question: "Quelle est la valeur juridique de l'article 16 du Code civil ?", answer: "C'est un principe de valeur constitutionnelle (au-dessus de toutes les autres lois)." },
+  { question: "Quel article du Code de la Santé publique rappelle le respect de la dignité ?", answer: "L'article L1110-2 : « La personne malade a droit au respect de sa dignité. »" },
+  { question: "Qu'est-ce que la Charte de la personne hospitalisée (2006) concernant la dignité ?", answer: "Un texte sans valeur contraignante mais constituant un engagement de bonne pratique, dans lequel est inscrit le respect de la dignité." },
+  { question: "Comment le respect de la dignité se traduit-il concrètement dans les soins ?", answer: "Droit à l'écoute, droit à l'information, droit à la confidentialité et au respect de la vie privée, droit à l'intimité, droit à la qualité de soins, droit au respect de la fin de vie." },
+  { question: "Depuis quand existe le principe de confidentialité médicale ?", answer: "Depuis l'Antiquité, il est mentionné dans le Serment d'Hippocrate (460-377 av. J.-C.)." },
+  { question: "Quels sont les fondements du respect de la confidentialité ?", answer: "Protéger l'intérêt des patients (respect de la vie privée, non-divulgation) et faciliter la prise en charge médicale en évitant la dissimulation d'informations." },
+  { question: "Le secret professionnel concerne-t-il uniquement les médecins ?", answer: "Non, il concerne toutes les personnes travaillant dans le système de santé (brancardier, infirmier, etc. ont la même obligation)." },
+  { question: "Que couvre le secret professionnel ?", answer: "L'ensemble des informations à caractère personnel concernant un patient, venues à la connaissance d'un professionnel de santé, qu'elles aient été confiées, rapportées ou comprises." },
+  { question: "Le secret professionnel est-il général et absolu ?", answer: "Oui, il ne peut souffrir d'aucune exception, sauf celles encadrées par la loi. Le médecin ne peut divulguer même à la demande du patient. Le décès du patient ne délivre pas du secret." },
+  { question: "Que prévoit l'article 226-13 du Code pénal sur le secret professionnel ?", answer: "La révélation d'information à caractère secret par une personne dépositaire est punie d'un an d'emprisonnement et de 15 000 € d'amende." },
+  { question: "Quel article du Code de la Santé publique souligne l'obligation de secret professionnel ?", answer: "L'article L1110-4 : le respect du secret incombe à tous les professionnels intervenant dans le système de santé." },
+  { question: "Quel article du Code de déontologie médicale traite du secret professionnel ?", answer: "L'article R4127-4 du CSP : « Le secret professionnel, institué dans l'intérêt des patients, s'impose à tout médecin. Le secret couvre tout ce qui est venu à la connaissance du médecin. »" },
+  { question: "Qu'est-ce que le secret partagé (art. L1110-4 du CSP) ?", answer: "Le partage d'informations concernant un patient entre tous les professionnels de santé participant à sa prise en charge, à condition que ces informations soient strictement nécessaires." },
+  { question: "Quelles sont les conditions du secret partagé ?", answer: "Les informations doivent être strictement nécessaires à : la coordination/continuité des soins, la prévention, le suivi médico-social, ou la meilleure prise en charge sanitaire." },
+  { question: "Quelles sont les dérogations obligatoires au secret professionnel ?", answer: "Certificats de naissance et de décès, causes de décès anonymisées (santé publique), certificats d'hospitalisation pour troubles mentaux, certificats médicaux (vaccination, accident de travail, grossesse), certificats sur réquisitions judiciaires." },
+  { question: "Quelles sont les dérogations possibles à la discrétion du médecin ?", answer: "Révélation d'un diagnostic grave à la famille dans l'intérêt du patient, communication du dossier médical aux ayants-droits d'un patient décédé (sauf opposition de son vivant), signalements de violences sur personnes vulnérables (art. 226-14 du Code pénal)." },
+  { question: "Depuis quand tout le monde a-t-il droit à la protection de la santé (article) ?", answer: "Depuis le 4 mars 2002, Art. L1110-1 du Code de Santé publique : « par tous moyens disponibles au bénéfice de toute personne »." },
+  { question: "Quels sont les 4 droits garantis en matière de protection de la santé ?", answer: "1) Droit à la prévention\n2) Droit d'égal accès à des soins de qualité adaptés\n3) Droit à la sécurité sanitaire\n4) Droit à la prise en charge de la douleur et aux soins palliatifs" },
+  { question: "Quelles sont les actions prioritaires de prévention (Art. L1411-1, 2004) ?", answer: "Information pendant la grossesse, vaccination petite enfance, activité physique enfants, lutte contre cancers et consommations à risque, violences intra-familiales, qualité de l'air, prévention perte d'autonomie, soins buccodentaires en EHPAD, maladies chroniques, maladies rares." },
+  { question: "En quoi consiste le droit d'égal accès aux soins de qualité ?", answer: "Libre choix du praticien et de l'établissement, soins conformes aux données acquises de la science, non-discrimination des usagers (l'élément déterminant est la pathologie)." },
+  { question: "Que sont les soins palliatifs ?", answer: "Des soins actifs et continus visant à soulager la douleur et la souffrance physique, sauvegarder la dignité de la personne malade et soutenir son entourage. Ils s'opposent aux soins curatifs." },
+  { question: "En quoi consiste le droit à la sécurité sanitaire ?", answer: "Protection contre les risques thérapeutiques de toute nature. Les bénéfices attendus doivent être supérieurs ou au moins égaux aux risques encourus." },
+  { question: "Quelles agences évaluent la sécurité sanitaire ?", answer: "Santé Publique France, la Haute Autorité de Santé (HAS), l'Agence Nationale de Sécurité du Médicament (ANSM)." },
+  { question: "Quelles sont les deux lois principales encadrant la fin de vie ?", answer: "La loi Léonetti du 22 avril 2005 (droits des malades et fin de vie) et la loi Claeys-Léonetti du 2 février 2016 (nouveaux droits pour les malades en fin de vie)." },
+  { question: "Le droit à la fin de vie permet-il l'utilisation de médicaments pouvant abréger l'existence ?", answer: "Oui, mais uniquement pour les malades incurables qu'on ne peut soulager autrement. Il faut informer le malade et les proches, en discuter en équipe et inscrire la procédure dans le dossier médical." },
+  { question: "Qu'est-ce que le refus de l'acharnement thérapeutique ?", answer: "Le droit pour une personne en phase avancée ou terminale de demander l'arrêt du traitement. Le médecin doit respecter sa volonté, inscrire la décision dans le dossier, et sauvegarder la dignité par des soins palliatifs." },
+  { question: "Que signifie « absence d'obstination déraisonnable » ?", answer: "La suspension d'actes de prévention ou de soins inutiles, disproportionnés ou n'ayant d'autres effets que le maintien artificiel de la vie. Cela ne signifie pas arrêt des soins palliatifs." },
+  { question: "Que sont les directives anticipées ?", answer: "Des instructions écrites, datées et signées par le patient pour les cas où il serait incapable d'exprimer sa volonté. Elles sont révisables et révocables à tout moment, et doivent être respectées sauf en cas d'urgence." },
+  { question: "Que prévoit l'article L1111-2 du Code de Santé publique (droit d'information) ?", answer: "Toute personne a droit d'être informée sur son état de santé. L'information incombe à tout professionnel de santé et permet un consentement éclairé." },
+  { question: "Que doit contenir l'information délivrée au patient ?", answer: "État de santé (maladies, diagnostic, facteurs de risque, pronostic), examens complémentaires et traitements proposés, et tous les risques de la maladie et des traitements." },
+  { question: "Quelles sont les qualités de l'information selon le code de déontologie médicale ?", answer: "L'information doit être loyale, claire et appropriée, adaptée au degré de maturité du malade et à ses facultés de discernement." },
+  { question: "Qu'est-ce que le consentement au soin ?", answer: "L'acceptation obligatoire du patient majeur avant tout acte médical. Il doit être éclairé (patient bien informé des risques et alternatives). Il peut être retiré à tout moment (Art. L1111-4 du CSP)." },
+  { question: "Que doit faire le professionnel face à un refus de soin du patient ?", answer: "Accepter le refus, informer le patient des conséquences, le notifier dans le dossier médical, éventuellement proposer un second avis médical, et donner les meilleurs soins malgré le refus." },
+  { question: "Qu'est-ce que la personne de confiance (Art. L1111-6 du CSP) ?", answer: "Une personne (parent, proche, médecin traitant) désignée par écrit, qui accompagne le patient, assiste aux entretiens médicaux, aide à prendre des décisions et est consultée quand le malade ne peut exprimer sa volonté." },
+  { question: "La personne de confiance prend-elle des décisions médicales à la place du malade ?", answer: "Non. C'est l'équipe soignante qui prend la décision si le malade ne peut consentir. La personne de confiance est seulement consultée." },
+  { question: "Comment désigne-t-on une personne de confiance ?", answer: "Par écrit, document cosigné par la personne désignée, révocable à tout moment. Son nom doit figurer dans le dossier médical et être communiqué lors de toute hospitalisation." },
+  { question: "Depuis quand le patient a-t-il un droit d'accès direct à son dossier médical ?", answer: "Depuis le décret du 29 avril 2002 (prolongement du droit à l'information). Avant, l'accès se faisait uniquement par l'intermédiaire d'un médecin." },
+  { question: "Quelles informations du dossier médical sont communicables ?", answer: "Les informations formalisées lors des consultations, admissions, durant et à la fin du séjour hospitalier (uniquement celles à caractère médical)." },
+  { question: "Quelles informations du dossier médical ne sont PAS communicables ?", answer: "Les informations recueillies auprès de tiers n'intervenant pas dans la prise en charge ou concernant des tiers (ex : informations transmises par ou sur la famille)." },
+  { question: "Quel est le délai de transmission du dossier médical ?", answer: "48h de réflexion pour le demandeur, puis transmission dans les 8 jours (ou 2 mois si le dossier a plus de 5 ans)." },
+  { question: "Quels sont les 11 droits fondamentaux de la Charte de la personne hospitalisée (2006) ?", answer: "1) Libre choix 2) Refus de soins 3) Qualité de l'accueil/traitements/soins 4) Information et participation 5) Personne de confiance 6) Consentement 7) Directives anticipées 8) Respect des croyances 9) Intimité/vie privée/confidentialité 10) Accès au dossier médical 11) Commission des usagers" },
+  { question: "Quelles sont les deux formes de mise en jeu de la responsabilité des professionnels de santé ?", answer: "La « responsabilité sanction » (pénale et/ou disciplinaire) et la « responsabilité indemnisation » (civile ou administrative)." },
+  { question: "Quels textes sont opposables aux professionnels de santé ?", answer: "Les textes de droit commun (Code pénal, Code civil, Code de Santé publique) et les codes de déontologie." },
+  { question: "Qu'est-ce qu'une infraction pénale pour un professionnel de santé ?", answer: "Une faute personnelle allant à l'encontre de la loi (ex : faux certificat, violation du secret). La responsabilité est individuelle et c'est une atteinte à l'ordre public." },
+  { question: "Devant quelles juridictions se font les procès au pénal en santé ?", answer: "Le tribunal de police (contraventions), le tribunal correctionnel (délits — le plus fréquent en médical), ou la Cour d'Assises (crimes)." },
+  { question: "Quelles sanctions peuvent être prononcées au pénal ?", answer: "Amende, prison ferme ou avec sursis, et peines complémentaires (ex : interdiction d'exercice)." },
+  { question: "Quand la responsabilité disciplinaire est-elle engagée ?", answer: "En cas de violation d'une règle professionnelle ou de dépassement de compétences, pour les professions disposant d'un ordre professionnel. L'employeur peut aussi sanctionner en cas de désobéissance au règlement intérieur." },
+  { question: "Quels ordres professionnels existent en santé ?", answer: "Médecins, dentistes, sage-femmes, pharmaciens, infirmiers, kinésithérapeutes, podologues-pédicures." },
+  { question: "Qu'est-ce que la responsabilité indemnitaire ?", answer: "Une responsabilité civile (professionnel libéral) ou administrative (professionnel en établissement public) visant à réparer un préjudice causé à autrui par indemnisation financière." },
+  { question: "Que prévoit l'article 1382 du Code civil ?", answer: "« Tout fait quelconque de l'homme, qui cause à autrui un dommage, oblige celui par la faute duquel il est arrivé à le réparer. »" },
+  { question: "Comment la loi du 4 mars 2002 modifie-t-elle le système de responsabilité médicale ?", answer: "Elle harmonise les systèmes de responsabilité privé et public. La responsabilité médicale ne peut être engagée qu'en cas de faute (Art. L1142-1 du CSP). Le délai de prescription est de 10 ans." },
+  { question: "Quelles sont les possibilités d'indemnisation pour un patient lésé ?", answer: "1) Procédure judiciaire si faute des soignants (prescription 10 ans)\n2) Accord à l'amiable via la Commission de Conciliation et d'Indemnisation (CCI)" },
+  { question: "Que permet la CCI en l'absence de faute ?", answer: "L'indemnisation de l'aléa thérapeutique au titre de la solidarité nationale." },
+  { question: "Que permet la CCI en cas de faute ou d'infections nosocomiales ?", answer: "Une indemnisation à l'amiable (sans procédure judiciaire, plus rapide). C'est l'assureur de l'établissement ou du médecin qui indemnise le patient." },
+  { question: "Quelle est la différence entre responsabilité civile et responsabilité administrative ?", answer: "Civile : professionnel libéral, responsabilité personnelle, assurance civile professionnelle obligatoire.\nAdministrative : établissement public, professionnels du secteur public." },
+  { question: "Quel est le constat final concernant le droit de la santé ?", answer: "Le droit de la santé est en évolution législative permanente, suit l'évolution des mentalités et des pratiques, fait naître des questions éthiques, et vise une meilleure prise en charge des patients dans le respect mutuel." }
+];
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+													<li><a href="definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Éthique et droit</span>
+												<ul>
+													<li><a href="introduction_droit_sante.html">Introduction au droit de la santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>
