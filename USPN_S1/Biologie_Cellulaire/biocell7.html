@@ -1,0 +1,1130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Compartiments membranaires I</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: 'Quelle est la particularité des cellules eucaryotes par rapport aux procaryotes ?', answer: 'Elles possèdent un phénomène de compartimentation', },
+{ question: 'Les cellules procaryotes ont-elles une compartimentation ?', answer: 'Non', },
+{ question: 'Quand cette compartimentation a-t-elle été acquise ?', answer: 'Au cours de l’évolution', },
+{ question: 'Que permet la compartimentation dans les cellules eucaryotes ? (2 réponses)', answer: 'Construire une enveloppe autour du matériel génétique et former un réseau de membranes à l’intérieur de la cellule', },
+{ question: 'Que constituent les réseaux de membranes dans la cellule ?',answer: 'Les compartiments membranaires', },
+{ question: 'Pourquoi les compartiments membranaires sont-ils importants ?', answer: 'Ils permettent à des réactions incompatibles d’avoir lieu simultanément dans la cellule', },
+{ question: 'Comment sont les compartiments membranaires entre eux sur le plan fonctionnel ?', answer: 'Indépendants', },
+{ question: 'Quelle proportion du volume cellulaire est représentée par le cytosol chez les eucaryotes ?', answer: 'Un peu plus de 50%', },
+{ question: 'Que contient le cytosol ?', answer: 'Une grande variété d’organites et de vésicules intracytoplasmiques entourées de membrane', },
+{ question: 'Quelles sont les deux grandes voies du système endomembranaire ?', answer: 'Les voies exportatrices et les voies importatrices ou lytiques', },
+{ question: 'Que comprennent les voies exportatrices ?', answer: 'Synthèse, sécrétion, exocytose', },
+{ question: 'Quels organites assurent les opérations des voies exportatrices ?', answer: 'Le réticulum endoplasmique, l’appareil de Golgi, les vésicules de sécrétion', },
+{ question: 'Quels organites interviennent dans les voies importatrices ?', answer: 'Les lysosomes, le RE et l’appareil de Golgi', },
+{ question: 'Quel est le rôle du RE et du Golgi dans les voies importatrices ?', answer: 'Synthèse des enzymes à pH acide permettant la dégradation', },
+{ question: 'Quels sont les deux volets du métabolisme cellulaire ?', answer: 'Anabolisme et catabolisme', },
+{ question: 'Que désigne l’anabolisme ?', answer: 'L’élaboration de molécules complexes', },
+{ question: 'Que désigne le catabolisme ?', answer: 'La dégradation de substances ingérées ou produites', },
+{ question: 'Quelle proportion du volume cellulaire est occupée par le réticulum endoplasmique ?', answer: '10%', },
+{ question: 'Quelle proportion des membranes cellulaires est représentée par le réticulum endoplasmique ?', answer: '50%', },
+{ question: 'Quelles sont les deux formes fonctionnelles du RE ?', answer: 'RE lisse et RE rugueux', },
+{ question: 'Quelle est la particularité du RE rugueux ?', answer: 'Il porte des ribosomes sur sa face hyaloplasmique (cytosolique)', },
+{ question: 'Avec quelle structure le RE rugueux est-il en continuité ?', answer: 'Avec l’enveloppe nucléaire', },
+{ question: 'Quelles sont les fonctions du RE rugueux ?', answer: 'Synthèse des protéines et fabrication des glycoprotéines', },
+{ question: 'Quelle est la particularité du RE lisse ?', answer: 'Il ne possède pas de ribosomes en surface', },
+{ question: 'Le RE lisse est-il toujours en continuité avec le RE rugueux ?', answer: 'Non, pas systématiquement', },
+{ question: 'Quelles sont les 3 fonctions du RE lisse ?', answer: 'Synthèse des lipides et stéroïdes, désintoxication, métabolisme des lipides', },
+{ question: 'La morphologie du RE est-elle constante ?', answer: 'Non, elle est variable selon la fonction de la cellule', },
+{ question: 'La morphologie du RE varie-t-elle au sein d’un même type cellulaire ?', answer: 'Oui', },
+{ question: 'Sous quelle forme se présente le RE dans les cellules riches en REL ?', answer: 'Sous forme de fins tubules très contournés', },
+{ question: 'Dans quels types de cellules trouve-t-on fréquemment un REL abondant ?', answer: 'Cellules musculaires et cellules à fort métabolisme lipidique', },
+{ question: 'Sous quelle forme se présente le RE dans les cellules riches en REG ?', answer: 'Sous forme de sacs aplatis en nappes parallèles', },
+{ question: 'Dans quels types de cellules trouve-t-on fréquemment un REG abondant ?', answer: 'Cellules qui élaborent de grandes quantités de protéines', },
+{ question: 'Sous quelle forme se présente plus rarement le RE ?', answer: 'Sous forme de vésicules globulaires', },
+{ question: 'Quelle est la place du RE dans les cellules eucaryotes ?', answer: 'C’est l’organite prépondérant', },
+{ question: 'De quoi est constitué l’appareil de Golgi ?', answer: 'De dictyosomes', },
+{ question: 'Qu’est-ce qu’un dictyosome ?', answer: 'Un empilement de 4 à 8 saccules aplatis', },
+{ question: 'Comment se présentent les extrémités des saccules golgiens ?', answer: 'En ampoules élargies où bourgeonnent des vésicules', },
+{ question: 'Comment est organisé l’appareil de Golgi dans les cellules animales ?', answer: 'En réseau de dictyosomes', },
+{ question: 'Comment est organisé l’appareil de Golgi dans les cellules végétales ?', answer: 'En dictyosomes isolés', },
+{ question: 'Dans quels types de cellules l’appareil de Golgi est-il très abondant ?', answer: 'Dans les cellules sécrétrices riches en polysaccharides', },
+{ question: 'Donne un exemple de cellules avec un appareil de Golgi très abondant ?', answer: 'Les cellules mucigènes de l’intestin', },
+{ question: 'Quelle est l’origine des saccules Golgiens ?', answer: 'La confluence de vésicules provenant du RE', },
+{ question: 'D’où viennent les vésicules fusionnant pour former les saccules Golgiens ?', answer: 'Principalement du REG', },
+{ question: 'Quels sont les trois compartiments du Golgi ?', answer: 'Compartiment Cis, Médian et Trans', },
+{ question: 'Quelle est la fonction du compartiment Cis ?', answer: 'Phase de formation', },
+{ question: 'Vers quoi est tourné le compartiment Cis ?', answer: 'Vers le REG', },
+{ question: 'Y a-t-il un déplacement unidirectionnel entre le REG et le Golgi ?', answer: 'Non', },
+{ question: 'Quelle est la caractéristique du compartiment Médian ?', answer: 'Saccules empilés avec ampoules élargies', },
+{ question: 'Combien de saccules contient en moyenne le compartiment Médian ?', answer: '5', },
+{ question: 'Quelle est la fonction du compartiment Trans ?', answer: 'Phase de maturation', },
+{ question: "Qu'est ce qui prolonge le compartiment Trans ?", answer: 'De nombreuses vésicules', },
+{ question: 'Que peuvent porter certaines vésicules issues du compartiment Trans ?', answer: 'Des manteaux protéiques à coatomères (COP) ou à clathrine', },
+{ question: 'Quelle est la fonction du réseau trans-golgien ?', answer: 'Tri et adressage des molécules élaborées', },
+{ question: 'Quelle est la fonction principale de l’appareil de Golgi ?', answer: 'Modification et tri des protéines', },
+{ question: 'Quelle est la taille des lysosomes ?', answer: '0.05 à 0.5 μm', },
+{ question: 'Comment est la morphologie des lysosomes ?', answer: 'Très hétérogène', },
+{ question: 'Quelle est la forme des lysosomes ?', answer: 'Sacs sphériques entourés d’une membrane', },
+{ question: 'Que contiennent les lysosomes ?', answer: 'Des hydrolases acides', },
+{ question: 'D’où proviennent les enzymes lysosomales ?',answer: 'Du RE et de l’appareil de Golgi', },
+{ question: 'Quel est le pH optimal des enzymes lysosomales ?', answer: 'Entre 4 et 5', },
+{ question: 'Comment est maintenu le pH acide des lysosomes ?', answer: 'Par des pompes H+/ATPase', },
+{ question: 'Pourquoi la membrane lysosomale est-elle hermétique ?', answer: 'Pour retenir un contenu enzymatique potentiellement toxique pour la cellule', },
+{ question: 'Qu’est-ce qui remplace les lysosomes dans la cellule végétale ?', answer: 'Les vacuoles', },
+{ question: 'Combien de vacuoles dans les cellules végétales en croissance ?', answer: 'Plusieurs petites vacuoles', },
+{ question: 'Combien de vacuoles dans les cellules végétales différenciées ?', answer: 'Une vacuole unique', },
+{ question: 'Qui a mis en évidence les lysosomes ?', answer: 'Christian de Duve en 1955', },
+{ question: 'Quand Christian de Duve a-t-il reçu le prix Nobel ?', answer: 'En 1974', },
+{ question: 'Pourquoi la membrane lysosomale est-elle importante ?', answer: 'Car une fuite peut compromettre l’intégrité cellulaire', },
+{ question: 'Quels sont les 3 rôles de la membrane des lysosomes ?', answer: 'Maintien du système clos, passage des H+, sortie des produits digérés', },
+{ question: 'Par quoi se fait la sortie des produits digérés du lysosome ?', answer: 'Par des perméases/porines', },
+{ question: 'Comment la membrane des lysosomes est-elle protégée de la digestion ?', answer: 'Par des glycoprotéines LAMP', },
+{ question: 'Quels sont les deux types de LAMP ?', answer: 'LAMP 1 et LAMP 2', },
+{ question: 'Quelle est la structure des protéines LAMP ?', answer: 'Domaine luminal, portion transmembranaire, queue cytoplasmique courte', },
+{ question: 'Qu’est-ce qui confère la capacité de protection aux LAMP ?', answer: 'Leur richesse en carbohydrates', },
+{ question: 'Qu’est-ce qu’un phagolysosome ?', answer: 'Un phagolysosome est issu de la fusion des vésicules chargées d’hydrolases acides avec des vésicules de phagocytose (phagosomes).', },
+{ question: 'Que contiennent les vésicules de phagocytose ?', answer: 'Des microorganismes ou de larges particules indésirables destinées à être détruites par les cellules.', },
+{ question: 'Dans quelles cellules les phagolysosomes sont-ils nombreux ?', answer: 'Dans les cellules phagocytaires comme les macrophages ou les globules blancs.', },
+{ question: 'Que reçoivent les lysosomes ?', answer: 'Du matériel à dégrader provenant des endosomes.', },
+{ question: 'Comment les éléments extracellulaires sont-ils internalisés dans les lysosomes ?', answer: 'Par pinocytose ou endocytose.', },
+{ question: 'Pourquoi les lysosomes sont-ils difficiles à isoler ?', answer: 'Parce qu’il est difficile de les différencier.', },
+{ question: 'Comment faciliter la reconnaissance des lysosomes ?', answer: 'En utilisant des marqueurs enzymatiques spécifiques.', },
+{ question: 'Qu’est-ce qu’un autophagolysosome ?', answer: 'C’est une structure résultant de la fusion des vésicules chargées d’hydrolases avec des autophagosomes.', },
+{ question: 'Que contiennent les autophagosomes ?', answer: 'Des débris ou substances propres à la cellule dont elle doit se débarrasser, comme une mitochondrie non fonctionnelle.', },
+{ question: 'Quel mécanisme les autophagolysosomes utilisent-ils ?', answer: 'L’autophagie.', },
+{ question: 'Pourquoi les compartiments du système endomembranaire sont-ils difficiles à observer ?', answer: 'Parce qu’ils sont difficiles à différencier.', },
+{ question: 'Que peut-on utiliser pour différencier les compartiments du système endomembranaire ?', answer: 'Des marqueurs enzymatiques spécifiques.', },
+{ question: 'À quoi sert la méthode du fractionnement subcellulaire ?', answer: 'À étudier la composition et la fonction des compartiments du système endomembranaire.', },
+{ question: 'Quel est le principe du fractionnement subcellulaire ?',answer: 'Isoler par centrifugation différentielle les différents organites ou composants d’une cellule.', },
+{ question: 'Que fait-on à partir d’une fraction réticulaire dans le fractionnement ?', answer: 'On centrifuge à très grande vitesse un broyat cellulaire.', },
+{ question: 'Quelle est la vitesse de centrifugation utilisée dans le fractionnement ?', answer: '100 000 tours/minute.', },
+{ question: 'Qu’entraîne la force de centrifugation dans le fractionnement ?', answer: 'Les composants cellulaires migrent vers le fond du tube.', },
+{ question: 'De quoi dépend la migration des composants cellulaires ?', answer: 'De leur taille, forme et densité.', },
+{ question: 'Quels composants migrent le plus profondément dans le tube ?', answer: 'Ceux qui sont les plus volumineux, denses et de grande taille.', },
+{ question: 'Comment s’exprime la vitesse de sédimentation des particules ?', answer: 'En unités Svedberg.', },
+{ question: 'Que trouve-t-on en bas du tube lors du fractionnement du réticulum ?', answer: 'Le REG, ou fraction lourde (microsomes rugueux).', },
+{ question: 'Pourquoi le REG est-il lourd ?', answer: 'Parce que ses membranes sont alourdies par les ribosomes.', },
+{ question: 'Que trouve-t-on en position intermédiaire dans le tube ?', answer: 'Les agrégats golgiens (fraction moyenne).', },
+{ question: 'Que trouve-t-on en haut du tube ?', answer: 'Le REL et la membrane plasmique (fraction légère = microsomes lisses).', },
+{ question: 'Quels changements accompagnent les transports cytotiques ?', answer: 'Des modifications morphologiques visibles de la membrane.', },
+{ question: 'Quel élément cellulaire intervient dans les transports cytotiques ?', answer: 'Le cytosquelette.', },
+{ question: 'Les transports cytotiques nécessitent-ils de l’énergie ?', answer: 'Oui, ils sont énergie-dépendants.', },
+{ question: 'Que sont les cytoses ?', answer: 'Un système de transport à l’intérieur de la cellule pour des molécules de haut poids moléculaire.', },
+{ question: 'Quel est le nom du transport d’entrée des molécules dans la cellule ?', answer: 'L’endocytose.', },
+{ question: 'Quel est le nom du transport de sortie des molécules de la cellule ?', answer: 'L’exocytose.', },
+{ question: 'Quel est l’effet de l’endocytose sur la membrane ?', answer: 'Elle provoque une perte de membrane.', },
+{ question: 'Comment la perte de membrane est-elle compensée ?', answer: 'Par l’exocytose.', },
+{ question: 'Quelle est la taille des molécules internalisées par endocytose ?', answer: 'De quelques nm à quelques µm.', },
+{ question: 'Qu’est-ce que la transcytose ?', answer: 'Formation d’une vésicule qui traverse la cellule de part en part.', },
+{ question: 'Donner un exemple de cellule réalisant la transcytose.', answer: 'Les cellules endothéliales.', },
+{ question: 'Quels types d’endocytose existe-t-il ?', answer: 'Pinocytose à vésicule lisse, pinocytose à manteau de clathrine, potocytose, macropinocytose, phagocytose.', },
+{ question: 'Quelle est la taille d’une vésicule lisse de pinocytose lisse ?', answer: '150 nm de diamètre.', },
+{ question: 'La pinocytose à vésicule lisse est-elle spécifique ?', answer: 'Non, elle est non spécifique.', },
+{ question: 'Quelle est la première étape de la pinocytose à vésicule lisse ?', answer: 'Le bourgeonnement, la déformation et l’invagination de la membrane.', },
+{ question: 'Quand la vésicule se ferme-t-elle ?', answer: 'Quand elle est suffisamment remplie.', },
+{ question: 'Que devient la vésicule après sa fermeture ?', answer: 'Elle rejoint le système endosomal.', },
+{ question: 'Quelle est la taille d’une vésicule à manteau de clathrine ?', answer: '50 à 150 nm.', },
+{ question: 'Le transport par clathrine est-il spécifique ?', answer: 'Oui, il est hautement spécifique.', },
+{ question: 'Quelle molécule permet la fermeture de la vésicule à clathrine ?', answer: 'La dynamine.', },
+{ question: 'Comment la clathrine est-elle recyclée ?', answer: 'Par des protéines chaperonnes.', },
+{ question: 'Comment s’appelle l’endosome formé après déshabillement ?', answer: 'L’endosome précoce.', },
+{ question: 'Quelle est la structure des molécules de clathrine ?', answer: 'Des complexes protéiques de 180 kDa, avec 3 chaînes longues et 3 courtes formant un triskelion.', },
+{ question: 'Comment la clathrine force-t-elle la membrane à se courber ?', answer: 'Par l’assemblage spontané en corbeille d’hexagones et de pentagones avec l’adaptine.', },
+{ question: 'Quel est le rôle de l’adaptine ?', answer: 'Intermédiaire entre la clathrine et la membrane plasmique.', },
+{ question: 'Que contient un LDL ?', answer: 'Des phospholipides, du cholestérol et une protéine.', },
+{ question: 'Que signifie LDL ?', answer: 'Low Density Lipoprotein.', },
+{ question: 'Comment les LDL sont-ils reconnus ?', answer: 'Par leurs récepteurs membranaires spécifiques.', },
+{ question: 'Comment la vésicule contenant les LDL se pince-t-elle ?', answer: 'Par l’action de la dynamine via l’hydrolyse du GTP.', },
+{ question: 'Qu’est-ce qui permet le recyclage du manteau de clathrine ?', answer: 'Des molécules chaperonnes de type HSP70 et l’hydrolyse de l’ATP.', },
+{ question: 'Comment l’endosome devient-il tardif ?', answer: 'Par acidification via des pompes H+/ATPase.', },
+{ question: 'Que provoque la baisse de pH dans l’endosome ?', answer: 'Le détachement des LDL de leurs récepteurs.', },
+{ question: 'Où vont les LDL après l’endosome tardif ?', answer: 'Dans le compartiment lysosomal.', },
+{ question: 'Que deviennent les récepteurs après détachement des LDL ?', answer: 'Ils bourgeonnent dans une vésicule de recyclage.', },
+{ question: 'Que devient la vésicule de recyclage des récepteurs ?', answer: 'Elle retourne à la membrane plasmique par exocytose.', },
+{ question: "Quel est le type d’endocytose découvert récemment ?", answer: "La potocytose", },
+{ question: "Où se déroule la potocytose ?", answer: "Dans les microdomaines spécialisés de la membrane appelés radeaux ou RAFTS", },
+{ question: "Que retrouve-t-on dans les radeaux membranaires ?", answer: "Du cholestérol, des sphingolipides, des gangliosides et des glycoprotéines ancrées par des ancres GPI", },
+{ question: "Quelle protéine recouvre l’intérieur de la membrane dans les radeaux lors de la potocytose ?", answer: "La cavéoline", },
+{ question: "Quel est le poids moléculaire de la cavéoline ?", answer: "21 kDa", },
+{ question: "Quels récepteurs la potocytose peut-elle faire intervenir ?", answer: "Des récepteurs membranaires non transmembranaires", },
+{ question: "Quelle est la première étape de la potocytose ?", answer: "Fixation des ligands par les récepteurs et bourgeonnement d’une cavéole", },
+{ question: "Quand la cavéole se détache-t-elle ?", answer: "Après être suffisamment remplie", },
+{ question: "Quelle enzyme permet la fermeture et le détachement de la vésicule lors de la potocytose ?", answer: "La dynamine", },
+{ question: "Que permet l’acidification de la vésicule lors de la potocytose ?", answer: "La rupture des liaisons entre le récepteur et le ligand", },
+{ question: "Quelles sont les deux possibilités pour la libération du contenu des cavéoles ?", answer: "Dans le cytosol ou par transcytose", },
+{ question: "Où trouve-t-on un grand nombre de cavéoles ?", answer: "Dans les cellules endothéliales", },
+{ question: "Le contenu des cavéoles peut-il être transféré dans l’appareil de Golgi ?", answer: "Oui", },
+{ question: "Que deviennent les récepteurs membranaires après la libération du contenu des cavéoles ?", answer: "Ils sont remis à jour ou libérés à la membrane", },
+{ question: "Quel exemple illustre la potocytose ?", answer: "L’internalisation de la toxine du choléra", },
+{ question: "Les cavéoles fusionnent-elles avec le système endosomal ?", answer: "Non", },
+{ question: "Est-ce que les macro-pinosomes sont recouverts de clathrine ?", answer: "Non.", },
+{ question: "Quelle est la taille maximale des macro-pinosomes ?", answer: "500 nm ou plus", },
+{ question: "Dans quelles conditions se forment les macro-pinosomes ?", answer: "En réponse à des facteurs de croissance ou des agents carcinogènes", },
+{ question: "Quel est le rôle de la macropinocytose ?", answer: "Création de phagosomes et absorption de gros éléments", },
+{ question: "La phagocytose nécessite-t-elle de l’énergie ?", answer: "Oui", },
+{ question: "Quelle est la première étape de la phagocytose ?", answer: "L’opsonisation", },
+{ question: "Qu’est-ce que l’opsonisation ?", answer: "Fixation d’anticorps sur la paroi bactérienne", },
+{ question: "Quelle est la deuxième étape de la phagocytose ?", answer: "Le chimiotactisme", },
+{ question: "Quelle est la troisième étape de la phagocytose ?", answer: "Formation de pseudopodes et phagosome", },
+{ question: "Quelle est la quatrième étape de la phagocytose ?", answer: "Digestion de la bactérie", },
+{ question: "Vers quoi convergent tous les systèmes d’endocytose ?", answer: "Le système endosomal", },
+{ question: "Qu’est-ce qu’un endosome et ou est-il situé en général ?", answer: "Une vésicule internalisée, généralement en périphérie de la cellule", },
+{ question: "Quels sont les deux types d’endosomes ?", answer: "Les endosomes précoces et tardifs", },
+{ question: "Quel est le rôle des endosomes précoces ?", answer: "Compartiment de tri", },
+{ question: "Où sont localisés les endosomes précoces ?", answer: "En périphérie de la cellule", },
+{ question: "Que deviennent les molécules des endosomes précoces ?", answer: "Elles sont recyclées ou transférées vers la voie lysosomale", },
+{ question: "Quel est le rôle des endosomes tardifs ?", answer: "Ils assurent la dégradation des molécules", },
+{ question: "Comment se forment les endosomes tardifs ?", answer: "Par maturation des endosomes précoces", },
+{ question: "Comment les molécules sont-elles transférées entre endosomes précoces et tardifs ?", answer: "Par les corps multivésiculaires", },
+{ question: "Quel est le devenir des récepteurs dans les endosomes tardifs ?", answer: "Ils sont transportés vers le réseau transgolgien", },
+{ question: "Quel type de récepteurs est impliqué dans les endosomes tardifs ?", answer: "Les récepteurs au mannose-6-phosphate", },
+{ question: "Les lysosomes contiennent-ils encore ces récepteurs au mannose-6-phosphate ?", answer: "Non", },
+{ question: "Pourquoi les hydrolases peuvent-elles fonctionner dans les lysosomes ?", answer: "À cause du pH acide", },
+{ question: "Quel est le pH des vésicules bourgeonnantes initiales ?", answer: "7", },
+{ question: "Quel est le pH des endosomes précoces ?", answer: "6,0 à 6,2", },
+{ question: "Quel est le pH des endosomes tardifs ?", answer: "Environ 5,5", },
+{ question: "Quel est le pH des lysosomes ?", answer: "5", },
+{ question: "Que permet l’acidification des endosomes ?", answer: "La dissociation récepteurs/ligands", },
+{ question: "Comment les hydrolases sont-elles libérées dans les endosomes tardifs ?", answer: "Par détachement de leurs récepteurs au mannose-6-phosphate", },
+{ question: "Où retournent les récepteurs mannose-6-phosphate après avoir libéré les hydrolases ?", answer: "Vers l’appareil de Golgi", },
+{ question: "Qu’est-ce que l’exocytose ?", answer: "La sortie de particules par mouvement de membrane", },
+{ question: "L’exocytose entraîne-t-elle un gain ou une perte de membrane ?", answer: "Un gain de membrane", },
+{ question: "Quelles cellules eucaryotes ne présentent pas d’exocytose ?", answer: "Les globules rouges", },
+{ question: "D’où proviennent les vésicules d’exocytose ?", answer: "Du réticulum endoplasmique", },
+{ question: "Quel est le trajet des vésicules d’exocytose ?", answer: "RE → appareil de Golgi → membrane plasmique", },
+{ question: "Le déplacement des vésicules se fait grâce à quoi ?", answer: "Au cytosquelette et à des protéines motrices", },
+{ question: "Quel est le manteau des vésicules d’exocytose constitutive ?", answer: "Des coatomères : COP", },
+{ question: "Quel est le type de mécanisme de l’exocytose constitutive ?", answer: "Permanent", },
+{ question: "Quel est le rôle de l’exocytose constitutive ?", answer: "Renouvellement des constituants de la membrane plasmique et de la matrice extracellulaire", },
+{ question: "Que transporte l’exocytose constitutive ?", answer: "Protéines membranaires, substituants fabriqués dans la cellule", },
+{ question: "Quel est le manteau des vésicules d’exocytose induite ?", answer: "De la clathrine", },
+{ question: "Quel est le type de mécanisme de l’exocytose induite ?", answer: "Non permanent", },
+{ question: "Quand se déclenche l’exocytose induite ?", answer: "Après stimulation extérieure et fixation de ligands", },
+{ question: "Que transporte l’exocytose induite ? (5 réponses)", answer: "Hormones, facteurs de croissance, mucus, enzymes digestives, enzymes lysosomiales", },
+{ question: "Que deviennent les manteaux des vésicules avant fusion avec la membrane plasmique ?", answer: "Ils sont perdus", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

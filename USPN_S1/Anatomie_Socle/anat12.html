@@ -1,0 +1,1051 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie Socle</h1><h2>Système nerveux</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData = [
+  { question: "Quelles sont les fonctions du système nerveux ?", answer: "Vie de relation, intégration des évènements sensitifs/sensoriels, réponse par des messages volontaires (motricité), fonctionnement autonome de certains viscères (SNA)" },
+{ question: { type: "image", src: "../../images/anat12_q1.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a1.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q2.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a2.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q3.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a3.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q4.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a4.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q5.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a5.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q6.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a6.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q7.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a7.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q8.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a8.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q9.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a9.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q10.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a10.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q11.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a11.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat12_q12.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat12_a12.jpg", alt: "Schéma réponse" } },
+  { question: "Quels sont les trois éléments principaux qui composent l’encéphale ?", answer: "Cerveau, cervelet, tronc cérébral" },
+  { question: "Quelle est la forme du cerveau ?", answer: "Forme ovoïde" },
+  { question: "Où se situe le cervelet par rapport au cerveau ?", answer: "En arrière du cerveau" },
+  { question: "Quels sont les trois segments du tronc cérébral ?", answer: "Pédoncules cérébraux, pont (protubérance annulaire), bulbe (ou moelle allongée)" },
+  { question: "Où se situe le pont dans le tronc cérébral ?", answer: "Sous les pédoncules cérébraux, dans la région renflée" },
+  { question: "Qu’est-ce que le bulbe ?", answer: "La partie inférieure du tronc cérébral, aussi appelée moelle allongée" },
+  { question: "Où se situe la moelle épinière ?", answer: "Dans la colonne vertébrale" },
+  { question: "Quelles sont les trois régions de la moelle épinière ?", answer: "Renflement cervical, moelle dorsale, renflement lombaire" },
+  { question: "Quels éléments forment le système nerveux central ?", answer: "Encéphale + moelle épinière" },
+  { question: "De quoi sont formés les nerfs ?", answer: "De racines nerveuses émanant du système nerveux central" },
+  { question: "Comment appelle-t-on les nerfs partant de la moelle ?", answer: "Nerfs rachidiens" },
+  { question: "Qu’est-ce que la “queue de cheval” ?", answer: "Regroupement des nerfs rachidiens au niveau lombo-sacré" },
+  { question: "À quel système appartiennent les nerfs rachidiens ?", answer: "Au système nerveux périphérique" },
+  { question: "Qu’est-ce qu’un plexus nerveux ?", answer: "Mélange de fibres venant de différents nerfs rachidiens" },
+  { question: "Quel est le rôle des plexus ?", answer: "Former des nerfs périphériques pour l’innervation, par exemple, du membre supérieur" },
+  { question: "D’où partent les nerfs crâniens ?", answer: "Du tronc cérébral" },
+  { question: "Combien y a-t-il de paires de nerfs crâniens ?", answer: "12" },
+  { question: "À quel système appartiennent les nerfs crâniens ?", answer: "Au système nerveux périphérique" },
+  { question: "À quoi s’intéresse le système nerveux volontaire ?", answer: "À la vie de relation" },
+  { question: "Quels types d’informations mélange et transporte le système nerveux volontaire ?", answer: "Sensitive, sensorielle et motrice" },
+  { question: "Quels systèmes retrouve-t-on dans le système nerveux volontaire ?", answer: "Système nerveux de la motricité propositionnelle et motricité automatique" },
+  { question: "Quelle est la particularité de la motricité propositionnelle ?", answer: "Elle est sous le contrôle de la volonté" },
+  { question: "Quelle motricité accompagne le geste propositionnel ?", answer: "La motricité automatique" },
+  { question: "Quels sont les centres impliqués dans la motricité propositionnelle ?", answer: "Le cortex, principalement" },
+  { question: "Où se trouvent les centres de la motricité automatique ?", answer: "Dans la région sous-corticale, au niveau des noyaux gris centraux" },
+  { question: "Où retrouve-t-on également des centres moteurs et sensitifs ?", answer: "Au niveau de la moelle" },
+  { question: "Où sont présentes les voies du système nerveux volontaire ?", answer: "Tout au long du système nerveux central" },
+  { question: "Le système nerveux autonome est-il sous le contrôle de la volonté ?", answer: "Non" },
+  { question: "Quelle est la particularité du système nerveux autonome ?", answer: "Il est complètement autonome, on ne peut pas reprendre le contrôle" },
+  { question: "De quoi est aussi composé le système nerveux autonome ?", answer: "De centres et de voies sensitive, motrice et sensorielle" },
+  { question: "Quels sont les deux groupes du système nerveux autonome ?", answer: "Voies sympathiques et voies parasympathiques" },
+  { question: "Où trouve-t-on les centres végétatifs ?", answer: "Dans le tronc cérébral et dans le cerveau" },
+  { question: "Quelle est la fonction des centres végétatifs ?", answer: "Ils gèrent la sensibilité végétative" },
+  { question: "Comment sont les voies du système nerveux autonome ?", answer: "Propres, spécifiques ou communes avec le système nerveux volontaire" },
+  { question: "Que donne le corps cellulaire d’un neurone ?", answer: "Un prolongement appelé axone" },
+  { question: "De quoi sont entourés les axones ?", answer: "D’une gaine de myéline" },
+  { question: "Par quoi se terminent les axones ?", answer: "Par un système dendritique" },
+  { question: "Où sont contenus les corps cellulaires des neurones ?", answer: "Dans la substance grise" },
+  { question: "Où sont contenus les axones des neurones ?", answer: "Dans la substance blanche" },
+  { question: "Où trouve-t-on la substance grise dans le cerveau ?", answer: "Dans le cortex cérébral" },
+  { question: "Quelles structures présente le cortex cérébral ?", answer: "Des circonvolutions avec des gyrus et des sillons" },
+  { question: "Quel est l’intérêt des gyrus et sillons du cortex ?", answer: "Augmenter la surface du cortex" },
+  { question: "Quelle est la localisation des corps cellulaires dans le cortex ?", answer: "Dans la substance grise" },
+  { question: "Où circulent les axones provenant du cortex ?", answer: "Dans la substance blanche sous-corticale" },
+  { question: "Comment s’organise la substance blanche ?", answer: "En faisceaux" },
+  { question: "Que sont les faisceaux de substance blanche ?", answer: "Des regroupements d’axones venant d’une même zone topographique" },
+  { question: "Quelle est la disposition de la substance grise dans la moelle ?", answer: "Centrale" },
+  { question: "De quoi est formée la substance grise de la moelle ?", answer: "De corps cellulaires" },
+  { question: "Quels rôles jouent les cornes ventrales et dorsales de la moelle ?", answer: "Cornes ventrales : motricité, Cornes dorsales : somesthésie (sensibilité)" },
+  { question: "Que forment les deux cornes de la moelle ?", answer: "Les racines motrices et sensitives, qui forment le nerf rachidien" },
+  { question: "Où se situe le canal épendymaire ?", answer: "Au centre des deux cornes de la moelle" },
+  { question: "Que contient la substance blanche de la moelle ?", answer: "Des cordons contenant des faisceaux, zones de communication" },
+  { question: "Quelle est la localisation de la substance blanche dans le cerveau ?", answer: "Sous-corticale et centrale" },
+  { question: "Quelle est la localisation de la substance blanche dans la moelle ?", answer: "Périphérique" },
+  { question: "Que transporte la substance blanche ?", answer: "Des fibres" },
+  { question: "De quoi est constituée la substance blanche ?", answer: "D’axones myélinisés des neurones" },
+  { question: "De combien d’hémisphères est composé le cerveau ?", answer: "De deux hémisphères" },
+  { question: "Quelles faces présente chaque hémisphère cérébral ?", answer: "Une face latérale, une face médiale et une face inférieure" },
+  { question: "Par quoi sont réunis les deux hémisphères cérébraux ?", answer: "Par le corps calleux" },
+  { question: "De quoi est constitué le corps calleux ?", answer: "De substance blanche (fibres myélinisées)" },
+  { question: "Quelle est la forme du corps calleux ?", answer: "Une forme allongée de banane avec deux extrémités et un corps" },
+  { question: "Quelle zone est présente sur l’hémisphère gauche chez les droitiers ?", answer: "La zone du langage (aire de Broca)" },
+  { question: "Quelle est la conséquence d’une atteinte de l’aire de Broca ?", answer: "Une aphasie (troubles de l’articulation du langage)" },
+  { question: "Quelle est la forme des ventricules latéraux ?", answer: "Une forme de fer à cheval" },
+  { question: "Que contiennent les ventricules cérébraux ?", answer: "Du liquide cérébro-spinal" },
+  { question: "Quel est le rôle du liquide cérébro-spinal dans les ventricules ?", answer: "Se répandre dans les ventricules" },
+  { question: "Quels sont les ventricules cérébraux dans l’ordre ?", answer: "Ventricules latéraux, 3e ventricule, 4e ventricule" },
+  { question: "Où se trouvent les ventricules latéraux ?", answer: "Sous le corps calleux" },
+  { question: "Où se trouve le 3e ventricule ?", answer: "Sur la ligne médiane" },
+  { question: "À quoi fait suite le 4e ventricule ?", answer: "Au 3e ventricule" },
+  { question: "Quel est le trajet du liquide cérébro-spinal ?", answer: "Des ventricules latéraux vers le 3e ventricule, puis vers le 4e ventricule" },
+  { question: "Que permet l’ouverture postérieure du 4e ventricule ?", answer: "La diffusion du liquide autour du cerveau" },
+  { question: "Par quoi est excrété le liquide cérébro-spinal ?", answer: "Par les plexus choroïdes" },
+  { question: "Que sont les plexus choroïdes ?", answer: "Des composantes vasculaires" },
+  { question: "Quel est le rôle du liquide cérébro-spinal pour le cerveau ?", answer: "Sert de sustentation et joue un rôle nourricier au niveau des méninges" },
+  { question: "Où se répand le liquide cérébro-spinal après les ventricules ?", answer: "Autour de la moelle dans le canal rachidien" },
+  { question: "Pourquoi peut-on faire une ponction lombaire ?", answer: "Car le liquide cérébro-spinal se répand dans le canal rachidien en dessous de la moelle" },
+  { question: "À quoi sert la ponction lombaire ?", answer: "À diagnostiquer des méningites ou des hémorragies" },
+  { question: "Que sont les noyaux gris centraux ?", answer: "Des amas de corps cellulaires (substance grise) présents dans la substance blanche" },
+  { question: "Où sont situés les noyaux gris centraux ?", answer: "Dans la profondeur du cerveau" },
+  { question: "Les noyaux gris centraux sont-ils pairs ou impairs ?", answer: "Pairs, situés de part et d’autre des hémisphères" },
+  { question: "Quels sont les noyaux gris centraux ?", answer: "Le thalamus, le noyau caudé, le noyau lenticulaire" },
+  { question: "Quels noyaux forment le corps strié ?", answer: "Le noyau caudé et le noyau lenticulaire" },
+  { question: "Quelle est la fonction principale des noyaux gris centraux ?", answer: "La gestion de la motricité automatique" },
+  { question: "Quel est le lien entre motricité automatique et propositionnelle ?", answer: "La motricité automatique vient en renfort de la motricité propositionnelle" },
+  { question: "Quel est l’intérêt fonctionnel de la motricité automatique ?", answer: "Soulager le cortex et la conscience des gestes annexes à la motricité volontaire" },
+  { question: "Quelle voie complète l’action de la voie pyramidale ?", answer: "La voie extrapyramidale" },
+  { question: "D’où les noyaux gris centraux reçoivent-ils aussi des informations ?", answer: "Du cortex, notamment du cortex associatif" },
+  { question: "D’où partent les faisceaux de la motricité volontaire ?", answer: "Du cortex frontal, en avant du sillon central" },
+  { question: "Que font les neurones moteurs après leur départ du cortex ?", answer: "Ils descendent, croisent la ligne médiane et poursuivent leur trajet dans la moelle" },
+  { question: "Quel est le nom du neurone de la motricité volontaire ?", answer: "Le neurone cortico-spinal" },
+  { question: "Où le neurone cortico-spinal croise-t-il la ligne médiane ?", answer: "Au niveau de la moelle allongée (bulble)" },
+  { question: "Quel est l’effet de ce croisement sur le contrôle moteur ?", answer: "Un hémisphère contrôle la motricité de l’hémicorps controlatéral" },
+  { question: "Quel est le nom de la voie de la motricité volontaire ?", answer: "La voie cortico-spinale ou voie pyramidale" },
+  { question: "D’où partent les informations sensitives ?", answer: "De la corne dorsale de la moelle spinale" },
+  { question: "Où se fait le croisement des voies de la sensibilité ?", answer: "Le plus souvent au niveau de la moelle" },
+  { question: "Dans quelle structure les informations sensitives montent-elles ?", answer: "Dans le thalamus" },
+  { question: "Quel est le rôle du thalamus dans la sensibilité ?", answer: "Centre de régulation de la sensibilité" },
+  { question: "Où le thalamus envoie-t-il les informations sensitives ?", answer: "Vers le cortex pour les analyser et en prendre conscience" }
+];
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Nutrition</h1><h2>SOCLE - Métabolisme des glucides</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'Quels sont les prérequis nécessaires à l’étude du métabolisme des glucides ?', answer: 'Acides aminés, structure et propriétés ; glucides-lipides-protéines ; notions de thermodynamique ; classes et régulations enzymatiques.', },
+{ question: 'Comment définit-on le métabolisme ?', answer: 'L’ensemble des réactions qui soutiennent la vie d’une cellule et d’un organisme.', },
+{ question: 'Quels sont les deux grands types d’organismes selon la source d’énergie ?', answer: 'Phototrophes (lumière) et chimiotrophes (oxydation des biomolécules).', },
+{ question: 'Quelle molécule est la forme principale d’énergie chimique cellulaire ?', answer: 'L’ATP.', },
+{ question: 'Quels sont les deux grands volets du métabolisme ?', answer: 'Catabolisme et anabolisme.', },
+{ question: 'Quelles réactions prédominent dans le catabolisme ?', answer: 'Les réactions d’oxydation avec réduction concomitante du NAD en NADH.', },
+{ question: 'Quelles réactions prédominent dans l’anabolisme ?', answer: 'Les réactions de réduction avec oxydation concomitante du NADH en NAD⁺.', },
+{ question: 'Quelle est la voie principale du métabolisme des glucides ?', answer: 'La glycolyse.', },
+{ question: 'Quel est l’objectif central du cycle de Krebs en métabolisme ?', answer: 'La production de NADH pour activer la phosphorylation oxydative.', },
+{ question: 'Le glucose fournit-il une énergie rapide ?', answer: 'Oui, il est métabolisé rapidement et fournit une énergie rapide.', },
+{ question: 'Quels monosaccharides peuvent intégrer les voies métaboliques ?', answer: 'Glucose, galactose, mannose, fructose.', },
+{ question: 'Que devient le glucose lorsqu’il n’est pas nécessaire immédiatement pour produire de l’énergie ?', answer: 'Il est stocké sous forme de glycogène.', },
+{ question: 'Que fournit la voie des pentoses phosphates ?', answer: 'Du pouvoir réducteur sous forme de NADPH.', },
+{ question: 'Quels sont les trois objectifs essentiels de la glycolyse ?', answer: 'Production d’ATP, production de NADH, formation de pyruvate ou lactate.', },
+{ question: 'Que permet la lactate déshydrogénase en absence d’oxygène ?', answer: 'La régénération du NAD et la formation de lactate.', },
+{ question: 'Quel est le devenir du lactate produit dans le muscle ?', answer: 'Il passe dans le sang puis va dans le foie pour y former du glucose.', },
+{ question: 'Combien d’ATP sont consommés pendant la phase d’investissement de la glycolyse ?', answer: 'Deux molécules d’ATP.', },
+{ question: 'Combien d’ATP et de NADH sont produits globalement dans la glycolyse ?', answer: '2 ATP et 2 NADH pour un glucose.', },
+{ question: 'Quelle enzyme catalyse la première phosphorylation du glucose ?', answer: 'L’hexokinase.', },
+{ question: 'Quelle est la fonction de la phosphorylation du glucose en G6P ?', answer: 'Engagement du glucose dans la glycolyse et maintien dans la cellule.', },
+{ question: 'Quelle enzyme réalise l’isomérisation du G6P en F6P ?', answer: 'La phosphoglucose isomérase.', },
+{ question: 'Quelle enzyme phosphoryle le fructose 6-phosphate en fructose 1,6-biphosphate ?', answer: 'La phosphofructokinase.', },
+{ question: 'Quelle est l’enzyme centrale du contrôle de la glycolyse ?', answer: 'La phosphofructokinase.', },
+{ question: 'Quelle enzyme scinde le fructose-1,6-biphosphate en deux trioses phosphates ?', answer: 'L’aldolase.', },
+{ question: 'Quel triose phosphate est utilisé pour poursuivre la glycolyse ?', answer: 'Le glycéraldéhyde-3-phosphate (G3P).', },
+{ question: 'Quelle enzyme convertit la dihydroxyacétone-P en G3P ?', answer: 'La phosphotriose isomérase.', },
+{ question: 'Quelle molécule à haute énergie est formée par oxydation du G3P ?', answer: 'Le 1,3-biphosphoglycérate.', },
+{ question: 'Quelle enzyme catalyse la formation du premier ATP de la glycolyse ?', answer: 'La phosphoglycérate kinase.', },
+{ question: 'Quelle enzyme produit le phosphoénolpyruvate ?', answer: 'L’énolase.', },
+{ question: 'Par quelle enzyme est catalysée la dernière étape de la glycolyse ?', answer: 'La pyruvate kinase.', },
+{ question: 'Quel est le bilan global de la glycolyse ?', answer: '2 ATP, 2 NADH et 2 pyruvates.', },
+{ question: 'Pourquoi la glycolyse est-elle possible dans toutes les cellules ?', answer: 'Car elle ne nécessite pas d’oxygène.', },
+{ question: 'Quels sont les trois grands points de contrôle de la glycolyse ?', answer: 'Hexokinase, phosphofructokinase, pyruvate kinase.', },
+{ question: 'Quel est l’inhibiteur allostérique de l’hexokinase ?', answer: 'Le glucose-6-phosphate.', },
+{ question: 'Quels sont les inhibiteurs de la phosphofructokinase ?', answer: 'ATP, citrate, PEP.', },
+{ question: 'Quels sont les activateurs de la phosphofructokinase ?', answer: 'ADP, AMP, cAMP, F2,6BP, F6P, NH4⁺, Pi.', },
+{ question: 'Quel est l’inhibiteur majeur de la pyruvate kinase ?', answer: 'L’ATP.', },
+{ question: 'Quelle enzyme est spécifique du glucose dans le foie ?', answer: 'La glucokinase.', },
+{ question: 'Quelle enzyme possède une faible affinité pour le glucose ?', answer: 'La glucokinase.', },
+{ question: 'Quelle est la fonction principale de la glucokinase ?', answer: 'Phosphoryler le glucose pour le maintenir dans la cellule et contrôler la glycémie.', },
+{ question: 'Comment est régénéré le NAD en anaérobiose ?', answer: 'Par fermentation lactique ou alcoolique.', },
+{ question: 'Comment est régénéré le NAD en aérobiose ?', answer: 'Par oxydation mitochondriale dans la chaîne respiratoire.', },
+{ question: 'Quel est le devenir du pyruvate en absence d’oxygène ?', answer: 'Il est réduit en lactate.', },
+{ question: 'Quel est le devenir du pyruvate en présence d’oxygène ?', answer: 'Il devient acétyl-CoA et entre dans le cycle de Krebs.', },
+{ question: 'Combien d’ATP sont produits lors d’une oxydation complète du glucose (glycolyse + Krebs) ?', answer: 'Environ 30 à 32 ATP.', },
+{ question: 'Dans quels organes a lieu la néoglucogenèse ?', answer: 'Principalement dans le foie et un peu dans le rein.', },
+{ question: 'Le muscle peut-il réaliser la néoglucogenèse ?', answer: 'Non, il est uniquement consommateur.', },
+{ question: 'Combien de réactions irréversibles doivent être contournées dans la gluconéogenèse ?', answer: 'Trois : hexokinase, phosphofructokinase, pyruvate kinase.', },
+{ question: 'Quels sont les précurseurs non-carbohydratés de la néoglucogenèse ?', answer: 'Pyruvate et dérivés.', },
+{ question: 'Quelle enzyme produit l’oxaloacétate à partir du pyruvate ?', answer: 'La pyruvate carboxylase.', },
+{ question: 'Quel est le caractère subcellulaire de la pyruvate carboxylase ?', answer: 'Elle est exclusivement mitochondriale.', },
+{ question: 'Que nécessite la formation du PEP à partir du pyruvate ?', answer: 'Deux étapes et la consommation de 1 ATP et 1 GTP.', },
+{ question: 'Comment la néoglucogenèse contourne-t-elle la première étape irréversible de la glycolyse ?', answer: 'Par la carboxylation du pyruvate en oxaloacétate via la pyruvate carboxylase, puis par la décarboxylation de l’oxaloacétate en PEP avec consommation de GTP.', },
+{ question: 'Quel est le rôle du bicarbonate dans la formation de l’oxaloacétate ?', answer: 'Il sert de source de carbone pour la pyruvate carboxylase.', },
+{ question: 'Combien d’ATP sont consommés lors de la formation mitochondriale de l’oxaloacétate ?', answer: 'Un ATP.', },
+{ question: 'Où peut avoir lieu la formation du phosphoénolpyruvate (PEP) à partir de l’oxaloacétate ?', answer: 'Dans la mitochondrie ou dans le cytoplasme.', },
+{ question: 'Quelle enzyme remplace la phosphofructokinase dans la néoglucogenèse ?', answer: 'La fructose-1,6-bisphosphatase.', },
+{ question: 'Quelle enzyme remplace l’hexokinase dans la néoglucogenèse ?', answer: 'La glucose-6-phosphatase.', },
+{ question: 'Pourquoi la glycolyse et la néoglucogenèse doivent-elles être séparées physiquement ?', answer: 'Pour éviter les cycles futiles où aucune énergie n’est produite ni dépensée.', },
+{ question: 'Quels tissus produisent majoritairement du lactate utilisé dans la néoglucogenèse ?', answer: 'Le globule rouge et le muscle actif en conditions anaérobies.', },
+{ question: 'Quelle enzyme convertit le lactate en pyruvate ?', answer: 'La lactate déshydrogénase.', },
+{ question: 'Pourquoi la conversion du lactate en pyruvate est importante pour la néoglucogenèse ?', answer: 'Elle régénère du NADH utile à la NGG.', },
+{ question: 'Pourquoi l’oxaloacétate ne peut-il pas quitter la mitochondrie ?', answer: 'Il n’existe pas de transporteur pour l’oxaloacétate à travers la membrane mitochondriale.', },
+{ question: 'Sous quelle forme l’oxaloacétate quitte-t-il la mitochondrie ?', answer: 'Sous forme d’aspartate après transamination.', },
+{ question: 'Quel acide aminé est le principal contributeur musculaire à la néoglucogenèse ?', answer: 'L’alanine.', },
+{ question: 'Quelle réaction transforme l’alanine en pyruvate ?', answer: 'Une transamination.', },
+{ question: 'Quels acides aminés convergent vers l’alpha-cétoglutarate pour la NGG ?', answer: 'Histidine, glutamate, glutamine.', },
+{ question: 'Quels acides aminés convergent vers le pyruvate pour la NGG ?', answer: 'Cystéine, sérine, alanine.', },
+{ question: 'Quels acides aminés convergent vers l’oxaloacétate pour la NGG ?', answer: 'Aspartate et asparagine.', },
+{ question: 'Quels acides aminés convergent vers le malate pour la NGG ?', answer: 'Valine et isoleucine.', },
+{ question: 'Quel est le devenir du glycérol dans la néoglucogenèse ?', answer: 'Il est phosphorylé en glycérol-3-phosphate puis oxydé en dihydroxyacétone phosphate.', },
+{ question: 'Quels sont les coûts énergétiques de la néoglucogenèse à partir de lactate ou alanine ?', answer: 'Consommation de 4 ATP et 2 NADH.', },
+{ question: 'Quels sont les coûts énergétiques de la néoglucogenèse à partir du glycérol ?', answer: 'Consommation de NAD⁺ et production de 2 NADH.', },
+{ question: 'Qu’est-ce qu’un cycle futile ?', answer: 'Un cycle où glycolyse et NGG fonctionnent simultanément sans production nette d’énergie.', },
+{ question: 'Comment l’AMP régule-t-il la glycolyse et la NGG ?', answer: 'Il active la glycolyse et inhibe la néoglucogenèse.', },
+{ question: 'Quel est l’effet du fructose 2,6-biphosphate sur la glycolyse ?', answer: 'Il active la glycolyse et inhibe la NGG.', },
+{ question: 'Quelle est la structure du glycogène ?', answer: 'Un polymère de glucose avec des liaisons α1-4 et des ramifications en α1-6.', },
+{ question: 'Où le glycogène est-il stocké ?', answer: 'Dans le foie et le muscle.', },
+{ question: 'Quel est le rôle du glycogène hépatique ?', answer: 'Maintenir la glycémie.', },
+{ question: 'Quel est le rôle du glycogène musculaire ?', answer: 'Alimenter la contraction musculaire.', },
+{ question: 'Quelle est l’enzyme clé de la glycogénolyse ?', answer: 'La glycogène phosphorylase.', },
+{ question: 'Quel produit libère la glycogène phosphorylase ?', answer: 'Du glucose-1-phosphate.', },
+{ question: 'Pourquoi la glycogène phosphorylase ne peut-elle pas libérer des résidus sur les liaisons α1-6 ?', answer: 'À cause d’un encombrement stérique.', },
+{ question: 'Quelle enzyme transfère trois résidus lors du remodelage du glycogène ?', answer: 'La transférase.', },
+{ question: 'Quelle enzyme libère du glucose libre à partir des liaisons α1-6 ?', answer: 'L’alpha-1,6-glucosidase.', },
+{ question: 'Quelle enzyme convertit le glucose-1-phosphate en glucose-6-phosphate ?', answer: 'La phosphoglucomutase.', },
+{ question: 'Dans quel organe la glucose-6-phosphatase permet-elle de libérer du glucose dans le sang ?', answer: 'Dans le foie.', },
+{ question: 'Quelle est la première étape de la glycogénogenèse ?', answer: 'Conversion du G6P en G1P par la phosphoglucomutase.', },
+{ question: 'Quelle molécule active le glucose pour permettre sa polymérisation ?', answer: 'L’UDP-glucose.', },
+{ question: 'Quelle enzyme est centrale dans la synthèse du glycogène ?', answer: 'La glycogène synthase.', },
+{ question: 'Quelle enzyme forme les ramifications α1-6 du glycogène ?', answer: 'L’enzyme de ramification.', },
+{ question: 'Quelle enzyme active le G1P avec l’UTP pour former l’UDP-glucose ?', answer: 'L’UDP-pyrophosphorylase.', },
+{ question: 'Quel est le rôle de la glycogénine ?', answer: 'Servir de support protéique pour l’amorçage du glycogène.', },
+{ question: 'Comment le G6P régule-t-il les enzymes du glycogène ?', answer: 'Il active la glycogène synthase et inhibe la phosphorylase.', },
+{ question: 'Quelle molécule active allostériquement la phosphorylase musculaire ?', answer: 'L’AMP.', },
+{ question: 'Que devient la glycogène synthase lorsqu’elle est phosphorylée ?', answer: 'Elle devient inactive.', },
+{ question: 'Quel est l’effet hormonal de l’insuline sur la glycogène synthase ?', answer: 'Elle active la glycogène synthase via une déphosphorylation.', },
+{ question: 'Comment le glucagon et l’adrénaline activent-ils la phosphorylase ?', answer: 'Via l’AMPc et la protéine kinase A.', },
+{ question: 'Quel tissu est sensible au calcium pour l’activation de la phosphorylase ?', answer: 'Le muscle.', },
+{ question: 'Pourquoi le foie peut-il libérer du glucose alors que le muscle ne le peut pas ?', answer: 'Car le foie possède la glucose-6-phosphatase, absente dans le muscle.', },
+{ question: 'Qu’est-ce que le cycle de Cori ?', answer: 'Le transfert du lactate du muscle vers le foie pour régénérer du glucose.', },
+{ question: 'Quel est le but principal de la voie des pentoses phosphates ?', answer: 'Produire du NADPH et du ribulose-5-phosphate.', },
+{ question: 'Quelle est la phase irréversible de la voie des pentoses phosphates ?', answer: 'La phase oxydative.', },
+{ question: 'Quel est l’initiateur de la voie des pentoses phosphates ?', answer: 'Le glucose-6-phosphate.', },
+{ question: 'Quelle enzyme est le point de contrôle de la voie des pentoses phosphates ?', answer: 'La G6P-déshydrogénase.', },
+{ question: 'Quel est l’inhibiteur principal de la G6P-déshydrogénase ?', answer: 'Le NADPH.', },
+{ question: 'Quel composé est formé après l’ouverture de la gluconolactone ?', answer: 'L’acide gluconique (gluconate).', },
+{ question: 'Quelle enzyme réalise la décarboxylation oxydative du 6-phosphogluconate ?', answer: 'La 6-phosphogluconate déshydrogénase.', },
+{ question: 'Quels sucres peuvent être formés par isomérisation ou épimérisation du ribulose-5-phosphate ?', answer: 'Le ribose-5-phosphate et le xylulose-5-phosphate.', },
+{ question: 'Quels types de réactions réarrangent les carbones dans la phase non oxydative ?', answer: 'Transcétolisation et transaldolisation.', },
+{ question: 'Quels métabolites issus de la voie des pentoses phosphates peuvent réintégrer la glycolyse ?', answer: 'Le fructose-6-phosphate et le glycéraldéhyde-3-phosphate.', },
+{ question: 'Quel métabolite issu de la voie des pentoses peut contribuer à la glycogénogenèse ?', answer: 'Le glucose-1-phosphate.', },
+{ question: 'À quoi servent le ribose et le ribulose produits dans la voie des pentoses ?', answer: 'À la synthèse de l’ADN, ARN, nucléotides et acides nucléiques.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

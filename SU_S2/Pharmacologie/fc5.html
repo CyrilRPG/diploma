@@ -1,0 +1,1037 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Pharmacologie</h1><h2>Pharmacocinétique descriptive (FC5)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quelle est la déﬁnition légale d’un médicament selon le Code de la Santé publique ?', answer: 'Toute substance ou composition présentée comme possédant des propriétés curatives ou préventives, ou pouvant être utilisée chez l’homme ou l’animal pour établir un diagnostic, restaurer, corriger ou modiﬁer des fonctions physiologiques par action pharmacologique, immunologique ou métabolique.' },
+  { question: 'Qu’est-ce qu’une spécialité pharmaceutique ?', answer: 'Médicament fabriqué industriellement et exploité par une entreprise pharmaceutique.' },
+  { question: 'Qu’est-ce qu’une préparation magistrale, hospitalière ou oﬃcinale ?', answer: 'Médicament préparé en pharmacie pour un ou plusieurs patients spéciﬁques (ville : oﬃcine ; hôpital : pharmacie hospitalière).' },
+  { question: 'Qu’est-ce qu’une forme pharmaceutique (ou galénique) ?', answer: 'La forme sous laquelle le médicament est présenté (comprimé, gélule, sirop, collyre, crème, solution injectable…).' },
+  { question: 'Quelle est la composition générale d’un médicament ?', answer: 'Un principe actif + des excipients.' },
+  { question: 'Quel est le rôle des excipients ?', answer: 'Faciliter l’utilisation (absorption, stabilité, aspect, goût, couleur).' },
+  { question: 'Qu’est-ce qu’un excipient à eﬀet notoire ?', answer: 'Excipient pouvant provoquer une intolérance (allergies, mauvaise tolérance), nécessitant des précautions d’emploi.' },
+  { question: 'Quelle est la diﬀérence entre absorption et résorption ?', answer: 'Absorption = entrée du médicament dans la circulation ; Résorption = passage à travers une surface (peau, muqueuse…).' },
+  { question: 'Que signiﬁe parentéral ?', answer: 'Administration invasive qui contourne le tube digestif (ex. injection IV, IM, SC).' },
+  { question: 'Quels sont les 2 grands types de voies d’administration ?', answer: 'Voies non invasives (cutanées, muqueuses) et voies invasives (injections).' },
+  { question: 'Quels critères conditionnent le choix d’une voie d’administration ?', answer: 'Type d’action (locale ou générale), rapidité d’action, facilité d’utilisation, pathologie, nature du médicament.' },
+  { question: 'Quelle est la hiérarchie de rapidité des voies invasives ?', answer: 'Intra-artérielle > intraveineuse > intramusculaire > sous-cutanée > intradermique.' },
+  { question: 'Quelle est la hiérarchie de rapidité des voies non invasives ?', answer: 'Sublinguale > orale.' },
+  { question: 'Exemple d’un patch transdermique à eﬀet systémique ?', answer: 'Trinitrine, fentanyl, œstroprogestatifs, nicotine.' },
+  { question: 'Quels facteurs inﬂuencent l’absorption cutanée ?', answer: 'Site d’application, âge, pathologies cutanées, circulation sanguine, hydratation, caractéristiques physico-chimiques du PA.' },
+  { question: 'Quels moyens augmentent l’absorption cutanée ?', answer: 'Concentration du PA, excipients, massage/friction, dispositifs occlusifs.' },
+  { question: 'Quels sont les avantages de la voie cutanée ?', answer: 'Application directe, eﬀet local facile, bonne observance, évite le premier passage hépatique, possibilité de libération prolongée.' },
+  { question: 'Quels sont les inconvénients de la voie cutanée ?', answer: 'Variabilité selon l’état de la peau, réactions inﬂammatoires/allergiques, risque d’eﬀets systémiques.' },
+  { question: 'Quels sont les avantages de l’administration par muqueuse ?', answer: 'Haute perméabilité, vascularisation intense, absorption rapide, surface de contact importante.' },
+  { question: 'Quels sont les inconvénients de l’administration par muqueuse nasale ?', answer: 'Irritations, ulcérations, petite surface d’absorption, inﬂuence du pH.' },
+  { question: 'Quelle est la surface d’absorption des alvéoles pulmonaires ?', answer: 'Environ 50 m².' },
+  { question: 'Quelle est la taille maximale des particules absorbées par les alvéoles pulmonaires ?', answer: '< 2 µm.' },
+  { question: 'Quelle est la particularité de la voie sublinguale ?', answer: 'Absorption très rapide, évite le premier passage hépatique.' },
+  { question: 'Quelle est la muqueuse principale de résorption des médicaments dans le tube digestif ?', answer: 'Intestin grêle.' },
+  { question: 'Quels sont les avantages de la voie rectale ?', answer: 'Permet un eﬀet local ou systémique, évite partiellement le premier passage hépatique, utile si voie orale impossible (vomissements, enfants).' },
+  { question: 'Quel est l’inconvénient principal de la voie rectale ?', answer: 'Résorption très variable, risque d’irritation locale.' },
+  { question: 'Quelles sont les principales formes pharmaceutiques orales solides ?', answer: 'Poudres, pilules, granulés, gommes, comprimés, gélules, capsules.' },
+  { question: 'Quelle est la caractéristique d’un comprimé ?', answer: 'Forme solide obtenue par agglomération de particules, contenant un ou plusieurs PA, destiné à être avalé.' },
+  { question: 'Quels sont les avantages des comprimés ?', answer: 'Dosage précis, bonne conservation, compatible avec PA peu solubles, grande quantité possible, facile à fabriquer, observance élevée.' },
+  { question: 'Quels sont les inconvénients des comprimés ?', answer: 'Peu adaptés aux eﬀets immédiats, certains PA irritants localement.' },
+  { question: 'Quelle est la particularité des comprimés eﬀervescents et lyocs ?', answer: 'Formes à libération accélérée.' },
+  { question: 'Qu’est-ce qu’une libération prolongée ?', answer: 'Largage progressif du PA par formulation spéciﬁque (enrobage, pompe osmotique, comprimés matriciels).' },
+  { question: 'Qu’est-ce qu’une libération retardée ?', answer: 'Formes gastro-résistantes libérant le PA après passage gastrique.' },
+  { question: 'Pourquoi doit-on respecter l’intégrité de la forme galénique ?', answer: 'Car broyer ou ouvrir peut modiﬁer la libération du PA, le goût ou les interactions.' },
+  { question: 'Quelle est la particularité des gélules ?', answer: 'Enveloppe en gélatine ou cellulose contenant une poudre, parfois à libération modiﬁée.' },
+  { question: 'Quels sont les avantages des gélules ?', answer: 'Absorption facile, dissimulation du goût, dissolution rapide, identiﬁcation simple.' },
+  { question: 'Quels sont les inconvénients des gélules ?', answer: 'Fabrication plus coûteuse, parfois mal fermées.' },
+  { question: 'Quelle est la diﬀérence entre gélule et capsule ?', answer: 'Capsule = gélule contenant un produit pâteux ou visqueux.' },
+  { question: 'Quelles sont les principales formes orales liquides ?', answer: 'Sirops, potions, ampoules buvables, suspensions, émulsions, gouttes buvables.' },
+  { question: 'Quelle est la particularité des formes orales liquides ?', answer: 'Disponibilité immédiate du PA pour l’absorption.' },
+  { question: 'Quelle est la diﬀérence entre absorption d’un comprimé et d’une gélule ?', answer: 'Comprimé : désintégration ˠ désagrégation ˠ dissolution ˠ absorption. Gélule : rupture de l’enveloppe ˠ libération poudre ˠ dissolution ˠ absorption.' },
+  { question: 'Quels sont les avantages de la voie rectale ?', answer: 'Eﬀet local ou systémique, évite partiellement le premier passage hépatique, utile si voie orale impossible.' },
+  { question: 'Quels sont les inconvénients de la voie rectale ?', answer: 'Résorption variable, risque d’irritation locale.' },
+  { question: 'Quels sont les avantages des voies respiratoires ?', answer: 'Action locale (asthme) ou systémique (anesthésie), absorption rapide via grande surface alvéolaire.' },
+  { question: 'Exemple de dispositif pour l’administration respiratoire ?', answer: 'Aérosol doseur (Ventoline®), Diskus (Seretide®), chambres d’inhalation (Babyhaler®).' },
+  { question: 'Quelles sont les caractéristiques des collyres ?', answer: 'Stériles, pH proche des larmes (6,4–7,8), unidoses (sans conservateur) ou multidoses (avec conservateur).' },
+  { question: 'Quel risque présente un collyre ?', answer: 'Eﬀets systémiques possibles (ex. timolol ˠ bradycardie).' },
+  { question: 'Quelles sont les formes galéniques gynécologiques ?', answer: 'Ovules ou comprimés vaginaux, qui fondent à température du corps.' },
+  { question: 'Quelles sont les conditions d’utilisation d’un ovule vaginal ?', answer: 'Poser le soir, rester allongée 15 min, parfois humidiﬁer avant la pose.' },
+  { question: 'Quels sont les volumes typiques d’injection en voie SC et IM ?', answer: 'SC : 0,5 à 1 mL ; IM : 1 à 3 mL.' },
+  { question: 'Quels facteurs augmentent l’absorption en SC ?', answer: 'Vasodilatation, diminution de la viscosité de la solution.' },
+  { question: 'Quels facteurs diminuent l’absorption en SC ?', answer: 'Vasoconstricteurs associés, préparations retard.' },
+  { question: 'Quels sont les risques des injections IM ?', answer: 'Infections, hématome, injection intravasculaire, piqûre nerveuse (ex. nerf sciatique).' },
+  { question: 'Quelle est la contre-indication majeure de la voie IM ?', answer: 'Patients sous anticoagulants (risque d’hématome).' },
+  { question: 'Quelles sont les particularités de la voie IV ?', answer: 'Action immédiate, biodisponibilité maximale, voie de l’urgence, perfusion possible.' },
+  { question: 'Quels sont les principaux risques de la voie IV ?', answer: 'Infections, embolie gazeuse, hématome, passage intra-artériel accidentel.' },
+  { question: 'Quelles sont les voies invasives spécialisées ?', answer: 'Intra-artérielle, intrarachidienne, péridurale, intracérébro-ventriculaire.' },
+  { question: 'Quelle est la particularité des perfusions et seringues électriques ?', answer: 'Ce sont des dispositifs médicaux, pas des formes galéniques.' },
+  { question: 'Qu’étudie la pharmacocinétique ?', answer: 'Le devenir du médicament dans l’organisme (absorption, distribution, métabolisme, élimination).' },
+  { question: 'Quel est le paramètre essentiel et accessible en pharmacocinétique ?', answer: 'La concentration plasmatique (ou sanguine).' },
+  { question: 'Quelle est la diﬀérence entre pharmacocinétique et pharmacodynamie ?', answer: 'Pharmacocinétique = eﬀet de l’organisme sur le médicament ; Pharmacodynamie = eﬀet du médicament sur l’organisme.' },
+  { question: 'De quoi dépendent les eﬀets du médicament ?', answer: 'De ses concentrations sanguines ou plasmatiques.' },
+  { question: 'Que signiﬁe ADME ?', answer: 'Absorption, Distribution, Métabolisme, Élimination.' },
+  { question: 'Quelle étape ne concerne pas la voie IV ?', answer: 'L’absorption.' },
+  { question: 'Quelles sont les caractéristiques des membranes biologiques ?', answer: 'Bicouche lipidique, favorise le passage des molécules liposolubles, limite celui des grosses molécules hydrosolubles ou ﬁxées aux protéines.' },
+  { question: 'Quels sont les deux types de transport transmembranaire ?', answer: 'Transport passif/facilité (sans énergie) et transport actif (avec énergie).' },
+  { question: 'Par quel mécanisme les médicaments hydrosolubles franchissent-ils les membranes ?', answer: 'Par diﬀusion passive via pores aqueux ou par transporteurs membranaires (diﬀusion facilitée ou transport actif).' },
+  { question: 'Par quel mécanisme les médicaments liposolubles franchissent-ils les membranes ?', answer: 'Par diﬀusion passive à travers la bicouche lipidique.' },
+  { question: 'Quelles conditions favorisent la diﬀusion passive d’un médicament ?', answer: 'Liposolubilité, forme libre (non liée aux protéines), forme non ionisée, faible poids moléculaire.' },
+  { question: 'Quelle est l’inﬂuence du pH sur le passage des acides faibles ?', answer: 'À pH acide ˠ passage favorisé ; à pH basique ˠ ionisation ˠ passage limité.' },
+  { question: 'Quelle est l’inﬂuence du pH sur le passage des bases faibles ?', answer: 'À pH basique ˠ passage favorisé ; à pH acide ˠ passage limité.' },
+  { question: 'Quelle loi régit la diﬀusion passive ?', answer: 'La loi de Fick (vitesse de transfert dépend du gradient de concentration, surface, épaisseur, coeﬃcient de partage et diﬀusion).' },
+  { question: 'Quelles sont les caractéristiques du transport via transporteurs membranaires ?', answer: 'Spéciﬁque, saturable, compétitif, parfois avec énergie (transport actif).' },
+  { question: 'Quels sont les deux types de transporteurs ?', answer: 'Transporteurs d’inﬂux (entrée dans la cellule) et transporteurs d’eﬄux (sortie).' },
+  { question: 'Où trouve-t-on principalement les transporteurs membranaires ?', answer: 'Entérocytes, hépatocytes, tubules rénaux, barrière hémato-encéphalique, placenta.' },
+  { question: 'Quels sont les transporteurs d’eﬄux majeurs au niveau intestinal ?', answer: 'P-glycoprotéine (P-gp) et BCRP .' },
+  { question: 'Que provoque l’inhibition de la P-gp au niveau intestinal pour un médicament substrat ?', answer: 'Augmentation de l’absorption, de la biodisponibilité, des concentrations plasmatiques et du risque de toxicité.' },
+  { question: 'Quels transporteurs d’inﬂux favorisent l’absorption digestive de certains médicaments ?', answer: 'OATP1A2 et OATP2B1.' },
+  { question: 'Quelle est la voie d’administration la plus courante des médicaments ?', answer: 'La voie orale.' },
+  { question: 'Quelles sont les deux phases de l’absorption orale ?', answer: 'Passage transmembranaire (absorption digestive) et eﬀet de premier passage (intestinal et hépatique).' },
+  { question: 'Qu’est-ce que la biodisponibilité d’un médicament ?', answer: 'Fraction de la dose administrée qui atteint la circulation générale sous forme inchangée.' },
+  { question: 'Quels facteurs inﬂuencent l’absorption digestive d’un PA ?', answer: 'Taille des particules, pKa, hydrosolubilité/liposolubilité, stabilité en milieu acide, forme galénique, pH gastrique, vidange gastrique, motilité intestinale, alimentation, polymorphisme génétique, interactions médicamenteuses.' },
+  { question: 'Qu’est-ce que l’eﬀet de premier passage ?', answer: 'Métabolisation du médicament avant son arrivée dans la circulation générale (au niveau intestinal et/ou hépatique).' },
+  { question: 'Quelles sont les conséquences de l’eﬀet de premier passage ?', answer: 'Diminution de l’eﬃcacité (métabolites inactifs), conservation ou augmentation de l’eﬃcacité (métabolites actifs), augmentation de la toxicité (métabolites toxiques).' },
+  { question: 'Quelles voies d’administration évitent l’eﬀet de premier passage hépatique ?', answer: 'Nasale, inhalée, sublinguale, transdermique, intraveineuse, sous-cutanée, intramusculaire.' },
+  { question: 'Quelle voie présente un eﬀet de premier passage hépatique partiel ?', answer: 'La voie rectale (par la veine hémorroïdaire supérieure).' },
+  { question: 'Quels facteurs inﬂuencent l’eﬀet de premier passage ?', answer: 'Métabolisme intestinal, métabolisme hépatique, polymorphisme génétique, interactions médicamenteuses, pathologies digestives ou hépatiques.' },
+  { question: 'Qu’est-ce que la distribution d’un médicament ?', answer: 'Répartition du principe actif dans l’organisme, transporté par le sang vers les tissus et son site d’action.' },
+  { question: 'Sous quelles formes un médicament circule-t-il dans le sang ?', answer: 'Forme libre (active, diﬀusible, métabolisable, éliminable) et forme liée aux protéines plasmatiques (réserve, équilibre réversible).' },
+  { question: 'Quelles sont les principales protéines plasmatiques de liaison des médicaments ?', answer: 'Albumine, α1-glycoprotéine acide, lipoprotéines, γ-globulines.' },
+  { question: 'Quels médicaments sont le plus liés aux protéines plasmatiques ?', answer: 'Les médicaments liposolubles.' },
+  { question: 'De quoi dépend la diﬀusion tissulaire d’un médicament ?', answer: 'Liposolubilité, irrigation sanguine des organes, aﬃnité pour certains tissus, existence de barrières spéciﬁques (BHE, placenta), état physiopathologique (grossesse, insuﬃsances rénale ou hépatique).' },
+  { question: 'Quels organes sont bien irrigués et favorisent la diﬀusion rapide ?', answer: 'Foie, reins, cœur, poumons, cerveau, muscles.' },
+  { question: 'Quels organes sont peu perfusés et limitent la diﬀusion ?', answer: 'Os, peau, graisses.' },
+  { question: 'Qu’est-ce que le volume de distribution (Vd) ?', answer: 'Paramètre pharmacocinétique qui reﬂète l’importance de la distribution d’un médicament dans l’organisme.' },
+  { question: 'Quel est le rôle principal du métabolisme des médicaments ?', answer: 'Transformer les médicaments liposolubles en métabolites plus hydrosolubles pour faciliter leur élimination.' },
+  { question: 'Quels médicaments peuvent être éliminés sans métabolisation ?', answer: 'Les médicaments hydrosolubles (excrétés inchangés par les urines).' },
+  { question: 'Où a lieu principalement le métabolisme des médicaments ?', answer: 'Au niveau du foie et de l’intestin (mais aussi poumon, rein).' },
+  { question: 'Quelles sont les deux grandes phases du métabolisme ?', answer: 'Phase I (fonctionnalisation, surtout oxydation par CYP450) et Phase II (conjugaison avec molécules endogènes polaires).' },
+  { question: 'Quelle enzyme est impliquée dans environ 50 % des métabolisations médicamenteuses ?', answer: 'Le cytochrome P450 3A (CYP3A).' },
+  { question: 'Quelles sont les principales réactions de phase I du métabolisme ?', answer: 'Oxydation, réduction, hydrolyse.' },
+  { question: 'Quelles sont les principales réactions de phase II du métabolisme ?', answer: 'Glucuroconjugaison, sulfoconjugaison, acétylation, méthylation, conjugaison au glutathion, à la glycine ou à d’autres acides aminés.' },
+  { question: 'Quelle est la diﬀérence entre métabolite actif et métabolite inactif ?', answer: 'Actif = conserve ou augmente l’activité du PA ; Inactif = perte d’activité.' },
+  { question: 'Qu’est-ce qu’un promédicament (prodrogue) ?', answer: 'Molécule inactive administrée sous forme stable, transformée en métabolite actif dans l’organisme.' },
+  { question: 'Exemple de promédicament ?', answer: 'Valaciclovir ˠ transformé en aciclovir actif.' },
+  { question: 'Qu’est-ce que l’élimination d’un médicament ?', answer: 'Disparition du PA de l’organisme par métabolisation et/ou excrétion.' },
+  { question: 'Quels sont les principaux organes d’excrétion ?', answer: 'Reins (voie urinaire), foie (bile, voie fécale), poumons, sueur, salive, lait maternel.' },
+  { question: 'Quels médicaments sont éliminés préférentiellement par le rein ?', answer: 'Médicaments hydrosolubles et métabolites polaires.' },
+  { question: 'Quelles sont les trois étapes de l’excrétion rénale ?', answer: 'Filtration glomérulaire, sécrétion tubulaire, réabsorption tubulaire.' },
+  { question: 'Qu’est-ce que la clairance d’un médicament ?', answer: 'Volume de plasma totalement épuré du médicament par unité de temps.' },
+  { question: 'Quelles sont les principales clairances d’élimination ?', answer: 'Clairance rénale, hépatique, pulmonaire.' },
+  { question: 'Qu’est-ce que la demi-vie d’élimination d’un médicament (t1/2) ?', answer: 'Temps nécessaire pour que la concentration plasmatique diminue de moitié.' },
+  { question: 'De quoi dépend la demi-vie d’élimination ?', answer: 'Volume de distribution (Vd) et clairance (Cl).' },
+  { question: 'Que signiﬁe une demi-vie courte ?', answer: 'Élimination rapide, administration fréquente nécessaire.' },
+  { question: 'Que signiﬁe une demi-vie longue ?', answer: 'Élimination lente, administration espacée.' },
+  { question: 'Combien de demi-vies sont nécessaires pour atteindre l’état d’équilibre d’un médicament ?', answer: 'Environ 5 demi-vies.' },
+  { question: 'Quelle est la diﬀérence entre cinétique d’ordre 1 et cinétique d’ordre 0 ?', answer: 'Ordre 1 : vitesse d’élimination proportionnelle à la concentration (constante fraction éliminée). Ordre 0 : vitesse d’élimination constante, indépendante de la concentration (saturation des systèmes).' },
+  { question: 'Exemple de médicament à cinétique d’ordre 0 ?', answer: 'Éthanol.' },
+  { question: 'Quelle est la signiﬁcation clinique de la pharmacocinétique non linéaire ?', answer: 'Petites variations de dose entraînent de grandes variations de concentration et de réponse, avec risque de toxicité.' },
+  { question: 'Qu’est-ce que l’aire sous la courbe (ASC) en pharmacocinétique ?', answer: 'Représente l’exposition globale de l’organisme au médicament.' },
+  { question: 'Quelle est la diﬀérence entre Cmax et Tmax ?', answer: 'Cmax = concentration maximale atteinte ; Tmax = temps pour atteindre Cmax.' },
+  { question: 'Quelles informations donne le proﬁl concentration-temps ?', answer: 'Intensité de l’eﬀet (Cmax), délai d’action (Tmax), durée d’action (temps au-dessus de la concentration eﬃcace), exposition globale (ASC).' },
+  { question: 'Qu’est-ce que la biodisponibilité absolue ?', answer: 'Comparaison de l’ASC après administration extravasculaire (ex. orale) avec l’ASC après IV.' },
+  { question: 'Qu’est-ce que la biodisponibilité relative ?', answer: 'Comparaison de l’ASC de deux formes galéniques ou de deux voies d’administration extravasculaires.' },
+  { question: 'Quelle est la déﬁnition de la bioéquivalence ?', answer: 'Deux médicaments bioéquivalents ont une biodisponibilité comparable en termes d’ASC et de Cmax.' },
+  { question: 'Quels sont les critères de bioéquivalence ?', answer: 'Intervalle de conﬁance 90 % de la ratio ASC et Cmax compris entre 80 % et 125 %.' },
+  { question: 'Quel est le rôle du suivi thérapeutique pharmacologique (STP) ?', answer: 'Dosage plasmatique du PA pour ajuster la posologie et optimiser le rapport bénéﬁce/risque.' },
+  { question: 'Quels médicaments nécessitent un STP ?', answer: 'Ceux à marge thérapeutique étroite, forte variabilité interindividuelle, corrélation concentration-eﬀet. Exemples : digitaliques, antiépileptiques, immunosuppresseurs, lithium, certains antibiotiques.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

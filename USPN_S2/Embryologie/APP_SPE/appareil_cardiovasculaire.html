@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Embryologie</h1><h2>APP SPE - Appareil cardiovasculaire</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { color: #27ae60; } .cross-icon:hover { stroke: #e74c3c; }
+  .slide-left { animation: slideLeft 0.4s forwards; } .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: "Quelles sont les 3 étapes successives de la circulation ?", answer: "Circulation embryonnaire (S4), circulation fœtale (opérationnelle à S11), circulation définitive (naissance)." },
+{ question: "Qu'est-ce que la circulation embryonnaire ?", answer: "Communication du tube cardiaque et des vaisseaux primitifs à S4, système symétrique." },
+{ question: "Qu'est-ce que la circulation fœtale ?", answer: "Tube cardiaque → cœur à 4 cavités, vaisseaux primitifs → vaisseaux définitifs, système asymétrique." },
+{ question: "Que sont les îlots de Wolff et Pander ?", answer: "Amas de cellules mésenchymateuses dans le mésenchyme extra-embryonnaire à partir de S3, ébauche des parois vasculaires en périphérie et cellules souches sanguines au centre." },
+{ question: "Que forment les îlots de Wolff-Pander au niveau des villosités ?", answer: "Les villosités tertiaires, avec communication avec l'embryon via les vaisseaux ombilicaux." },
+{ question: "Où se forme la communication avec les vaisseaux vitellins ?", answer: "Au niveau de la splanchnopleure." },
+{ question: "Quelles sont les premières ébauches d'artères primitives ?", answer: "Aortes dorsales droite et gauche sur toute la longueur de l'embryon, puis aortes ventrales." },
+{ question: "Quand les parties caudales des aortes dorsales fusionnent-elles ?", answer: "À la fin de S4." },
+{ question: "Que sont les arcs aortiques ?", answer: "Anastomoses entre les aortes ventrales et dorsales, se formant dans les arcs branchiaux à S4." },
+{ question: "Quelles sont les 4 veines primitives ?", answer: "Veines cardinales antérieures (D+G) drainant la partie céphalique, veines cardinales postérieures (D+G) drainant la partie caudale." },
+{ question: "Qu'est-ce que le canal de Cuvier ?", answer: "Point de confluence des veines cardinales de chaque côté, qui se jette dans le sinus veineux." },
+{ question: "Qu'est-ce que la zone cardiogénique ?", answer: "Zone initialement extra-embryonnaire en avant de l'embryon à S3-S4, puis position ventrale et intra-embryonnaire après délimitation." },
+{ question: "Que sont les tubes endocardiques ?", answer: "Ébauches vasculaires formées au niveau de la plaque cardiogénique, qui fusionnent sur la ligne médiane à J22 pour former le tube cardiaque." },
+{ question: "Quand apparaissent les premiers battements cardiaques ?", answer: "À J22-J23." },
+{ question: "Quelles sont les 5 cavités cardiaques primitives du tube cardiaque ?", answer: "Sinus veineux, oreillette primitive, ventricule primitif (futur VG), bulbus cordis (futur VD), conotruncus (pôle artériel)." },
+{ question: "Que deviennent le sinus veineux et les veines afférentes lors de la plicature ?", answer: "L'oreillette primitive les entraîne et vient se placer en arrière du ventricule primitif." },
+{ question: "Quelles sont les 3 circulations à la fin de S4 ?", answer: "Circulation intra-embryonnaire, circulation ombilicale, circulation vitelline." },
+{ question: "Décrivez la circulation ombilicale.", answer: "Conotruncus → aortes → artères ombilicales (sang pauvre en O2) → placenta (oxygénation) → veines ombilicales → sinus veineux." },
+{ question: "Décrivez la circulation vitelline.", answer: "Conotruncus → aortes → artères vitellines → vésicule vitelline → veines vitellines → sinus veineux." },
+{ question: "Quand se met en place le cœur à 4 cavités ?", answer: "Pendant le 2ème mois." },
+{ question: "Quels phénomènes transforment le tube cardiaque ?", answer: "Plicature et déplacement des cavités (S4-S5), puis cloisonnement des cavités (S5-S6)." },
+{ question: "Qu'est-ce que le canal auriculo-ventriculaire (CAV) ?", answer: "Communication entre la partie gauche de l'oreillette et le ventricule primitif." },
+{ question: "Comment se forme le septum intermedium ?", answer: "Par développement et fusion sur la ligne médiane des bourgeons endocardiques au niveau des bords du CAV à S5." },
+{ question: "Que permet le septum intermedium ?", answer: "La séparation en 2 orifices AV : orifice mitral (OG-VG) et orifice tricuspide (OD-VD)." },
+{ question: "Qu'est-ce que le septum primum ?", answer: "1ère cloison mince naissant du plafond de l'oreillette primitive à S5." },
+{ question: "Qu'est-ce que l'ostium primum ?", answer: "Ouverture due au cloisonnement initialement incomplet du septum primum vers le septum intermedium." },
+{ question: "Qu'est-ce que l'ostium secondum ?", answer: "2ème orifice apparaissant par apoptose dans la partie supérieure du septum primum." },
+{ question: "Qu'est-ce que le septum secondum ?", answer: "2ème cloison épaisse à droite du septum primum à S6, cloisonnement incomplet formant le foramen ovale." },
+{ question: "Qu'est-ce que le foramen ovale (trou de Botal) ?", answer: "Communication interauriculaire physiologique en 'chicane' persistant jusqu'à la naissance." },
+{ question: "Quand apparaissent les veines pulmonaires ?", answer: "À la fin de S4, par évagination de la paroi postérieure gauche de l'oreillette primitive." },
+{ question: "Qu'est-ce que le septum inferius ?", answer: "Crête musculaire se développant à la partie inférieure des ventricules vers le septum intermedium, séparant VD/VG." },
+{ question: "Qu'est-ce que le foramen interventriculaire ?", answer: "Ouverture due à la septation initialement incomplète du septum inferius, fermée par l'évolution du conotruncus." },
+{ question: "Quels éléments participent à l'évolution du conotruncus ?", answer: "Cellules de la zone cardiogène et cellules des crêtes neurales (migration J22-J30)." },
+{ question: "Quels phénomènes touchent le conotruncus ?", answer: "Élargissement (S5), cloisonnement + rotation/torsion, remodelage de la partie inférieure." },
+{ question: "Comment se forme le septum cono-truncal ?", answer: "Par cloisonnement des bourgeons endocardiques, séparant la voie d'éjection G/D." },
+{ question: "Comment s'enroulent l'aorte et l'artère pulmonaire ?", answer: "Par rotation antihoraire avec torsion de la cloison, plaçant l'orifice aortique en arrière de l'orifice pulmonaire." },
+{ question: "Qu'est-ce que le septum membraneux ?", answer: "Partie inférieure du septum conal qui ferme le foramen interventriculaire en fusionnant avec le septum inferius." },
+{ question: "Que donnent les 3èmes arcs aortiques ?", answer: "Les artères carotides internes G et D." },
+{ question: "Que donnent les 4èmes arcs aortiques ?", answer: "À gauche : crosse de l'aorte. À droite : artère sous-clavière droite." },
+{ question: "Que donnent les 6èmes arcs aortiques ?", answer: "Artères pulmonaires G et D, et à gauche le canal artériel." },
+{ question: "Que deviennent les 1er et 2ème arcs aortiques ?", answer: "Ils régressent." },
+{ question: "Que donnent les artères segmentaires ventrales après fusion ?", answer: "Tronc cœliaque, artère mésentérique supérieure, artère mésentérique inférieure." },
+{ question: "Que donnent les artères segmentaires dorsales ?", answer: "Vascularisation du tube neural, artères intercostales." },
+{ question: "Que donnent les artères segmentaires latérales ?", answer: "Vascularisation du mésonéphros et des gonades." },
+{ question: "Que deviennent les artères ombilicales à la naissance ?", answer: "Involution fibreuse sauf partie proximale donnant artère iliaque primitive et artère hypogastrique." },
+{ question: "Que deviennent les veines vitellines ?", answer: "Veine mésentérique supérieure, veine porte, branches intra-hépatiques, sinusoïdes hépatiques, veines hépatiques, portion hépatique de la VCI." },
+{ question: "Qu'est-ce que le canal veineux d'Arantius ?", answer: "Court-circuit entre la veine ombilicale gauche et la VCI dans le foie." },
+{ question: "Quelle veine ombilicale persiste ?", answer: "La veine ombilicale gauche, avec oblitération de la droite." },
+{ question: "Qu'est-ce que le sinus coronaire ?", answer: "Persistance de la zone d'abouchement du canal de Cuvier gauche, drainant la circulation de retour du myocarde." },
+{ question: "Quand se développe le système lymphatique ?", answer: "De S5 à S9." },
+{ question: "Quand apparaissent les ganglions lymphatiques ?", answer: "Vers S11, avec colonisation par cellules lymphoïdes et maturation pendant la grossesse." },
+{ question: "Quels sont les 2 shunts D→G de la circulation fœtale ?", answer: "Foramen ovale (CIA physiologique) et canal artériel (entre AP et aorte)." },
+{ question: "Comment le sang oxygéné arrive-t-il au fœtus ?", answer: "Veine ombilicale gauche → canal d'Arantius → VCI → oreillette droite → foramen ovale → oreillette gauche → VG → aorte." },
+{ question: "Que se passe-t-il à la naissance pour la circulation ?", answer: "Ventilation pulmonaire, interruption de la circulation placentaire." },
+{ question: "Comment se ferme le trou de Botal à la naissance ?", answer: "Augmentation de pression de l'oreillette gauche → accolement des septa I et II. Fusion complète à la fin de la 1ère année." },
+{ question: "Que devient le canal artériel à la naissance ?", answer: "Chute de pression dans l'AP, inversion du flux, contraction musculaire, dégénérescence fibreuse → ligament artériel (à 3 mois max)." },
+{ question: "Quelle est la fréquence des cardiopathies congénitales ?", answer: "1 sur 1000 nouveaux-nés." },
+{ question: "Quelles sont les 4 malformations cardiaques les plus fréquentes ?", answer: "Communication interventriculaire (28%), communication interauriculaire (11%), sténose pulmonaire (9%), canal artériel persistant (9%)." },
+{ question: "Quelles sont les cardiopathies avec shunt gauche-droit ?", answer: "CIV (25%), persistance du canal artériel (10-15%), CIA (5-10%), communication atrio-ventriculaire (2,5%)." },
+{ question: "Quelles sont les cardiopathies avec shunt droit-gauche ?", answer: "Tétralogie de Fallot (10%), transposition des gros vaisseaux (9%)." },
+{ question: "Qu'est-ce que la tétralogie de Fallot ?", answer: "CIV + sténose de l'artère pulmonaire + dextroposition de l'aorte + hypertrophie ventriculaire droite." },
+{ question: "Qu'est-ce que la transposition des gros vaisseaux ?", answer: "Aorte née du ventricule droit, artère pulmonaire née du ventricule gauche." },
+{ question: "Que sont les cardiopathies par obstacle ?", answer: "Obstacle à l'éjection ventriculaire : rétrécissement aortique, rétrécissement pulmonaire." },
+{ question: "Que représentent les cardiopathies par obstacle ?", answer: "20-25% des cardiopathies congénitales." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+function updateProgress() { progressBar.style.width = `${Math.min(currentIndex / originalData.length, 1) * 100}%`; }
+function createContent(content) { const div = document.createElement("div"); div.textContent = content; return div; }
+function showCard(index) { container.innerHTML = ""; if (flashcards[index]) { const { question, answer } = flashcards[index]; const card = document.createElement("div"); card.classList.add("flashcard", "show"); const inner = document.createElement("div"); inner.classList.add("flashcard-inner"); const front = document.createElement("div"); front.classList.add("flashcard-front"); front.appendChild(createContent(question)); const back = document.createElement("div"); back.classList.add("flashcard-back"); back.appendChild(createContent(answer)); const btnContainer = document.createElement("div"); btnContainer.classList.add("flashcard-button"); const toggleBtn = document.createElement("button"); toggleBtn.classList.add("button", "large"); toggleBtn.textContent = "Voir la réponse"; const resetBtn = document.createElement("button"); resetBtn.classList.add("button", "large"); resetBtn.textContent = "Réinitialiser"; resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); }); btnContainer.appendChild(toggleBtn); btnContainer.appendChild(resetBtn); const checkIcon = document.createElement("span"); checkIcon.classList.add("check-icon"); checkIcon.innerHTML = '<i class="fas fa-check"></i>'; checkIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-right"); setTimeout(() => { currentIndex++; localStorage.setItem(progressKey, currentIndex); updateProgress(); showCard(currentIndex); }, 400); }); const crossIcon = document.createElement("span"); crossIcon.classList.add("cross-icon"); crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`; crossIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-left"); setTimeout(() => { const removed = flashcards.splice(currentIndex, 1)[0]; flashcards.splice(currentIndex + 5, 0, removed); showCard(currentIndex); }, 400); }); const favIcon = document.createElement("span"); favIcon.classList.add("favorite-icon"); favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`; function updateFav() { if (isFavorite({question, answer})) favIcon.classList.add("active"); else favIcon.classList.remove("active"); } favIcon.addEventListener("click", (e) => { e.stopPropagation(); toggleFavorite({question, answer}); updateFav(); }); updateFav(); card.addEventListener("click", () => { toggleBtn.textContent = card.classList.toggle("show-answer") ? "Cacher la réponse" : "Voir la réponse"; }); inner.appendChild(front); inner.appendChild(back); inner.appendChild(checkIcon); inner.appendChild(crossIcon); inner.appendChild(favIcon); card.appendChild(inner); card.appendChild(btnContainer); container.appendChild(card); } else { const endCard = document.createElement("div"); endCard.classList.add("flashcard", "show", "show-answer"); const inner = document.createElement("div"); inner.classList.add("flashcard-inner"); const back = document.createElement("div"); back.classList.add("flashcard-back"); back.innerHTML = "<p>Plus de flashcard disponible.</p>"; const btnContainer = document.createElement("div"); btnContainer.classList.add("flashcard-button"); const resetBtn = document.createElement("button"); resetBtn.classList.add("button", "large"); resetBtn.textContent = "Réinitialiser"; resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); }); btnContainer.appendChild(resetBtn); inner.appendChild(back); endCard.appendChild(inner); endCard.appendChild(btnContainer); container.appendChild(endCard); updateProgress(); } }
+showCard(currentIndex); updateProgress();
+</script>
+
+</section>
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>L'Apoptose</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Qu’est-ce qui assure l’adaptation cellulaire et tissulaire ?", answer: "Les capacités d'adaptation cellulaire à des modifications physiologiques normales (homéostasie)", },
+{ question: "Que se passe-t-il quand l’environnement cellulaire est modifié ?", answer: "Il existe des possibilités d’adaptation cellulaire et tissulaire avec un nouvel équilibre", },
+{ question: "Quel est l’objectif de cette adaptation à un nouvel environnement ?", answer: "Préserver la viabilité des cellules et permettre leur fonctionnement", },
+{ question: "Qu’est-ce que l’hyperplasie ?", answer: "L’augmentation du nombre de cellules", },
+{ question: "Qu’est-ce que l’hypertrophie ?", answer: "L’augmentation de la taille de la cellule", },
+{ question: "Quels autres types de réponses adaptatives peut-on observer ?", answer: "Hypoplasie, atrophie, métaplasie", },
+{ question: "Les réponses adaptatives sont-elles réversibles ?", answer: "Oui, lors du retour aux conditions antérieures", },
+{ question: "Que se passe-t-il si les limites d’adaptation sont dépassées ?", answer: "Il y a apparition de lésions irréversibles et de la mort cellulaire", },
+{ question: "Quels sont les deux types de mort cellulaire ?", answer: "Nécrose et apoptose", },
+{ question: "Quels 5. paramètres influencent la réponse cellulaire à une agression ?", answer: "Le type, la durée, la sévérité de l’agression, l’état de la cellule et sa capacité d’adaptation", },
+{ question: "Quels sont les 4 systèmes vulnérables aux agressions ?", answer: "L’intégrité des membranes, la respiration aérobie, les synthèses protéiques, l’intégrité du génome", },
+{ question: "Qu’est-ce que l’autolyse ?", answer: "Une autodestruction cellulaire ou tissulaire après la mort", },
+{ question: "Qu’est-ce que la nécrose ?", answer: "Des modifications morphologiques irréversibles coïncidant avec la mort cellulaire", },
+{ question: "Où observe-t-on la nécrose ?", answer: "Lorsque la cellule morte reste dans un environnement vivant", },
+{ question: "Quelles sont les 6. causes possibles de nécrose ?", answer: "Anoxie (ischémie), agents physiques, chimiques, infectieux, immunologiques, déséquilibres nutritionnels", },
+{ question: "Qu’est-ce que l’apoptose ?", answer: "Une mort cellulaire programmée", },
+{ question: "L’apoptose est-elle un processus actif ou passif ?", answer: "Actif", },
+{ question: "Que nécessite le processus d’apoptose ?", answer: "Des signaux d’activation, une transduction du signal, l’expression de gènes et une synthèse protéique", },
+{ question: "Comment peut-on induire ou prévenir l’apoptose ?", answer: "Par l’adjonction ou la suppression de stimuli particuliers", },
+{ question: "Quelles forces sont en équilibre lors de la formation des structures de l’organisme ?", answer: "Prolifération, apoptose et différenciation", },
+{ question: "Quelles sont les causes pathologiques d’apoptose ?", answer: "Cellules lésées, étrangères ou tumorales éliminées par lymphocytes T ou cellules NK", },
+{ question: "Cite 2 exemples pathologiques d’apoptose", answer: "Rejet de greffe, hépatites virales", },
+{ question: "Quels 3 stimuli entraînent une apoptose à faible dose mais une nécrose à forte dose ?", answer: "Chaleur, irradiations, chimiothérapies anticancéreuses", },
+{ question: "Quels 3 organes peuvent présenter de l’apoptose en cas d’obstruction canalaire ?", answer: "Pancréas, parotide, rein", },
+{ question: "Quelles sont les 6 causes physiologiques d’apoptose ?", answer: "Organogénèse, croissance, développement immunitaire, homéostasie tissulaire, involution hormonale, vieillissement", },
+{ question: "Quel est le rôle de l’apoptose pendant l’organogenèse ?", answer: "Éliminer les structures et cellules inutiles ou mal formées", },
+{ question: "Quel exemple illustre la création de nouvelles structures par apoptose ?", answer: "Formation des doigts par disparition des mains palmées", },
+{ question: "Quel est le rôle de l’apoptose dans le développement de l’immunité ?", answer: "Destruction des lymphocytes T auto-réactifs", },
+{ question: "Donne deux exemples de tissus où le renouvellement cellulaire est permanent", answer: "Épithélium gastro-intestinal et centres germinatifs des ganglions", },
+{ question: "Donne deux exemples d’involution hormonale liée à l’apoptose", answer: "Destruction des cellules endométriales (cycle menstruel), régression des lobules mammaires après sevrage", },
+{ question: "Quel phénomène est lié à l’apoptose chez les personnes âgées ?", answer: "Vieillissement", },
+{ question: "Quel est le rôle de l’apoptose face aux cellules tumorales ?", answer: "Élimination des cellules détectées comme tumorales", },
+{ question: "Qu’observe-t-on en microscopie optique lors de nécrose ?", answer: "Dénaturation protéique, digestion des organites par les enzymes lysosomales", },
+{ question: "Combien de temps après la mort cellulaire observe-t-on la nécrose ?", answer: "Plusieurs heures après", },
+{ question: "Quelle réaction est toujours présente dans la nécrose ?", answer: "Réaction inflammatoire", },
+{ question: "Comment se présente une cellule apoptotique en microscopie optique ? (4 réponses)", answer: "Isolée, rétractée, cytoplasme éosinophile, fragments de chromatine nucléaire dense", },
+{ question: "Où se condense la chromatine dans l’apoptose débutante ?", answer: "En périphérie du noyau", },
+{ question: "Pourquoi l’apoptose est-elle parfois difficile à identifier ?", answer: "Parce qu’elle concerne des cellules isolées, peu nombreuses et sans réaction inflammatoire", },
+{ question: "Pourquoi le cytoplasme de la cellule nécrosée est-il éosinophile ?", answer: "Diminution de l’ARN cytoplasmique et augmentation de la liaison de l’éosine aux protéines dénaturées", },
+{ question: "À quoi peut ressembler le cytoplasme dans la nécrose ?", answer: "Homogène ou vacuolaire par digestion enzymatique des organites", },
+{ question: "Quelles sont les trois formes de modifications nucléaires dans la nécrose ?", answer: "Pycnose, caryolyse, caryorrhexis", },
+{ question: "Qu’est-ce que la pycnose ?", answer: "Condensation avec rétraction du noyau et agglutination de la chromatine contre la membrane nucléaire", },
+{ question: "Qu’est-ce que la caryolyse ?", answer: "Dissolution du noyau avec perte des affinités tinctoriales", },
+{ question: "Qu’est-ce que la caryorrhexis ?", answer: "Fragmentation de la masse nucléaire", },
+{ question: "Qu’observe-t-on dans l’apoptose en microscopie électronique ?", answer: "Chromatine condensée en périphérie, désintégration fibrillaire du nucléole", },
+{ question: "Comment sont les organites dans l’apoptose ?", answer: "Ils sont conservés (contrairement à la nécrose)", },
+{ question: "Comment évolue la membrane plasmique dans l’apoptose ?", answer: "Elle reste intacte très longtemps (contrairement à la nécrose)", },
+{ question: "Quelles structures disparaissent à la surface cellulaire en apoptose ?", answer: "Les microvillosités", },
+{ question: "Comment est la forme de la cellule apoptotique ?", answer: "Contours lisses, isolée des cellules voisines", },
+{ question: "Que devient le volume de la cellule apoptotique ?", answer: "Il diminue", },
+{ question: "Qu’est-ce qu’un corps apoptotique ?", answer: "Fragment de cellule et de noyau entouré de membrane plasmique", },
+{ question: "Quelle est l’origine étymologique du mot 'apoptose' ?", answer: "Chute des feuilles", },
+{ question: "Qui utilisait déjà la notion d’apoptose pour décrire la décomposition post-mortem des corps ?", answer: "Hippocrate", },
+{ question: "Qui décrit pour la première fois des cellules notochordales et cartilagineuses en 1842 ?", answer: "Carl Vogt", },
+{ question: "Qui décrit la fragmentation de cellules épithéliales de follicules ovariens en 1885 ?", answer: "Walter Flemming", },
+{ question: "Qui émet l’hypothèse d’une mort cellulaire programmée en 1951 ?", answer: "Alfred Glucksmann", },
+{ question: "Qui introduisent le terme 'apoptose' en 1972 ?", answer: "John Kerr, Andrew Wyllie et Alastair Curie", },
+{ question: "Quelle est la nature de la nécrose ?", answer: "Un phénomène passif faisant suite à une agression extérieure", },
+{ question: "Quelle est la nature de l’apoptose ?", answer: "Un processus actif, organisé temporellement", },
+{ question: "L’apoptose nécessite-t-elle de l’ATP ?", answer: "Oui", },
+{ question: "Quels sont les trois chercheurs ayant reçu le prix Nobel en 2002 pour leurs travaux sur l’apoptose ?", answer: "John Sulston, Sydney Brenner et Robert Horvitz", },
+{ question: "Quelle est la première caractéristique morphologique de l’apoptose ?", answer: "Perte de contact entre cellules avec isolement des cellules", },
+{ question: "Quelles structures cellulaires se condensent lors de l’apoptose ?", answer: "Le noyau et le cytoplasme", },
+{ question: "Comment est fragmenté l’ADN pendant l’apoptose ?", answer: "Fragmentation régulière tous les 180 pb formant des 'ladders'", },
+{ question: "Quelle structure se forme à partir du bourgeonnement de la membrane ?", answer: "Des corps apoptotiques", },
+{ question: "L’apoptose déclenche-t-elle une réaction inflammatoire ?", answer: "Non", },
+{ question: "Pourquoi l’apoptose ne déclenche-t-elle pas de réaction inflammatoire ?", answer: "Car il n’y a pas de lyse de la membrane ni de libération du contenu enzymatique", },
+{ question: "Quel lipide est externalisé lors de l’apoptose ?", answer: "La phosphatidylsérine", },
+{ question: "Quel est le rôle de la phosphatidylsérine externalisée ?", answer: "Signal de reconnaissance par les cellules environnantes", },
+{ question: "Qui phagocyte les cellules et corps apoptotiques ?", answer: "Les macrophages ou des cellules vivantes voisines", },
+{ question: "Que deviennent les cellules apoptotiques dans les épithéliums bordant une lumière ?", answer: "Elles peuvent être éliminées dans la lumière", },
+{ question: "Quel type de molécules déclenche l’apoptose ?", answer: "Des molécules telles que celles de la famille TNF", },
+{ question: "Quel est le rôle de la protéine Bcl-2 dans l’apoptose ?", answer: "C’est un oncogène, inhibiteur de l’apoptose", },
+{ question: "Quel est le rôle du gène p53 dans l’apoptose ?", answer: "C’est un inducteur de l’apoptose et un suppresseur de tumeur", },
+{ question: "Quel est le rôle des caspases dans l’apoptose ?", answer: "Protéolyse terminale", },
+{ question: "En combien de bases débute la fragmentation nucléaire ?", answer: "300 000 paires de bases", },
+{ question: "En combien de bases se poursuit la fragmentation nucléaire ?",answer: "50 000 paires de bases", },
+{ question: "Quel est le fragment final typique de l’ADN apoptotique ?", answer: "Un oligonucléosome de 180 paires de bases", },
+{ question: "Quel organite est central dans la voie intrinsèque de l’apoptose ?", answer: "La mitochondrie", },
+{ question: "Combien de gènes de l’apoptose ont été identifiés chez le nématode ?", answer: "11", },
+{ question: "Quels éléments sont conservés chez les mammifères pour l’apoptose ?", answer: "BH3, Bcl-2, APAF, caspases", },
+{ question: "Quelle est la fonction de BH3 ?", answer: "Signal de l’apoptose", },
+{ question: "Quelle est la fonction de Bcl-2 chez les mammifères ?", answer: "Régulateur négatif de l’apoptose", },
+{ question: "Quelle est la fonction d’APAF ?", answer: "Activateur", },
+{ question: "Quelle est la fonction des caspases ?", answer: "Exécuteurs", },
+{ question: "Quels sont les 5 récepteurs de la mort de la voie extrinsèque ?", answer: "Fas, CD95, DR4, DR5, TNFR1", },
+{ question: "Quels sont les 3 ligands des récepteurs de la mort ?", answer: "FasL, Trail, TNF", },
+{ question: "Que se passe-t-il si Trail se fixe sur DR4 ou DR5 ?", answer: "Il y a apoptose", },
+{ question: "Que se passe-t-il si Trail se fixe sur DcR-1 ou DcR-2 ?", answer: "Il n’y a pas d’apoptose", },
+{ question: "Où s’exprime le récepteur Fas ?", answer: "Dans la plupart des tissus, particulièrement dans le thymus, le foie, les reins, le cœur", },
+{ question: "Où s’exprime FasL ?", answer: "Dans les lymphocytes T activés, les cellules NK et certains tissus immuno-privilégiés", },
+{ question: "Quel est le rôle du système Fas/FasL dans le système immunitaire ? (3 réponses)", answer: "Délétion des lymphocytes T, élimination des cellules infectées ou cancéreuses, maintien de l’homéostasie", },
+{ question: "Quel syndrome est causé par une mutation de Fas ou FasL ?", answer: "ALPS (Autoimmune LymphoProliferative Syndrome)", },
+{ question: "Quels domaines possèdent les membres anti-apoptotiques de la famille Bcl-2 ?", answer: "BH1, BH2, BH3, BH4", },
+{ question: "Quels 3 exemples de protéines anti-apoptotiques Bcl-2 peut-on citer ?", answer: "Bcl-2, Bcl-XL, Bcl-W", },
+{ question: "Quels sont les deux types de protéines pro-apoptotiques ?", answer: "Bax-like et BH3-only", },
+{ question: "Quels 2 exemples de Bax-like peut-on citer ?", answer: "Bax, Bak", },
+{ question: "Quels 2 exemples de BH3-only peut-on citer ?", answer: "Bad, Bid", },
+{ question: "De quoi dépend la diversité fonctionnelle des protéines Bcl-2 ? (3 réponses)", answer: "De leur capacité à former des dimères, de leur localisation cellulaire, de leur profil d'expression", },
+{ question: "Qu’observe-t-on chez les souris Bax -/- ?", answer: "Elles sont viables mais stériles", },
+{ question: "Qu’observe-t-on chez les souris Bak -/- ?", answer: "Elles sont quasi normales", },
+{ question: "Qu’observe-t-on chez les souris Bax/Bak -/- ?", answer: "90% de mortalité périnatale avec rate et ganglions hypertrophiques et pattes palmées", },
+{ question: "Pourquoi le couple Bax/Bak est-il important ?", answer: "Car il est crucial dans la régulation de l’apoptose", },
+{ question: "L'exécution de l'apoptose est-elle un processus réversible ou irréversible ?", answer: "Irréversible" },
+{ question: "Quels sont les changements morphologiques associés à l’exécution de l’apoptose ?", answer: "Changements morphologiques de la mitochondrie et du noyau" },
+{ question: "Quels changements morphologiques sont observés au niveau de la mitochondrie lors de l'apoptose ?", answer: "Activation de l'apoptosome et irréversibilité des lésions" },
+{ question: "Quels changements morphologiques sont observés au niveau du noyau lors de l’apoptose ?", answer: "Effets nucléaires et fragmentation de l'ADN" },
+{ question: "Quelles enzymes intracellulaires sont activées durant l’apoptose ?", answer: "Les caspases" },
+{ question: "Quelles modifications les caspases induisent-elles ?", answer: "Modifications morphologiques, physiologiques et nucléaires observées au cours de l'apoptose" },
+{ question: "Quel résidu est présent dans le site catalytique des caspases ?", answer: "Un résidu cystéine" },
+{ question: "Quel est le motif particulier contenant le site catalytique des caspases ?", answer: "ACXG" },
+{ question: "Où les caspases clivent-elles les chaînes polypeptidiques ?", answer: "Après un résidu aspartique de la partie carboxy-terminale" },
+{ question: "Combien de caspases différentes ont été identifiées ?", answer: "14" },
+{ question: "En combien de sous-familles sont réparties les caspases ?", answer: "3 sous-familles" },
+{ question: "Sous quelle forme sont présentes les caspases dans le cytoplasme ?", answer: "Sous forme inactive" },
+{ question: "Par quoi se fait le clivage protéolytique des caspases ?", answer: "Par d'autres caspases ou par elles-mêmes via leur activité autocatalytique" },
+{ question: "À quoi conduit le clivage des caspases ?", answer: "À leur dimérisation" },
+{ question: "Que libère le 1er clivage des caspases ?", answer: "Une première sous-unité" },
+{ question: "Que libère le 2e clivage des caspases ?", answer: "Une deuxième sous-unité de taille plus importante contenant le site catalytique" },
+{ question: "De quoi est composée l’enzyme active des caspases ?", answer: "De 2 hétérodimères" },
+{ question: "Que contient chaque hétérodimère actif des caspases ?", answer: "L'association des deux sous-unités avec 2 sites catalytiques" },
+{ question: "Quelle est la première caspase activée par la voie extrinsèque ?", answer: "La caspase 8" },
+{ question: "Quel est le lien entre la mitochondrie et l'activation des caspases ?", answer: "L'apoptosome" },
+{ question: "Quelle est la première étape du mécanisme de l’apoptosome ?", answer: "Déclenchement d'un signal par liaison Fas/FasL" },
+{ question: "Que provoque l'activation de la caspase 8 ?", answer: "La libération du cytochrome c" },
+{ question: "Où est libéré le cytochrome c ?", answer: "Dans le cytosol" },
+{ question: "Par quoi est causée la libération du cytochrome c ?", answer: "Par une augmentation de la perméabilité de la membrane mitochondriale" },
+{ question: "Quelle est la conséquence de la libération du cytochrome c ?", answer: "L’activation en cascade des caspases" },
+{ question: "Que provoque la modification des substrats des caspases ?", answer: "Des changements morphologiques et nucléaires" },
+{ question: "Quels 3 types de pathologies sont associés à une augmentation de l'apoptose ?", answer: "Maladies neurodégénératives, infarctus, SIDA" },
+{ question: "Citez deux exemples de maladies neurodégénératives associées à une augmentation de l’apoptose ?", answer: "Parkinson et Alzheimer" },
+{ question: "Quelles sont les 3 caractéristiques d’Alzheimer liées à l’apoptose ?", answer: "Apoptose précoce et excessive, dépôts de plaques β-amyloïdes, sensibilité accrue aux dérivés réactifs de l'oxygène" },
+{ question: "Quelles 2 pathologies sont associées à une diminution de l’apoptose ?", answer: "Cancers et syndromes auto-immuns" },
+{ question: "Quelles anomalies moléculaires sont retrouvées dans les cancers ?", answer: "Altération des suppresseurs de tumeurs et dérégulation des oncogènes" },
+{ question: "Donnez un exemple de suppresseur de tumeur impliqué dans l’apoptose ?", answer: "p53" },
+{ question: "Citez deux oncogènes inhibiteurs de l'apoptose souvent dérégulés ?", answer: "ras et myc" },
+{ question: "Quel mécanisme de la membrane est modifié pendant l'apoptose ?", answer: "Externalisation des phosphatidylsérines par un mécanisme de flip-flop" },
+{ question: "Quel marquage permet de visualiser les phosphatidylsérines ?", answer: "Annexin-V" },
+{ question: "Quel est le rôle de l’iodure de propidium (PI) ?", answer: "Marque l’ADN dans les cellules mortes dont la membrane est perméable" },
+{ question: "Quelles techniques permettent l’analyse de ces marqueurs membranaires ?", answer: "Cytométrie en flux et marquage sur coupes de tissus" },
+{ question: "Quel colorant permet de détecter les cellules mortes ?", answer: "Trypan Blue" },
+{ question: "Comment détecte-t-on les caspases par Western Blot ?", answer: "Avec des anticorps anti-procaspases, anti-caspases ou anti-caspases clivées" },
+{ question: "Quels dosages peuvent être effectués pour détecter les caspases ?", answer: "Dosage de l'activité des caspases et de leurs substrats" },
+{ question: "Quelles 3 techniques permettent de détecter les substrats des caspases ?", answer: "Western Blot, immunohistochimie, immunofluorescence" },
+{ question: "Quelle technique permet une quantification par FACS ?", answer: "Utilisation d’anticorps anti-caspase couplés à un fluorochrome" },
+{ question: "Quelle technique permet la détection in situ des caspases ?", answer: "Anticorps anti-caspase couplés à un fluorochrome" },
+{ question: "Par quelle méthode met-on en évidence la fragmentation de l'ADN ?", answer: "Électrophorèse sur gel" },
+{ question: "Quelle est la cause de la fragmentation de l’ADN en apoptose ?", answer: "Nucléases spécifiques" },
+{ question: "Quel colorant met en évidence la condensation de la chromatine ?", answer: "DAPI" },
+{ question: "Quelle technique permet de quantifier les cellules apoptotiques ?", answer: "Coloration DAPI" },
+{ question: "Quelles extrémités sont laissées par les nucléases lors de l'apoptose ?", answer: "Extrémités 3'OH libres" },
+{ question: "Quelle est la base de la technique TUNEL ?", answer: "Transférase terminale fixant un dUTP fluorochrome aux extrémités 3'OH" },
+{ question: "Comment visualise-t-on les cellules apoptotiques en TUNEL ?", answer: "Avec un microscope à fluorescence" },
+{ question: "Comment détecter la démobilisation du cytochrome c ?", answer: "Par Western Blot après fractionnement subcellulaire" },
+{ question: "Comment prouve-t-on que le cytochrome c est libéré ?", answer: "Il est négatif en mitochondrie et positif dans le cytoplasme" },
+{ question: "Quelle autre méthode permet de détecter le cytochrome c ?", answer: "Immunohistochimie ou immunofluorescence (FACS)" },
+{ question: "Quel est le mode d'action de certains agents anticancéreux ?", answer: "Production de réactifs oxygénés" },
+{ question: "Pourquoi l’efficacité des traitements anticancéreux peut être altérée ?", answer: "Sensibilité variable des cellules tumorales au stress oxydatif et à l'apoptose" },
+{ question: "Quelle famille de protéines est une cible thérapeutique majeure ?", answer: "La famille Bcl-2" },
+{ question: "Quel pourcentage de cancers présente une dérégulation de Bcl-2 ?", answer: "50%" },
+{ question: "Quel type d’anomalie de Bcl-2 est retrouvé dans les cancers ?", answer: "Surexpression" },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

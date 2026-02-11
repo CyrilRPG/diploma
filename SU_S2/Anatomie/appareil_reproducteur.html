@@ -1,0 +1,1143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Appareil reproducteur</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Par quoi se caractérise la face fœtale du placenta ?', answer: 'Par le cordon ombilical et la membrane amniotique (plaque choriale).' },
+  { question: 'Par quoi se caractérise la face maternelle du placenta ?', answer: 'Par la galette placentaire et les cotylédons (plaque basale).' },
+  { question: 'Comment l\'embryon reçoit-il ses nutriments pendant la 1ère semaine ?', answer: 'Par simple diﬀusion.' },
+  { question: 'Pourquoi un placenta se met-il en place après la 1ère semaine ?', answer: 'Parce que la croissance embryonnaire et fœtale s\'accélère et nécessite un système d\'échanges plus eﬃcace.' },
+  { question: 'Quels sont les rôles du placenta ?', answer: 'Échanges (oxygène, nutriments, déchets), rôle endocrine, tolérance immunologique.' },
+  { question: 'Quelles sont les deux parties du placenta ?', answer: 'Partie maternelle (plaque basale) et partie fœtale (plaque choriale).' },
+  { question: 'Quelles sont les caractéristiques du placenta ?', answer: 'Discoïde, villeux, hémo-chorial, chorio-allantoïdien, déciduale.' },
+  { question: 'Qu\'est-ce que la plaque choriale ?', answer: 'La face fœtale avec le cordon ombilical.' },
+  { question: 'Qu\'est-ce que la plaque basale ?', answer: 'La face maternelle avec la galette et les cotylédons.' },
+  { question: 'Que sont les cotylédons ?', answer: 'Des morceaux de la galette placentaire séparés par des sillons.' },
+  { question: 'Jusqu\'à quelle semaine le placenta pèse plus que le fœtus ?', answer: 'Jusqu\'à la 16e semaine.' },
+  { question: 'À quel moment le poids du fœtus et celui du placenta sont-ils égaux ?', answer: 'À la 16e semaine (100 g chacun, placenta ≈ 10 cm).' },
+  { question: 'Quel est le rapport poids fœtus / placenta à 28 SA ?', answer: '1000 g pour le fœtus, 250 g pour le placenta (rapport 4:1).' },
+  { question: 'Quel est le rapport poids fœtus / placenta à 40 SA ?', answer: '3000 g pour le fœtus, 500 g pour le placenta (rapport 6:1).' },
+  { question: 'Quelles sont les annexes non placentaires ?', answer: 'Cavité amniotique, cordon ombilical, vésicule ombilicale, allantoïde.' },
+  { question: 'Que se passe-t-il environ 6,5 jours après la fécondation ?', answer: 'Le trophoblaste prolifère et forme le syncytiotrophoblaste qui envahit l\'endomètre.' },
+  { question: 'Quand le blastocyste commence-t-il à s\'implanter dans l\'endomètre ?', answer: 'Au 7e jour.' },
+  { question: 'Quelle est la structure de l\'embryon à ce stade (J7-J8) ?', answer: 'Disque embryonnaire didermique (épiblaste + hypoblaste).' },
+  { question: 'Quand apparaît la cavité amniotique ?', answer: 'Très tôt, au jour 8, dans l\'épiblaste.' },
+  { question: 'Qu\'est-ce que la vésicule ombilicale primaire ?', answer: 'Une cavité formée par des cellules migrantes de l\'hypoblaste.' },
+  { question: 'Que deviennent les lacunes trophoblastiques ?', answer: 'Elles s\'ouvrent dans les capillaires maternels (début de la circulation).' },
+  { question: 'Qu\'est-ce que la vésicule ombilicale secondaire ?', answer: 'Une vésicule plus petite qui apparaît au jour 12 et remplace la primaire.' },
+  { question: 'Par quoi l\'embryon est-il ﬁxé au chorion ?', answer: 'Par le pédicule embryonnaire.' },
+  { question: 'Qu\'est-ce que la décidualisation ?', answer: 'Transformation des cellules conjonctives de l\'endomètre (chargées en glycogène et lipides, deviennent cellules déciduales).' },
+  { question: 'Quelles sont les couches de la muqueuse utérine après décidualisation ?', answer: 'Couche compacte (interne) et couche spongieuse (externe).' },
+  { question: 'Quels sont les rôles proposés de la transformation déciduale ?', answer: 'Créer un environnement immunologiquement privilégié, fournir un substrat nutritif par phagocytose.' },
+  { question: 'Quelles sont les trois caduques (décidues) ?', answer: 'Caduque basilaire (placentaire), caduque ovulaire, caduque pariétale.' },
+  { question: 'Quand débute le stade prévilleux ?', answer: 'Dès l\'implantation.' },
+  { question: 'Quelles sont les deux couches du trophoblaste ?', answer: 'Cytotrophoblaste (mitoses, limites nettes) et syncytiotrophoblaste (syncytium multinucléé sans limites).' },
+  { question: 'Quel est le rôle du syncytiotrophoblaste ?', answer: 'Invasion de l\'endomètre et érosion des vaisseaux maternels.' },
+  { question: 'Qu\'apparaît dans le syncytiotrophoblaste entre J9 et J13 ?', answer: 'Des lacunes remplies de sang maternel.' },
+  { question: 'Quand se forment les villosités primaires ?', answer: 'Vers J11-J13 par bourgeonnement de cytotrophoblaste dans le syncytiotrophoblaste.' },
+  { question: 'Quand se forment les villosités secondaires ?', answer: 'Vers J16 par prolifération du mésoderme extra-embryonnaire dans les villosités primaires.' },
+  { question: 'Quand se forment les villosités tertiaires ?', answer: 'Vers J21 par apparition de vaisseaux sanguins dans les villosités secondaires.' },
+  { question: 'Qu\'est-ce que la chambre intervilleuse ?', answer: 'Un espace contenant du sang maternel en contact avec le syncytiotrophoblaste.' },
+  { question: 'Quelle est la nature du placenta humain ?', answer: 'Hémo-chorial (sang maternel en contact direct avec le trophoblaste).' },
+  { question: 'Qu\'est-ce que la barrière fœto-placentaire ?', answer: 'Séparation entre sang maternel et sang fœtal.' },
+  { question: 'Quelle est l\'épaisseur de la membrane placentaire au 1er mois ?', answer: '25 microns.' },
+  { question: 'Quelle est son épaisseur proche du terme ?', answer: '2 microns.' },
+  { question: 'Quelles structures séparent sang maternel et sang fœtal au 1er mois ?', answer: 'Endothélium fœtal, mésenchyme, cytotrophoblaste, syncytiotrophoblaste.' },
+  { question: 'Quelles structures restent proches du terme ?', answer: 'Endothélium fœtal et syncytiotrophoblaste.' },
+  { question: 'Quelles zones se diﬀérencient dans le syncytiotrophoblaste au 6e mois ?', answer: 'Zones nucléées (synthèse) et zones anucléées (échanges).' },
+  { question: 'Quels macrophages sont présents dans le mésenchyme villositaire ?', answer: 'Les macrophages de Hofbauer.' },
+  { question: 'Combien de capillaires contient une villosité vers 12 SA ?', answer: '2 à 3, centraux.' },
+  { question: 'Combien de capillaires contient une villosité en ﬁn de grossesse ?', answer: '6 à 8, périphériques.' },
+  { question: 'Quelles évolutions subissent cytotrophoblaste et syncytiotrophoblaste en ﬁn de grossesse ?', answer: 'Cytotrophoblaste discontinu, syncytiotrophoblaste réduit et zoné (nucléé et anucléé).' },
+  { question: 'Comment prolifèrent les villosités tertiaires ?', answer: 'Par division en ramiﬁcations, arborisations ou scissions.' },
+  { question: 'Quels sont les deux types de villosités issues de la face fœtale ?', answer: 'Villosités crampons (ancrées à la plaque basale) et villosités libres/ﬂottantes (dans la chambre intervilleuse).' },
+  { question: 'Combien de troncs villositaires de 1er ordre trouve-t-on ?', answer: '15 à 30.' },
+  { question: 'Qu\'est-ce qu\'un cotylédon ?', answer: 'L\'espace délimité entre deux septas de la face maternelle.' },
+  { question: 'Quand apparaissent les septas maternels ?', answer: 'Au 4e mois.' },
+  { question: 'Qu\'est-ce que la coque cytotrophoblastique ?', answer: 'Masse cellulaire extra-villeuse formée par prolifération du cytotrophoblaste au-delà des villosités.' },
+  { question: 'Qu\'est-ce que la couche de Nitabuch ?', answer: 'Couche ﬁbrinoïde dans la caduque basilaire où se fera le décollement placentaire à l\'accouchement.' },
+  { question: 'Que devient le cytotrophoblaste après le 4e mois ?', answer: 'Il se transforme en tissu conjonctif.' },
+  { question: 'Quel est le poids et la taille du placenta à terme ?', answer: '500 g, 20 cm de diamètre, 3 cm d\'épaisseur.' },
+  { question: 'Quelle est la fonction de la vésicule ombilicale dans les mammifères non placentaires ?', answer: 'Nutrition grâce au vitellus (réserves, ex : jaune d\'œuf).' },
+  { question: 'Quelle est la fonction de la vésicule ombilicale chez l\'homme ?', answer: 'Aucun rôle nutritif, mais deux rôles principaux : 1.Formation du premier réseau extra-embryonnaire (ilots sanguins de Wolf et Pander ˠ hématopoïèse vitelline). 2.Rassemblement des cellules germinales primordiales.' },
+  { question: 'Qu\'est-ce que le diverticule de Meckel ?', answer: 'Vestige de la vésicule ombilicale persistant chez 2 % de la population, reliant intestin grêle et paroi abdominale.' },
+  { question: 'Quelle pathologie rare est liée à une anomalie des villosités ?', answer: 'Placenta membranacea (placenta mince et diﬀus avec villosités réparties partout).' },
+  { question: 'Qu\'est-ce que la décidualisation ?', answer: 'Transformation des cellules conjonctives utérines en cellules déciduales chargées de glycogène et lipides.' },
+  { question: 'Quelles sont les trois caduques ?', answer: 'Caduque basilaire (placenta), caduque ovulaire (œuf), caduque pariétale (reste de la cavité utérine).' },
+  { question: 'Quand les caduques ovulaire et pariétale fusionnent-elles ?', answer: 'À partir du 4e mois, oblitérant la cavité utérine.' },
+  { question: 'Qu\'est-ce que la couche ﬁbrinoïde de Nitabuch ?', answer: 'Zone de décollement placentaire située entre couche compacte et spongieuse de l\'endomètre.' },
+  { question: 'Quand survient la délivrance placentaire ?', answer: '20 à 30 minutes après la naissance, par décollement au niveau de la couche ﬁbrinoïde.' },
+  { question: 'Quelle vériﬁcation est essentielle après la délivrance ?', answer: 'Que le placenta soit complet et intact, avec toutes ses membranes.' },
+  { question: 'De quoi est composée la plaque choriale (côté fœtal) ?', answer: 'Amnios, mésenchyme, restes de cytotrophoblaste et syncytiotrophoblaste.' },
+  { question: 'De quoi est composée la plaque basale (côté maternel) ?', answer: 'Syncytiotrophoblaste + couche ﬁbrinoïde (Nitabuch) + caduque basilaire.' },
+  { question: 'Qu\'est-ce que l\'amnios ?', answer: 'Une membrane ﬁne entourant la cavité amniotique, accolée au chorion lisse.' },
+  { question: 'De quoi est constitué l\'amnios ?', answer: 'Épithélium amniotique + mésenchyme.' },
+  { question: 'Quelles sont les fonctions du liquide amniotique ?', answer: 'Protection mécanique, rôle anti-adhérent, rôle nutritif (déglutition), maturation digestive et pulmonaire, croissance fœtale.' },
+  { question: 'De quoi est constitué le liquide amniotique ?', answer: 'Eau, sels, protéines, glucose, lipides, débris cellulaires, cellules fœtales.' },
+  { question: 'Quelle est la quantité de liquide amniotique à terme ?', answer: '800 à 1000 mL.' },
+  { question: 'Que signiﬁent oligoamnios et hydramnios ?', answer: 'Oligoamnios = liquide < 250 mL ; Hydramnios = liquide > 2000 mL.' },
+  { question: 'Quelle est la durée moyenne du cordon ombilical ?', answer: '50 cm.' },
+  { question: 'Quelle est sa largeur moyenne ?', answer: '1,5 cm.' },
+  { question: 'De quoi est composé le cordon ombilical ?', answer: '2 artères ombilicales + 1 veine ombilicale, entourées de gelée de Wharton et recouvertes d\'amnios.' },
+  { question: 'Quel est le rôle de la gelée de Wharton ?', answer: 'Protéger les vaisseaux ombilicaux contre les compressions.' },
+  { question: 'Quand apparaît le pédicule embryonnaire (futur cordon) ?', answer: 'J13.' },
+  { question: 'Quelle est l\'origine de la veine et des artères ombilicales ?', answer: 'Artères : issues des artères allantoïdiennes ; Veine : issue de la veine vitelline gauche.' },
+  { question: 'Que devient la veine ombilicale après la naissance ?', answer: 'Elle se transforme en ligament rond du foie.' },
+  { question: 'Que deviennent les artères ombilicales après la naissance ?', answer: 'Elles se transforment en ligaments ombilicaux médiaux.' },
+  { question: 'Quand apparaît l\'allantoïde ?', answer: 'Vers J16, comme diverticule de la vésicule ombilicale.' },
+  { question: 'Quel est son rôle principal ?', answer: 'Contribuer à la formation des vaisseaux ombilicaux.' },
+  { question: 'Que devient l\'allantoïde après la naissance ?', answer: 'Il dégénère, son vestige forme l\'ouraque (futur ligament ombilical médian).' },
+  { question: 'Que comprend le placenta à terme (côté fœtal) ?', answer: 'Plaque choriale, villosités crampons, villosités ﬂottantes, cordon ombilical, amnios.' },
+  { question: 'Que comprend le placenta à terme (côté maternel) ?', answer: 'Plaque basale avec cotylédons séparés par septas, couche ﬁbrinoïde de Nitabuch.' },
+  { question: 'Où sont produits les spermatozoïdes et à partir de quand ?', answer: 'Dans le testicule, de façon continue à partir de la puberté.' },
+  { question: 'Où les spermatozoïdes sont-ils stockés ?', answer: 'Dans la queue de l\'épididyme, entre chaque éjaculation.' },
+  { question: 'Quel trajet suivent les spermatozoïdes au moment de l\'éjaculation ?', answer: 'Canal déférent ˠ ampoule déférentielle (avec sécrétions des glandes annexes) ˠ canal éjaculateur ˠ urètre.' },
+  { question: 'Comment est organisé le testicule ?', answer: 'En lobules séparés par des cloisons conjonctives, contenant les tubes séminifères reliés au rete testis et aux cônes eﬀérents.' },
+  { question: 'Quelles sont les enveloppes du testicule (de l\'extérieur vers l\'intérieur) ?', answer: 'Scrotum et peau, vaginale (séreuse), albuginée (conjonctif avec vaisseaux).' },
+  { question: 'Quelle est la fonction du tissu interstitiel testiculaire ?', answer: 'Fonction endocrine : contient cellules de Leydig (synthèse de testostérone à partir du cholestérol) et vaisseaux sanguins.' },
+  { question: 'Quelle est la fonction des tubes séminifères ?', answer: 'Fonction exocrine : production des gamètes (spermatozoïdes).' },
+  { question: 'Quelle est la structure de la gaine péritubulaire ?', answer: 'Lame basale, cellules musculaires lisses péritubulaires, collagène et ﬁbroblastes.' },
+  { question: 'Quelles cellules compose l\'épithélium séminifère ?', answer: 'Cellules de Sertoli (une couche) + cellules germinales (spermatogonies, spermatocytes I et II, spermatides).' },
+  { question: 'Quelle est l\'organisation de la spermatogenèse ?', answer: 'Évolution centripète : plus les cellules sont matures, plus elles sont proches de la lumière du tube.' },
+  { question: 'Quel est le rôle des cellules de Sertoli ?', answer: 'Soutien et cohésion des cellules germinales, transport, spermiation, phagocytose, synthèse de facteurs, nutrition, protection immunitaire.' },
+  { question: 'Que sécrètent les cellules de Sertoli pour le transport local des androgènes ?', answer: 'L\'ABP (androgen binding protein).' },
+  { question: 'Qu\'est-ce que la barrière hémato-testiculaire ?', answer: 'Séparation sang/lymphes et liquide des tubes séminifères, déﬁnie par capillaires, membrane propre, jonctions serrées entre cellules de Sertoli.' },
+  { question: 'Qu\'est-ce que le rete testis ?', answer: 'Réseau de canaux dans les corps de Highmore, épithélium pavimenteux simple, collecte les spermatozoïdes vers les cônes eﬀérents.' },
+  { question: 'Quelle est la structure des cônes eﬀérents ?', answer: 'Épithélium prismatique avec cellules ciliées, sécrétrices et basales (renouvellement).' },
+  { question: 'Quelle est la fonction des cônes eﬀérents ?', answer: 'Transport des spermatozoïdes du rete testis vers la tête de l\'épididyme.' },
+  { question: 'Quelle est la longueur du canal épididymaire ?', answer: '7 à 8 mètres.' },
+  { question: 'Quelles sont les trois parties de l\'épididyme ?', answer: 'Tête, corps, queue.' },
+  { question: 'Quel est le rôle principal de l\'épididyme ?', answer: 'Maturation et acquisition du pouvoir fécondant et de la mobilité des spermatozoïdes.' },
+  { question: 'Comment varie l\'épithélium dans l\'épididyme ?', answer: 'Prismatique pseudo-stratiﬁé : cellules plus hautes dans la tête, moyennes dans le corps, basses dans la queue.' },
+  { question: 'Quelle est la longueur et le diamètre du canal déférent ?', answer: '40 à 45 cm de long, 2 mm de diamètre.' },
+  { question: 'Quelles sont les caractéristiques histologiques du canal déférent ?', answer: 'Lumière étroite et festonnée, épithélium prismatique pseudostratiﬁé, chorion lâche riche en élastine, musculeuse à 3 couches, adventice.' },
+  { question: 'Où se termine le canal déférent ?', answer: 'À l\'ampoule déférentielle (abouchement avec les vésicules séminales), puis canal éjaculateur ˠ urètre prostatique.' },
+  { question: 'Quels sont les trois segments de l\'urètre masculin ?', answer: 'Urètre prostatique, urètre membraneux, urètre spongieux.' },
+  { question: 'Comment varie l\'épithélium de l\'urètre masculin ?', answer: 'Épithélium urinaire près de la vessie ˠ cubique stratiﬁé ˠ pavimenteux pluristratiﬁé non kératinisé près du méat urinaire.' },
+  { question: 'Quelles glandes se trouvent dans le chorion de l\'urètre ?', answer: 'Glandes de Littré (intra- ou extra-épithéliales).' },
+  { question: 'Quelles sont les couches de la musculeuse de l\'urètre ?', answer: 'Longitudinale interne et circulaire externe.' },
+  { question: 'Quelle est la fonction de l\'urètre masculin ?', answer: 'Transport des spermatozoïdes et sécrétions des glandes annexes (sperme).' },
+  { question: 'Quelles sont les glandes annexes masculines ?', answer: 'Vésicules séminales, prostate, glandes de Cowper.' },
+  { question: 'Quelles sont les caractéristiques des vésicules séminales ?', answer: 'Deux glandes lobulées, tubes pelotonnés séparés par cloisons conjonctives.' },
+  { question: 'Quelles sont les couches histologiques des vésicules séminales ?', answer: 'Muqueuse avec nombreux replis (épithélium unistratiﬁé : cellules glandulaires + basales), musculeuse, adventice.' },
+  { question: 'Quelle est la masse de la prostate ?', answer: '20 g.' },
+  { question: 'Quelle est la fonction de la prostate ?', answer: 'Production de liquide séminal.' },
+  { question: 'Quelle est la structure de la prostate ?', answer: 'Capsule ﬁbro-élastique avec cellules musculaires lisses, ≈ 50 glandes tubulo-alvéolaires ramiﬁées.' },
+  { question: 'Quels sont les 3 anneaux concentriques des glandes prostatiques ?', answer: 'Glandes périurétrales internes (muqueuses), glandes périurétrales externes (sous-muqueuses), glandes principales (périphériques).' },
+  { question: 'Quels types cellulaires compose l\'épithélium prostatique ?', answer: 'Cellules basales (remaniement) et cellules excrétrices (glandulaires).' },
+  { question: 'Quel est le rôle des glandes de Cowper ?', answer: 'Sécrétion lubriﬁante au moment de l\'éjaculation, ﬂuidiﬁant l\'urètre (pas intégrée au sperme).' },
+  { question: 'De quoi est constitué le pénis sur le plan histologique ?', answer: 'Corps spongieux + deux corps caverneux, entourés par albuginée.' },
+  { question: 'Quels sont les deux composants du sperme ?', answer: 'Liquide séminal + spermatozoïdes.' },
+  { question: 'Quelles glandes participent au liquide séminal et en quelles proportions ?', answer: 'Vésicules séminales (50–75 %, pH basique, fructose), prostate (15–30 %, pH acide, zinc et citrate), glandes de Cowper (trace).' },
+  { question: 'Quelle proportion représentent les spermatozoïdes dans le sperme ?', answer: '< 0,1 %.' },
+  { question: 'Combien de temps dure la spermatogenèse ?', answer: '74 jours.' },
+  { question: 'Quel examen explore la fertilité masculine ?', answer: 'Le spermogramme.' },
+  { question: 'Que reﬂète le spermogramme ?', answer: 'La production, formation et maturation des spermatozoïdes dans les 2 mois et demi précédents.' },
+  { question: 'Quelles sont les valeurs de référence du spermogramme (OMS 2021) ?', answer: 'Volume de l\'éjaculat ≥ 1,6 mL ; concentration ≥ 14 × 10⁶/mL ; mobilité totale ≥ 42 % ; mobilité progressive ≥ 30 % ; vitalité ≥ 54 %.' },
+  { question: 'Quels sont les rôles de l\'appareil génital féminin ?', answer: 'Production des gamètes (exocrine), production de stéroïdes (endocrine), accueil et transport des spermatozoïdes, fécondation, implantation, développement embryonnaire et fœtal.' },
+  { question: 'Quelles sont les principales structures de l\'appareil génital féminin ?', answer: 'Grandes et petites lèvres, vagin, col utérin, cavité utérine, trompes utérines, ovaires.' },
+  { question: 'Où a lieu la fécondation ?', answer: 'Dans l\'ampoule tubaire.' },
+  { question: 'Quelles sont les phases du cycle ovarien ?', answer: 'Phase folliculaire (J1-J14), ovulation (J14, déclenchée par le pic de LH), phase lutéale (J14-J28, sécrétion de progestérone par le corps jaune).' },
+  { question: 'Quelles sont les dimensions des ovaires ?', answer: '4 cm × 1,5 cm.' },
+  { question: 'Quelles sont les deux fonctions principales de l\'ovaire ?', answer: 'Production d\'ovocytes (exocrine) et sécrétion d\'hormones stéroïdes (endocrine).' },
+  { question: 'Quelles sont les 4 zones principales de l\'ovaire ?', answer: 'Épithélium ovarien superﬁciel, albuginée ovarienne, cortex (stroma + follicules), médullaire (tissu ﬁbreux, vaisseaux, nerfs, pas de follicules).' },
+  { question: 'Quelles sont les 3 phases de l\'ovogenèse ?', answer: 'Multiplication/prolifération (in utero), maturation nucléaire/cytoplasmique/membranaire, maturation terminale (après la puberté).' },
+  { question: 'Quand se constitue le stock déﬁnitif d\'ovogonies ?', answer: 'Pendant la vie fœtale, avant la naissance.' },
+  { question: 'À quel stade sont bloqués les ovocytes à la naissance ?', answer: 'En prophase I de méiose.' },
+  { question: 'Qu\'est-ce qui reprend après le pic de LH ?', answer: 'La méiose de l\'ovocyte I, avec expulsion du 1er globule polaire ˠ formation d\'un ovocyte II (bloqué en métaphase II jusqu\'à la fécondation).' },
+  { question: 'Quelles sont les caractéristiques de l\'ovocyte mature ?', answer: 'Cellule la plus rare de l\'organisme, obtenue à l\'ovulation ; 350–400 ovulations entre puberté et ménopause ; grande quantité d\'ARN ; totipotente ; porte la moitié du génome maternel.' },
+  { question: 'Qu\'est-ce que la folliculogénèse ?', answer: 'Ensemble des processus permettant au follicule primordial de se développer jusqu\'à l\'ovulation ou d\'entrer en apoptose.' },
+  { question: 'Où se déroule la folliculogénèse ?', answer: 'Dans le cortex ovarien.' },
+  { question: 'Quels sont les nombres de follicules aux diﬀérentes étapes de la vie ?', answer: '7 millions in utero (7e mois), 1 million à la naissance, 300 000 à la puberté, 350–400 ovulations dans la vie, 1000 à la ménopause.' },
+  { question: 'Quelle est la destinée majeure des follicules ovariens ?', answer: 'L\'atrésie (apoptose).' },
+  { question: 'Qu\'est-ce qu\'un follicule primordial ?', answer: 'Ovocyte I (40 µm) entouré d\'une seule couche de cellules pavimenteuses.' },
+  { question: 'Qu\'est-ce qu\'un follicule primaire ?', answer: 'Ovocyte I (40 µm) entouré d\'une couche de cellules cubiques + zone pellucide + membrane de Slavjanski.' },
+  { question: 'Qu\'est-ce qu\'un follicule secondaire ?', answer: 'Ovocyte I (40–60 µm) entouré de plusieurs couches de cellules de la granulosa + début de thèque interne.' },
+  { question: 'Qu\'est-ce qu\'un follicule tertiaire ?', answer: 'Follicule avec cavité antrale, corona radiata, granulosa, thèques interne (sécrétion d\'œstrogènes) et externe (soutien conjonctif).' },
+  { question: 'Qu\'est-ce qu\'un follicule de De Graaf ?', answer: 'Follicule pré-ovulatoire (20 mm) avec ovocyte I agrandi (120 µm), corona radiata, granulosa et cumulus oophorus.' },
+  { question: 'Que devient le follicule après ovulation ?', answer: 'Corps jaune (sécrétion de progestérone), puis dégénérescence ˠ corps blanc.' },
+  { question: 'Par où arrive le sang fœtal au placenta ?', answer: 'Par les deux artères ombilicales vers les capillaires des villosités.' },
+  { question: 'Par où repart le sang fœtal oxygéné ?', answer: 'Par la veine ombilicale.' },
+  { question: 'Quel trajet suit le sang oxygéné placentaire ?', answer: 'Veine ombilicale ˠ foie ˠ veine cave inférieure via le canal d\'Arantius ˠ oreillette droite.' },
+  { question: 'Pourquoi la circulation pulmonaire fœtale est-elle réduite ?', answer: 'Parce qu\'il n\'y a pas de respiration.' },
+  { question: 'Quels organes reçoivent le sang le plus oxygéné chez le fœtus ?', answer: 'Cerveau et cœur (via artères coronaires).' },
+  { question: 'Quelles sont les pressions dans les vaisseaux fœtaux placentaire ?', answer: 'Artères ombilicales : 50 mmHg ; capillaires villositaires : 30 mmHg ; veine ombilicale : 20 mmHg.' },
+  { question: 'Qu\'est-ce que la barrière placentaire ?', answer: 'Distance séparant le sang maternel oxygéné (chambre intervilleuse) du sang fœtal (capillaires villositaires).' },
+  { question: 'Quels types de transport permettent les échanges à travers la barrière placentaire ?', answer: 'Diﬀusion passive, diﬀusion facilitée, transport actif, pinocytose/endocytose.' },
+  { question: 'Quelles couches composent la barrière placentaire (du côté maternel vers fœtal) ?', answer: 'Syncytiotrophoblaste ˠ cytotrophoblaste ˠ mésenchyme ˠ endothélium des capillaires fœtaux.' },
+  { question: 'Quelles sont les deux voies de diﬀérenciation du cytotrophoblaste ?', answer: 'Cytotrophoblaste villeux ˠ syncytiotrophoblaste (contact avec sang maternel). Cytotrophoblaste extravilleux ˠ invasion endomètre + myomètre (cellules déciduales/géantes).' },
+  { question: 'Quel est le rôle du cytotrophoblaste extravilleux vasculaire ?', answer: 'Envahir et remodeler les artères utérines (paroi ﬁbreuse, atone, remplacement des cellules endothéliales).' },
+  { question: 'Qu\'est-ce que le bouchon trophoblastique ?', answer: 'Obstruction des artères spiralées par des cellules trophoblastiques, agissant comme ﬁltre jusqu\'à 10-12 SA.' },
+  { question: 'Quel est le rôle du bouchon trophoblastique ?', answer: 'Empêcher le passage des hématies maternelles dans la chambre intervilleuse et limiter l\'oxygénation précoce (O₂ toxique).' },
+  { question: 'Que se passe-t-il après 10-12 SA ?', answer: 'Ouverture des bouchons, envahissement de la chambre intervilleuse par les hématies maternelles, oxygénation du fœtus.' },
+  { question: 'Quand débute la période hémotrophique ?', answer: 'Entre 10 et 12 SA.' },
+  { question: 'Qu\'apporte la circulation utérine au fœtus ?', answer: 'Nutriments, ions, gaz.' },
+  { question: 'Que se passe-t-il à la naissance ?', answer: 'Ventilation pulmonaire, arrêt brutal de la circulation placentaire.' },
+  { question: 'Quelles sont les 4 étapes séquentielles majeures de la diﬀérenciation sexuelle ?', answer: 'Sexe chromosomique, sexe gonadique, diﬀérenciation des OGI, diﬀérenciation des OGE.' },
+  { question: 'Quel est le rôle du sexe chromosomique ?', answer: 'Mise en place du caryotype XX ou XY .' },
+  { question: 'Qu\'est-ce que le sexe gonadique ?', answer: 'Détermination puis diﬀérenciation de la gonade.' },
+  { question: 'Qu\'est-ce qui détermine la diﬀérenciation des OGI et OGE ?', answer: 'Les signaux hormonaux (orientation masculine en présence d\'hormones testiculaires).' },
+  { question: 'Quelle est la formule chromosomique des gamètes ?', answer: 'Ovule = 23, X ; Spermatozoïde = 23, X ou 23, Y .' },
+  { question: 'Quelle est la formule chromosomique de l\'embryon après fécondation ?', answer: '46 chromosomes dont 2 gonosomes (XX ou XY).' },
+  { question: 'Quel chromosome oriente la gonade indiﬀérenciée vers le testicule ?', answer: 'Le chromosome Y .' },
+  { question: 'Quel est le gène primordial de la diﬀérenciation testiculaire ?', answer: 'Le gène SRY (Sex Reverse Y).' },
+  { question: 'Que se passe-t-il si le gène SRY est absent ou muté chez un individu XY ?', answer: 'Phénotype féminin.' },
+  { question: 'Que se passe-t-il si le gène SRY est transloqué chez un individu XX ?', answer: 'Phénotype masculin.' },
+  { question: 'Quelles sont les propriétés du gène SRY ?', answer: 'Localisé sur Y , s\'exprime uniquement dans la gonade XY , actif au moment de la diﬀérenciation gonadique, mutation ˠ phénotype féminin, ajout chez XX ˠ phénotype masculin.' },
+  { question: 'Quelle est la diﬀérenciation par défaut de la gonade sans SRY ?', answer: 'Ovarienne.' },
+  { question: 'Quand se met en place la gonade indiﬀérenciée bipotentielle ?', answer: 'Entre la 4e et la 6e semaine post-fécondation.' },
+  { question: 'Quelle est l\'origine embryologique de la gonade indiﬀérenciée ?', answer: 'Les cellules de la crête urogénitale.' },
+  { question: 'Quel est le rôle du gène SRY chez l\'individu XY ?', answer: 'Induire la diﬀérenciation testiculaire.' },
+  { question: 'Quelle question reste posée pour la diﬀérenciation ovarienne ?', answer: 'L\'existence de gènes « anti-testicules » ou « pro-ovariens » favorisant le sens ovarien chez XX.' },
+  { question: 'Quelles structures coexistent au stade indiﬀérencié des OGI ?', answer: 'Canal de Wolﬀ et canal de Müller.' },
+  { question: 'Que deviennent ces canaux chez un individu masculin (XY avec testicule) ?', answer: 'Canal de Wolﬀ persiste (épididyme + canal déférent), canal de Müller régresse.' },
+  { question: 'Que deviennent ces canaux chez un individu féminin (XX avec ovaire) ?', answer: 'Canal de Wolﬀ régresse, canal de Müller persiste (trompes + utérus).' },
+  { question: 'Quelle est la diﬀérenciation des OGI par défaut (en cas de castration bilatérale) ?', answer: 'Féminine.' },
+  { question: 'Qu\'ont montré les expériences de Jost ?', answer: 'Le testicule sécrète des facteurs (locaux) favorisant Wolﬀ et inhibant Müller.' },
+  { question: 'Quelle hormone provoque la régression des canaux de Müller ?', answer: 'L\'hormone antimüllérienne (AMH).' },
+  { question: 'Par quelles cellules est sécrétée l\'AMH ?', answer: 'Les cellules de Sertoli.' },
+  { question: 'À partir de quand l\'AMH est-elle exprimée ?', answer: 'Dès la 8e semaine, jusqu\'à la puberté chez le fœtus masculin.' },
+  { question: 'Quelle est l\'action de l\'AMH ?', answer: 'Régression des canaux de Müller (S8–S9).' },
+  { question: 'Quelle est l\'origine des organes génitaux internes féminins ?', answer: 'Persistance et développement des canaux de Müller ˠ utérus, trompes, 1/3 supérieur du vagin.' },
+  { question: 'Quelle est l\'origine des organes génitaux internes masculins ?', answer: 'Action de la testostérone ˠ maintien et développement des canaux de Wolﬀ ˠ épididyme, canal déférent, vésicules séminales.' },
+  { question: 'Quelle hormone est nécessaire pour la diﬀérenciation des OGE masculins ?', answer: 'La dihydrotestostérone (DHT).' },
+  { question: 'Comment est produite la DHT ?', answer: 'Par transformation de la testostérone via l\'enzyme 5α-réductase.' },
+  { question: 'Quels organes se forment sous l\'action de la DHT chez le mâle ?', answer: 'Prostate, urètre pénien, pénis (bourgeon génital), scrotum (bourrelets génitaux).' },
+  { question: 'Quelle est la diﬀérenciation des OGE chez les individus XX (absence de testostérone/DHT) ?', answer: 'Féminisation du sinus urogénital ˠ 2/3 inférieurs du vagin, petites lèvres ; bourgeon génital ˠ clitoris ; bourrelets génitaux ˠ grandes lèvres.' },
+  { question: 'Qu\'est-ce que l\'axe gonadotrope ?', answer: 'Ensemble des structures aboutissant à la synthèse des stéroïdes sexuels (testostérone/œstradiol) et à la production des gamètes.' },
+  { question: 'Quels sont les 3 étages de l\'axe gonadotrope ?', answer: 'Hypothalamus, antéhypophyse, gonades.' },
+  { question: 'Où se situe l\'hypothalamus ?', answer: 'À la base du 3e ventricule, organisé en noyaux de neurones.' },
+  { question: 'Où se situe l\'antéhypophyse et quelles sont ses lignées cellulaires ?', answer: 'Dans la selle turcique ; lignées : somatotrope (GH), gonadotrope (LH/FSH), thyréotrope (TSH), corticotrope (ACTH), lactotrope (PRL).' },
+  { question: 'Comment communiquent hypothalamus et hypophyse ?', answer: 'Par le système porte hypothalamo-hypophysaire (hormones hypothalamiques stimulent l\'hypophyse).' },
+  { question: 'Quels sont les messages d\'origine centrale pour l\'hypophyse ?', answer: 'GHRH (active GH), somatostatine (inhibe GH), GnRH (active LH/FSH), TRH (active TSH et PRL), dopamine (inhibe PRL), CRH (active ACTH).' },
+  { question: 'Quels sont les messages d\'origine périphérique pour l\'hypophyse ?', answer: 'Rétrocontrôle négatif des hormones périphériques (testostérone, œstradiol) sur LH/FSH.' },
+  { question: 'Quelles sont les deux grandes familles de récepteurs hormonaux ?', answer: 'Récepteurs membranaires (messagers intracellulaires) et récepteurs nucléaires (activation gènes cibles).' },
+  { question: 'Quelle est l\'hormone centrale de la régulation gonadotrope ?', answer: 'La GnRH (sécrétion pulsatile : 1 pic/90 min chez l\'adulte).' },
+  { question: 'Quelles sont les hormones hypophysaires de l\'axe gonadotrope ?', answer: 'LH et FSH (gonadotrophines), composées d\'une sous-unité alpha commune (LH/FSH/TSH/hCG) et d\'une sous-unité bêta spéciﬁque.' },
+  { question: 'Quels sont les stéroïdes sexuels dérivés du cholestérol ?', answer: 'Testostérone, œstradiol, progestérone.' },
+  { question: 'Comment agissent les stéroïdes sexuels ?', answer: 'Hormones lipidiques qui traversent la membrane, se lient à un récepteur cytoplasmique, migrent au noyau et régulent l\'expression de gènes cibles.' },
+  { question: 'Comment est déﬁnie la puberté ?', answer: 'Modiﬁcations physiologiques, morphologiques et psychologiques lors du passage de l\'enfance à l\'adolescence, avec maturation gonadique et caractères sexuels secondaires.' },
+  { question: 'Quel est l\'âge normal de la puberté chez la ﬁlle ?', answer: '10,5 ans (8-13 ans, < 8 ans = puberté précoce, > 13 ans = retard pubertaire).' },
+  { question: 'Quel est l\'âge normal de la puberté chez le garçon ?', answer: '12,5 ans (9-14 ans).' },
+  { question: 'Quels sont les stades de Tanner chez la ﬁlle ?', answer: 'Développement mammaire (S1 à S5), pilosité pubienne (P1 à P5), pilosité axillaire (A1 à A5).' },
+  { question: 'Quels sont les stades de Tanner chez le garçon ?', answer: 'Volume testiculaire (G1 à G5), pilosité pubienne (P1 à P5), pilosité axillaire (A1 à A5).' },
+  { question: 'Que se passe-t-il en période pré-pubère au niveau de l\'axe gonadotrope ?', answer: 'Sécrétion faible de GnRH, faible réceptivité de l\'hypophyse et des gonades, rétrocontrôle fort des stéroïdes.' },
+  { question: 'Que se passe-t-il à la puberté pour l\'axe gonadotrope ?', answer: 'Diminution du rétrocontrôle, augmentation GnRH, pics LH++ et FSH, stimulation stéroïdogénèse (estradiol/testostérone), puis apparition de la gamétogenèse.' },
+  { question: 'Quelles sont les principales cellules du testicule impliquées dans l\'axe gonadotrope ?', answer: 'Cellules de Leydig (LH ˠ testostérone), cellules de Sertoli (FSH + androgènes ˠ soutien cellules germinales, sécrétion AMH et inhibine B).' },
+  { question: 'Quels sont les rôles de la testostérone intra- et extra-testiculaire ?', answer: 'Intra-testiculaire : indispensable à la spermatogenèse ; circulation générale : caractères sexuels secondaires, libido, voix, masse musculaire ; sous forme DHT : pilosité, prostate, scrotum, verge.' },
+  { question: 'Quelles sont les cellules principales de l\'ovaire impliquées dans l\'axe gonadotrope ?', answer: 'Cellules de la thèque interne (LH ˠ androgènes) et cellules de la granulosa (FSH ˠ aromatisation des androgènes en œstradiol, sécrétion inhibine A/B).' },
+  { question: 'Quelles sont les cibles de l\'œstradiol ?', answer: 'Rétrocontrôle sur l\'axe gonadotrope, muqueuse endométriale, glandes mammaires, os, SNC.' },
+  { question: 'Quelles sont les cibles de la progestérone ?', answer: 'Endomètre (préparation à l\'implantation), glandes mammaires, température corporelle (élévation en phase lutéale).' },
+  { question: 'Quelles sont les grandes phases du cycle menstruel ?', answer: 'Phase folliculaire, ovulation, phase lutéale.' },
+  { question: 'Quelle hormone domine en phase folliculaire ?', answer: 'L\'œstradiol.' },
+  { question: 'Quelle hormone déclenche l\'ovulation ?', answer: 'Le pic de LH.' },
+  { question: 'Quelle hormone domine en phase lutéale ?', answer: 'La progestérone (sécrétée par le corps jaune).' },
+  { question: 'Quel est le rôle de l\'inhibine ?', answer: 'Produite par la granulosa (inhibine B en phase folliculaire, inhibine A en phase lutéale) ˠ rétrocontrôle négatif sur FSH.' },
+  { question: 'Quel est le rôle de l\'activine ?', answer: 'Stimule la sécrétion de FSH.' },
+  { question: 'Quelles sont les principales sécrétions placentaires intervenant dans l\'axe gonadotrope pendant la grossesse ?', answer: 'hCG (LH-like, maintient corps jaune), œstrogènes, progestérone, hPL.' },
+  { question: 'Quelle est la fonction principale de l\'hCG ?', answer: 'Maintenir le corps jaune actif au premier trimestre pour sécrétion de progestérone.' },
+  { question: 'Quand le placenta devient-il autonome pour produire la progestérone ?', answer: 'À partir du 2e trimestre.' },
+  { question: 'Comment évolue l\'axe gonadotrope après la ménopause ?', answer: 'Disparition de la fonction ovarienne ˠ chute œstradiol et progestérone ˠ perte rétrocontrôle ˠ augmentation LH et FSH.' },
+  { question: 'Comment évolue l\'axe gonadotrope chez l\'homme avec l\'âge ?', answer: 'Baisse progressive de la testostérone ˠ augmentation FSH et LH modérée.' }
+];
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

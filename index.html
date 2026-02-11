@@ -1,0 +1,494 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Diploma Santé - Plateforme de Flashcards</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" type="image/jpeg" href="images/diploma.jpeg" />
+		<script src="security.js" defer></script>
+		<script src="assets/js/darkmode.js"></script>
+		<style>
+			/* Hide sidebar on index page */
+			#sidebar {
+				display: none !important;
+			}
+
+			#main {
+				margin-left: 0 !important;
+				width: 100% !important;
+			}
+
+			#wrapper {
+				width: 100% !important;
+			}
+
+			.inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 2rem;
+			}
+
+			/* Compact banner */
+			#banner {
+				display: none;
+			}
+
+			.selection-container {
+				min-height: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: flex-start;
+				padding: 0.5rem 0 3rem 0;
+			}
+
+			.selection-step {
+				width: 100%;
+				max-width: 1200px;
+				margin: 0 auto;
+				text-align: center;
+				animation: fadeIn 0.6s ease-in;
+			}
+
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(20px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+
+			.selection-step.hidden {
+				display: none;
+			}
+
+			.selection-step h2 {
+				font-size: 2.2em;
+				margin-bottom: 0.8rem;
+				margin-top: 0.5rem;
+				color: #3d4449;
+			}
+
+			.selection-step p {
+				font-size: 1.1em;
+				color: #7f888f;
+				margin-bottom: 1.5rem;
+			}
+
+			.universities-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+				margin-top: 1.5rem;
+			}
+
+			.separator {
+				border: none;
+				border-top: 2px solid #e0e0e0;
+				margin: 2.5rem auto;
+				width: 80%;
+				max-width: 600px;
+			}
+
+			body.dark-mode .separator {
+				border-top-color: #4a5568;
+			}
+
+			.description-paragraph {
+				font-size: 1em;
+				color: #7f888f;
+				text-align: center;
+				margin: 0 auto;
+				max-width: 800px;
+				line-height: 1.6;
+			}
+
+			body.dark-mode .description-paragraph {
+				color: #a0aec0;
+			}
+
+			.university-card {
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+				border: 2px solid #e0e0e0;
+				border-radius: 20px;
+				padding: 2.5rem 2rem;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Dark mode support for university cards */
+			body.dark-mode .university-card {
+				background: linear-gradient(135deg, #2d3436 0%, #1e2124 100%);
+				border-color: #4a5568;
+				color: #e2e8f0;
+			}
+
+			body.dark-mode .university-card h3 {
+				color: #e2e8f0;
+			}
+
+			body.dark-mode .university-card .icon {
+				color: #00aeef;
+			}
+
+			body.dark-mode .university-card:hover {
+				border-color: #00aeef;
+				background: linear-gradient(135deg, #34495e 0%, #2d3436 100%);
+			}
+
+			.university-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+				transition: left 0.5s;
+			}
+
+			body.dark-mode .university-card::before {
+				background: linear-gradient(90deg, transparent, rgba(0, 174, 239, 0.2), transparent);
+			}
+
+			.university-card:hover::before {
+				left: 100%;
+			}
+
+			.university-card:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 8px 30px rgba(0, 174, 239, 0.3);
+				border-color: #00aeef;
+			}
+
+			.university-card.selected {
+				background: linear-gradient(135deg, #00aeef 0%, #73C3EC 100%);
+				border-color: #00aeef;
+				color: white;
+				transform: scale(1.05);
+			}
+
+			.university-card.selected h3,
+			.university-card.selected .icon {
+				color: white !important;
+			}
+
+			.university-card .icon {
+				font-size: 4em;
+				margin-bottom: 1rem;
+				color: #00aeef;
+				transition: all 0.3s ease;
+			}
+
+			.university-card h3 {
+				font-size: 1.5em;
+				margin: 0;
+				color: #3d4449;
+				font-weight: 600;
+			}
+
+			.semesters-container {
+				display: flex;
+				gap: 2rem;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				margin: 2rem 0;
+				min-height: 200px;
+			}
+
+			.semester-button {
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+				border: 3px solid #00aeef;
+				border-radius: 15px;
+				padding: 2rem 4rem;
+				font-size: 2em;
+				font-weight: 700;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				color: #00aeef;
+				min-width: 200px;
+				box-shadow: 0 4px 15px rgba(0, 174, 239, 0.2);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			body.dark-mode .semester-button {
+				background: linear-gradient(135deg, #2d3436 0%, #1e2124 100%);
+				border-color: #00aeef;
+				color: #00aeef;
+			}
+
+			.semester-button:hover {
+				background: linear-gradient(135deg, #00aeef 0%, #73C3EC 100%);
+				color: white;
+				transform: translateY(-5px) scale(1.05);
+				box-shadow: 0 8px 30px rgba(0, 174, 239, 0.4);
+			}
+
+			.semester-button.selected {
+				background: linear-gradient(135deg, #00aeef 0%, #73C3EC 100%);
+				color: white;
+				transform: scale(1.1);
+			}
+
+			.back-button {
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+				border: 3px solid #00aeef;
+				border-radius: 15px;
+				padding: 1rem 2.5rem;
+				color: #00aeef;
+				font-size: 1.1em;
+				font-weight: 700;
+				cursor: pointer;
+				margin-top: 1rem;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 15px rgba(0, 174, 239, 0.2);
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			body.dark-mode .back-button {
+				background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+				border-color: #495057;
+				color: #e2e8f0;
+			}
+
+			.back-button:hover {
+				background: linear-gradient(135deg, #00aeef 0%, #73C3EC 100%);
+				color: white;
+				border-color: #00aeef;
+				transform: translateX(-5px) scale(1.05);
+				box-shadow: 0 6px 20px rgba(0, 174, 239, 0.4);
+			}
+
+			body.dark-mode .back-button:hover {
+				background: linear-gradient(135deg, #343a40 0%, #2d3436 100%);
+				color: #e2e8f0;
+			}
+
+			.continue-button {
+				background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+				border: none;
+				border-radius: 15px;
+				padding: 1.5rem 4rem;
+				color: white;
+				font-size: 1.5em;
+				font-weight: 700;
+				cursor: pointer;
+				margin-top: 3rem;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+			}
+
+			.continue-button:hover {
+				transform: translateY(-5px) scale(1.05);
+				box-shadow: 0 8px 30px rgba(39, 174, 96, 0.5);
+			}
+
+			.continue-button:disabled {
+				background: #ccc;
+				cursor: not-allowed;
+				transform: none;
+				box-shadow: none;
+			}
+
+			.selected-university-display {
+				background: linear-gradient(135deg, #00aeef 0%, #73C3EC 100%);
+				color: white;
+				padding: 1.5rem;
+				border-radius: 15px;
+				margin-bottom: 2rem;
+				font-size: 1.2em;
+			}
+
+			body.dark-mode .selection-step h2 {
+				color: #e2e8f0;
+			}
+
+			body.dark-mode .selection-step p {
+				color: #a0aec0;
+			}
+
+			@media screen and (max-width: 768px) {
+				.universities-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.semester-button {
+					padding: 1.5rem 3rem;
+					font-size: 1.5em;
+					min-width: 150px;
+				}
+
+				.selection-step h2 {
+					font-size: 2em;
+				}
+
+				#banner .content header h1 {
+					font-size: 2em;
+				}
+			}
+		</style>
+	</head>
+	<body class="is-preload index-page">
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo"><strong>Diploma Santé</strong> - Plateforme de Flashcards</a>
+						<ul class="icons">
+							<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+							<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+						</ul>
+					</header>
+
+					<!-- Banner -->
+					<section id="banner">
+						<div class="content">
+						</div>
+						<span class="image">
+							<img src="images/pic01.jpg" alt="" />
+						</span>
+					</section>
+
+					<!-- Selection Section -->
+					<section class="selection-container">
+						<!-- Step 1: University Selection -->
+						<div id="step-university" class="selection-step">
+							<h2>Sélectionnez votre université</h2>
+							<p>Choisissez votre établissement pour accéder aux flashcards adaptées</p>
+							<div class="universities-grid">
+								<div class="university-card" data-university="USPN">
+									<span class="icon solid fa-university"></span>
+									<h3>Université Sorbonne Paris Nord</h3>
+								</div>
+								<div class="university-card" data-university="SU">
+									<span class="icon solid fa-university"></span>
+									<h3>Université Sorbonne</h3>
+								</div>
+								<div class="university-card" data-university="UPEC_L1">
+									<span class="icon solid fa-university"></span>
+									<h3>Université Paris-Est Créteil LSPS1</h3>
+								</div>
+								<div class="university-card" data-university="UVSQ">
+									<span class="icon solid fa-university"></span>
+									<h3>Université Versailles Saint Quentin</h3>
+								</div>
+							</div>
+							<hr class="separator" />
+							<p class="description-paragraph">Boostez vos révisions en santé avec des flashcards efficaces, spécialement pensées pour les étudiants de toutes les facultés de santé !</p>
+						</div>
+
+						<!-- Step 2: Semester Selection -->
+						<div id="step-semester" class="selection-step hidden">
+							<div class="selected-university-display">
+								<span class="icon solid fa-check-circle"></span>
+								Université sélectionnée : <strong id="selected-university-name"></strong>
+							</div>
+							<h2>Sélectionnez votre semestre</h2>
+							<p>Choisissez le semestre pour accéder aux contenus correspondants</p>
+							<div class="semesters-container">
+								<button class="semester-button" data-semester="S1">S1</button>
+								<button class="semester-button" data-semester="S2">S2</button>
+							</div>
+							<button class="back-button" onclick="goBackToUniversity()">
+								<span class="icon solid fa-arrow-left"></span> Retour
+							</button>
+						</div>
+					</section>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			let selectedUniversity = null;
+			let selectedSemester = null;
+
+			// University selection
+			document.querySelectorAll('.university-card').forEach(card => {
+				card.addEventListener('click', function() {
+					// Remove previous selection
+					document.querySelectorAll('.university-card').forEach(c => c.classList.remove('selected'));
+					// Select this card
+					this.classList.add('selected');
+					selectedUniversity = this.getAttribute('data-university');
+					
+					// Update display name
+					const universityNames = {
+						'USPN': 'Université Sorbonne Paris Nord',
+						'SU': 'Université Sorbonne',
+						'UPEC_L1': 'Université Paris-Est Créteil LSPS1',
+						'UVSQ': 'Université Versailles Saint Quentin'
+					};
+					document.getElementById('selected-university-name').textContent = universityNames[selectedUniversity];
+					
+					// Show semester selection after short delay
+					setTimeout(() => {
+						document.getElementById('step-university').classList.add('hidden');
+						document.getElementById('step-semester').classList.remove('hidden');
+					}, 300);
+				});
+			});
+
+			// Semester selection
+			document.querySelectorAll('.semester-button').forEach(button => {
+				button.addEventListener('click', function() {
+					// Remove previous selection
+					document.querySelectorAll('.semester-button').forEach(b => b.classList.remove('selected'));
+					// Select this button
+					this.classList.add('selected');
+					selectedSemester = this.getAttribute('data-semester');
+					
+					// Redirect to the appropriate page
+					setTimeout(() => {
+					// USPN S1, USPN S2, SU S1, SU S2 et UPEC_L1 S2 sont disponibles
+					if (selectedUniversity === 'USPN' && selectedSemester === 'S1') {
+						window.location.href = 'USPN_S1/index.html';
+					} else if (selectedUniversity === 'USPN' && selectedSemester === 'S2') {
+						window.location.href = 'USPN_S2/index.html';
+					} else if (selectedUniversity === 'SU' && selectedSemester === 'S1') {
+						window.location.href = 'SU_S1/index.html';
+					} else if (selectedUniversity === 'SU' && selectedSemester === 'S2') {
+						window.location.href = 'SU_S2/index.html';
+					} else if (selectedUniversity === 'UPEC_L1' && selectedSemester === 'S2') {
+						window.location.href = 'UPEC_LSPS1_S2/index.html';
+					} else {
+						window.location.href = 'coming-soon.html';
+					}
+					}, 400);
+				});
+			});
+
+			function goBackToUniversity() {
+				selectedSemester = null;
+				document.getElementById('step-semester').classList.add('hidden');
+				document.getElementById('step-university').classList.remove('hidden');
+				document.querySelectorAll('.semester-button').forEach(b => b.classList.remove('selected'));
+			}
+		</script>
+	</body>
+</html>

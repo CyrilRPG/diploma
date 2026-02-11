@@ -1,0 +1,1040 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie de la reproduction</h1><h2>La Spermatogenèse</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Qu’existe-t-il entre le développement des cellules germinales primordiales et celui des gonades ?', answer: 'Une séparation spatiotemporelle.' },
+  { question: 'Que signifie l’abréviation CGP ?', answer: 'Primordial Germ Cell ou gonocyte.' },
+  { question: 'De quel feuillet embryonnaire naissent les cellules germinales primordiales ?', answer: 'De l’épiblaste (ectoderme embryonnaire).' },
+  { question: 'À quel moment apparaissent les CGP ?', answer: 'Vers 22 à 24 jours.' },
+  { question: 'Quel phénomène caractérise la formation des CGP au moment de leur apparition ?', answer: 'Beaucoup de mitoses.' },
+  { question: 'Où les CGP s’isolent-elles initialement ?', answer: 'Dans la paroi de la vésicule vitelline, dans la splanchnopleure extra-embryonnaire.' },
+  { question: 'À quel moment les CGP s’isolent-elles dans la vésicule vitelline ?', answer: 'Vers la 3e semaine.' },
+  { question: 'Quel trajet effectuent les CGP pour rejoindre leur futur site ?', answer: 'Elles remontent le long du tube digestif postérieur.' },
+  { question: 'Où migrent les CGP en fin de trajet ?', answer: 'Dans la région du mésonéphros (rein intermédiaire).' },
+  { question: 'À quel moment les CGP atteignent-elles le mésonéphros ?', answer: 'Vers la 5e semaine.' },
+  { question: 'Quelle structure les CGP envahissent-elles après migration ?', answer: 'Les crêtes génitales.' },
+  { question: 'Quand apparaissent les crêtes génitales ?', answer: 'Dès la 4e semaine.' },
+  { question: 'De quels tissus dérivent les crêtes génitales ?', answer: 'Du mésenchyme et de l’épithélium cœlomique.' },
+  { question: 'Que se passe-t-il à la 6e semaine au niveau de l’épithélium cœlomique ?', answer: 'Les cellules forment des agrégats de cellules somatiques de soutien entourant totalement les cellules germinales.' },
+  { question: 'Comment s’appellent les structures formées à la 6e semaine par les cellules somatiques et les gonocytes ?', answer: 'Les cordons sexuels primitifs (CSP).' },
+  { question: 'Quel déterminisme oriente la différenciation testiculaire ?', answer: 'Le chromosome Y et le gène SRY.' },
+  { question: 'Que font les cordons sexuels primitifs après formation ?', answer: 'Ils prolifèrent, envahissent la zone médullaire et se détachent de l’épithélium cœlomique.' },
+  { question: 'Que deviendront les cordons sexuels primitifs détachés du cœlome ?', answer: 'Des cordons testiculaires.' },
+  { question: 'Que permet la différenciation de la gonade primitive en testicule ?', answer: 'La formation de cordons séminifères primitifs.' },
+  { question: 'Quels types cellulaires composent les cordons séminifères primitifs ?', answer: 'CGPs et cellules de Sertoli.' },
+  { question: 'Quel devient l’état de maturation des CGP dans les cordons séminifères primitifs ?', answer: 'Elles bloquent leur maturation au stade de futures cellules souches de la spermatogenèse.' },
+  { question: 'Que trouve-t-on entre les cordons primitifs ?', answer: 'Du mésenchyme contenant des cellules de Leydig et des fibroblastes.' },
+  { question: 'Quel aspect prennent les cordons testiculaires au 4e mois ?', answer: 'Un aspect de fer à cheval.' },
+  { question: 'Avec quoi les extrémités des cordons testiculaires sont-elles en continuité ?', answer: 'Avec des cordons cellulaires du rete testis.' },
+  { question: 'Que se passe-t-il au moment de la puberté concernant les cordons testiculaires ?', answer: 'Ils se creusent d’une lumière et deviennent des tubes séminifères.' },
+  { question: 'Que reprend à la puberté au niveau des cellules germinales ?', answer: 'La maturation des cellules germinales.' },
+  { question: 'Quel processus débute à la puberté et devient continu ?', answer: 'La spermatogenèse ou production de gamètes matures.' },
+  { question: 'Quel est l’évènement clé de la différenciation des cellules germinales ?', answer: 'La méiose.' },
+  { question: 'Qu’est-ce que la spermatogenèse ?', answer: 'La gamétogenèse mâle, processus de multiplication et de différenciation aboutissant aux spermatozoïdes.' },
+  { question: 'Quand débute la spermatogenèse ?', answer: 'Après la puberté.' },
+  { question: 'À partir de quelles cellules débute la spermatogenèse ?', answer: 'À partir des spermatogonies (cellules souches germinales).' },
+  { question: 'Quelle est la durée de la spermatogenèse chez l’homme ?', answer: '74 jours.' },
+  { question: 'De quel type est la spermatogenèse ?', answer: 'Un phénomène continu à partir de la puberté.' },
+  { question: 'Où se déroule la spermatogenèse ?', answer: 'Dans les testicules, dans la paroi des tubes séminifères, dans l’épithélium germinal.' },
+  { question: 'Quel sens suit la différenciation germinale dans les tubes séminifères ?', answer: 'Un mode centripète, de la base vers la lumière.' },
+  { question: 'Quelle est la fonction exocrine du testicule ?', answer: 'La production des gamètes mâles.' },
+  { question: 'Quels types cellulaires composent l’épithélium séminifère ?', answer: 'Cellules de Sertoli et cellules germinales à tous les stades.' },
+  { question: 'Quelles sont les trois phases de la spermatogenèse ?', answer: 'Multiplication spermatogoniale, méiose, spermiogenèse.' },
+  { question: 'Quels sont les trois types cellulaires de la lignée germinale masculine ?', answer: 'Spermatogonies, spermatocytes, spermatides.' },
+  { question: 'Où se situent les spermatogonies ?', answer: 'À la périphérie du tube séminifère, près de la membrane basale.' },
+  { question: 'Où se situent les spermatocytes ?', answer: 'À l’étage moyen du tube.' },
+  { question: 'Où se situent les spermatides ?', answer: 'Autour de la lumière du tube.' },
+  { question: 'Quelle est la durée de la phase de prolifération des spermatogonies ?', answer: 'Environ 27 jours.' },
+  { question: 'Que forment les divisions spermatogoniales ?', answer: 'Les précurseurs des spermatocytes I.' },
+  { question: 'Quels types de divisions effectuent les spermatogonies ?', answer: 'Symétriques (auto-renouvellement) et asymétriques (différenciation).' },
+  { question: 'Qu’assure l’homéostasie du pool spermatogonial ?', answer: 'L’équilibre mitose/apoptose.' },
+  { question: 'Pourquoi la cytocinèse des spermatogonies est-elle incomplète ?', answer: 'Car les cellules restent reliées par des ponts cytoplasmiques formant un syncytium.' },
+  { question: 'Quel est l’intérêt du syncytium spermatogonial ?', answer: 'Assurer la synchronisation des divisions et de la méiose.' },
+  { question: 'Quels sont les trois types de spermatogonies observables en microscopie photonique ?', answer: 'Ad (dark), Ap (pale), B.' },
+  { question: 'Quel est l’aspect du noyau des spermatogonies Ad ?', answer: 'Noyau arrondi, chromatine fine très colorable.' },
+  { question: 'Quelle est la caractéristique des spermatogonies Ad ?', answer: 'Division symétrique.' },
+  { question: 'Quel est l’aspect du noyau des spermatogonies Ap ?', answer: 'Ovalaire, elles se différencient en B.' },
+  { question: 'Quel est l’aspect des spermatogonies B ?', answer: 'Noyau arrondi et foncé, chromatine en amas.' },
+  { question: 'Que donnent directement les spermatogonies B ?', answer: 'Les spermatocytes I.' },
+  { question: 'Quelle est la définition générale de la méiose ?', answer: 'Processus aboutissant à des gamètes haploïdes.' },
+  { question: 'Quelle est la conséquence chromosomique de la méiose ?', answer: 'Réduction de 2n à n, 1 chromosome de chaque paire.' },
+  { question: 'Combien de divisions comporte la méiose ?', answer: 'Deux : méiose I et méiose II.' },
+  { question: 'Quel est le rôle global de la méiose ?', answer: 'Transmission génétique et brassage génétique par crossing-over.' },
+  { question: 'Quelle est la durée de la méiose I ?', answer: 'Longue, 23 jours.' },
+  { question: 'Quel type de division est la méiose I ?', answer: 'Une division réductionnelle.' },
+  { question: 'Quel est l’état chromosomique avant et après la méiose I ?', answer: 'De 2×23 chromosomes 4n ADN à 1×23 chromosomes 2n ADN.' },
+  { question: 'Quels sont les quatre stades de la division ?', answer: 'Prophase, métaphase, anaphase, télophase.' },
+  { question: 'Quelles cellules effectuent la méiose I ?', answer: 'Les spermatocytes I.' },
+  { question: 'Quel type de division est la méiose II ?', answer: 'Une division équationnelle.' },
+  { question: 'Quelle transformation se produit en méiose II ?', answer: 'Séparation des chromatides sœurs.' },
+  { question: 'Quelle cellule effectue la méiose II ?', answer: 'Le spermatocyte II.' },
+  { question: 'Quels sont les trois aspects d’analyse de la méiose ?', answer: 'Cytologique, chromosomique et génétique.' },
+  { question: 'Quelle est la durée de la prophase I ?', answer: 'Très longue, environ 15 jours.' },
+  { question: 'Quels sont les cinq stades de la prophase I ?', answer: 'Leptotène, zygotène, pachytène, diplotène, diacinèse.' },
+  { question: 'Que se passe-t-il lors de l’appariement des chromosomes homologues ?', answer: 'Formation de synapsis par complexes synaptonémaux et crossing-over.' },
+  { question: 'Quelle structure mime une fermeture éclair durant la prophase I ?', answer: 'Le complexe synaptonémal.' },
+  { question: 'À quel stade le complexe synaptonémal est-il complet ?', answer: 'Au pachytène.' },
+  { question: 'Quels éléments composent le complexe synaptonémal ?', answer: 'Éléments latéraux, élément central et filaments transverses.' },
+  { question: 'Quelle famille protéique participe aux éléments latéraux ?', answer: 'Les SMCs, dont les cohésines.' },
+  { question: 'À quoi servent les recombinaisons génétiques ?', answer: 'À créer de nouvelles combinaisons de gènes soumises à la sélection naturelle.' },
+  { question: 'Quel est le stade le plus visible des spermatocytes en coupe ?', answer: 'Le pachytène.' },
+  { question: 'Où sont situés les spermatocytes I en coupe ?', answer: 'À distance de la membrane basale.' },
+  { question: 'Quel passage accompagne l’entrée en méiose au niveau des compartiments ?', answer: 'Le passage du compartiment basal au compartiment adluminal.' },
+  { question: 'À quel stade a lieu ce passage de compartiment ?', answer: 'Au leptotène précoce.' },
+  { question: 'Que doivent faire les jonctions serrées de Sertoli lors du passage ?', answer: 'S’ouvrir pour laisser passer les cellules germinales puis se refermer.' },
+  { question: 'Quels éléments constituent la barrière hématotesticulaire ?', answer: 'Endothélium des capillaires, cellules péritubulaires, membrane basale, jonctions serrées entre Sertoli.' },
+  { question: 'Quel est le rôle de la barrière hématotesticulaire ?', answer: 'Isoler les cellules germinales post-méiotiques du système immunitaire.' },
+  { question: 'Quelles cellules subissent la spermiogenèse ?', answer: 'Les spermatides, cellules haploïdes issues des spermatocytes II.' },
+  { question: 'La spermiogenèse implique-t-elle encore des divisions cellulaires ?', answer: 'Non, il n’y a plus de division cellulaire.' },
+  { question: 'En quoi les spermatocytes II se transforment-ils avant de devenir des spermatozoïdes ?', answer: 'Ils deviennent d’abord des spermatides puis des spermatozoïdes.' },
+  { question: 'Quelles sont les trois familles de spermatides ?', answer: 'Spermatides jeunes ou rondes, spermatides intermédiaires en cours d’élongation, spermatides matures ou allongées.' },
+  { question: 'Combien de stades de division des spermatides existe-t-il chez l’homme ?', answer: 'Huit stades.' },
+  { question: 'Quelle est la durée de la spermiogenèse ?', answer: '23 jours.' },
+  { question: 'Quels sont les grands types de modifications subies par les spermatides ?', answer: 'Formation de l’acrosome, remaniements nucléaires, développement du flagelle, réduction cytoplasmique et spermiation.' },
+  { question: 'De quoi dérive l’acrosome ?', answer: 'De la fusion de vésicules golgiennes contenant des enzymes hydrolytiques.' },
+  { question: 'Quelles membranes possède l’acrosome ?', answer: 'Une membrane acrosomique interne et une externe.' },
+  { question: 'À quoi sert l’acrosome ?', answer: 'À permettre au spermatozoïde de traverser les cellules entourant l’ovocyte.' },
+  { question: 'Comment se forme la vésicule acrosomale ?', answer: 'Par fusion de vacuoles issues de l’appareil de Golgi contenant des granules pro-acrosomiaux.' },
+  { question: 'Quelle portion du noyau est coiffée par l’acrosome ?', answer: 'Les deux tiers antérieurs du noyau.' },
+  { question: 'Quand ont lieu les remaniements nucléaires durant la spermiogenèse ?', answer: 'Dans la deuxième moitié de la spermiogenèse.' },
+  { question: 'À quoi est due l’élongation du noyau ?', answer: 'À l’accrochage de microtubules formant la manchette à l’enveloppe nucléaire.' },
+  { question: 'Quelles protéines remplacent les histones lors de la condensation du génome ?', answer: 'Les protamines.' },
+  { question: 'Quel est le rôle des protamines ?', answer: 'Permettre la condensation de l’ADN déroulé.' },
+  { question: 'Que devient le complexe d’histones lors de la spermiogenèse ?', answer: 'Son organisation change complètement, différente de celle des protamines.' },
+  { question: 'Quel événement marque le début du développement du flagelle ?', answer: 'Le déplacement des deux centrioles au pôle postérieur du noyau.' },
+  { question: 'Quelle structure assemble l’axonème ?', answer: 'Le centriole distal.' },
+  { question: 'Comment se réorganise le cytoplasme durant la spermiogenèse ?', answer: 'Il glisse vers l’arrière du flagelle en formation et diminue de volume.' },
+  { question: 'Qu’advient-il des corps résiduels formés durant la spermiogenèse ?', answer: 'Ils sont phagocytés par les cellules de Sertoli.' },
+  { question: 'Comment se disposent les mitochondries dans le spermatozoïde en formation ?', answer: 'En gaine mitochondriale autour de la partie initiale du flagelle.' },
+  { question: 'Quelle structure marque la limite de la gaine mitochondriale ?', answer: 'L’annulus.' },
+  { question: 'Combien existe-t-il de stades dans le cycle de l’épithélium séminal chez l’homme ?', answer: 'Six stades.' },
+  { question: 'À quoi correspondent les différents stades de l’épithélium séminal ?', answer: 'À des associations préférentielles de cellules germinales observées en coupe.' },
+  { question: 'Quelles variations expliquent les six stades de l’épithélium séminal ?', answer: 'L’entrée en mitose cyclique des spermatogonies et la durée variable d’existence de chaque type cellulaire.' },
+  { question: 'Quelle est la définition d’un spermatozoïde ?', answer: 'Le gamète mâle mature libéré dans la lumière des tubes séminifères.' },
+  { question: 'Quelle est la fonction générale d’un spermatozoïde ?', answer: 'Atteindre le gamète femelle dans les voies génitales féminines.' },
+  { question: 'Quels sont les deux grands pôles du spermatozoïde ?', answer: 'La tête et la queue, séparées par la pièce connective ou col.' },
+  { question: 'Quelle est la taille approximative d’un spermatozoïde ?', answer: 'Environ 60 μm de long.' },
+  { question: 'Quels sont les éléments majeurs que contient la tête du spermatozoïde ?', answer: 'Le noyau contenant le génome haploïde et l’acrosome.' },
+  { question: 'Quelles sont les trois grandes régions du flagelle ?', answer: 'Le col, la pièce intermédiaire et la pièce principale.' },
+  { question: 'Quelles structures entourent l’axonème au niveau du col ?', answer: 'De nombreuses mitochondries.' },
+  { question: 'Quelles sont les structures présentes dans la pièce principale du flagelle ?', answer: 'Une gaine fibreuse mais plus de mitochondries.' },
+  { question: 'Quelle est la structure de base de l’axonème ?', answer: '2 microtubules centraux et 9 doublets périphériques.' },
+  { question: 'Quelles protéines assurent le mouvement flagellaire ?', answer: 'Les bras de dynéine internes et externes.' },
+  { question: 'Quels liens stabilisent l’axonème ?', answer: 'Les liens de nexine.' },
+  { question: 'Quelle hormone hypothalamique initie la régulation endocrine de la spermatogenèse ?', answer: 'La GnRH.' },
+  { question: 'Quel est l’effet de la GnRH sur l’hypophyse ?', answer: 'Elle stimule de façon pulsatile la libération de FSH et LH.' },
+  { question: 'Quel événement majeur la GnRH initie-t-elle à la puberté ?', answer: 'La différenciation des cellules germinales et l’enclenchement de la spermatogenèse.' },
+  { question: 'Quel est le rôle de la FSH dans la spermatogenèse ?', answer: 'Elle agit sur les cellules de Sertoli pour stimuler inhibine B, activine et la spermatogenèse.' },
+  { question: 'Quel type de rétrocontrôle assurent les cellules de Sertoli ?', answer: 'Feed-back négatif via inhibine ou positif via activine.' },
+  { question: 'Quel est l’effet de la LH sur les cellules de Leydig ?', answer: 'Elle stimule la synthèse et la sécrétion de testostérone.' },
+  { question: 'Quel est le type d’hypogonadisme dû à un défaut de l’axe hypothalamo-hypophysaire ?', answer: 'L’hypogonadisme hypogonadotrope.' },
+  { question: 'Que caractérise l’hypogonadisme hypergonadotrope ?', answer: 'FSH et LH élevées mais mauvaise perception par les gonades.' },
+  { question: 'Quelles sont les causes possibles d’une spermatogenèse déficiente ?', answer: 'Causes toxiques, environnementales, chromosomiques ou idiopathiques.' },
+  { question: 'Que régule localement l’activité des cellules de Sertoli et Leydig ?', answer: 'Les cellules germinales.' },
+  { question: 'Comment les cellules de Sertoli modulent-elles la testostérone ?', answer: 'En l’aromatisant en œstrogènes, en l’inhibant via TGFβ ou en la stimulant via IGF1.' },
+  { question: 'Quel rôle ont les cellules péritubulaires sur les Sertoli ?', answer: 'Elles sécrètent P-Mod-S qui active la sécrétion d’ABP.' },
+  { question: 'Quels facteurs médiateurs agissent entre Sertoli et cellules germinales ?', answer: 'Facteurs de croissance (EGF, NGF) et interleukines (IL1, IL6).' },
+  { question: 'Quels gènes peuvent altérer la spermatogenèse lorsqu’ils sont mutés ?', answer: 'Les gènes situés dans les régions AZF a, b, c du chromosome Y.' },
+  { question: 'Quels antécédents personnels peuvent nuire à la spermatogenèse ?', answer: 'Diabète, surpoids, infections (mycoplasmes, chlamydiae, oreillons), torsion testiculaire, varicocèle, cryptorchidie.' },
+  { question: 'Quelles habitudes de vie peuvent altérer la spermatogenèse ?', answer: 'Tabac, alcool, drogues, chaleur.' },
+  { question: 'Quels agents professionnels exposent à une altération de la spermatogenèse ?', answer: 'Chaleur, radiations ionisantes, métaux, herbicides, pesticides, solvants.' },
+  { question: 'Quels traitements médicaux peuvent perturber la spermatogenèse ?', answer: 'Radiothérapie, chimiothérapie (alkylants+++, intercalants, antimétabolites, alcaloïdes) et certains médicaments.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

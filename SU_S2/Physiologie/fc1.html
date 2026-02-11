@@ -1,0 +1,1043 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Introduction a la physiologie cardio-vasculaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Qu’est-ce que la physiologie ?', answer: 'L’étude de l’homéostasie de l’organisme.' },
+  { question: 'Qu’est-ce que l’homéostasie ?', answer: 'Capacité d’un organisme à conserver certaines caractéristiques fonctionnelles constantes et à limiter leurs variations.' },
+  { question: 'Qu’est-ce qu’une grandeur régulée ?', answer: 'Une caractéristique comparée à une valeur de consigne (ex : pression artérielle systémique).' },
+  { question: 'Qu’est-ce qu’une grandeur non régulée/régulante ?', answer: 'Grandeur variable qui participe à la régulation d’une grandeur régulée (ex : débit cardiaque pour la PA).' },
+  { question: 'Quel est le mécanisme de base de la régulation homéostasique ?', answer: 'Rétroaction négative (feedback négatif).' },
+  { question: 'Que se passe-t-il si l’organisme ne peut pas revenir à la valeur de consigne ?', answer: 'Il y a défaut d’homéostasie.' },
+  { question: 'Quelles sont les fonctions d’homéostasie du cœur et des vaisseaux ?', answer: 'Régulation de la pression artérielle systémique.' },
+  { question: 'Quelles sont les conséquences d’un défaut d’homéostasie cardiovasculaire ?', answer: 'Hypertension artérielle.' },
+  { question: 'Quelles sont les fonctions d’homéostasie du poumon ?', answer: 'Maintenir la PO₂ et la PCO₂ artérielles.' },
+  { question: 'Quelle est la conséquence d’une baisse de la PO₂ artérielle ?', answer: 'Hypoxie hypoxémique.' },
+  { question: 'Quelle est la fonction d’homéostasie des reins ?', answer: 'Maintien d’un bilan électrolytique stable (natrémie et osmolarité plasmatique).' },
+  { question: 'Quelles sont les conséquences d’un défaut d’homéostasie rénale ?', answer: 'Troubles électrolytiques et troubles de l’hydratation.' },
+  { question: 'Quelle est la fonction d’homéostasie des systèmes endocriniens ?', answer: 'Régulation de nombreuses substances (ex : glycémie).' },
+  { question: 'Quelle est la conséquence d’un défaut d’homéostasie endocrinienne ?', answer: 'Diabète sucré.' },
+  { question: 'Pourquoi la convection forcée est-elle indispensable dans un organisme pluricellulaire ?', answer: 'Parce que la diﬀusion seule est insuﬃsante pour les grandes distances.' },
+  { question: 'Quelle est la limite de distance fonctionnelle de la diﬀusion ?', answer: '≤ 100 µm.' },
+  { question: 'Quelles sont les 4 étapes du transport de l’oxygène dans l’organisme ?', answer: '1.Convection forcée ventilatoire (air ˠ alvéoles pulmonaires). 2.Diﬀusion alvéolo-capillaire (alvéole ˠ globules rouges). 3.Convection forcée sanguine (GR ˠ périphérie). 4.Diﬀusion capillaire (sang ˠ cellule).' },
+  { question: 'Quels sont les rôles de la circulation sanguine ?', answer: 'Transport des nutriments, O₂, CO₂, cellules immunitaires, produits du métabolisme, électrolytes et systèmes tampons, calories, hormones.' },
+  { question: 'Quelles sont les deux circulations en série dans l’organisme ?', answer: 'Circulation systémique (grande circulation) et circulation pulmonaire (petite circulation).' },
+  { question: 'Quel ventricule assure la circulation systémique ?', answer: 'Le ventricule gauche.' },
+  { question: 'Quel ventricule assure la circulation pulmonaire ?', answer: 'Le ventricule droit.' },
+  { question: 'Quels sont les principaux sites de résistance à l’écoulement sanguin ?', answer: 'Artérioles (principal) et veinules (secondaire).' },
+  { question: 'Quel est le site principal d’échange par diﬀusion ?', answer: 'Les capillaires.' },
+  { question: 'Quelle est la volémie moyenne chez un adulte de 60 kg ?', answer: '5 L.' },
+  { question: 'Comment est réparti le volume sanguin total ?', answer: '63 % veines systémiques, 10 % cœur, 10 % artères/artérioles, 12 % circulation pulmonaire, 5 % capillaires systémiques.' },
+  { question: 'Qu’est-ce que l’hématocrite ?', answer: 'Rapport du volume globulaire sur le volume sanguin total (≈ 45 % normalement).' },
+  { question: 'Pourquoi les débits des deux ventricules doivent-ils être identiques ?', answer: 'Sinon accumulation sanguine dans un système et défaut d’alimentation de l’autre ˠ désamorçage cardiaque.' },
+  { question: 'Qu’est-ce que la circulation pulmonaire shuntée ?', answer: 'Petites veines coronaires/bronchiques rejoignant directement l’oreillette gauche.' },
+  { question: 'Quelle est la diﬀérence entre débit métabolique et débit fonctionnel ?', answer: '•Débit métabolique : lié aux besoins en O₂ (ex : muscle). •Débit fonctionnel : lié au volume plasmatique (ex : reins, foie).' },
+  { question: 'Quelle est la cavité de départ de la grande circulation ?', answer: 'Ventricule gauche (ˠ aorte).' },
+  { question: 'Quelles sont les principales collatérales de l’aorte ?', answer: 'Artères coronaires, bronchiques, vertébrales, carotides, sous-clavières, hépatique, mésentériques, splénique, rénales.' },
+  { question: 'Comment se termine l’aorte ?', answer: 'Division en artères iliaques primitives ˠ internes (pelvis) et externes (membres inférieurs).' },
+  { question: 'Quelles veines ramènent le sang au cœur droit ?', answer: 'Veines caves inférieure et supérieure.' },
+  { question: 'Quelle veine véhicule les nutriments digérés vers le foie ?', answer: 'La veine porte.' },
+  { question: 'Quelles veines ramènent le sang oxygéné des poumons vers le cœur gauche ?', answer: 'Les 4 veines pulmonaires.' },
+  { question: 'Quelles sont les 4 cavités cardiaques ?', answer: 'Oreillette droite, oreillette gauche, ventricule droit, ventricule gauche.' },
+  { question: 'Quelles valves empêchent le reﬂux ventricules ˠ oreillettes ?', answer: 'Valves auriculo-ventriculaires (tricuspide et mitrale).' },
+  { question: 'Quelles valves empêchent le reﬂux artères ˠ ventricules ?', answer: 'Valves sigmoïdes (pulmonaire et aortique).' },
+  { question: 'Les débits des ventricules droit et gauche sont-ils identiques ?', answer: 'Oui.' },
+  { question: 'Pourquoi la paroi du ventricule gauche est-elle plus épaisse ?', answer: 'Parce qu’il doit générer une pression plus élevée pour vaincre les résistances systémiques.' },
+  { question: 'Quelles sont les deux phases du cycle cardiaque ?', answer: 'Systole (contraction) et diastole (relaxation).' },
+  { question: 'Quelles sont les phases de la systole ventriculaire ?', answer: 'Contraction isovolumétrique (fermeture valves AV, ouverture sigmoïdes retardée) puis éjection (ouverture sigmoïdes).' },
+  { question: 'Quelles sont les phases de la diastole ventriculaire ?', answer: 'Relaxation isovolumétrique (fermeture sigmoïdes, ouverture AV retardée) puis remplissage ventriculaire (ouverture AV).' },
+  { question: 'Quelle est la séquence d’activation électrique cardiaque ?', answer: 'Nœud sinusal ˠ oreillettes ˠ nœud AV (retard conduction) ˠ faisceau de His ˠ Purkinje ˠ ventricules.' },
+  { question: 'Qu’est-ce que le débit cardiaque ?', answer: 'Volume de sang éjecté par minute par chaque ventricule.' },
+  { question: 'Quelle est la formule du débit cardiaque ?', answer: 'Débit cardiaque = Volume d’éjection systolique (VES) × fréquence cardiaque (FC).' },
+  { question: 'Quelle est la valeur normale du débit cardiaque au repos ?', answer: '5 L/min.' },
+  { question: 'Qu’est-ce que la fraction d’éjection ?', answer: 'Rapport VES / volume télédiastolique (VTD).' },
+  { question: 'Quelle est la valeur normale de la fraction d’éjection ?', answer: 'Supérieure à 60 %.' },
+  { question: 'Qu’est-ce que le VTD ?', answer: 'Volume télédiastolique, volume de sang contenu dans le ventricule en ﬁn de diastole (≈ 120 mL).' },
+  { question: 'Qu’est-ce que le VTS ?', answer: 'Volume télésystolique, volume restant après la systole (≈ 50 mL).' },
+  { question: 'Quels sont les 3 déterminants du volume d’éjection systolique ?', answer: 'Précharge, contractilité, postcharge.' },
+  { question: 'Qu’est-ce que la précharge ?', answer: 'Niveau d’étirement des ﬁbres myocardiques en télédiastole (dépend du VTD).' },
+  { question: 'Qu’est-ce que la contractilité ?', answer: 'Force de contraction indépendante de la précharge, liée au calcium intracellulaire.' },
+  { question: 'Qu’est-ce que la postcharge ?', answer: 'Force contre laquelle le ventricule doit éjecter (pression artérielle systolique).' },
+  { question: 'Que stipule la loi de Starling ?', answer: 'Plus la précharge augmente, plus la contraction myocardique est forte (jusqu’à une limite).' },
+  { question: 'Qu’est-ce que l’inotropisme ?', answer: 'Contractilité myocardique.' },
+  { question: 'Qu’est-ce que le chronotropisme ?', answer: 'Fréquence cardiaque.' },
+  { question: 'Qu’est-ce que le dromotropisme ?', answer: 'Vitesse de conduction intracardiaque.' },
+  { question: 'Qu’est-ce que le bathmotropisme ?', answer: 'Excitabilité myocardique.' },
+  { question: 'Quelles sont les deux régulations du débit cardiaque ?', answer: 'Régulation intrinsèque (loi de Starling) et régulation extrinsèque (système nerveux autonome).' },
+  { question: 'Quel est l’eﬀet du système sympathique sur le cœur ?', answer: 'Augmentation fréquence, conduction, excitabilité, contractilité.' },
+  { question: 'Quel est l’eﬀet du système parasympathique (nerf vague) sur le cœur ?', answer: 'Diminution fréquence, conduction, excitabilité.' },
+  { question: 'Quelle est l’action principale de la noradrénaline sur le cœur ?', answer: 'Eﬀet β1-adrénergique ˠ augmentation contractilité et fréquence cardiaque.' },
+  { question: 'Quelle est l’action principale de l’acétylcholine sur le cœur ?', answer: 'Eﬀet muscarinique ˠ ralentissement cardiaque.' },
+  { question: 'Quelles sont les 3 couches histologiques des vaisseaux sanguins ?', answer: 'Intima, média, adventice.' },
+  { question: 'Quelles sont les propriétés des artères élastiques (ex : aorte) ?', answer: 'Très riches en ﬁbres élastiques, amortissent les variations de pression.' },
+  { question: 'Quelles sont les propriétés des artères musculaires ?', answer: 'Paroi riche en cellules musculaires lisses, ajustent la distribution du débit sanguin.' },
+  { question: 'Quelles sont les propriétés des artérioles ?', answer: 'Fortes résistances, régulent la pression et la perfusion tissulaire.' },
+  { question: 'Quelles sont les propriétés des veines ?', answer: 'Forte capacitance (réservoir sanguin), valves anti-reﬂux, paroi mince.' },
+  { question: 'Quelles sont les propriétés des capillaires ?', answer: 'Paroi très ﬁne (endothélium seul), échanges par diﬀusion, ﬁltration, pinocytose.' },
+  { question: 'Qu’est-ce que la pression artérielle systémique (PAS) ?', answer: 'La force qu’exerce le sang sur la paroi des artères systémiques.' },
+  { question: 'Quelles sont les valeurs normales de la PAS au repos ?', answer: '120/80 mmHg.' },
+  { question: 'Quelles sont les deux composantes de la PA ?', answer: 'Pression systolique (maximale) et pression diastolique (minimale).' },
+  { question: 'Qu’est-ce que la pression artérielle moyenne (PAM) ?', answer: 'Moyenne pondérée de la PA sur un cycle cardiaque.' },
+  { question: 'Quelle est la formule approximative de la PAM ?', answer: 'PAM ≈ PAD + (PAS – PAD)/3.' },
+  { question: 'Quelle est la valeur normale de la PAM au repos ?', answer: '≈ 93 mmHg.' },
+  { question: 'Qu’est-ce que la pression pulsée (PP) ?', answer: 'Diﬀérence entre la PAS et la PAD.' },
+  { question: 'Quelles sont les valeurs normales de la PP ?', answer: '≈ 40 mmHg.' },
+  { question: 'Quand la PP augmente-t-elle ?', answer: 'Quand la compliance artérielle diminue (vieillissement, HTA, athérosclérose).' },
+  { question: 'Quelle est la relation entre débit, résistance et pression (loi d’Ohm) ?', answer: 'ΔP = Débit × Résistance.' },
+  { question: 'De quoi dépend la résistance à l’écoulement sanguin ?', answer: 'Viscosité sanguine, longueur du vaisseau, rayon du vaisseau (loi de Poiseuille).' },
+  { question: 'Quel paramètre a le plus d’inﬂuence sur la résistance vasculaire ?', answer: 'Le rayon du vaisseau (puissance 4).' },
+  { question: 'Qu’est-ce que l’autorégulation locale du débit sanguin ?', answer: 'Capacité intrinsèque d’un tissu à maintenir un débit constant malgré les variations de pression.' },
+  { question: 'Quelles sont les causes de vasodilatation locale ?', answer: 'Hypoxie, hypercapnie, baisse pH, augmentation K⁺, adénosine.' },
+  { question: 'Quels organes présentent une forte autorégulation du débit ?', answer: 'Cerveau, cœur, reins.' },
+  { question: 'Quel organe a une autorégulation faible ?', answer: 'Le muscle squelettique au repos.' },
+  { question: 'Quels sont les principaux barorécepteurs artériels ?', answer: 'Sinus carotidien et crosse aortique.' },
+  { question: 'Comment réagissent les barorécepteurs à une baisse de PA ?', answer: 'Diminution fréquence de décharge ˠ activation sympathique ˠ augmentation FC, contractilité, vasoconstriction.' },
+  { question: 'Comment réagissent les barorécepteurs à une hausse de PA ?', answer: 'Augmentation fréquence de décharge ˠ activation parasympathique ˠ baisse FC, vasodilatation.' },
+  { question: 'Quelles sont les limites de l’action des barorécepteurs ?', answer: 'Régulation à court terme, adaptation progressive (reset) en cas d’HTA chronique.' },
+  { question: 'Quelles hormones participent à la régulation de la PA à moyen/long terme ?', answer: 'Système rénine-angiotensine-aldostérone (RAA), vasopressine (ADH), peptides natriurétiques (ANP , BNP).' },
+  { question: 'Quel est le rôle de l’angiotensine II ?', answer: 'Puissant vasoconstricteur, stimule la sécrétion d’aldostérone et la réabsorption de Na⁺.' },
+  { question: 'Quel est le rôle de l’aldostérone ?', answer: 'Réabsorption de Na⁺ et d’eau au niveau rénal ˠ augmentation volémie et PA.' },
+  { question: 'Quel est le rôle de l’ADH (vasopressine) ?', answer: 'Réabsorption d’eau par le rein + vasoconstriction.' },
+  { question: 'Quel est le rôle des peptides natriurétiques ?', answer: 'Augmentent l’excrétion de Na⁺ et d’eau, entraînant une baisse de PA.' },
+  { question: 'Qu’est-ce que la circulation coronarienne ?', answer: 'La circulation qui assure l’apport sanguin au myocarde.' },
+  { question: 'Quelles sont les artères coronaires principales ?', answer: 'Artère coronaire droite, artère coronaire gauche (tronc commun ˠ interventriculaire antérieure + circonﬂexe).' },
+  { question: 'Quand le débit coronaire est-il maximal ?', answer: 'Pendant la diastole (car en systole les artérioles intramyocardiques sont comprimées).' },
+  { question: 'Quelle est la consommation d’O₂ du cœur au repos ?', answer: '250 mL/min (≈ 10 % de la consommation totale).' },
+  { question: 'Quelle est la particularité du myocarde vis-à-vis de l’extraction d’O₂ ?', answer: 'Extraction maximale au repos (75 %), donc adaptation surtout par augmentation du débit coronaire.' },
+  { question: 'Qu’est-ce que la circulation cérébrale ?', answer: 'Circulation sanguine de l’encéphale, très régulée, ≈ 15 % du débit cardiaque.' },
+  { question: 'Qu’est-ce que le polygone de Willis ?', answer: 'Réseau anastomotique à la base du cerveau assurant une compensation circulatoire.' },
+  { question: 'Quels sont les déterminants principaux du débit sanguin cérébral ?', answer: 'PAM (pression artérielle moyenne) et résistance intracrânienne.' },
+  { question: 'Quelles substances provoquent une vasodilatation cérébrale ?', answer: 'CO₂, H⁺, hypoxie.' },
+  { question: 'Qu’est-ce que la circulation hépatique ?', answer: 'Double apport : artère hépatique (O₂) et veine porte (nutriments).' },
+  { question: 'Qu’est-ce que la circulation rénale ?', answer: 'Débit sanguin très élevé, ≈ 20 % du débit cardiaque, rôle homéostasique (ﬁltration, régulation volémie et électrolytes).' },
+  { question: 'Qu’est-ce que la circulation musculaire ?', answer: 'Débit faible au repos, augmente fortement à l’exercice (jusqu’à 80 % du débit cardiaque).' },
+  { question: 'Qu’est-ce que la circulation cutanée ?', answer: 'Rôle thermorégulateur (vasoconstriction ou vasodilatation). FC1Annexe : Physio' },
+  { question: 'Quelle est la particularité des vaisseaux sanguins ?', answer: 'Ils sont distensibles et peuvent augmenter leur volume en fonction des besoins et des pressions.' },
+  { question: 'Qu’est-ce que la distensibilité vasculaire ?', answer: 'Capacité d’un vaisseau à augmenter son volume (Vs) par rapport au volume de repos (Vr) quand la pression augmente.' },
+  { question: 'Qu’est-ce que l’élasticité vasculaire ?', answer: 'Capacité d’un vaisseau à reprendre rapidement sa forme initiale lorsque la pression diminue.' },
+  { question: 'Quel est le rôle physiologique de la distensibilité et de l’élasticité artérielle ?', answer: 'Transformer un débit ventriculaire discontinu en un débit capillaire continu, facilitant les échanges.' },
+  { question: 'Quels types de signaux contrôlent la vasomotricité intrinsèque ?', answer: 'Signaux internes à la paroi vasculaire (pression, débit, métabolites, facteurs paracrines).' },
+  { question: 'Qu’est-ce qu’un signal chimique intrinsèque ?', answer: 'Substance produite localement qui agit sur les CML ou les cellules endothéliales proches.' },
+  { question: 'Qu’est-ce qu’un signal mécanique intrinsèque ?', answer: 'Déformation de la paroi par la pression ou forces de cisaillement dues aux variations de débit.' },
+  { question: 'Qu’est-ce que l’autorégulation myogénique ?', answer: 'Capacité des CML à se contracter si la pression augmente, ou à se relâcher si elle baisse, pour maintenir un débit constant.' },
+  { question: 'Quels organes sont particulièrement concernés par l’autorégulation myogénique ?', answer: 'Les reins et le cerveau.' },
+  { question: 'Quel est le rôle des mécanorécepteurs dans l’autorégulation ?', answer: 'Détecter l’augmentation de pression et déclencher une vasoconstriction pour maintenir le débit.' },
+  { question: 'Quels métabolites locaux provoquent une vasodilatation lors d’une activité cellulaire accrue ?', answer: 'CO₂, H⁺, K⁺, lactates (ˢ), O₂ (ˣ).' },
+  { question: 'Quels médiateurs paracrines ont une action vasodilatatrice ?', answer: 'Prostaglandines (PGE₂), histamine, adénosine.' },
+  { question: 'Comment se traduit l’hyperhémie fonctionnelle ?', answer: 'Vasodilatation locale ˠ baisse de résistance ˠ augmentation du débit sanguin dans le territoire actif.' },
+  { question: 'Quel est le rôle de l’endothélium dans la vasomotricité ?', answer: 'Produire des signaux vasodilatateurs permanents (tonus basal) et transitoires (NO, PGI₂).' },
+  { question: 'Comment l’angiotensine II agit-elle sur les CML ?', answer: 'Action directe vasoconstrictrice, atténuée par la production de NO et PGI₂ par l’endothélium.' },
+  { question: 'Qu’est-ce que la vasodilatation dépendante du débit ?', answer: 'Augmentation du débit ˠ cisaillement sur l’endothélium ˠ production de NO ˠ vasodilatation et diminution de résistance.' },
+  { question: 'Quels sont les deux types de signaux de contrôle extrinsèque de la vasomotricité ?', answer: 'Signaux nerveux et signaux hormonaux.' },
+  { question: 'Quelles sont les ﬁbres nerveuses présentes dans les vaisseaux sanguins ?', answer: 'Fibres sympathiques adrénergiques.' },
+  { question: 'Quelle est l’action des ﬁbres sympathiques sur les vaisseaux ?', answer: 'Libération de noradrénaline ˠ activation des récepteurs α₁ ˠ vasoconstriction.' },
+  { question: 'Quel est le rôle des récepteurs β₂ dans certains territoires (muscle, cœur) ?', answer: 'Réponse vasodilatatrice à l’adrénaline circulante.' },
+  { question: 'Quelles sont les principales hormones vasoconstrictrices ?', answer: 'Adrénaline (α₁), noradrénaline (α₁), angiotensine II, vasopressine (ADH), endothéline.' },
+  { question: 'Quelles sont les principales hormones vasodilatatrices ?', answer: 'Adrénaline (β₂), ANP (peptide atrial natriurétique), kinines (bradykinine), NO, PGI₂.' },
+  { question: 'Qu’est-ce que la vasomotricité extrinsèque permet d’ajuster ?', answer: 'La répartition du débit sanguin entre les diﬀérents organes.' },
+  { question: 'Quelles sont les résistances périphériques totales (RPT) ?', answer: 'Résistances vasculaires systémiques régulant la pression artérielle moyenne.' },
+  { question: 'Comment agit le système sympathique sur les RPT ?', answer: 'Vasoconstriction généralisée ˠ augmentation des RPT ˠ augmentation de la pression artérielle.' },
+  { question: 'Comment agit le système parasympathique sur les RPT ?', answer: 'Eﬀet faible et limité (principalement au niveau de certains territoires comme les organes génitaux).' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

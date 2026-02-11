@@ -1,0 +1,1103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS Socle</h1><h2>De la vulnérabilité au métissage</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+  { question: "Quel hôpital est considéré comme le berceau de l'approche transculturelle en France ?", answer: "L'hôpital Avicenne", },
+{ question: "Quel était le poste de Serge Lebovici ?", answer: "Chef de service de pédopsychiatrie", },
+{ question: "Sur quoi était orientée la pratique de Serge Lebovici ?", answer: "Les bébés et les adolescents", },
+{ question: "Sur quoi Serge Lebovici a-t-il travaillé ?", answer: "Les soins et interactions de la famille avec les bébés", },
+{ question: "Que propose Serge Lebovici concernant les patients migrants ?", answer: "Une amélioration de leur prise en charge", },
+{ question: "Qui met en place la consultation en ethnopsychanalyse à la demande de Serge Lebovici ?", answer: "Tobie Nathan", },
+{ question: "À qui étaient adressées les premières consultations en ethnopsychanalyse ?", answer: "Aux adultes", },
+{ question: "Qui a ouvert les consultations en ethnopsychanalyse aux enfants de migrants ?", answer: "Marie-Rose Moro", },
+{ question: "En quelle année Marie-Rose Moro ouvre-t-elle les consultations aux enfants de migrants ?", answer: "En 1989", },
+{ question: "Quel développement clinique est initié par Marie-Rose Moro ?", answer: "La clinique transculturelle pour les enfants et les réfugiés", },
+{ question: "Sur quoi la clinique transculturelle développée par Marie-Rose Moro est-elle centrée ?", answer: "Les enfants", },
+{ question: "Autour de quoi se structure la clinique transculturelle ? (3 réponses)", answer: "Le trauma individuel, collectif et familial", },
+{ question: "Où exerce Marie-Rose Moro après avoir quitté Avicenne ?", answer: "À la maison Solenn de l’Hôpital", },
+{ question: "Qu’a mis en place Marie-Rose Moro dans son parcours ?", answer: "Plusieurs consultations transculturelles", },
+{ question: "Quels sont les deux postulats de base de la psychiatrie transculturelle ?", answer: "Universalité psychique et codage culturel", },
+{ question: "Que signifie l’universalité psychique ?", answer: "Même statut pour tous les êtres humains", },
+{ question: "Quelle est la position de la psychiatrie transculturelle sur les représentations culturelles ?", answer: "Absence de hiérarchie entre les représentations culturelles", },
+{ question: "Quels domaines sont concernés par les représentations culturelles sans hiérarchie ?", answer: "Façon de s’occuper des enfants, sens donné à la maladie, stratégies de recherche de soins", },
+{ question: "Que signifie le codage culturel ?", answer: "Tout être humain est un être de culture", },
+{ question: "Quels sont les fondements de l’humanité et de l’universalité selon la psychiatrie transculturelle ?", answer: "La culture et le langage", },
+{ question: "Par quoi doit-on passer pour atteindre l’universalité selon la psychiatrie transculturelle ?", answer: "Par la spécificité de culture", },
+{ question: "Comment est définie la culture selon les anthropologues ?", answer: "Comme un système philosophique et pragmatique", },
+{ question: "Quels 6 éléments composent la culture ?", answer: "Langues, représentations, croyances, structures familiales, techniques et façons de faire", },
+{ question: "Donne des exemples de corpus de techniques et de façons de faire culturelles.", answer: "Habillage, cuisine, arts, maternage, éducation, guérison", },
+{ question: "Quel est le caractère temporel de la culture ?", answer: "C’est un système dynamique en évolution permanente avec le métissage", },
+{ question: "Comment la culture est-elle partagée ?", answer: "Au sein d’un groupe", },
+{ question: "Comment la culture est-elle transmise ?", answer: "De manière implicite, notamment à travers les techniques de maternage", },
+{ question: "Quelle fonction a la culture comme grille de lecture ?",answer: "Elle permet de lire et se représenter le monde de façon cohérente", },
+{ question: "Quel est le concept d’enculturation de Margaret Mead ?", answer: "Processus par lequel le groupe transmet à l’enfant des éléments culturels, normes et valeurs", },
+{ question: "Qui sont les personnes impliquées dans l’enculturation ?", answer: "Parents, famille élargie, pairs", },
+{ question: "Quels sont les modes d’acquisition de la culture ?", answer: "Par enseignement direct, par imitation ou émulation, de manière inconsciente", },
+{ question: "Donne un exemple d’acquisition de la culture par imitation.", answer: "Les enfants imitent les enfants plus grands", },
+{ question: "Comment l’enfant acquiert-il la culture de manière inconsciente ?", answer: "À travers les événements ritualisés, comportements, implicites de la culture", },
+{ question: "Quand a lieu l’enculturation ?", answer: "Durant la petite enfance", },
+{ question: "Quels éléments culturels sont transmis durant la petite enfance ?", answer: "Techniques du corps, nomination des bébés, manière d’interagir avec l’enfant", },
+{ question: "Qu’est-ce que le berceau culturel ?", answer: "L’influence du type de société sur les modalités d’interactions mère-bébé", },
+{ question: "Comment sont les interactions mère-bébé dans les sociétés sans berceau ?", answer: "Interactions proximales avec stimulation motrice, kinesthésique et olfactive", },
+{ question: "Comment sont les interactions mère-bébé dans les sociétés avec berceau ?", answer: "Interactions distales centrées sur le regard et la voix", },
+{ question: "Quelle est la place du regard selon les cultures ?", answer: "Elle varie selon le contexte culturel ; peut être perçue comme une menace", },
+{ question: "Donne des exemples de cultures où le regard peut être perçu comme une menace.", answer: "Amérique du Sud et Afrique du Nord", },
+{ question: "Que peut influencer la variation culturelle du métissage ?", answer: "Le développement du bébé et la manière d’envisager la séparation", },
+{ question: "Qu’est-ce que la culture vécue selon Tobie Nathan ?", answer: "Le cadre culturel interne, la singularité construite avec la famille", },
+{ question: "Qu’est-ce que la culture externe selon Tobie Nathan ?", answer: "Le cadre culturel externe, ce qui entoure l’individu (religion, famille, pays...)", },
+{ question: "À quoi peut être marquée l’histoire pré-migratoire d’un individu ?", answer: "Violence, trauma, deuil", },
+{ question: "Quels troubles peuvent apparaître à l’arrivée en terre d’accueil ?", answer: "Dépression, troubles post-traumatiques et anxieux", },
+{ question: "Qu’est-ce qui peut manquer au niveau du groupe en contexte migratoire ?", answer: "Soutien et liens partagés (valeurs, langue, religion)", },
+{ question: "Quel décalage apparaît dans la situation de migration ?", answer: "Entre le cadre culturel interne et externe", },
+{ question: "Quelles représentations peuvent être affectées par ce décalage ?", answer: "Celles de l’enfant, du parent, des interactions familiales, des rôles sociaux", },
+{ question: "Quelle est la nécessité dans la situation de migration selon Tobie Nathan ?", answer: "Le réajustement et le métissage avec les éléments de la culture externe", },
+{ question: "Pourquoi est-il nécessaire de s’intéresser aux représentations des patients migrants ?", answer: "Pour mieux les comprendre et mieux les soigner", },
+{ question: "Quel type de travail implique la migration sur le plan psychique ?", answer: "Un véritable travail psychique", },
+{ question: "Entre quels cadres existe-t-il une rupture en migration ?", answer: "Entre le cadre culturel interne et externe", },
+{ question: "Quelles sont les trois phases du processus de séparation-individuation ?", answer: "Petite enfance, adolescence, migration", },
+{ question: "Quelle psychologue propose l’idée d’une phase de séparation-individuation portée par la migration ?", answer: "Margaret Mahler", },
+{ question: "Quels types de pertes peuvent être ressenties lors de la migration ?", answer: "Perte de langue, d’identité, de statut social, de métier, de proches", },
+{ question: "Quels sont les nouveaux objets d’investissement rencontrés après migration ?", answer: "Nouvelle langue, nouvelles représentations de soi", },
+{ question: "Quels sont les trois types de facteurs impliqués dans la construction de la parentalité en contexte de migration ?", answer: "Facteurs collectifs, familiaux et individuels", },
+{ question: "À quel moment le contexte mouvant est-il particulièrement sensible ?", answer: "Surtout pour la première grossesse", },
+{ question: "Pourquoi la première grossesse est-elle particulièrement affectée dans un contexte de migration ?", answer: "Car les étayages habituels ne sont plus directement disponibles", },
+{ question: "Quels soutiens habituels sont absents lors de la première grossesse en contexte de migration ?", answer: "Les co-mères telles que les grands-mères et les belles-sœurs", },
+{ question: "Quelles crises peuvent survenir pour les parents en contexte de migration ?", answer: "Des crises identitaires", },
+{ question: "Quand a lieu un changement de nature ontologique pour les parents ?", answer: "Lors de la première grossesse", },
+{ question: "Quelle crise est vécue par les parents lors de la première grossesse ?", answer: "Une crise maturative", },
+{ question: "Qu'est-ce que la phase de transparence psychique ?", answer: "Phase où des éléments oubliés ou refoulés de l’enfance reviennent à la conscience", },
+{ question: "Qui est particulièrement concernée par la phase de transparence psychique ?", answer: "La mère", },
+{ question: "Quel est l’impact de la barrière de la langue chez les femmes migrantes ne parlant pas français ?", answer: "C’est une source d’angoisse qui complique l’accueil du bébé", },
+{ question: "Pourquoi certaines femmes migrantes ne comprennent-elles pas les explications des professionnels ?", answer: "À cause de la barrière linguistique", },
+{ question: "Pourquoi la déclaration de grossesse peut-elle être tardive dans certaines cultures ?", answer: "Parce que la grossesse doit rester secrète", },
+{ question: "Pourquoi certaines femmes migrantes ne souhaitent-elles pas regarder l’écran pendant une échographie ?", answer: "Pour des raisons culturelles", },
+{ question: "Pourquoi la césarienne peut-elle être vécue difficilement par les femmes migrantes ?", answer: "Parce qu’elle est angoissante et peut être considérée comme un échec", },
+{ question: "Que peut représenter la césarienne dans certains pays d’origine ?", answer: "Un geste critique renvoyant à une menace", },
+{ question: "Comment contourner les malentendus culturels liés à la parentalité ?", answer: "Par l’étude du contexte et des représentations culturelles des parents", },
+{ question: "Quels sont les trois niveaux de représentations culturelles à considérer dans les soins ?", answer: "Le niveau ontologique, le sens (étiologie), et le faire (logiques thérapeutiques)", },
+{ question: "Selon Anthony (1980), à quoi est liée la vulnérabilité de l’enfant ?", answer: "Au contexte dans lequel il grandit", },
+{ question: "Selon Marie-Rose Moro (1994), que peut provoquer une variation minime ?", answer: "Un dysfonctionnement important du fonctionnement psychique de l’enfant", },
+{ question: "Quelles peuvent être les conséquences d’un dysfonctionnement psychique selon Moro ?", answer: "Souffrance, arrêt, inhibition ou développement a minima du potentiel", },
+{ question: "Quelle vulnérabilité spécifique concerne les enfants de migrants ?", answer: "La vulnérabilité liée au clivage entre le monde du dedans et le monde du dehors", },
+{ question: "Quels auteurs parlent du clivage entre le monde du dedans et le monde du dehors ?", answer: "Nathan (1989), Moro (2004) et Rousseau (2006)", },
+{ question: "Pourquoi y a-t-il des difficultés de compréhension dans les soins en contexte migratoire ?", answer: "À cause des représentations différentes entre parents, professionnels et société d’accueil", },
+{ question: "Qu’est-ce que la filiation dans le contexte transculturel ?", answer: "Transmission verticale des anciens vers les jeunes et inscription dans une lignée", },
+{ question: "Quels types d’éléments sont transmis dans la filiation ?", answer: "Des éléments conscients et inconscients", },
+{ question: "Qu’est-ce que l’affiliation dans le contexte transculturel ?", answer: "Appartenances culturelles et construction des propres affiliations de l’enfant", },
+{ question: "Que nécessite l’affiliation ?", answer: "Le métissage", },
+{ question: "Quels éléments sont questionnés dans l’affiliation ?", answer: "L’appartenance, l’identité et la créativité", },
+{ question: "Quel est le double risque transculturel selon Marie-Rose Moro ?", answer: "L’effet de la migration sur les parents et le clivage entre mondes du dedans et du dehors", },
+{ question: "Qu’est-ce que la dissociation entre filiation et affiliation peut entraîner ?", answer: "Un risque pour l’enfant", },
+{ question: "Que signifie 'présentation du monde à petites doses' selon Marie-Rose Moro ?", answer: "L’enfant découvre progressivement le monde extérieur lors de la socialisation", },
+{ question: "À quel moment l’enfant découvre-t-il souvent le monde extérieur ?", answer: "Lors de la scolarisation en école maternelle", },
+{ question: "Pourquoi cette découverte du monde peut-elle être traumatique pour l’enfant ?", answer: "Car les parents ne l’ont jamais préparé à ce monde inconnu", },
+{ question: "Pourquoi le premier enfant né après la migration est-il le plus vulnérable ?", answer: "Car il arrive au moment où les parents sont le moins assurés dans leurs représentations", },
+{ question: "Quel est l’enjeu lors des interactions précoces ?", answer: "Inscription du bébé dans la culture et le langage dès la naissance", },
+{ question: "Quel est l’impact de parents déprimés ou isolés sur le bébé ?", answer: "Altération des interactions avec le bébé", },
+{ question: "Quel moment scolaire est un moment de vulnérabilité ?", answer: "Entre la grande section et le CP", },
+{ question: "Quels apprentissages ont lieu entre la grande section et le CP ?", answer: "Langue orale, lecture, écriture", },
+{ question: "Pourquoi ce moment est-il vulnérable pour l’enfant migrant ?", answer: "À cause de l’apprentissage et parfois de la transmission", },
+{ question: "Que se passe-t-il parfois chez les enfants à cette période ?", answer: "Ils cessent de parler leur langue maternelle", },
+{ question: "Qu’est-ce qui rend l’enfant fragile à cette période ?", answer: "Un manque de sécurité et des difficultés de séparation", },
+{ question: "Quelles sont les conséquences possibles d’un investissement massif dans la culture d’accueil ?", answer: "Un désinvestissement dans la culture familiale", },
+
+{ question: "Pourquoi l’adolescence est-elle une période critique ?", answer: "C’est un moment d’autonomisation, de construction de l’avenir et de conflits possibles", },
+{ question: "Quels besoins peuvent émerger à l’adolescence ?", answer: "Des besoins particuliers", },
+{ question: "Quelle est la langue des premières interactions précoces ?", answer: "La langue maternelle", },
+{ question: "Qui choisit généralement la langue maternelle de l'enfant ?", answer: "La mère", },
+{ question: "Que reconnaissent les bébés à la naissance ?", answer: "Leur langue maternelle", },
+{ question: "Quelle langue les bébés préfèrent-ils à la naissance ?", answer: "Leur langue maternelle", },
+{ question: "Que dit Sinatra en 2005 à propos de la langue maternelle ?", answer: "Elle est à l'origine de la structuration du sujet car elle s'inscrit avant l'organisation langagière, au niveau des perceptions sensorielles du corps du bébé", },
+{ question: "À quoi renvoie la langue maternelle selon Sinatra ?", answer: "Au rapport corporel du nourrisson avec sa mère et à tous les contenus émotionnels et perceptuels qui s'y rattachent", },
+{ question: "Quel est l'élément fondamental pour transmettre la culture ?", answer: "La langue maternelle", },
+{ question: "Quels éléments de la langue sont importants pour transmettre la culture ?", answer: "La voix, la mélodie, la prosodie", },
+{ question: "À quoi sert la langue maternelle pour la mère ?", answer: "À porter les représentations maternelles et les interprétations", },
+{ question: "Quel est le rôle de la langue maternelle dans le contexte culturel ?", answer: "C’est un agent du contexte culturel dans lequel le bébé grandit", },
+{ question: "Comment la réalité est-elle transmise au bébé ?", answer: "Par la langue maternelle", },
+{ question: "Quel est le double rôle de la langue maternelle ?",answer: "Vecteur et objet de transmission", },
+{ question: "Que faut-il au bébé pour construire le langage ?", answer: "Être porté, nourri avec des mots et des intentions de communication", },
+{ question: "Que doit pouvoir faire le bébé pour construire le langage ?", answer: "Se différencier et se séparer psychiquement de ses parents", },
+{ question: "Qu’est-ce qui complique le processus de séparation psychique ?", answer: "Des parents isolés, déprimés ou effrayés par le monde extérieur", },
+{ question: "Quelle est la place de la langue française chez les enfants de migrants nés en France ?", answer: "Très importante", },
+{ question: "Qu’est-ce qui facilite l’apprentissage du français chez l’enfant migrant ?", answer: "Une bonne maîtrise de la langue maternelle", },
+{ question: "De quoi dépend la construction du bilinguisme chez les enfants de migrants ?", answer: "Du contexte familial", },
+{ question: "Que varie selon chaque famille concernant le bilinguisme ?", answer: "L'investissement du langage", },
+{ question: "Qu’est-ce qui est important pour apprendre une seconde langue ?", answer: "Le bain culturel", },
+{ question: "Quelles peuvent être les conséquences d’un investissement massif dans le français ?", answer: "Arrêt de la langue maternelle, déficit culturel, appauvrissement des filiations familiales", },
+{ question: "Quand parle-t-on de bilinguisme simultané ?", answer: "Quand l’enfant rencontre deux langues très précocement et en même temps", },
+{ question: "Quels sont les contextes possibles du bilinguisme simultané ?", answer: "Deux langues dans la famille ou une langue à la maison et une à l’extérieur", },
+{ question: "Quand parle-t-on de bilinguisme consécutif ?", answer: "Quand l’enfant apprend une deuxième langue après avoir construit la première", },
+{ question: "Quelles sont les deux formes de bilinguisme consécutif ?", answer: "Précoce (avant 4 ans) et tardif (après 8 ans)", },
+{ question: "Qu’est-ce que le plurilinguisme ?", answer: "La présence de deux langues, dont une n’est pas forcément le français", },
+{ question: "Où se fait la rencontre avec le français chez les enfants migrants ?", answer: "À la crèche ou à l’école", },
+{ question: "Qu’est-il nécessaire pour apprendre une langue ?", answer: "Que quelqu’un parle la langue", },
+{ question: "Est-il possible pour un enfant d’apprendre 10 langues en même temps ?", answer: "Non", },
+{ question: "Que faut-il pour pouvoir apprendre une langue ?", answer: "Y passer un certain temps", },
+{ question: "Comment se développe la dominance d’une langue chez les bilingues ?", answer: "Selon le bain linguistique", },
+{ question: "La dominance d’une langue est-elle fixe ?", answer: "Non, elle peut changer selon les contextes", },
+{ question: "Que se passe-t-il vers 18 mois chez les enfants bilingues ?", answer: "Les langues se différencient", },
+{ question: "Le développement du langage est-il comparable entre enfants monolingues et bilingues ?", answer: "Oui", },
+{ question: "Quand apparaissent les premières combinaisons de mots chez les bilingues ?", answer: "Au même âge que chez les monolingues", },
+{ question: "Comment est réparti le nombre de mots chez les enfants bilingues ?", answer: "Quasi le même dans chaque langue", },
+{ question: "Comment interagissent les systèmes linguistiques des enfants bilingues ?", answer: "Ils peuvent s'influencer, avec emprunts de structures", },
+{ question: "Quelle est la première phase d’apprentissage d’une langue seconde ?", answer: "L’enfant utilise sa langue maternelle avec les adultes", },
+{ question: "Quelle est la deuxième phase d’apprentissage d’une langue seconde ?", answer: "Observation et silence", },
+{ question: "Comment l’enfant communique-t-il dans la phase de silence ?", answer: "Par communication non verbale", },
+{ question: "Quelle est la troisième phase d’apprentissage d’une langue seconde ?", answer: "Utilisation de phrases télégraphiques et de mots isolés", },
+{ question: "Quelle est la quatrième phase d’apprentissage d’une langue seconde ?", answer: "L’enfant commence à faire des phrases dans la seconde langue", },
+{ question: "Qu’est-ce que la période d’interlangue ?", answer: "Phase d’apprentissage de la seconde langue jusqu’à sa maîtrise", },
+{ question: "Quelles erreurs apparaissent pendant l’interlangue ?", answer: "Erreurs développementales et transferts phonologiques, ordre des mots", },
+{ question: "Combien de temps faut-il pour maîtriser une conversation dans une seconde langue ?", answer: "1 à 3 ans", },
+{ question: "Quels sont les facteurs influençant l’apprentissage d’une seconde langue ?", answer: "Motivation, personnalité, niveau d’anxiété", },
+{ question: "Comment les enfants se positionnent-ils par rapport aux langues ?", answer: "En fonction des investissements", },
+{ question: "Quelle langue est souvent laissée de côté ?", answer: "La langue maternelle", },
+{ question: "Quel lien existe-t-il entre bilinguisme et niveau d’études ?", answer: "Les adolescents bilingues font plus souvent de longues études", },
+{ question: "Quel est l’effet du bilinguisme sur le vieillissement ?", answer: "Effet bénéfique", },
+{ question: "Quels bénéfices cognitifs les bilingues ont-ils selon Bialystok et Martin (2004) ?", answer: "Flexibilité mentale, aisance pour passer d'une tâche à l'autre", },
+{ question: "Que dit Green (1998) sur l’attention et l’inhibition chez les bilingues ?", answer: "Les deux langues sont toujours activées, et l’une doit être inhibée", },
+{ question: "Pourquoi le contrôle de l’attention est-il important chez les bilingues ?", answer: "Pour utiliser une langue sans intrusion de l’autre", },
+{ question: "Comment se compare la taille du lexique d’un bilingue à celui d’un monolingue pour une langue donnée ?", answer: "Elle est plus petite", },
+{ question: "Le champ lexical total d’un bilingue peut-il être supérieur à celui d’un monolingue ?", answer: "Oui", },
+{ question: "Les bilingues sont-ils performants dans des tâches non verbales ?", answer: "Oui, ils mobilisent mieux plusieurs domaines cognitifs", },
+{ question: "Quel type d’interaction existe chez les enfants de migrants ?", answer: "Interaction entre cadre culturel et cadre psychique", },
+{ question: "Quel est le risque transculturel pour les enfants de migrants ?", answer: "Une vulnérabilité spécifique", },
+{ question: "Comment éviter le risque transculturel ?", answer: "Construire des ponts entre les affiliations de l’enfant", },
+{ question: "Quels sont les deux types de fragilité chez les enfants de migrants ?", answer: "Clivage identitaire de l’enfant et fragilité liée à la migration des parents", },
+{ question: "De quoi les enfants de migrants ont-ils besoin ?", answer: "Reconnaissance du berceau culturel et social", },
+{ question: "Quels effets les pratiques culturelles peuvent-elles avoir ?", answer: "Effets protecteurs sur les parents et les enfants", },
+{ question: "Quels sont les trois niveaux d’intérêt concernant la culture d’origine ?", answer: "Modification de la culture d’origine, conséquences psychologiques de la migration, difficultés des migrants", },
+];
+
+   
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

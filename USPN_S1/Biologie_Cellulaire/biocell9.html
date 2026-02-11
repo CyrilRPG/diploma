@@ -1,0 +1,1047 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Problèmes liés à la compartimentation</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quels types de problèmes engendre la compartimentation d’une cellule ?", answer: "Des phénomènes d’accumulation de substances dans un espace limité (problèmes d’osmose) et des problèmes de barrière", },
+{ question: "Que limite la présence de barrières membranaires ?", answer: "Les mouvements des molécules à l’intérieur des cellules", },
+{ question: "Pourquoi met-on en place des transporteurs dans la cellule ?", answer: "Pour permettre les échanges de métabolites et d'informations, assurant la survie de la cellule", },
+{ question: "Que décrivent les lois de l’osmose ?", answer: "Les mouvements de solvant (l’eau) dans la cellule", },
+{ question: "Quels sont les deux compartiments considérés dans l’étude de l’osmose ?", answer: "Un compartiment avec de l’eau pure et un avec une solution aqueuse saline", },
+{ question: "Que se passe-t-il si la membrane est perméable ?", answer: "Elle laisse passer les solutés et le solvant, les concentrations s’équilibrent", },
+{ question: "Que se passe-t-il si la membrane est hémi-perméable ?", answer: "Elle laisse passer uniquement le solvant, provoquant un phénomène d’osmose", },
+{ question: "Dans quelle direction l’eau se déplace-t-elle en cas d’osmose ?", answer: "De l’eau pure vers la solution contenant des solutés", },
+{ question: "Que se passe-t-il si la membrane est imperméable ?", answer: "Rien ne traverse la membrane", },
+{ question: "Que provoque le flux d’eau lors de l’osmose ?", answer: "Une augmentation du volume dans le compartiment contenant le soluté", },
+{ question: "Comment peut-on empêcher l’eau de monter dans un compartiment ?", answer: "En appliquant une pression hydrostatique sur le compartiment contenant la solution saline", },
+{ question: "Comment s’appelle la pression mesurée qui empêche l’eau d’entrer ?", answer: "La pression osmotique", },
+{ question: "De quoi dépend la pression osmotique ?", answer: "De la concentration en soluté (osmolarité)", },
+{ question: "Quelle est la formule de la pression osmotique ?", answer: "𝝅= RTC avec R = constante des gaz parfaits ; T = température en kelvin ; C = osmolarité en osmole/L", },
+{ question: "Pourquoi l’osmolarité du NaCl à 0.1 mol/L est-elle de 0.2 ?", answer: "Parce qu’il se dissocie en deux espèces : Na+ et Cl-", },
+{ question: "Comment se comportent les membranes plasmiques vis-à-vis de l’eau ?", answer: "Elles agissent approximativement comme des membranes hémi-perméables", },
+{ question: "Que se passe-t-il si on plonge un GR dans une solution isotonique ?", answer: "Il ne change pas de volume", },
+{ question: "Quelle est l’osmolarité d’une solution isotonique pour le GR ?", answer: "300 mosml/L", },
+{ question: "Que se passe-t-il dans une solution hypotonique ?", answer: "Le GR gonfle car l’eau entre ; s’il est très hypotonique, il peut éclater", },
+{ question: "Que se passe-t-il dans une solution hypertonique ?", answer: "Le GR perd de l’eau, diminue de volume et devient crénelé", },
+{ question: "Quelles sont les causes des variations de volume des GR ?", answer: "Les mouvements d’eau de part et d’autre de leur membrane", },
+{ question: "La membrane plasmique est-elle strictement hémi-perméable ?", answer: "Non", },
+{ question: "Pourquoi les macromolécules posent-elles problème ?", answer: "Elles ne peuvent pas traverser la membrane", },
+{ question: "Quel effet ont les charges des macromolécules ?", answer: "Elles créent un gradient de potentiel électrique", },
+{ question: "Comment les charges des macromolécules sont-elles neutralisées ?", answer: "Par les ions", },
+{ question: "De quoi dépend la répartition finale des ions ?", answer: "Des gradients de concentration et des gradients de potentiel électrique", },
+{ question: "Pourquoi certains ions sont-ils plus nombreux à l’intérieur qu’à l’extérieur de la cellule ?", answer: "À cause des gradients de concentration et de potentiel électrique", },
+{ question: "Pourquoi l’eau tend-elle à entrer dans les cellules ?", answer: "Parce que l’osmolarité est plus grande dans le cytoplasme que dans la MEC", },
+{ question: "Comment réagissent les protozoaires à l’entrée d’eau ?", answer: "Ils possèdent des vacuoles pulsatiles pour expulser l’eau", },
+{ question: "Comment réagissent les cellules animales à l’entrée d’eau ?", answer: "Elles utilisent des pompes qui rejettent certains ions vers l’extérieur", },
+{ question: "Pourquoi faut-il des entrées de métabolites dans la cellule ?", answer: "Pour maintenir les réactions de métabolisme", },
+{ question: "Pourquoi les molécules doivent-elles traverser la membrane plasmique et celles des organites ?", answer: "Pour entrer dans la cellule ou atteindre un organite spécifique", },
+{ question: "Quels produits élaborés dans la cellule sont déversés dans le milieu environnant ?", answer: "Certains produits métaboliques", },
+{ question: "Que permet le transport perméatif ?", answer: "Le passage de molécules sans modification morphologique de la membrane plasmique", },
+{ question: "Comment sont classés les mécanismes de transport des petites molécules ?", answer: "Selon la nature de la molécule transportée et le besoin ou non d’énergie", },
+{ question: "Comment les gaz respiratoires traversent-ils la membrane ?", answer: "Facilement, car ils sont liposolubles et hydrophobes", },
+{ question: "Comment les molécules hydrophiles de petite taille traversent-elles la membrane ?", answer: "Elles sont prises en charge par des protéines de transport membranaires", },
+{ question: "Quels types de molécules traversent la membrane par transport perméatif ?", answer: "Molécules non polaires, de faible poids moléculaire, nécessitant des protéines spécifiques", },
+{ question: "Quels sont les deux grands types de transport transmembranaire ?", answer: "Transport passif et transport actif", },
+{ question: "Qu’est-ce qu’un transport passif ?", answer: "Un transport transmembranaire qui ne consomme pas d’énergie", },
+{ question: "Quels sont les deux types de transport passif ?", answer: "Diffusion simple et diffusion passive facilitée", },
+{ question: "Comment se fait la diffusion passive facilitée ?", answer: "Par des protéines porteuses ou des canaux ioniques", },
+{ question: "Dans quel sens va le transport passif ?", answer: "Dans le sens du gradient de concentration", },
+{ question: "Quels paramètres influencent la diffusion simple ?", answer: "Taille, polarité, charge, gradient de concentration, solubilité dans les lipides", },
+{ question: "Comment varie la vitesse de pénétration d’une molécule en fonction de sa taille ?", answer: "Elle est inversement proportionnelle à son volume (valable pour les petites molécules)", },
+{ question: "Une molécule polarisée peut-elle entrer par transport passif ?", answer: "Non", },
+{ question: "Une molécule non chargée à haut degré d’hydratation peut-elle entrer par diffusion simple ?", answer: "Non", },
+{ question: "De quoi dépend la vitesse de progression d’une molécule à travers la membrane ?", answer: "De la concentration de part et d’autre de la membrane", },
+{ question: "Dans quelle direction se déplace une molécule en diffusion simple ?", answer: "De la région de forte concentration vers la région de faible concentration", },
+{ question: "Quels types de molécules utilisent la diffusion simple ?", answer: "Gaz (O2, N2, CO2), hormones stéroïdes, eau", },
+{ question: "Comment l’eau traverse-t-elle la membrane malgré sa polarité ?", answer: "Très lentement grâce à des espaces créés par les parties hydrocarbonées des phospholipides", },
+{ question: "Qu’est-ce que la diffusion par solvant ?", answer: "C’est une diffusion qui se produit grâce à des modifications de l’hydrophobicité de la membrane.", },
+{ question: "Comment peut-on modifier l’hydrophobicité de la membrane ?", answer: "Par le regroupement temporaire de protéines intramembranaires sous forme de pores perméables à l’eau.", },
+{ question: "Que permet la paroi de la vessie de grenouille ?", answer: "Elle permet à la grenouille de réabsorber de l’eau de sa vessie en cas de déshydratation.", },
+{ question: "Comment se forment les pores dans la vessie de grenouille ?", answer: "Par regroupement de protéines dans la membrane plasmique des cellules de la paroi de la vessie.", },
+{ question: "Comment les protéines de la membrane de la vessie forment-elles un canal ?", answer: "Via une stimulation hormonale, ces protéines forment un canal qui permet à l’eau de repasser dans l’organisme.", },
+{ question: "Qu’est-ce que la diffusion passive facilitée ?", answer: "C’est un transport sans énergie qui fait appel à des protéines porteuses appelées perméases.", },
+{ question: "D’où provient l’'énergie' utilisée en diffusion passive facilitée ?", answer: "Du gradient de concentration de la molécule transportée.", },
+{ question: "Dans quel sens les molécules sont-elles transportées lors d’une diffusion passive facilitée ?", answer: "Toujours dans le sens du gradient de concentration.", },
+{ question: "Qu’est-ce qu’un uniport ?", answer: "Un transporteur qui assure le passage d’une molécule d’un côté à l’autre de la membrane.", },
+{ question: "Qu’est-ce qu’un symport ?", answer: "Un transporteur capable d’assurer le passage de deux molécules différentes dans le même sens.", },
+{ question: "Qu’est-ce qu’un antiport ?", answer: "Un transporteur qui échange deux molécules différentes dans des sens opposés.", },
+{ question: "Quelles sont les caractéristiques des protéines transporteurs comme les perméases ?", answer: "Elles sont de haut poids moléculaire, hydrophiles et capables de fixer une molécule extracellulaire par complémentarité stérique.", },
+{ question: "Que transportent sélectivement les aquaporines ?", answer: "Uniquement des molécules d’eau.", },
+{ question: "Que laissent passer les aquaporines ?", answer: "Uniquement l’eau, pas les ions ni les autres molécules.", },
+{ question: "Qui a découvert les aquaporines et quand ?", answer: "Peter Agre, biologiste américain, dans les années 80.", },
+{ question: "Quel prix Peter Agre a-t-il reçu pour la découverte des aquaporines ?", answer: "Le prix Nobel de chimie en 2003.", },
+{ question: "Combien de molécules d’eau une aquaporine peut-elle transporter par seconde ?", answer: "3 milliards.", },
+{ question: "Combien d’aquaporines différentes existe-t-il dans le monde animal et végétal ?", answer: "Plus de 500.", },
+{ question: "Combien d’aquaporines chez l’homme ?", answer: "13.", },
+{ question: "Quelle est la taille des aquaporines en Acides Aminés et quelle est leur masse ?", answer: "Elles font 250 à 300 acides aminés et 25 à 35 kDa.", },
+{ question: "Combien d’hélices alpha constituent une aquaporine ?", answer: "6 hélices alpha.", },
+{ question: "Quels sont les trois acides aminés importants des boucles d’aquaporines ?", answer: "Asparagine (N), Proline (P), Alanine (A).", },
+{ question: "Combien de transporteurs de glucose ont été identifiés chez les mammifères ?", answer: "5 transporteurs différents (GLUT1, GLUT2…).", },
+{ question: "Quel est le mécanisme d’action d’un transporteur de glucose ?", answer: "Fixation du glucose, changement de conformation et libération de la molécule.", },
+{ question: "De quoi sont constitués les canaux ioniques ?", answer: "De protéines transmembranaires formant des pores hydrophiles.", },
+{ question: "Quel est le rôle des groupements protéiques dans les canaux ioniques ?", answer: "Ils agissent comme une porte pour l’ouverture et la fermeture du canal.", },
+{ question: "Que doivent faire les ions pour franchir les canaux ioniques ?", answer: "Ils doivent être séparés des molécules d’eau qui les accompagnent.", },
+{ question: "Qu’est-ce qu’un canal ionique voltage dépendant ?", answer: "Un canal dont l’ouverture dépend du potentiel membranaire.", },
+{ question: "Qu’est-ce qu’un canal ionique ligand dépendant ?", answer: "Un canal dont l’ouverture dépend de la fixation d’un ligand.", },
+{ question: "Où sont présents les canaux ioniques ?", answer: "Dans toutes les cellules, notamment à la surface des neurones.", },
+{ question: "Quel autre type de canaux ioniques existe-t-il ?", answer: "Canal ionique dépendant de nucléotides cycliques.", },
+{ question: "Pourquoi parle-t-on de saturation des canaux ioniques ?", answer: "Car ils sont en nombre limité, et tous peuvent être occupés simultanément.", },
+{ question: "Comment évolue la vitesse de transport en diffusion passive ?", answer: "Elle augmente avec la concentration.", },
+{ question: "Comment évolue la courbe en diffusion facilitée ?", answer: "Elle est plus raide mais atteint un plateau dû à la saturabilité.", },
+{ question: "Qu’est-ce que le transport actif ?", answer: "Un transport qui consomme de l’énergie pour fonctionner.", },
+{ question: "Contre quoi les transporteurs actifs peuvent-ils transporter des molécules ?", answer: "Contre leur gradient de concentration ou gradient électrique.", },
+{ question: "D’où provient l’énergie utilisée par les transports actifs ?", answer: "De l’hydrolyse de l’ATP en ADP.", },
+{ question: "Quels types de protéines sont nécessaires aux transports actifs ?", answer: "Des transporteurs et des perméases actifs.", },
+{ question: "Qu’est-ce qu’un phénomène de cotransport ?", answer: "Un transport couplé entre transport actif et passif.", },
+{ question: "De quoi est constituée la pompe Na+/K+ ATPase ?", answer: "De 4 sous-unités : 2 alpha et 2 beta (tétramère).", },
+{ question: "Quel est le poids moléculaire total de la pompe Na+/K+ ATPase ?", answer: "Environ 270 kDa.", },
+{ question: "Quel est le poids de la sous-unité alpha ?", answer: "95 kDa.", },
+{ question: "Quel est le poids de la sous-unité beta ?", answer: "40 kDa.", },
+{ question: "Que possède la sous-unité alpha de la pompe ?", answer: "Un site de fixation ATP et la capacité d’hydrolyser l’ATP.", },
+{ question: "Quel site de fixation est présent sur la face extracellulaire de la pompe ?", answer: "Un site pour des substances stéroïdes de type cardiotonique.", },
+{ question: "Quels ions sont échangés par la pompe Na+/K+ ATPase ?", answer: "Elle fait sortir 3 Na+ et entrer 2 K+.", },
+{ question: "Quelle réaction est liée au fonctionnement de la pompe Na+/K+ ATPase ?", answer: "L’hydrolyse de l’ATP avec libération de phosphate.", },
+{ question: "Quel ion est nécessaire à l’hydrolyse de l’ATP ?", answer: "Le magnésium (Mg2+).", },
+{ question: "Quelles sont les étapes du fonctionnement de la pompe Na+/K+ ATPase ?", answer: "1. Phosphorylation de l’enzyme, 2. Fixation de 3 Na+, 3. Changement de conformation, 4. Déphosphorylation et fixation de 2 K+, 5. Reprise de la conformation initiale, 6. Libération des 2 K+ dans le cytosol.", },
+{ question: "Quel est le rôle physiologique principal de la pompe Na+/K+ ATPase ?", answer: "Assurer l’homéostasie ionique de la cellule.", },
+{ question: "Quels autres types de transporteurs existent pour maintenir les ions ?", answer: "Proton ATPase et Calcium ATPase.", },
+{ question: "Que crée la pompe Na+/K+ ATPase au niveau de la membrane ?", answer: "Un potentiel électrique entre la face interne (négative) et externe (positive).", },
+{ question: "Que permet le gradient électrique généré par la pompe ?", answer: "Le fonctionnement de certains canaux voltage dépendants.", },
+{ question: "Qu’est-ce qu’un cotransport ?", answer: "Un système associant transport actif et transport passif.", },
+{ question: "Quels types de cotransport existent ?", answer: "Symport et antiport.", },
+{ question: "Comment fonctionne un symport ?", answer: "Il couple un transport actif et passif dans le même sens.", },
+{ question: "Quel est l’exemple de symport donné dans le cours ?", answer: "Le cotransport Na+/glucose.", },
+{ question: "Quelle est la force motrice du cotransport Na+/glucose ?", answer: "Le gradient de Na+ créé par la pompe Na+/K+ ATPase.", },
+{ question: "Comment fonctionne un antiport ?", answer: "Il transporte deux substances simultanément dans des sens opposés.", },
+{ question: "Quel est l’exemple d’antiport donné dans le cours ?", answer: "L’échangeur H+/Na+.", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

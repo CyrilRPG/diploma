@@ -1,0 +1,1154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Le cytosquelette</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: 'Quels sont les 3 types de filaments du cytosquelette (donnez les sigles) ?', answer: 'Microfilaments d’actine (MF) ; Filaments intermédiaires (FI) ; Microtubules (MT).', },
+{ question: 'Quelles fonctions générales le cytosquelette assure-t-il pour la cellule (armature/forme/soutien) ?', answer: 'Constitue la charpente de la cellule ; donne la forme de la cellule ; soutient le cytoplasme.', },
+{ question: 'Quelles mobilités le cytosquelette permet-il (au niveau cellulaire et des organites) ?', answer: 'Mobilités des cellules et mouvement intracellulaire des organites.', },
+{ question: 'En 1950, qu’observe-t-on pour la première fois concernant les microtubules, et dans quelle structure ?', answer: 'Des structures cylindriques creuses, notamment dans le fuseau mitotique (observations de De Robertis et Bernhard).', },
+{ question: 'En quelle année les cylindres sont-ils nommés « microtubules » ?', answer: '1963.', },
+{ question: 'Qui isole les microtubules en 1965 ?', answer: 'Wolf.', },
+{ question: 'Quelle propriété commune aux filaments intermédiaires est indiquée dans l’historique ?', answer: 'Ce sont des structures non contractiles.', },
+{ question: 'Quelles protéines contractiles sont citées avec les microfilaments d’actine et quand ont-elles été isolées ?', answer: 'Actine et myosine ; isolées dans les années 1966.', },
+{ question: 'Quel est le diamètre des microfilaments d’actine (MF) ?', answer: '6 à 8 nanomètres.', },
+{ question: 'Quel est le diamètre des microtubules (MT) et quelle est leur sous-unité ?', answer: '25 nanomètres ; formés d’hétérodimères de tubuline alpha et beta.', },
+{ question: 'Quel est le diamètre des filaments intermédiaires (FI) et sont-ils spécifiques ?', answer: '11 nanomètres ; spécifiques à certaines cellules.', },
+{ question: 'Pourquoi dit-on que le cytosquelette est une structure dynamique et quel effet cela a-t-il ?', answer: 'Il est constamment remanié ; il est lui-même responsable de certains remaniements influençant la morphologie cellulaire.', },
+{ question: 'Où le cytosquelette est-il présent en périphérie des cellules et quel nom donne-t-on à cette zone ?', answer: 'Dans le cytosol sous la membrane plasmique ; le cortex cellulaire.', },
+{ question: 'Où le cytosquelette est-il synthétisé dans la cellule ?', answer: 'Dans le cytosol.', },
+{ question: 'Quel type particulier de filaments est présent dans le nucléoplasme et comment s’appellent-ils ?', answer: 'Des filaments intermédiaires particuliers appelés lamines.', },
+{ question: 'Quels sont les deux types de monomères protéiques constituant le cytosquelette ?', answer: 'Protéines globulaires ; protéines fibreuses.', },
+{ question: 'Les protéines globulaires sont associées à quels éléments du cytosquelette ?', answer: 'Aux microfilaments d’actine et aux microtubules.', },
+{ question: 'Quelle caractéristique structurale des protéines fibreuses permet la formation des FI ?', answer: 'Un long domaine central en hélice alpha permettant la formation des filaments intermédiaires.', },
+{ question: 'Quels sont les trois états d’existence des éléments du cytosquelette (du monomère au polymère) ?', answer: 'Monomères libres ; polymères instables ; polymères « stabilisés ».', },
+{ question: 'D’où proviennent les monomères libres mentionnés dans le cours ?', answer: 'De la synthèse ou de la dépolymérisation.', },
+{ question: 'Que caractérise l’état de « polymères instables » ?', answer: 'Une activité constante de polymérisation et dépolymérisation.', },
+{ question: 'Par quelles interactions les polymères peuvent-ils être « stabilisés » ?', answer: 'Interactions avec des protéines associées, avec d’autres éléments du cytosquelette, et avec la membrane plasmique.', },
+{ question: 'Quelles modifications post-traductionnelles affectent les FI et avec quel effet fonctionnel ?', answer: 'Phosphorylation ou déphosphorylation ; cela influence leur fonction.', },
+{ question: 'Quelle glycosylation est citée pour les FI et quel effet produit-elle ?', answer: 'O-glycosylation ; permet d’atteindre une forme stabilisée.', },
+{ question: 'Quels nucléotides se fixent sur l’actine ou la tubuline, et quelle conséquence a cette fixation ?', answer: 'ATP/ADP sur l’actine ; GTP/GDP sur la tubuline ; cette fixation permet leur polymérisation.', },
+{ question: 'Avec quels types de protéines associées les polymères (actine, MT, FI) interagissent-ils ?', answer: 'Avec des protéines associées aux microfilaments d’actine, aux microtubules et aux filaments intermédiaires.', },
+{ question: 'Quels autres éléments cellulaires interagissent avec les polymères du cytosquelette ?', answer: 'La membrane plasmique et les membranes des organites.', },
+{ question: 'De quelle protéine résulte la polymérisation donnant les microfilaments d’actine ?', answer: 'De l’actine G.', },
+{ question: 'Dans quelles cellules l’actine a-t-elle été découverte, et quelles structures spécialisées sont mentionnées ?', answer: 'Dans les muscles ; myofibrilles composées de filaments épais de myosine et de microfilaments fins d’actine.', },
+{ question: 'Quelles sont les 3 classes d’actines et où se trouvent-elles ?', answer: 'Actine alpha (cellules musculaires striées, lisses et cardiaques) ; actines bêta et gamma (cellules non musculaires).', },
+{ question: 'Dans quelles cellules les deux formes d’actine (G et F) sont-elles présentes selon le cours ?', answer: 'Dans toutes les cellules, y compris les globules rouges.', },
+{ question: 'Quelle est la structure de l’actine G et quel nucléotide peut-elle lier ?', answer: 'Une seule chaîne polypeptidique, compacte et aplatie avec un sillon profond en forme d’haltère ; lie l’ATP ou l’ADP de façon non covalente.', },
+{ question: 'Que devient l’actine G en absence de nucléotide selon le cours ?', answer: 'Elle est très fragile et se dénature rapidement.', },
+{ question: 'Où se situent les sites de fixation du magnésium sur l’actine G ?', answer: 'Au même endroit que la fixation de l’ATP.', },
+{ question: 'Comment se forme l’actine F et quelle est son orientation monomérique ?', answer: 'Par polymérisation de l’actine G ; les monomères sont orientés vers l’extérieur et légèrement décalés.', },
+{ question: 'Quelle illusion optique donne l’actine F et de quoi s’agit-il réellement ?', answer: 'Illusion de deux filaments enroulés l’un dans l’autre ; en réalité un seul filament.', },
+{ question: 'Quels sont le diamètre et le pas hélicoïdal visuel de l’actine F ?', answer: 'Diamètre 6 à 8 nm (environ 7 nm) ; pas de 37 nm.', },
+{ question: 'Quelle est la dynamique de l’actine F dans les cellules non musculaires ?', answer: 'Polymérisation et dépolymérisation permanentes.', },
+{ question: 'De quels paramètres dépend la phase de nucléation de l’actine (citez ions et nucléotide) ?', answer: 'Concentration en Mg2+ et K+ ; concentration en ATP ; concentration en actine G.', },
+{ question: 'Quel changement initial et quel oligomère lancent la nucléation de l’actine ?', answer: 'Changement de conformation du monomère induit par un cation ; formation d’un trimère d’actine G (site de nucléation).', },
+{ question: 'Où se trouvent souvent les sites de nucléation et quelle extrémité des MF s’y ancre ?', answer: 'Souvent liés à la membrane ; les extrémités positives des MF s’y ancrent.', },
+{ question: 'Que se passe-t-il pendant la phase d’élongation rapide (actine G libre et taille du filament) ?', answer: 'Ajout rapide de monomères → diminution d’actine G libre ; à la concentration critique, l’ajout = la dissociation : taille constante mais filament actif.', },
+{ question: 'Quel est le rôle de l’hydrolyse de l’ATP lors de l’assemblage de l’actine ?', answer: 'L’ATP est hydrolysée en ADP, ce qui provoque la polymérisation ; l’ADP reste fixée jusqu’à la dépolymérisation.', },
+{ question: 'Comment la fixation/hydrolyse de l’ATP régule-t-elle les MF d’actine ?', answer: 'Elle régule l’assemblage et le comportement dynamique des microfilaments d’actine.', },
+{ question: 'Quelle polarité présentent les MF d’actine au ME et où la polymérisation est-elle la plus rapide ?', answer: 'Une extrémité positive et une négative ; plus rapide à l’extrémité positive (5 à 10 fois).', },
+{ question: 'Que se passe-t-il si la concentration en actine G est supérieure à la concentration critique ?', answer: 'Allongement des deux extrémités, généralement par ajout d’une molécule liée à l’ATP.', },
+{ question: 'Que se passe-t-il si la concentration en actine G est inférieure à la concentration critique ?', answer: 'Raccourcissement des deux extrémités, une molécule liée à l’ADP quitte l’actine F.', },
+{ question: 'D’où sont extraites les cytochalasines et quel est leur effet sur l’actine ?', answer: 'De champignons microscopiques ; elles inhibent la polymérisation de l’actine G.', },
+{ question: 'Quel est le mécanisme d’action des cytochalasines sur les MF ?', answer: 'Fixation sur les extrémités positives, empêchant la fixation de nouvelles molécules d’actine.', },
+{ question: 'D’où sont isolées les phalloïdines et quel est leur effet sur les MF ?', answer: 'De l’amanite phalloïde (champignon macroscopique) ; elles inhibent la dépolymérisation des MF.', },
+{ question: 'Comment les phalloïdines stabilisent-elles les MF et à quoi servent-elles en microscopie ?', answer: 'Elles se fixent sur les côtés des MF, empêchent le départ des monomères et stabilisent les filaments ; utilisées pour marquer l’actine F avec un fluorochrome en microscopie à fluorescence.', },
+{ question: 'Que signifie ABP et quel est leur rôle global vis-à-vis des MF d’actine ?', answer: 'Actin Binding Proteins ; se fixent aux MF et jouent des rôles très variés.', },
+{ question: 'Dans quels processus interviennent les ABP selon la liste du cours ?', answer: 'Polymérisation/dépolymérisation ; stabilisation ; organisation en réseau/faisceaux ; fixation à la membrane plasmique (face interne, microvillosités) ; destruction ; fonctions contractiles.', },
+{ question: 'Combien de groupes fonctionnels d’ABP sont décrits et une protéine peut-elle appartenir à plusieurs ?', answer: 'Six groupes fonctionnels ; oui, certaines protéines peuvent appartenir à plusieurs groupes.', },
+{ question: 'Dans le groupe 1, quelle est l’action de la thymosine sur la polymérisation ?', answer: 'Elle bloque la polymérisation.', },
+{ question: 'Dans le groupe 1, quelles actions précises exerce la profiline (liaisons/échanges/nucléation) ?', answer: 'Se lie à l’actine G ; favorise les échanges d’ADP par ATP ; intervient dans la nucléation ; même rôle que ARP 2/3.', },
+{ question: 'Quel est le rôle d’ARP 2/3 dans le groupe 1 d’ABP ?', answer: 'Favorise la polymérisation.', },
+{ question: 'Quelles fonctions attribue-t-on à la caldesmone dans le groupe 1 ?', answer: 'Se fixe aux MF ; stabilise les filaments ; rôle régulateur dans le système contractile des cellules musculaires et non musculaires.', },
+{ question: 'Dans le groupe 2, quel double effet la tropomyosine exerce-t-elle sur les MF ?', answer: 'Stabilise les MF ; réduit leur polymérisation et dépolymérisation.', },
+{ question: 'Quel est le rôle de l’alpha-actinine dans l’organisation des MF et à quelle extrémité se fixe-t-elle préférentiellement ?', answer: 'Organise les filaments en faisceaux larges ; se fixe préférentiellement à l’extrémité positive.', },
+{ question: 'Quelles protéines lient les MF en faisceaux serrés dans les microvillosités ?', answer: 'Fimbrine et villine.', },
+{ question: 'Quel type d’organisation la filamine induit-elle dans le groupe 2 ?', answer: 'N’induit pas de faisceaux parallèles ; organise les MF en réseau stabilisé.', },
+{ question: 'Quelle protéine du groupe 3 intervient dans la fragmentation des MF ?', answer: 'Gelsoline.', },
+{ question: 'Quel est le rôle global des myosines dans le groupe 4 (contraction) ?', answer: 'Elles sont responsables du mouvement.', },
+{ question: 'Comment est définie la myosine II (famille, abondance, rôle structural) ?', answer: 'Famille de protéines responsables de la contraction musculaire et non musculaire ; forme la plus abondante ; entre dans la constitution des myofilaments.', },
+{ question: 'Quel est l’effet de la phosphorylation sur la myosine II et que permet l’hydrolyse de l’ATP ?', answer: 'La phosphorylation permet l’auto-assemblage en filament bipolaire ; l’hydrolyse de l’ATP permet aux têtes de myosine de se déplacer vers l’extrémité positive des MF.', },
+{ question: 'Quel mécanisme provoque la contraction musculaire selon le cours (glissement) ?', answer: 'Le glissement des microfilaments d’actine les uns par rapport aux autres.', },
+{ question: 'À quoi servent myosine I et myosine V selon le groupe 4 ?', answer: 'Au transport intracellulaire des vésicules et organites ; elles n’entrent pas dans la constitution des myofilaments.', },
+{ question: 'Quelles caractéristiques communes présentent les têtes et queues des myosines ?', answer: 'Têtes globulaires à activité ATPasique avec sites de phosphorylation et de fixation ATP ; queues variables (courtes pour myosine I, longues pour myosine II).', },
+{ question: 'Quels sont les deux états d’activité des myosines et de quoi dépendent-ils ?', answer: 'Inactif si non phosphorylées ; actif après phosphorylation.', },
+{ question: 'Quel aspect présentent les MF d’actine en microscopie électronique avec les têtes de myosine ?', answer: 'Aspect en empilement de flèches appelé barbed end.', },
+{ question: 'Quel déclencheur et quels événements initient la contraction musculaire (calcium et protéines associées) ?', answer: 'Augmentation brutale de calcium (stocké dans le réticulum sarcoplasmique) ; le calcium libère des protéines associées à l’actine comme la tropomyosine, permettant le déplacement des têtes de myosine vers l’extrémité positive.', },
+{ question: 'Comment la myosine I se fixe-t-elle pour assurer le transport (queue/tête/support) ?', answer: 'Queue sur une vésicule ou un organite ; tête sur un microfilament d’actine souvent ancré à la membrane plasmique.', },
+{ question: 'Quel glissement et quelle direction de migration des vésicules résulte de l’action de la myosine I ?', answer: 'Glissement du MF libre vers l’extrémité positive ; migration des vésicules de l’intérieur vers la membrane plasmique (de l’extrémité négative vers la positive).', },
+{ question: 'Quel exemple de vésicules migrantes est donné pour la myosine I ?', answer: 'Vésicules de sécrétion du réseau trans-Golgien.', },
+{ question: 'Dans quelles cellules la myosine I intervient-elle aussi pour le glissement entre MF ?', answer: 'Dans les cellules non musculaires.', },
+{ question: 'Quel rôle jouent ATP et ADP dans le cycle de fixation/détachement de la myosine I ?', answer: 'L’hydrolyse d’ATP permet la fixation de la tête de myosine ; la phosphorylation de l’ADP provoque son détachement.', },
+{ question: 'Quel est le rôle de la myosine V dans le groupe 5 ?', answer: 'Transport intracellulaire de vésicules ou organites.', },
+{ question: 'Combien de classes de myosine existent selon le cours ?', answer: '18 classes (myosines III à XI complètent I, II et V).', },
+{ question: 'Quel est le principe général du groupe 6 (ancrage à la membrane plasmique) ?', answer: 'Des protéines assurent la fixation des MF d’actine à la membrane plasmique.', },
+{ question: 'Dans quels éléments et avec quel effet la spectrine intervient-elle (cellule et propriétés) ?', answer: 'Présente dans les globules rouges ; associée à un réseau sous-membranaire de MF ; permet une grande plasticité et la déformation réversible des globules rouges.', },
+{ question: 'Quel rôle est attribué à la dystrophine dans le groupe 6 et dans quel tissu ?', answer: 'Assure l’association des MF d’actine à la membrane plasmique dans le muscle strié squelettique.', },
+{ question: 'Quels sont les 3 grands systèmes d’organisation des microfilaments d’actine dans la cellule ?', answer: 'Cortex cellulaire ; système contractile des cellules non musculaires ; système contractile des cellules musculaires.', },
+{ question: 'Où est localisé le cortex cellulaire par rapport à la membrane plasmique ?', answer: 'Sous la membrane plasmique.', },
+{ question: 'Sous quelle forme le cortex cellulaire est-il « constitué » selon le cours ?', answer: 'De microfilaments d’actine situés sous la membrane plasmique.', },
+{ question: 'Dans le cortex, que caractérisent les faisceaux larges contractiles et où sont-ils « observés » ?', answer: 'Des faisceaux larges contractiles observés dans les fibres de stress.', },
+{ question: 'Quels prolongements cytoplasmiques contiennent des faisceaux serrés de MF d’actine ?', answer: 'Les microvillosités.', },
+{ question: 'Comment sont orientés les MF dans le réseau lâche du cortex cellulaire ?', answer: 'Généralement non orientés.', },
+{ question: 'Comment est ancré le « réseau radiaire » du cortex à la membrane plasmique ?', answer: 'Par les extrémités positives.', },
+{ question: 'De quoi est constitué le système contractile des cellules non musculaires selon le cours ?', answer: 'De fibres de stress.', },
+{ question: 'De quoi sont composées les fibres de stress et où s’ancrent-elles ?', answer: 'De faisceaux de microfilaments d’actine ; ancrés dans des domaines spécifiques de la membrane plasmique.', },
+{ question: 'Comment s’appellent les domaines membranaires d’ancrage des fibres de stress ?', answer: 'Points de contact focaux.', },
+{ question: 'De quel type sont les protéines transmembranaires des points de contact focaux ?', answer: 'Des intégrines (famille des molécules d’adhérence).', },
+{ question: 'Quelle autre structure contractile non musculaire se forme lors de la séparation du cytoplasme ?', answer: 'L’anneau de cytodiérèse.', },
+{ question: 'À quel moment du cycle cellulaire se forme l’anneau de cytodiérèse et pour quel résultat ?', answer: 'Lors de la séparation du cytoplasme pour donner deux cellules filles.', },
+{ question: 'Dans le système contractile des cellules musculaires, quels sont les filaments « fins » et quels sont les « épais » ?', answer: 'Filaments fins : microfilaments d’actine ; filaments épais : myosine II.', },
+{ question: 'Dans quels types de cellules trouve-t-on ce système contractile musculaire strié ?', answer: 'Dans les cellules musculaires striées squelettiques et cardiaques.', },
+{ question: 'Qu’est-ce qui confère l’aspect strié aux myofibrilles (deux zones) ?', answer: 'L’alternance de disques clairs et de disques sombres.', },
+{ question: 'Que contiennent les zones claires (disques clairs) des myofibrilles selon le cours ?', answer: 'Uniquement des microfilaments d’actine.', },
+{ question: 'Que représentent les zones sombres (disques sombres) des myofibrilles ?', answer: 'Les zones d’association entre microfilaments d’actine et filaments de myosine II.', },
+{ question: 'Quelle structure d’actine se forme « fin de mitose » pour séparer le cytoplasme ?', answer: 'L’anneau contractile lors de la cytodiérèse.', },
+{ question: 'Quelle fonction musculaire majeure est assurée par les MF d’actine ?', answer: 'La contraction musculaire.', },
+{ question: 'Comment les filaments intermédiaires (FI) sont-ils définis globalement (catégorie/capacités) ?', answer: 'Deuxième catégorie d’éléments du cytosquelette ; fibres insolubles, résistantes aux détergents et aux solutions ioniques (faible ou forte concentration).', },
+{ question: 'Quels sont les 3 domaines d’un monomère de FI selon le cours ?', answer: 'Un domaine central d’acides aminés hydrophobes en hélice alpha ; une extrémité N-terminale (variable) ; une extrémité C-terminale (carboxyterminale, variable).', },
+{ question: 'Quelles modifications post-traductionnelles portent les extrémités N- et C-terminales des FI ?', answer: 'Des sites de phosphorylation et de O-glycosylation.', },
+{ question: 'En quoi la polymérisation des FI est-elle qualifiée par rapport à celle des MF d’actine ?', answer: 'Différente de celle des microfilaments d’actine.', },
+{ question: 'Quelles sont les étapes séquentielles de polymérisation des FI (du monomère au filament final) ?', answer: 'Monomères → dimères → tétramères → protofilaments → octamères → assemblage bout à bout en groupes de 8 → filament intermédiaire.', },
+{ question: 'De combien de protofilaments est composé le filament intermédiaire final ?', answer: 'De 8 protofilaments.', },
+{ question: 'Combien de grandes familles principales de FI sont mentionnées dans le plan ?', answer: 'Quatre grandes familles principales.', },
+{ question: 'Quels sont les 3 membres de la famille des lamines ?', answer: 'A, B et C.', },
+{ question: 'Où sont localisées les lamines et où sont-elles synthétisées initialement ?', answer: 'Dans le noyau ; synthèse dans le cytoplasme puis import dans le noyau.', },
+{ question: 'Quelles protéines associées aux lamines sont citées (noms et signification) ?', answer: 'LAP1 et LAP2 (Lamine Associated Protein) ; Émerine.', },
+{ question: 'Quel rôle jouent LAP1/LAP2/Émerine vis-à-vis de l’enveloppe nucléaire ?', answer: 'Elles interviennent dans la constitution de l’enveloppe nucléaire.', },
+{ question: 'Qu’est-ce que la lamina nucléaire et quel est son rôle essentiel ?', answer: 'La structure constituée par les lamines ; rôle essentiel dans l’organisation de l’enveloppe nucléaire.', },
+{ question: 'Que permettent les modifications des lamines lors de la mitose ?', answer: 'La désagrégation de l’enveloppe nucléaire.', },
+{ question: 'Quelle protéine est la plus distribuée de la famille vimentine  ?', answer: 'La vimentine', },
+{ question: 'Dans quelles cellules trouve-t-on la vimentine (origines et tissus listés) ?', answer: 'Cellules d’origine mésenchymateuse ; cellules des séreuses (pleurale, péricardique, péritonéale) ; endothéliums ; certains épithéliomes ; cellules sanguines ; fibroblastes ; en contact avec la membrane plasmique.', },
+{ question: 'Quelle modification cellulaire survient en « absence de vimentine » selon le cours ?', answer: 'Modification de la morphologie nucléaire.', },
+{ question: 'Quelle protéine musculaire de FI relie les myofibrilles à la membrane plasmique ?', answer: 'La desmine.', },
+{ question: 'Dans quels types de cellules la desmine est-elle localisée ?', answer: 'Dans les cellules musculaires lisses et striées.', },
+{ question: 'Dans quelles pathologies la desmine est-elle impliquée et par quel mécanisme observé ?', answer: 'Dans des myopathies familiales par accumulation de desmine et d’ubiquitine.', },
+{ question: 'Où la GFAP est-elle localisée (SNC/SNP) selon le cours ?', answer: 'SNC : astrocytes, microglie ; SNP : cellules de Schwann des fibres amyéliniques.', },
+{ question: 'Quelle protéine  est présente dans les neurones en développement embryonnaire ou en régénération du SNP ?', answer: 'La périphérine.', },
+{ question: 'Quels sont les deux groupes de cytokératines (type et gamme de PM) ?', answer: 'Type 1 (acides) : 40 à 60 kDa ; type 2 (basiques et neutres) : 50 à 70 kDa.', },
+{ question: 'Combien de cytokératines ont été identifiées', answer: 'Une trentaine.', },
+{ question: 'Dans quelles cellules les cytokératines sont-elles localisées et de quoi dépend leur expression ?', answer: 'Dans toutes les cellules épithéliales ; expression dépendant du stade de maturation et du degré de différenciation.', },
+{ question: 'Quels sont les 3 types de neurofilaments ?', answer: 'L, M et H .', },
+{ question: 'Où les neurofilaments sont-ils présents selon le cours (SNC/SNP) ?', answer: 'Dans les neurones du système nerveux central et périphérique.', },
+{ question: 'Avec quels éléments du cytosquelette les neurofilaments peuvent-ils s’associer et à quoi participent-ils ?', answer: 'Aux microtubules ; ils participent à la constitution de l’axe des prolongements neuronaux (axones, dendrites).', },
+{ question: 'Quelles autres protéines associées aux neurofilaments sont citées ?', answer: 'Alpha-internexine ; Nestine.', },
+{ question: 'Quelles sont les règles générales de localisation des FI (exception incluse) ?', answer: 'Présents dans toutes les cellules eucaryotes sauf les globules rouges.', },
+{ question: 'Combien et quels types de familles de FI une cellule possède-t-elle au minimum ?', answer: 'Au moins deux : une famille de lamines (si la cellule possède un noyau) et une autre famille selon le type cellulaire.', },
+{ question: 'Avec quels types de structures jonctionnelles les FI sont-ils associés selon le cours ?', answer: 'Des structures de type jonctionnelles comme les desmosomes.', },
+{ question: 'Avec quels autres éléments du cytosquelette les FI interagissent-ils ?', answer: 'Avec les microtubules et les microfilaments d’actine.', },
+{ question: 'Comment la dynamique des FI est-elle qualifiée par rapport à MT et MF, et quelle nuance récente est mentionnée ?', answer: 'Polymères stabilisés, dynamique plus faible ; une certaine capacité dynamique a été récemment mise en évidence.', },
+{ question: 'Quel rôle dans les infections virales est attribué aux FI (virus cités et effet) ?', answer: 'Certains virus (Epstein-Barr, papillomavirus) codent une protéine virale capable de dépolymériser les FI, altérant leur organisation.', },
+{ question: 'Quel rôle fonctionnel majeur des FI concerne les contraintes mécaniques et quel est l’effet cellulaire ?', answer: 'Résistance aux forces d’étirement et de cisaillement ; stabilisation et limitation de la déformation cellulaire.', },
+{ question: 'Quels éléments cornés et quelles protéines assurent l’imperméabilité cellulaire via FI ?', answer: 'Cytokératines et kératines ; couche cornée de la peau ; protection contre la déshydratation.', },
+{ question: 'Quel rôle des FI est décrit pour le « calibrage des prolongements cellulaires » ?', answer: 'Un calibrage en association avec les autres éléments du cytosquelette.', },
+{ question: 'Quels rôles des FI sont cités pour l’intégrité tissulaire et nucléaire ?', answer: 'Maintien de l’intégrité cellulaire et tissulaire de l’épithélium ; soutien de l’enveloppe nucléaire.', },
+{ question: 'Quelles structures corporelles sont formées par des cytokératines selon le cours ?', answer: 'Les ongles (formation des ongles et des cytokératines).', },
+{ question: 'Comment les microtubules (MT) sont-ils définis globalement (type et sous-unités) ?', answer: 'Troisième type d’éléments du cytosquelette ; polymères rigides d’hétérodimères de tubuline alpha et bêta.', },
+{ question: 'Les MT peuvent-ils être associés à d’autres protéines spécifiques et lesquelles ?', answer: 'Oui, à des protéines spécifiques des microtubules.', },
+{ question: 'Quelle est la géométrie d’un MT et quel est son diamètre ?', answer: 'Tube creux de 25 nm de diamètre.', },
+{ question: 'Comment les MT se situent-ils en termes de taille parmi les éléments du cytosquelette ?', answer: 'Ce sont les plus larges du cytosquelette.', },
+{ question: 'Quelle est l’orientation de la polarité des MT par rapport à la cellule (deux extrémités) ?', answer: 'Extrémité positive vers la membrane plasmique ; extrémité négative vers le centre de la cellule.', },
+{ question: 'Combien de protofilaments composent la paroi d’un MT et de quoi sont-ils faits ?', answer: 'Treize protofilaments faits d’alignements de dimères alpha/bêta tubuline.', },
+{ question: 'Quel aspect résulte du décalage des protofilaments le long du MT ?', answer: 'Un aspect hélicoïdal.', },
+{ question: 'Quel nucléotide lie l’alpha-tubuline et quelle capacité possède la bêta-tubuline en plus ?', answer: 'Alpha-tubuline lie uniquement du GTP ; bêta-tubuline peut lier du GTP ou du GDP et possède une activité GTPasique.', },
+{ question: 'Dans quelles cellules et chez quels organismes les MT sont-ils présents (exceptions) ?', answer: 'Présents dans toutes les cellules sauf les érythrocytes ; présents chez tous les vertébrés supérieurs.', },
+{ question: 'Combien de formes de tubuline alpha et bêta existent chez les mammifères selon le cours ?', answer: 'Six formes.', },
+{ question: 'Quelles conditions sont nécessaires à la polymérisation des MT (nucléotide, ion, température) ?', answer: 'GTP, ions magnésium, et température de 37 °C (polymérisation température-dépendante).', },
+{ question: 'Quelles sont les deux phases de la polymérisation des MT ?', answer: 'Phase de nucléation, suivie d’une phase d’élongation.', },
+{ question: 'Quel est le principe reliant les vitesses de polymérisation/dépolymérisation à la longueur du MT ?', answer: 'Polymérisation > dépolymérisation → allongement ; dépolymérisation > polymérisation → raccourcissement.', },
+{ question: 'Sur quelles extrémités des MT la (dé)polymérisation se réalise-t-elle et où est-elle plus rapide ?', answer: 'Aux extrémités positive et négative ; plus rapide à l’extrémité positive (de 3 à 4 fois).', },
+{ question: 'Où débute la nucléation des MT et dans quelle sous-région précise ?', answer: 'Au centrosome, plus précisément dans le matériel péricentriolaire.', },
+{ question: 'Quelle forme particulière de tubuline est nécessaire à la nucléation des MT et quel complexe forme-t-elle ?', answer: 'La gamma-tubuline ; forme le gamma-TuRC (gamma-tubulin ring complex).', },
+{ question: 'Quelles protéines GTPases (exemple) interviennent dans la nucléation des MT selon le cours ?', answer: 'Des protéines GTPases comme Ral.', },
+{ question: 'De quoi dépend la vitesse de croissance des MT et quel équilibre chiffré est indiqué ?', answer: 'Du pool de tubuline libre ; à l’équilibre, 50 % de la tubuline totale est libre dans le cytoplasme (vitesse d’élongation = vitesse de dissociation).', },
+{ question: 'Quelle alternance de nucléotides est décrite le long du MT (alpha/bêta et GTP/GDP) ?', answer: 'Alternance de tubuline alpha liée à du GTP et de tubuline bêta liée à du GDP le long du microtubule.', },
+{ question: 'Quelles drogues dépolymérisantes des microtubules sont listées (types) ?', answer: 'Colchicine ; Nocodazole ; Colcémide.', },
+{ question: 'Quel est le mécanisme d’action général des drogues dépolymérisantes des microtubules ?', answer: 'Provoquent un raccourcissement ou désassemblage ; inhibent l’addition de sous-unités.', },
+{ question: 'Quel résultat obtient-on avec les drogues dépolymérisantes sur les microtubules ?', answer: 'Défauts de polymérisation, absence de polymères stables.', },
+{ question: 'Quelle drogue « stabilisant la polymérisation » des microtubules est citée  ?', answer: 'Taxol', },
+{ question: 'Dans quel but le taxol est-il utilisé et quel est son effet sur le pool de tubuline ?', answer: 'Utilisation comme anti-cancéreux ; bloque la division cellulaire en épuisant le pool de tubuline libre.', },
+{ question: 'Quelle drogue provoque la « fragmentation » des microtubules en clusters et quelle est son origine ?', answer: 'Vinblastine ; issue de la pervenche de Madagascar ; désassemble les microtubules en clusters.', },
+{ question: 'Quelle drogue de même origine que la vinblastine forme des anneaux de tubuline désorganisés ?', answer: 'Vincristine ; même origine que vinblastine ; forme des anneaux de tubuline désorganisés.', },
+{ question: 'Quel autre agent physique influence la stabilité des microtubules et à quelle température indiquée ?', answer: 'Le froid ; facteur de stabilisation ou déstabilisation ; 4 °C.', },
+{ question: 'Comment est défini et localisé le centrosome (membrane, position) ?', answer: 'Petit organite au centre de la cellule, près du noyau ; non entouré d’une membrane.', },
+{ question: 'Quel autre centre organisateur des microtubules est mentionné à part les centrosomes ?', answer: 'Les kinétochores (sièges de polymérisation et dépolymérisation des microtubules).', },
+{ question: 'Dans quelles cellules trouve-t-on le centrosome selon le cours ?', answer: 'Dans toutes les cellules susceptibles de se diviser.', },
+{ question: 'Citez quatre rôles du centrosome listés dans le cours.', answer: 'Formation du fuseau de division ; organisation du réseau de microtubules en interphase ; nucléation des microtubules ; formation des corpuscules basaux des cils et flagelles.', },
+{ question: 'De combien et de quels types de centrioles le centrosome est-il composé ?', answer: 'Deux centrioles : un centriole mature (père/mère) et un centriole immature (fils/fille).', },
+{ question: 'Quelle est l’orientation relative des deux centrioles et dans quel milieu baignent-ils ?', answer: 'Perpendiculairement l’un par rapport à l’autre ; baignent dans un matériel péricentriolaire.', },
+{ question: 'Comment l’extrémité négative des microtubules interagit-elle avec le matériel péricentriolaire ?', answer: 'Elle plonge dans la masse péricentriolaire sans contact direct avec les centrioles.', },
+{ question: 'Les centrioles interviennent-ils directement dans la nucléation des microtubules ?', answer: 'Absence de rôle direct : n’interviennent pas directement dans la nucléation.', },
+{ question: 'Quelle exception végétale est mentionnée concernant les centrioles et la nucléation ?', answer: 'Dans les cellules végétales, le centrosome ne contient pas de centrioles ; malgré cette absence, la nucléation a lieu.', },
+{ question: 'Quelles sont les dimensions d’un centriole (largeur, diamètre, longueur) ?', answer: 'Cylindres de 0,15 à 0,25 μm de largeur ; diamètre 200 nm ; longueur 0,3 à 0,7 μm (300 à 700 nm).', },
+{ question: 'De quoi est constituée la paroi d’un centriole (organisation en microtubules) ?', answer: 'De 9 triplets de microtubules (A, B, C).', },
+{ question: 'Quelles parois communes partagent les microtubules des triplets d’un centriole ?', answer: 'A et B, et B et C partagent 3–4 protofilaments communs (parois communes).', },
+{ question: 'Par quelles protéines chaque triplet de microtubules est-il relié ?', answer: 'Par des protéines de nexine.', },
+{ question: 'Combien de protofilaments possède chaque microtubule d’un triplet et quelle est leur origine ?', answer: '13 protofilaments chacun ; issus de la polymérisation de dimères alpha/bêta tubuline.', },
+{ question: 'Quelle propriété de polarité est attribuée à chaque microtubule d’un centriole ?', answer: 'Chaque microtubule a une polarité.', },
+{ question: 'Quelle différence fonctionnelle est donnée entre centriole mature et immature ?', answer: 'Le centriole mature est fonctionnel ; l’immature est en croissance.', },
+{ question: 'Quel dispositif transitoire apparaît pendant la croissance du centriole et quand disparaît-il ?', answer: ' « roues charrette » : lignes denses radiaires fixées sur les microtubules A ; disparaît quand le centriole atteint 300 nm.', },
+{ question: 'Quel est le comportement des centrioles en interphase (mature vs immature) ?', answer: 'Mature : au centre, contrôle la nucléation des MT du centrosome ; immature : plus mobile, à l’origine des MT non centrosomiques.', },
+{ question: 'Quelle protéine du matériel péricentriolaire est « présente partout » et quel est son rôle clé ?', answer: 'Centrine ; nécessaire à la duplication des centrosomes (son absence empêche la duplication).', },
+{ question: 'Dans quels processus additionnels la centrin(e) intervient-elle et quand a lieu la duplication ?', answer: 'Positionnement et orientation des centrosomes ; duplication en phase S.', },
+{ question: 'Quelle protéine péricentriolaire est « présente dans certains cas » selon le cours ?', answer: 'Péricentrine.', },
+{ question: 'Quelle tubuline péricentriolaire est indispensable et à quoi sert-elle ?', answer: 'Gamma-tubuline ; indispensable à la nucléation des microtubules.', },
+{ question: 'Qu’indiquent les informations sur PCM1 (présence, mitose, relocalisation) ?', answer: 'Présente en G1, S, G2 ; se disperse pendant la mitose ; se relocalise au centrosome en G1 suivante.', },
+{ question: 'Quelle protéine chaperonne est citée dans le matériel péricentriolaire ?', answer: 'HSP70.', },
+{ question: 'Quelles sont les deux formes d’organisation des microtubules décrites ?', answer: 'Forme labile ou dynamique ; forme stable.', },
+{ question: 'Quelles caractéristiques définissent les microtubules labiles/dynamiques (stabilité, réarrangement, durée de vie) ?', answer: 'Très instables ; phases permanentes de polymérisation/dépolymérisation (réarrangement continu) ; durée de vie moyenne 10 minutes.', },
+{ question: 'Qu’est-ce qui caractérise les microtubules stables (résistance, température) ?', answer: 'Stabilisés ; résistants à la colchicine et aux basses températures (jusqu’à 4 °C) s’ils ont été stabilisés avant le changement de température.', },
+{ question: 'Dans quelles structures complexes les microtubules stables s’intègrent-ils ?', answer: 'Les centrioles ; l’axonème des cils et des flagelles.', },
+{ question: 'Que signifie l’acronyme MAPs et quel est leur rôle général ?', answer: 'Microtubule Associated Proteins ; stabilisation des microtubules et mouvements intracellulaires des vésicules et organites (rails via les MAPs).', },
+{ question: 'Quel est le rôle des MAPs « structurales ou stabilisantes » et avec quels filaments établissent-elles des ponts ?', answer: 'Stabilisent les microtubules et établissent des ponts entre microtubules et filaments intermédiaires.', },
+{ question: 'Dans quel type cellulaire et quelle région s’observe la protéine Tau, et quels effets a-t-elle sur les MT ?', answer: 'Uniquement dans les neurones, spécifiquement dans la partie axonale ; accélère la polymérisation, stabilise les MT en formant des ponts et permet des faisceaux parallèles.', },
+{ question: 'Quelles sont les deux grandes familles de MAPs motrices et leurs directions de transport ?', answer: 'Kinésines : transport antérograde vers l’extrémité positive ; Dynéines : transport rétrograde vers l’extrémité négative.', },
+{ question: 'D’où les MAPs motrices ont-elles été initialement isolées et chez quels organismes encore présentes ?', answer: 'Axone géant de calmar ; présentes aussi chez les vertébrés supérieurs.', },
+{ question: 'De quelle source d’énergie dépendent les MAPs motrices et où se situe l’activité correspondante ?', answer: 'Hydrolyse de l’ATP ; activité ATPasique localisée dans la tête.', },
+{ question: 'Quelle architecture commune est décrite pour les MAPs motrices ?', answer: 'Deux têtes (dont une ATPasique) et une tige qui fixe le matériel à transporter.', },
+{ question: 'Dans quels processus interviendraient les protéines associées non MAPs ?', answer: 'Ancrage des microtubules à certaines protéines cytoplasmiques ; fonctions possibles dans la transduction de signaux.', },
+{ question: 'Quelles fonctions des microtubules sont liées à l’intégrité structurale des organites ?', answer: 'Maintien de l’appareil de Golgi et du réticulum endoplasmique.', },
+{ question: 'Quel rôle structural global des microtubules est souligné pour la cellule ?', answer: 'Participation à la morphologie cellulaire et au maintien de la structure globale de la cellule.', },
+{ question: 'Quels rôles des microtubules sont indiqués pour les forces, la polarité et les mouvements cellulaires ?', answer: 'Résister aux forces de traction ; intervenir dans les mouvements cellulaires comme les MF d’actine ; rôle important dans l’acquisition de la polarité (pôle apical et basolatéral).', },
+{ question: 'Quel rôle dans la division cellulaire est attribué aux microtubules ?', answer: 'Rôle majeur dans la formation du fuseau de division et les mouvements des chromosomes en mitose et méiose.', },
+{ question: 'Quels mouvements ciliaires sont mentionnés comme fonction des microtubules ?', answer: 'Battements des cils et des flagelles.', },
+{ question: 'En métaphase, quel moteur capte l’extrémité positive des microtubules et quelle orientation initiale prend le chromosome ?', answer: 'La dynéine capture l’extrémité positive ; le chromosome s’oriente parallèlement au microtubule.', },
+{ question: 'Quel est l’effet de la dynéine après la capture initiale d’un kinétochore en métaphase ?', answer: 'Mouvement rapide du chromosome dans le fuseau, riche en microtubules kinétochoriens.', },
+{ question: 'Quelle connexion stable se met en place entre kinétochores et microtubules en métaphase ?', answer: 'Connexions stables entre les deux kinétochores et les MT des deux pôles opposés (un MT du pôle opposé capture un kinétochore).', },
+{ question: 'Vers quelle structure migrent les chromosomes en prométaphase et métaphase et par quels trois mécanismes ?', answer: 'Vers la plaque équatoriale ; allongement des MT polaires, raccourcissement des MT kinétochoriens, alternance de mouvements permis par polymérisation/dépolymérisation.', },
+{ question: 'Quel rôle organisationnel est attribué aux kinétochores et quel état du fuseau maintiennent-ils ?', answer: 'Considérés comme centres organisateurs des microtubules ; maintiennent le fuseau dans un état très dynamique.', },
+{ question: 'En quoi consiste le « flux de la tubuline » (association/dissociation, direction du déplacement) ?', answer: 'Association avec les MT kinétochoriens ; dissociation au niveau des centrosomes ; déplacement depuis les kinétochores vers les pôles.', },
+{ question: 'Quel est l’effet mécanique du flux de tubuline sur les kinétochores lors de l’anaphase ?', answer: 'Entraîne mécaniquement les kinétochores vers les pôles.', },
+{ question: 'Quelle vérification est strictement effectuée à l’anaphase selon le cours ?', answer: 'La vérification de l’alignement sur la plaque métaphasique.', },
+{ question: 'Quelles transformations caractérisent l’anaphase A et quel est le moteur du mouvement ?', answer: 'Séparation des chromatides sœurs (devenant chromosomes unichromatidiens) ; tirage vers les pôles ; mouvement dû à la dépolymérisation au niveau des kinétochores.', },
+{ question: 'Quels changements morphologiques et forces caractérisent l’anaphase B ?', answer: 'Éloignement des pôles du fuseau ; cellule en forme ovoïde ; forces des microtubules astériens et allongement des MT polaires par polymérisation.', },
+
+];
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

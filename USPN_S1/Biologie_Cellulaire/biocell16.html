@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Communication cellulaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quel changement évolutif a entraîné l'apparition des besoins en communication cellulaire ?", answer: "Le passage de l'état unicellulaire à pluricellulaire.", },
+{ question: "Chez quels animaux primitifs retrouve-t-on des mécanismes de coopération cellulaire et de communication intercellulaire ?", answer: "Chez les cnidaires et les spongiaires.", },
+{ question: "Quels mécanismes ont permis le fonctionnement coordonné des cellules des tissus et organes ?", answer: "Le développement du mécanisme de survie et de communication cellulaire.", },
+{ question: "Quels sont les 4 éléments nécessaires à la communication cellulaire ?", answer: "Une cellule émettrice, une cellule réceptrice, un relais intracellulaire avec amplification du signal, une réponse cellulaire.", },
+{ question: "Par quoi est essentiellement assurée la communication cellulaire ?", answer: "Par des molécules de signalisation extracellulaire.", },
+{ question: "Quels sont les deux grands types de communication cellulaire ?", answer: "Par contact direct ou par signal diffusible.", },
+{ question: "Dans la signalisation dépendante du contact, comment est portée la molécule de signalisation ?", answer: "Elle reste fixée à la surface de la cellule émettrice.", },
+{ question: "Quel est le mode de communication le plus court ?", answer: "La signalisation dépendante du contact.", },
+{ question: "Donne un exemple de signalisation dépendante du contact.", answer: "Les cellules présentatrices de l'antigène avec les lymphocytes T.", },
+{ question: "Par quoi repose la spécificité dans la signalisation par contact ?", answer: "Sur la présence du récepteur spécifique à la surface de la cellule cible.", },
+{ question: "Quel est le mode de communication de proximité à courte distance ?", answer: "La signalisation paracrine.", },
+{ question: "Comment se fait la signalisation paracrine ?", answer: "Les cellules émettrices sécrètent des signaux dans le milieu extracellulaire.", },
+{ question: "Quels médiateurs utilise la signalisation paracrine ?", answer: "Des médiateurs chimiques locaux.", },
+{ question: "Pourquoi la signalisation paracrine est-elle rapide ?", answer: "Car les médiateurs chimiques sont rapidement dégradés.", },
+{ question: "Sur quoi repose la spécificité de la signalisation paracrine ?", answer: "Sur la proximité et sur la présence de récepteurs spécifiques aux médiateurs chimiques.", },
+{ question: "Quel est l’exemple donné de signalisation paracrine ?", answer: "La signalisation neuronale synaptique.", },
+{ question: "Comment le message électrique est-il transmis dans une cellule nerveuse ?", answer: "Par le potentiel d’action via l’axone.", },
+{ question: "Que se passe-t-il au niveau de la synapse dans une cellule nerveuse ?", answer: "Libération de neurotransmetteurs.", },
+{ question: "Sur quoi repose la spécificité des synapses ?", answer: "Sur la nature du neurotransmetteur et du récepteur.", },
+{ question: "Quelle signalisation se fait à distance par voie sanguine ?", answer: "La signalisation endocrine.", },
+{ question: "Que sécrètent les cellules endocrines dans la signalisation endocrine ?", answer: "Des hormones.", },
+{ question: "Comment les hormones sont-elles distribuées dans l’organisme ?", answer: "Par diffusion via la circulation sanguine.", },
+{ question: "Pourquoi la signalisation endocrine est-elle lente ?", answer: "Car elle implique une diffusion systémique par le sang.", },
+{ question: "Sur quoi repose la spécificité de la signalisation endocrine ?", answer: "Sur les propriétés chimiques de l’hormone et de son récepteur.", },
+{ question: "Quelle cellule s’auto-stimule avec ses propres signaux ?", answer: "La cellule en signalisation autocrine.", },
+{ question: "Dans quel type cellulaire retrouve-t-on souvent la signalisation autocrine ?", answer: "Dans les cellules cancéreuses.", },
+{ question: "Quelles réponses peut induire une même molécule informative selon la cellule cible ?", answer: "Des réponses différentes selon la cellule cible.", },
+{ question: "Quelle est la différence entre signal inhibiteur et stimulateur ?", answer: "Un signal inhibiteur diminue l’activité, un stimulateur l’augmente.", },
+{ question: "Quels sont les deux modes d’envoi de molécules informatives ?", answer: "Par voie classique via RE-Golgi-vésicule, ou par sécrétion directe.", },
+{ question: "Quels sont les trois types de signaux chimiques ?", answer: "Hydrosolubles, liposolubles, gazeux.", },
+{ question: "Quels 3 types de molécules sont hydrosolubles ?", answer: "Médiateurs chimiques locaux, neurotransmetteurs, hormones peptidiques.", },
+{ question: "Pourquoi les signaux hydrosolubles ne franchissent-ils pas la membrane ?", answer: "Car ils sont chargés et hydrophiles.", },
+{ question: "À quoi se fixent les signaux hydrosolubles ?", answer: "À des récepteurs membranaires.", },
+{ question: "Quelle est la durée de vie des signaux hydrosolubles ?", answer: "Très courte : quelques secondes ou millisecondes.", },
+{ question: "Comment la réponse aux signaux hydrosolubles est-elle déclenchée ?", answer: "Par activation de voies de signalisation et modification de protéines par phosphorylation/déphosphorylation.", },
+{ question: "Comment les signaux liposolubles traversent-ils la membrane ?", answer: "Par diffusion passive à travers la bicouche lipidique.", },
+{ question: "Où se fixent les signaux liposolubles une fois entrés dans la cellule ?", answer: "Sur des récepteurs intracellulaires.", },
+{ question: "Quelle est la conséquence de la fixation de signaux liposolubles ?", answer: "Régulation de l’expression génique.", },
+{ question: "Quelle est la nature des signaux gazeux ?", answer: "Radicaux libres gazeux, comme le monoxyde d’azote (NO).", },
+{ question: "Comment les signaux gazeux diffusent-ils dans la cellule ?", answer: "Ils traversent librement la membrane plasmique.", },
+{ question: "Quel exemple de type d’enzyme est activé par les signaux gazeux ?", answer: "La guanylate-cyclase.", },
+{ question: "Quels sont les deux aspects de l'interactions ligand-récepteur ?", answer: "La fixation du ligand et l'induction de l'effet.", },
+{ question: "Quelle est la nature habituelle des récepteurs ?", answer: "Protéique.", },
+{ question: "Quels sont les deux grands types de récepteurs ?", answer: "Récepteurs membranaires et récepteurs intracellulaires.", },
+{ question: "Où se trouvent les récepteurs membranaires ?", answer: "Dans la membrane plasmique.", },
+{ question: "Où se trouvent les récepteurs intracellulaires ?", answer: "Dans le cytosol ou dans le noyau.", },
+{ question: "Quels types de molécules utilisent des récepteurs membranaires ?", answer: "Les molécules hydrophiles (hormones peptidiques, facteurs de croissance, neurotransmetteurs).", },
+{ question: "Quels types de molécules utilisent des récepteurs intracellulaires ?", answer: "Les molécules lipophiles (hormones stéroïdes, vitamines, gaz).", },
+{ question: "Quels sont les trois domaines des récepteurs membranaires ?", answer: "Domaine extracellulaire (fixation du ligand), domaine transmembranaire (ancrage à la membrane), domaine intracellulaire (transduction du signal)", },
+{ question: "Qu’est-ce que la saturabilité des récepteurs ?", answer: "C’est le fait que la fixation du ligand soit limitée ; lorsqu’il y a trop de ligand, les récepteurs ne peuvent plus tous les fixer", },
+{ question: "Qu’est-ce que la spécificité ligand-récepteur ?", answer: "Un ligand ne peut se fixer qu’à son récepteur spécifique", },
+{ question: "Que définit l’affinité d’un récepteur pour son ligand ?", answer: "Sa capacité à se lier au ligand, caractérisée par le Kd", },
+{ question: "Que signifie Kd dans le contexte des récepteurs ?", answer: "C’est la constante de dissociation où 50% du ligand est fixé à son récepteur", },
+{ question: "Quel est le type de liaison entre un ligand et son récepteur ?", answer: "Une liaison non covalente et réversible", },
+{ question: "Quelle distinction majeure permet de classer les récepteurs membranaires ?", answer: "Selon le ligand qu’ils fixent", },
+{ question: "Combien de RCPG existe-t-il chez l’Homme ?", answer: "Environ 800", },
+{ question: "Quelle proportion du génome humain les gènes des RCPG représentent-ils ?", answer: "1% du génome", },
+{ question: "Combien de domaines transmembranaires les RCPG possèdent-ils ?", answer: "7 domaines transmembranaires", },
+{ question: "Quelle est la taille d’un RCPG ?", answer: "50 kDa", },
+{ question: "Quelle modification post-traductionnelle peut subir l’extrémité N-terminale extracellulaire des RCPG ?", answer: "N-glycosylation", },
+{ question: "Combien de boucles intracellulaires et extracellulaires relient les hélices des RCPG ?", answer: "3 boucles intracellulaires (I1, I2, I3) et 3 boucles extracellulaires (E1, E2, E3)", },
+{ question: "Quelle liaison est présente entre les boucles E1 et E2 des RCPG ?", answer: "Un pont disulfure", },
+{ question: "Quels types de phosphorylation peuvent avoir lieu sur l’extrémité C-term des RCPG ?", answer: "Par PKA, PKC ou GRK", },
+{ question: "Quels 3 types de cibles peuvent avoir les RCPG ?", answer: "Des enzymes ancrées, des canaux ioniques, ou des protéines cytosoliques", },
+{ question: "Quelle est la fonction des sous-unités de protéines G activées par les RCPG ?", answer: "Elles participent à la transduction du signal", },
+{ question: "À quelle famille enzymatique appartiennent les protéines G ?", answer: "Famille des GTPases", },
+{ question: "Quelles sont les 4 fonctions des petites protéines G monomériques ?", answer: "Synthèse protéique, division cellulaire, translocation des protéines, transport des vésicules", },
+{ question: "Quelles sont les trois sous-unités des protéines G hétérotrimériques ?", answer: "Sous-unités alpha, bêta, gamma", },
+{ question: "Par quoi les sous-unités alpha et gamma sont-elles reliées à la membrane ?", answer: "Par des groupements myristoyle (alpha) et isoprenyl (gamma)", },
+{ question: "Que provoque la fixation du ligand sur un RCPG ?", answer: "Activation du récepteur qui interagit avec la protéine G", },
+{ question: "Qu’entraîne l’activation de la sous-unité alpha ?", answer: "La dissociation du complexe des différentes sous-unités", },
+{ question: "Quelles unités peuvent agir sur les cibles après dissociation des sous-unités G ?", answer: "La sous-unité alpha ou le complexe bêta-gamma", },
+{ question: "Quel est l’effet de l’adrénaline sur les cellules musculaires striées squelettiques ?", answer: "Stimulation de la dégradation du glycogène", },
+{ question: "Quel enzyme est activée par la sous-unité alpha après fixation de l’adrénaline ?", answer: "L’adénylate cyclase", },
+{ question: "Quel second messager est produit par l’adénylate cyclase ?", answer: "L’AMPc", },
+{ question: "Quel est le rôle de l’AMPc ?", answer: "Déclencher une cascade de signalisation menant à la glycogénolyse", },
+{ question: "Quel récepteur joue un rôle dans la vision ?", answer: "La rhodopsine (bâtonnets) et les opsines (cônes)", },
+{ question: "Quelle molécule absorbe les photons dans la vision ?", answer: "Le 11-cis-rétinal", },
+{ question: "À quoi est lié le 11-cis-rétinal dans le RCPG ?", answer: "À une lysine dans la 7e hélice transmembranaire", },
+{ question: "Quelle protéine G est associée aux RCPG dans la vision ?", answer: "La transducine", },
+{ question: "Quelle enzyme est activée par la transducine ?", answer: "La phosphodiestérase", },
+{ question: "Quel est le rôle de la phosphodiestérase dans la vision ?", answer: "Transformer le GMPc en GMP", },
+{ question: "Que provoque la baisse du GMPc dans les cellules photoréceptrices ?", answer: "Fermeture de canaux ioniques Na+/Ca++, hyperpolarisation de la cellule", },
+{ question: "Quelles mutations causent le daltonisme ?", answer: "Des mutations des gènes des opsines", },
+{ question: "Quels sont les deux types de récepteurs enzymatiques ?", answer: "Avec activité intrinsèque et sans activité enzymatique propre", },
+{ question: "Où se trouve le domaine de liaison au ligand des récepteurs enzymatiques ?", answer: "Sur la face externe de la membrane plasmique", },
+{ question: "Quel est le type de réponse induit par les récepteurs enzymatiques ?", answer: "Réponse lente par modification de l’expression génique", },
+{ question: "Quels sont les deux grands types de récepteurs enzymatiques ?", answer: "Récepteurs à activité tyrosine kinase et récepteurs à activité guanylyl cyclase", },
+{ question: "Quelle est la particularité des récepteurs tyrosine kinase (RTK) ?", answer: "Phosphoryler des résidus de tyrosine", },
+{ question: "Quels sont les 5 ligands des RTK ?", answer: "EGF, insuline, PDGF, FGF, VEGF", },
+{ question: "Quels sont les trois domaines des RTK ?", answer: "Extracellulaire (fixation du ligand), transmembranaire (ancrage), intracellulaire (activité tyrosine kinase)", },
+{ question: "Comment s’effectue l’activation des RTK ?", answer: "Par dimérisation et autophosphorylation des résidus de tyrosine", },
+{ question: "Quel est le rôle des groupements phosphate dans les RTK ?", answer: "Permettre l’ancrage des protéines de signalisation intracellulaire", },
+{ question: "Quels sont les deux types de domaines extracellulaires des RTK ?", answer: "Riches en cystéine et de type immunoglobuline", },
+{ question: "Quelle particularité trouve-t-on dans certaines sous-familles de RTK ?", answer: "Le domaine kinase est interrompu par une région d’insertion", },
+{ question: "Quels sont les 2 ligands des récepteurs à activité guanylyl cyclase ?", answer: "Peptides natriurétiques et monoxyde d’azote (NO)", },
+{ question: "Quelle est la fonction des récepteurs à activité guanylyl cyclase ?", answer: "Synthétiser du GMPc", },
+{ question: "Que permet l’augmentation du GMPc ?", answer: "Activer des PKC ou des canaux ioniques", },
+{ question: "Combien d’isoformes de récepteurs guanylyl cyclase existe-t-il ?", answer: "7 isoformes (A à G)", },
+{ question: "De quoi dépend la distribution tissulaire des récepteurs guanylyl cyclase ?", answer: "Du ligand qu’ils lient et de leur isoforme", },
+{ question: "Quels sont les domaines d’un récepteur guanylyl cyclase ?", answer: "Site de liaison extracellulaire (glycosylé), hélice transmembranaire (avec sites régulateurs), zone charnière intracellulaire, domaine catalytique", },
+{ question: "Quel effet a la fixation de l’agoniste sur les récepteurs guanylyl cyclase ?", answer: "Permet la fixation d’une molécule d’ATP et active l’activité guanylate cyclase", },
+{ question: "Quel est le rôle du domaine catalytique des récepteurs guanylyl cyclase ?", answer: "Hydrolyser le GTP en GMPc", },
+{ question: "Que sont les récepteurs canaux ioniques ?", answer: "Ce sont des protéines transmembranaires qui permettent le passage d’un ou plusieurs ions et s’ouvrent ou se ferment selon la fixation ou non d’un ligand sur une durée limitée.", },
+{ question: "Quel est le rôle des récepteurs canaux ioniques ?", answer: "Ils jouent un rôle fondamental dans les cellules excitables comme les neurones, les cellules myocardiques, ou dans les cellules impliquées dans la régulation ionique comme les cellules rénales.", },
+{ question: "Comment les ions passent-ils à travers les récepteurs canaux ioniques ?", answer: "Ils passent selon le gradient de diffusion.", },
+{ question: "Le passage d’ions contre le gradient est-il possible avec les récepteurs canaux ioniques ?", answer: "Non, sauf via un transport actif consommant de l’ATP, comme les pompes Na+/K+ ATPase.", },
+{ question: "Quels sont les deux types de récepteurs canaux ioniques ?", answer: "Les canaux ioniques potentiel dépendant et les canaux ligands dépendants.", },
+{ question: "Comment fonctionnent les canaux ioniques potentiel dépendant ?", answer: "Ils s’ouvrent et se ferment en fonction du potentiel de membrane et sont activés par un courant électrique.", },
+{ question: "Quel autre nom donne-t-on aux canaux ioniques potentiel dépendant ?", answer: "Récepteurs à voltage dépendant.", },
+{ question: "Quelle est la durée d’ouverture des canaux potentiel dépendant ?", answer: "Ils s’ouvrent sur une courte durée.", },
+{ question: "Donnez 4 exemples de canaux ioniques potentiel dépendant.", answer: "Canaux Na+, K+, Cl- et Ca2+.", },
+{ question: "Comment fonctionnent les canaux ligands dépendants ?", answer: "Ils s’ouvrent et se ferment en fonction de la fixation d’un ligand.", },
+{ question: "Quelle est la structure des canaux ligands dépendants ?", answer: "Ce sont des récepteurs multimériques où chaque monomère possède 4 domaines transmembranaires.", },
+{ question: "Par quoi sont activés les canaux ligands dépendants ?", answer: "Par la liaison chimique avec un ligand.", },
+{ question: "Quel autre nom donne-t-on aux canaux ligands dépendants ?", answer: "Récepteurs chimio dépendants.", },
+{ question: "Donnez 5 exemples de canaux ligands dépendants.", answer: "Récepteurs à glutamate, à glycine, type A du GABA, à sérotonine et les récepteurs nicotiniques de l'acétylcholine.", },
+{ question: "Quel est le rôle des récepteurs intracellulaires ?", answer: "Ils sont impliqués dans la régulation des gènes et peuvent se fixer au niveau des séquences d’ADN.", },
+{ question: "Où se situent les récepteurs intracellulaires ?", answer: "Dans le cytosol et le noyau, mais principalement à l’extérieur du noyau.", },
+{ question: "Quand les récepteurs intracellulaires entrent-ils dans le noyau ?", answer: "Une fois leur ligand fixé.", },
+{ question: "Quel est le temps de réponse des récepteurs intracellulaires ?", answer: "La réponse cellulaire est longue.", },
+{ question: "Quels types de ligands fixent les récepteurs intracellulaires ?", answer: "Des ligands hydrophobes : hormones stéroïdiennes, thyroïdiennes, des rétinoïdes, la vitamine D.", },
+{ question: "Comment les ligands des récepteurs intracellulaires sont-ils transportés dans le sang ?", answer: "Via des transporteurs sanguins.", },
+{ question: "Que se passe-t-il une fois que le ligand est entré dans la cellule ?", answer: "Il forme un complexe ligand-récepteur qui entre dans le noyau par les pores nucléaires.", },
+{ question: "À quoi se fixe le complexe ligand-récepteur dans le noyau ?", answer: "Aux domaines HRE (Hormone responsive element).", },
+{ question: "Où se situent les domaines HRE ?", answer: "Proche des régions régulatrices des gènes à transcrire.", },
+{ question: "Que provoque la fixation aux domaines HRE ?", answer: "Une activation ou inhibition séquentielle et coordonnée de gènes cibles.", },
+{ question: "Quels 4 processus cellulaires sont contrôlés par les gènes cibles régulés ?", answer: "La prolifération cellulaire, la croissance cellulaire, la différenciation cellulaire, la morphogénèse.", },
+{ question: "Combien de domaines possèdent les récepteurs intracellulaires ?", answer: "Quatre.", },
+{ question: "Quel est le rôle du domaine AB des récepteurs intracellulaires ?", answer: "Régulation de la transcription, spécificité cellulaire et tissulaire.", },
+{ question: "Quelles sont les 4 particularités du domaine C ?", answer: "Très conservé, comporte 66 acides aminés, forme de doigt de gant en zinc permettant la fixation à l’ADN au niveau HRE.", },
+{ question: "Quel est le rôle du domaine D ?", answer: "C’est le domaine charnière contenant une séquence NLS pour l’envoi du récepteur vers le noyau.", },
+{ question: "Quel est le rôle du domaine EF ?", answer: "Il possède le site de fixation au ligand, permet la dimérisation, possède aussi une séquence NLS et une fonction de régulation avec le domaine AB.", },
+{ question: "Que se passe-t-il en absence d’hormones dans le noyau ?", answer: "Le récepteur est inactif et lié à des protéines chaperonnes comme HSP90/70, et à un complexe avec cyclophiline 40, P23, et P60.", },
+{ question: "Que provoque la fixation du ligand au récepteur intracellulaire ?", answer: "La séparation du complexe protéique, activation par transconformation et fixation à l’ADN sous forme de dimère.", },
+{ question: "Citez 5 exemples de mutations de récepteurs nucléaires pathologiques.", answer: "Mutation inactivatrice des récepteurs aux œstrogènes, hormones thyroïdiennes, vitamine D ; mutation activatrice des récepteurs aux glucocorticoïdes ; translocation du récepteur de l’acide rétinoïque.", },
+{ question: "Qu’est-ce que la transduction ?", answer: "Un ensemble de cascades d’interactions cellulaires transmettant les signaux des récepteurs aux molécules cibles dans la cellule.", },
+{ question: "Quel est le résultat final de la transduction ?", answer: "La réponse cellulaire.", },
+{ question: "Quelle est la transformation qui se produit au début de la transduction ?", answer: "Le ligand (1er messager) interagit avec un récepteur membranaire pour former un second messager intracellulaire.", },
+{ question: "Quels types de mécanismes interviennent dans la transduction ?", answer: "Des mécanismes de phosphorylation et de déphosphorylation de protéines intermédiaires.", },
+{ question: "Quels sont les 55 objectifs de la transduction ?", answer: "Relayer, amplifier, intégrer, distribuer et moduler le signal.", },
+{ question: "Pourquoi la transduction doit-elle moduler les signaux ?", answer: "Pour que l’effet soit adapté aux conditions environnementales de la cellule.", },
+{ question: "Citez trois grandes voies de transduction.", answer: "Voie des MAP-kinases, voie PI3-kinase/Akt, voie JAK-STAT.", },
+{ question: "Quel est le rôle de la voie des MAP-kinases ?", answer: "Prolifération cellulaire et déplacement des cellules.", },
+{ question: "Quel est le rôle de la voie PI3-kinase/Akt ?", answer: "Inhibition de l’apoptose.", },
+{ question: "Quel est le rôle de la voie JAK-STAT ?", answer: "Prolifération, différenciation cellulaire et apoptose.", },
+{ question: "À quoi aboutit la communication cellulaire ?", answer: "À une modification physiologique cellulaire.", },
+{ question: "Quand la réponse cellulaire est-elle rapide ?", answer: "Lorsque la réponse modifie des protéines déjà existantes comme le cytosquelette ou certaines enzymes.", },
+{ question: "Quand la réponse cellulaire est-elle lente ?", answer: "Lorsque la réponse modifie l’expression des gènes ou la synthèse protéique.", },
+{ question: "Dans quels cas retrouve-t-on une réponse cellulaire lente ?", answer: "Dans la croissance cellulaire et la division cellulaire.", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

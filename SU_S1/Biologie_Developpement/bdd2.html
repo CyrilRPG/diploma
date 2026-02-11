@@ -1,0 +1,1009 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie du développement</h1><h2>Interactions Cellulaires (Partie 2)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quels sont les deux grands types de segmentation ?', answer: 'La segmentation holoblastique (totale) et la segmentation méroblastique (incomplète).' },
+  { question: 'Dans quels organismes la segmentation est-elle holoblastique ?', answer: 'Chez les amphibiens et l’Homme.' },
+  { question: 'Dans quels organismes la segmentation est-elle méroblastique ?', answer: 'Chez les céphalopodes, poissons et insectes.' },
+  { question: 'Quand apparaît le premier sillon de division chez le xénope ?', answer: 'Juste après la fécondation.' },
+  { question: 'Quel est le résultat du premier clivage chez le xénope ?', answer: 'Deux blastomères identiques.' },
+  { question: 'Quel est le résultat du deuxième clivage chez le xénope ?', answer: 'Quatre blastomères identiques.' },
+  { question: 'Quand apparaît l’asymétrie de clivage ?', answer: 'Au stade 8 cellules.' },
+  { question: 'Qu’est-ce qu’un micromère ?', answer: 'Un blastomère de petite taille au pôle animal.' },
+  { question: 'Qu’est-ce qu’un macromère ?', answer: 'Un blastomère de grande taille au pôle végétatif.' },
+  { question: 'Quel est l’aspect de l’embryon au stade 32 cellules ?', answer: 'Une morula ressemblant à une petite mûre.' },
+  { question: 'Qu’est-ce que le blastocèle ?', answer: 'Une cavité transitoire située au pôle animal au stade blastula.' },
+  { question: 'Quelles glycoprotéines composent la matrice extracellulaire du toit du blastocèle ?', answer: 'La fibronectine et la laminine.' },
+  { question: 'Quelle est la structure de la fibronectine ?', answer: 'Deux sous-unités liées par ponts disulfures avec domaines d’interactions.' },
+  { question: 'Quelle est la structure de la laminine ?', answer: 'Trois chaînes polypeptidiques en triple hélice avec sites de liaison aux intégrines.' },
+  { question: 'Quels types de jonctions présentent les micromères du pôle animal ?', answer: 'Jonctions serrées en externe et jonctions GAP en interne.' },
+  { question: 'Quelles sont les deux grandes familles de molécules d’adhérence ?', answer: 'Les cadhérines et les intégrines.' },
+  { question: 'Quel est le rôle des cadhérines ?', answer: 'Assurer les interactions cellule-cellule via les jonctions adhérentes.' },
+  { question: 'Quelle est la structure fonctionnelle des intégrines ?', answer: 'Des hétérodimères interagissant avec la matrice extracellulaire.' },
+  { question: 'Quelle est la particularité du cycle cellulaire durant les 10-12 premiers cycles ?', answer: 'Absence de G1, alternance rapide entre phases S et M.' },
+  { question: 'Qu’est-ce que la transition blastuléenne ?', answer: 'Le moment où les divisions deviennent asynchrones avec apparition de G1 et allongement de G2.' },
+  { question: 'Quels feuillets sont spécifiés avant 32 cellules ?', answer: 'L’ectoderme et l’endoderme.' },
+  { question: 'Quand apparaît la spécification du mésoderme ?', answer: 'Entre le stade 32 et 64 cellules.' },
+  { question: 'Quelle expérience permet de visualiser la spécification au stade blastula ?', answer: 'L’isolement et la culture in vitro des blastomères puis analyse histologique.' },
+  { question: 'Quel est le destin des blastomères animaux isolés ?', answer: 'Ils se différencient en épiderme.' },
+  { question: 'Quel est le destin des blastomères végétatifs isolés ?', answer: 'Ils donnent de l’endoderme.' },
+  { question: 'Quel est le destin des blastomères de la zone marginale ?', answer: 'Ils donnent du mésoderme.' },
+  { question: 'Quelle était la question de Nieuwkoop concernant le mésoderme ?', answer: 'Les cellules mésodermiques proviennent-elles de la calotte animale ou des blastomères végétatifs ?' },
+  { question: 'Qu’a montré le marquage des cellules de la calotte animale dans les recombinaisons ?', answer: 'Seules les cellules de la calotte animale deviennent mésodermiques.' },
+  { question: 'Quel est le rôle des blastomères végétatifs dans l’induction du mésoderme ?', answer: 'Ils sont la source du signal inductif.' },
+  { question: 'Quel résultat donne l’interposition d’un filtre étanche entre calotte animale et blastomères végétatifs ?', answer: 'Absence d’induction mésodermique.' },
+  { question: 'Quel résultat donne l’utilisation d’un filtre poreux ?', answer: 'Induction mésodermique.' },
+  { question: 'Quelle conclusion tire-t-on des expériences avec filtres ?', answer: 'L’induction du mésoderme dépend d’un signal diffusible.' },
+  { question: 'Que montrent les expériences de Dale et Slack ?', answer: 'L’induction mésodermique est régionalisée selon l’axe dorso-ventral.' },
+  { question: 'Que produit la calotte animale seule ?', answer: 'Uniquement de l’épiderme.' },
+  { question: 'Que produit la calotte animale + D1 ?', answer: 'Épiderme, chorde, muscle, endoderme.' },
+  { question: 'Que produit la calotte animale + D2 ?', answer: 'Épiderme, mésenchyme, cellules sanguines, endoderme.' },
+  { question: 'Quelle conclusion sur l’induction dorso-ventrale ?', answer: 'Les blastomères végétatifs dorsaux induisent du mésoderme dorsal et les ventraux du mésoderme ventral.' },
+  { question: 'Quel phénotype caractérise un embryon ventralisé ?', answer: 'Tube digestif isolé, absence de pigmentation, absence d’yeux.' },
+  { question: 'Quel phénotype caractérise un embryon dorsalisé ?', answer: 'Structures neurales, yeux, pigmentation, peu de tube digestif.' },
+  { question: 'Quelle est la stratégie d’identification des molécules inductrices ?', answer: 'Analyse des protéines sécrétées, banques d’ADNc, expression et test des protéines candidates.' },
+  { question: 'Comment teste-t-on une molécule candidate in vitro ?', answer: 'En ajoutant la molécule à des calottes animales mises en culture.' },
+  { question: 'Quels facteurs testés induisent du mésoderme ?', answer: 'FGF, Vg1, Activine.' },
+  { question: 'Quelle est la nature de Vg1 ?', answer: 'Un TGF-β maternel localisé dans l’hémisphère végétatif.' },
+  { question: 'Quel est l’effet dose-dépendant de Vg1 ?', answer: 'Faible dose : mésoderme ; forte dose : mésoderme dorsal.' },
+  { question: 'Quelle est la nature d’Activine ?', answer: 'Un facteur zygotique membre des TGF-β.' },
+  { question: 'Quel est l’effet d’une forte dose d’Activine ?', answer: 'Induction de mésoderme dorsal (chorde).' },
+  { question: 'Quel est l’effet d’une faible dose d’Activine ?', answer: 'Induction de mésoderme ventral (cellules sanguines).' },
+  { question: 'Quelle voie de signalisation activent les FGF ?', answer: 'La voie Raf-Mek-MAPK.' },
+  { question: 'Que provoque l’expression d’un récepteur FGF tronqué ?', answer: 'Un défaut de mésoderme intermédiaire/ventral et absence de queue.' },
+  { question: 'Quelle voie activent les TGF-β ?', answer: 'La voie des SMAD.' },
+  { question: 'Quelle méthode permet de visualiser l’ARNm Vg1 ?', answer: 'Hybridation in situ avec sonde anti-sens marquée.' },
+  { question: 'Quel est le principe des expériences de restauration in vivo ?', answer: 'Injecter des ARNm candidats dans des embryons irradiés pour tester leur capacité à restaurer l’axe dorsal.' },
+  { question: 'Pourquoi irradie-t-on les œufs aux UV ?', answer: 'Pour bloquer la rotation corticale et empêcher l’induction du mésoderme dorsal.' },
+  { question: 'Quel est le résultat du test de restauration pour Vg1 ?', answer: 'Vg1 ne restaure pas l’axe dorso-ventral.' },
+  { question: 'Quel est le résultat du test de restauration pour Activine ?', answer: 'Activine permet une restauration partielle de l’axe dorso-ventral.' },
+  { question: 'Quel est le principe des morpholinos dans les expériences de perte de fonction ?', answer: 'Ils empêchent la traduction de l’ARNm par encombrement stérique sans le dégrader.' },
+  { question: 'Quel est le principe des oligonucléotides antisens ?', answer: 'Ils empêchent la traduction de l’ARNm en provoquant sa dégradation.' },
+  { question: 'Quel est le principe des ARN interférents ?', answer: 'Ils empêchent la traduction de l’ARNm.' },
+  { question: 'Quel est l’objectif d’une stratégie de dominant négatif ?', answer: 'Inhiber la fonction d’une protéine en surexprimant une forme mutante de cette protéine.' },
+  { question: 'Quel est l’effet de l’ARNm codant un récepteur FGF tronqué ?', answer: 'Développement anormal avec absence de queue.' },
+  { question: 'Que révèle l’absence de queue après blocage de la voie FGF ?', answer: 'Les FGFs sont nécessaires à l’induction des mésodermes intermédiaire et ventral.' },
+  { question: 'Quel est le principe des expériences de perte de fonction pour tester un inducteur ?', answer: 'Utilisation d’oligonucléotides antisens complémentaires de l’ARNm endogène.' },
+  { question: 'Quel est le contrôle dans les expériences antisens ?', answer: 'Injection d’oligonucléotides antisens avec de l’ARNm codant la protéine candidate.' },
+  { question: 'Quel phénotype indique la perte d’un inducteur du mésoderme dorsal ?', answer: 'Un embryon ventralisé.' },
+  { question: 'Que provoque un dominant négatif du récepteur FGF ?', answer: 'Perte des muscles et des mésodermes intermédiaire et ventral.' },
+  { question: 'Que provoque un dominant négatif du récepteur de l’activine ?', answer: 'Absence de mésoderme.' },
+  { question: 'Quel est l’effet de l’injection d’oligonucléotides antisens contre la β-caténine ?', answer: 'Obtention d’embryons ventralisés sans structures dorsales.' },
+  { question: 'Quelles molécules sont nécessaires à l’induction du mésoderme ?', answer: 'FGF, activine et β-caténine.' },
+  { question: 'Que se passe-t-il en absence de ligand Wnt ?', answer: 'GSK3β est active et la β-caténine est dégradée.' },
+  { question: 'Que se passe-t-il en présence de ligand Wnt ?', answer: 'Inhibition de GSK3β et stabilisation de la β-caténine qui va au noyau.' },
+  { question: 'Quel est le principe du gain de fonction ectopique ?', answer: 'Injecter un ARNm codant la protéine d’intérêt dans un blastomère ventral.' },
+  { question: 'Que provoque un gain de fonction dorsal ectopique ?', answer: 'Apparition de structures dorsales ectopiques et embryon siamois.' },
+  { question: 'Quel est l’effet de l’injection ventro-végétative d’ARNm Wnt8 ou β-caténine ?', answer: 'Formation d’un embryon siamois avec deux axes.' },
+  { question: 'Quel est le résultat du gain de fonction de Vg1 dans les blastomères ventraux ?', answer: 'Pas d’induction d’un second axe.' },
+  { question: 'Quel est l’effet du gain de fonction de Nodal à faible dose ?', answer: 'Induction ventrale.' },
+  { question: 'Quel est l’effet du gain de fonction de Nodal à forte dose ?', answer: 'Induction dorsale.' },
+  { question: 'Quel est l’effet d’un gain de fonction de β-caténine ?', answer: 'Induction d’un second axe.' },
+  { question: 'Quel est l’effet d’un gain de fonction de siamois ?', answer: 'Induction d’un second axe.' },
+  { question: 'FGF est-il suffisant pour induire le mésoderme ?', answer: 'Oui, les FGF sont suffisants pour l’induction mésodermique.' },
+  { question: 'FGF est-il nécessaire pour les structures postérieures ?', answer: 'Oui, il est nécessaire à leur développement.' },
+  { question: 'Vg1 est-il suffisant pour induire le mésoderme in vivo ?', answer: 'Non, Vg1 seul n’est pas suffisant.' },
+  { question: 'Activine est-elle nécessaire à l’induction du mésoderme ?', answer: 'Oui, mais elle nécessite d’autres facteurs pour l’axe dorso-ventral.' },
+  { question: 'La β-caténine est-elle suffisante pour induire le mésoderme et un second axe ?', answer: 'Oui, elle est nécessaire et suffisante.' },
+  { question: 'Siamois est-il suffisant pour induire un second axe ?', answer: 'Oui.' },
+  { question: 'Quel matériel génétique l’embryon utilise-t-il très tôt ?', answer: 'Les ARNm maternels stockés dans l’ovocyte.' },
+  { question: 'Quand commence l’activation du génome zygotique ?', answer: 'À la transition blastuléenne après 10-12 divisions.' },
+  { question: 'Quels ARNm maternels sont localisés au cortex végétatif ?', answer: 'Vg1, VegT, Wnt11 et Dsh.' },
+  { question: 'Quel est le rôle de la rotation corticale sur les déterminants dorsaux ?', answer: 'Elle relocalise Dsh et Wnt11 vers le croissant gris.' },
+  { question: 'Quelle est l’origine de l’identité dorsale ?', answer: 'La relocalisation des déterminants maternels par la rotation corticale.' },
+  { question: 'Où la β-caténine est-elle présente au stade blastula ?', answer: 'Dans les noyaux des blastomères dorsaux.' },
+  { question: 'Quels déterminants contiennent les blastomères végétatifs ?', answer: 'Vg1 et VegT.' },
+  { question: 'Quelles protéines sont combinées dans les blastomères dorso-végétatifs ?', answer: 'Vg1, VegT et β-caténine.' },
+  { question: 'Quelle protéine est produite grâce à la combinaison Vg1 + VegT + β-caténine ?', answer: 'Nodal.' },
+  { question: 'Quel est le rôle de Nodal ?', answer: 'Induire le mésoderme selon un gradient dorso-ventral.' },
+  { question: 'Qu’est-ce qu’un morphogène ?', answer: 'Une substance soluble diffusant en gradient et induisant des réponses dépendantes de seuils.' },
+  { question: 'Quel concept est illustré par le « French Flag » ?', answer: 'Différenciations différentes selon la concentration du morphogène.' },
+  { question: 'Comment se forme un gradient morphogénique ?', answer: 'Diffusion depuis une source localisée et dégradation progressive.' },
+  { question: 'Qu’est-ce que le centre de Nieuwkoop ?', answer: 'Un centre organisateur composé de blastomères dorso-végétatifs.' },
+  { question: 'À quel feuillet appartiennent les blastomères du centre de Nieuwkoop ?', answer: 'À l’endoderme.' },
+  { question: 'Quel est le rôle du centre de Nieuwkoop ?', answer: 'Induire le mésoderme dorsal et initier un axe dorsal.' },
+  { question: 'Quel gène est un marqueur du centre de Nieuwkoop ?', answer: 'Siamois.' },
+  { question: 'Que provoque une greffe du centre de Nieuwkoop dans la région ventrale ?', answer: 'Formation d’une nouvelle face dorsale.' },
+  { question: 'Quel événement initie la gastrulation ?', answer: 'Apparition de l’encoche blastoporale.' },
+  { question: 'Quelles cellules changent de morphologie au début de la gastrulation ?', answer: 'Les cellules dorso-végétatives D1.' },
+  { question: 'Quelle morphologie adoptent les cellules D1 ?', answer: 'Une forme en bouteille.' },
+  { question: 'Quelle structure résulte du changement de morphologie des cellules D1 ?', answer: 'L’encoche du blastopore.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

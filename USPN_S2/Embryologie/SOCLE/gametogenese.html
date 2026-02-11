@@ -1,0 +1,426 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Embryologie</h1><h2>SOCLE - Gamétogenèse</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .favorite-icon:hover { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } ul.actions { padding-right: 0; text-align: center; } }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'En quoi les gonocytes primordiaux sont-ils différenciés après la 4ème semaine ?', answer: 'En ovogonies.' },
+{ question: 'Quand les premiers ovocytes apparaissent-ils ?', answer: 'Au bout de la 12ème semaine de la vie fœtale.' },
+{ question: 'Quand les ovogonies se multiplient-elles par mitose ?', answer: 'Du 2ème au 7ème mois de la vie intra-utérine.' },
+{ question: 'Quand les 2 globules polaires sont-ils expulsés ?', answer: 'À la fin de la 1ère méiose (passage à ovocyte II) et à la fin de la 2ème méiose (si fécondé).' },
+{ question: 'Sur quoi migrent les cellules germinales primordiales pour former les ovocytes ?', answer: 'Sur la crête génitale.' },
+{ question: 'Quelles sont les deux fonctions de l\'ovaire ?', answer: 'Endocrine (œstrogènes et progestérone) et exocrine (croissance, maturation, libération d\'un ovocyte).' },
+{ question: 'Quand les follicules primordiaux sont-ils formés chez le fœtus ?', answer: 'À la 16ème semaine.' },
+{ question: 'Combien de follicules primordiaux contiennent les ovaires à 5 mois ?', answer: '6 millions.' },
+{ question: 'Combien de follicules primordiaux à la naissance ?', answer: 'Entre 500 000 et 2,5 millions.' },
+{ question: 'Combien de follicules primordiaux à la puberté ?', answer: '50 000.' },
+{ question: 'Combien de follicules primordiaux à la maturité ?', answer: '400.' },
+{ question: 'Qu\'est-ce qui permet la reprise de la méiose à la puberté ?', answer: 'Le pic d\'hormone LH.' },
+{ question: 'Un spermatocyte I donne combien de spermatozoïdes ?', answer: '4 spermatozoïdes.' },
+{ question: 'Quel est le nom de la membrane qui entoure l\'ovaire ?', answer: 'L\'albuginée.' },
+{ question: 'Où a lieu l\'ovogenèse ?', answer: 'Dans la corticale de l\'ovaire.' },
+{ question: 'À chaque début du cycle ovarien, combien de follicules primordiaux commencent leur maturation ?', answer: '15 à 20 follicules.' },
+{ question: 'Un follicule contient combien d\'ovocytes ?', answer: '1 seul ovocyte.' },
+{ question: 'Quelle est la taille des follicules primordiaux ?', answer: '40 micromètres.' },
+{ question: 'Quelle est la taille des follicules primaires ?', answer: '45-50 micromètres.' },
+{ question: 'Quelle est la taille des follicules secondaires ?', answer: '50 à 180 micromètres.' },
+{ question: 'Quelle est la taille des follicules tertiaires ?', answer: '200 micromètres à 20 mm.' },
+{ question: 'Quelle est la taille du follicule de Graaf ?', answer: '20 mm.' },
+{ question: 'Citez 3 composés qui se mettent en place dans le follicule primaire.', answer: 'Zone pellucide, membrane de Slavjanski, épithélium cubique.' },
+{ question: 'Le follicule primaire joue un rôle dans quelle voie métabolique ?', answer: 'Voie des phosphoinositide 3 kinases.' },
+{ question: 'Quels sont les deux composés qui se mettent en place dans le follicule secondaire ?', answer: 'Granulosa et thèque interne.' },
+{ question: 'À partir de quoi est formée la thèque interne ?', answer: 'Du stroma ovarien.' },
+{ question: 'Quels sont les androgènes produits par la thèque interne ?', answer: 'Testostérone et androstènedione.' },
+{ question: 'Comment est formée la zone pellucide ?', answer: 'Par sécrétion de glycoprotéines par les cellules de la granulosa et de l\'ovocyte.' },
+{ question: 'Quels sont les 2 autres noms du follicule tertiaire ?', answer: 'Antral ou cavitaire.' },
+{ question: 'Quelles sont les hormones formées par transformation des androgènes dans la granulosa ?', answer: 'Bêta-estradiol et estrone.' },
+{ question: 'Quand est formé le follicule de Graaf ?', answer: '37 heures avant l\'ovulation.' },
+{ question: 'De quoi est composé le complexe cumulo-ovocytaire ?', answer: 'Ovocyte et corona radiata.' },
+{ question: 'Quand se déroule la phase folliculaire ou œstrogénique ?', answer: 'Du 1er au 14ème jour.' },
+{ question: 'Quelle est la conséquence de la phase folliculaire au niveau de la sécrétion d\'hormones ?', answer: 'Hausse de la FSH.' },
+{ question: 'Quelle est la conséquence au niveau de l\'activité enzymatique du pic de LH ?', answer: 'Sécrétion de prostaglandines (augmentation de la contraction des fibres lisses) et stimulation d\'une collagénase qui digère les fibres de collagène entourant le follicule.' },
+{ question: 'Quelles sont les hormones stéroïdiennes sécrétées par le corps jaune ?', answer: 'La progestérone et les œstrogènes.' },
+{ question: 'Quel organe sécrète la LH et la FSH ?', answer: 'L\'antéhypophyse.' },
+{ question: 'Quand a lieu la multiplication des ovogonies dans le développement embryonnaire et avec un pic à quelle période ?', answer: 'De la 4ème à la 20ème semaine avec un pic à la 14ème semaine.' },
+{ question: 'Où sont formées les cellules germinales primordiales ?', answer: 'Dans la vésicule vitelline.' },
+{ question: 'Où migrent les cellules germinales primordiales ?', answer: 'Vers les mésonéphros (rein intermédiaire).' },
+{ question: 'Que permettent de former les cellules germinales primordiales après la migration ?', answer: 'Les crêtes génitales.' },
+{ question: 'De quoi sont composés les tubes séminifères ?', answer: 'Cellules de Sertoli et cellules germinales souches.' },
+{ question: 'Combien de temps dure la phase proliférative des spermatogonies (mitoses) ?', answer: '27 jours.' },
+{ question: 'Quelle cellule effectue la méiose I chez l\'homme ?', answer: 'Spermatocyte I.' },
+{ question: 'Quelle cellule effectue la méiose II chez l\'homme ?', answer: 'Spermatocyte II.' },
+{ question: 'Combien de temps dure la méiose I des spermatocytes I ?', answer: '23 jours.' },
+{ question: 'Combien de temps dure la méiose II des spermatocytes II ?', answer: '1 jour.' },
+{ question: 'Combien de temps au total dure la spermatogenèse ?', answer: '74 jours.' },
+{ question: 'Comment la méiose I et la méiose II font-elles évoluer la spermatogonie ?', answer: 'Méiose I : spermatocyte I à spermatocyte II ; Méiose II : spermatocyte II à spermatide.' },
+{ question: 'Où a lieu la spermatogenèse ?', answer: 'Dans les tubes séminifères des testicules.' },
+{ question: 'Dans la cellule germinale, quelle partie a la fonction exocrine ?', answer: 'Paroi du tube séminifère (spermatogenèse).' },
+{ question: 'Dans la cellule germinale, quelle partie a la fonction endocrine ?', answer: 'Espace interstitiel (cellules de Leydig).' },
+{ question: 'Quelle spermatogonie a une chromatine fine et sombre en microscopie électronique ?', answer: 'Spermatogonie Ad (dark).' },
+{ question: 'Quelle spermatogonie a une chromatine claire, poussiéreuse ou pâle en microscopie électronique ?', answer: 'Spermatogonie Ap (pale).' },
+{ question: 'Quelle spermatogonie a une chromatine mottée ?', answer: 'Spermatogonie B.' },
+{ question: 'Combien de temps dure la spermiogenèse ?', answer: '23 jours.' },
+{ question: 'Quelles sont les 4 phases de la spermiogenèse ?', answer: 'Formation de l\'acrosome, condensation nucléaire, développement du flagelle, réorganisation du cytoplasme.' },
+{ question: 'Comment sont formées les vésicules acrosomales ?', answer: 'Par fusion de vacuoles issues de l\'appareil de Golgi.' },
+{ question: 'Par quoi sont remplacées les histones somatiques ?', answer: 'Par les protamines.' },
+{ question: 'Comment sont formés les flagelles ?', answer: 'Par déplacement des centrioles au pôle postérieur du noyau.' },
+{ question: 'Quels sont les 6 rôles des cellules de Sertoli ?', answer: 'Mécanique, phagocytose, spermiation, transport, synthèse, barrière immunitaire.' },
+{ question: 'La barrière hémato-testiculaire permet la séparation de l\'épithélium séminifère en 2 compartiments, lesquels ?', answer: 'Basal et adluminal.' },
+{ question: 'Quand le spermatozoïde acquiert-il un pouvoir fécondant ?', answer: 'Au cours de la traversée de l\'épididyme.' },
+{ question: 'Quelle est la taille des spermatozoïdes ?', answer: '60 micromètres de long.' },
+{ question: 'Quelle est la largeur et la longueur de la tête des spermatozoïdes ?', answer: '3 à 4,5 micromètres de long (grand axe) et 1,5 à 4 micromètres de large.' },
+{ question: 'Combien y a-t-il de stades de l\'épithélium séminal ?', answer: '6 stades.' },
+{ question: 'Par quoi l\'hormone GnRH est-elle sécrétée ?', answer: 'Par l\'hypothalamus.' },
+{ question: 'Sur quoi l\'hormone GnRH agit-elle ?', answer: 'Sur l\'hypophyse, pour permettre la libération des gonadotrophines (LH, FSH).' },
+{ question: 'Sur quels types de cellules agit la LH ?', answer: 'Cellules de Leydig, cellules de Sertoli, cellules péritubulaires.' },
+{ question: 'Sur quelles cellules agit la FSH ?', answer: 'Sur les cellules de Sertoli directement.' },
+{ question: 'Quel est le seuil d\'anormalité pour la vitalité et mobilité des spermatozoïdes ?', answer: 'Mobilité inférieure à 40% et vitalité inférieure à 58%.' },
+{ question: 'À quel stade de la méiose se bloquent les ovocytes I avant la naissance ?', answer: 'Prophase I, stade diplotène.' },
+{ question: 'Quelle hormone stimule directement les cellules de Sertoli ?', answer: 'La FSH.' },
+{ question: 'Quelle hormone stimule la production de testostérone ?', answer: 'La LH.' },
+{ question: 'Quelle est la fonction de l\'inhibine B produite par les cellules de Sertoli ?', answer: 'Inhiber la sécrétion de FSH.' },
+{ question: 'Quelle structure sépare le compartiment basal et adluminal du tube séminifère ?', answer: 'La barrière hémato-testiculaire.' },
+{ question: 'Quelle cellule initie la méiose dans la spermatogenèse ?', answer: 'Le spermatocyte I.' },
+{ question: 'Quelle est la fonction de la zone pellucide ?', answer: 'Protection de l\'ovocyte et reconnaissance du spermatozoïde.' },
+{ question: 'Quelles cellules forment la corona radiata ?', answer: 'Les cellules de la granulosa entourant l\'ovocyte.' },
+{ question: 'Quel est le rôle du corps jaune ?', answer: 'Sécréter progestérone et œstrogènes.' },
+{ question: 'Quelle est la conséquence de l\'absence de fécondation sur le corps jaune ?', answer: 'Régression en corpus albicans.' },
+{ question: 'Où a lieu la spermiogenèse ?', answer: 'Dans les tubes séminifères.' },
+{ question: 'Quelle partie du spermatozoïde contient les mitochondries ?', answer: 'La pièce intermédiaire.' },
+{ question: 'Quelle enzyme contenue dans l\'acrosome facilite la fécondation ?', answer: 'L\'hyaluronidase.' },
+{ question: 'Quand les ovocytes II reprennent-ils et terminent-ils la méiose II ?', answer: 'Seulement lors de la fécondation.' },
+{ question: 'Quelle est la taille d\'un ovocyte humain ?', answer: 'Environ 120 µm.' },
+{ question: 'Quel type de cellules tapisse la granulosa dans un follicule primaire ?', answer: 'Un épithélium cubique.' },
+{ question: 'Quelle est la durée totale de la maturation des follicules ovariens ?', answer: 'Environ 3 mois.' },
+{ question: 'Quelle est la durée moyenne du cycle ovarien ?', answer: '28 jours.' },
+{ question: 'Quelle hormone déclenche l\'ovulation ?', answer: 'Le pic de LH.' },
+{ question: 'Quelles sont les deux phases du cycle ovarien ?', answer: 'Phase folliculaire et phase lutéale.' },
+{ question: 'Quelle est la durée de la phase lutéale ?', answer: 'Environ 14 jours.' },
+{ question: 'Quelle est l\'hormone dominante en phase folliculaire ?', answer: 'L\'estradiol.' },
+{ question: 'Quelle est l\'hormone dominante en phase lutéale ?', answer: 'La progestérone.' },
+{ question: 'Quels chromosomes sexuels possèdent les spermatozoïdes ?', answer: 'X ou Y.' },
+{ question: 'Quelle est la proportion moyenne de spermatozoïdes normaux dans un éjaculat ?', answer: 'Environ 60%.' },
+{ question: 'Quelle est la concentration minimale normale en spermatozoïdes selon l\'OMS ?', answer: '15 millions/mL.' },
+{ question: 'Quelle est la durée de vie d\'un spermatozoïde dans les voies génitales féminines ?', answer: '2 à 5 jours.' },
+{ question: 'Dans quelle partie de la trompe se déroule la fécondation ?', answer: 'Dans l\'ampoule tubaire.' },
+{ question: 'Quelle est la durée de vie d\'un ovocyte après l\'ovulation ?', answer: '12 à 24 heures.' },
+{ question: 'Quel est le rôle des cellules de la thèque interne ?', answer: 'Produire des androgènes.' },
+{ question: 'Quel est le rôle des cellules de la granulosa sur ces androgènes ?', answer: 'Les aromatiser en œstrogènes.' },
+{ question: 'Quelle glycoprotéine sécrétée par l\'embryon maintient le corps jaune ?', answer: 'La hCG.' },
+{ question: 'Quel est le rôle principal des cellules de Leydig ?', answer: 'Sécréter la testostérone.' },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); localStorage.removeItem("completed_" + pageId); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-right"); setTimeout(() => { currentIndex++; localStorage.setItem(progressKey, currentIndex); updateProgress(); showCard(currentIndex); }, 400); });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-left"); setTimeout(() => { const removed = flashcards.splice(currentIndex, 1)[0]; flashcards.splice(currentIndex + 5, 0, removed); showCard(currentIndex); }, 400); });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() { if (isFavorite({question, answer})) favIcon.classList.add("active"); else favIcon.classList.remove("active"); }
+    favIcon.addEventListener("click", (e) => { e.stopPropagation(); toggleFavorite({question, answer}); updateFav(); });
+    updateFav();
+    card.addEventListener("click", () => { const isAnswerVisible = card.classList.toggle("show-answer"); toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse"; });
+    inner.appendChild(front); inner.appendChild(back); inner.appendChild(checkIcon); inner.appendChild(crossIcon); inner.appendChild(favIcon);
+    card.appendChild(inner); card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); localStorage.removeItem("completed_" + pageId); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back); endCard.appendChild(inner); endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

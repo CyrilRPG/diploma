@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+<script src="../../../security.js" defer></script>
+<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS1 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Squelette et Motricité - Activité physique et santé</h1><h2>Adaptations respiratoires à l'exercice</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Combien de fois par minute un adulte respire-t-il au repos ?', answer: 'Environ 12 fois par minute.', },
+{ question: 'Quel volume d’air entre et sort des poumons par minute au repos ?', answer: 'Environ 6 litres par minute.', },
+{ question: 'De combien les volumes pulmonaires des femmes sont-ils inférieurs à ceux des hommes ?', answer: 'Environ 20 à 25 %.', },
+{ question: 'Quels sujets ont les plus grands volumes pulmonaires ?', answer: 'Les sujets grands et athlétiques.', },
+{ question: 'Quel appareil mesure les volumes respiratoires ?', answer: 'Le spirographe.', },
+{ question: 'Comment s’appelle l’enregistrement du spirographe ?', answer: 'Le spirogramme.', },
+{ question: 'Quel est le volume courant (VT) ?', answer: '500 mL.', },
+{ question: 'Que représente le volume courant ?', answer: 'Le volume mobilisable au repos sans effort.', },
+{ question: 'Quel est le volume de réserve inspiratoire (VRI) ?', answer: '3100 mL.', },
+{ question: 'Que représente le VRI ?', answer: 'Une inspiration profonde maximale.', },
+{ question: 'Quel est le volume de réserve expiratoire (VRE) ?', answer: '1200 mL.', },
+{ question: 'Que représente le VRE ?', answer: 'Un effort expiratoire maximal après expiration normale.', },
+{ question: 'Quel est le volume résiduel (VR) ?', answer: '1200 mL.', },
+{ question: 'Que représente le VR ?', answer: 'Le volume d’air restant après une expiration maximale.', },
+{ question: 'Quelle est la capacité inspiratoire (CI) ?', answer: '3600 mL.', },
+{ question: 'Quels volumes constituent la capacité inspiratoire ?', answer: 'VT + VRI.', },
+{ question: 'Quelle est la capacité résiduelle fonctionnelle (CRF) ?', answer: '2400 mL.', },
+{ question: 'Quels volumes constituent la CRF ?', answer: 'VR + VRE.', },
+{ question: 'Quelle est la capacité vitale (CV) ?', answer: '4800 mL.', },
+{ question: 'Quels volumes constituent la CV ?', answer: 'VRI + VT + VRE.', },
+{ question: 'Quelle est la capacité pulmonaire totale (CPT) ?', answer: '6000 mL.', },
+{ question: 'Quels volumes composent la CPT ?', answer: 'Tous les volumes pulmonaires.', },
+{ question: 'Quelle est la formule de la ventilation minute ?', answer: 'Ventilation = Volume courant × Fréquence respiratoire.', },
+{ question: 'Donne un exemple de ventilation minute au repos.', answer: '600 mL × 10 respir/min = 6000 mL/min.', },
+{ question: 'Comment évolue la VO2 lors d’un exercice constant ?', answer: 'Elle augmente puis atteint un plateau.', },
+{ question: 'Qu’est-ce que le déficit en oxygène ?', answer: 'La différence entre VO2 d’état stable et VO2 mesurée au début de l’exercice.', },
+{ question: 'Combien de temps dure la période de déficit en oxygène ?', answer: '2 à 3 minutes.', },
+{ question: 'Pourquoi existe-t-il un déficit en oxygène ?', answer: 'Parce que VO2 ne couvre pas immédiatement les besoins énergétiques.', },
+{ question: 'Quels systèmes énergétiques sont utilisés lors du déficit en O2 ?', answer: 'Systèmes phosphagènes et glycolyse anaérobie.', },
+{ question: 'Que provoque l’activation de la glycolyse anaérobie au début de l’exercice ?', answer: 'Une légère augmentation du lactate.', },
+{ question: 'Qu’est-ce que la dette en oxygène ?', answer: 'Différence entre la VO2 de récupération et la VO2 de repos.', },
+{ question: 'Quelles sont les deux composantes de la dette en oxygène ?', answer: 'Composante rapide alactique et composante lente lactique.', },
+{ question: 'À quoi correspond la composante rapide ?', answer: 'Resynthèse des réserves énergétiques (ATP-PCr).', },
+{ question: 'À quoi correspond la composante lente ?', answer: 'Élimination et métabolisation du lactate.', },
+{ question: 'Qu’est-ce que la VO2max ?', answer: 'Quantité maximale d’O2 pouvant être prélevée, transportée et consommée par unité de temps.', },
+{ question: 'Quels systèmes déterminent la VO2max ?', answer: 'Poumons, cœur, vaisseaux, muscles.', },
+{ question: 'Comment évolue la VO2 lors d’un exercice progressif maximal ?', answer: 'Elle augmente linéairement puis atteint un plateau.', },
+{ question: 'Quels critères permettent de dire que la VO2max est atteinte ?', answer: 'Plateau de VO2, QR>1,10, FC max théorique atteinte, incapacité de maintenir la cadence, lactate >8-9 mmol/L.', },
+{ question: 'Pourquoi le plateau de VO2 est-il difficile à obtenir ?', answer: 'Car l’épuisement peut survenir avant l’apparition d’un vrai plateau.', },
+{ question: 'Pourquoi exprime-t-on la VO2max en mL/min/kg ?', answer: 'Pour comparer des sujets de tailles et masses différentes.', },
+{ question: 'Comment évolue la VO2max chez l’enfant ?', answer: 'Elle augmente jusqu’à l’âge adulte.', },
+{ question: 'Valeur de VO2max chez 75 % des filles ?', answer: '2 L/min soit 40 mL/kg/min.', },
+{ question: 'Valeur de VO2max chez 75 % des garçons ?', answer: '3,5 L/min soit 50 mL/kg/min.', },
+{ question: 'Comment évolue la VO2max après la puberté ?', answer: 'Augmente chez les garçons, diminue chez les filles.', },
+{ question: 'Qu’explique la diminution de VO2max chez les filles après puberté ?', answer: 'Augmentation de la masse grasse.', },
+{ question: 'Qu’explique l’augmentation chez les garçons ?', answer: 'Augmentation de la masse musculaire.', },
+{ question: 'À quel âge la VO2max atteint-elle son maximum ?', answer: 'Vers 20 ans.', },
+{ question: 'Quand diminue-t-elle ?', answer: 'À partir de 30 ans, de 10 % par décennie.', },
+{ question: 'Quelle est la VO2max à 80 ans ?', answer: 'Environ 18 mL/kg/min.', },
+{ question: 'Selon quelle équation se calcule la VO2 ?', answer: 'VO2 = Qc × différence artério-veineuse en O2.', },
+{ question: 'Comment s’appelle cette relation ?', answer: 'Équation de Fick.', },
+{ question: 'Quelle est la concentration en O2 dans le sang artériel au repos ?', answer: '20 mL O2/100 mL.', },
+{ question: 'Et dans le sang veineux au repos ?', answer: '14 mL O2/100 mL.', },
+{ question: 'Quelle est la différence artério-veineuse au repos ?', answer: '6 mL O2/100 mL.', },
+{ question: 'Comment évolue l’extraction d’O2 à l’effort maximal chez un non-entrainé ?', answer: 'Elle passe à 10-12%.', },
+{ question: 'Comment évolue-t-elle chez un sujet très entraîné ?', answer: 'Elle atteint 16-18 %.', },
+{ question: 'De combien la capacité d’extraction d’O2 augmente-t-elle avec l’entraînement ?', answer: 'De 4 à 5 mL O2/100 mL de sang.', },
+{ question: 'Quel facteur du transport d’O2 augmente le plus avec l’entraînement ?', answer: 'Le volume d’éjection systolique.', },
+{ question: 'Quelles sont les valeurs de ventilation minute au repos ?', answer: '5 à 8 L/min.', },
+{ question: 'Quelles sont les valeurs maximales à l’effort ?', answer: '50 à 60 L/min.', },
+{ question: 'Quelle valeur peut atteindre un sujet sédentaire ?', answer: '110 à 120 L/min.', },
+{ question: 'Quelle valeur peut atteindre un sujet entraîné ?', answer: '170 à 200 L/min.', },
+{ question: 'Quelles sont les phases de l’augmentation ventilatoire à l’exercice constant ?', answer: 'Phase 1 : accroissement immédiat ; Phase 2 : augmentation progressive.', },
+{ question: 'Qu’est-ce qui déclenche l’augmentation progressive de la ventilation ?', answer: 'Diminution de PO2 musculaire, augmentation CO2 et H+.', },
+{ question: 'Qu’est-ce que l’accrochage ventilatoire ?', answer: 'Augmentation immédiate de la ventilation au début de l’exercice.', },
+{ question: 'Qu’est-ce que le décrochage ventilatoire ?', answer: 'Diminution rapide de la ventilation à l’arrêt de l’exercice.', },
+{ question: 'Quels mécanismes augmentent la ventilation à l’exercice ?', answer: '↑ Volume courant aux faibles intensités, ↑ fréquence respiratoire aux intensités élevées.', },
+{ question: 'Comment évolue la ventilation lors d’un exercice progressif maximal ?', answer: 'D’abord proportionnelle, puis augmentation disproportionnée.', },
+{ question: 'Que sont les seuils ventilatoires ?', answer: 'Seuils où la cinétique ventilatoire change.', },
+{ question: 'Avec quoi coïncident les seuils ventilatoires ?', answer: 'Les seuils lactiques.', },
+{ question: 'Que représente le SV1 ?', answer: 'Seuil d’adaptation ventilatoire, correspondant au seuil lactate 1.', },
+{ question: 'Que représente le SV2 ?', answer: 'Seuil d’inadaptation ventilatoire, correspondant au seuil lactate 2.', },
+{ question: 'Quel événement physiologique survient au SL1 ?', answer: 'Début du déséquilibre acido-basique (baisse du pH et des bicarbonates).', },
+{ question: 'Pourquoi le SV1 augmente-t-il la ventilation ?', answer: 'Rejet accru de CO2 dû à la glycolyse anaérobie et production de lactate.', },
+{ question: 'Quel phénomène survient au SL2 ?', answer: 'Accumulation du lactate et acidose métabolique.', },
+{ question: 'Que caractérise le SV2 ?', answer: 'Changement des pentes Ve/VCO2, seuil d’arrêt chez sédentaires et malades.', },
+{ question: 'Quel est l’effet de l’entraînement sur les seuils ventilatoires et lactiques ?', answer: 'Ils sont repoussés vers des intensités plus élevées.', },
+{ question: 'À quelle VO2max le seuil de 4 mmol/L est-il atteint chez les entraînés ?', answer: 'Pour des valeurs supérieures à celles des non-entraînés.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../../index.html">Accueil</a></li>
+<li><a href="../../favorites.html">Favoris</a></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../../ICM/fc1.html">Généralités sur les médicaments (partie 1)</a></li>
+<li><a href="../../ICM/fc1_2.html">Généralités sur les médicaments (partie 2)</a></li>
+<li><a href="../../ICM/fc2.html">Interaction ligand-récepteur</a></li>
+<li><a href="../../ICM/fc3.html">Voies de signalisation</a></li>
+<li><a href="../../ICM/fc4.html">Pharmacométrie</a></li>
+<li><a href="../../ICM/fc5.html">Étapes pharmacocinétiques</a></li>
+<li><a href="../../ICM/fc6_1.html">Paramètres pharmacocinétiques</a></li>
+<li><a href="../../ICM/fc6_2.html">Pharmacocinétique et formes galéniques</a></li>
+<li><a href="../../ICM/fc7.html">Pharmacocinétique et prescription</a></li>
+<li><a href="../../ICM/fc8.html">Variabilité de la réponse au médicament</a></li>
+<li><a href="../../ICM/fc9.html">Conception et identification du médicament</a></li>
+<li><a href="../../ICM/fc10.html">Développement pré-clinique</a></li>
+<li><a href="../../ICM/fc11.html">Développement clinique</a></li>
+<li><a href="../../ICM/fc12.html">Structure et régulation du médicament</a></li>
+<li><a href="../../ICM/fc13.html">Générique et biosimilaire</a></li>
+<li><a href="../../ICM/fc14.html">Circuits de dispensation des médicaments</a></li>
+<li><a href="../../ICM/fc15.html">Iatrogénie</a></li>
+</ul></li>
+<li><span class="opener">Bio-informatique</span><ul>
+<li><a href="../../Bio_Informatique/fc1.html">Introduction à la bio-informatique</a></li>
+<li><a href="../../Bio_Informatique/fc2.html">Bases de données bio-informatiques</a></li>
+<li><a href="../../Bio_Informatique/fc3.html">Comparaison de séquences</a></li>
+</ul></li>
+<li><span class="opener">Circulation Respiration</span><ul>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../../Circulation_Respiration/Anatomie/fc1.html">Introduction sur l'appareil cardiovasculaire</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc2.html">Cœur, aspects extérieurs</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc3.html">Cœur droit et cœur gauche</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc4.html">Péricarde</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc5.html">Artères et veines coronaires</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc6.html">Innervation du cœur</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc7.html">Structure du cœur et valves cardiaques</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc8.html">Principales artères du corps</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc9.html">Coupes du cœur</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc10.html">Anatomie de l'appareil respiratoire</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../../Circulation_Respiration/Physiologie/fc1.html">Voies aériennes et transports gazeux</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc2.html">Équilibre acide-base</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc3.html">Cellule musculaire cardiaque</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc4.html">ECG et cœur</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc5.html">Pression artérielle</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc6.html">Régulation de la pression artérielle</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc7.html">Le cycle cardiaque</a></li>
+</ul></li>
+</ul></li>
+<li><span class="opener">Régulation Neuroendocrienne</span><ul>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc1.html">Anatomie générale du système nerveux</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc2.html">Neurone</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc3.html">Schéma général des réseaux neuronaux</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc4.html">Système nerveux végétatif ou autonome</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc5.html">Sécrétion hormonale</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc6.html">Anatomie digestive simplifiée</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc1.html">Fonction digestive</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc2.html">Fonctions hépatiques</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc3.html">Fonctions pancréatiques</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc4.html">Rôle de l'intestin grêle et du colon</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc5.html">Diabète</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc6.html">Hypothalamus, faim et satiété</a></li>
+</ul></li>
+</ul></li>
+<li><span class="opener">Squelette et Motricité</span><ul>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../../Squelette_Motricite/Anatomie/fc1.html">Les os du crâne</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc2.html">Os de la face</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc3.html">Cavités de la face</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc4.html">Membre supérieur</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc5.html">Ceinture scapulaire</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc6.html">Bras</a></li>
+</ul></li>
+<li><span class="opener">Activité physique et santé</span><ul>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc1.html">Connaissances générales sur l'activité physique</a></li>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc2.html">Adaptations cardiaques à l'exercice</a></li>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc3.html">Adaptations respiratoires à l'exercice</a></li>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc4.html">Adaptations hormonales à l'exercice</a></li>
+</ul></li>
+<li><span class="opener">Situations de handicap</span><ul>
+<li><a href="../../Squelette_Motricite/Situations_Handicap/fc1.html">Réadaptation</a></li>
+<li><a href="../../Squelette_Motricite/Situations_Handicap/fc2.html">Moyens de compensation</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../../Squelette_Motricite/Physiologie/fc1.html">Biomécanique de la force musculaire</a></li>
+<li><a href="../../Squelette_Motricite/Physiologie/fc2.html">Excitation-contraction</a></li>
+</ul></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+<script src="../../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1079 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie Socle</h1><h2>Appareil cardiovasculaire et respiratoire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData = [
+  { question: "Quelle est la forme générale du cœur ?", answer: "Forme ovoïde", },
+{ question: { type: "image", src: "../../images/anat8_q1.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a1.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q2.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a2.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q3.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a3.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q4.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a4.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q5.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a5.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q6.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a6.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q7.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a7.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q8.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a8.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q9.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a9.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q10.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a10.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anat8_q11.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anat8_a11.jpg", alt: "Schéma réponse" } },
+  { question: "Où est situé le cœur ?", answer: "Dans le médiastin antérieur", },
+  { question: "De quel côté le cœur déborde-t-il par son grand axe ?", answer: "Du côté gauche", },
+  { question: "Quelle membrane fibreuse enveloppe le cœur ?", answer: "Le péricarde", },
+  { question: "Quelle est la forme géométrique du cœur ?", answer: "Une pyramide", },
+  { question: "Combien de faces présente le cœur ?", answer: "3 faces", },
+  { question: "Combien de cavités comprend le cœur ?", answer: "4 cavités", },
+  { question: "Comment sont séparées les cavités du cœur ?", answer: "Par des cloisons", },
+  { question: "Quelles sont les deux cavités droites du cœur ?", answer: "1 atrium droit et 1 ventricule droit", },
+  { question: "Quel type de sang est contenu dans les cavités droites du cœur ?", answer: "Du sang riche en CO₂", },
+  { question: "Quelles sont les deux cavités gauches du cœur ?", answer: "1 atrium gauche et 1 ventricule gauche", },
+  { question: "Quel type de sang est contenu dans les cavités gauches du cœur ?", answer: "Du sang riche en O₂", },
+  { question: "Les cavités cardiaques gauches et droites communiquent-elles entre elles ?", answer: "Non", },
+  { question: "Que comprend la circulation artérielle ?", answer: "Elle part du cœur", },
+  { question: "Que comprend la circulation veineuse ?", answer: "Elle remonte de la périphérie vers le cœur", },
+  { question: "Que fait la grande circulation ?", answer: "Elle distribue le sang dans l’ensemble du corps", },
+  { question: "À quoi correspond la petite circulation ?", answer: "À la circulation pulmonaire", },
+  { question: "D’où émerge l’aorte ?", answer: "Du ventricule gauche", },
+  { question: "Que transporte l’aorte ?", answer: "Le sang oxygéné à l’ensemble de la circulation", },
+  { question: "Par quoi se terminent les réseaux artériels ?", answer: "Par des ramifications appelées capillaires sanguins", },
+  { question: "Que sont les capillaires sanguins ?", answer: "Des vaisseaux très fins intratissulaires", },
+  { question: "Que permettent les capillaires sanguins ?", answer: "Les échanges entre réseau artériel et veineux dans les tissus", },
+  { question: "Combien de veines caves existe-t-il ?", answer: "2 : la veine cave supérieure et la veine cave inférieure", },
+  { question: "Où se jettent les veines caves ?", answer: "Dans l’atrium droit", },
+  { question: "À quel appareil le système porte est-il spécifique ?", answer: "À l’appareil digestif", },
+  { question: "À quoi correspond la circulation porte ?", answer: "Au retour veineux digestif", },
+  { question: "Par quoi est encadrée la circulation porte ? ?", answer: "Par des capillaires veineux à chaque extrémité", },
+  { question: "Quel organe reçoit le sang de la veine porte ?", answer: "Le foie", },
+  { question: "Quel est le rôle du foie dans la circulation porte ?", answer: "Trier et filtrer les éléments nutritifs", },
+  { question: "Par quelles veines le sang veineux est-il restitué à la circulation générale ?", answer: "Par les 3 veines sus-hépatiques", },
+  { question: "Quel est l’autre nom de l’artère pulmonaire ?", answer: "Tronc pulmonaire", },
+  { question: "D’où naît l’artère pulmonaire ?", answer: "Du ventricule droit", },
+  { question: "En combien de branches se divise l’artère pulmonaire ?", answer: "En 2 : droite et gauche", },
+  { question: "Que transporte l’artère pulmonaire ?", answer: "Le sang pauvre en O₂ vers les poumons", },
+  { question: "Que signifie la segmentation de l’artère pulmonaire ?", answer: "Division topographique vers chaque bronche", },
+  { question: "Quel est le rôle des poumons dans l’hématose ?", answer: "Échanger CO₂ contre O₂", },
+  { question: "Combien de veines pulmonaires existe-t-il ?", answer: "4 : 2 supérieures et 2 inférieures droite et gauche", },
+  { question: "Vers quelle cavité les veines pulmonaires ramènent-elles le sang oxygéné ?", answer: "Vers l’atrium gauche", },
+  { question: "Que représente une branche terminale ?", answer: "Division terminale d’une branche principale", },
+  { question: "Que représente une branche collatérale ?", answer: "Branche qui s’échappe de l’axe artériel principal", },
+  { question: "Que sont les territoires vasculaires ?", answer: "Les régions de distribution dans les tissus d’un vaisseau", },
+  { question: "Quand a-t-on une suppléance ?", answer: "Quand 2 territoires vasculaires se superposent", },
+  { question: "À quoi sert la suppléance en cas d’obstacle ?", answer: "À assurer un courant artériel de remplacement", },
+  { question: "Pourquoi une suppléance est-elle impossible dans un réseau terminal ?", answer: "Car l’obstacle entraîne une nécrose", },
+  { question: "Quel exemple donne-t-on pour une nécrose au cœur ?", answer: "Infarctus du myocarde", },
+  { question: "Quel exemple donne-t-on pour une nécrose au cerveau ?", answer: "Infarctus cérébral", },
+  { question: "Quels sont les 3 segments de la crosse aortique ?", answer: "Ascendant, horizontal, descendant", },
+  { question: "Où se situe l’aorte descendante ?", answer: "Dans le médiastin postérieur", },
+  { question: "En quoi devient l’aorte après le diaphragme ?", answer: "En aorte abdominale", },
+  { question: "À quelle hauteur la crosse aortique traverse-t-elle le diaphragme ?", answer: "En T12", },
+  { question: "À quelle hauteur l’aorte abdominale se divise-t-elle ?", answer: "Au niveau de L4/L5", },
+  { question: "Quelles sont les branches terminales de l’aorte abdominale ?", answer: "Les artères iliaques communes droite et gauche", },
+  { question: "Quelles sont les branches de l’artère iliaque commune ?", answer: "Artère iliaque interne et artère iliaque externe", },
+  { question: "Quel est l’autre nom de l’artère iliaque interne ?", answer: "Artère hypogastrique", },
+  { question: "Que vascularise l’artère iliaque interne ?", answer: "Les viscères du pelvis", },
+  { question: "Que fait l’artère iliaque externe ?", answer: "Passe sous le ligament inguinal", },
+  { question: "Quelle artère donne l’artère iliaque externe ?", answer: "L’artère fémorale profonde", },
+  { question: "D’où naît l’artère pulmonaire ?", answer: "Du ventricule droit", },
+  { question: "Où est située l’artère pulmonaire par rapport à l’aorte ascendante ?", answer: "Sur son flanc gauche", },
+  { question: "Que fait l’artère pulmonaire par rapport à l’aorte ascendante ?", answer: "Elle la croise en avant et à gauche", },
+  { question: "Où passe la branche gauche de l’artère pulmonaire ?", answer: "En avant de l’aorte descendante", },
+  { question: "Où passe la branche droite de l’artère pulmonaire ?", answer: "En arrière de l’aorte ascendante", },
+  { question: "Quel est le 1er tronc supra-aortique ?", answer: "Le tronc brachio-céphalique", },
+  { question: "D’où naît le tronc brachio-céphalique ?", answer: "De la crosse de l’aorte du côté droit", },
+  { question: "Quelles sont les divisions du tronc brachio-céphalique ?", answer: "Artère carotide commune droite et artère subclavière droite", },
+  { question: "En quoi se divise l’artère carotide commune droite ?", answer: "En carotide externe et carotide interne droites", },
+  { question: "À quoi sert l’artère carotide externe droite ?", answer: "À vasculariser la face", },
+  { question: "À quoi sert l’artère carotide interne droite ?", answer: "À vasculariser le cerveau", },
+  { question: "Que vascularise l’artère subclavière droite ?", answer: "Le membre supérieur", },
+  { question: "Quel est le 2e tronc supra-aortique ?", answer: "L’artère carotide commune gauche", },
+  { question: "Quel est le 3e tronc supra-aortique ?", answer: "L’artère subclavière gauche", },
+  { question: "D’où naissent les artères carotides gauche et subclavière gauche ?", answer: "Directement de l’aorte", },
+  { question: "D’où naît le tronc cœliaque ?", answer: "De la face antérieure de l’aorte en T12", },
+  { question: "Quelles sont les branches du tronc cœliaque ?", answer: "Artère gastrique gauche, artère splénique, artère hépatique", },
+  { question: "Que vascularise le tronc cœliaque ?", answer: "La partie sus-mésocolique de l’appareil digestif", },
+  { question: "À quelle hauteur naît l’artère mésentérique supérieure ?", answer: "À hauteur de L1", },
+  { question: "Que vascularise l’artère mésentérique supérieure ?", answer: "L’intestin grêle et le colon droit", },
+  { question: "Par quoi est enveloppée l’artère mésentérique supérieure ?", answer: "Par le mésentère", },
+  { question: "À quelle hauteur naissent les artères rénales droite et gauche ?", answer: "À hauteur de L1/L2", },
+  { question: "Que vascularisent les artères rénales ?", answer: "Les reins", },
+  { question: "Quelle artère rénale est plus basse ?", answer: "L’artère rénale droite", },
+  { question: "À quelle hauteur naît l’artère mésentérique inférieure ?", answer: "À hauteur de L3", },
+  { question: "Que vascularise l’artère mésentérique inférieure ?", answer: "Le colon gauche et le rectum", },
+  { question: "Quels vaisseaux forment les troncs veineux innominés droit et gauche ?", answer: "Les veines subclavières et les veines jugulaires internes" },
+  { question: "Que ramènent les troncs veineux innominés ?", answer: "Le sang de la région brachiale et céphalique" },
+  { question: "Quelle est l’origine de la veine cave supérieure ?", answer: "Les deux troncs veineux innominés" },
+  { question: "Où se jette la veine cave supérieure ?", answer: "Dans l’atrium droit" },
+  { question: "De quoi naissent les veines iliaques communes droite et gauche ?", answer: "De la réunion de la veine iliaque interne et de la veine iliaque externe" },
+  { question: "Où naît la veine cave inférieure ?", answer: "Au niveau du flanc droit du disque L5S1, par la réunion des veines iliaques communes" },
+  { question: "Quel trajet emprunte la veine cave inférieure ?", answer: "Elle passe derrière le foie" },
+  { question: "Où se jette la veine cave inférieure ?", answer: "Dans l’atrium droit" },
+  { question: "Où se jettent les veines rénales droite et gauche ?", answer: "Dans la veine cave inférieure" },
+  { question: "Quel est le trajet de la veine porte ?", answer: "Ascendante et oblique, se jette dans le foie par le hile" },
+  { question: "Que draine la veine porte ?", answer: "Le sang veineux digestif" },
+  { question: "Par quelles veines le sang du foie est-il drainé vers la circulation générale ?", answer: "Par les 3 veines sus-hépatiques" },
+  { question: "Dans quoi se jettent les veines sus-hépatiques ?", answer: "Dans la veine cave inférieure" },
+  { question: "Quelle est l’orientation de la face ventrale du cœur ?", answer: "Elle regarde vers l’avant, en rapport avec le sternum" },
+  { question: "Quelle est l’orientation de la face inférieure du cœur ?", answer: "Elle est couchée contre le diaphragme" },
+  { question: "Quelle est l’orientation de la face gauche du cœur ?", answer: "Elle regarde à gauche, en rapport avec le poumon" },
+  { question: "Quels sont les bords du cœur ?", answer: "Le bord gauche, le bord droit et le bord inférieur" },
+  { question: "Quelle est la direction de la base du cœur ?", answer: "Elle regarde en arrière et à droite" },
+  { question: "Quelle est la forme de la base du cœur ?", answer: "Triangulaire" },
+  { question: "Quelle est l’orientation de l’apex du cœur ?", answer: "Il regarde en avant et à gauche" },
+  { question: "Par quelle structure est porté l’apex du cœur ?", answer: "Par le ventricule gauche" },
+  { question: "Quelle est l’orientation du grand axe du cœur ?", answer: "Dirigé vers l’avant, la gauche et vers le bas" },
+  { question: "Quel est le rôle du septum du cœur ?", answer: "Diviser le cœur en un compartiment droit et un compartiment gauche" },
+  { question: "Quelle est l’orientation de la cloison sagittale du cœur ?", answer: "Dans le grand axe du cœur" },
+  { question: "Quelle est l’orientation de la cloison frontale du cœur ?", answer: "Perpendiculaire à la cloison sagittale" },
+  { question: "Que divise la cloison frontale ?", answer: "Chaque compartiment droit et gauche en atrium en arrière et ventricule en avant" },
+  { question: "Combien y a-t-il de foramens atrio-ventriculaires ?", answer: "Deux" },
+  { question: "Que permettent les foramens atrio-ventriculaires ?", answer: "La communication entre atrium et ventricule du même côté" },
+  { question: "Quand les valves des foramens s’ouvrent-elles ?", answer: "Lors de la contraction atriale" },
+  { question: "Quel est le nom de la valve à droite du cœur ?", answer: "Valve tricuspide" },
+  { question: "Combien de valvules possède la valve tricuspide ?", answer: "Trois" },
+  { question: "Quel est le nom de la valve à gauche du cœur ?", answer: "Valve mitrale" },
+  { question: "Combien de valvules possède la valve mitrale ?", answer: "Deux" },
+  { question: "Quelle est la position de l’artère pulmonaire gauche ?", answer: "En avant de l’aorte descendante" },
+  { question: "Quelle est la position de l’artère pulmonaire droite ?", answer: "Derrière l’aorte ascendante" },
+  { question: "Quels sont les constituants des voies aériennes supérieures ?", answer: "Fosses nasales et pharynx (cervical)" },
+  { question: "Quels sont les constituants des voies aériennes inférieures ?", answer: "Trachée, bronches, poumons" },
+  { question: "Quelle est la fonction de la trachée ?", answer: "Transporter l’air entre les voies aériennes supérieures et les poumons" },
+  { question: "Où sont situées les voies aériennes inférieures ?", answer: "Dans le thorax" },
+  { question: "Quelles sont les deux régions latérales du thorax ?", answer: "Les poumons" },
+  { question: "Quelles faces possède chaque poumon ?", answer: "Une face pariétale et une face médiastinale ou viscérale" },
+  { question: "Quelle est la région centrale du thorax ?", answer: "Le médiastin" },
+  { question: "Que contient le médiastin ?", answer: "La trachée, les bronches, l’aorte thoracique descendante, l’œsophage et le cœur" },
+  { question: "Comment est divisé le médiastin ?", answer: "En médiastin postérieur et médiastin antérieur par un plan passant par la face postérieure de la trachée" },
+  { question: "Que contient le médiastin postérieur ?", answer: "L’aorte thoracique descendante et l’œsophage" },
+  { question: "Que contient le médiastin antérieur dans sa partie basse ?", answer: "Le cœur et l’origine des gros vaisseaux" }
+];
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

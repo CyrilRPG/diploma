@@ -1,0 +1,752 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Histologie</h1><h2>APP SPE - Appareil urinaire</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'Quel est le rôle général de l’appareil urinaire ?', answer: 'Maintenir l’équilibre hydroélectrolytique et éliminer les déchets.', },
+{ question: 'Quels organes composent l’appareil urinaire ?', answer: 'Les reins et les voies excrétrices (uretères, vessie, urètre).', },
+{ question: 'Où sont situés les reins ?', answer: 'Dans les fosses lombaires, sous les côtes, de part et d’autre de la colonne vertébrale.', },
+{ question: 'Quelle est la taille moyenne d’un rein ?', answer: 'Environ 10 x 5 cm.', },
+{ question: 'Quel est le produit final des voies excrétrices ?', answer: 'L’urine.', },
+{ question: 'Quel est le rôle du néphron ?', answer: 'Unité fonctionnelle du rein assurant filtration, réabsorption et formation de l’urine.', },
+{ question: 'Combien de néphrons compte chaque rein ?', answer: 'Environ 1 million.', },
+{ question: 'Quels sont les composants du néphron ?', answer: 'Corpuscule de Malpighi, tube contourné proximal, anse de Henlé, tube contourné distal, tubes collecteurs.', },
+{ question: 'Quelles sont les trois fonctions principales du rein ?', answer: 'Épuration du sang, régulation hydrosodée, production hormonale (rénine, EPO, vitamine D).', },
+{ question: 'Quelle artère apporte le sang au rein ?', answer: 'L’artère rénale.', },
+{ question: 'Quelle veine évacue le sang filtré ?', answer: 'La veine rénale.', },
+{ question: 'Combien d’eau les reins filtrent-ils par jour ?', answer: 'Environ 180 litres.', },
+{ question: 'Quels sont les trois zones anatomiques du rein en coupe longitudinale ?', answer: 'La médullaire, la corticale, et la capsule conjonctive.', },
+{ question: 'De quoi est composée la médullaire ?', answer: 'De 8 à 13 pyramides de Malpighi séparées par les colonnes de Bertin.', },
+{ question: 'Qu’est-ce qu’un lobe rénal ?', answer: 'Une pyramide de Malpighi et le parenchyme cortical associé.', },
+{ question: 'Que trouve-t-on dans la corticale ?', answer: 'Corpuscules de Malpighi, tubes proximaux et distaux.', },
+{ question: 'Qu’est-ce qu’un lobule rénal ?', answer: 'Une pyramide de Ferrein et le parenchyme rénal environnant.', },
+{ question: 'Quels sont les deux types de tubes urinaires du parenchyme rénal ?', answer: 'Les tubules rénaux du néphron et les tubes collecteurs (intra-rénaux).', },
+{ question: 'Quels segments du néphron sont situés dans le cortex corticis ?', answer: 'Tube contourné proximal et tube contourné distal.', },
+{ question: 'Quels segments se trouvent dans le labyrinthe ?', answer: 'TCP, TCD, corpuscules de Malpighi.', },
+{ question: 'Quels segments sont dans les pyramides de Ferrein et Malpighi ?', answer: 'Anses de Henlé, tubes collecteurs, canaux papillaires.', },
+{ question: 'Quel est le rôle de l’irrigation rénale ?', answer: 'Permettre filtration et réabsorption, essentielle à la fonction du néphron.', },
+{ question: 'Quelle artériole entre dans le glomérule ?', answer: 'L’artériole afférente.', },
+{ question: 'Quelle artériole sort du glomérule ?', answer: 'L’artériole efférente.', },
+{ question: 'Qu’est-ce que le système porte artériel rénal ?', answer: 'Ensemble artériole afférente → capillaires glomérulaires → artériole efférente.', },
+{ question: 'Quels vaisseaux suivent les artères interlobaires ?', answer: 'Artères arciformes puis artères interlobulaires.', },
+{ question: 'Quelle est la structure d’un glomérule ?', answer: 'Sphère de 200 µm comprenant capsule de Bowman et peloton vasculaire.', },
+{ question: 'Quels sont les deux feuillets de la capsule de Bowman ?', answer: 'Feuillet pariétal pavimenteux simple et feuillet viscéral avec podocytes.', },
+{ question: 'Que contient la chambre glomérulaire ?', answer: 'L’urine primitive (ultra-filtrat).', },
+{ question: 'Quel est le rôle du pôle vasculaire ?', answer: 'L’entrée et la sortie des artérioles afférente et efférente.', },
+{ question: 'Quel est le rôle du pôle urinaire ?', answer: 'Début du tube contourné proximal.', },
+{ question: 'Qu’est-ce que le floculus ?', answer: 'Ensemble d’environ 20 capillaires issus de l’artériole afférente.', },
+{ question: 'Quel est le rôle du mésangium ?', answer: 'Soutien structural et modulation de la filtration glomérulaire.', },
+{ question: 'Quelles sont les trois couches de la barrière de filtration glomérulaire ?', answer: 'Endothélium fenestré, membrane basale glomérulaire, podocytes.', },
+{ question: 'Quelle est la taille des pores endothéliaux ?', answer: '50 à 100 nm.', },
+{ question: 'Quel est le rôle de la membrane basale glomérulaire ?', answer: 'Bloquer les grosses protéines.', },
+{ question: 'Qu’est-ce qu’une fente de filtration ?', answer: 'Espace entre deux pédicelles de podocytes.', },
+{ question: 'Quelle est l’épaisseur du diaphragme de filtration ?', answer: '4 à 6 nm.', },
+{ question: 'Quelle est la localisation des tubules rénaux ?', answer: 'Du pôle urinaire jusqu’aux tubes collecteurs.', },
+{ question: 'Quel type d’épithélium borde les tubules ?', answer: 'Épithélium simple.', },
+{ question: 'Quels sont les trois segments anatomiques du tubule rénal ?', answer: 'Tube contourné, anse de Henlé, tube contourné distal.', },
+{ question: 'Quelle est la fonction du tube contourné proximal ?', answer: 'Réabsorber 50 à 70 % de l’eau, Na+, K+, Cl-, glucose.', },
+{ question: 'Quelles sont les caractéristiques histologiques du TCP ?', answer: 'Cellules cubiques, bordure en brosse, cytoplasme riche, pôle basal strié.', },
+{ question: 'Quel épithélium borde les anses de Henlé ?', answer: 'Épithélium pavimenteux simple endothéliforme.', },
+{ question: 'Quelle est la forme des anses de Henlé ?', answer: 'En U.', },
+{ question: 'Quelles sont les caractéristiques du tube contourné distal ?', answer: 'Cellules cubiques sans bordure en brosse, lumière large, cytoplasme clair.', },
+{ question: 'Quels sont les composants des voies excrétrices intra-rénales ?', answer: 'Tubes collecteurs de Bellini et canaux papillaires.', },
+{ question: 'Quels types cellulaires composent les tubes collecteurs ?', answer: 'Cellules principales (claires) et cellules intercalaires (sombres).', },
+{ question: 'Quel est le rôle des cellules principales ?', answer: 'Réabsorption Na+ et eau, excrétion K+, réponse à l’aldostérone.', },
+{ question: 'Quel est le rôle des cellules intercalaires ?', answer: 'Sécrétion de H+ ou HCO3-, réabsorption du potassium.', },
+{ question: 'Où se situe l’appareil juxta-glomérulaire ?', answer: 'Au niveau du pôle vasculaire du glomérule.', },
+{ question: 'Quel est son rôle ?', answer: 'Autorégulation du débit sanguin rénal.', },
+{ question: 'Quel est le rôle des cellules myoépithélioïdes ?', answer: 'Barorécepteurs et sécrétion de rénine.', },
+{ question: 'Quel est le rôle de la macula densa ?', answer: 'Chémorécepteurs sensibles au sodium du TCD.', },
+{ question: 'Quel est le rôle des cellules du lacis ?', answer: 'Fonction contractile et récepteurs de l’angiotensine II.', },
+{ question: 'Quels sont les composants des voies urinaires extra-rénales ?', answer: 'Calices, bassinet, uretère, vessie, urètre.', },
+{ question: 'Quel est l’épithélium des voies excrétrices ?', answer: 'Urothélium polymorphe pseudostratifié.', },
+{ question: 'Combien d’assises cellulaires comporte l’urothélium ?', answer: '2 à 7 selon la localisation.', },
+{ question: 'Quels sont les trois types cellulaires de l’urothélium ?', answer: 'Cellules basales, intermédiaires, superficielles.', },
+{ question: 'Quelles structures trouve-t-on au pôle apical des cellules superficielles ?', answer: 'Plaques membranaires et vésicules fusiformes.', },
+{ question: 'Comment se compose la paroi des petits calices ?', answer: 'Épithélium interne cylindrique, urothélium externe, chorion, musculeuse, adventice.', },
+{ question: 'Quelle est la structure générale de l’uretère ?', answer: 'Conduit musculaire creux à lumière étoilée.', },
+{ question: 'Quelles sont les couches musculaires de l’uretère ?', answer: 'Longitudinale interne, circulaire externe, puis une troisième longitudinale dans le tiers inférieur.', },
+{ question: 'Quelle est la structure générale de la vessie ?', answer: 'Viscère creux avec replis en l’absence de remplissage.', },
+{ question: 'De combien d’assises cellulaires est composé l’urothélium vésical ?', answer: '6 à 7.', },
+{ question: 'Que peut-on observer dans le chorion vésical ?', answer: 'Des follicules lymphoïdes.', },
+{ question: 'Comment est la musculeuse de la vessie ?', answer: 'Très épaisse et plexiforme.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

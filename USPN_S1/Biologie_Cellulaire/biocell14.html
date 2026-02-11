@@ -1,0 +1,1165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Production d'énergie dans la cellule</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quel est le principal nucléoside triphosphate qui stocke l'énergie ?", answer: "L’ATP" },
+{ question: "Quel autre nucléoside triphosphate est important au cours de la traduction ?", answer: "Le GTP" },
+{ question: "Quels sont les organites producteurs d’ATP chez les végétaux ?", answer: "La mitochondrie et le chloroplaste" },
+{ question: "Quel est l’organite principal de production d’énergie chez la cellule animale ?", answer: "La mitochondrie" },
+{ question: "Où trouve-t-on les chloroplastes ?", answer: "Uniquement dans les cellules végétales chlorophylliennes" },
+{ question: "Que produisent les chloroplastes grâce à l’énergie solaire ?", answer: "De l’ATP et des groupes réducteurs" },
+{ question: "À quoi servent les groupes réducteurs produits par les chloroplastes ?", answer: "À synthétiser des glucides à partir de CO2 et H2O" },
+{ question: "Quels sont les quatre sources de fabrication d’ATP ?", answer: "Phosphorylation oxydative, glycolyse, photosynthèse, cycle de Krebs" },
+{ question: "Où a lieu la phosphorylation oxydative ?", answer: "Dans la mitochondrie" },
+{ question: "Où a lieu la glycolyse ?", answer: "Dans le cytosol" },
+{ question: "Où a lieu la photosynthèse ?", answer: "Dans les chloroplastes" },
+{ question: "Où a lieu le cycle de Krebs ?", answer: "Dans la mitochondrie" },
+{ question: "Quels sont les 6 principaux postes de consommation d’ATP ?", answer: "Synthèse de macromolécules, pompes ioniques, mobilité, contraction musculaire, production de chaleur, endocytose/exocytose" },
+{ question: "Où se déroule la glycolyse ?", answer: "Exclusivement dans le cytosol" },
+{ question: "La glycolyse a-t-elle besoin d’oxygène ?", answer: "Non, elle est anaérobie" },
+{ question: "Quelles sont les réserves de glucides dans les cellules végétales ?", answer: "L’amidon" },
+{ question: "Quelles sont les réserves de glucides dans les cellules animales ?", answer: "Le glycogène" },
+{ question: "Quel est le bilan énergétique de la glycolyse ?", answer: "2 ATP" },
+{ question: "Les produits de la glycolyse contiennent-ils des liaisons riches en énergie ?", answer: "Oui" },
+{ question: "Quelle est l’équation globale de la glycolyse ?", answer: "1 glucose + 2ADP + 2NAD+ → 2 pyruvates + 2ATP + 2NADH, H+" },
+{ question: "Quel est le nom de l'intermédiaire à 6 carbones formé après consommation de 2 ATP lors de la glycolyse ?", answer: "Fructose 1,6 diphosphate", },
+{ question: "Quel pourcentage du fructose 1,6 diphosphate est converti directement en dihydroxyacétone ?", answer: "96 %", },
+{ question: "Quel est le composé à 3 carbones produit à partir du fructose 1,6 diphosphate dans 4 % des cas ?", answer: "Glycéraldéhyde C3", },
+{ question: "Combien de pyruvates sont formés à partir d’un glycéraldéhyde C3 ?", answer: "2", },
+{ question: "Le devenir du pyruvate et du NADH dépend-il de la présence d’oxygène ?", answer: "Oui" },
+{ question: "Y a-t-il une libération brutale d’énergie lors de la glycolyse ?", answer: "Non" },
+{ question: "Quels organites utilisent le pyruvate et le NADH ?", answer: "Les mitochondries" },
+{ question: "Que deviennent le pyruvate et le NADH en aérobie ?", answer: "Le pyruvate est dégradé en ATP, et le NADH est régénéré en NAD+" },
+{ question: "Quel est l’intérêt de régénérer le NAD+ en aérobie ?", answer: "Pour le réutiliser dans la glycolyse" },
+{ question: "Quels sont les deux types de fermentation possibles en anaérobie ?", answer: "La fermentation lactique et la fermentation alcoolique" },
+{ question: "Quel est le produit de la fermentation lactique ?", answer: "Du lactate (CH3-CHOH-COO−) et du NAD+" },
+{ question: "Dans quelles circonstances a lieu la fermentation lactique ?", answer: "Lors d’un effort musculaire intense" },
+{ question: "Quel est l’intermédiaire de la fermentation alcoolique ?", answer: "L’acétaldéhyde (CH3-CHO)" },
+{ question: "Quel est le produit final de la fermentation alcoolique ?", answer: "L’éthanol (CH3-CH2-OH) et le NAD+" },
+{ question: "Quel est le bilan de la fermentation ?", answer: "Régénération du NAD+ à partir du NADH, sans production d’ATP" },
+{ question: "La fermentation permet-elle de produire de l’ATP ?", answer: "Non" },
+{ question: "Quel est l'effet de la fermentation sur la glycolyse ?", answer: "Elle permet sa reprise" },
+{ question: "La mitochondrie est-elle présente chez les procaryotes ?", answer: "Non" },
+{ question: "La mitochondrie est-elle présente dans toutes les cellules humaines ?", answer: "Non, elle est absente dans les globules rouges" },
+{ question: "Quelle est la durée de vie des mitochondries ?", answer: "Variable, de quelques minutes à plusieurs semaines" },
+{ question: "Comment les mitochondries sont-elles éliminées ?", answer: "Par autophagie" },
+{ question: "Y a-t-il une néoformation de mitochondries ?", answer: "Non" },
+{ question: "Comment les mitochondries se multiplient-elles ?", answer: "Par scissiparité à partir de mitochondries préexistantes" },
+{ question: "Leur division dépend-elle du cycle cellulaire ?", answer: "Non, elle est indépendante" },
+{ question: "Où sont synthétisées les protéines destinées aux mitochondries ?", answer: "Par les polysomes libres dans le cytosol" },
+{ question: "Sous quelle forme sont importées les protéines mitochondriales ?", answer: "Sous forme de chaînes polypeptidiques en général achevées" },
+{ question: "La voie d’adressage des protéines mitochondriales est-elle vésiculaire ?", answer: "Non, elle est différente du système endomembranaire" },
+{ question: "Quelle est la taille moyenne des mitochondries ?", answer: "0,5 à 1 μm de longueur" },
+{ question: "Combien de mitochondries peut contenir une cellule ?", answer: "Jusqu’à 2000 mitochondries" },
+{ question: "Quelles cellules contiennent de nombreuses mitochondries ?", answer: "Cellules cardiaques (50% de leur volume)" },
+{ question: "Quelles cellules contiennent peu de mitochondries ?", answer: "Les plaquettes (2-6)" },
+{ question: "Comment se déplacent les mitochondries ?", answer: "Grâce à des protéines motrices (kinésine et dynéine) associées aux microtubules" },
+{ question: "Dans quelle structure les mitochondries sont-elles immobiles ?", answer: "Spire mitochondriale du spermatozoïde" },
+{ question: "Combien de membranes possède une mitochondrie ?", answer: "Deux" },
+{ question: "Quelle structure est formée par la membrane interne ?", answer: "Des crêtes mitochondriales" },
+{ question: "À quoi servent les crêtes mitochondriales ?", answer: "Elles sont le siège des protéines de la chaîne respiratoire" },
+{ question: "Quel est l’effet d’un grand nombre de crêtes mitochondriales ?", answer: "Une activité de synthèse d’ATP plus importante" },
+{ question: "La membrane externe est-elle perméable ?", answer: "Oui, plus que la membrane plasmique" },
+{ question: "Quelles molécules traversent la membrane externe ?", answer: "Ions et molécules de 5-10 kDa" },
+{ question: "Quelle est la composition de la membrane externe ?", answer: "60 % de protéines, 40 % de lipides, nombreuses molécules de cholestérol" },
+{ question: "Quelle protéine permet le transport passif dans la membrane externe ?", answer: "Les porines" },
+{ question: "Quel est le rôle du complexe TOM ?", answer: "Importation des protéines du cytosol vers la matrice mitochondriale" },
+{ question: "Quelle enzyme de la membrane externe active les acides gras ?", answer: "L’acyl-CoA synthétase" },
+{ question: "Quelle protéine de la membrane externe bloque l’apoptose ?", answer: "La protéine bcl-2" },
+{ question: "Quelles protéines assurent le déplacement des mitochondries ?", answer: "Les MAPs motrices" },
+{ question: "Quelle est la composition de l’espace intermembranaire ?", answer: "Proche du cytosol mais plus riche en protons H+" },
+{ question: "Quel gradient se forme dans l’espace intermembranaire ?", answer: "Un gradient de protons" },
+{ question: "Quelle est la conséquence du gradient de protons ?", answer: "Formation d’ATP" },
+{ question: "Quelle protéine libérée dans le cytosol depuis l'espace intermembranaire mitochondrial induit l’apoptose ?", answer: "Le cytochrome C" },
+{ question: "Quelles protéines de l’espace intermembranaire sont impliquées dans l’apoptose ?", answer: "Les pro-caspases" },
+{ question: "Quelles enzymes sont présentes dans l’espace intermembranaire ?", answer: "Les kinases" },
+{ question: "Quelle est la fluidité et la perméabilité de la membrane interne mitochondriale ?", answer: "Elle est peu fluide et peu perméable." },
+{ question: "Combien de protéines différentes sont présentes dans la membrane interne mitochondriale ?", answer: "Environ 60 protéines différentes." },
+{ question: "Quelle est la nature majoritaire des protéines de la membrane interne mitochondriale ?", answer: "Elles sont majoritairement de nature hydrophobe." },
+{ question: "La membrane interne mitochondriale est-elle perméable aux protons et aux intermédiaires de la chaîne respiratoire ?", answer: "Non, elle est imperméable aux protons et aux intermédiaires comme NAD, NADH2, malate, nucléotides, pyruvate." },
+{ question: "Quels composés traversent librement la membrane interne mitochondriale ?", answer: "Le CO2 et l'eau." },
+{ question: "Quel est le pourcentage de protéines dans la membrane interne mitochondriale ?", answer: "80%." },
+{ question: "Quel est le pourcentage de lipides dans la membrane interne mitochondriale ?", answer: "20%." },
+{ question: "Quel type de lipide spécifique est présent dans la membrane interne mitochondriale ?", answer: "La cardiolipine." },
+{ question: "Quelle est la particularité de la cardiolipine ?", answer: "C'est une molécule présente sur les membranes bactériennes, formée de 4 acides gras." },
+{ question: "À quoi est indispensable la cardiolipine ?", answer: "Au fonctionnement de la cytochrome C oxydase." },
+{ question: "Quel antiport est présent dans la membrane interne mitochondriale ?", answer: "L’antiport ATP/ADP." },
+{ question: "Quel complexe d'importation est présent dans la membrane interne mitochondriale ?", answer: "Le complexe TIM (TIM23/TIM22)." },
+{ question: "Quels types de protéines de transport sont présentes dans la membrane interne mitochondriale ? (4 réponses)", answer: "Les transporteurs d’électrons, de protons, les protéines de découplage, les protéines de transport entre NADPH et cytochrome P450." },
+{ question: "Quelle enzyme permet la synthèse d’ATP dans la mitochondrie ?", answer: "L’ATP synthétase." }, 
+{ question: "Quelle enzyme est impliquée dans la béta-oxydation dans la membrane interne mitochondriale ?", answer: "Les enzymes de la béta-oxydation des acides gras." },
+{ question: "Quels matériels pour la transcription et traduction sont présents dans la matrice mitochondriale ? (4 réponses)", answer: "ADNmt circulaire, ARNmt, ARNt spécifiques, mitoribosomes." },
+{ question: "Combien de copies d’ADNmt y a-t-il dans une mitochondrie ?", answer: "Cela varie selon le type cellulaire." },
+{ question: "Combien de copies d’ADNmt dans les hépatocytes ?", answer: "4 à 5 copies." },
+{ question: "Combien de copies d’ADNmt dans certaines cellules spécifiques ?", answer: "Jusqu'à 1000 copies." },
+{ question: "Comment sont les mitoribosomes par rapport aux ribosomes bactériens ?", answer: "Ils leur sont semblables." },
+{ question: "Quelles enzymes sont impliquées dans la matrice mitochondriale ? (5 réponses)", answer: "Celles de la réplication, transcription, traduction de l’ADNmt, du cycle de Krebs, de la β-oxydation." },
+{ question: "Quels cations sont accumulés dans la matrice mitochondriale sous forme de granulations denses ?", answer: "Le calcium (Ca²⁺) et le magnésium (Mg²⁺)." },
+{ question: "Quelle est l’origine de l’ADN mitochondrial ?", answer: "Maternelle." },
+{ question: "Pourquoi l’ADN mitochondrial est-il uniquement d’origine maternelle ?", answer: "Car les mitochondries du spermatozoïde n’entrent pas dans l’ovule fécondé." },
+{ question: "Quelle est la taille de l’ADN mitochondrial humain ?", answer: "16 kb (16 569 pb)." },
+{ question: "Quel est le type de structure de l’ADNmt ?", answer: "Circulaire." },
+{ question: "Y a-t-il des introns ou des séquences répétées dans l’ADN mitochondrial humain ?", answer: "Non." },
+{ question: "Combien de pourcentage d’ADN cellulaire total représente l’ADNmt ?", answer: "1 à 5 %." },
+{ question: "À quelle membrane est fixé l’ADNmt ?", answer: "À la membrane interne." },
+{ question: "Le code génétique mitochondrial est-il identique à celui du noyau ?", answer: "Non, il est différent." },
+{ question: "Combien d’ARNr sont codés par l’ADN mitochondrial ?", answer: "Deux : 12S et 16S." },
+{ question: "Combien d’ARNt sont codés par l’ADN mitochondrial ?", answer: "22 ARNt." },
+{ question: "Combien de protéines sont codées par l’ADNmt ?", answer: "13 protéines." },
+{ question: "Quels types de protéines sont codées par l’ADNmt ? (5 réponses)", answer: "Cytochrome oxydase, cytochrome b, NADH déshydrogénase, ATP synthase, protéines impliquées dans les transferts d’électrons et la phosphorylation." },
+{ question: "L’ADNmt code-t-il entièrement les protéines mitochondriales ?", answer: "Non, la majorité est codée par le génome nucléaire." },
+{ question: "Quelle proportion des protéines mitochondriales est traduite par les mitoribosomes ?", answer: "Moins de 10 %." },
+{ question: "Donnez 5 exemples de protéines importées codées par le noyau.", answer: "ADN polymérase, ARNt synthétase, enzymes de maturation des ARN, enzymes du cycle de Krebs et de la β-oxydation." },
+{ question: "Comment se transmettent les maladies génétiques mitochondriales ?", answer: "Uniquement par la mère." },
+{ question: "Citez une maladie liée à une mutation des gènes mitochondriaux.", answer: "Neuropathie optique congénitale de Leber." },
+{ question: "Citez deux maladies neurodégénératives liées aux mitochondries.", answer: "Parkinson, Alzheimer." },
+{ question: "De quoi dépend le degré de sévérité d’une maladie mitochondriale ?", answer: "Du nombre de copies mutées." },
+{ question: "Quel est l’effet de l’a-amanitine ?", answer: "Inhibiteur de la transcription nucléaire." },
+{ question: "Quel est l’effet du cycloheximide ?", answer: "Inhibiteur de la traduction cytoplasmique." },
+{ question: "Quel est l’effet de l’acridine ?", answer: "Inhibiteur de la transcription mitochondriale." },
+{ question: "Quel est l’effet du chloramphénicol ?", answer: "Inhibiteur de la traduction mitochondriale." },
+{ question: "Par quoi passe l’entrée des protéines cytosoliques dans la mitochondrie ?", answer: "Par translocation sélective." },
+{ question: "Les protéines mitochondriales passent-elles par des vésicules ?", answer: "Non." },
+{ question: "Où les protéines mitochondriales sont-elles traduites ?", answer: "Entièrement dans le cytosol." },
+{ question: "Quelle est la structure permettant la translocation dans la mitochondrie ?", answer: "Fusion temporaire des canaux protéiques sur les deux membranes." },
+{ question: "Quels sont les trois types de destination des protéines importées dans la mitochondrie ?", answer: "L’espace intermembranaire, la matrice, une des deux membranes." },
+{ question: "Quelle est la fonction de la MPP ?", answer: "Elle retire la séquence signal des protéines destinées à la matrice." },
+{ question: "À quoi servent les TIM22 ?", answer: "À l’insertion des protéines hydrophobes dans la membrane interne." },
+{ question: "Quel complexe transporte les protéines de la matrice vers la membrane interne ?", answer: "Le complexe OXA." },
+{ question: "Quels rôles partagent les complexes TOM et TIM ?", answer: "Récepteur pour l'entrée des protéines et canal translocateur." },
+{ question: "Les complexes TOM et TIM peuvent-ils fonctionner indépendamment ?", answer: "Oui." },
+{ question: "Quelles protéines mitochondriales sont importées par TOM ?", answer: "Celles codées par le noyau." },
+{ question: "Quel est le rôle de Tom20 ?", answer: "Récepteur d’importation." },
+{ question: "Quel est le rôle de Tom40 ?", answer: "Il forme le tunnel de translocation." },
+{ question: "Quel est le rôle de TIM23 ?", answer: "Transport vers la matrice et insertion dans la membrane interne." },
+{ question: "Quel est le rôle de TIM26 ?", answer: "Insertion de certaines protéines dans la membrane interne." },
+{ question: "Quel est le rôle d’OXA ?", answer: "Insertion dans la membrane interne de protéines transportées depuis la matrice." },
+{ question: "Où se situe la séquence signal des protéines importées dans les mitochondries ?", answer: "En N-terminale de la protéine.", },
+{ question: "De quoi est riche la séquence signal des protéines importées ?", answer: "En acides aminés chargés positivement.", },
+{ question: "Quels types d’acides aminés composent la séquence signal ?", answer: "Des acides aminés basiques et hydrophobes.", },
+{ question: "Comment se présentent les extrémités de la séquence signal ?", answer: "Sous forme d’hélices amphiphiles.", },
+{ question: "À quoi s'associent les protéines précurses dans le cytosol ?", answer: "À des protéines chaperonnes comme Hsp70.", },
+{ question: "Quel est le rôle des Hsp70 dans l'importation mitochondriale ?", answer: "Elles maintiennent la protéine dépliée pour son entrée.", },
+{ question: "Quelle est la nature du mécanisme d’importation ? (ATP indépendant ou non)", answer: "ATP-dépendant.", },
+{ question: "Pourquoi la séquence signal est-elle attirée dans la mitochondrie ?", answer: "À cause de l’attraction électrostatique créée par le potentiel de membrane.", },
+{ question: "Quelle est la valeur du potentiel électrique de membrane dans la mitochondrie ?", answer: "-180 mV.", },
+{ question: "Que devient la séquence signal après importation ?", answer: "Elle est éliminée par protéolyse.", },
+{ question: "Par quelles protéines la protéine importée est-elle repliée ?", answer: "Par Hsp60 et Hsp10.", },
+{ question: "Quel est le rôle des Hsp60 et Hsp10 ?", answer: "Repliement de la protéine importée pour la rendre active.", },
+{ question: "Pourquoi le NADH reste-t-il dans l’espace intermembranaire ?", answer: "Car la membrane interne n’a pas de transporteur au NADH.", },
+{ question: "Comment les électrons du NADH sont-ils transférés à la membrane interne ?", answer: "Grâce à un système de navette.", },
+{ question: "Quel est le rôle du système de navette ?", answer: "Transférer les électrons du NADH à un complexe de la membrane interne.", },
+{ question: "Quel complexe reçoit les électrons via la navette ?", answer: "Le complexe II.", },
+{ question: "Combien de molécules d'ATP sont formées via ce mécanisme ?", answer: "2 molécules d’ATP.", },
+{ question: "Comment la membrane externe est-elle traversée ?", answer: "Par entrée passive.", },
+{ question: "Quel est le mode de transport à travers la membrane interne ?", answer: "Co-transport de type symport avec des protons.", },
+{ question: "Que devient le pyruvate dans la matrice mitochondriale ?", answer: "Il est déshydrogéné et décarboxylé en CH3-COO⁻ avec production de CO₂ et NADH.", },
+{ question: "Comment se forme l'acétyl-CoA ?", answer: "À partir de CH3-COO⁻ et Coenzyme A dans la matrice mitochondriale.", },
+{ question: "Comment les acides gras pénètrent-ils dans la mitochondrie ?", answer: "Sous forme d'acyl-CoA via la carnitine.", },
+{ question: "Comment les acides gras sont-ils activés ?", answer: "Par réaction avec l’ATP formant un acyl-AMP.", },
+{ question: "Quelle est la réaction pour obtenir un acyl-CoA ?", answer: "Acyl-AMP + CoA-SH → Acyl-CoA + AMP.", },
+{ question: "Pourquoi l’acyl-AMP ne peut-il pas traverser la membrane interne ?", answer: "Parce qu’il ne possède pas le transporteur adapté.", },
+{ question: "Quel est le rôle des mitochondries dans la synthèse hormonale ?", answer: "Elles participent au début de la synthèse des hormones stéroïdes.", },
+{ question: "Comment le cholestérol est-il utilisé ?", answer: "Il pénètre la matrice mitochondriale et est transformé en hormones stéroïdes.", },
+{ question: "Où commence la synthèse des phospholipides ?", answer: "Dans le réticulum endoplasmique lisse.", },
+{ question: "Quel est le rôle des mitochondries dans la synthèse des phospholipides ?", answer: "Elles modifient les phospholipides après leur importation.", },
+{ question: "Quel est le rôle des mitochondries dans la synthèse des acides aminés ?", answer: "Elles interviennent dans le début de cette synthèse.", },
+{ question: "Quelle molécule énergetique est formée directement dans le cycle de Krebs ?", answer: "Une molécule d’ATP via la conversion de GTP en ATP.", },
+{ question: "Combien d’ATP sont formés par le cycle de Krebs directement pour un acétyl-CoA ?", answer: "1 ATP.", },
+{ question: "Combien d’ATP sont formés à partir d’un glucose par le cycle de Krebs ?", answer: "2 ATP.", },
+{ question: "Où est stockée l’énergie produite par le cycle de Krebs ?", answer: "Dans les coenzymes NADH et FADH₂.", },
+{ question: "Où débute la dégradation des triglycérides ?", answer: "Dans le cytosol par des lipases.", },
+{ question: "Où se forme l’acyl-CoA à partir des acides gras ?", answer: "Au niveau de la membrane externe mitochondriale.", },
+{ question: "Où a lieu la β-oxydation ?", answer: "Dans la matrice mitochondriale.", },
+{ question: "Combien d’ATP sont produits par tour de β-oxydation ?", answer: "5 ATP par tour.", },
+{ question: "Combien d’ATP sont produits par l’oxydation de l’acétyl-CoA issu de la β-oxydation ?", answer: "12 ATP par le cycle de Krebs.", },
+{ question: "Quel est le rendement énergétique total d’un maillon à 2 carbones ?", answer: "17 ATP.", },
+{ question: "Que produit le dernier tour de β-oxydation pour les acides gras impairs ?", answer: "Un propionyl-CoA.", },
+{ question: "Que devient le propionyl-CoA ?", answer: "Il est transformé en succinyl-CoA et entre dans le cycle de Krebs.", },
+{ question: "Quels substrats produisent le plus d'ATP ?", answer: "Les lipides.", },
+{ question: "Où se déroule la phosphorylation oxydative ?", answer: "Dans la membrane interne mitochondriale", },
+{ question: "Quels sont les rôles principaux de la phosphorylation oxydative ?", answer: "Transmission des électrons libérés par les NADH et FADH2 aux 4 complexes de la chaîne respiratoire, principe du couplage chimio-osmotique", },
+{ question: "Quel est le nom du complexe I ?", answer: "Complexe NADH déshydrogénase", },
+{ question: "Que catalyse le complexe I ?", answer: "Le transfert de 2 électrons du NADH mitochondrial (et éventuellement cytosolique) à l'ubiquinone", },
+{ question: "Quel est le nom du complexe II ?", answer: "Complexe succinate déshydrogénase", },
+{ question: "Que catalyse le complexe II ?", answer: "Le transfert de 2 électrons du FADH2 à l'ubiquinone", },
+{ question: "Quel complexe catalyse le transfert de 2 électrons du NADH cytosolique à l’ubiquinone ?", answer: "Le complexe II", },
+{ question: "Quel est le nom du complexe III ?", answer: "Complexe cytochrome b-C1", },
+{ question: "Que catalyse le complexe III ?", answer: "Le transport de 2 électrons de l’ubiquinone réduite au cytochrome c", },
+{ question: "Quel est le nom du complexe IV ?", answer: "Complexe cytochrome-oxydase", },
+{ question: "Quel est le rôle du complexe IV ?", answer: "Étape finale du transport des électrons, réduction de l'oxygène moléculaire en eau", },
+{ question: "Quel est l’accepteur final d’électrons de la chaîne respiratoire ?", answer: "L'oxygène moléculaire (O2)", },
+{ question: "Que devient l’oxygène à la fin de la chaîne respiratoire ?", answer: "Il est réduit et forme de l’eau (H2O)", },
+{ question: "Combien d’ATP sont produits par l’oxydation d’un NADH mitochondrial ?", answer: "3 ATP", },
+{ question: "Combien d’ATP sont produits par l’oxydation d’un NADH cytosolique ou d’un FADH2 ?", answer: "2 ATP", },
+{ question: "Que permet le transport des électrons dans la membrane mitochondriale interne ?", answer: "Le pompage de protons de la matrice vers l’espace intermembranaire", },
+{ question: "Qu’est-ce que la création d’un gradient de protons ?", answer: "Accumulation de protons dans l’espace intermembranaire", },
+{ question: "Quels complexes interviennent dans l’exportation des protons ?", answer: "Les complexes I, III et IV", },
+{ question: "Pourquoi les protons doivent-ils passer par l’ATP synthétase ?", answer: "Parce que la membrane interne est imperméable aux protons", },
+{ question: "Qu’entraîne le retour des protons vers la matrice mitochondriale ?", answer: "La synthèse d’ATP par phosphorylation d’ADP", },
+{ question: "Quelle est la structure de la partie FO de l’ATP synthétase ?", answer: "Partie membranaire, canal pour le passage des protons", },
+{ question: "Quelle est la structure de la partie F1 de l’ATP synthétase ?", answer: "Forme sphérique, située dans la matrice, activité catalytique ATPasique", },
+{ question: "Quel est le rendement total en ATP pour l’oxydation complète d’une molécule de glucose ?", answer: "38 ATP", },
+{ question: "À quoi peut servir directement l’ATP produit ? (2 réponses)", answer: "Réactions dans la matrice comme la transcription/traduction, exportation via translocases ADP/ATP", },
+{ question: "Quels sont les rôles des mitochondries en plus de la respiration et la synthèse (3 réponses) ?", answer: "Homéostasie du calcium, du fer, des glucides et des lipides, thermogenèse, mort cellulaire programmée", },
+{ question: "Quelle est la théorie expliquant l’origine des mitochondries ?", answer: "Théorie endosymbiotique", },
+{ question: "De quoi dériveraient les mitochondries selon la théorie endosymbiotique ?", answer: "De bactéries aérobies", },
+{ question: "Quels sont les arguments en faveur de la théorie endosymbiotique ?(4 réponses)", answer: "Taille similaire à une bactérie, division par scissiparité, ADN circulaire, mitoribosomes similaires aux ribosomes bactériens", },
+{ question: "Quels sont les contre-arguments à la théorie endosymbiotique ? (2 réponses)", answer: "Code génétique mitochondrial différent, présence d’introns dans l’ADN mitochondrial chez la levure mais pas chez les mammifères", },
+{ question: "Où se trouvent les peroxysomes ?", answer: "Dans toutes les cellules eucaryotes sauf les globules rouges", },
+{ question: "Comment est structurée la membrane des peroxysomes ?", answer: "Une seule membrane", },
+{ question: "Quelle est la taille d’un peroxysome ?", answer: "Diamètre proche de 0,25 µm, pouvant aller jusqu’à 1,5 µm", },
+{ question: "Quel est le nombre approximatif de peroxysomes dans les cellules hépatiques ?", answer: "1000 par cellule", },
+{ question: "Les peroxysomes ont-ils un génome ?", answer: "Non, ils sont dépourvus de génome", },
+{ question: "Comment les peroxysomes se divisent-ils ?", answer: "Par scissiparité", },
+{ question: "Quelles sont les fonctions principales des peroxysomes ?", answer: "Bêta-oxydation des acides gras à très longues chaînes, production et dégradation de H2O2, hydroxylation de molécules", },
+{ question: "Quelle maladie est associée à des déficits enzymatiques peroxysomaux ?", answer: "Syndrome de Zellweger", },
+{ question: "Quelle maladie est liée à des peroxysomes anormaux ?", answer: "Adrénoleucodystrophie", },
+{ question: "Quelles protéines sont présentes dans la membrane des peroxysomes ? (3 réponses)", answer: "Protéines ABC, protéines d'importation, cytochrome P450", },
+{ question: "Quelle est la fonction du cytochrome P450 dans les peroxysomes ?", answer: "Catalyse des hydroxylations", },
+{ question: "Les protéines des peroxysomes sont-elles N-glycosylées ?", answer: "Non", },
+{ question: "Combien d’enzymes contient la matrice des peroxysomes ?", answer: "Environ 50", },
+{ question: "Quels types de réactions sont majoritairement effectuées par les peroxysomes ?", answer: "Réactions d’oxydation", },
+{ question: "Quelles enzymes produisent du peroxyde d’hydrogène dans les peroxysomes ?", answer: "Les oxydases", },
+{ question: "Quelle enzyme dégrade le peroxyde d’hydrogène dans les peroxysomes ?", answer: "La catalase", },
+{ question: "Quels sont les substrats de la bêta-oxydation peroxysomale ?", answer: "Acides gras à plus de 22 carbones", },
+{ question: "Que produit la bêta-oxydation peroxysomale ?", answer: "Acides gras raccourcis et Coenzyme A", },
+{ question: "Vers où sont exportés les coenzymes A produits dans les peroxysomes ?", answer: "Vers les mitochondries", },
+{ question: "Quelles autres fonctions de synthèse possèdent les peroxysomes ?", answer: "Synthèse du cholestérol et des acides biliaires", },
+{ question: "Quels signaux dirigent les protéines vers les peroxysomes ?", answer: "PTS1 (C-terminal, SKL) et PTS2 (N-terminal, plus longue)", },
+{ question: "Comment naissent les peroxysomes ?", answer: "Par bourgeonnement à partir d’un réseau canaliculaire préexistant", },
+{ question: "Quels acteurs participent à la biogenèse peroxysomale ? (3 réponses)", answer: "Protéines G de la famille Arf, coatomères, microtubules", },
+{ question: "Comment les peroxysomes sont-ils détruits ?", answer: "Par autophagie", },
+{ question: "Quelle est la durée de vie moyenne d’un peroxysome hépatocytaire ?", answer: "3,5 jours", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

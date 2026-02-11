@@ -1,0 +1,1331 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Le petit bassin</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+      { question: 'Où se situe le nombril par rapport au bassin ?', answer: 'À la limite supérieure du bassin, dans un plan horizontal en regard de L4 (limite des crêtes iliaques).' },
+  { question: 'Jusqu’où descend la paroi antérieure du pelvis ?', answer: 'Jusqu’à la symphyse pubienne.' },
+  { question: 'Quel est le muscle principal de la paroi antérieure ?', answer: 'Le muscle droit de l’abdomen, pair, enrobé par la gaine rectusienne.' },
+  { question: 'De quoi est constituée la gaine rectusienne ?', answer: 'De feuillets musculaires provenant de l’oblique externe, de l’oblique interne et du transverse.' },
+  { question: 'Qu’est-ce que la ligne blanche ?', answer: 'Un large feuillet aponévrotique ﬁbreux sur la ligne médiane reliant les parois droite et gauche.' },
+  { question: 'Quel est le muscle le plus superﬁciel de l’abdomen ?', answer: 'L’oblique externe.' },
+  { question: 'Quel est le muscle abdominal le plus profond ?', answer: 'Le transverse de l’abdomen.' },
+  { question: 'Quelle région termine la paroi antérieure du pelvis ?', answer: 'La région inguinale.' },
+  { question: 'Quel ligament forme la limite inférieure de la région inguinale ?', answer: 'Le ligament inguinal, tendu de l’EIAS à la symphyse pubienne.' },
+  { question: 'Quelles sont les deux lacunes sous-inguinales ?', answer: 'Lacune musculaire (ilio-psoas + nerf fémoral) et lacune vasculaire (artère et veine fémorales = anneau fémoral).' },
+  { question: 'Quel est l’oriﬁce de passage principal de la région inguinale ?', answer: 'Le canal inguinal.' },
+  { question: 'Quels éléments traversent le canal inguinal chez l’homme ?', answer: 'Le cordon spermatique, l’artère gonadique et la veine gonadique.' },
+  { question: 'Quels éléments traversent le canal inguinal chez la femme ?', answer: 'Le ligament rond et ses vaisseaux, le nerf génito-fémoral et le nerf ilio-inguinal.' },
+  { question: 'Quelle est la ligne de Douglas ?', answer: 'Ligne arquée marquant la limite supérieure du péritoine.' },
+  { question: 'Quel ligament renforce la paroi abdominale entre grand droit et transverse ?', answer: 'Le ligament de Hesselbach.' },
+  { question: 'Quel oriﬁce laisse passer les hernies fémorales ?', answer: 'L’anneau fémoral.' },
+  { question: 'Quel oriﬁce laisse passer les hernies inguinales ?', answer: 'L’anneau inguinal superﬁciel.' },
+  { question: 'Qu’est-ce que la membrane obturatrice ?', answer: 'Une membrane comblant le foramen obturé, renforcée par le ligament de Gunsee, traversée par artère, veine et nerf obturateurs.' },
+  { question: 'Quel nerf perfore le ligament inguinal au niveau de l’EIAS ?', answer: 'Le nerf cutané latéral de la cuisse.' },
+  { question: 'Quels vaisseaux changent de nom sous le ligament inguinal ?', answer: 'Les artères et veines iliaques externes deviennent fémorales.' },
+  { question: 'Quelles branches donnent les vaisseaux iliaques avant de devenir fémoraux ?', answer: 'Les artères et veines épigastriques inférieures.' },
+  { question: 'Où se situe le plexus veineux de Retzius ?', answer: 'En avant de la vessie.' },
+  { question: 'Où passent les vaisseaux et nerfs terminaux de la verge dorsale ou du clitoris ?', answer: 'Sous l’arcade pubienne.' },
+  { question: 'Quelle ligne diﬀérencie hernies inguinales et fémorales ?', answer: 'La ligne de Malgaigne.' },
+  { question: 'Quels éléments passent par l’oriﬁce obturateur ?', answer: 'Les vaisseaux obturateurs, siège fréquent de hernies.' },
+  { question: 'Quelles structures composent la paroi latérale du pelvis ?', answer: 'Face interne de l’os coxal, muscle ilio-psoas, muscle obturateur interne, structures vasculo-nerveuses.' },
+  { question: 'Quels nerfs se trouvent à la face médiale du muscle iliaque ?', answer: 'Nerf cutané latéral de la cuisse, nerf fémoral, nerf génito-fémoral, vaisseaux iliaques externes, nerf et vaisseaux obturateurs.' },
+  { question: 'Quelle structure tendineuse résulte de l’épaississement de la membrane obturatrice ?', answer: 'L’arcade tendineuse, zone d’insertion du muscle ilio-coccygien.' },
+  { question: 'Quels étages distingue-t-on dans la paroi latérale ?', answer: 'Au-dessus le grand bassin, en dessous le petit bassin, puis le périnée.' },
+  { question: 'Quelle est la limite médiale de la paroi postérieure du pelvis ?', answer: 'Le rachis, le sacrum et le coccyx.' },
+  { question: 'Quelle structure sépare les canaux supra- et infra-piriformes ?', answer: 'Le muscle piriforme.' },
+  { question: 'Que contient le canal supra-piriforme ?', answer: 'Nerfs et vaisseaux glutéaux supérieurs.' },
+  { question: 'Que contient le canal infra-piriforme ?', answer: 'Nerf sciatique, nerfs et vaisseaux glutéaux inférieurs, nerfs et vaisseaux pudendaux internes.' },
+  { question: 'Quelle structure sépare grande et petite échancrure ischiatique ?', answer: 'L’épine sciatique et le ligament sacro-épineux.' },
+  { question: 'Quels vaisseaux cheminent sur la ligne médiane antérieure du sacrum ?', answer: 'L’artère sacrée médiane et ses branches transverses.' },
+  { question: 'De quoi est constituée la paroi inférieure du pelvis ?', answer: 'Du périnée, formant le diaphragme pelvien.' },
+  { question: 'Quelles sont les limites osseuses du périnée en vue inférieure ?', answer: 'Symphyse pubienne en avant, tubérosités ischiatiques latéralement, coccyx en arrière.' },
+  { question: 'Quelles sont les deux parties du périnée ?', answer: 'Périnée antérieur uro-génital et périnée postérieur sacro-anal.' },
+  { question: 'Qu’est-ce que le ligament de Carcassonne ?', answer: 'La membrane du périnée, tendue entre les tubérosités ischiatiques, cloisonnant le périnée antérieur.' },
+  { question: 'Qu’est-ce que le noyau ﬁbreux central du périnée ?', answer: 'Centre tendineux situé devant l’oriﬁce anal.' },
+  { question: 'Où se trouve le raphé ano-coccygien ?', answer: 'Derrière le canal anal, entre l’anus et le coccyx.' },
+  { question: 'Quelle est la commande du sphincter urétral ?', answer: 'Une commande volontaire somatique (muscle strié) et involontaire végétative (muscle lisse).' },
+  { question: 'Quels sont les deux faisceaux du sphincter strié de l’urètre ?', answer: 'Faisceau péri-urétral (rapide, volontaire) et faisceau para-urétral (lent, tonique).' },
+  { question: 'Quelle innervation assure le sphincter strié de l’urètre ?', answer: 'Plexus honteux (somatique).' },
+  { question: 'Quelle innervation assure le sphincter lisse de l’urètre ?', answer: 'Plexus hypogastrique inférieur (végétatif).' },
+  { question: 'Quelles sont les trois boucles musculaires décrites par Shaﬁk pour l’anus ?', answer: 'Plan supérieur (faisceau pubo-rectal), plan moyen (sphincter externe strié amarré au coccyx), plan inférieur (sphincter externe strié amarré à la peau).' },
+  { question: 'Quel oriﬁce traverse le périnée antérieur chez la femme ?', answer: 'L’urètre et le vagin.' },
+  { question: 'Quel oriﬁce traverse le périnée antérieur chez l’homme ?', answer: 'Uniquement l’urètre.' },
+  { question: 'Quelles sont les limites du périnée antérieur féminin ?', answer: 'Symphyse pubienne en avant, branches ischio-pubiennes latéralement, ligne joignant les tubérosités ischiatiques en arrière.' },
+  { question: 'Quel est le rôle principal du périnée féminin ?', answer: 'Soutien des organes génitaux internes et des viscères pelviens.' },
+  { question: 'Qu’est-ce que le diaphragme uro-génital ?', answer: 'Cloison musculo-aponévrotique du périnée antérieur, renforçant la continence urinaire et le soutien vaginal.' },
+  { question: 'Quels muscles composent le diaphragme uro-génital ?', answer: 'Muscle transverse profond du périnée, sphincter strié de l’urètre, sphincter strié du vagin (femme), muscle compresseur de l’urètre.' },
+  { question: 'Quelles glandes s’ouvrent dans le périnée antérieur féminin ?', answer: 'Les glandes de Bartholin (grandes glandes vestibulaires).' },
+  { question: 'Où sont situées les glandes de Bartholin ?', answer: 'De part et d’autre de l’oriﬁce vaginal, dans l’épaisseur du diaphragme uro-génital.' },
+  { question: 'Quelles glandes s’ouvrent dans le périnée antérieur masculin ?', answer: 'Les glandes de Cowper (glandes bulbo-urétrales).' },
+  { question: 'Où sont situées les glandes de Cowper ?', answer: 'Dans le diaphragme uro-génital, débouchant dans l’urètre spongieux.' },
+  { question: 'Quelle est la structure musculaire principale du périnée postérieur ?', answer: 'Le sphincter anal externe.' },
+  { question: 'Quelle est l’innervation principale du sphincter anal externe ?', answer: 'Nerf honteux interne (somatique).' },
+  { question: 'Quelle est l’innervation du sphincter anal interne ?', answer: 'Plexus hypogastrique inférieur (végétatif).' },
+  { question: 'Quelles sont les conséquences d’une atteinte du sphincter anal ?', answer: 'Incontinence anale.' },
+  { question: 'Qu’est-ce que la contraction réﬂexe périnéale ?', answer: 'Réﬂexe de contraction des muscles périnéaux lors d’une augmentation de pression abdominale.' },
+  { question: 'Quels sont les rôles du noyau ﬁbreux central du périnée ?', answer: 'Point d’ancrage des muscles du périnée et renforcement de la continence.' },
+  { question: 'Quelle est la fonction du plancher pelvien féminin ?', answer: 'Maintenir l’utérus, la vessie et le rectum en place.' },
+  { question: 'Quelle conséquence peut avoir une faiblesse du plancher pelvien ?', answer: 'Un prolapsus génital (descente d’organes).' },
+  { question: 'Quels muscles forment le diaphragme pelvien ?', answer: 'Les muscles élévateurs de l’anus (pubo-rectal, pubo-coccygien, ilio-coccygien).' },
+  { question: 'Quel muscle forme une boucle autour du rectum ?', answer: 'Le faisceau pubo-rectal.' },
+  { question: 'Quel est le rôle du faisceau pubo-rectal ?', answer: 'Maintenir l’angle ano-rectal et assurer la continence.' },
+  { question: 'Qu’est-ce qu’une épisiotomie ?', answer: 'Incision chirurgicale du périnée postérieur lors de l’accouchement.' },
+  { question: 'Quel est l’objectif de l’épisiotomie ?', answer: 'Éviter une déchirure incontrôlée du périnée et protéger les muscles.' },
+  { question: 'Quelles sont les directions possibles de l’épisiotomie ?', answer: 'Médiane (vers l’anus) ou médio-latérale.' },
+  { question: 'Quelles complications peuvent survenir après une épisiotomie ?', answer: 'Douleurs, cicatrices, dyspareunies, incontinence si atteinte du sphincter anal.' },
+  { question: 'Quelles sont les principales zones de fragilité du périnée féminin ?', answer: 'La zone médio-périnéale (entre vagin et anus) et le noyau ﬁbreux central.' },
+  { question: 'Quel est le principal nerf du périnée ?', answer: 'Le nerf honteux interne.' },
+  { question: 'Quels sont les rôles du nerf honteux interne ?', answer: 'Innervation sensitive du périnée, motrice des sphincters striés et végétative des organes génitaux externes.' },
+  { question: 'Quel est le trajet du nerf honteux interne ?', answer: 'Canal d’Alcock (dans l’aponévrose de l’obturateur interne).' },
+  { question: 'Quelles branches donne le nerf honteux interne ?', answer: 'Nerfs rectaux inférieurs, nerfs périnéaux, nerfs dorsaux de la verge ou du clitoris.' },
+  { question: 'D’où proviennent toutes les artères du bassin ?', answer: 'De l’aorte.' },
+  { question: 'Où naît l’aorte et où devient-elle abdominale ?', answer: 'Elle part du ventricule gauche, descend dans le thorax et devient abdominale après avoir traversé le diaphragme.' },
+  { question: 'Où se divise l’aorte abdominale ?', answer: 'Au niveau de L4.' },
+  { question: 'Quelles artères naissent de la bifurcation de l’aorte abdominale ?', answer: 'Les artères iliaques communes.' },
+  { question: 'En quoi se divisent les artères iliaques communes ?', answer: 'En artères iliaques interne et externe.' },
+  { question: 'Quels éléments croisent les artères iliaques communes en avant ?', answer: 'L’uretère et les artères gonadiques.' },
+  { question: 'Quelle est l’origine des artères gonadiques ?', answer: 'Directement de l’aorte abdominale en regard de L2.' },
+  { question: 'Quelles sont les deux variétés d’artères gonadiques ?', answer: 'L’artère ovarienne et l’artère testiculaire.' },
+  { question: 'Quelle artère est le prolongement de l’aorte au niveau de sa bifurcation ?', answer: 'L’artère sacrée médiane.' },
+  { question: 'Quelle est la topographie de l’artère sacrée médiane ?', answer: 'En avant du sacrum, collée à l’os.' },
+  { question: 'Quelle artère naît en L3 et se destine au rectum ?', answer: 'L’artère mésentérique inférieure.' },
+  { question: 'Quelle est l’origine de l’artère iliaque interne ?', answer: 'Bifurcation de l’artère iliaque commune, en avant de l’articulation sacro-iliaque.' },
+  { question: 'Quelle est la terminaison de l’artère iliaque interne ?', answer: 'Elle devient l’artère pudendale interne.' },
+  { question: 'Combien de branches donne l’artère iliaque interne ?', answer: '11 branches (viscérales ou pariétales).' },
+  { question: 'Quelle division de l’artère iliaque interne est la plus fréquente ?', answer: 'En un tronc antérieur et un tronc postérieur (60%).' },
+  { question: 'Quelles autres variantes existent pour l’artère iliaque interne ?', answer: '3 troncs avec l’artère glutéale supérieure séparée (15%) ou un seul tronc (25%).' },
+  { question: 'Quelle est la destinée de l’artère ombilicale ?', answer: 'Chez l’adulte elle devient le ligament ombilical, et donne l’artère vésicale supérieure pour la partie supérieure de la vessie.' },
+  { question: 'Quelle est la topographie de l’artère obturatrice ?', answer: 'En haut et en avant de la membrane obturatrice, elle sort par le foramen obturé.' },
+  { question: 'Que vascularise l’artère obturatrice ?', answer: 'Les muscles de la paroi interne de la cuisse.' },
+  { question: 'Quelle est la destinée de l’artère vésicale inférieure ?', answer: 'Partie inférieure de la vessie + artère du conduit déférent chez l’homme / artère utérine chez la femme.' },
+  { question: 'Quelle est la destinée de l’artère génitale accessoire ?', answer: 'Artère prostatique chez l’homme, artère vaginale longue chez la femme.' },
+  { question: 'Quelle est la destinée de l’artère rectale moyenne ?', answer: 'Partie moyenne du rectum.' },
+  { question: 'Quelle est la destinée de l’artère glutéale inférieure ?', answer: 'Les muscles de la région fessière.' },
+  { question: 'Quelle est la destinée de l’artère iliolombaire ?', answer: 'Remonte vers la région lombaire.' },
+  { question: 'Quelle est la destinée des artères sacrales latérales ?', answer: 'Elles s’anastomosent avec l’artère sacrée médiane.' },
+  { question: 'Quelle est la destinée de l’artère glutéale supérieure ?', answer: 'Elle complète l’artère glutéale inférieure.' },
+  { question: 'Par quoi est croisé l’uretère en dedans de l’artère ombilicale ?', answer: 'Par la terminaison de l’artère iliaque commune.' },
+  { question: 'Quels rapports a l’uretère avec les artères chez l’homme ?', answer: 'L’artère du conduit déférent passe au-dessus, l’artère prostatique au-dessous.' },
+  { question: 'Quels rapports a l’uretère avec les artères chez la femme ?', answer: 'L’artère utérine passe au-dessus, l’artère vaginale longue au-dessous.' },
+  { question: 'Quel est le moyen mnémotechnique classique pour ce rapport artère/uretère ?', answer: '« Water under the bridge » (l’uretère = l’eau passe sous le pont artériel).' },
+  { question: 'Quelle est la disposition générale des veines pelviennes ?', answer: 'Elles sont satellites des artères, de gros calibre et peu valvulées.' },
+  { question: 'Où se jettent les veines pelviennes ?', answer: 'Dans les veines iliaques internes.' },
+  { question: 'Que forment les veines pelviennes entre elles ?', answer: 'Des plexus veineux.' },
+  { question: 'Quelles sont les principales localisations des plexus veineux pelviens ?', answer: 'Plexus rectal, plexus vésical, plexus prostatique (homme), plexus utérin et vaginal (femme).' },
+  { question: 'Quelle est la particularité des veines pelviennes pour la dissémination cancéreuse ?', answer: 'Elles communiquent largement avec les plexus rachidiens et azygos, permettant des métastases osseuses et vertébrales.' },
+  { question: 'Quelle veine pelvienne s’anastomose avec la veine porte ?', answer: 'La veine rectale supérieure (via le système porte) avec les veines rectales moyennes et inférieures (système cave).' },
+  { question: 'Quelle pathologie est favorisée par ces anastomoses porto-caves au niveau du rectum ?', answer: 'Les hémorroïdes.' },
+  { question: 'Comment est le drainage lymphatique pelvien en général ?', answer: 'Abondant et variable.' },
+  { question: 'Quelles sont les stations ganglionnaires principales du pelvis ?', answer: 'Ganglions iliaques internes, iliaques externes, communs, sacrés et promonto-ﬁxateurs.' },
+  { question: 'Vers quel carrefour se dirigent les lymphatiques pelviens ?', answer: 'Le carrefour interaortico-cave (autour de l’aorte et de la VCI).' },
+  { question: 'Quelle est la conséquence clinique de la richesse du drainage lymphatique pelvien ?', answer: 'Les cancers pelviens métastasent précocement aux ganglions.' },
+  { question: 'Quelles sont les deux parties principales de l’innervation pelvienne ?', answer: 'Le système somatique (nerfs périphériques) et le système végétatif (autonome).' },
+  { question: 'De quel plexus provient l’innervation somatique pelvienne ?', answer: 'Du plexus sacré.' },
+  { question: 'Quelle est la racine du plexus sacré ?', answer: 'L5-S4.' },
+  { question: 'Quel est le plus gros nerf du plexus sacré ?', answer: 'Le nerf sciatique.' },
+  { question: 'Quel est le principal nerf du périnée ?', answer: 'Le nerf pudendal interne.' },
+  { question: 'Quel est le trajet du nerf pudendal interne ?', answer: 'Sort par la grande échancrure ischiatique, contourne l’épine sciatique, puis rentre dans la petite échancrure.' },
+  { question: 'Quel est le canal dans lequel chemine le nerf pudendal interne ?', answer: 'Le canal d’Alcock (dans l’aponévrose de l’obturateur interne).' },
+  { question: 'Quelles sont les branches principales du nerf pudendal interne ?', answer: 'Nerfs rectaux inférieurs, nerfs périnéaux, nerfs dorsaux de la verge ou du clitoris.' },
+  { question: 'Quelles sont les deux composantes du système nerveux autonome pelvien ?', answer: 'Le sympathique et le parasympathique.' },
+  { question: 'Quelles racines donnent les nerfs sympathiques pelviens ?', answer: 'Les nerfs splanchniques lombaires.' },
+  { question: 'Quelles racines donnent les nerfs parasympathiques pelviens ?', answer: 'Les nerfs splanchniques pelviens (S2-S4).' },
+  { question: 'Quel plexus reçoit les ﬁbres végétatives pelviennes ?', answer: 'Le plexus hypogastrique inférieur.' },
+  { question: 'Quels sont les rôles du plexus hypogastrique inférieur ?', answer: 'Il innerve les viscères pelviens (vessie, rectum, organes génitaux).' },
+  { question: 'Quelle est la fonction principale du parasympathique pelvien ?', answer: 'Stimulation des fonctions végétatives (miction, défécation, érection).' },
+  { question: 'Quelle est la fonction principale du sympathique pelvien ?', answer: 'Inhibition des fonctions végétatives et rôle éjaculatoire.' },
+  { question: 'Quels sont les organes génitaux externes masculins (OGE) ?', answer: 'Le pénis et le scrotum.' },
+  { question: 'Où sont situés les organes génitaux externes masculins ?', answer: 'Dans le périnée antérieur.' },
+  { question: 'Quel organe contient les corps érectiles ?', answer: 'Le pénis.' },
+  { question: 'Quel organe est l’enveloppe des testicules ?', answer: 'Le scrotum.' },
+  { question: 'Quelles sont les limites du périnée ?', answer: 'Symphyse pubienne en avant, tubérosités ischiatiques latéralement, coccyx en arrière.' },
+  { question: 'Quelle est la diﬀérence entre le triangle antérieur et le triangle postérieur du périnée ?', answer: 'L’antérieur correspond à la partie urinaire et génitale, le postérieur au canal anal.' },
+  { question: 'Quelles sont les voies spermatiques ?', answer: 'Intra-testiculaires, épididymes, conduits déférents, vésicules séminales, conduits éjaculateurs, prostate.' },
+  { question: 'Quelle est la fonction des voies spermatiques ?', answer: 'Assurer le volume et le transport du sperme.' },
+  { question: 'Quels sont les deux types de corps érectiles du pénis ?', answer: 'Les corps caverneux et le corps spongieux.' },
+  { question: 'Où sont situés les corps caverneux ?', answer: 'Partie dorsale du pénis.' },
+  { question: 'Quelle forme forment les corps caverneux à leur implantation ?', answer: 'Une forme en « Y » avec une base évasée sous les branches ischio-pubiennes.' },
+  { question: 'Quelle est la fonction des corps caverneux ?', answer: 'Apporter la rigidité lors de l’érection.' },
+  { question: 'Où est situé le corps spongieux ?', answer: 'Sur la ligne ventrale, dans la gouttière infra-caverneuse.' },
+  { question: 'Quelle structure parcourt le corps spongieux ?', answer: 'L’urètre.' },
+  { question: 'Quelle partie dilatée forme la base du corps spongieux ?', answer: 'Le bulbe du corps spongieux.' },
+  { question: 'Quelle structure forme l’extrémité du corps spongieux ?', answer: 'Le gland du pénis.' },
+  { question: 'Quelles sont les trois portions du pénis ?', answer: 'Racine, corps, gland.' },
+  { question: 'Quels éléments composent la racine du pénis ?', answer: 'Piliers (corps caverneux) ﬁxés aux branches ischio-pubiennes, bulbe du corps spongieux, périnée superﬁciel.' },
+  { question: 'Quelle portion du pénis est libre et mobile ?', answer: 'Le corps.' },
+  { question: 'Quelle partie du pénis correspond à l’extrémité libre ?', answer: 'Le gland.' },
+  { question: 'Par quoi est recouvert le gland ?', answer: 'Par le prépuce.' },
+  { question: 'Quelle artère assure la vascularisation artérielle du pénis ?', answer: 'L’artère pudendale.' },
+  { question: 'Quelle est l’origine de l’artère pudendale ?', answer: 'L’artère iliaque interne.' },
+  { question: 'Quelles sont les collatérales de l’artère pudendale pour le pénis ?', answer: 'Artère dorsale du pénis, artère profonde du pénis, artère bulbo-urétrale.' },
+  { question: 'Quels rôles ont ces artères ?', answer: 'Rôle nourricier et fonctionnel.' },
+  { question: 'Quelles sont les principales veines du pénis ?', answer: 'Veine dorsale superﬁcielle, veine dorsale profonde, veine circonﬂexe, veine caverneuse, veine bulbo-urétrale.' },
+  { question: 'Où se draine le retour veineux antérieur du pénis ?', answer: 'Vers le plexus veineux rétropubien de Santorini, puis vers la veine hypogastrique.' },
+  { question: 'Quelles veines forment la veine pudendale ?', answer: 'Les veines bulbo-urétrale et caverneuse.' },
+  { question: 'De quels plexus naît l’innervation du pénis ?', answer: 'Plexus hypogastriques supérieur et inférieur.' },
+  { question: 'Par quel système est permise l’érection ?', answer: 'Parasympathique (nerfs érecteurs d’Eckart).' },
+  { question: 'Par quel système est permise l’éjaculation ?', answer: 'Sympathique (nerfs pré-sacraux).' },
+  { question: 'Quel nerf assure la sensibilité du gland et l’orgasme ?', answer: 'Le nerf dorsal de la verge.' },
+  { question: 'Quelle est la nature des testicules ?', answer: 'Glandes sexuelles primaires masculines.' },
+  { question: 'Où sont situés les testicules avant la naissance ?', answer: 'Dans la région lombaire.' },
+  { question: 'Quelle est la migration des testicules ?', answer: 'Descente sous le ligament inguinal vers le scrotum.' },
+  { question: 'Pourquoi les testicules migrent-ils dans le scrotum ?', answer: 'Pour atteindre une température optimale de spermatogenèse (35 °C).' },
+  { question: 'Quelle est la fonction exocrine du testicule ?', answer: 'Production de spermatozoïdes.' },
+  { question: 'Quelle est la fonction endocrine du testicule ?', answer: 'Sécrétion d’hormones, dont la testostérone.' },
+  { question: 'Quelle est la tunique séreuse des testicules ?', answer: 'La vaginale testiculaire (feuillet pariétal + viscéral séparés par une cavité virtuelle).' },
+  { question: 'Quelle est l’enveloppe ﬁbreuse solide du testicule ?', answer: 'L’albuginée.' },
+  { question: 'Que forme l’albuginée à l’intérieur du testicule ?', answer: 'Des cloisons.' },
+  { question: 'Où sont situés les tubes séminifères ?', answer: 'Dans les cloisons formées par l’albuginée.' },
+  { question: 'Quelle est la fonction des tubes séminifères ?', answer: 'Production de spermatozoïdes.' },
+  { question: 'Que donnent les tubes séminifères ?', answer: 'Les tubes droits.' },
+  { question: 'Où se jettent les tubes droits ?', answer: 'Dans le rete testis.' },
+  { question: 'Quelle structure se situe au pôle supérieur du testicule ?', answer: 'La tête de l’épididyme.' },
+  { question: 'En quoi se prolonge le corps de l’épididyme ?', answer: 'En canal déférent.' },
+  { question: 'Quelles sont les trois artères du testicule ?', answer: 'Artère testiculaire, artère du conduit déférent, artère crémastérique.' },
+  { question: 'Quelle est l’origine de l’artère testiculaire ?', answer: 'L’aorte abdominale en L2.' },
+  { question: 'Quelle est l’origine de l’artère du conduit déférent ?', answer: 'Artère iliaque interne.' },
+  { question: 'Quelle est l’origine de l’artère crémastérique ?', answer: 'Artère épigastrique inférieure.' },
+  { question: 'Quelle est la fonction du muscle crémaster ?', answer: 'Réguler la température testiculaire par contraction.' },
+  { question: 'Quelles artères s’anastomosent au niveau testiculaire ?', answer: 'Artère du conduit déférent et artère crémastérique.' },
+  { question: 'Où se situe l’épididyme ?', answer: 'Sur le bord postéro-supérieur du testicule.' },
+  { question: 'Quelles sont les trois parties de l’épididyme ?', answer: 'Tête, corps et queue.' },
+  { question: 'Quelle est l’origine de la tête de l’épididyme ?', answer: 'Les canaux eﬀérents provenant du rete testis.' },
+  { question: 'Par quoi se prolonge la queue de l’épididyme ?', answer: 'Par le conduit déférent.' },
+  { question: 'Quelle est la fonction de l’épididyme ?', answer: 'Stockage et maturation des spermatozoïdes.' },
+  { question: 'Quelle est la longueur du conduit déférent ?', answer: '35 à 40 cm.' },
+  { question: 'Quels sont les trois segments du conduit déférent ?', answer: 'Segment scrotal, segment funiculaire, segment pelvien.' },
+  { question: 'Où débute le conduit déférent ?', answer: 'À la queue de l’épididyme.' },
+  { question: 'Par quel canal passe le segment funiculaire ?', answer: 'Le canal inguinal.' },
+  { question: 'Où se termine le conduit déférent ?', answer: 'Par le conduit éjaculateur dans la prostate.' },
+  { question: 'Quelle est la fonction du conduit déférent ?', answer: 'Transport des spermatozoïdes.' },
+  { question: 'Où sont situées les vésicules séminales ?', answer: 'En arrière de la vessie et en avant du rectum.' },
+  { question: 'Quelle est la forme d’une vésicule séminale ?', answer: 'Poche allongée, festonnée.' },
+  { question: 'Quelle est la fonction des vésicules séminales ?', answer: 'Sécréter un liquide riche en fructose qui nourrit les spermatozoïdes.' },
+  { question: 'Avec quelle structure s’unit le conduit excréteur d’une vésicule séminale ?', answer: 'Avec le conduit déférent pour former le conduit éjaculateur.' },
+  { question: 'Quelle est la constitution des conduits éjaculateurs ?', answer: 'Union du conduit déférent et du conduit excréteur de la vésicule séminale.' },
+  { question: 'Où débouchent les conduits éjaculateurs ?', answer: 'Dans l’urètre prostatique, au niveau du veru montanum (colliculus séminalis).' },
+  { question: 'Quelle est la fonction des conduits éjaculateurs ?', answer: 'Acheminer le sperme vers l’urètre.' },
+  { question: 'Quelle est la localisation de la prostate ?', answer: 'Sous la vessie, autour de l’urètre prostatique.' },
+  { question: 'Quelle est la forme de la prostate ?', answer: 'Glande musculo-aponévrotique, conique à base supérieure.' },
+  { question: 'Quelle est la taille moyenne de la prostate ?', answer: '4 cm de large, 3 cm de haut, 2,5 cm d’épaisseur.' },
+  { question: 'Quel est le poids moyen de la prostate ?', answer: '20 g.' },
+  { question: 'Quelle est la composition de la prostate ?', answer: 'Partie glandulaire et partie musculaire.' },
+  { question: 'Quelle est la fonction de la prostate ?', answer: 'Sécréter un liquide alcalin, nourrissant et ﬂuidiﬁant les spermatozoïdes.' },
+  { question: 'Dans quelle partie de la prostate s’ouvrent les canaux prostatiques ?', answer: 'Dans l’urètre prostatique, au niveau du veru montanum.' },
+  { question: 'Quelle est la particularité clinique du lobe moyen de la prostate ?', answer: 'Il est souvent le siège de l’hypertrophie bénigne (HBP).' },
+  { question: 'Quelle pathologie fréquente touche la prostate ?', answer: 'L’adénome prostatique bénin (HBP) ou le cancer de la prostate.' },
+  { question: 'Quelle artère assure la vascularisation principale du tractus génital masculin ?', answer: 'L’artère pudendale interne (branche de l’artère iliaque interne).' },
+  { question: 'Quelles autres artères participent à la vascularisation génitale masculine ?', answer: 'L’artère vésicale inférieure, l’artère du conduit déférent, l’artère prostatique.' },
+  { question: 'Comment se fait le drainage veineux du système génital masculin ?', answer: 'Par les plexus veineux (périprostatique, vésical, pudendal).' },
+  { question: 'Quelle est l’importance clinique du plexus veineux périprostatique ?', answer: 'Communication avec les plexus vertébraux ˠ voie de dissémination métastatique du cancer prostatique.' },
+  { question: 'Quels sont les organes de la sexualité féminine situés dans le petit bassin ?', answer: 'Ovaires, trompes utérines, utérus, vagin, organes génitaux externes.' },
+  { question: 'Que sont les ovaires ?', answer: 'Les gonades ou glandes sexuelles primaires féminines.' },
+  { question: 'Où sont situés les ovaires ?', answer: 'Dans le petit bassin, intra-abdominaux et intra-péritonéaux (non recouverts de péritoine), dans la fosse ovarique.' },
+  { question: 'Quelle est la particularité péritonéale des ovaires ?', answer: 'Ils sont intra-péritonéaux mais non péritonisés (séparés par un espace libre).' },
+  { question: 'Quelles sont les fonctions des ovaires ?', answer: 'Production des gamètes primaires (ovocytes) et sécrétion d’hormones sexuelles (œstrogènes et progestérone).' },
+  { question: 'Combien de follicules produit l’ovaire et combien arrivent à l’ovulation ?', answer: 'Environ 300 000 produits, 400 seulement arrivent à l’ovulation.' },
+  { question: 'Quelle est la taille moyenne d’un ovaire ?', answer: '3 x 2 x 1 cm.' },
+  { question: 'Quelle est la couleur de l’ovaire ?', answer: 'Blanchâtre, entouré d’une tunique blanche (albuginée).' },
+  { question: 'Comment varie l’aspect de l’ovaire selon l’âge ?', answer: 'Chez l’enfant il est petit et lisse, chez la femme en activité génitale il est irrégulier avec follicules et corps jaunes, après la ménopause il est petit, bosselé et atrophié.' },
+  { question: 'Quelles structures contient le cortex ovarien ?', answer: 'Follicules à diﬀérents stades, corps jaunes, cicatrices ﬁbreuses.' },
+  { question: 'Que contient la médullaire ovarienne ?', answer: 'Les vaisseaux de l’ovaire.' },
+  { question: 'Quels sont les 4 ligaments de l’ovaire ?', answer: 'Ligament tubo-ovarien, ligament utéro-ovarien, ligament lombo-ovarien, mésovarium.' },
+  { question: 'Où se situe le ligament tubo-ovarien ?', answer: 'Au pôle supérieur, relie l’ovaire au pavillon de la trompe (frange ovarique de Richard).' },
+  { question: 'Où se situe le ligament utéro-ovarien ?', answer: 'Au pôle inférieur, relie l’ovaire à la corne utérine.' },
+  { question: 'Où se situe le ligament lombo-ovarien ?', answer: 'Au pôle supérieur, relie l’ovaire à l’axe aortico-cave, contient les vaisseaux ovariens.' },
+  { question: 'Qu’est-ce que le mésovarium ?', answer: 'Repli péritonéal reliant l’ovaire au ligament large, contenant des vaisseaux et entourant le hile de l’ovaire (ligne de Farre-Waldeyer).' },
+  { question: 'Quel est le rapport de l’ovaire chez la nullipare ?', answer: 'En haut et en avant de l’uretère (fossette de Krause).' },
+  { question: 'Quel est le rapport de l’ovaire chez la multipare ?', answer: 'En bas et en arrière de l’uretère (fossette de Claudius).' },
+  { question: 'Quelles sont les deux artères qui vascularisent l’ovaire ?', answer: 'L’artère ovarique (aorte abdominale, L2) et l’artère utérine (iliaque interne, rameau ovarien).' },
+  { question: 'Que forment les deux courants artériels de l’ovaire ?', answer: 'Une arcade dans le mésovarium.' },
+  { question: 'Où se draine la veine ovarique droite ?', answer: 'Dans la veine cave inférieure (L2).' },
+  { question: 'Où se draine la veine ovarique gauche ?', answer: 'Dans la veine rénale gauche.' },
+  { question: 'Quelle est la fonction des trompes utérines ?', answer: 'Capter l’ovule et le conduire vers l’utérus, lieu de la fécondation.' },
+  { question: 'Quelle est la situation des trompes utérines ?', answer: 'Pelviennes, de chaque côté de l’utérus, ﬁxées à ses angles supérieurs.' },
+  { question: 'Quelle est la longueur et le calibre d’une trompe ?', answer: '13 cm de long, 2 à 8 mm de calibre.' },
+  { question: 'Quelles sont les 3 parties principales de la trompe ?', answer: 'Infundibulum, ampoule, isthme.' },
+  { question: 'Quelle est la particularité de l’infundibulum ?', answer: 'En entonnoir, muni de franges, dont la frange ovarique de Richard, ouvert dans la cavité péritonéale.' },
+  { question: 'Quelle est la partie de la trompe où a lieu la fécondation ?', answer: 'L’ampoule.' },
+  { question: 'Quelle est la partie la plus étroite de la trompe ?', answer: 'L’isthme, qui s’ouvre dans l’utérus par un ostium d’1 cm.' },
+  { question: 'Quelles sont les artères qui vascularisent la trompe utérine ?', answer: 'Artère tubaire latérale (ovarienne), artère tubaire médiale (utérine), artère tubaire moyenne.' },
+  { question: 'Comment se fait le drainage veineux des trompes ?', answer: 'Il suit la topographie des artères.' },
+  { question: 'Qu’est-ce que l’utérus ?', answer: 'Un organe creux, musculaire et contractile.' },
+  { question: 'Où est situé l’utérus ?', answer: 'Dans le petit bassin, en arrière de la vessie et en avant du rectum.' },
+  { question: 'Quelles sont les dimensions moyennes de l’utérus ?', answer: '7 cm de long, 4 cm de large, 2 cm d’épaisseur.' },
+  { question: 'Quel est le poids moyen de l’utérus ?', answer: '50 g.' },
+  { question: 'Comment varie la taille de l’utérus selon la parité ?', answer: 'Chez la nullipare il est plus petit, chez la multipare il est plus gros.' },
+  { question: 'Comment varie l’utérus après la ménopause ?', answer: 'Il s’atrophie.' },
+  { question: 'Quelles sont les parties de l’utérus ?', answer: 'Fond, corps, isthme et col.' },
+  { question: 'Où se situe le fond utérin ?', answer: 'Partie supérieure au-dessus des oriﬁces tubaires.' },
+  { question: 'Quelle est la partie la plus développée de l’utérus ?', answer: 'Le corps.' },
+  { question: 'Où se situe l’isthme utérin ?', answer: 'Zone rétrécie entre le corps et le col.' },
+  { question: 'Quelle est la partie de l’utérus qui s’ouvre dans le vagin ?', answer: 'Le col utérin.' },
+  { question: 'Quelles sont les deux parties du col utérin ?', answer: 'Partie supra-vaginale et partie intra-vaginale.' },
+  { question: 'Quelle est la forme de l’oriﬁce externe du col utérin chez la nullipare ?', answer: 'Circulaire.' },
+  { question: 'Quelle est la forme de l’oriﬁce externe du col utérin chez la multipare ?', answer: 'Fente transversale.' },
+  { question: 'Comment s’appelle la cavité utérine ?', answer: 'Endocol et cavité triangulaire du corps utérin.' },
+  { question: 'Quelle est l’épaisseur de la paroi utérine ?', answer: '1,5 cm.' },
+  { question: 'Quelles sont les trois couches de la paroi utérine ?', answer: 'Endomètre, myomètre, séreuse.' },
+  { question: 'Qu’est-ce que l’endomètre ?', answer: 'La muqueuse de la cavité utérine, soumise au cycle menstruel.' },
+  { question: 'Qu’est-ce que le myomètre ?', answer: 'La couche musculaire lisse, épaisse, contractile.' },
+  { question: 'Qu’est-ce que la séreuse utérine ?', answer: 'Le péritoine recouvrant l’utérus.' },
+  { question: 'Quels sont les rapports de l’utérus en avant ?', answer: 'La vessie.' },
+  { question: 'Quels sont les rapports de l’utérus en arrière ?', answer: 'Le rectum.' },
+  { question: 'Quels sont les rapports de l’utérus latéralement ?', answer: 'Les paramètres.' },
+  { question: 'Qu’est-ce que l’angle de version utérine ?', answer: 'Angle entre axe du vagin et axe du col (90°).' },
+  { question: 'Qu’est-ce que l’angle de ﬂexion utérine ?', answer: 'Angle entre axe du col et axe du corps utérin (120°).' },
+  { question: 'Quelles sont les principales positions utérines ?', answer: 'Antéversion, rétroversion, antéﬂexion, rétroﬂexion.' },
+  { question: 'Quels sont les moyens de ﬁxité de l’utérus ?', answer: 'Muscles, fascias et ligaments.' },
+  { question: 'Quels muscles participent à la ﬁxation de l’utérus ?', answer: 'Le plancher pelvien et le diaphragme uro-génital.' },
+  { question: 'Quels fascias participent à la ﬁxation de l’utérus ?', answer: 'Le fascia pelvien, les paramètres.' },
+  { question: 'Quels sont les ligaments utérins ?', answer: 'Ligament rond, ligament large, ligament utéro-sacré, ligament cardinal.' },
+  { question: 'Où se situe le ligament rond ?', answer: 'De la corne utérine à la grande lèvre en passant par le canal inguinal.' },
+  { question: 'Où se situe le ligament large ?', answer: 'Repli péritonéal tendu de l’utérus aux parois latérales du bassin.' },
+  { question: 'Quelles sont les parties du ligament large ?', answer: 'Méso-métrium, méso-salpinx, méso-ovarium.' },
+  { question: 'Où se situe le ligament utéro-sacré ?', answer: 'De la face postérieure du col utérin au sacrum.' },
+  { question: 'Où se situe le ligament cardinal ?', answer: 'De la base du col à la paroi pelvienne.' },
+  { question: 'Quelle artère vascularise principalement l’utérus ?', answer: 'L’artère utérine (iliaque interne).' },
+  { question: 'Quelles artères participent secondairement à la vascularisation utérine ?', answer: 'Les artères ovariennes.' },
+  { question: 'Où se draine la veine utérine ?', answer: 'Dans la veine iliaque interne.' },
+  { question: 'Où se drainent les lymphatiques de l’utérus ?', answer: 'Vers les ganglions iliaques internes et externes, lombo-aortiques, inguinaux (ligament rond).' },
+  { question: 'Quelles sont les pathologies fréquentes de l’utérus ?', answer: 'Fibromes, cancers, prolapsus.' },
+  { question: 'Qu’est-ce que le vagin ?', answer: 'Un conduit musculo-membraneux, impair et médian.' },
+  { question: 'Quelle est la longueur moyenne du vagin ?', answer: '8 cm.' },
+  { question: 'Quelles sont les parois du vagin ?', answer: 'Antérieure, postérieure, latérales.' },
+  { question: 'Quelle est la direction du vagin ?', answer: 'Oblique en haut et en arrière.' },
+  { question: 'Quelle est la limite supérieure du vagin ?', answer: 'Le col utérin.' },
+  { question: 'Quelle est la limite inférieure du vagin ?', answer: 'L’oriﬁce vulvaire.' },
+  { question: 'Quelle est la muqueuse vaginale ?', answer: 'Un épithélium pavimenteux stratiﬁé, non kératinisé.' },
+  { question: 'Quelles sont les fonctions du vagin ?', answer: 'Copulation, accouchement, écoulement des règles.' },
+  { question: 'Quelles sont les glandes annexes du vagin ?', answer: 'Les glandes vestibulaires majeures (Bartholin).' },
+  { question: 'Quelles sont les organes génitaux externes féminins ?', answer: 'Mont du pubis, grandes lèvres, petites lèvres, clitoris, vestibule, glandes annexes.' },
+  { question: 'Qu’est-ce que le mont du pubis ?', answer: 'Relief cutané, graisseux, pileux, situé en avant de la symphyse pubienne.' },
+  { question: 'Quelles sont les grandes lèvres ?', answer: 'Deux replis cutanés longitudinaux, graisseux, pileux.' },
+  { question: 'Quelles sont les petites lèvres ?', answer: 'Deux replis cutanés minces, non pileux.' },
+  { question: 'Qu’est-ce que le clitoris ?', answer: 'Organe érectile féminin, homologue du pénis.' },
+  { question: 'Quelles sont les parties du clitoris ?', answer: 'Racine, corps, gland.' },
+  { question: 'Qu’est-ce que le vestibule ?', answer: 'Zone située entre les petites lèvres, contenant méat urinaire, oriﬁce vaginal, oriﬁces des glandes.' },
+  { question: 'Quelles sont les glandes annexes des organes génitaux externes ?', answer: 'Glandes de Skene (urétrales) et glandes de Bartholin (vestibulaires).' },
+  { question: 'Quelle est la vascularisation des organes génitaux externes féminins ?', answer: 'Artères pudendales internes et externes.' },
+  { question: 'Où se draine le retour veineux des organes génitaux externes féminins ?', answer: 'Vers les veines pudendales.' },
+  { question: 'Où se drainent les lymphatiques des organes génitaux externes féminins ?', answer: 'Vers les ganglions inguinaux.' },
+  { question: 'Quelle est l’innervation des organes génitaux externes féminins ?', answer: 'Nerf pudendal, nerf dorsal du clitoris, plexus hypogastrique inférieur.' },
+  { question: 'Qu’est-ce que la mamelle féminine ?', answer: 'Un organe glanduleux, pair, du tégument de la paroi antérieure du thorax, présent aussi chez l’homme mais non développé.' },
+  { question: 'Quelle est la nature de la glande mammaire ?', answer: 'C’est une glande exocrine, récepteur neuro-hormonal spéciﬁque des mammifères pour la production lactifère.' },
+  { question: 'Sous quelle dépendance se développe la glande mammaire ?', answer: 'Sous dépendance hormonale des œstrogènes, caractère sexuel secondaire.' },
+  { question: 'Où est située la glande mammaire ?', answer: 'Dans la partie antéro-supérieure de la poitrine, de chaque côté du sternum, en avant des muscles pectoraux.' },
+  { question: 'Quelle est la projection du mamelon ?', answer: 'En regard du 4e espace intercostal, entre la 3e et la 7e côte (variable selon l’âge).' },
+  { question: 'Quelle est la zone centrale du sein ?', answer: 'Le mamelon ou papille mammaire.' },
+  { question: 'Quelle est l’aspect habituel du mamelon ?', answer: 'Saillant, papille tégumentaire pigmentée, cylindrique ou conique.' },
+  { question: 'Quelles sont les dimensions du mamelon ?', answer: 'Longueur 1 cm, largeur 8 à 15 mm (variables).' },
+  { question: 'Que trouve-t-on au niveau de l’apex du mamelon ?', answer: '15 à 25 ostiums papillaires pour l’évacuation du lait.' },
+  { question: 'Quelle est la zone moyenne du sein ?', answer: 'L’aréole.' },
+  { question: 'Quelle est la taille de l’aréole ?', answer: 'Diamètre de 15 à 30 mm.' },
+  { question: 'Quelle est la coloration de l’aréole ?', answer: 'Plus foncée que la peau, rosée chez les blondes/rousses, brunâtre chez les brunes, noir mat chez les femmes noires ; elle s’accentue pendant la grossesse, comme le mamelon.' },
+  { question: 'Combien de tubercules comporte l’aréole et quelle est leur fonction ?', answer: '12 à 20 tubercules correspondant à des glandes sébacées, dont le volume augmente pendant la grossesse et qui lubriﬁent l’aréole pour faciliter la tétée.' },
+  { question: 'Quelle est la zone périphérique du sein ?', answer: 'La peau péri-aréolaire.' },
+  { question: 'Quelles sont les caractéristiques de la peau péri-aréolaire ?', answer: 'Mince, lisse, souple, même coloration que la peau, veines sous-cutanées visibles.' },
+  { question: 'Quels sillons délimitent la glande mammaire ?', answer: 'Le sillon infra-mammaire (limite inférieure) et le sillon supra-mammaire (limite supérieure).' },
+  { question: 'Quelle est la composition de la glande mammaire ?', answer: 'Glande tubulo-alvéolaire exocrine, stroma conjonctif, tissu adipeux, prolongements variables vers le creux axillaire.' },
+  { question: 'Quelles sont les unités fonctionnelles du sein ?', answer: 'Les lobes, 15 à 25, chacun drainé par un conduit lactifère débouchant au mamelon par un ostium propre.' },
+  { question: 'Que trouve-t-on dans chaque lobe du sein ?', answer: 'Des lobules, séparés par des septums interlobulaires.' },
+  { question: 'Comment se fait le drainage d’un lobule ?', answer: 'Par un conduit lactifère intra-lobulaire, qui converge en conduit intra-lobaire, puis en sinus lactifère avant de s’ouvrir au mamelon.' },
+  { question: 'Qu’est-ce que l’espace celluleux rétro-mammaire ?', answer: 'Espace entre le fascia rétro-mammaire et le fascia pectoral, syssarcose thoraco-mammaire, espace de glissement de 5 à 10 mm permettant la mobilité du sein.' },
+  { question: 'Quels sont les plans musculo-fasciaux profonds postérieurs du sein ?', answer: 'Subclavier, fascia clavi-pectoral, petit pectoral, grill costal avec intercostaux.' },
+  { question: 'Quelle est la principale artère du sein ?', answer: 'L’artère axillaire (prolongement de la subclavière), vascularisant les 3/4 supéro-externes du sein.' },
+  { question: 'Quelles collatérales de l’artère axillaire vascularisent le sein ?', answer: 'Artère thoracique suprême, rameau thoracique de l’artère thoraco-acromiale, artère thoracique latérale (la plus volumineuse).' },
+  { question: 'Quelle artère assure le courant médial du sein ?', answer: 'L’artère thoracique interne, donnant des rameaux des 2e au 6e espaces intercostaux.' },
+  { question: 'Quelle artère vascularise la partie inférieure et externe du sein ?', answer: 'Une branche ascendante de la 7e artère intercostale (branche de l’aorte thoracique).' },
+  { question: 'Quels sont les deux réseaux veineux du sein ?', answer: 'Réseau sous-cutané et réseau profond.' },
+  { question: 'Quelles sont les caractéristiques du réseau veineux sous-cutané du sein ?', answer: 'Visible sous la peau, forme un cercle péri-aréolaire, rejoint les veines superﬁcielles : céphalique, jugulaire externe, sous-cutanées de l’abdomen.' },
+  { question: 'Quelles sont les caractéristiques du réseau veineux profond du sein ?', answer: 'Calqué sur le réseau artériel, nombreuses anastomoses, drainage latéral vers veine axillaire, médial vers tronc brachio-céphalique, postérieur vers système azygos.' },
+  { question: 'Quelles sont les deux voies lymphatiques du sein ?', answer: 'Voie latérale et voie médiale.' },
+  { question: 'Que draine la voie lymphatique latérale du sein ?', answer: 'Suit l’artère thoracique latérale, rejoint la fosse axillaire (groupe infra-pectoral, supra-pectoral, supra-claviculaire, inter-pectoral).' },
+  { question: 'Que draine la voie lymphatique médiale du sein ?', answer: 'Suit l’artère thoracique interne et rejoint le groupe supra-claviculaire.' },
+  { question: 'Quelles sont les deux voies lymphatiques principales du sein ?', answer: 'La voie latérale et la voie médiale.' },
+  { question: 'Quelle artère suit la voie lymphatique latérale du sein ?', answer: 'L’artère thoracique latérale.' },
+  { question: 'Où se drainent les lymphatiques de la voie latérale du sein ?', answer: 'Dans la fosse axillaire.' },
+  { question: 'Quels groupes ganglionnaires sont concernés par la voie latérale du sein ?', answer: 'Groupe axillaire infra-pectoral, supra-pectoral, supra-claviculaire, inter-pectoral.' },
+  { question: 'Où se situent les ganglions infra-pectoraux ?', answer: 'Sous le muscle grand pectoral, au bord inférieur du muscle petit pectoral.' },
+  { question: 'Où se situent les ganglions supra-pectoraux ?', answer: 'Au-dessus du bord supérieur du muscle petit pectoral.' },
+  { question: 'Où se situent les ganglions supra-claviculaires ?', answer: 'Au-dessus de la clavicule.' },
+  { question: 'Où se situent les ganglions inter-pectoraux ?', answer: 'Entre les plans des muscles petit et grand pectoraux, suivant le pédicule thoracique suprême et thoraco-acromial.' },
+  { question: 'Quelle est la particularité des ganglions inter-pectoraux ?', answer: 'Ils ne sont pas palpables et rejoignent directement le groupe axillaire supra-pectoral.' },
+  { question: 'Quelle artère suit la voie lymphatique médiale du sein ?', answer: 'L’artère thoracique interne.' },
+  { question: 'Où se drainent les lymphatiques de la voie médiale du sein ?', answer: 'Vers le groupe supra-claviculaire.' },
+  { question: 'Le pelvis appartient à quelle structure anatomique ?', answer: 'Au bassin.' },
+  { question: 'Quelle est la diﬀérence entre grand et petit bassin ?', answer: 'Le grand bassin est au-dessus, le petit bassin contient les organes pelviens.' },
+  { question: 'Quels os constituent le cadre osseux du pelvis ?', answer: '2 os coxaux et le sacrum (prolongé par le coccyx).' },
+  { question: 'D’où proviennent les os du sacrum et du coccyx ?', answer: 'De la fusion de vertèbres anciennement mobiles.' },
+  { question: 'Quels sont les 3 temps de l’accouchement ?', answer: '1) Ouverture du col de l’utérus, 2) Traversée de la ﬁlière pelvienne (engagement, descente, dégagement), 3) Délivrance (expulsion du placenta et des membranes).' },
+  { question: 'Pourquoi la pelvimétrie est importante chez l’humain ?', answer: 'Car le diamètre longitudinal de la tête fœtale est supérieur à celui du bassin, rendant l’engagement diﬃcile.' },
+  { question: 'De combien de pièces osseuses est formé l’os coxal ?', answer: 'Trois (ilion, ischion, pubis).' },
+  { question: 'Quelle est la partie supérieure et évasée de l’os coxal ?', answer: 'L’ilion.' },
+  { question: 'Quelle est la partie postérieure et inférieure de l’os coxal ?', answer: 'L’ischion.' },
+  { question: 'Quelle est la partie antérieure et inférieure de l’os coxal ?', answer: 'Le pubis.' },
+  { question: 'Quelle articulation relie les deux pubis ?', answer: 'La symphyse pubienne.' },
+  { question: 'Quand les 3 pièces osseuses de l’os coxal s’ossiﬁent et se soudent ?', answer: 'Autour de l’acétabulum à l’âge adulte.' },
+  { question: 'Qu’est-ce qui délimite le foramen obturé ?', answer: 'En avant le pubis, en arrière l’ischion.' },
+  { question: 'Qu’est-ce que la ligne arquée ?', answer: 'Partie du détroit supérieur, jonction entre ilion (haut), ischion (bas-arrière) et pubis (bas-avant).' },
+  { question: 'Quelle est la limite supérieure de l’os coxal ?', answer: 'La crête iliaque, limitée par EIAS et EIPS.' },
+  { question: 'Quelles structures délimitent le bord antérieur de l’os coxal ?', answer: 'Supérieure : EIAS ; Inférieure : tubercule pubien.' },
+  { question: 'Quelles structures délimitent le bord postérieur de l’os coxal ?', answer: 'Supérieure : EIPS ; Inférieure : tubérosité ischiatique.' },
+  { question: 'Qu’est-ce qui sépare grande et petite échancrure ischiatique ?', answer: 'L’épine sciatique.' },
+  { question: 'De combien de vertèbres est formé le sacrum ?', answer: '5 (S1 à S5).' },
+  { question: 'Quelle est la forme du sacrum ?', answer: 'Pyramidale, base en haut, sommet en bas.' },
+  { question: 'Quelle est la concavité du sacrum ?', answer: 'Concave en avant.' },
+  { question: 'Quel relief forme le bord supérieur du sacrum en avant ?', answer: 'Le promontoire.' },
+  { question: 'Qu’est-ce que le hiatus sacré ?', answer: 'L’ouverture distale du canal vertébral dans le sacrum.' },
+  { question: 'Avec quoi s’articule le sommet du sacrum ?', answer: 'Le coccyx.' },
+  { question: 'Qu’est-ce que l’arcade de Bouisson ?', answer: 'Structure ﬁbreuse tendue de S2 au bord postérieur de la grande échancrure sciatique, divisant cette échancrure en 2 étages.' },
+  { question: 'Qu’est-ce que le ligament sacro-tubéral ?', answer: 'Ligament entre sacrum, EIPS, EIPI, coccyx et tubérosité ischiatique, fermant en arrière les échancrures sciatiques.' },
+  { question: 'Qu’est-ce que le ligament sacro-épineux ?', answer: 'Ligament entre S4-S5, coccyx et épine ischiatique, séparant grande et petite échancrure sciatique.' },
+  { question: 'Qu’est-ce que la membrane obturatrice ?', answer: 'Membrane fermant le foramen obturé sauf en avant-supérieur où passent nerfs et vaisseaux obturateurs.' },
+  { question: 'Qu’est-ce que le ligament inguinal ?', answer: 'Ligament tendu entre EIAS et tubercule pubien, délimitant un canal pour psoas et vaisseaux fémoraux.' },
+  { question: 'Quels sont les 3 étages du pelvis ?', answer: 'Grand bassin, petit bassin (excavation pelvienne), périnée.' },
+  { question: 'Qu’est-ce que le détroit supérieur ?', answer: 'Sépare grand et petit bassin, passe par la symphyse pubienne, ligne arquée, bords des ailerons sacrés et promontoire.' },
+  { question: 'Qu’est-ce que le détroit inférieur ?', answer: 'Sépare petit bassin et périnée, passe par symphyse pubienne, branches ischio-pubiennes, ligament sacro-tubéral et coccyx.' },
+  { question: 'Quelles sont les 4 formes du détroit supérieur selon Caldwell et Moloy ?', answer: 'Gynoïde (50 %, rond), Androïde (25 %, triangulaire en cœur), Anthropoïde (20 %, ovalaire sagittal), Platypelloïde (5 %, ovalaire transversal).' },
+  { question: 'Qu’est-ce que l’indice de Magnin ?', answer: 'La somme du diamètre utile et du diamètre transverse.' },
+  { question: 'Quelle valeur de l’indice de Magnin rend l’accouchement possible ?', answer: 'Supérieur à 20.' },
+  { question: 'Quelle valeur de l’indice de Magnin peut nécessiter une césarienne ?', answer: 'Inférieur à 20.' },
+  { question: 'Quel est le diamètre sagittal du détroit supérieur ?', answer: 'Le diamètre promonto-infra-pubien (entre promontoire et bord inférieur de la symphyse pubienne).' },
+  { question: 'Quelles sont les dimensions d’un bassin gynoïde au détroit supérieur ?', answer: 'Diamètres sagittal, transverse et oblique de 12 cm chacun.' },
+  { question: 'Qu’est-ce que le diamètre utile (ou conjugué vrai) ?', answer: 'Diamètre promonto-rétro-pubien, entre promontoire et face postérieure de la symphyse pubienne.' },
+  { question: 'Quelle est la longueur moyenne du conjugué vrai ?', answer: '10,5 cm.' },
+  { question: 'Quel est le diamètre sacro-infrapubien du détroit inférieur ?', answer: 'Entre pointe du sacrum et bord inférieur de la symphyse pubienne (11,5 à 12,5 cm en nutation).' },
+  { question: 'Qu’est-ce que le diamètre transversal du détroit inférieur ?', answer: 'Le diamètre bi-ischiatique, entre les deux tubérosités ischiatiques, environ 11 cm.' },
+  { question: 'Quel type d’articulation est la symphyse pubienne ?', answer: 'Une amphiarthrose cartilagineuse (semi-mobile).' },
+  { question: 'Quelles sont les caractéristiques de la symphyse pubienne ?', answer: 'Située entre les deux pubis, surface articulaire ovoïde oblique à 30°, cartilage hyalin + disque ﬁbrocartilagineux interpubien.' },
+  { question: 'Quels mouvements permet la symphyse pubienne ?', answer: 'Mouvements de cisaillement frontal en appui unipodal et fente sagittale antéro-postérieure lors de la marche.' },
+  { question: 'Quel type d’articulation sont les sacro-iliaques ?', answer: 'Diarthroses ellipsoïdes, remplies de liquide synovial.' },
+  { question: 'Quelle est la forme des surfaces articulaires sacro-iliaques ?', answer: 'Forme de croissant, concavité postéro-supérieure, inclinées à 75°.' },
+  { question: 'Quels ligaments assurent la solidité des sacro-iliaques ?', answer: 'Ligaments ventraux, interosseux, dorsaux, ilio-lombaires, ilio-sacré, sacro-épineux, sacro-tubéral.' },
+  { question: 'Qu’est-ce que la nutation du sacrum ?', answer: 'Bascule de la base du sacrum vers l’avant et pointe vers l’arrière, rapprochant les ailes iliaques et éloignant les tubérosités ischiatiques.' },
+  { question: 'Quel est l’eﬀet de la nutation ?', answer: 'Elle agrandit l’excavation pelvienne en augmentant le diamètre du détroit inférieur.' },
+  { question: 'Qu’est-ce que la contre-nutation ?', answer: 'Mouvement inverse de la nutation.' },
+  { question: 'Que se passe-t-il lorsque le rachis est statique ?', answer: 'Courbures faibles, sacrum vertical, surface auriculaire peu incurvée, transmission homogène du poids.' },
+  { question: 'Que se passe-t-il lorsque le rachis est dynamique ?', answer: 'Courbures accentuées, lordose lombaire marquée, sacrum plus horizontal, surface auriculaire incurvée.' },
+  { question: 'Qu’est-ce que le système autobloquant du sacrum ?', answer: 'Quand la charge augmente, le sacrum s’encastre comme un coin entre les os coxaux, bloquant l’articulation et transmettant le poids uniformément.' },
+  { question: 'Quelle est l’origine du muscle iliaque ?', answer: 'La fosse iliaque.' },
+  { question: 'Quelle est sa terminaison ?', answer: 'Petit trochanter.' },
+  { question: 'Quelle est son action ?', answer: 'Flexion de hanche.' },
+  { question: 'Quelle est l’origine du muscle piriforme ?', answer: 'Bord latéral du sacrum.' },
+  { question: 'Quelle est son action ?', answer: 'Rotation latérale de hanche.' },
+  { question: 'Quelle est l’origine du muscle obturateur interne ?', answer: 'Foramen obturé et membrane obturatrice.' },
+  { question: 'Quelle est son action ?', answer: 'Rotation latérale de hanche.' },
+  { question: 'Quelle est l’origine du grand droit de l’abdomen ?', answer: 'Côtes basses.' },
+  { question: 'Quelle est sa terminaison ?', answer: 'Bord supérieur de la symphyse pubienne.' },
+  { question: 'Quelle est l’origine du transverse de l’abdomen ?', answer: 'Partie antérieure de la crête iliaque et gaine des grands droits.' },
+  { question: 'Quelle est sa terminaison ?', answer: 'Processus transverses lombaires.' },
+  { question: 'Quelles sont les insertions du carré des lombes ?', answer: 'T12, K12, et transverses de L1 à L4.' },
+  { question: 'Quelles sont les insertions du grand dorsal ?', answer: 'Participe à la paroi du dos et à la sacro-iliaque, remonte jusqu’à l’humérus.' },
+  { question: 'Quelles sont les insertions des érecteurs du rachis ?', answer: 'Très haut, et s’insèrent sur la partie postérieure de la crête iliaque.' },
+  { question: 'Quels sont les faisceaux du muscle élévateur de l’anus (MEA) ?', answer: 'Pubo-coccygien, pubo-rectal, ilio-coccygien.' },
+  { question: 'Quelle est la fonction principale du MEA ?', answer: 'Soutènement viscéral et défécation.' },
+  { question: 'Quelle est l’innervation du MEA ?', answer: 'Nerf du MEA et nerf rectal inférieur (faisceau vaginal).' },
+  { question: 'Quelle est l’origine du muscle coccygien ?', answer: 'Épine ischiatique.' },
+  { question: 'Quelle est sa terminaison ?', answer: 'Partie inférieure du bord latéral du sacrum et du coccyx.' },
+  { question: 'Quelle est sa fonction ?', answer: 'Soutènement viscéral et séparation petite/grande échancrure sciatiques en doublant le ligament sacro-épineux.' }];
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

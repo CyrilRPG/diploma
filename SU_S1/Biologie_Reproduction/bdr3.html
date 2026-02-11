@@ -1,0 +1,985 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie de la reproduction</h1><h2>Appareil Genital Feminin</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quels sont les constituants de l’appareil génital féminin ?', answer: 'Les ovaires, les trompes de Fallope, l’utérus, le vagin, les organes génitaux externes (vulve) et les glandes annexes.' },
+  { question: 'Quels organes représentent les gonades chez la femme ?', answer: 'Les ovaires.' },
+  { question: 'Quels sont les organes des voies génitales internes féminines ?', answer: 'Les trompes de Fallope, l’utérus et le vagin.' },
+  { question: 'Quels organes composent la vulve ?', answer: 'Les petites lèvres et les grandes lèvres.' },
+  { question: 'Quelles sont les glandes annexes vulvo-vaginales ?', answer: 'Les glandes vulvo-vaginales.' },
+  { question: 'Quelles sont les dimensions d’un ovaire ?', answer: '4 cm × 1,5 cm.' },
+  { question: 'Quelle est la longueur des trompes de Fallope ?', answer: '10 à 12 cm.' },
+  { question: 'Quelles sont les dimensions de l’utérus ?', answer: '4 à 5 cm de large et 7 à 8 cm de long.' },
+  { question: 'Comment les ovaires sont-ils reliés à l’utérus ?', answer: 'Par les ligaments utéro-ovariens.' },
+  { question: 'Quel méso relie l’ovaire à la trompe ?', answer: 'Le mésovarium.' },
+  { question: 'De quoi est constitué le mésovarium ?', answer: 'De feuillets du péritoine recouvrant l’ovaire.' },
+  { question: 'Quelles variations subissent les organes génitaux féminins entre puberté et ménopause ?', answer: 'Des modifications morphologiques et fonctionnelles liées au cycle ovulatoire.' },
+  { question: 'Quelle est la durée moyenne du cycle menstruel ?', answer: '28 jours.' },
+  { question: 'Quelle est la fonction exocrine des ovaires ?', answer: 'La production des gamètes (ovocytes).' },
+  { question: 'Quelle est la fonction endocrine des ovaires ?', answer: 'La production de stéroïdes sexuels.' },
+  { question: 'Quels rôles assurent les voies génitales féminines ?', answer: 'Accueil et transport des spermatozoïdes, fécondation, transit et implantation de l’œuf fécondé, développement de l’embryon puis du fœtus.' },
+  { question: 'Combien d’ovaires possède une femme ?', answer: 'Deux.' },
+  { question: 'Où sont situés les ovaires ?', answer: 'Latéralement, à droite et à gauche dans la cavité pelvienne.' },
+  { question: 'Quelle est la fonction exocrine de l’ovaire ?', answer: 'La production d’ovocytes matures par la folliculogénèse.' },
+  { question: 'Quelle est la fonction endocrine de l’ovaire ?', answer: 'La sécrétion d’hormones stéroïdes sexuelles.' },
+  { question: 'Quel est l’unité morphologique fonctionnelle de l’ovaire ?', answer: 'Le follicule ovarien.' },
+  { question: 'Les ovocytes sont-ils jamais isolés ?', answer: 'Non, ils sont toujours entourés de cellules folliculaires.' },
+  { question: 'Sans ovocyte, y a-t-il sécrétion hormonale dans l’ovaire ?', answer: 'Non.' },
+  { question: 'Quelles sont les trois composantes histologiques de l’ovaire ?', answer: 'Épithélium ovarien superficiel, albuginée ovarienne, cortex et médullaire.' },
+  { question: 'Qu’est-ce que l’épithélium ovarien superficiel ?', answer: 'Un épithélium simple recouvrant la surface de l’ovaire.' },
+  { question: 'Qu’est-ce que l’albuginée ovarienne ?', answer: 'Une couche de tissu conjonctif dense sous l’épithélium.' },
+  { question: 'Quelles structures trouve-t-on dans le cortex ovarien ?', answer: 'Le stroma conjonctif et les follicules ovariens.' },
+  { question: 'Que contient la médullaire ovarienne ?', answer: 'Tissu conjonctif, fibres musculaires lisses, vaisseaux sanguins et fibres nerveuses.' },
+  { question: 'Comment se caractérise la zone corticale ?', answer: 'Zone dense, épaisseur variable, zone fonctionnelle contenant les follicules.' },
+  { question: 'Comment est l’épithélium ovarien du cortex ?', answer: 'Cubique simple, improprement appelé épithélium germinatif.' },
+  { question: 'Où se trouve l’albuginée dans le cortex ?', answer: 'Directement sous l’épithélium.' },
+  { question: 'Quel tissu constitue le stroma conjonctif du cortex ?', answer: 'Un tissu conjonctif dense.' },
+  { question: 'Où se trouvent les follicules primordiaux ?', answer: 'Dans la zone folliculaire du cortex.' },
+  { question: 'Comment est organisé le tissu conjonctif de la médullaire ?', answer: 'En zone parenchymateuse lâche et zone hilaire dense.' },
+  { question: 'Qu’est-ce que la zone hilaire ?', answer: 'Une zone dense contenant vaisseaux et nerfs, lieu d’ancrage de l’ovaire.' },
+  { question: 'Quelle est la première cause d’infertilité féminine en âge de procréer ?', answer: 'Le syndrome des ovaires polykystiques (SOPK).' },
+  { question: 'Quels sont les trois critères de Rotterdam du SOPK ?', answer: 'Oligo-anovulation, hyperandrogénie clinique ou biologique, ovaires polykystiques à l’échographie.' },
+  { question: 'Quels troubles métaboliques peuvent accompagner le SOPK ?', answer: 'Obésité, insulino-résistance, syndrome métabolique, graisse viscérale, AMH et LH élevées.' },
+  { question: 'Qu’est-ce que l’insuffisance ovarienne prématurée ?', answer: 'Peu de follicules en croissance et d’ovocytes, ménopause précoce, aménorrhée et infertilité.' },
+  { question: 'Quels autres problèmes peuvent toucher l’ovaire ?', answer: 'Kystes, tumeurs borderlines, cancers.' },
+  { question: 'Quelle est la longueur d’une trompe de Fallope ?', answer: '10 à 12 cm.' },
+  { question: 'Quelles sont les quatre régions d’une trompe de Fallope ?', answer: 'Pavillon, ampoule, isthme, portion interstitielle.' },
+  { question: 'Où a lieu la fécondation ?', answer: 'Dans l’ampoule tubaire, au tiers externe de la trompe.' },
+  { question: 'Quel est le rôle du pavillon ?', answer: 'Aspirer l’ovocyte lors de l’ovulation grâce aux franges.' },
+  { question: 'Quels mouvements permettent le transport tubaire ?', answer: 'Mouvements péristaltiques, activité des cellules ciliées et sécrétrices.' },
+  { question: 'Quelles pathologies peuvent altérer les trompes ?', answer: 'Salpingites, obstructions, hydrosalpinx, grossesses extra-utérines.' },
+  { question: 'Quelles sont les trois couches histologiques de la trompe ?', answer: 'Muqueuse, musculeuse, séreuse.' },
+  { question: 'Quels types cellulaires composent la muqueuse tubaire ?', answer: 'Cellules ciliées, cellules sécrétrices, cellules basales.' },
+  { question: 'Quand les cellules ciliées sont-elles les plus nombreuses ?', answer: 'En phase folliculaire (J4 à J14).' },
+  { question: 'Quel est l’effet de la progestérone sur les cils tubaires ?', answer: 'Elle induit un mouvement centripète en phase lutéale.' },
+  { question: 'Comment varie l’activité des cellules sécrétrices tubaires en fin de cycle ?', answer: 'Elles deviennent les plus volumineuses.' },
+  { question: 'Quelle est la structure de la musculeuse tubaire ?', answer: 'Des cellules musculaires lisses à contractions rythmiques.' },
+  { question: 'Qu’est-ce que la séreuse tubaire ?', answer: 'Une couche conjonctivo-élastique riche en vaisseaux, recouverte du mésothélium.' },
+  { question: 'Quelles sont les dimensions de l’utérus ?', answer: '7 à 8 cm de long et 4 à 5 cm de large.' },
+  { question: 'Quelles sont les trois régions anatomiques de l’utérus ?', answer: 'Le corps, l’isthme et le col.' },
+  { question: 'Quelles sont les trois couches de la paroi utérine ?', answer: 'Endomètre, myomètre, séreuse.' },
+  { question: 'Quelle est la couche la plus épaisse de l’utérus ?', answer: 'Le myomètre.' },
+  { question: 'Quels sont les trois types de fibres dans le myomètre ?', answer: 'Fibres longitudinales profondes et circulaires superficielles, couche plexiforme, fibres longitudinales externes.' },
+  { question: 'Qu’est-ce qu’un fibrome ?', answer: 'Une tumeur bénigne du myomètre composée de tissu musculaire et fibreux.' },
+  { question: 'De quoi est constituée la muqueuse utérine ?', answer: 'Épithélium simple (cilié et sécrétrice) et chorion avec glandes tubuleuses.' },
+  { question: 'Comment varie l’épaisseur de l’endomètre ?', answer: 'De 0,5 mm en début de cycle à 5 mm en période ovulatoire.' },
+  { question: 'Quelles cellules composent le chorion ?', answer: 'Fibroblastes, cellules immunitaires, substance fondamentale riche, réseau de réticuline.' },
+  { question: 'Qu’est-ce que l’endocol ?', answer: 'Le canal cervical, avec un épithélium cylindrique simple cilié et sécrétrices.' },
+  { question: 'Que produit le mucus cervical ?', answer: 'Une glaire dont la qualité varie selon le cycle, translucide à l’ovulation.' },
+  { question: 'Quel épithélium recouvre l’exocol ?', answer: 'Un épithélium pavimenteux stratifié non kératinisé.' },
+  { question: 'Quelle infection cause des lésions cervicales fréquentes ?', answer: 'Le HPV.' },
+  { question: 'Quel est le rôle du vagin ?', answer: 'Canal musculo-membraneux entre col de l’utérus et vulve.' },
+  { question: 'Quel type d’épithélium possède le vagin ?', answer: 'Pavimenteux stratifié non kératinisé en 4 couches.' },
+  { question: 'Quel rôle joue le glycogène vaginal ?', answer: 'Il est métabolisé par les bacilles de Döderlein en acide lactique, responsable du pH bas.' },
+  { question: 'Comment est organisé le chorion vaginal ?', answer: 'Tissu conjonctif lâche riche en fibres élastiques, très vascularisé et sans glandes.' },
+  { question: 'Quelles sont les couches musculaires du vagin ?', answer: 'Interne circulaire et externe longitudinale.' },
+  { question: 'Quels sont les deux phases cycliques de l’épithélium vaginal ?', answer: 'Phase oestrogénique (prolifération) et phase lutéale (desquamation).' },
+  { question: 'Quelles hormones régulent le cycle menstruel ?', answer: 'Œstrogènes et progestérone.' },
+  { question: 'Quelles sont les trois phases du cycle ovarien ?', answer: 'Phase folliculaire (J1-J14), ovulation (J14), phase lutéale (J14-J28).' },
+  { question: 'Quelle est la phase du cycle endométrial correspondant aux règles ?', answer: 'La phase de desquamation (J1-J4).' },
+  { question: 'Que provoque la chute d’œstrogènes et de progestérone ?', answer: 'Une vasoconstriction des artères spiralées et la desquamation de la zone fonctionnelle.' },
+  { question: 'Quelle couche persiste après la menstruation ?', answer: 'La couche basale (zone résiduelle).' },
+  { question: 'Que se passe-t-il durant la phase proliférative (J5-J14) ?', answer: 'Reconstruction de l’endomètre, mitoses nombreuses, glandes rectilignes, croissance vasculaire.' },
+  { question: 'Quelle hormone domine la phase proliférative ?', answer: 'Les œstrogènes.' },
+  { question: 'Que provoque la progestérone dans la phase sécrétoire (J15-J28) ?', answer: 'Transformation glandulaire, sécrétion, “dentelle utérine”, œdème du chorion.' },
+  { question: 'Quand le chorion présente-t-il un œdème maximal ?', answer: 'Vers le 21e jour du cycle.' },
+  { question: 'Que devient l’endomètre en phase sécrétoire ?', answer: 'Glandes longues et sinueuses, glycogène du pôle basal vers le pôle apical.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

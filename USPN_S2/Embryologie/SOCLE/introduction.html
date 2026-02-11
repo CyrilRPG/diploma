@@ -1,0 +1,775 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Embryologie</h1><h2>SOCLE - Introduction à l'embryologie</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-100%); opacity: 0; }
+  }
+
+  @keyframes slideRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelles sont les 3 grandes étapes du développement embryonnaire ?', answer: 'Embryogenèse, organogenèse, morphogenèse.' },
+{ question: 'Quels sont les différents plans de coupe utilisés en anatomie embryonnaire ?', answer: 'Frontal, sagittal et transversal.' },
+{ question: 'Quels sont les axes que contient la coupe sagittale ?', answer: 'Dorso-ventral et antéro-postérieur.' },
+{ question: 'Quels sont les axes que contient la coupe transversale ?', answer: 'Dorso-ventral et droite-gauche.' },
+{ question: 'Quels sont les axes que contient la coupe frontale ?', answer: 'Antéro-postérieur et droite-gauche.' },
+{ question: 'Quelles sont les étapes qui encadrent l\'embryogenèse ?', answer: 'De la fécondation à la fin de la gastrulation.' },
+{ question: 'Quelles sont les deux étapes de la morphogenèse ?', answer: 'Délimitation de l\'embryon et acquisition de la morphologie humaine.' },
+{ question: 'Sous quelle forme apparaît l\'embryon au bout de la 2ème semaine de développement ?', answer: 'Sous la forme d\'un feuillet didermique.' },
+{ question: 'Qu\'est-ce que la gamétogenèse ?', answer: 'Processus de formation des gamètes (spermatozoïdes et ovocytes).' },
+{ question: 'Comment s\'appelle la gamétogenèse mâle ?', answer: 'La spermatogenèse.' },
+{ question: 'Comment s\'appelle la gamétogenèse femelle ?', answer: 'L\'ovogenèse.' },
+{ question: 'Quel est le résultat de la fécondation ?', answer: 'Un zygote diploïde.' },
+{ question: 'Quel est le caryotype du zygote ?', answer: '46 chromosomes.' },
+{ question: 'À partir de quelles cellules débute la gamétogenèse ?', answer: 'Des gonocytes primordiaux.' },
+{ question: 'Quand apparaissent les cellules germinales primordiales ?', answer: '2ème semaine de développement.' },
+{ question: 'Quand migrent les gonocytes primordiaux vers les gonades ?', answer: '4ème semaine de développement.' },
+{ question: 'Quelle division subissent les gonocytes primordiaux avant la méiose ?', answer: 'Des mitoses.' },
+{ question: 'Quel gène influence la différenciation testiculaire ?', answer: 'Le gène SRY.' },
+{ question: 'Que deviennent les gonades indifférenciées avec le gène SRY ?', answer: 'Des testicules.' },
+{ question: 'Que deviennent les gonades indifférenciées sans gène SRY ?', answer: 'Des ovaires.' },
+{ question: 'Quand débute la méiose dans le testicule ?', answer: 'À la puberté.' },
+{ question: 'Quand débute la méiose dans l\'ovaire ?', answer: 'Avant la naissance.' },
+{ question: 'À quel stade sont bloqués les ovocytes avant la naissance ?', answer: 'Fin de prophase I.' },
+{ question: 'Dans quel follicule se bloque l\'ovocyte I avant la puberté ?', answer: 'Dans le follicule primordial.' },
+{ question: 'Quelles cellules entrent en méiose chez l\'homme ?', answer: 'Spermatocytes I.' },
+{ question: 'Quelles cellules entrent en méiose chez la femme ?', answer: 'Ovocytes I.' },
+{ question: 'Combien de divisions comporte la méiose ?', answer: 'Deux divisions successives.' },
+{ question: 'Combien de phases S y a-t-il dans la méiose ?', answer: 'Une seule, avant la méiose I.' },
+{ question: 'Quel est le rôle principal de la méiose I ?', answer: 'Réduction du nombre de chromosomes.' },
+{ question: 'Quel est le rôle principal de la méiose II ?', answer: 'Séparation des chromatides sœurs.' },
+{ question: 'Combien de cellules haploïdes sont issues d\'une méiose ?', answer: 'Quatre.' },
+{ question: 'Que se passe-t-il au stade leptotène ?', answer: 'Apparition de chromosomes filiformes.' },
+{ question: 'Que se passe-t-il au stade zygotène ?', answer: 'Synapsis et début du complexe synaptonémal.' },
+{ question: 'Que se passe-t-il au stade pachytène ?', answer: 'Crossing-over et formation de tétrades.' },
+{ question: 'Quelle est la phase la plus longue de la prophase I ?', answer: 'Le pachytène.' },
+{ question: 'Qu\'est-ce qu\'un chiasma ?', answer: 'Zone de crossing-over.' },
+{ question: 'Que se passe-t-il au stade diplotène ?', answer: 'Séparation des chromosomes sauf au niveau des chiasmas.' },
+{ question: 'Que se passe-t-il au stade diacinèse ?', answer: 'Condensation maximale et disparition de l\'enveloppe nucléaire.' },
+{ question: 'Que se passe-t-il en métaphase I ?', answer: 'Alignement aléatoire des bivalents.' },
+{ question: 'Que se passe-t-il en anaphase I ?', answer: 'Ségrégation aléatoire des chromosomes homologues.' },
+{ question: 'Que se passe-t-il en télophase I ?', answer: 'Formation de deux cellules haploïdes à 2 chromatides.' },
+{ question: 'Combien de chromatides par chromosome après la télophase I ?', answer: 'Deux.' },
+{ question: 'Combien de chromatides par chromosome après la télophase II ?', answer: 'Une.' },
+{ question: 'Que se passe-t-il en prophase II ?', answer: 'Formation du fuseau mitotique.' },
+{ question: 'Que se passe-t-il en métaphase II ?', answer: 'Alignement des centromères sur la plaque équatoriale.' },
+{ question: 'Que se passe-t-il en anaphase II ?', answer: 'Séparation des chromatides sœurs.' },
+{ question: 'Que se passe-t-il en télophase II ?', answer: 'Formation de 4 cellules haploïdes.' },
+{ question: 'Quel est l\'état génétique après méiose I ?', answer: 'n chromosomes, 2 chromatides, 2C ADN.' },
+{ question: 'Quel est l\'état génétique après méiose II ?', answer: 'n chromosomes, 1 chromatide, C ADN.' },
+{ question: 'Quel brassage est lié au crossing-over ?', answer: 'Brassage intrachromosomique.' },
+{ question: 'Quel brassage est lié à l\'orientation aléatoire des chromosomes homologues ?', answer: 'Brassage interchromosomique.' },
+{ question: 'Qu\'est-ce qu\'un bivalent ?', answer: 'Appariement de deux chromosomes homologues.' },
+{ question: 'Qu\'est-ce qu\'une tétrade ?', answer: 'Ensemble de 4 chromatides homologues appariées.' },
+{ question: 'À quel stade se forment les chiasmas ?', answer: 'Pachytène.' },
+{ question: 'Quelle méiose est dite réductionnelle ?', answer: 'Méiose I.' },
+{ question: 'Quelle méiose est dite équationnelle ?', answer: 'Méiose II.' },
+{ question: 'Combien de divisions de maturation pour un ovocyte ?', answer: 'Deux.' },
+{ question: 'Combien de gamètes fonctionnels à partir d\'un spermatocyte I ?', answer: 'Quatre spermatozoïdes.' },
+{ question: 'Combien de gamètes fonctionnels à partir d\'un ovocyte I ?', answer: 'Un ovocyte II fécondable.' },
+{ question: 'Qu\'est-ce que la vésicule sexuelle ?', answer: 'Appariement inactif des chromosomes X et Y.' },
+{ question: 'À quel stade disparaît la vésicule sexuelle ?', answer: 'Diplotène.' },
+{ question: 'Quelle cellule est bloquée jusqu\'à la puberté chez l\'homme ?', answer: 'Pro-spermatogonies.' },
+{ question: 'Quelle cellule est bloquée jusqu\'à l\'ovulation chez la femme ?', answer: 'Ovocyte I.' },
+{ question: 'Quand l\'ovocyte II termine-t-il la méiose II ?', answer: 'Après fécondation.' },
+{ question: 'Quelle étape de développement dure 9 mois ?', answer: 'L\'embryogenèse + fœtogenèse.' },
+{ question: 'Combien de semaines de grossesse durent 9 mois ?', answer: '39 semaines.' },
+{ question: 'Combien de semaines d\'aménorrhée durent 9 mois ?', answer: '41 semaines.' },
+{ question: 'Quand l\'embryon devient-il un fœtus ?', answer: 'Fin du 2ème mois.' },
+{ question: 'Quelle est la durée de la période embryonnaire ?', answer: '2 premiers mois.' },
+{ question: 'Quelle est la durée de la période fœtale ?', answer: 'Du 3ème au 9ème mois.' },
+{ question: 'Quels sont les 3 feuillets de l\'embryon tridermique ?', answer: 'Ectoblaste, mésoblaste, endoblaste.' },
+{ question: 'Quel événement correspond à la gastrulation ?', answer: 'Formation des 3 feuillets.' },
+{ question: 'Quel événement correspond à la neurulation ?', answer: 'Formation du tube neural.' },
+{ question: 'Quel événement correspond à l\'organogenèse ?', answer: 'Formation des ébauches d\'organes.' },
+{ question: 'Quel événement correspond à la morphogenèse ?', answer: 'Acquisition de la morphologie humaine.' },
+{ question: 'Quand a lieu la délimitation de l\'embryon ?', answer: '4ème semaine.' },
+{ question: 'Combien de cellules filles issues d\'une mitose ?', answer: 'Deux.' },
+{ question: 'Combien de cellules filles issues d\'une méiose ?', answer: 'Quatre.' },
+{ question: 'Quel est le contenu génétique d\'une cellule somatique ?', answer: '2n chromosomes.' },
+{ question: 'Quel est le contenu génétique d\'une cellule germinale mature ?', answer: 'n chromosomes.' },
+{ question: 'Combien de centromères a une chromatide ?', answer: 'Un.' },
+{ question: 'Combien de chromatides a un chromosome en phase G1 ?', answer: 'Une.' },
+{ question: 'Combien de chromatides a un chromosome après phase S ?', answer: 'Deux.' },
+{ question: 'À quel stade les centrioles migrent-ils aux pôles opposés ?', answer: 'Leptotène/zygotène.' },
+{ question: 'Quelle est la différence entre ovogenèse et spermatogenèse ?', answer: 'Ovogenèse : un seul gamète ; spermatogenèse : quatre gamètes.' },
+{ question: 'Quel est le devenir de l\'ovocyte bloqué au stade diplotène ?', answer: 'Reprise à la puberté.' },
+{ question: 'Quelle est la conséquence du crossing-over ?', answer: 'Recombinaison génétique.' },
+{ question: 'Quelle est la conséquence de la ségrégation aléatoire ?', answer: 'Diversité génétique.' },
+{ question: 'Quelle division produit des cellules identiques à la mère ?', answer: 'La mitose (pas la méiose).' },
+{ question: 'Combien de chiasmas en moyenne par paire de chromosomes ?', answer: 'Au moins un.' },
+{ question: 'Qu\'est-ce qui permet la séparation des chromatides sœurs et durant quelle phase ?', answer: 'Le centromère en anaphase II.' },
+{ question: 'Combien de cycles de divisions pour obtenir un spermatide ?', answer: 'Deux divisions méiotiques.' },
+{ question: 'Combien de cycles de divisions pour obtenir un ovocyte mature ?', answer: 'Deux divisions méiotiques (incomplètes).' },
+{ question: 'Quelle cellule est fécondée ?', answer: 'L\'ovocyte II bloqué en métaphase II.' },
+{ question: 'Combien de cellules haploïdes à l\'issue de la spermatogenèse ?', answer: '4.' },
+{ question: 'Combien de cellules haploïdes à l\'issue de l\'ovogenèse ?', answer: '1 ovocyte + 2 globules polaires.' },
+{ question: 'Que signifie 2C en ADN ?', answer: 'Quantité d\'ADN double.' },
+{ question: 'Que signifie 4C en ADN ?', answer: 'Quantité d\'ADN quadruple après réplication.' },
+{ question: 'Quand a lieu la réplication de l\'ADN avant la méiose ?', answer: 'Phase S pré-leptotène.' },
+{ question: 'Combien de fois y a-t-il de réplication au cours de la méiose ?', answer: 'Une fois avant la méiose I (pas avant la méiose II).' },
+{ question: 'À quel stade disparaît l\'enveloppe nucléaire en méiose I ?', answer: 'Diacinèse.' },
+{ question: 'À quel stade disparaît l\'enveloppe nucléaire en méiose II ?', answer: 'Prophase II.' },
+{ question: 'Quel est le rôle des microtubules du fuseau ?', answer: 'Séparer chromosomes et chromatides.' },
+{ question: 'Quelle est la cellule germinale féminine diploïde avant méiose ?', answer: 'Ovocyte I.' },
+{ question: 'Quelle est la cellule germinale masculine diploïde avant méiose ?', answer: 'Spermatocyte I.' },
+{ question: 'Quelle division réduit le nombre de chromosomes de moitié ?', answer: 'Méiose I.' },
+{ question: 'Quelle division conserve le nombre de chromosomes mais divise l\'ADN par 2 ?', answer: 'Méiose II.' },
+{ question: 'À quel moment apparaît l\'embryon et le fœtus ?', answer: 'Embryon : 2ème semaine de grossesse ; Fœtus : fin du 2ème mois.' },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

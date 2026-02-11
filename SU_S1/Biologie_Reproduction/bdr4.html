@@ -1,0 +1,1046 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie de la reproduction</h1><h2>Ovogenèse</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quels sont les deux phénomènes étroitement liés en reproduction féminine ?', answer: 'L’ovogenèse et la folliculogenèse.' },
+  { question: 'Que décrit la folliculogenèse ?', answer: 'Le développement des follicules du stade primordial jusqu’à la libération d’un ovocyte mature.' },
+  { question: 'Que décrit l’ovogenèse ?', answer: 'Le développement des ovocytes.' },
+  { question: 'De quoi dépendent ovogenèse et folliculogenèse ?', answer: 'Du contrôle de l’axe hypothalamo-hypophysaire et de facteurs locaux.' },
+  { question: 'Qu’est-ce qui constitue un follicule ?', answer: 'Un ovocyte entouré de cellules folliculaires.' },
+  { question: 'Quel est l’objectif général de l’ovogenèse ?', answer: 'Obtenir un ovocyte mature de qualité.' },
+  { question: 'À quel stade est bloqué l’ovocyte mature ?', answer: 'En métaphase de deuxième division de méiose.' },
+  { question: 'De quoi est entouré l’ovocyte mature ?', answer: 'De la zone pellucide et séparé d’elle par l’espace périvitellin contenant le globule polaire.' },
+  { question: 'Qu’est-ce que le follicule primordial ?', answer: 'Un follicule immature contenant un ovocyte.' },
+  { question: 'Que devient le follicule après ovulation en absence de grossesse ?', answer: 'Le corps jaune régresse en corps blanc.' },
+  { question: 'Quelles cellules entourent l’ovocyte dans le follicule ?', answer: 'Les cellules de la granulosa (péri-ovocytaires), et les cellules de la thèque interne et externe.' },
+  { question: 'Quand débute l’ovogenèse ?', answer: 'Durant la vie fœtale, liée à la multiplication des cellules germinales primordiales.' },
+  { question: 'L’ovogenèse est-elle continue ou discontinue ?', answer: 'Discontinue.' },
+  { question: 'Quels sont les deux blocages successifs de l’ovocyte ?', answer: 'En prophase I (diplotène) et en métaphase II.' },
+  { question: 'Que deviennent les gonocytes dès la 5e semaine de développement ?', answer: 'Ils envahissent les gonades et deviennent des ovogonies.' },
+  { question: 'À partir de quel moment les ovogonies entrent-elles en méiose ?', answer: 'Vers le 3e mois de vie embryonnaire.' },
+  { question: 'Quel est le stade du premier blocage méiotique ?', answer: 'Prophase I, stade diplotène.' },
+  { question: 'Comment s’appelle l’enveloppe nucléaire de l’ovocyte I ?', answer: 'La vésicule germinative.' },
+  { question: 'Quel est le nombre maximal d’ovocytes en vie fœtale ?', answer: '3 à 7 millions au 7e mois.' },
+  { question: 'Quand l’ovogenèse reprend-elle ?', answer: 'À la puberté.' },
+  { question: 'Quel est l’effet du pic de LH sur l’ovocyte ?', answer: 'Reprise de la méiose, 1re division, expulsion du premier globule polaire.' },
+  { question: 'À quel stade l’ovocyte II est-il bloqué ?', answer: 'En métaphase II.' },
+  { question: 'Quand se termine la méiose ?', answer: 'Uniquement en cas de fécondation.' },
+  { question: 'Que produit l’achèvement de la méiose après fécondation ?', answer: 'Un deuxième globule polaire et un zygote.' },
+  { question: 'Quel est le rôle unique du spermatozoïde pour l’ovocyte ?', answer: 'Permettre à l’ovocyte de terminer sa différenciation.' },
+  { question: 'Quelle est la taille d’un ovocyte mature ?', answer: '120 à 130 µm.' },
+  { question: 'Quelles sont les trois phases de l’ovogenèse ?', answer: 'Multiplication, croissance et maturation.' },
+  { question: 'Quel est le stade obtenu à la fin de la multiplication ?', answer: 'L’ovocyte I bloqué en prophase I.' },
+  { question: 'Quand débute la phase de multiplication ?', answer: 'Dès l’arrivée des CGP dans les gonades.' },
+  { question: 'Quelle est la quantité maximale d’ovogonies au 7e mois ?', answer: '6 à 7 millions.' },
+  { question: 'Quel facteur induit l’entrée en méiose ?', answer: 'L’acide rétinoïque (RA).' },
+  { question: 'Quels facteurs inhibent l’entrée prématurée en méiose ?', answer: 'AMH et NANOS2.' },
+  { question: 'Quelle quantité d’ADN possède un ovocyte I ?', answer: '2N chromosomes, 4q d’ADN au total.' },
+  { question: 'Comment se forment les follicules primordiaux ?', answer: 'Association d’un ovocyte I et d’une couche de cellules folliculaires aplaties.' },
+  { question: 'Quand débute la croissance ovocytaire ?', answer: 'Après la naissance.' },
+  { question: 'Quelle est la taille de l’ovocyte en début et fin de croissance ?', answer: '30 µm dans le follicule primordial et 120 µm avant le pic de LH.' },
+  { question: 'Quelles sont les deux compétences acquises par l’ovocyte ?', answer: 'Compétence à reprendre la méiose et compétence au développement.' },
+  { question: 'De quoi dépend la reprise de la méiose ?', answer: 'Diminution d’AMPc, dégradation des jonctions GAP, diminution d’OMI.' },
+  { question: 'Quel événement déclenche la reprise de la méiose ?', answer: 'Le pic de LH.' },
+  { question: 'Quel rôle ont MAS et MPF ?', answer: 'Activer la méiose.' },
+  { question: 'Quel ion intracellulaire participe à la reprise méiotique ?', answer: 'Le calcium.' },
+  { question: 'Combien d’heures après le pic de LH commence la maturation ?', answer: '15 heures.' },
+  { question: 'Quelles sont les trois maturations nécessaires pour rendre l’ovocyte fécondable ?', answer: 'Maturation nucléaire, cytoplasmique, membranaire.' },
+  { question: 'Qu’est-ce que la GVBD ?', answer: 'La rupture de la vésicule germinative.' },
+  { question: 'Quand survient l’expulsion du premier globule polaire ?', answer: 'Environ 20h après le pic de LH.' },
+  { question: 'Quel facteur maintient le blocage en métaphase II ?', answer: 'Le CSF (Cytostatic Factor).' },
+  { question: 'Comment le CSF est-il dégradé ?', answer: 'Par une libération de Ca²⁺ lors de la fécondation.' },
+  { question: 'Qu’est-ce que la maturation cytoplasmique ?', answer: 'Accumulation d’ARN, de protéines, réorganisation des organites.' },
+  { question: 'Quelles protéines spécifiques sont synthétisées durant la maturation cytoplasmique ?', answer: 'ZP1, ZP2, ZP3 et protéines du cycle cellulaire.' },
+  { question: 'Quel est le rôle des granules corticaux ?', answer: 'Prévenir la polyspermie.' },
+  { question: 'Quelles modifications inclut la maturation membranaire ?', answer: 'Réorganisation des récepteurs (intégrines, CD9, Juno) et des lipides membranaires.' },
+  { question: 'Quelles sont les caractéristiques de l’ovocyte II mature ?', answer: 'Cellule spécialisée, rare, capable de fusion et d’initier le développement embryonnaire.' },
+  { question: 'Quelle est la quantité d’ADN d’un ovocyte II ?', answer: 'N chromosomes, 2 quantités d’ADN.' },
+  { question: 'Où a lieu la folliculogenèse ?', answer: 'Dans le cortex ovarien.' },
+  { question: 'Quand débute la folliculogenèse ?', answer: 'En fin de phase de multiplication fœtale.' },
+  { question: 'Combien d’ovulations ont lieu entre puberté et ménopause ?', answer: 'Environ 300 à 400.' },
+  { question: 'Quel est le nombre de follicules à la naissance ?', answer: 'Environ 1 million.' },
+  { question: 'Combien reste-t-il de follicules à la puberté ?', answer: 'Environ 300 000.' },
+  { question: 'Combien reste-t-il de follicules à la ménopause ?', answer: 'Moins de 1000.' },
+  { question: 'Quelle est l’évolution d’un follicule primordial ?', answer: 'Follicule primaire, secondaire, tertiaire, pré-ovulatoire, corps jaune, corps blanc.' },
+  { question: 'Quel est le diamètre d’un follicule secondaire ?', answer: '80 à 180 µm.' },
+  { question: 'Quelle est la taille de l’ovocyte dans un follicule secondaire ?', answer: '40 à 60 µm.' },
+  { question: 'Qu’est-ce qui devient bien visible dans le follicule secondaire ?', answer: 'L’épaisseur de la zone pellucide.' },
+  { question: 'Combien de couches de cellules de granulosa a un follicule secondaire ?', answer: '3 à 4 couches de cellules péri-ovocytaires cubiques.' },
+  { question: 'Quelle structure se forme dans le stroma autour d’un follicule secondaire ?', answer: 'La thèque interne.' },
+  { question: 'Quelle caractéristique ont les cellules de la thèque interne ?', answer: 'Des caractéristiques cytologiques de cellules sécrétrices de stéroïdes.' },
+  { question: 'Quel est le diamètre d’un follicule tertiaire ?', answer: 'De 180 µm à quelques mm.' },
+  { question: 'Qu’est-ce que l’antrum ?', answer: 'Une cavité issue de la confluence de plusieurs petites cavités contenant du liquide folliculaire.' },
+  { question: 'Comment est positionné l’ovocyte dans un follicule tertiaire ?', answer: 'Refoulé en périphérie, au pôle du follicule.' },
+  { question: 'Comment s’appelle la couche de granulosa entourant l’ovocyte dans un follicule tertiaire ?', answer: 'La corona radiata.' },
+  { question: 'Que sécrète la thèque interne dans un follicule tertiaire ?', answer: 'Des œstrogènes.' },
+  { question: 'Quel est le rôle de la thèque externe ?', answer: 'Assurer un conjonctif de soutien.' },
+  { question: 'Ces follicules tertiaires sont-ils visibles en échographie ?', answer: 'Oui.' },
+  { question: 'Quel est le diamètre du follicule de De Graaf ?', answer: 'Environ 20 mm.' },
+  { question: 'Où se situe le follicule de De Graaf ?', answer: 'Il fait saillie à la surface de l’ovaire.' },
+  { question: 'Qu’est-ce qui augmente le volume de la cavité antrale dans le follicule pré-ovulatoire ?', answer: 'L’accumulation de liquide folliculaire.' },
+  { question: 'Quel est le diamètre de l’ovocyte dans le follicule pré-ovulatoire ?', answer: '120 à 150 µm.' },
+  { question: 'Quelle est la couche de granulosa immédiatement autour de l’ovocyte ?', answer: 'La corona radiata.' },
+  { question: 'Qu’est-ce que le cumulus oophorus ?', answer: 'La structure reliant la corona radiata à la granulosa.' },
+  { question: 'Quels types de thèques persistent dans le follicule de Graaf ?', answer: 'Thèque interne et thèque externe.' },
+  { question: 'Comment définir l’ovulation ?', answer: 'La sortie de l’ovocyte secondaire hors du follicule.' },
+  { question: 'Que contient l’ovocyte expulsé lors de l’ovulation ?', answer: 'L’ovocyte II entouré de la corona radiata et du cumulus oophorus.' },
+  { question: 'Qui capte l’ovocyte après l’ovulation ?', answer: 'Le pavillon de la trompe utérine.' },
+  { question: 'Quel événement hormonal précède l’ovulation ?', answer: 'Le pic de LH et FSH.' },
+  { question: 'Quel est l’effet du pic de LH sur l’ovocyte ?', answer: 'Reprise de la méiose.' },
+  { question: 'Quelles cellules sécrètent des mucopolysaccharides juste avant l’ovulation ?', answer: 'Les cellules du cumulus oophorus.' },
+  { question: 'Quel changement vasculaire se produit avant l’ovulation ?', answer: 'Vascularisation renforcée autour du follicule.' },
+  { question: 'Combien d’heures après la décharge ovulante la rupture folliculaire se produit-elle ?', answer: '36 heures.' },
+  { question: 'Quelle molécule sécrétée par la granulosa joue un rôle dans la rupture folliculaire ?', answer: 'L’acide hyaluronique.' },
+  { question: 'Qu’est-ce que le stigma ?', answer: 'Un point blanc comprimant les vaisseaux à la surface de l’ovaire avant la rupture.' },
+  { question: 'En quoi se transforme le follicule après l’ovulation ?', answer: 'En corps jaune.' },
+  { question: 'Quel rôle joue la LH dans la formation du corps jaune ?', answer: 'Elle induit une invasion vasculaire et la transformation des cellules folliculaires.' },
+  { question: 'En quoi se transforment les cellules de la granulosa après l’ovulation ?', answer: 'En cellules lutéales sécrétrices de progestérone.' },
+  { question: 'En quoi se transforment les cellules de la thèque interne après l’ovulation ?', answer: 'En cellules paralutéales sécrétrices d’œstrogènes.' },
+  { question: 'Que devient le corps jaune si l’ovocyte n’est pas fécondé ?', answer: 'Il subit une atrophie et devient un corpus albicans.' },
+  { question: 'Que devient le corps jaune en cas de grossesse ?', answer: 'Il se maintient comme corps jaune gestatif.' },
+  { question: 'Quel est le destin le plus fréquent des follicules ?', answer: 'L’atrésie folliculaire.' },
+  { question: 'À quel stade l’atrésie peut-elle survenir ?', answer: 'À tous les stades du développement folliculaire.' },
+  { question: 'Quel élément dégénère en premier lors de l’atrésie ?', answer: 'L’ovocyte.' },
+  { question: 'La folliculogenèse est-elle continue ou discontinue ?', answer: 'Continue.' },
+  { question: 'Quand la croissance folliculaire commence-t-elle par rapport à l’ovulation ?', answer: 'Environ 5 mois avant.' },
+  { question: 'Quelle portion de la folliculogenèse est cyclique ?', answer: 'Les 15 derniers jours.' },
+  { question: 'Quels phénomènes sont indépendants des gonadotrophines ?', answer: 'Quiescence et croissance folliculaire de base.' },
+  { question: 'Quels phénomènes sont dépendants des gonadotrophines ?', answer: 'Recrutement, sélection, dominance.' },
+  { question: 'Qu’est-ce que la quiescence folliculaire ?', answer: 'Le pool des follicules primordiaux constituant la réserve ovarienne.' },
+  { question: 'Combien de follicules restent à la ménopause ?', answer: 'Quelques dizaines à 1000.' },
+  { question: 'Qu’est-ce que la croissance folliculaire de base ?', answer: 'Passage du follicule primordial à primaire, puis secondaire, puis préantral sans gonadotrophines.' },
+  { question: 'Quelle est la durée de la croissance folliculaire de base ?', answer: 'Plusieurs mois.' },
+  { question: 'Quels types de facteurs contrôlent la croissance de base ?', answer: 'Des phénomènes paracrines et autocrines.' },
+  { question: 'Qu’est-ce que la croissance terminale ?', answer: 'La phase préovulatoire des 15 derniers jours dépendante des gonadotrophines.' },
+  { question: 'Qu’est-ce que le recrutement folliculaire ?', answer: 'L’entrée en croissance d’une cohorte de follicules sensibles à la FSH en fin de phase lutéale.' },
+  { question: 'Combien de follicules sont recrutés par cohorte ?', answer: '10 à 20.' },
+  { question: 'Qu’est-ce que la sélection folliculaire ?', answer: 'Le choix du follicule ayant le seuil de réponse le plus bas à la FSH.' },
+  { question: 'Pourquoi un seul follicule est-il sélectionné chez l’humain ?', answer: 'Parce que l’espèce humaine est mono-ovulante.' },
+  { question: 'Qu’est-ce que la dominance folliculaire ?', answer: 'La maturation du follicule sélectionné et l’inhibition des autres.' },
+  { question: 'Quel récepteur les cellules de la granulosa expriment-elles avant l’ovulation ?', answer: 'Le récepteur de la LH.' },
+  { question: 'Quelles sont les deux phases du cycle ovarien ?', answer: 'Phase folliculaire (œstrogénique) et phase lutéale (progestative).' },
+  { question: 'Quelle hormone hypothalamique contrôle la sécrétion de FSH et LH ?', answer: 'La GnRH.' },
+  { question: 'Comment varie la FSH dans le cycle ?', answer: 'Augmente début phase folliculaire, diminue, remonte avant ovulation, puis baisse en phase lutéale.' },
+  { question: 'Quel événement dépend du pic de LH ?', answer: 'L’ovulation.' },
+  { question: 'Sur quelles cellules agit la FSH ?', answer: 'Les cellules de la granulosa.' },
+  { question: 'Sur quelles cellules agit la LH en début de phase folliculaire ?', answer: 'Les cellules de la thèque interne.' },
+  { question: 'Que produisent les cellules de la thèque interne en réponse à la LH ?', answer: 'Des androgènes.' },
+  { question: 'Que produisent les cellules de la granulosa en réponse à la FSH ?', answer: 'Des œstrogènes et de l’inhibine.' },
+  { question: 'Comment évoluent les œstrogènes durant la phase folliculaire ?', answer: 'Ils augmentent progressivement jusqu’à un maximum au 12e jour.' },
+  { question: 'Quand apparaît la progestérone ?', answer: 'Après l’ovulation, sécrétée par le corps jaune.' },
+  { question: 'Quel rétrocontrôle exercent œstrogènes et inhibine en première partie de cycle ?', answer: 'Un rétrocontrôle négatif sur la FSH.' },
+  { question: 'Quel phénomène déclenche le rétrocontrôle positif ?', answer: 'Une imprégnation d’œstradiol élevée pendant 48 heures.' },
+  { question: 'Quels pics hormonaux résultent du rétrocontrôle positif ?', answer: 'Les pics de LH et FSH.' },
+  { question: 'Quel est l’effet de la progestérone en phase lutéale ?', answer: 'Inhiber l’axe hypothalamo-hypophysaire.' },
+  { question: 'Quel est le rôle principal de la FSH dans la folliculogenèse ?', answer: 'Recrutement et croissance folliculaire.' },
+  { question: 'Quel paramètre déclenche la dominance et l’atrésie des autres follicules ?', answer: 'Le seuil de rétrocontrôle négatif par E2 et inhibine.' },
+  { question: 'Que provoque la LH ?', answer: 'L’ovulation et la synthèse de progestérone.' },
+  { question: 'Jusqu’où évoluent les follicules durant l’enfance ?', answer: 'Jusqu’aux stades pré-antral ou antral précoce.' },
+  { question: 'Pourquoi la ménopause survient-elle ?', answer: 'Parce que le nombre de follicules descend sous un seuil critique (~1000).' },
+  { question: 'Quelle modification thermique suit l’ovulation ?', answer: 'Une augmentation de la température due à la progestérone.' },
+  { question: 'Que reflète l’AMH ?', answer: 'La réserve ovarienne.' },
+  { question: 'Quel est le dosage hormonal mesuré au 20e jour du cycle ?', answer: 'Le taux de progestérone.' },
+  { question: 'Quel est le but de la stimulation ovarienne en AMP ?', answer: 'Obtenir plusieurs ovocytes matures.' },
+  { question: 'Comment évite-t-on les pics prématurés de FSH et LH en FIV ?', answer: 'Par antagonistes de la GnRH ou GnRH en continu.' },
+  { question: 'Comment crée-t-on artificiellement un pic de LH en FIV ?', answer: 'Avec un analogue de la LH.' },
+  { question: 'Quel est le nombre normal d’ovocytes ovulés chez l’humain ?', answer: 'Un seul (mono-ovulant).' },
+  { question: 'Qu’indique la présence de deux ovocytes ovulés ?', answer: 'La possibilité de faux jumeaux.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

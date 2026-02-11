@@ -1,0 +1,1222 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Chromatine et organisation fonctionnelle du noyau</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quel est le point de départ de la condensation de l’ADN ?", answer: "La phosphorylation de l’histone H1 en prophase", },
+{ question: "À quoi correspond la condensation de l’ADN ?", answer: "À l’association de la molécule d’ADN avec des protéines histones", },
+{ question: "Quand débute la condensation de l’ADN ?", answer: "Immédiatement après la phase de réplication de l’ADN", },
+{ question: "Combien de temps dure la condensation de l’ADN ?", answer: "Pendant toute la phase G2", },
+{ question: "À quelles 3 réactions chimiques est liée la condensation de l’ADN ?", answer: "Acétylation, méthylation, phosphorylation", },
+{ question: "Quel est le rôle de la condensation de l’ADN ?", answer: "Permet l’empaquetage du matériel génétique dans le noyau", },
+{ question: "Quelle est la taille du plus petit chromosome chez l’Homme ?", answer: "Environ 4×10⁶ paires de bases, soit environ 14 cm", },
+{ question: "Quel est l’ordre de condensation de l’ADN ?", answer: "De l’ordre de 10 000 fois", },
+{ question: "Combien de familles de protéines sont impliquées dans la compaction ?", answer: "2 familles: nucléosomique et extra-nucléosomique", },
+{ question: "Quelles sont les histones nucléosomiques ?", answer: "H2A, H2B, H3, H4", },
+{ question: "Quelle est la taille des histones nucléosomiques ?", answer: "100 à 200 acides aminés", },
+{ question: "Quel est le poids moléculaire des histones nucléosomiques ?", answer: "10 à 15 kDa", },
+{ question: "Quelle est l’histone extra-nucléosomique ?", answer: "H1", },
+{ question: "Quel est le poids moléculaire de l’histone H1 ?", answer: "21 kDa", },
+{ question: "Les gènes des histones possèdent-ils des introns ?", answer: "Non", },
+{ question: "Quand les histones sont-elles transcrites et traduites ?", answer: "En phase S", },
+{ question: "Les ARNm des histones possèdent-ils une queue polyA ?", answer: "Non", },
+{ question: "À quoi sert la queue polyA normalement ?", answer: "À orienter la machinerie traductionnelle", },
+{ question: "Quels sont les 3 rôles des histones ?", answer: "Compaction de l’ADN, ancrage à l’enveloppe nucléaire, établissement de compartiments nucléaires", },
+{ question: "Où se trouvent les récepteurs aux histones ?", answer: "Sur la membrane interne de l’enveloppe nucléaire", },
+{ question: "Les histones sont-elles conservées au cours de l’évolution ?", answer: "Oui, très conservées", },
+{ question: "Les histones sont-elles présentes chez les bactéries ?", answer: "Non", },
+{ question: "Les histones sont-elles présentes chez les archéobactéries ?", answer: "Oui", },
+{ question: "Combien y a-t-il d’histones par noyau ?", answer: "Plus de 60 millions", },
+{ question: "Quelles histones sont particulièrement conservées ?", answer: "H3 et H4", },
+{ question: "Combien d’acides aminés H4 du thymus de veau et du petit pois ont-ils en commun ?", answer: "102 sur 104", },
+{ question: "En quoi les histones sont-elles riches ?", answer: "En arginine et lysine", },
+{ question: "Pourquoi les histones interagissent-elles avec l’ADN ?", answer: "Parce qu’elles sont chargées positivement, l’ADN étant chargé négativement", },
+{ question: "Quand l’ADN n’est-il pas associé à des histones ?", answer: "Lors de la réplication et de la transcription", },
+{ question: "Quels types de modifications post-traductionnelles affectent les histones ?", answer: "Acétylation, phosphorylation", },
+{ question: "Quelles histones sont acétylées ?", answer: "H1, H2A, H4", },
+{ question: "Quel est l’effet de l’acétylation des histones ?", answer: "Elle favorise la transcription", },
+{ question: "Quelle histone est phosphorylée en mitose ?", answer: "H1", },
+{ question: "Quel est l’effet de la phosphorylation de H1 en mitose ?", answer: "Déclenche la condensation de la chromatine", },
+{ question: "Que se passe-t-il à la fin de la mitose concernant H1 ?", answer: "Déphosphorylation de H1", },
+{ question: "Quelle est l’unité élémentaire de la chromatine ?", answer: "Le nucléosome", },
+{ question: "Combien de paires de bases d’ADN entourent un nucléosome ?", answer: "Un peu plus de 140 pb", },
+{ question: "Combien de tours d’ADN autour de l’octamère d’histones ?", answer: "Environ 1,65 tour", },
+{ question: "De quoi est composé l’octamère du nucléosome ?", answer: "2 exemplaires de H2A, H2B, H3, H4", },
+{ question: "Quelle histone lie les nucléosomes entre eux ?", answer: "H1", },
+{ question: "Quelles molécules interviennent dans la formation du nucléosome ?", answer: "Des molécules chaperonnes", },
+{ question: "Quelle est la longueur typique de l’ADN entre les nucléosomes chez l’Homme ?", answer: "Environ 40 pb", },
+{ question: "Quelle est la longueur d’un nucléosome ?", answer: "14 nm", },
+{ question: "Quel est le diamètre d’un nucléosome ?", answer: "3 nm", },
+{ question: "Les nucléosomes sont-ils placés au hasard ?", answer: "Non, ils sont toujours aux mêmes endroits pour un ADN donné", },
+{ question: "Quel est l’effet de l’acétylation sur la compaction ?", answer: "Diminue la fixation des histones, rendant l’ADN moins compact", },
+{ question: "Qu’est-ce qu’un ADN actif ?", answer: "ADN sous forme de fibres nucléosomiques, accessible à la machinerie", },
+{ question: "Qu’est-ce qu’un ADN inactif ?", answer: "ADN sous forme de solénoïdes, inaccessible à la machinerie", },
+{ question: "Combien de nucléosomes par tour dans un solénoïde ?", answer: "6 nucléosomes", },
+{ question: "Quelles 4 protéines permettent l’activité transcriptionnelle et réplicative ?", answer: "Protéines régulatrices, ARN polymérase, ADN polymérase, topoisomérase", },
+{ question: "Quelle est la forme la plus condensée de l’ADN ?", answer: "Le chromosome métaphasique", },
+{ question: "Quand le chromosome est-il visible ?", answer: "En métaphase", },
+{ question: "Combien de chromosomes chez l’Homme ?", answer: "23 paires", },
+{ question: "Combien de paires d’autosomes ?", answer: "22", },
+{ question: "Combien de chromosomes sexuels ?", answer: "1 paire : XX ou XY", },
+{ question: "Combien de centromères sur un chromosome ?", answer: "1", },
+{ question: "Combien de télomères par chromatide ?", answer: "2", },
+{ question: "Combien d’origines de réplication sur un chromosome ?", answer: "Plusieurs", },
+{ question: "Qu’est-ce que le centromère ?", answer: "Étranglement ou constriction primaire du chromosome", },
+{ question: "Quelle est la nature du centromère ?", answer: "Hétérochromatine constitutive", },
+{ question: "Quels bras le centromère délimite-t-il ?", answer: "Bras court p et bras long q", },
+{ question: "Quel est le rôle du centromère en mitose ?", answer: "Point de fixation des chromosomes sur les microtubules kinétochoriens", },
+{ question: "Quels types de chromosomes selon position du centromère ?", answer: "Métacentrique, submétacentrique, acrocentrique", },
+{ question: "Qu’est-ce qu’un chromosome métacentrique ?", answer: "Centromère médian, bras égaux", },
+{ question: "Qu’est-ce qu’un chromosome submétacentrique ?", answer: "1 bras court et 1 bras long", },
+{ question: "Qu’est-ce qu’un chromosome acrocentrique ?", answer: "Bras courts quasi inexistants", },
+{ question: "Que contient l’ADN centromérique humain ?", answer: "ADN satellite alpha, séquences répétées de 171 pb", },
+{ question: "Quel pourcentage du génome est constitué par l’ADN satellite alpha ?", answer: "5%", },
+{ question: "Quelle est la séquence présente dans tous les centromères ?", answer: "ADN alphoïde", },
+{ question: "Quelle protéine structure l’ADN centromérique ?", answer: "CENP-B", },
+{ question: "Où est localisé l’ADN alphoïde ?", answer: "99% dans le domaine central", },
+{ question: "Quelle séquence contient chaque motif répété ?", answer: "CENP-Box", },
+{ question: "Avec quoi interagit la CENP-Box ?", answer: "Avec le domaine N-terminal de CENP-B", },
+{ question: "Quels sont les 2 types de CENP ?", answer: "Constitutives et transitoires", },
+{ question: "Quelles sont les CENP constitutives ?", answer: "CENP-A, B, C, D, G", },
+{ question: "Quelles sont les CENP transitoires ?", answer: "CENP-E, F, H", },
+{ question: "Quelles sont les 3 fonctions du complexe centromère-kinétochore ?", answer: "Cohésion des chromatides, fixation des MT, déclenchement de l’anaphase", },
+{ question: "Quel est le rôle du centromère dans la division cellulaire ?", answer: "Dernier point d’appariement des chromatides, dernier à être répliqué", },
+{ question: "Où sont localisés les moteurs de migration des chromosomes ?", answer: "Au niveau du centromère", },
+{ question: "Pourquoi le centromère est-il un site privilégié de surveillance ?", answer: "C’est la cible primaire du signal de déclenchement de l’anaphase", },
+{ question: "Qu’est-ce qu’une constriction secondaire ?", answer: "Un étranglement ailleurs qu’au niveau du centromère.", },
+{ question: "Où trouve-t-on des constrictions secondaires ?", answer: "Sur les chromosomes 1, 9 et 16.", },
+{ question: "À quelle région chromosomique sont liées les constrictions secondaires ?", answer: "À l’hétérochromatine.", },
+{ question: "Que codent les gènes présents dans les régions de constriction secondaire ?", answer: "Des ARN entrant dans la constitution des ribosomes.", },
+{ question: "Comment appelle-t-on les régions de constriction secondaire codant les ARN ribosomiques ?", answer: "Les organisateurs nucléolaires.", },
+{ question: "Combien de chromatides possède un chromosome métaphasique ?", answer: "Deux chromatides de 700 nm.", },
+{ question: "Qu’est-ce qu’un télomère ?", answer: "L’extrémité d’un chromosome.", },
+{ question: "Combien de télomères possède un chromosome métaphasique ?", answer: "Quatre, soit deux par chromatide.", },
+{ question: "Quelle est la nature des séquences des télomères ?", answer: "Séquences hautement répétitives d’ADN non codantes, formant de l’hétérochromatine.", },
+{ question: "Quel est le motif télomérique chez les vertébrés ?", answer: "5'TTAGGG3'/3'AATCCC5'.", },
+{ question: "Quelle est la taille moyenne des télomères chez l’homme ?", answer: "15 000 pb.", },
+{ question: "Quelle est la plage de longueur possible des télomères chez l’homme ?", answer: "De 5 000 à 20 000 pb.", },
+{ question: "À quoi est liée la durée de vie d’une cellule ?", answer: "À la taille de ses télomères.", },
+{ question: "Comment les télomères se lient-ils à l’enveloppe nucléaire ?", answer: "Par l’intermédiaire de filaments intermédiaires appelés lamines.", },
+{ question: "À quoi d’autre les télomères peuvent-ils se lier ?", answer: "À la matrice nucléaire.", }, 
+{ question: "Pourquoi les télomères sont-ils importants pour la réplication ?", answer: "Ils évitent la perte d’informations génétiques à chaque division cellulaire.", },
+{ question: "Pourquoi l’ADN n’est-il pas complètement répliqué à chaque division ?", answer: "Les enzymes de la réplication ne peuvent recopier les derniers nucléotides.", },
+{ question: "Quel brin est plus long au niveau des télomères ?", answer: "Le brin au motif TTAGGG.", },
+{ question: "Quelle structure adopte le brin long des télomères ?", answer: "Une boucle en épingle à cheveux.", },
+{ question: "Quel est le rôle des télomères face aux nucléases ?", answer: "Ils protègent les terminaisons chromosomiques de la dégradation.", },
+{ question: "Quel est le rôle des télomères lors de la transcription ?", answer: "Ils piègent des facteurs de transcription.", },
+{ question: "Qu’est-ce qu’une télomérase ?", answer: "Une ribonucléoprotéine formée d’ARN et de protéines.", },
+{ question: "Quel est le rôle de la télomérase ?", answer: "Synthétiser et reconstruire les extrémités télomériques perdues.", },
+{ question: "Quel est le type d’enzyme que représente la télomérase ?", answer: "Une transcriptase inverse.", },
+{ question: "Quels brins d’ADN sont fabriqués simultanément lors de la réplication ?", answer: "Le brin continu et le brin discontinu.", },
+{ question: "Pourquoi y a-t-il toujours une extrémité monobrin après réplication ?", answer: "À cause de l’enlèvement de l’amorce ARN la plus externe.", },
+{ question: "Quel brin est prolongé par la télomérase ?", answer: "Le brin riche en G (5'-3').", },
+{ question: "Quel ARN contient la télomérase ?", answer: "Un ARN complémentaire de la séquence à copier servant de matrice.", },
+{ question: "Que deviennent les amorces d’ARN après réplication ?", answer: "Elles sont éliminées, laissant une extrémité raccourcie en 5'.", },
+{ question: "Dans quelles cellules la télomérase est-elle réprimée ?", answer: "Dans la majorité des cellules somatiques.", },
+{ question: "Dans quelles cellules la télomérase est-elle active ?", answer: "Dans les cellules souches et germinales.", },
+{ question: "Quelles sont les conséquences d’une activité télomérasique anormale ?", answer: "Survie cellulaire excessive, cancers, vieillissement précoce, sénescence.", },
+{ question: "Quels types de pathologies sont liés à un défaut de la télomérase ?", answer: "Pathologies cardiovasculaires.", },
+{ question: "Quelles 2 pathologies sont causées par des mutations du gène de la télomérase ?",answer: "Dyskeratose congénitale, fibroses pulmonaires idiopathiques (10% des cas).", },
+{ question: "Quels signes cliniques accompagnent la dyskératose congénitale ?", answer: "Anomalies de la muqueuse buccale et des ongles.", },
+{ question: "Qu’observe-t-on chez des souris surexprimant la télomérase ?", answer: "Une durée de vie augmentée.", },
+{ question: "Combien de divisions peuvent effectuer des fibroblastes en culture ?", answer: "Environ 100 divisions, puis mort cellulaire par perte télomérique.", },
+{ question: "Quelle est la forme majoritaire du génome dans les cellules eucaryotes ?", answer: "La chromatine.", },
+{ question: "Comment est la chromatine pendant la mitose ?", answer: "Sous forme de chromosomes.", },
+{ question: "Quel est l’aspect de la chromatine en microscopie électronique ?", answer: "Fibres nucléosomiques plus ou moins condensées et dispersées.", },
+{ question: "Comment varie l’aspect de la chromatine selon le type cellulaire ?", answer: "Il dépend du type cellulaire et de son activité transcriptionnelle.", },
+{ question: "Qu’indique une chromatine fine en microscopie ?", answer: "Un ADN peu condensé et actif transcriptionnellement.", },
+{ question: "Quel est le rôle de CAF-1 ?", answer: "Protéine chaperonne favorisant l’assemblage du nucléosome après réplication.", },
+{ question: "Quel est le rôle des facteurs de remodelage ATP dépendants ?", answer: "Modifier la structure de la chromatine via des complexes protéiques volumineux.", },
+{ question: "Quelles enzymes modifient les histones ?", answer: "HAT, HDAC, HMT, kinases, phosphatases.", },
+{ question: "Quelle est la conséquence d’une hyperacétylation des histones ?", answer: "Chromatine décondensée, ADN actif, euchromatine.", },
+{ question: "Quelle est la conséquence d’une hypoacétylation des histones ?", answer: "Chromatine condensée, ADN inactif, hétérochromatine.", },
+{ question: "Quel est l’effet de la méthylation sur les histones ?", answer: "Inhibition de la transcription.", },
+{ question: "Quels acides aminés sont concernés par l’acétylation et méthylation ?", answer: "Lysine et arginine.", },
+{ question: "Quels effets ont les corticostéroïdes sur la chromatine ?", answer: "Diminuent l’activité HAT, augmentent HDAC, répriment la transcription.", },
+{ question: "Quels effets a la fumée de cigarette sur la chromatine ?", answer: "Diminue l’activité HAT, augmente l’expression de cytokines inflammatoires.", },
+{ question: "Quel est le niveau de compaction de l’hétérochromatine ?", answer: "Organisation en solénoïdes, très condensée, riche en H1.", },
+{ question: "Quel est le taux d’hétérochromatine chez les mammifères ?", answer: "50% de l’ADN.", },
+{ question: "Quel est le taux d’hétérochromatine chez d’autres espèces ?", answer: "80 à 90% de l’ADN.", },
+{ question: "Comment est l’expression génique de l’hétérochromatine ?", answer: "Faible ou nulle, ADN non transcrit.", },
+{ question: "Quelle est la localisation de l’hétérochromatine ?", answer: "Périphérie du noyau et du nucléole.", },
+{ question: "Quels sont les deux types d’hétérochromatine ?", answer: "Constitutive et facultative.", },
+{ question: "Où trouve-t-on l’ADN satellite ?", answer: "Dans l’hétérochromatine constitutive, près des centromères et télomères.", },
+{ question: "Comment se colore l’hétérochromatine constitutive ?", answer: "Par la technique des bandes C.", },
+{ question: "Qu’est-ce qu’un microsatellite ?", answer: "Une séquence répétée retrouvée ailleurs que dans les centromères.", },
+{ question: "Qu’est-ce que l’hétérochromatine facultative contient ?", answer: "Des séquences LINES et quelques gènes transcrits dans certains types cellulaires.", },
+{ question: "Quelle est la compaction de l’euchromatine ?", answer: "Peu condensée, fibres de 11 nm.", },
+{ question: "L’euchromatine est-elle active ou inactive ?", answer: "Active, transcrite.", },
+{ question: "Quelles molécules code l’euchromatine ?", answer: "ARNm, ARNt, ARNr 5S.", },
+{ question: "Comment se comporte l’euchromatine au cours du cycle cellulaire ?", answer: "Décondensation en interphase, condensation en mitose.", },
+{ question: "Quelle est l’apparence de l’euchromatine au microscope électronique ?", answer: "Claire et fine, faible marquage.", },
+{ question: "L’euchromatine est-elle visible en microscopie optique ?", answer: "Non.", },
+{ question: "Que font les deux sous-unités ribosomiques pendant la lecture de l'ARNm ?", answer: "Elles s’associent pour former le ribosome le temps de la lecture de l’ARNm et se dissocient à la fin de la traduction." },
+{ question: "Que devient un ribosome après la fin d'une traduction ?", answer: "Il peut être réutilisé pour la lecture d’un autre ARNm." },
+{ question: "Combien d'ARNt un ribosome peut-il fixer simultanément ?", answer: "Deux : un dans le site A et l’autre dans le site P." },
+{ question: "Quels éléments structurels du ribosome permettent la sortie du polypeptide et l'entrée des ARNt ?", answer: "Des tunnels et des canaux dans la structure tridimensionnelle du ribosome." },
+{ question: "Quel codon est reconnu par l’ARNt initiateur ?", answer: "Le codon AUG." },
+{ question: "À quoi correspond le codon AUG ?", answer: "À une méthionine." },
+{ question: "Quels sont les deux sites de fixation d’un ARNt ?", answer: "Un site de fixation de l’acide aminé et un site de fixation de l’anticodon." },
+{ question: "Qu’est-ce qu’un polysome ?", answer: "Un ARNm lié à plusieurs ribosomes." },
+{ question: "Combien de polypeptides un ribosome peut-il synthétiser à la fois ?", answer: "Un seul." },
+{ question: "Combien de ribosomes peuvent lire un même ARNm ?", answer: "Plusieurs ribosomes peuvent lire un même ARNm en même temps." },
+{ question: "Pourquoi un ARNm est-il minoritaire dans la cellule ?", answer: "Car il est lu par plusieurs ribosomes." },
+{ question: "Quelle est la proportion des ARNm parmi les ARN totaux ?", answer: "1 à 5 %." },
+{ question: "Où se trouvent les ribosomes libres ?", answer: "Dans le cytosol." },
+{ question: "Quelles protéines sont synthétisées par les ribosomes libres ?", answer: "Les protéines destinées à rester dans le cytosol, aller au noyau, aux mitochondries, aux peroxysomes et aux chloroplastes." },
+{ question: "Où se trouvent les ribosomes liés ?", answer: "À la membrane du réticulum endoplasmique granuleux (REG)." },
+{ question: "Quelles protéines sont synthétisées par les ribosomes liés au REG ?", answer: "Les protéines excrétées, des membranes, et de la voie lysosomale." },
+{ question: "Combien de mécanismes de correction connus empêchent la fixation d’acides aminés incorrects ?", answer: "Au moins 3." },
+{ question: "Quel est le taux d’erreur de la traduction ?", answer: "Environ 10⁻³ à 10⁻⁴." },
+{ question: "Combien d’acides aminés sur 1000 sont incorrectement incorporés ?", answer: "Pas plus de 1." },
+{ question: "Quelle est la cible de la tétracycline ?", answer: "Les cellules procaryotes." },
+{ question: "Quelle est la cible du chloramphénicol ?", answer: "Les cellules procaryotes." },
+{ question: "Quelle est la cible de la puromycine ?", answer: "Les cellules procaryotes et eucaryotes." },
+{ question: "Quelle est la cible du cycloheximide ?", answer: "Les cellules eucaryotes." },
+{ question: "Quel est l’effet moléculaire de la tétracycline ?", answer: "Inhibe la liaison d’aminoacyl-ARNt au site A." },
+{ question: "Quel est l’effet du chloramphénicol ?", answer: "Empêche le positionnement correct de l’aminoacyl-ARNt sur le site A." },
+{ question: "Quel est l’effet de la puromycine ?", answer: "Imite l’extrémité 3’ de l’aminoacyl-ARNt au site A et provoque la dissociation du ribosome." },
+{ question: "Quel est l’effet du cycloheximide ?", answer: "Inhibe l’activité peptidyl-transférase de la sous-unité 60S." },
+{ question: "Qui a découvert le noyau, quand et comment ?", answer: "Mr. Brown en 1831 dans les cellules végétales." },
+{ question: "Qu’a permis la découverte du noyau ?", answer: "Le passage du monde procaryote au monde eucaryote." },
+{ question: "Quelle est l’origine de l’enveloppe nucléaire ?", answer: "Des citernes spécialisées du réticulum endoplasmique rugueux (REG)." },
+{ question: "De quoi est constituée l’enveloppe nucléaire ?", answer: "D’une double membrane d’environ 35 nm en continuité avec le REG." },
+{ question: "Quelle est l’épaisseur des membranes de l’enveloppe nucléaire ?", answer: "7,5 nm." },
+{ question: "Quelle est la composition en protéines et lipides des membranes nucléaires ?", answer: "70 % de protéines et 30 % de lipides." },
+{ question: "Que trouve-t-on sur la face cytosolique de la membrane externe nucléaire ?", answer: "Quelques ribosomes." },
+{ question: "Quelles enzymes trouve-t-on dans la membrane externe ?", answer: "Enzymes de la chaîne de transporteurs d’électrons et glucose 6-phosphatase." },
+{ question: "Quelle est l’épaisseur de l’espace périnucléaire ?", answer: "Irrégulière : 10 à 20 nm." },
+{ question: "Quel est le lien entre l’espace périnucléaire et le REG ?", answer: "Il est en continuité avec les cavités du REG." },
+{ question: "Quelle est la richesse ionique de l’espace périnucléaire ?", answer: "Il est riche en calcium." },
+{ question: "Quelle est la principale voie de passage du calcium vers le nucléoplasme ?", answer: "Par les pores nucléaires." },
+{ question: "Quelle est l’épaisseur de la membrane interne nucléaire ?", answer: "7,5 nm." },
+{ question: "Comment est l’activité enzymatique de la membrane interne comparée à celle de la membrane externe ?", answer: "Moins active enzymatiquement." },
+{ question: "Que contient la membrane interne nucléaire ?", answer: "Des protéines transmembranaires spécifiques : protéines de fixation, récepteurs des lamines, récepteurs des histones et des fibres nucléosomiques." },
+{ question: "Quels types de canaux sont présents dans la membrane interne ?", answer: "Des canaux pour le passage rapide d’ions comme le calcium." },
+{ question: "Quel est le rôle barrière de l’enveloppe nucléaire ?", answer: "Délimite un espace clos entre le cytoplasme et le nucléoplasme au contenu différent." },
+{ question: "Quels échanges sont permis par les pores nucléaires ?", answer: "Échanges de protéines et d’ARNm entre le nucléoplasme et le cytoplasme." },
+{ question: "Quelles fonctions l’enveloppe nucléaire assure-t-elle vis-à-vis de l’ADN ?", answer: "Elle se lie à l’ADN et participe à la réplication et la transcription." },
+{ question: "Où a lieu la traduction ?", answer: "Dans le cytoplasme." },
+{ question: "Quels rôles structuraux assure l’enveloppe nucléaire ?", answer: "Donne une forme au noyau et organise son contenu." },
+{ question: "Quelle est la composition d’un pore nucléaire ?", answer: "Complexe de 120 nm de diamètre, protéines volumineuses chargées positivement, poids moléculaire ≥ 125 millions de daltons." },
+{ question: "Quel est le nom des protéines constituant le pore nucléaire ?", answer: "Nucléoporines." },
+{ question: "À quoi se fixe le pore nucléaire dans la membrane interne ?", answer: "Aux lamines." },
+{ question: "Que permettent les petits canaux latéraux du pore nucléaire ?", answer: "Le passage des molécules selon leur conformation et leur taille." },
+{ question: "Combien y a-t-il de pores nucléaires par cellule active ?", answer: "Entre 3000 et 5000." },
+{ question: "Que se passe-t-il si l’activité transcriptionnelle augmente ?", answer: "Le nombre de pores nucléaires augmente." },
+{ question: "Quelle symétrie présentent les pores nucléaires ?", answer: "Symétrie d'ordre 8." },
+{ question: "Combien d'anneaux présentent les pores nucléaires ?", answer: "3" },
+{ question: "Comment se nomme l’anneau du côté cytoplasmique du pore nucléaire ?", answer: "L’anneau cytosolique ou cytoplasmique." },
+{ question: "Que porte l’anneau cytoplasmique du pore nucléaire ?", answer: "Des filaments cytosoliques perpendiculaires." },
+{ question: "Comment s’appelle l’anneau du côté nucléoplasmique du pore nucléaire ?", answer: "L’anneau nucléaire." },
+{ question: "Outre ces 2 anneaux, quel est le 3ème anneau présent dans les pores nucléaires ?", answer: "Le petit anneau nucléoplasmique." },
+{ question: "A quoi est relié ce 3ème petit anneau ?", answer: "A l'anneau nucléaire et au réseau sous membranaire." },
+{ question: "Quel autre nom donne-t-on au petit anneau nucléoplasmique ?", answer: "Panier nucléaire ou cage." },
+{ question: "Quelle est la structure centrale du pore nucléaire ?", answer: "Un canal hydrophile." },
+{ question: "Combien de bras radiaires relient chaque anneau au canal central ?", answer: "8 bras radiaires par anneau, soit 16 au total." },
+{ question: "Quel autre nom donne-t-on au transporteur central du pore nucléaire ?", answer: "Bouchon central." },
+{ question: "Quel est le rôle des importines dans le passage par le transporteur central ?", answer: "Former un complexe d'importation avec la séquence NLS de la protéine cytosolique." },
+{ question: "Par où les protéines entrent-elles dans le noyau ?", answer: "Par le transporteur central du pore nucléaire." },
+{ question: "Où a lieu la dissociation du complexe importine-protéine ?", answer: "Dans le nucléoplasme." },
+{ question: "Que deviennent les importines après dissociation du complexe ?", answer: "Elles sont recyclées et retournent dans le cytoplasme par le même canal." },
+{ question: "Quelles sont les deux fonctions principales du pore nucléaire ?", answer: "Importation du cytoplasme vers le noyau et exportation du noyau vers le cytoplasme." },
+{ question: "Quel est le besoin en transport dans les cellules de carcinome utérin HeLa ?", answer: "Importer un grand nombre de protéines et exporter des sous-unités ribosomales." },
+{ question: "Combien de protéines ribosomales sont importées dans les cellules HeLa ?", answer: "Plus de 560 000 protéines ribosomales." },
+{ question: "Combien de sous-unités ribosomales sont exportées dans les cellules HeLa ?", answer: "Environ 14 000 sous-unités ribosomales." },
+{ question: "Quel est le rendement du pore nucléaire dans les cellules HeLa ?", answer: "100 protéines ribosomales et 3 ribosomes par minute et par pore." },
+{ question: "Quel type de transport est utilisé pour les molécules de moins de 5 kDa ?", answer: "Transport passif via les canaux latéraux." },
+{ question: "Quel type de transport est utilisé pour les molécules entre 5 et 40 kDa ?", answer: "Transport passif via les canaux latéraux." },
+{ question: "Quel type de transport est utilisé pour les molécules de plus de 40-60 kDa ?", answer: "Transport actif par le transporteur central." },
+{ question: "De quoi dépend la vitesse de passage dans le pore nucléaire pour les grosses molécules ?", answer: "Elle est inversement proportionnelle à leur dimension." },
+{ question: "Quelle est la nature de la séquence NLS ?", answer: "4 à 8 acides aminés chargés positivement riches en lysine, arginine et proline." },
+{ question: "Où peut se situer la séquence NLS sur la protéine ?", answer: "Au début, au milieu ou à la fin de la séquence." },
+{ question: "Quelle est la structure des importines ?", answer: "Deux sous-unités : α et β." },
+{ question: "Quels types de molécules passent grâce à la séquence NLS ?", answer: "Des enzymes de la transcription et de la réplication." },
+{ question: "Quel est le rôle de la séquence NES ?", answer: "Permet la sortie des protéines nucléaires vers le cytoplasme." },
+{ question: "Quels 3 exemples de molécules utilisent la séquence NES ?", answer: "ARNm matures, protéines hnRNP, protéine REV du VIH." },
+{ question: "Comment a été découverte la voie d’exportation nucléaire ?", answer: "Grâce à l’étude du virus VIH." },
+{ question: "Quelle protéine virale du VIH utilise la voie d’exportation nucléaire ?", answer: "La protéine REV." },
+{ question: "Quelles structures composent les lamines nucléaires ?", answer: "Des filaments intermédiaires de 11 nm appelés nucléofilaments." },
+{ question: "Quels sont les deux états des lamines dans le noyau ?", answer: "Libres dans le nucléoplasme ou fixées sur la membrane interne formant la lamina." },
+{ question: "Quels types de lamines existe-t-il chez les mammifères ?", answer: "Lamines A, B et C." },
+{ question: "Quelle lamine est présente dans toutes les cellules ?", answer: "La lamine B." },
+{ question: "Quel est le rôle des lamines ?", answer: "Maintenir la forme du noyau et organiser l’enveloppe nucléaire." },
+{ question: "Que provoque la phosphorylation des lamines A et C en prophase ?", answer: "Leur désassemblage en tétramères et la désorganisation de l’enveloppe nucléaire." },
+{ question: "Que devient la lamine B lors de la mitose ?", answer: "Elle reste associée à la membrane interne." },
+{ question: "Comment se reforme l’enveloppe nucléaire en télophase ?", answer: "Par déphosphorylation des lamines et réassociation des vésicules contenant la lamine B." },
+{ question: "Quel gène est muté dans les laminopathies ?", answer: "Le gène LMNA sur le chromosome 1." },
+{ question: "Quelles lamines sont codées par LMNA ?", answer: "Les lamines A et C." },
+{ question: "Quelle protéine tronquée est produite par certaines mutations de LMNA ?", answer: "La progérine." },
+{ question: "Que fait la progérine dans le noyau ?", answer: "Elle reste ancrée dans la membrane et s’y accumule." },
+{ question: "Quel syndrome est causé par la progérine ?", answer: "La progéria" },
+{ question: "Qu’est-ce que la progéria ?", answer: "Une forme rare de vieillissement prématuré." },
+{ question: "Comment se nomment les réseaux de protéines fibrillaires dans le nucléoplasme ?", answer: "Réseaux fibreux." },
+{ question: "À quoi sont associées les protéines fibrillaires dans le nucléoplasme ?", answer: "Au petit anneau nucléoplasmique du pore nucléaire." },
+{ question: "Quelle protéine nucléaire participe à la reconstitution de l’enveloppe nucléaire ?", answer: "La protéine NUMA." },
+{ question: "Quand la protéine NUMA est-elle présente ?", answer: "En phase G1 du cycle cellulaire." },
+{ question: "Que constitue l’espace entre les amas de chromatine ?", answer: "Le compartiment interchromatinien." },
+{ question: "Que contient le compartiment interchromatinien ?", answer: "Des ribonucléoprotéines (RNP)." },
+{ question: "Quel est le rôle des RNP dans le noyau ?", answer: "Protéger l’ARN des RNAses ou nucléases." },
+{ question: "Quels éléments sont présents dans le compartiment interchromatinien ?", answer: "Grains périchromatiniens, fibrilles périchromatiniennes, groupes de grains interchromatiniens." },
+{ question: "Le nucléole est-il un organite avec membrane ?", answer: "Non, il est sans membrane." },
+{ question: "Quand le nucléole est-il visible ?", answer: "Pendant l’interphase (G1-S-G2)." },
+{ question: "Que se passe-t-il au nucléole en prophase ?", answer: "Il disparaît lors de la condensation des chromosomes." },
+{ question: "Que trouve-t-on dans le centre fibrillaire du nucléole ?", answer: "Des fibres de 5 à 10 nm où se fait la transcription des ARNr sauf 5S." },
+{ question: "Quelle est la protéine impliquée dans la condensation de la chromatine au niveau du nucléole ?", answer: "La nucléoline." },
+{ question: "Quel est le rôle de la nucléoline ?", answer: "Participer à la condensation de la chromatine en se fixant sur l’histone H1." },
+{ question: "Dans quel cas observe-t-on une hypertrophie du nucléole ?", answer: "En cas de synthèse protéique importante." },
+{ question: "Quels événements peuvent modifier le nombre ou la morphologie du nucléole ?", answer: "Intoxications, irradiations, infections virales." },
+{ question: "Quelle modification du nucléole peut survenir lors de pathologies ?", answer: "Vacuolisation et fragmentation nucléolaire." },
+{ question: "Combien de gènes codant pour les ARNr sont portés par le génome haploïde ?", answer: "Environ 200." },
+{ question: "Combien de gènes pour les ARNr par chromosome acrocentrique ?", answer: "Environ 40." },
+{ question: "Qu’est-ce qu’un NOR ?", answer: "Un centre organisateur nucléolaire formé par les gènes d’ARNr." },
+{ question: "Sur quels chromosomes sont situés les NOR chez l’Homme ?", answer: "13, 14, 15, 21 et 22." },
+{ question: "Quelle ARN polymérase transcrit les ARNr dans le nucléole ?", answer: "L’ARN polymérase I." },
+{ question: "Quelle ARN polymérase transcrit l’ARNr 5S ?", answer: "L’ARN polymérase III, hors du nucléole." },
+{ question: "Comment sont disposés les pré-ARNr 45S lors de la transcription ?", answer: "Perpendiculairement les uns aux autres, formant une allure de sapin de Noël." },
+{ question: "Dans quel sens l’ARN polymérase lit-elle l’ADNr ?", answer: "Dans le sens 3’ vers 5’." },
+{ question: "Quelle est la distance entre deux transcrits d’ARNr ?", answer: "10 à 14 nm." },
+{ question: "De quoi dépend l’intensité de la transcription des ARNr ?", answer: "Du besoin de ribosomes dans le cytoplasme." },
+{ question: 'Comment les protéines ribosomales rejoignent le nucléoplasme ?', answer: 'Par des systèmes d’importation via les pores nucléaires', },
+{ question: 'Quelle séquence est nécessaire pour l’importation des protéines ribosomales dans le noyau ?', answer: 'La séquence NLS', },
+{ question: 'Où se fait la synthèse du pré-ARNr 45S ?', answer: 'À partir d’une boucle d’ADN porteuse des gènes codant pour les ARNr', },
+{ question: 'Quels ARNr sont synthétisés à partir d’un même pré-ARNr ?', answer: 'ARN 28S, 18S et 5,8S', },
+{ question: 'Par quoi le pré-ARNr 45S est-il clivé ?', answer: 'Par des endonucléases', },
+{ question: 'Quel ARNr est synthétisé hors du nucléole ?', answer: 'L’ARN 5S', },
+{ question: 'Où l’ARN 5S s’incorpore-t-il après sa synthèse ?', answer: 'Dans la future grande sous-unité ribosomale non mature', },
+{ question: 'Que devient l’ARN 18S ?', answer: 'Il s’associe à 3 protéines ribosomales pour former la petite sous-unité ribosomale 40S', },
+{ question: 'Quels ARNr s’associent pour former la grande sous-unité ribosomale 60S ?', answer: 'Les ARNr 28S, 5,8S et 5S', },
+{ question: 'Combien de protéines s’associent aux ARNr pour former la grande sous-unité ribosomale ?', answer: '49 protéines', },
+{ question: 'Que deviennent les deux sous-unités ribosomales après leur sortie du noyau ?', answer: 'Elles forment les ribosomes fonctionnels 80S dans le cytoplasme', },
+{ question: 'Que se passe-t-il avec les nucléotides excisés lors du clivage du pré-ARNr ?', answer: 'Ils sont recyclés', },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

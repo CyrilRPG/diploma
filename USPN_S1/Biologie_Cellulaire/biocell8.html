@@ -1,0 +1,1088 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Compartiments membranaires II</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Où se déroule principalement la synthèse des lipides ?", answer: "Dans les membranes du réticulum endoplasmique (RE)," },
+{ question: "Quels sont les trois types principaux de lipides membranaires chez les eucaryotes ?", answer: "Sphingolipides, phospholipides, cholestérol," },
+{ question: "Quelle est la structure des phospholipides ?", answer: "Deux acides gras greffés à un groupe polaire (glycérol ou sérine)," },
+{ question: "Quel est le rôle de la biosynthèse des phospholipides ?", answer: "Assurer le renouvellement des membranes," },
+{ question: "De quoi dérivent les précurseurs de la biosynthèse des phospholipides ?", answer: "De l’Acétyl CoA," },
+{ question: "Quelles sont les étapes de la biosynthèse des phospholipides ?", answer: "1) Ancrage des dérivés Acetyl CoA, 2) Transformation en glycerol-3-phosphate, 3) Retrait du CoA, 4) Obtention d’un acide phosphatidique, 5) Perte du groupement phosphate, 6) Formation de diacylglycérol et fixation de chaînes variables," },
+{ question: "Que deviennent les phospholipides néosynthétisés ?", answer: "Ils sont incorporés à la membrane," },
+{ question: "Quelle protéine permet le transfert des phospholipides d’un feuillet à l’autre ?", answer: "La flippase," },
+{ question: "Où se fait le greffage des sucres sur les glycolipides ?", answer: "Dans l’appareil de Golgi," },
+{ question: "Quelle est la composition d’un triglycéride ?", answer: "Trois acides gras et un glycérol," },
+{ question: "Autre nom des triglycérides ?", answer: "Triacylglycérols," },
+{ question: "Où a lieu la synthèse des triglycérides ?", answer: "Dans le réticulum endoplasmique lisse (REL)," },
+{ question: "D’où proviennent les précurseurs des triglycérides ?", answer: "Du bol alimentaire (acides gras + monoglycérides)," },
+{ question: "Dans quelles cellules se fait la synthèse des triglycérides ?", answer: "Adipocytes, cellules intestinales, hépatocytes," },
+{ question: "Quelle est la première étape de la synthèse des triglycérides ?", answer: "Déphosphorylation de l’acide phosphatidique en diglycérides," },
+{ question: "Comment obtient-on un triglycéride à partir du diglycéride ?", answer: "Par estérification sur la dernière fonction alcool," },
+{ question: "Quelles sont les deux sources de cholestérol ?", answer: "Apport alimentaire et synthèse endogène," },
+{ question: "Sous quelle forme est transporté le cholestérol dans le sang ?", answer: "Dans des lipoprotéines (LP)," },
+{ question: "Que contiennent les lipoprotéines ?", answer: "Cholestérol estérifié, AG, triglycérides, phospholipides et protéines," },
+{ question: "Où se fait principalement la synthèse endogène du cholestérol ?", answer: "Dans les hépatocytes dans le cytosol," },
+{ question: "Quel est le précurseur principal du cholestérol ?", answer: "HMG-CoA (HydroxyMéthylGlutaryl Coenzyme A)," },
+{ question: "Quels sont les intermédiaires du cholestérol ?", answer: "Mévalonate puis farnésyl diphosphate," },
+{ question: "Quels organites participent à la synthèse des hormones stéroïdes ?", answer: "RE et mitochondries," },
+{ question: "Donne 3 exemples d’hormones stéroïdes synthétisées à partir du cholestérol :", answer: "Testostérone, progestérone, cortisone," },
+{ question: "Où est synthétisée la testostérone ?", answer: "Dans les cellules de Leydig des testicules," },
+{ question: "Où est synthétisée la progestérone ?", answer: "Dans le corps jaune des ovaires," },
+{ question: "Où est synthétisée la cortisone ?", answer: "Dans les glandes corticosurrénales," },
+{ question: "Quelles protéines sont synthétisées sur les polysomes libres ?", answer: "Protéines cytosoliques et protéines destinées à certains compartiments internes (mitochondries, peroxysomes, noyau)," },
+{ question: "Quelles protéines sont synthétisées sur les polysomes liés au RE ?", answer: "Protéines de sécrétion, protéines membranaires, protéines destinées aux lysosomes ou vacuoles," },
+{ question: "Quelle est la première étape de l’expérience de ségrégation des protéines ?", answer: "Incubation de cellules avec de la leucine tritiée," },
+{ question: "Pourquoi la leucine tritiée est-elle utilisée ?", answer: "Pour rendre les protéines néosynthétisées radioactives," },
+{ question: "Que montre l’ajout de protéinases sans traitement détergent ?", answer: "Les protéines sont intactes et donc protégées par les membranes du RE." },
+{ question: "Que montre l’ajout de protéinases après traitement détergent ?", answer: "Les protéines sont détruites donc accessibles, ce qui prouve qu'elles étaient à l'intérieur de la membrane," },
+{ question: "Conclusion de l’expérience sur la localisation des protéines ?", answer: "Les peptides sécrétés sont dans la lumière du REG," },
+{ question: "Quelle est la condition pour qu’une protéine entre dans le REG ?", answer: "Présence d’une séquence signal hydrophobe (16-30 AA) en N-ter," },
+{ question: "Quel est le rôle de la SRP ?", answer: "Reconnaît la séquence signal, bloque temporairement la traduction et dirige le ribosome vers le REG," },
+{ question: "Quel la structure la SRP ?", answer: "Ribonucléoprotéine cytosolique avec 6 petits polypeptides et un ARN de 300 nucléotides" },
+{ question: "Qu’est-ce que le translocon ?", answer: "Un pore aqueux permettant le passage de la protéine dans le REG," },
+{ question: "Que permet la fixation de la SRP à son récepteur ?", answer: "Ouverture du translocon," },
+{ question: "Comment se fait la reprise de la traduction dans le REG ?", answer: "Par hydrolyse de GTP, qui libère la SRP," },
+{ question: "Que devient la séquence signal une fois la protéine synthétisée ?", answer: "Elle est clivée par la signal-peptidase (SPase)," },
+{ question: "Que sont les séquences topogéniques ?", answer: "Séquences hélicoïdales hydrophobes (20-25 AA) pour l’intégration membranaire," },
+{ question: "Quels types de séquences topogéniques existe-t-il ?", answer: "Séquence signal de départ et séquence d’arrêt," },
+{ question: "De quoi dépend l’orientation des extrémités N-ter et C-ter ?", answer: "De la position des acides aminés chargés positivement autour de la séquence d’initiation," },
+{ question: "Quels sont les types de protéines transmembranaires ?", answer: "Type 1 (C-ter cytosolique), Type 2 (N-ter cytosolique avec acides aminés positifs avant le signal), Type 3 (C-ter cytosolique avec acides aminés positifs après le signal)," },
+{ question: "Que sont les protéines polytopiques ?", answer: "Protéines avec plusieurs domaines transmembranaires formant des boucles," },
+{ question: "Quel est le rôle de la leucine tritiée dans l’expérience 1 du transport des. protéines ?", answer: "Elle est incorporée dans les protéines synthétisées, permettant de les marquer radioactivement", },
+{ question: "Combien de fractions subcellulaires obtient-on dans l’expérience 1 ?", answer: "Quatre", },
+{ question: "Quelles sont les quatre fractions subcellulaires obtenues dans l’expérience 1 ?", answer: "Microsome rugueux (RER), microsome lisse (REL + Golgi), grains de sécrétion, surnageant", },
+{ question: "Quelles sont les 2 phases de cette expérience ?", answer: "Le pulse et le temps de chasse", },
+{ question: "Que représente la période d’incubation avec l’acide aminé radioactif ?", answer: "Le pulse", },
+{ question: "Comment mesure-t-on la radioactivité des échantillons ?", answer: "Avec un compteur à scintillations", },
+{ question: "Que représente le temps de chasse dans l’expérience 1 ?", answer: "Une incubation avec des acides aminés non marqués pendant un temps variable", },
+{ question: "Dans quelle fraction la radioactivité est-elle initialement la plus élevée ?", answer: "Dans les microsomes rugueux", },
+{ question: "Que signifie la diminution de la radioactivité dans les microsomes rugueux ?", answer: "Un transfert des protéines vers les microsomes lisses", },
+{ question: "Quelle fraction voit sa radioactivité augmenter en continu ?", answer: "Les grains de sécrétion", },
+{ question: "Pourquoi la radioactivité des grains de sécrétion augmente-t-elle ?", answer: "Parce que les protéines y sont acheminées et stockées", },
+{ question: "Que révèle la radioactivité constante dans le surnageant ?", answer: "Que les protéines synthétisées ne vont pas dans le cytosol", },
+{ question: "Conclusion de l’expérience 1 :", answer: "Après leur synthèse dans le RE, les protéines vont au Golgi, puis sont stockées dans les grains de sécrétion pour être sécrétées", },
+{ question: "Quel est le principe de l’expérience 2 de transport des protéines ?", answer: "Autoradiographie en microscopie optique après marquage à la leucine tritiée", },
+{ question: "Où observe-t-on la radioactivité après 3 minutes de marquage dans l’expérience 2 ?", answer: "Dans le REG", },
+{ question: "Où observe-t-on la radioactivité après 10 minutes de chasse dans l’expérience 2 ?", answer: "Dans l’appareil de Golgi", },
+{ question: "Où observe-t-on les protéines après 2 heures de chasse dans l’expérience 2 ?", answer: "Dans les vésicules de sécrétion et potentiellement à l’extérieur de la cellule", },
+{ question: "Quelle est l’apport de l’autoradiographie par rapport à l’expérience 1 ?", answer: "Elle permet de visualiser le cheminement des protéines radioactives", },
+{ question: "Quel est le rôle de la maturation des protéines ?", answer: "Permettre à la protéine d’acquérir sa forme définitive et donc sa fonction", },
+{ question: "Quelles sont les 4 fonctions des protéines chaperonnes comme HSP70 ou BIP ?", answer: "Repliement, renaturation, assemblage correct des protéines et transfert vers d’autres organites", },
+{ question: "Que permettent les protéines chaperonnes vis-à-vis du repliement ?", answer: "Éviter un repliement prématuré et l’agrégation des peptides voisins", },
+{ question: "Où est synthétisée l’insuline ?", answer: "Dans les cellules bêta du pancréas", },
+{ question: "Quel est le rôle de l’insuline ?", answer: "Permettre l’entrée du glucose dans les cellules", },
+{ question: "Quel type de protéine est l’insuline ?", answer: "Une protéine de sécrétion", },
+{ question: "Que contient la pré-pro-insuline ?", answer: "Une séquence signal et trois chaînes A, B et C", },
+{ question: "Quelle est la première étape de la maturation de l’insuline ?", answer: "Synthèse de la pré-pro-insuline et entrée dans le RER via la séquence signal", },
+{ question: "Que se passe-t-il après l’élimination du peptide signal ?", answer: "Formation de la pro-insuline avec liaisons disulfures entre chaînes A et B", },
+{ question: "Où la pro-insuline transite-t-elle après le RE ?", answer: "Dans le Golgi, de la face CIS à la face TRANS", },
+{ question: "Que se passe-t-il dans les vésicules recouvertes de clathrine ?", answer: "Concentration de la pro-insuline et migration vers la membrane", },
+{ question: "Quand a lieu le clivage protéolytique de la pro-insuline ?", answer: "Pendant le déplacement des vésicules vers la membrane", },
+{ question: "Quel est le produit du clivage protéolytique de la pro-insuline ?", answer: "L’insuline mature, après élimination de la chaîne C", },
+{ question: "Comment l’insuline mature est-elle exportée ?", answer: "Par exocytose", },
+{ question: "Quels 4 autres types de protéines sont également maturées par clivage protéolytique ?", answer: "Enzymes de digestion, protéines de la coagulation, protéines de virus animaux comme le VIH", },
+{ question: "Comment le VIH utilise-t-il la maturation protéolytique ?", answer: "Une protéase virale découpe un long précurseur pour produire des polypeptides viraux", },
+{ question: "Pourquoi la protéase du VIH est-elle une cible thérapeutique ?", answer: "Elle est essentielle à la maturation des protéines virales", },
+{ question: "Quelles sont les deux façons d’ancrer une protéine à la membrane ?", answer: "Par une GPI dans le feuillet externe ou par une chaîne hydrocarbonée dans le feuillet interne", },
+{ question: "Quelles sont les modifications co ou post-traductionnelles d’ancrage ?", answer: "Glypiation, myristoylation, palmitoylation, isoprenylation", },
+{ question: "Où commence la glycosylation ?", answer: "Dans le REG", },
+{ question: "Quels acides aminés peuvent être glycosylés chez les eucaryotes ?", answer: "Asparagine, sérine, thréonine, lysine", },
+{ question: "Quelle est la différence entre N-glycosylation et O-glycosylation ?", answer: "N-glycosylation lie les glucides à l’azote de l’asparagine, O-glycosylation lie les glucides à l’oxygène de la sérine, thréonine ou lysine", },
+{ question: "Comment les glucides sont-ils ajoutés dans la N-glycosylation ?", answer: "Sous forme d’un oligosaccharide complexe", },
+{ question: "Quel est le précurseur de la N-glycosylation ?", answer: "Un oligosaccharide avec 14 résidus : 2 N-acétylglucosamines, 3 glucoses, 9 mannoses", },
+{ question: "Sur quel support est construit le précurseur de N-glycosylation ?", answer: "Le dolichol", },
+{ question: "Comment le dolichol devient-il activé pour la N-glycosylation ?", answer: "Par ajout de 4 mannoses et 3 glucoses sur la face luminale du RE", },
+{ question: "Quelle enzyme permet le transfert du précurseur glucidique sur la protéine ?", answer: "L’oligosaccharyl transférase", },
+{ question: "Quel est le motif reconnu pour la N-glycosylation ?", answer: "Asp-Ser-X-Ser/Thr, où X ≠ proline", },
+{ question: "Quels résidus sont enlevés dans le RE après N-glycosylation ?", answer: "3 glucoses et 1 mannose", },
+{ question: "Quels types de protéines glycosylées se forment dans le Golgi et lors de quel phénomène ?", answer: "Protéines alpha (à mannose prépondérant) et bêta (à oligosaccharide complexe) lors de l'élagage.", },
+{ question: "Quelles enzymes assurent l’élagage des oligosaccharides et dans quel compartiment Golgien ?", answer: "Les glycosidases comme mannosidase ou glucosidase dans la face CIS et médiane du Golgi", },
+{ question: "Quelles modifications subit une protéine a oligosaccharide complexe dans la face médiane du Golgi ?", answer: "Ajout de N-acétylglucosamine, retrait de 2 mannoses, ajout de fucose", },
+{ question: "Quelles modifications subit une protéine alpha dans le compartiment trans du Golgi ?", answer: "Ajout de 1 à 2 N-acétylglucosamines, 1 à 3 N-acétylneuraminates, et un nombre variable de galactoses", },
+{ question: "De quoi dépend la quantité de résidus glucidiques ajoutés ?", answer: "De l’état de différenciation des cellules", },
+{ question: "Par quelles enzymes les sucres sont-ils ajoutés dans le Golgi ?", answer: "Par des glycosyl transférases", },
+{ question: "Comment les sucres atteignent-ils leur site d’accrochage dans le Golgi ?", answer: "Ils sont apportés par des systèmes de nucléotides", },
+{ question: "Quelles enzymes assurent la sulfatation dans l’appareil de Golgi ?", answer: "Les sulfo-transférases", },
+{ question: "Où sont situées les sulfo-transférases dans le Golgi ?", answer: "Elles sont liées à la membrane dans la face trans du Golgi", },
+{ question: "Quelles sont les modifications post-traductionnelles qui ont lieu dans le réseau cis golgien ?", answer: "Phosphorylation et accrochage des oligosaccharides", },
+{ question: "Quelles sont les modifications post-traductionnelles qui ont lieu dans le Golgi cis ?", answer: "Enlèvement de mannoses", },
+{ question: "Quelles sont les modifications post-traductionnelles qui ont lieu dans le Golgi médian ?", answer: "Enlèvement de mannoses et addition de GlcNAc", },
+{ question: "Quelles sont les modifications post-traductionnelles qui ont lieu dans le Golgi trans ?", answer: "Addition de Gal et addition de NANA", },
+{ question: "Quelles sont les modifications post-traductionnelles qui ont lieu dans le réseau trans golgien ?", answer: "Sulfatation des tyrosines et sulfatation des hydrates de carbone", },
+{ question: "Comment commence le transport d’une protéine dans le système endomembranaire ?", answer: "Par le bourgeonnement d’une vésicule au niveau du compartiment donneur", },
+{ question: "Par quoi est permise la fusion entre une vésicule et un compartiment accepteur ?", answer: "Par un système protéique de reconnaissance des compartiments cibles", },
+{ question: "Quelles protéines sont impliquées dans le système de reconnaissance des compartiments cibles ?", answer: "Les protéines SNARE, NSF et NEM", },
+{ question: "Quelles sont les étapes du transport protéique ?", answer: "Bourgeonnement, transport vésiculaire avec déshabillage, accostage, fusion", },
+{ question: "Que signifie T dans T-snare ?", answer: "Target, cible en anglais", },
+{ question: "Que signifie V dans V-snare ?", answer: "Vésicule", },
+{ question: "Quel est le rôle des protéines V-snare et T-snare ?", answer: "Elles initient l'accostage de la vésicule au compartiment accepteur", },
+{ question: "Comment les compartiments du Golgi assurent un cheminement directionnel des vésicules ?", answer: "Ils possèdent chacun un set spécifique de V-snare et T-snare", },
+{ question: "Quelles protéines permettent la fusion des membranes après accostage ?", answer: "Les protéines de fusion comme NSF et SNAP", },
+{ question: "Quel système de sécurité supplémentaire assure la reconnaissance V-snare / T-snare ?", answer: "L’activité des protéines RAB", },
+{ question: "Quel est le rôle des protéines RAB ?", answer: "Vérifier l’attachement V-snare et T-snare", },
+{ question: "Comment est recyclé le système V-snare / T-snare ?", answer: "Par réutilisation avec consommation d’énergie via hydrolyse du GTP en GDP par la protéine RAB", },
+{ question: "Quel système permet à la vésicule de reconnaître le compartiment cible ?", answer: "Le système d’étiquetage par glycosylation", },
+{ question: "Quels sont les 3 rôles des chaînes latérales glycosylées ?", answer: "Protection contre les enzymes, acquisition de la conformation 3D et adressage", },
+{ question: "Quel est le rôle principal des chaînes glycosylées ?", answer: "Adresser les protéines vers la bonne destination", },
+{ question: "Quel est le rôle de l’appareil de Golgi dans le tri des vésicules ?", answer: "Il joue un rôle de centre de tri des vésicules", },
+{ question: "Quelles sont les trois voies principales déterminées par le Golgi ?", answer: "Sécrétion, membrane plasmique (sécrétion constitutive), voie lysosomale", },
+{ question: "Quelle est l’étiquette des enzymes envoyées vers les lysosomes ?", answer: "Le mannose-6-phosphate", },
+{ question: "Où se fait le tri des protéines dans les cellules polarisées comme les épithéliales ?", answer: "À partir du Golgi", },
+{ question: "Quels sont les trois types de transport dans les cellules polaires ?", answer: "Transport direct, indirect, et spécifique aux hépatocytes", },
+{ question: "Quel est le mécanisme du transport direct ?", answer: "Du trans Golgi au domaine apical via radeaux lipidiques ou vésicules spécifiques", },
+{ question: "Quel est le mécanisme du transport indirect ?", answer: "Envoi aléatoire puis retour endosomal sélectif vers le bon compartiment", },
+{ question: "Quelles protéines sont concernées par le transport indirect ?", answer: "Na+/K+ ATPase et molécules d’adhérence", },
+{ question: "Quel est le mécanisme du transport spécifique aux hépatocytes ?", answer: "Envoi basolatéral puis transcytose vers la région apicale", },
+{ question: "Quelles sont les trois voies d’arrivée du matériel à dégrader dans les lysosomes ?", answer: "Phagolysosomes, endosomes, autophagosomes", },
+{ question: "Quelles sont les trois voies de distribution des enzymes lysosomales ?", answer: "Endosomale, lysosomale, sécrétoire", },
+{ question: "Comment se forment les pré-lysosomes ?", answer: "Quand les endosomes tardifs perdent leur récepteur mannose-6-phosphate", },
+{ question: "Quelle est la voie majoritaire des hydrolases vers les lysosomes ?", answer: "La voie endosomale", },
+{ question: "Que deviennent les récepteurs mannose-6-phosphate dans la voie lysosomale ?", answer: "Ils sont recyclés avant la fusion", },
+{ question: "Quelle proportion d’hydrolases est excrétée dans le milieu extracellulaire ?", answer: "10%", },
+{ question: "Quel marqueur donne leur adresse aux hydrolases lysosomales ?", answer: "Le mannose-6-phosphate", },
+{ question: "Où est accroché le mannose-6-phosphate sur les hydrolases ?", answer: "Dans le compartiment cis du dictyosome", },
+{ question: "Que se passe-t-il dans le réseau transgolgien pour les hydrolases lysosomales ?", answer: "Fixation par récepteurs au mannose-6-phosphate et formation de vésicules", },
+{ question: "Quel rôle joue la clathrine dans les vésicules lysosomales ?", answer: "Elle forme un manteau qui permet le bourgeonnement", },
+{ question: "Comment se passe la fusion des vésicules avec l’endosome tardif ?", answer: "Par dénudation puis fusion via V-snare et T-snare dans un pH acide", },
+{ question: "Pourquoi les hydrolases se détachent de leur récepteur dans l’endosome tardif ?", answer: "À cause du pH trop acide", },
+{ question: "Que deviennent les récepteurs mannose-6-phosphate après fusion ?", answer: "Ils sont recyclés au réseau transgolgien par des vésicules à clathrine", },
+{ question: "Que deviennent les déchets non réutilisables des lysosomes ?", answer: "Ils sont exocytés ou stockés sous forme de corps résiduels", },
+{ question: "Quel est le rôle de la voie lysosomale dans la disparition de la queue du têtard ?", answer: "Elle permet la dégradation des cellules de la queue par les macrophages", },
+{ question: "Quel est le rôle de la voie lysosomale pendant l’organogenèse du poulet ?", answer: "Régression des canaux de Wolff et de Müller chez le mâle", },
+{ question: "Quels 4 tissus présentent une activité intense de la voie lysosomale ?", answer: "Thymus, tissu osseux, spermatozoïde, glandes mammaires en fin de lactation", },
+{ question: "Quelle est la conséquence de mutations dans les gènes des hydrolases lysosomales ?", answer: "Accumulation de produits non digérés, dysfonctionnement et mort cellulaire", },
+{ question: "Quelles pathologies peuvent résulter d’une rupture de membrane lysosomale ?", answer: "Silicose, asbestose, goutte", },
+{ question: "Quelles substances provoquent des ruptures lysosomales dans la Silicose, l'Asbestose et la goutte ?", answer: "Cristaux de silice, d’amiante, et d’urate de sodium", },
+{ question: "Quel est l’impact des maladies lysosomales sur le cerveau ?", answer: "Mort de certains neurones, retard mental, décès d’enfants", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

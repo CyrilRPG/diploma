@@ -1,0 +1,1038 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Régulation du cycle cellulaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: 'Que désigne précisément la « définition du cycle cellulaire » (formulation 1) ?', answer: 'L’ensemble des phases qu’une cellule traverse entre deux divisions.', },
+{ question: 'Que désigne précisément la « définition du cycle cellulaire » (formulation 2) ?', answer: 'L’ensemble ordonné d’événements menant à la croissance cellulaire puis à la division en deux cellules filles.', },
+{ question: 'Dans quel ordre s’enchaînent les phases du cycle cellulaire (incluant l’éventuelle G0) ?', answer: 'Interphase (G1, G0 si présente, S, G2) puis M = mitose ou méiose.', },
+{ question: 'Quelles sont, en G1, les caractéristiques à connaître (intervalle, croissance, préparation) ?', answer: 'Phase d’intervalle, phase de croissance notamment du cytoplasme, phase de préparation à la réplication.', },
+{ question: 'Dans quel cas la phase G0 est-elle présente et comment est-elle définie ?', answer: 'Présente si interphase rallongée.', },
+{ question: 'En phase S, que signifie « S » et quels événements majeurs surviennent ?', answer: 'S = synthèse, réplication de l’ADN et duplication du centrosome.', },
+{ question: 'Quelles caractéristiques décrivent la phase G2 (intervalle, croissance, préparation) ?', answer: 'Phase d’intervalle, phase de croissance, phase de préparation à la division cellulaire.', },
+{ question: 'Qu’englobe la phase M et à quoi aboutit-elle (inclure la cytokinèse) ?', answer: 'Mitose ou méiose, division cellulaire aboutissant à la séparation par division du cytoplasme = cytokinèse, donnant deux cellules filles.', },
+{ question: 'Quel est l’enjeu biologique central de la régulation du cycle cellulaire ?', answer: 'Survie des cellules et des organismes par la régulation, essentielle.', },
+{ question: 'Dans quelles conditions le cycle doit-il s’arrêter (dommages, nutriments, O2) ?', answer: 'Lorsque la cellule est endommagée ou qu’il manque des nutriments ou de l’oxygène.', },
+{ question: 'Dans quelles situations une nouvelle division doit-elle débuter (donner des exemples) ?', answer: 'Quand cela est nécessaire, par exemple croissance ou cicatrisation.', },
+{ question: 'Par quels moyens généraux s’exerce la régulation du cycle (nature des signaux) ?', answer: 'Via des cascades de signaux chimiques, générant des effets complexes à partir de signaux simples.', },
+{ question: 'Comment une protéine unique peut-elle impacter globalement la cellule dans la régulation ?', answer: 'Peut modifier la fonction de nombreuses autres protéines et entraîner des changements globaux du fonctionnement ou de la structure de la cellule.', },
+{ question: 'Quels sont les acteurs majeurs identifiés pour la régulation du cycle ?', answer: 'Cyclines et CDK.', },
+{ question: 'Comment définir strictement le rôle « point d’arrêt » des cyclines et CDK ?', answer: 'Protéines clés agissant comme des points d’arrêt, sans leur signal la cellule n’entre pas dans la phase suivante.', },
+{ question: 'Quelles fonctions générales assurent les cyclines/CDK au cours du cycle ?', answer: 'Succession ordonnée des quatre phases, formation de deux cellules filles identiques, exécution correcte de chaque phase.', },
+{ question: 'Quel est le rôle spécifique des CDK concernant l’alternance d’état et le timing ?', answer: 'Assurent la progression du cycle en alternant activation et inhibition, doivent être actives au bon moment pour garantir le bon déroulement du cycle.', },
+{ question: 'Quels sont les deux objectifs centraux des mécanismes de surveillance du cycle ?', answer: 'Vérifier la bonne exécution de chaque phase et contrôler le passage correct d’une phase à l’autre.', },
+{ question: 'Par quels principes fonctionnent ces mécanismes de surveillance (contrôle qualité, inhibition) ?', answer: 'Impliquent des molécules qui évaluent les événements majeurs du cycle, fonctionnent comme un contrôle qualité et peuvent inhiber les CDK si une anomalie est détectée.', },
+{ question: 'Quel est l’exemple de réponse du cycle en cas de besoin de réparation durant la phase S ?', answer: 'Si l’ADN nécessite des réparations, le cycle s’arrête, la cellule répare l’ADN, et une fois la réparation achevée le cycle peut reprendre.', },
+{ question: 'Quelles sont les missions exactes du DNA damage checkpoint (moments et finalité) ?', answer: 'Assure de l’intégrité de l’ADN avant, pendant et après la réplication, contrôle que la réplication est complète avant d’entrer en phase G2, garantit que l’ADN transmis aux cellules filles est correct.', },
+{ question: 'Que vérifie le mitotic checkpoint et à quel moment précis intervient-il ?', answer: 'Intervient à la métaphase, vérifie le bon alignement des chromosomes sur la plaque métaphasique, évite la transmission d’un nombre anormal de chromosomes aux cellules filles.', },
+{ question: 'Comment définir les CDK (nature enzymatique et substrats) ?', answer: 'Kinases cycline-dépendantes, sérine-thréonine kinases qui catalysent la phosphorylation de protéines cibles.', },
+{ question: 'Dans quelle condition une CDK devient-elle active ?', answer: 'Deviennent actives uniquement lorsqu’elles sont associées à une cycline.', },
+{ question: 'Comment définir les cyclines (activité enzymatique propre ?) ?', answer: 'Protéines régulatrices qui n’ont pas d’activité enzymatique propre.', },
+{ question: 'De quoi dépend l’activité enzymatique des CDK (association requise) ?', answer: 'Dépendante de la présence et de l’association avec une cycline.', },
+{ question: 'Qu’a mis en évidence la période 1987–1990 concernant l’entrée en mitose ?', answer: 'Découverte du MPF (mitosis promoting factor) comme régulateur universel de l’entrée en mitose, association de la CDK1 et de la cycline B.', },
+{ question: 'Que révèle la période 1990–2000 sur la diversité cyclines/CDK et leur rôle ?', answer: 'Identification de nombreuses autres cyclines et CDK chez l’humain, environ une douzaine de cyclines connues, six d’entre elles interviennent dans le contrôle direct du cycle cellulaire.', },
+{ question: 'Comment se forment les complexes cycline-CDK et quelle est leur dynamique ?', answer: 'Complexes hétérodimériques, fonctionnels uniquement lorsque la cycline est présente, production et destruction de manière périodique et transitoire, disparition de la cycline entraîne la perte d’activité.', },
+{ question: 'Citez des rôles cellulaires additionnels des complexes cycline-CDK ?', answer: 'Fragmentation de l’enveloppe nucléaire, compaction des chromosomes, réplication.', },
+{ question: 'Selon le cours, quel est le mécanisme d’action des CDK (site, source de phosphate, consensus) ?', answer: 'Phosphorylation des protéines cibles au niveau de résidus sérine ou thréonine, transfert depuis une molécule d’ATP, uniquement si la sérine ou thréonine est située dans une séquence consensus (exemple : SER-THR-PRO-X-ARG-LYS).', },
+{ question: 'Quelles sont les conséquences typiques de la phosphorylation par les CDK ?', answer: 'Changement de conformation de la protéine cible, modifications de l’activité de la protéine cible : activation, inhibition, changement de partenaires d’interactions.', },
+{ question: 'Combien de complexes cycline-CDK contrôlent au moins le cycle cellulaire ?', answer: 'Au moins six complexes différents.', },
+{ question: 'Quelle double spécificité caractérise chaque complexe cycline-CDK (temps et substrats) ?', answer: 'Agit à un moment précis du cycle et sur des substrats spécifiques, assure le passage d’une phase à une autre et la réalisation des événements associés.', },
+{ question: 'En quelle phase le complexe Cycline D–CDK4/CDK6 est-il actif ?', answer: 'Actif en phase G1.', },
+{ question: 'Quel est le mécanisme d’action clé du complexe Cycline D–CDK4/CDK6 sur Rb et E2F ?', answer: 'Phosphorylation et inactivation de la protéine Rb, libération des facteurs de transcription E2F contrôlant l’expression de gènes nécessaires à la transition G1/S.', },
+{ question: 'Quelles implications découent de l’action de Cycline D–CDK4/CDK6 (S et gènes de cyclines) ?', answer: 'Progression en phase S, activation de gènes codant pour la cycline E et la cycline A.', },
+{ question: 'À quel moment est actif le complexe Cycline E–CDK2 ?', answer: 'Actif à la transition G1/S.', },
+{ question: 'Que fait le complexe Cycline E–CDK2 sur Rb et le centrosome (selon le cours) ?', answer: 'Phosphorylation également de la protéine Rb, participe à la duplication du centrosome (démontrée notamment chez le xénope).', },
+{ question: 'Quel rôle exact joue Cycline E–CDK2 dans le passage de G1 à S ?', answer: 'Joue un rôle crucial dans le passage de la phase G1 à la phase S.', },
+{ question: 'Pendant quelle phase le complexe Cycline A–CDK2 est-il actif ?', answer: 'Actif durant la phase S.', },
+{ question: 'Quelles actions mène Cycline A–CDK2 (réplication, facteurs G1, centrosomes, cycline B) ?', answer: 'Phosphorylation des substrats impliqués dans la réplication de l’ADN, inactivation des facteurs de transcription de la phase G1, intervention dans la duplication des centrosomes, empêche la dégradation de la cycline B qui peut alors s’accumuler.', },
+{ question: 'Quelle est l’implication fonctionnelle principale de Cycline A–CDK2 ?', answer: 'Maintient la réplication de l’ADN.', },
+{ question: 'À quelle transition le complexe Cycline B–CDK1 (MPF) devient-il actif ?', answer: 'Actif à la transition G2/M.', },
+{ question: 'Quelle est l’action du MPF sur ses substrats au déclenchement de la mitose ?', answer: 'Phosphorylation de nombreux substrats pour initier la mitose.', },
+{ question: 'Quel rôle joue le MPF dans la progression de la mitose ?', answer: 'Joue un rôle clé dans la progression de la mitose.', },
+{ question: 'Quels principes gouvernent l’activation temporelle des CDK (présence, timing, cyclines) ?', answer: 'Les CDK sont présentes avant même leur activation, n’interviennent qu’au moment précis où elles doivent agir, leur activation dépend du moment où elles doivent fonctionner, contrôlée par le cycle de synthèse et de dégradation des cyclines.', },
+{ question: 'Quelles sont les règles d’activation des cyclines (liaison aux CDK et synthèse) ?', answer: 'Les cyclines n’ont pas d’activité enzymatique propre, deviennent fonctionnelles lors de la liaison aux CDK au bon moment du cycle, des mécanismes cellulaires régulent leur synthèse au moment opportun.', },
+{ question: 'En quoi consiste le mécanisme 1 de régulation des complexes (synthèse/dégradation) ?', answer: 'Contrôle positif via la synthèse cyclique des cyclines, contrôle négatif via leur dégradation rapide entraînant la perte d’activité du complexe.', },
+{ question: 'Que recouvre le mécanisme 2 de régulation (phosphorylation/déphosphorylation) ?', answer: 'Phosphorylation et déphosphorylation des CDK par des protéines activatrices ou inhibitrices.', },
+{ question: 'Quelle enzyme illustre une activation des CDK par déphosphorylation ?', answer: 'CDC25 : phosphatase qui active la CDK par déphosphorylation.', },
+{ question: 'Quelle kinase illustre une inhibition des CDK par phosphorylation (sites précisés) ?', answer: 'Wee1 : kinase qui phosphoryle la CDK1 sur la tyrosine 15 et la thréonine 14, modifie la conformation tridimensionnelle et inhibe son activité.', },
+{ question: 'Que désigne le mécanisme 3 de régulation et quel est son effet global ?', answer: 'Inhibiteurs de CDK = CDKi, protéines inhibitrices spécifiques des CDK régulant leur activité de façon strictement négative.', },
+{ question: 'Comment agit p21 selon le cours (site visé) ?', answer: 'Bloque le site de fixation de l’ATP sur la cycline.', },
+{ question: 'Comment agit p16 selon le cours (interaction empêchée) ?', answer: 'Empêche la liaison entre la CDK et la cycline.', },
+{ question: 'Quel autre CDKi est cité explicitement dans le cours ?', answer: 'p27.', },
+{ question: 'À quel moment du cycle le rôle des CDKi est-il crucial selon le cours ?', answer: 'Transition G1/S et contrôle du cycle en G1.', },
+{ question: 'Quelles sont les deux poches de fixation décrites dans la structure des CDK ?', answer: 'Deux poches : une pour l’ATP et une pour le substrat protéique.', },
+{ question: 'Quels acides aminés des CDK sont modifiés selon le cours ?', answer: 'Sérine et thréonine.', },
+{ question: 'Pourquoi une conformation précise des CDK est-elle nécessaire et par quoi est-elle modulée ?', answer: 'Une conformation précise est nécessaire pour l’activation, modifiée par les phosphorylations ou les liaisons aux cyclines.', },
+{ question: 'Comment les activateurs/inhibiteurs modulent-ils la structure fonctionnelle des CDK ?', answer: 'Modifient l’accessibilité au site ATP et au site de liaison du substrat, entraînant activation ou inhibition enzymatique.', },
+{ question: 'Quels sont les quatre objectifs listés pour les mécanismes de surveillance du cycle ?', answer: 'Assurer que les cellules filles reçoivent un génome identique à celui de la cellule mère ; maintenir l’intégrité de l’ADN au fil des divisions cellulaires ; empêcher la propagation d’anomalies génétiques en arrêtant le cycle en cas de problème ; déclencher réparation ou mort cellulaire si les anomalies persistent.', },
+{ question: 'Quels sont les trois checkpoints nommés et leurs transitions correspondantes ?', answer: '1. Transition G1/S : DDCP ; 2. Transition G2/M : RCP ; 3. Transition Métaphase/Anaphase : MCP.', },
+{ question: 'Quelles situations précises déclenchent ces mécanismes (selon la liste du cours) ?', answer: 'Lésions de l’ADN, anomalies de réplication, contrôle de l’alignement des chromosomes.', },
+{ question: 'Que signifie l’acronyme DDCP et à quoi renvoie-t-il ?', answer: 'DNA Damage Checkpoint.', },
+{ question: 'Quelles surveillances et détections le DDCP assure-t-il au cours de l’interphase ?', answer: 'Surveille l’intégrité de l’ADN tout au long de l’interphase (G1, S et G2). Détecte les lésions de l’ADN, les anomalies de réplication et les erreurs précoces.', },
+{ question: 'Quelles sont les conséquences exactes déclenchées par le DDCP selon la phase (G1, S, G2) ?', answer: 'Le cycle est arrêté pour permettre les réparations : en G1, la transition G1/S est bloquée ; en S ; en G2, l’entrée en mitose est empêchée.', },
+{ question: 'Quel est le rôle de p53 vis-à-vis de la réparation de l’ADN ?', answer: 'Active la transcription de gènes impliqués dans la réparation de l’ADN.', },
+{ question: 'Quelles sont les conséquences d’une mutation de p53 mentionnées dans le cours ?', answer: 'Ces gènes ne sont plus transcrits, ce qui empêche la réparation et favorise la persistance des lésions. Mutations impliquées dans plusieurs types de cancers.', },
+{ question: 'Que signifie RCP et à quelle transition correspond-il ?', answer: 'Réplication checkpoint, transition G2/M.', },
+{ question: 'Que vérifie le RCP et quelles phases surveille-t-il ?', answer: 'Vérifie que la réplication de l’ADN est totalement achevée avant l’entrée en mitose. Surveille toute la phase S et la phase G2.', },
+{ question: 'Que se passe-t-il si la réplication est incomplète ou erronée au RCP ?', answer: 'Le cycle est bloqué, ce qui permet aux mécanismes de réparation d’intervenir avant que la cellule n’entame la mitose.', },
+{ question: 'Comment le blocage via CDC25 est-il opéré lorsque un défaut est détecté ?', answer: 'Si un défaut est détecté, la CDC25 est phosphorylée, séquestrée dans le cytoplasme et ne peut plus activer la CDK1 qui reste phosphorylée et donc inactive. Ce blocage empêche l’entrée en mitose tant que l’ADN n’est pas correctement répliqué.', },
+{ question: 'Que signifie MCP et à quelle transition s’applique-t-il ?', answer: 'Mitotic checkpoint, transition Métaphase/Anaphase.', },
+{ question: 'Quelles vérifications réalise le MCP sur l’attachement et la répartition des chromatides ?', answer: 'Surveille l’attachement correct des chromosomes sur la plaque métaphasique (ne s’exerce qu’à la métaphase), assure que chaque kinétochore est correctement attaché au fuseau mitotique, vérifie que les chromatides sœurs sont réparties équitablement de part et d’autre de la plaque métaphasique.', },
+{ question: 'Quelle est la conséquence si un seul chromosome est mal attaché lors du MCP ?', answer: 'Le cycle est bloqué.', },
+{ question: 'Quel est le rôle respectif de la séparase et de la sécurine dans la séparation des chromatides ?', answer: 'La séparase détruit les cohésines permettant la séparation des chromatides sœurs. Elle est inhibée par la sécurine. La levée de l’inhibition survient lorsque tous les chromosomes sont bien alignés.', },
+{ question: 'Quel est le rôle de l’APC et sous quelle condition d’association devient-il actif ?', answer: 'Ubiquitine ligase, devient active lorsqu’associée à CDC20, induit la dégradation de la sécurine permettant l’activation de la séparase. L’activation de l’APC est bloquée tant que MAD2 est actif.', },
+{ question: 'Comment MAD2 régule-t-elle l’APC-CDC20 et quand est-elle inactivée ?', answer: 'Tant qu’un seul kinétochore n’est pas attaché, MAD2 reste actif, se lie au complexe APC-CDC20 et l’inhibe. Une fois tous les kinétochores attachés, MAD2 est inactivée.', },
+{ question: 'Qu’autorise l’inactivation de MAD2 dans la progression vers l’anaphase ?', answer: 'Permet l’activation de l’APC, la dégradation de la sécurine et la séparation des chromatides sœurs.', },
+{ question: 'Quand la cycline B est-elle synthétisée avant la transition G2/M ?', answer: 'Synthèse progressive pendant la phase S et G2.', },
+{ question: 'Que décrit le « stock de pré-MPF inactif » et à quelle condition devient-il critique ?', answer: 'Accumulation jusqu’à atteindre un seuil critique.', },
+{ question: 'Quelles phosphorylations de CDK1 sont activatrice et inhibitrices (sites et enzymes) ?', answer: 'Activatrice : sur Thr 161 par la CAK ; inhibitrices : sur Tyr 15 et Thr 14 par la kinase Wee-1.', },
+{ question: 'Quelle déphosphorylation active CDK1 et sur quels résidus agit CDC25 ?', answer: 'Réalisée par CDC25 sur Tyr 15 et Thr 14, permettant l’entrée en mitose.', },
+{ question: 'Qu’entraîne la dégradation de la cycline B lors de la sortie de mitose ?', answer: 'Dégradation de la cycline B entraînant l’inactivation de la CDK1.', },
+{ question: 'Quelle implication générale du MPF est mentionnée pour la sortie de mitose ?', answer: 'Facteur de sortie de la mitose permettant à la cellule de passer de la phase M à la phase G1 dans les deux cellules filles.', },
+{ question: 'Quelles cibles du MPF participent à la condensation de l’ADN en mitose ?', answer: 'Condensines et histones H1 et H3.', },
+{ question: 'Quelles cibles du MPF participent à la désorganisation de l’enveloppe nucléaire ?', answer: 'Lamines, pour la désorganisation de l’enveloppe nucléaire.', },
+{ question: 'Quelles cibles du MPF participent à la formation du fuseau mitotique ?', answer: 'Protéines associées aux microtubules (MAP), pour la réorganisation du cytosquelette en fuseau mitotique.', },
+{ question: 'Quel double rôle le complexe APC joue-t-il en sortie de mitose (cibles à dégrader) ?', answer: 'Ubiquitine ligase activée par désinhibition, permet l’ubiquitinylation puis la dégradation de la sécurine (libère la séparase) et de la cycline B (entraîne la sortie de mitose).', },
+{ question: 'Quel est le rôle global de p53 qualifiée de « gardienne du génome » ?', answer: 'Contrôle l’intégrité de l’ADN, taux d’expression faible à cause de sa dégradation rapide, protéine nucléaire jouant un rôle de facteur de transcription, agit aussi directement comme endonucléase dans la réparation de l’ADN.', },
+{ question: 'Que déclenche p53 quand l’ADN est endommagé ou la réplication incomplète ?', answer: 'Active des voies inhibitrices du complexe cycline B – CDK1, empêche l’entrée en mitose, active la transcription de gènes de réparation comme p21.', },
+{ question: 'Comment est définie la phase G0 (quiescence) et quand survient-elle souvent ?', answer: 'Phase de repos sans réplication ni mitose, suit souvent la sortie de mitose.', },
+{ question: 'Quelles caractéristiques précisent l’état des cyclines et d’E2F en G0 ?', answer: 'Cytoplasme sans cycline, facteur de transcription E2F inactif car lié à la protéine Rb, empêchant l’entrée en G1.', },
+{ question: 'Quelle peut être la durée de G0 et quel exemple de cellule en G0 permanent est donné ?', answer: 'Peut durer longtemps, parfois de façon définitive (exemple : neurones différenciés en G0 permanent).', },
+{ question: 'Quelles cellules conservent une capacité proliférative élevée selon le cours ?', answer: 'Cellules souches hématopoïétiques et cellules de l’épithélium intestinal.', },
+{ question: 'Dans quelles conditions une cellule peut-elle réentrer en cycle depuis G0 ?', answer: 'Possible si stimulation mitogénique : signaux extérieurs via récepteurs membranaires induisant une signalisation intracellulaire menant au retour en G1.', },
+{ question: 'Quelles observations globales caractérisent la régulation anormale dans la cancérogenèse ?', answer: 'Révélées par analyse moléculaire des tumeurs humaines, fréquentes.', },
+{ question: 'Quels sont les deux types d’anomalies listés (stimulatrices vs inhibitrices) et un exemple chacun ?', answer: 'Surexpression de protéines stimulatrices (exemple : cyclines, comme dans le cancer du sein) ; perte de fonction de protéines inhibitrices (exemple : protéine Rb).', },
+{ question: 'Comment est définie la catégorie « gènes suppresseurs de tumeurs » et quel est le risque en cas d’atteinte ?', answer: 'Gènes qui freinent la prolifération ; leur mutation ou absence peut conduire à la formation de tumeurs.', },
+{ question: 'Quels exemples de gènes suppresseurs le cours cite-t-il (inclure p21) ?', answer: 'Protéine Rb, protéine p53, protéine p21 induite par p53.', },
+{ question: 'Quelles conséquences d’une mutation de p53 sont détaillées pour la cancérogenèse ?', answer: 'Empêche l’induction de p21, donc empêche l’arrêt du cycle. Cela entraîne une prolifération sans contrôle, les cellules anormales ne sont plus dirigées vers l’apoptose, augmentation du nombre de cellules.', },
+{ question: 'Comment certaines protéines virales interfèrent-elles avec Rb et quel est l’effet final ?', answer: 'Certaines protéines virales peuvent se lier à la protéine Rb, libérant le facteur E2F et activant une prolifération incontrôlée. Exemples : HPV, SV40.', },
+{ question: 'Quels sont les points à retenir listés à la fin du cours concernant CDK et complexes ?', answer: 'Définitions et modes d’actions des CDK ; connaître les différents complexes cycline/CDK, leurs moments d’intervention et leurs actions.', },
+];
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

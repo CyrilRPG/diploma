@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Le Cytosol</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+</head>
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quelles sont les deux principales manières dont s’effectuent les trafics intracellulaires ?", answer: "Via des systèmes vésiculaires ou via des molécules qui traversent directement le cytoplasme." },
+{ question: "Où se déroulent les trafics intracellulaires ?", answer: "Dans le cytoplasme, à l’intérieur de la membrane plasmique." },
+{ question: "Qu’est-ce que le cytosol ou hyaloplasme ?", answer: "La phase liquide et translucide où baignent les organites et de nombreuses petites molécules." },
+{ question: "Quels éléments le cytosol n’occupe-t-il pas ?", answer: "Les organites." },
+{ question: "Quels rôles joue le cytosquelette ? (3 réponses)", answer: "Il permet le maintien de la forme de la cellule, sert de transport intracellulaire et de système d’ancrage." },
+{ question: "Quelle est la définition technique du cytosol ?", answer: "Fraction liquide du cytoplasme, obtenue après centrifugation et élimination des organites." },
+{ question: "Quel est le pourcentage du volume cellulaire occupé par le cytosol ?", answer: "Environ 50% du volume d’une cellule classique." },
+{ question: "Que reste-t-il après centrifugation d’un broyat de cellules ?", answer: "Le surnageant qui correspond au cytosol." },
+{ question: "Quelle est la composition majoritaire du cytosol ?", answer: "85% d’eau." },
+{ question: "Quels métabolites contient le cytosol ? (4 réponses)", answer: "Acides aminés, acides gras, glycérol, sucres." },
+{ question: "Quels ions sont présents dans le cytosol ? (5 réponses)", answer: "Na+, K+, Cl-, Mg2+, Ca2+." },
+{ question: "Quels gaz dissous sont présents dans le cytosol ?", answer: "O2 et CO2." },
+{ question: "Que contiennent les inclusions du cytosol ?", answer: "Lipides et glycogène." },
+{ question: "Quelle est la principale forme de stockage des sucres chez les animaux ?", answer: "Le glycogène." },
+{ question: "Quelle est la principale forme de stockage des sucres chez les plantes ?", answer: "L’amidon." },
+{ question: "Quels types de macromolécules sont présents en très grand nombre dans le cytosol ?", answer: "Les enzymes." },
+{ question: "Quels acides nucléiques trouve-t-on dans le cytosol ?", answer: "ARNm et ARNr." },
+{ question: "Que forment les ribosomes associés aux ARNm ?", answer: "Des polysomes, lieux de synthèse des protéines." },
+{ question: "Comment les molécules entrent-elles dans le cytosol ?", answer: "Par endocytose ou à l’aide de transporteurs." },
+{ question: "Qu’est-ce qui détermine la viscosité du cytosol ?", answer: "Les interactions entre les protéines." },
+{ question: "Quand le cytosol est-il visqueux ?", answer: "Lorsque les interactions entre protéines sont fortes." },
+{ question: "Quand le cytosol est-il fluide ?", answer: "Lorsque les interactions entre protéines sont faibles." },
+{ question: "À quoi est liée la modification de consistance du cytosol ?", answer: "À l’origine des mouvements de certains organites." },
+{ question: "Vrai ou faux le cytosol est considéré comme un carrefour métabolique ?", answer: "Vrai." }, 
+{ question: "Où se déroule la glycolyse ?", answer: "Entièrement dans le cytosol." },
+{ question: "La glycolyse a-t-elle besoin d’oxygène ?", answer: "Non, elle est anaérobie." },
+{ question: "Où se fait la production d’énergie dans les cellules animales ?", answer: "Dans la mitochondrie." },
+{ question: "Où se fait la production d’énergie dans les cellules végétales ?", answer: "Dans la mitochondrie et les chloroplastes." },
+{ question: "Quelles sont les quatre rôles du cytosol vis a vis des protéines ?", answer: "Synthèse, modification, adressage, dégradation." },
+{ question: "Quelles protéines sont synthétisées dans le cytosol ? (5 réponses)", answer: "Protéines du cytosol, majorité des protéines mitochondriales, protéines du nucléoplasme, protéines extrinsèques de la membrane plasmique (face cytosolique), protéines G." },
+{ question: "Où débute la synthèse de toutes les protéines ?", answer: "Dans le cytosol." },
+{ question: "Comment appelle-t-on la synthèse des protéines ?", answer: "La traduction." },
+{ question: "Que décode-t-on durant la traduction ?", answer: "Un ARNm en séquence d’acides aminés." },
+{ question: "Qu’utilise-t-on pour traduire l’ARNm en protéines ?", answer: "Le code génétique." },
+{ question: "Quelles parties d’un ARNm varient pour coder les AA ?", answer: "Les bases." },
+{ question: "Combien y a-t-il de bases différentes dans l’ARNm ?", answer: "4 bases (U, C, A, G)." },
+{ question: "Combien y a-t-il de combinaisons possibles avec un code à 3 lettres ?", answer: "64 (4³ = 64)." },
+{ question: "Combien y a-t-il d’acides aminés différents ?", answer: "20." },
+{ question: "Quel est le codon initiateur ?", answer: "AUG (Méthionine)." },
+{ question: "Quels sont les codons STOP ?", answer: "UAA, UAG, UGA." },
+{ question: "Quels acides aminés sont codés par un seul codon ?", answer: "Méthionine et Tryptophane." },
+{ question: "Combien de codons peuvent coder les autres acides aminés ?", answer: "Deux ou plus." },
+{ question: "Le code génétique est-il universel ?", answer: "Oui, pour tous les organismes vivants (sauf exceptions mitochondriales et unicellulaires)." },
+{ question: "Que signifie un code dégénéré ?", answer: "Un même acide aminé peut être codé par plusieurs codons." },
+{ question: "Qu’est-ce qui varie souvent dans un codon dégénéré ?", answer: "La troisième base." },
+{ question: "Le code est-il chevauchant ?", answer: "Non, il est lu codon par codon, sans chevauchement." },
+{ question: "Quels éléments sont nécessaires à la traduction ?", answer: "Ribosomes, ARNt, ARNm." },
+{ question: "De quoi sont composés les ribosomes ?", answer: "Petite sous-unité et grande sous-unité." },
+{ question: "Quelle activité importante contient la grande sous-unité ribosomique ?", answer: "La peptidyl transférase." },
+{ question: "Par quoi sont liés les acides aminés dans une chaîne peptidique ?", answer: "Par des liaisons amide (liaisons peptidiques)." },
+{ question: "Comment se forme une liaison peptidique ?", answer: "Entre le COOH d’un acide aminé et le NH2 du suivant." },
+{ question: "Que provoque chaque liaison peptidique formée ?", answer: "L’élimination d’une molécule d’eau." },
+{ question: "Qu’est-ce qui détermine l’ordre des acides aminés dans une chaîne ?", answer: "La séquence de l’ARNm." },
+{ question: 'Quelles sont les trois étapes de la traduction ?', answer: 'Initiation, élongation, terminaison' },
+{ question: 'Que se passe-t-il lors de l’initiation de la traduction ?', answer: 'Assemblage du ribosome sur l’ARNm' },
+{ question: 'Que se passe-t-il lors de l’élongation ?', answer: 'Accrochage des acides aminés les uns aux autres via des cycles répétés de délivrance d’AAs et de formation de la liaison peptidique, avec des mouvements le long de l’ARNm' },
+{ question: 'Que se passe-t-il lors de la terminaison ?', answer: 'Libération de la chaîne polypeptidique' },
+{ question: 'Quelles sont les différences entre eucaryotes et procaryotes concernant la traduction ?', answer: 'Des différences existent surtout au niveau des facteurs d’initiation, d’élongation et de terminaison' },
+{ question: 'Quelle est la première étape avant l’initiation ?', answer: 'Activation du premier AA qui est la Méthionine' },
+{ question: 'Quel enzyme permet d’accrocher l’AA à son ARNt initiateur ?', answer: 'L’amino-acyl ARNt synthétase' },
+{ question: 'Quel composé est formé par l’amino-acyl ARNt synthétase avant le transfert sur l’ARNt ?', answer: 'Amino-acyl-AMP' },
+{ question: 'Que libère la formation de l’amino-acyl-AMP ?', answer: 'Deux pyrophosphates' },
+{ question: 'Comment s’appelle le complexe obtenu après activation de l’AA ?', answer: 'Amino-acyl-ARNt' },
+{ question: 'Où se fait l’accrochage de l’acide aminé sur l’ARNt ?', answer: 'En 3’ de l’ARNt' },
+{ question: 'Comment sont les sous-unités ribosomales au début de l’initiation ?', answer: 'Dissociées' },
+{ question: 'Quels facteurs s’associent à la coiffe 5’ de l’ARNm ?',answer: 'eIF4f, eIF4a, eIF4b et une hélicase ATP-dépendante' },
+{ question: 'Quels facteurs rejoignent ensuite le complexe au niveau de la coiffe ?', answer: 'Petite sous-unité ribosomale, eIF2A, GTP, et MET-ARNt' },
+{ question: 'Où se place cet ensemble sur le ribosome ?', answer: 'Sur le site P (site peptidyl)' },
+{ question: 'Quelle enzyme permet de lire l’ARNm lors de l’initiation ?', answer: 'Une hélicase (ATP-dépendante)' },
+{ question: 'Quel codon déclenche l’hydrolyse du GTP par eIF2A ?', answer: 'Le codon AUG' },
+{ question: 'Que provoque l’hydrolyse du GTP par eIF2A ?', answer: 'La dissociation des facteurs d’initiation' },
+{ question: 'Qu’est-ce que permet la dissociation des facteurs d’initiation ?', answer: 'La fixation de la grosse sous-unité sur la petite sous-unité' },
+{ question: 'Quel complexe ribosomal est formé à la fin de l’initiation ?', answer: 'Un complexe ribosomal 80S' },
+{ question: 'Que se passe-t-il à chaque cycle d’élongation ? (5 étapes)', answer: 'Activation de l’amino-acyl ARNt avec du GTP et eEF1, liaison dans le site A, transpeptidation, libération de l’ARNt du site P, translocation via eEF2' },
+{ question: 'Quels facteurs interviennent dans l’élongation ?', answer: 'eEF1 et eEF2' },
+{ question: 'Quelle molécule d’énergie est utilisée à chaque translocation ?', answer: '1 GTP' },
+{ question: 'Qu’est-ce que la transpeptidation ?', answer: 'Le transfert spontané du peptide sur le site A' },
+{ question: 'Comment se fait la translocation du site A au site P ?', answer: 'Grâce au facteur eEF2 et l’hydrolyse du GTP' },
+{ question: 'Quand a lieu la terminaison ?', answer: 'Quand le ribosome atteint un codon stop (UAA, UAG, UGA)' },
+{ question: 'Quel facteur reconnaît le codon stop ?', answer: 'Le facteur eRF' },
+{ question: 'Comment est la structure du facteur eRF ?', answer: 'Très proche de celle d’un ARNt' },
+{ question: 'Que provoque la fixation de eRF sur le codon stop ?', answer: 'L’hydrolyse du peptidyl-ARNt et la libération du peptide' },
+{ question: 'Où a lieu la rupture de la liaison ester lors de la terminaison ?', answer: 'Sur le site P' },
+{ question: 'Quel est le rôle du cytosol dans l’adressage des protéines ?', answer: 'Reconnaître les séquences d’adressage et diriger les protéines vers leur destination' },
+{ question: "Qu'est-ce que SRP ?" , answer: "Une séquence d'adressage vers le réticulum endoplasmique." },
+{ question: "Qu'est-ce que NLS ?" , answer: "Une séquence d'adressage vers le noyau." },
+{ question: 'Quand peuvent avoir lieu les modifications des protéines ?', answer: 'Pendant (co-traduction) ou après la traduction (post-traduction)' },
+{ question: 'Combien de types de modifications peuvent toucher les acides aminés ?', answer: 'Une centaine' },
+{ question: 'Quels types de modifications post-traductionnelles existent ? (en citer 10)', answer: 'Phosphorylation-déphosphorylation, enlèvement de la méthionine, méthylation, carboxylation, acétylation, sulfatation, glycosylation, accrochage d’acides gras, conformation 3D, ubiquitination' },
+{ question: 'Où se fait la O-glycosylation ?', answer: 'Dans l’appareil de Golgi' },
+{ question: 'Est-ce que toutes les protéines peuvent subir une O-glycosylation ?', answer: 'Non, un nombre limité de protéines cytosoliques' },
+{ question: 'Que permet l’accrochage d’acides gras sur une protéine ?', answer: 'L’ancrage sur la face cytosolique des membranes' },
+{ question: 'Quel est le rôle des protéines de choc thermique ?', answer: 'Maintenir l’intégrité des protéines cellulaires, intervenir dans l’adressage, les modifications et la dégradation' },
+{ question: 'Comment appelle-t-on aussi les protéines de choc thermique ? (2 réponses)', answer: 'Heat Shock Proteins (HSP), protéines chaperonnes' },
+{ question: 'Où se trouvent les protéines HSP ? (5 réponses)', answer: 'Dans le cytosol, la matrice mitochondriale, la lumière du RE, la lumière des lysosomes, la membrane interne' },
+{ question: 'Quelle est l’activité enzymatique des HSP ?', answer: 'Elles ont une activité ATPasique, sauf l’ubiquitine' },
+{ question: 'Quel est le poids moléculaire des HSP ?', answer: 'De 10 à 110 kDa' },
+{ question: 'Quelles sont les deux grandes catégories de HSP ?', answer: 'HSP constitutives et HSP inductibles' },
+{ question: 'Quand les HSP inductibles apparaissent-elles ?', answer: 'Lors de stress : infection virale, hypoxie, toxines' },
+{ question: 'Quels effets a une élévation de température sur les protéines ?', answer: 'Diminution de la synthèse, modification de la conformation, agrégation' },
+{ question: 'Que provoque l’agrégation des protéines ?', answer: 'Elles deviennent toxiques et dangereuses pour la cellule' },
+{ question: 'Comment la cellule réagit à cette agrégation ?', answer: 'Augmentation de la transcription des gènes HSP et de la synthèse de protéines chaperonnes' },
+{ question: 'Où ont été découvertes les HSP ?', answer: 'Chez les levures' },
+{ question: 'Quel est le degré d’homologie entre HSP70 humaine et celle d’E. Coli ?', answer: '50% d’homologie globale, 96% pour certains domaines' },
+{ question: 'Pourquoi les HSP sont-elles bien conservées ?', answer: 'Car elles jouent un rôle essentiel dans la vie cellulaire' },
+{ question: 'Qu’est-ce que la glypiation et quand se fait-elle ?', answer: 'Accrochage d’une ancre GPI dans le réticulum endoplasmique en co-traductionnel' },
+{ question: 'Quand se fait la myristoylation ?', answer: 'Pendant la traduction (co-traductionnelle)' },
+{ question: 'Quand se fait la palmitoylation et l’isoprénylation ?', answer: 'Après la traduction (post-traductionnelle)' },
+{ question: "Quel est le rôle des protéines chaperonnes dans l'acquisition de la fonction des protéines ?", answer: "Elles interviennent pour replier la protéine et lui faire acquérir sa conformation tertiaire et quaternaire." },
+{ question: "Quel est le rôle de la clathrine ?", answer: "Elle permet la formation de bourgeonnement ou de molécules d’endocytose." },
+{ question: "À quoi est associée la clathrine pour former une vésicule ?", answer: "À l’adaptine, une protéine adaptative." },
+{ question: "Quelle protéine est responsable du désassemblage du manteau de clathrine ?", answer: "Les HSP70 (qui sont constitutives)." },
+{ question: "Comment les HSP70 retirent-elles le manteau de clathrine ?", answer: "Par hydrolyse de l’ATP." },
+{ question: "Qu’est-ce que permet le désassemblage du manteau de clathrine ?", answer: "La fusion de la vésicule avec d’autres compartiments et le recyclage de la clathrine et de l’adaptine." },
+{ question: "Sur quel type de récepteurs la HSP90 agit-elle ?", answer: "Sur les récepteurs nucléaires aux hormones stéroïdes." },
+{ question: "Comment les hormones stéroïdes entrent-elles dans la cellule ?", answer: "En traversant les membranes car ce sont des molécules informatives hydrophobes." },
+{ question: "Que provoque la fixation des hormones stéroïdes à la HSP90 ?", answer: "Elle libère la HSP90 et permet la dimérisation des récepteurs." },
+{ question: "À quoi se lient les récepteurs dimérisés après libération de la HSP90 ?", answer: "À l’ADN sur des séquences de type HRE." },
+{ question: "Quel est l’effet final de la liaison récepteur-hormone sur l’ADN ?", answer: "La transcription de gènes cibles." },
+{ question: "Donner un exemple d’antihormone et son mécanisme d’action ?", answer: "La mifépristone (RU486 ou pilule du lendemain), qui empêche la fixation sur l’ADN ou la dissociation HSP90/récepteur." },
+{ question: "Quels sont les trois facteurs influençant la concentration d’une protéine dans le cytosol ?", answer: "Vitesse de synthèse, durée de vie, vitesse de dégradation." },
+{ question: "Quel type de protéase agit à pH acide ?", answer: "Les protéases des lysosomes ou des vacuoles d’autophagie." },
+{ question: "Quel type de protéase agit à pH neutre ?", answer: "Les protéases du cytosol ou des organites comme les protéasomes." },
+{ question: "Donner 4 exemples de protéases cytosoliques neutres ?", answer: "Protéasome, exopeptidase Ca2+-dépendante, caspase, clipase." },
+{ question: "Quels acides aminés augmentent la durée de vie d’une protéine ?", answer: "Méthionine et glycine (stabilisants)." },
+{ question: "Quels acides aminés diminuent la durée de vie d’une protéine ?", answer: "Isoleucine (déstabilisant), leucine (moyennement déstabilisante)." },
+{ question: "Quels types de séquences accélèrent la dégradation des protéines ?", answer: "PEST et D-box." },
+{ question: "Quel type de protéines contient des D-box ?", answer: "Les cyclines." },
+{ question: "Quelle est la structure des protéasomes ?", answer: "Structure volumineuse oligomérique en forme de tonneau." },
+{ question: "Quelle est la masse et la taille du protéasome 26S ?", answer: "Environ 1700 kDa, forme un tonneau de 45 nm de long." },
+{ question: "Quel est le rôle de l’ubiquitine ?", answer: "Marquer les protéines à dégrader." },
+{ question: "Quelle est la masse de l’ubiquitine ?", answer: "8,5 kDa." },
+{ question: "Quelles enzymes participent à la fixation de l’ubiquitine ?", answer: "E1 (activation), E2 (conjugaison), E3 (ligase, sélection du substrat)." },
+{ question: "Quels acides aminés résistent à l’ubiquitinylation ?", answer: "Méthionine, sérine, alanine, thréonine, glycine, cystéine." },
+{ question: "Quels acides aminés favorisent la fixation d’E3 ?", answer: "Arginine, lysine, histidine." },
+{ question: "Quelle est la durée de demi-vie des protéines marquées par certains AA comme lysine ?", answer: "Environ 30 minutes." },
+{ question: "Que devient la protéine une fois ubiquitinylée ?", answer: "Elle est adressée au protéasome et dégradée en petits peptides." },
+{ question: "Que deviennent les peptides issus du protéasome ?", answer: "Ils sont transformés en acides aminés par les exopeptidases dans le cytosol." },
+{ question: "Quel est le devenir des acides aminés issus de la dégradation ?", answer: "Réutilisés pour la synthèse ou transformés en pyruvate." },
+{ question: "Qu’est-ce que la dé-ubiquitinylation ?", answer: "Le retrait réversible de l’ubiquitine, contrôlé par des enzymes spécifiques." },
+{ question: "Donner un exemple de cible de dé-ubiquitinylation ?", answer: "Histones." },
+{ question: "Quels 3 types de protéines sont irréversiblement ubiquitinylées ?", answer: "Protéines transmembranaires, enzymes cytosoliques, protéines en cours de biosynthèse." },
+{ question: "Quel est le rôle du protéasome dans l’immunité ?", answer: "Dégrader des protéines virales en peptides antigéniques." },
+{ question: "Quel complexe présente les peptides viraux à la surface cellulaire ?", answer: "Le CMH I (complexe majeur d’histocompatibilité de type I)." },
+{ question: "Quels lymphocytes reconnaissent les peptides sur CMH I ?", answer: "Les lymphocytes T CD8." },
+{ question: "Que permet l'activation des lymphocytes T par CMH I ?", answer: "L’activation du système immunitaire." },
+{ question: "Quels stress peuvent produire des protéines anormales à dégrader ?", answer: "Choc thermique, toxines, hypoxie." },
+{ question: "Que sont les protéines G ?", answer: "Des protéines liant GTP/GDP et capables d’hydrolyser le GTP." },
+{ question: "Comment les protéines G peuvent-elles être ancrées aux membranes ?", answer: "Par accrochage de résidus acides gras." },
+{ question: "Quelles 2 protéines G n’ont pas besoin d’ancrage membranaire ?", answer: "La dynamine et la protéine SAR." },
+{ question: "Quelles sont les deux familles de protéines G ?", answer: "Grandes (hétérotrimériques) et petites (monomériques)." },
+{ question: "Quelles sont les 3 caractéristiques des grandes protéines G ?", answer: "Trois sous-unités (α, β, γ), accrochage permanent à la membrane, rôle dans la transmission des signaux chimiques hydrosolubles." },
+{ question: "Quels récepteurs sont couplés aux grandes protéines G ?", answer: "Les RCPG (récepteurs couplés aux protéines G à 7 domaines transmembranaires)." },
+{ question: "Quelles toxines peuvent activer irréversiblement les grandes protéines G ?", answer: "Toxine cholérique et toxine de la coqueluche." },
+{ question: "Donner 5 exemples de familles de petites protéines G ?", answer: "ARF, Rab, Ras, Dynamine, Rho et Rac." },
+{ question: "Quel est le rôle des protéines ARF ?", answer: "Bourgeonnement de vésicules, flux membranaire, contrôle des coatomères." },
+{ question: "Quel est le rôle de Rab ?", answer: "Formation et transport de vésicules, mécanismes d’endocytose." },
+{ question: "Quel est le rôle des protéines Ras ?", answer: "Agir sur la prolifération et le cycle cellulaire." },
+{ question: "Quel est le rôle des protéines Dynamine ?", answer: "Fermeture et internalisation de vésicules à cavéoles et à clathrines." },
+{ question: "Quel est le rôle de Rho et Rac ?", answer: "Organisation du cytosquelette." },
+{ question: "Quel ion joue un rôle essentiel dans la cellule ?", answer: "Le calcium (Ca2+)." },
+{ question: "Quels 3 phénomènes sont déclenchés par les variations de calcium intracellulaire ?", answer: "Activation d’enzymes, facteurs de transcription, contrôle du cycle cellulaire." },
+{ question: "Où est stocké le calcium dans la cellule ? (4 réponses)", answer: "Mitochondrie, RE rugueux, noyau, appareil de Golgi." },
+{ question: "Quelle protéine se lie à 4 ions Ca2+ ?", answer: "La calmoduline." },
+{ question: "Quel est le rôle du complexe calmoduline-Ca2+ ?", answer: "Phosphorylation/déphosphorylation de protéines cytosoliques et nucléoplasmiques." }
+];
+
+ 	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

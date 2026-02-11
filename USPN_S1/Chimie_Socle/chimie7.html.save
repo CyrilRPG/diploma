@@ -1,0 +1,633 @@
+ssh root@91.107.213.199
+
+<html>
+	<head>
+		<title>Diploma Santé - Plateforme de Flashcards</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../images/diploma.jpeg" />
+	    <script src="../security.js" defer></script>
+    <script src="../assets/js/favorites.js"></script>
+</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+									<ul class="icons">
+										<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+										<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Chimie Socle</h1>
+										<h2>Fonctions monovalentes</h2>
+									</header>
+
+
+						<span class="image main"><img src="../images/pic02.jpg" alt="" /></span>
+					</head>
+					<style>
+  .progress-container {
+    width: 90%;
+    max-width: 800px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .flashcard {
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .check-icon,
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    stroke: #888;
+    transition: stroke 0.3s;
+  }
+
+  .check-icon {
+    right: 10px;
+  }
+
+  .cross-icon {
+    left: 10px;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon {
+    display: block;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+</style>
+					<body>
+					<ul class="actions">
+						<li><a class="button large" id="reset">Réinitialiser</a></li>
+					</ul>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+					  <script>
+					    const flashcardsData = [
+{ question: "Qu'est-ce qu'une substitution nucléophile ?", answer: "Un remplacement de X par Nu : R-X → R-Nu" },
+{ question: "Dans une substitution nucléophile, que représente Nu ?", answer: "Le groupement entrant" },
+{ question: "Dans une substitution nucléophile, que représente X ?", answer: "Le groupement partant appelé nucléofuge" },
+{ question: "Quels sont les deux types de substitution nucléophile ?", answer: "SN1 (d’ordre 1) et SN2 (d’ordre 2)" },
+{ question: "Quelle est l’étape 1 de la SN1 ?", answer: "Rupture de la liaison Cα-X, étape lente" },
+{ question: "Quelle est l’étape cinétiquement déterminante en SN1 ?", answer: "La rupture de la liaison Cα-X" },
+{ question: "Quelle est l’étape 2 de la SN1 ?", answer: "Formation de la liaison Cα-Nu, étape rapide" },
+{ question: "Sur combien de côtés le nucléophile peut-il attaquer dans une SN1 ?", answer: "Sur les deux côtés du plan" },
+{ question: "Quelle est la loi de vitesse de la SN1 ?", answer: "V = k × [R-X]¹" },
+{ question: "Quel est l’ordre de réaction de la SN1 ?", answer: "Ordre 1" },
+{ question: "Quelle est la particularité du mécanisme SN2 ?", answer: "Une unique étape où rupture de Cα-X et formation de Cα-Nu ont lieu simultanément" },
+{ question: "Quel type de nucléophile intervient en SN2 ?", answer: "Un nucléophile fort" },
+{ question: "Quelle est la loi de vitesse de la SN2 ?", answer: "V = k × [R-X]¹ × [Nu⁻]¹" },
+{ question: "Quel est l’ordre de réaction de la SN2 ?", answer: "Ordre 2" },
+{ question: "Combien de stéréoisomères sont possibles en SN1 ?", answer: "2 stéréoisomères possibles en quantité équimolaire" },
+{ question: "Combien de stéréoisomères sont obtenus en SN2 ?", answer: "1 seul stéréoisomère à 100%" },
+{ question: "Quel est le type de stéréochimie en SN1 ?", answer: "Réaction non stéréospécifique" },
+{ question: "Quel est le type de stéréochimie en SN2 ?", answer: "Inversion de configuration de Walden, réaction stéréospécifique" },
+{ question: "Comment se fait l’attaque de Nu sur R-X en SN1 ?", answer: "Sur les deux faces du carbocation de façon équiprobable" },
+{ question: "Comment se fait l’attaque de Nu sur R-X en SN2 ?", answer: "Attaque en anti de la liaison Cα-X" },
+{ question: "Quels facteurs favorisent une SN1 ?", answer: "C tertiaire > C secondaire > C primaire, solvant protique polaire, bon groupe partant, nucléophile faible" },
+{ question: "Quels facteurs favorisent une SN2 ?", answer: "C primaire > C secondaire > C tertiaire, solvant aprotique polaire, bon groupe partant, nucléophile chargé basique" },
+{ question: "Qu’est-ce qu’une réaction d’élimination ou β élimination ?", answer: "Élimination d’un composé halogéné sur Cβ avec formation d’une double liaison" },
+{ question: "Quels sont les deux types d’élimination ?", answer: "Élimination d’ordre 1 (E1) et d’ordre 2 (E2)" },
+{ question: "Quelle est l’étape 1 de l’élimination E1 ?", answer: "Rupture de la liaison C-X, lente" },
+{ question: "Quelle est l’étape cinétiquement déterminante en E1 ?", answer: "La rupture de la liaison C-X" },
+{ question: "Quelle est l’étape 2 de l’élimination E1 ?", answer: "Attaque de H par la base et formation de la double liaison, rapide" },
+{ question: "Quelle est la loi de vitesse de E1 ?", answer: "V = k × [R-X]¹" },
+{ question: "Quel est le mécanisme de la E2 ?", answer: "Une unique étape où la base attaque le H et formation de la double liaison + départ de X⁻ simultanément" },
+{ question: "Quelle est l’étape cinétiquement déterminante en E2 ?", answer: "L’unique étape bimoléculaire" },
+{ question: "Quelle est la loi de vitesse de E2 ?", answer: "V = k × [R-X]¹ × [B⁻]¹" },
+{ question: "Quelle réaction est en compétition avec E1 ?", answer: "SN1" },
+{ question: "Quelle réaction est en compétition avec E2 ?", answer: "SN2" },
+{ question: "Combien de stéréoisomères obtient-on en E1 ?", answer: "2 : alcène E et alcène Z" },
+{ question: "Quel stéréoisomère est majoritaire en E1 ?", answer: "L’alcène E" },
+{ question: "Combien de stéréoisomères obtient-on en E2 ?", answer: "1 seul : soit E soit Z" },
+{ question: "Quel est le type de stéréochimie de E1 ?", answer: "Non stéréospécifique" },
+{ question: "Quel est le type de stéréochimie de E2 ?", answer: "Stéréospécifique, H et X doivent être anticoplanaire (trans)" },
+{ question: "Quelle est la régiosélectivité des éliminations E1 et E2 ?", answer: "Selon la règle de Zaitsev" },
+{ question: "Qu’indique la règle de Zaitsev ?", answer: "Le produit majoritaire est l’alcène le plus stable, le plus substitué" },
+{ question: "Quels facteurs influencent l’élimination E1 ?", answer: "C tertiaire > C secondaire > C primaire, solvant protique polaire, base faible, bon groupe partant" },
+{ question: "Quels facteurs influencent l’élimination E2 ?", answer: "C primaire > C secondaire > C tertiaire, solvant aprotique polaire à chaud, base forte, bon groupe partant" }{ question: "Quel paramètre physique permet d'augmenter la probabilité de l'élimination au détriment de celle de la substitution ?", answer: "La chaleur" },
+{ question: "Comment déterminer l’alcène majoritaire selon Zaitsev ?", answer: "C’est celui formé sur le carbone β portant le moins d’hydrogènes" },
+{"question": {"type": "image", "src": "../images/chimie7_q1.png", "alt": "Réaction chimie7_q1", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a1.png", "alt": "Produit chimie7_a1"}},
+{"question": {"type": "image", "src": "../images/chimie7_q2.png", "alt": "Réaction chimie7_q2", "caption": "Quel type de substitution nucléophile est-ce ?"}, "answer": "SN1"},
+{"question": {"type": "image", "src": "../images/chimie7_q3.png", "alt": "Réaction chimie7_q3", "caption": "Quel type de substitution nucléophile est-ce ?"}, "answer": "SN2"},
+{"question": {"type": "image", "src": "../images/chimie7_q4.png", "alt": "Réaction chimie7_q4", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a4.png", "alt": "Produit chimie7_a4"}},
+{"question": {"type": "image", "src": "../images/chimie7_q5.png", "alt": "Réaction chimie7_q5", "caption": "Quel type d'élimination est-ce ?"}, "answer": "E1"},
+{"question": {"type": "image", "src": "../images/chimie7_q6.png", "alt": "Réaction chimie7_q6", "caption": "Quel type d'élimination est-ce ?"}, "answer": "E2"},
+{"question": {"type": "image", "src": "../images/chimie7_q7.png", "alt": "Réaction chimie7_q7", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a7.png", "alt": "Produit chimie7_a7"}},
+{"question": {"type": "image", "src": "../images/chimie7_q8.png", "alt": "Réaction chimie7_q8", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a8.png", "alt": "Produit chimie7_a8"}},
+{"question": {"type": "image", "src": "../images/chimie7_q9.png", "alt": "Réaction chimie7_q9", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a9.png", "alt": "Produit chimie7_a9"}},
+{"question": {"type": "image", "src": "../images/chimie7_q10.png", "alt": "Réaction chimie7_q10", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a10.png", "alt": "Produit chimie7_a10"}},
+{"question": {"type": "image", "src": "../images/chimie7_q11.png", "alt": "Réaction chimie7_q11", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a11.png", "alt": "Produit chimie7_a11"}},
+{"question": {"type": "image", "src": "../images/chimie7_q12.png", "alt": "Réaction chimie7_q12", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a12.png", "alt": "Produit chimie7_a12"}},
+{"question": {"type": "image", "src": "../images/chimie7_q13.png", "alt": "Réaction chimie7_q13", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a13.png", "alt": "Produit chimie7_a13"}},
+{"question": {"type": "image", "src": "../images/chimie7_q14.png", "alt": "Réaction chimie7_q14", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a14.png", "alt": "Produit chimie7_a14"}},
+{"question": {"type": "image", "src": "../images/chimie7_q15.png", "alt": "Réaction chimie7_q15", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a15.png", "alt": "Produit chimie7_a15"}},
+{"question": {"type": "image", "src": "../images/chimie7_q16.png", "alt": "Réaction chimie7_q16", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a16.png", "alt": "Produit chimie7_a16"}},
+{"question": {"type": "image", "src": "../images/chimie7_q17.png", "alt": "Réaction chimie7_q17", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a17.png", "alt": "Produit chimie7_a17"}},
+{"question": {"type": "image", "src": "../images/chimie7_q18.png", "alt": "Réaction chimie7_q18", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a18.png", "alt": "Produit chimie7_a18"}},
+{"question": {"type": "image", "src": "../images/chimie7_q19.png", "alt": "Réaction chimie7_q19", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a19.png", "alt": "Produit chimie7_a19"}},
+{"question": {"type": "image", "src": "../images/chimie7_q20.png", "alt": "Réaction chimie7_q20", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a20.png", "alt": "Produit chimie7_a20"}},
+{"question": {"type": "image", "src": "../images/chimie7_q21.png", "alt": "Réaction chimie7_q21", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a21.png", "alt": "Produit chimie7_a21"}},
+{"question": {"type": "image", "src": "../images/chimie7_q22.png", "alt": "Réaction chimie7_q22", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a22.png", "alt": "Produit chimie7_a22"}},
+{"question": {"type": "image", "src": "../images/chimie7_q23.png", "alt": "Réaction chimie7_q23", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a23.png", "alt": "Produit chimie7_a23"}},
+{"question": {"type": "image", "src": "../images/chimie7_q24.png", "alt": "Réaction chimie7_q24", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a24.png", "alt": "Produit chimie7_a24"}},
+{"question": {"type": "image", "src": "../images/chimie7_q25.png", "alt": "Réaction chimie7_q25", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a25.png", "alt": "Produit chimie7_a25"}},
+{"question": {"type": "image", "src": "../images/chimie7_q26.png", "alt": "Réaction chimie7_q26", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a26.png", "alt": "Produit chimie7_a26"}},
+{"question": {"type": "image", "src": "../images/chimie7_q27.png", "alt": "Réaction chimie7_q27", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a27.png", "alt": "Produit chimie7_a27"}},
+{"question": {"type": "image", "src": "../images/chimie7_q28.png", "alt": "Réaction chimie7_q28", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a28.png", "alt": "Produit chimie7_a28"}},
+{"question": {"type": "image", "src": "../images/chimie7_q29.png", "alt": "Réaction chimie7_q29", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a29.png", "alt": "Produit chimie7_a29"}},
+{"question": {"type": "image", "src": "../images/chimie7_q30.png", "alt": "Réaction chimie7_q30", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a30.png", "alt": "Produit chimie7_a30"}},
+{"question": {"type": "image", "src": "../images/chimie7_q31.png", "alt": "Réaction chimie7_q31", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a31.png", "alt": "Produit chimie7_a31"}},
+{"question": {"type": "image", "src": "../images/chimie7_q32.png", "alt": "Réaction chimie7_q32", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a32.png", "alt": "Produit chimie7_a32"}},
+{"question": {"type": "image", "src": "../images/chimie7_q33.png", "alt": "Réaction chimie7_q33", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a33.png", "alt": "Produit chimie7_a33"}},
+{"question": {"type": "image", "src": "../images/chimie7_q34.png", "alt": "Réaction chimie7_q34", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a34.png", "alt": "Produit chimie7_a34"}},
+{"question": {"type": "image", "src": "../images/chimie7_q35.png", "alt": "Réaction chimie7_q35", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a35.png", "alt": "Produit chimie7_a35"}},
+{"question": {"type": "image", "src": "../images/chimie7_q36.png", "alt": "Réaction chimie7_q36", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a36.png", "alt": "Produit chimie7_a36"}},
+{"question": {"type": "image", "src": "../images/chimie7_q38.png", "alt": "Réaction chimie7_q38", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a38.png", "alt": "Produit chimie7_a38"}},
+{"question": {"type": "image", "src": "../images/chimie7_q39.png", "alt": "Réaction chimie7_q39", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a39.png", "alt": "Produit chimie7_a39"}},
+{"question": {"type": "image", "src": "../images/chimie7_q40.png", "alt": "Réaction chimie7_q40", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a40.png", "alt": "Produit chimie7_a40"}},
+{"question": {"type": "image", "src": "../images/chimie7_q41.png", "alt": "Réaction chimie7_q41", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a41.png", "alt": "Produit chimie7_a41"}},
+{"question": {"type": "image", "src": "../images/chimie7_q42.png", "alt": "Réaction chimie7_q42", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a42.png", "alt": "Produit chimie7_a42"}},
+{"question": {"type": "image", "src": "../images/chimie7_q43.png", "alt": "Réaction chimie7_q43", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a43.png", "alt": "Produit chimie7_a43"}},
+{"question": {"type": "image", "src": "../images/chimie7_q44.png", "alt": "Réaction chimie7_q44", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a44.png", "alt": "Produit chimie7_a44"}},
+{"question": {"type": "image", "src": "../images/chimie7_q45.png", "alt": "Réaction chimie7_q45", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a45.png", "alt": "Produit chimie7_a45"}},
+{"question": {"type": "image", "src": "../images/chimie7_q46.png", "alt": "Réaction chimie7_q46", "caption": "Quel est le produit de cette réaction ?"}, "answer": {"type": "image", "src": "../images/chimie7_a46.png", "alt": "Produit chimie7_a46"}},
+        ];
+
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    btnContainer.appendChild(toggleBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    `;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    card.appendChild(checkIcon);
+    card.appendChild(crossIcon);
+    card.appendChild(favIcon);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "<p>Plus de flashcards disponibles.</p>";
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+document.getElementById("reset").addEventListener("click", () => {
+  localStorage.removeItem(progressKey);
+  localStorage.removeItem("completed_" + pageId);
+  flashcards = [...originalData];
+  currentIndex = 0;
+  updateProgress();
+  showCard(currentIndex);
+});
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+								<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="chimie1.html">Nomenclature</a></li>
+                        <li><a href="chimie2.html">Stéréochimie</a></li>
+                        <li><a href="chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="chimie5.html">Les Alcènes</a></li>
+                        <li><a href="chimie6.html">Les Alcynes</a></li>
+                        <li><a href="chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+							
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+<script src="../assets/js/darkmode.js"></script>
+<script src="../assets/js/favorites.js"></script>
+
+	</body>
+</html>

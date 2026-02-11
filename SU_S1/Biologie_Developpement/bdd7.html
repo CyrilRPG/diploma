@@ -1,0 +1,985 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie du développement</h1><h2>Developpement Humains</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Qui a identifié la crête neurale en 1868 ?', answer: 'Wilhelm His, en observant une structure entre l’ectoderme de surface et le tube neural appelée cordon intermédiaire.' },
+  { question: 'Qui a identifié les premiers dérivés de la crête neurale en 1893 ?', answer: 'Julia Platt.' },
+  { question: 'Quels dérivés de la crête neurale Julia Platt avait-elle mis en évidence ?', answer: 'Des cellules mésenchymateuses différenciées en tissu conjonctif, cartilagineux et osseux dans la région céphalique.' },
+  { question: 'Quels travaux ont mis en évidence des cellules migrantes d’origine dorsale dans les arcs branchiaux chez le triton Necturus ?', answer: 'Les travaux de Julia Platt en 1893.' },
+  { question: 'Qui a développé la technique caille/poule pour étudier la crête neurale ?', answer: 'Nicole Le Douarin en 1969.' },
+  { question: 'Quel type de marquage naturel permet de distinguer les cellules de caille et de poule ?', answer: 'L’hétérochromatine compacte dans les cellules de caille et l’hétérochromatine diffuse dans les cellules de poule.' },
+  { question: 'Quels tissus sont en contact avec le territoire présomptif des cellules de la crête neurale après la gastrulation ?', answer: 'Le neurectoderme, l’ectoderme de surface et le mésoderme paraxial.' },
+  { question: 'Quelles protéines induisent les cellules de la crête neurale ?', answer: 'Wnt, BMP, acide rétinoïque et FGF.' },
+  { question: 'Qu’est-ce que la spécification des cellules de la crête neurale ?', answer: 'L’engagement dans une voie de différenciation.' },
+  { question: 'Quels facteurs de transcription sont exprimés lors de la spécification des cellules de la crête neurale ?', answer: 'Snail-2/Slug et ZEB-2.' },
+  { question: 'Par quel processus les cellules de la crête neurale s’individualisent-elles ?', answer: 'Par une transition épithélio-mésenchymateuse (TEM).' },
+  { question: 'Qu’est-ce que la délamination dans le contexte de la crête neurale ?', answer: 'Le mouvement morphogénétique où des cellules mésenchymateuses se forment à partir d’un épithélium.' },
+  { question: 'Quelle molécule doit être réprimée pour permettre la délamination des cellules de la crête neurale ?', answer: 'La N-cadhérine.' },
+  { question: 'Quel rôle joue la fibronectine et la laminine dans la migration des cellules de la crête neurale ?', answer: 'Elles servent de support via les intégrines.' },
+  { question: 'Quelles structures cellulaires permettent aux cellules de la crête neurale de se déplacer ?', answer: 'Les lamellipodes.' },
+  { question: 'Qu’est-ce que le chimiotactisme dans la migration des cellules de la crête neurale ?', answer: 'La direction du déplacement d’une cellule en réponse à une molécule chémoattractante.' },
+  { question: 'Quels sont les quatre grands territoires de la crête neurale ?', answer: 'Crête céphalique, crête vagale, crête troncale, crête lombo-sacrée.' },
+  { question: 'Quelle méthode permet d’étudier la migration des cellules de la crête neurale ?', answer: 'La technique de greffes caille-poule.' },
+  { question: 'Que révèle la greffe homotopique de crête neurale vagale de caille chez la poule ?', answer: 'Les dérivés sont retrouvés dans l’aorte, les arcs branchiaux et le duodénum.' },
+  { question: 'Que révèle la greffe homotopique de crête neurale céphalique de caille chez la poule ?', answer: 'Les dérivés sont retrouvés dans la vésicule optique et les arcs branchiaux.' },
+  { question: 'Qu’indique une greffe hétérotopique de tube neural troncal en région vagale ?', answer: 'Les cellules de la crête répondent au micro-environnement et sont plastiques.' },
+  { question: 'Vers quelles structures migrent les cellules de la crête neurale céphalique ?', answer: 'Vers la tête.' },
+  { question: 'Vers quelles structures migrent les cellules de la crête neurale vagale ?', answer: 'Vers le tube digestif et le cœur.' },
+  { question: 'Vers quelles structures migrent les cellules de la crête troncale ?', answer: 'Vers le tube digestif, la médullosurrénale, les ganglions spinaux et vertébraux.' },
+  { question: 'Vers quelles structures migrent les cellules de la crête lombo-sacrée ?', answer: 'Vers l’intestin, la vessie et les organes génitaux.' },
+  { question: 'Quels sont les dérivés principaux de la crête neurale céphalique ?', answer: 'Squelette crânio-facial, odontoblastes, péricytes, derme de la tête, stroma oculaire, ganglions sensitifs et parasympathiques.' },
+  { question: 'Quels sont les exemples de neurocristopathies d’origine céphalique ?', answer: 'La fente labio-palatine et le syndrome de Treacher-Collins.' },
+  { question: 'Qu’est-ce que la fente labio-palatine ?', answer: 'Une absence de soudure des bourgeons maxillaires entraînant une communication bucco-nasale.' },
+  { question: 'Quels troubles fonctionnels peuvent être causés par une fente labio-palatine ?', answer: 'Troubles de succion, déglutition, phonation et préjudice esthétique.' },
+  { question: 'À partir de quand peut-on diagnostiquer une fente labio-palatine ?', answer: 'À partir de la 16ème semaine de grossesse.' },
+  { question: 'Quel est l’agent causal du syndrome de Treacher-Collins dans 60% des cas ?', answer: 'Une mutation survenue au cours du développement embryonnaire.' },
+  { question: 'Quels gènes sont associés au syndrome de Treacher-Collins ?', answer: 'TCOF1, POLR1C et POLR1D.' },
+  { question: 'Quel est le principal défaut pigmentaire dans le syndrome de Waardenburg ?', answer: 'Un défaut de migration ou de survie des mélanoblastes.' },
+  { question: 'Quels symptômes sont caractéristiques du syndrome de Waardenburg ?', answer: 'Mèche blanche, hypopigmentations, hétérochromie, surdité neurosensorielle.' },
+  { question: 'Quels gènes sont impliqués dans le syndrome de Waardenburg ?', answer: 'PAX3, MITF, SOX10, EDNRB, EDN3 et SNAI2.' },
+  { question: 'Quels sont les dérivés endocrines issus des cellules de la crête neurale troncale ?', answer: 'Les cellules chromaffines de la médullosurrénale.' },
+  { question: 'Quels sont les dérivés du système nerveux périphérique issus de la crête neurale troncale ?', answer: 'Les neurones sensoriels et la glie des ganglions spinaux, les cellules des capsules frontières et les cellules de Schwann.' },
+  { question: 'Quelle est la contribution des cellules de la crête neurale lombo-sacrée ?', answer: 'Elles contribuent à la paroi du rectum et aux neurones ganglionnaires du système parasympathique sacré localisés dans la vessie et les organes génitaux.' },
+  { question: 'Quel lien existe entre la TEM de la crête neurale et la fibrose ou les métastases cancéreuses ?', answer: 'Fibrose et métastases reposent sur des mécanismes de transition épithélio-mésenchymateuse similaires à ceux des cellules de la crête neurale.' },
+  { question: 'Quelles protéines impliquées dans la migration des cellules de la crête neurale sont aussi impliquées dans la migration des cellules cancéreuses ?', answer: 'Les MMP et ADAM.' },
+  { question: 'Quels sont les dérivés du neurectoderme ?', answer: 'Cerveau, moelle épinière, crêtes neurales, squelette de la face, ganglions et fibres des nerfs crâniens, cellules pigmentaires, médullosurrénales.' },
+  { question: 'Quels sont les dérivés de l’épiderme ?', answer: 'Peau, dents, placodes.' },
+  { question: 'Quels sont les dérivés du mésoderme axial ?', answer: 'Chorde et nucleus pulposus.' },
+  { question: 'Quels sont les dérivés du dermatome ?', answer: 'Le derme.' },
+  { question: 'Quels sont les dérivés du sclérotome ?', answer: 'Le squelette vertébral.' },
+  { question: 'Quels sont les dérivés du syndétome ?', answer: 'Les tendons.' },
+  { question: 'Quels sont les dérivés du myotome ?', answer: 'Les muscles.' },
+  { question: 'Quels sont les dérivés du gononéphrotome ?', answer: 'Les reins et les gonades.' },
+  { question: 'Quels sont les dérivés de la somatopleure ?', answer: 'Le péricarde, le derme latéral, les crêtes génitales, la charpente conjonctive des muscles.' },
+  { question: 'Quels sont les dérivés de la splanchnopleure ?', answer: 'Muscles lisses, rate, cœur, appareil circulatoire, mésentère.' },
+  { question: 'Quels sont les dérivés principaux de l’endoderme ?', answer: 'Trachée, poumons, thyroïde, tube digestif, foie, pancréas.' },
+  { question: 'Qu’est-ce que la totipotence ?', answer: 'La capacité d’une cellule à donner un individu complet, exemple : blastomères.' },
+  { question: 'Qu’est-ce que la pluripotence ?', answer: 'La capacité de donner un large spectre de cellules sans former un individu complet, exemple : masse cellulaire interne.' },
+  { question: 'Qu’est-ce que la multipotence ?', answer: 'La capacité de donner plusieurs types cellulaires dans un seul type tissulaire.' },
+  { question: 'Qu’est-ce que l’unipotence ?', answer: 'La capacité de donner un seul type cellulaire tout en pouvant s’auto-renouveler.' },
+  { question: 'Quels sont les signaux extracellulaires impliqués dans la spécification cellulaire ?', answer: 'Les voies TGFβ, FGF et Wnt.' },
+  { question: 'Quels changements génétiques accompagnent la différenciation ?', answer: 'Extinction des gènes de pluripotence et activation de gènes spécifiques via facteurs de transcription et modifications épigénétiques.' },
+  { question: 'Que représente l’épigénèse selon Aristote ?', answer: 'La formation progressive des organes à partir d’un état indifférencié.' },
+  { question: 'Que représente le paysage épigénétique de Waddington ?', answer: 'Le cheminement d’une cellule vers son destin contrôlé par l’expression génique et les modifications épigénétiques.' },
+  { question: 'Qu’est-ce que l’épigénétique ?', answer: 'L’étude des modifications de l’ADN ou des histones modifiant l’expression des gènes sans changer la séquence.' },
+  { question: 'Quel exemple illustre le contrôle épigénétique ?', answer: 'La métamorphose du Xénope contrôlée par les gènes cibles de l’hormone T3.' },
+  { question: 'De quoi dérivent les muscles squelettiques ?', answer: 'Du mésoderme des somites.' },
+  { question: 'Qu’est-ce qu’une cellule spécifiée dans la lignée musculaire ?', answer: 'Un progéniteur musculaire engagé de manière réversible.' },
+  { question: 'Qu’est-ce qu’une cellule déterminée dans la lignée musculaire ?', answer: 'Un myoblaste engagé de manière irréversible.' },
+  { question: 'Qu’est-ce qu’une fibre musculaire ?', answer: 'Une cellule différenciée plurinucléée.' },
+  { question: 'Que devient le somite épithélial lors de sa maturation ?', answer: 'Il se subdivise en dermomyotome et sclérotome.' },
+  { question: 'Dans quelle structure observe-t-on l’origine somite des muscles des membres ?', answer: 'Dans les expériences de greffes caille-poule.' },
+  { question: 'Quels sont les Myogenic Regulatory Factors ?', answer: 'Myf5, MyoD, Myogénine, MRF4.' },
+  { question: 'Quel est le rôle de Pax3 dans la spécification musculaire ?', answer: 'Il est exprimé précocement dans le dermomyotome et nécessaire à la migration myoblastique vers les bourgeons de membres.' },
+  { question: 'Que provoque un mutant Pax3 chez la souris ?', answer: 'Des myocytes présents dans les somites mais absence de muscles dans les membres.' },
+  { question: 'Que font les MRFs dans la différenciation musculaire ?', answer: 'Ils codent des facteurs bHLH capables de convertir d’autres types cellulaires en cellules musculaires.' },
+  { question: 'Quelles étapes cellulaires expriment les MRF selon leur progression ?', answer: 'Selon le stade : Myf5 et MyoD précoces, Myogénine et MRF4 plus tardifs.' },
+  { question: 'Comment se déroule la régénération musculaire adulte ?', answer: 'Grâce à l’activation des cellules satellites après lésion par notéxine.' },
+  { question: 'Pourquoi les fibres musculaires régénérées peuvent-elles gêner le mouvement ?', answer: 'Elles n’ont pas de noyaux périphériques.' },
+  { question: 'Qu’est-ce qu’une myopathie centronucléaire ?', answer: 'Une myopathie caractérisée par des noyaux placés au centre des fibres musculaires hors contexte de régénération.' },
+  { question: 'Quels gènes sont associés aux myopathies centronucléaires ?', answer: 'MTM1 (45 %) et DNM2 (15 %).' },
+  { question: 'Quel est l’autre nom de la forme liée à l’X des myopathies centronucléaires ?', answer: 'La myopathie myotubulaire (XLMTM).' },
+  { question: 'Quels sont les symptômes de la XLMTM ?', answer: 'Hypotonie sévère, faiblesse musculaire généralisée et issue souvent fatale par insuffisance respiratoire.' },
+  { question: 'Quel est le rôle du gène MTM1 ?', answer: 'Il code la myotubularine, une phosphoinositide phosphatase impliquée dans le trafic membranaire.' },
+  { question: 'Quels sont les symptômes des formes autosomiques dominantes DNM2 ?', answer: 'Faiblesse musculaire progressive, retard moteur, ptosis, ophtalmoplégie, rétractions du tendon d’Achille.' },
+  { question: 'Quel est le rôle de la dynamine 2 codée par DNM2 ?', answer: 'Une GTPase impliquée dans le trafic membranaire et la régulation des cytosquelettes.' },
+  { question: 'Quel est le tableau histopathologique typique des myopathies centronucléaires ?', answer: 'Centralisation nucléaire, atrophie des fibres lentes et travées sarcoplasmiques en rayons de roue.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

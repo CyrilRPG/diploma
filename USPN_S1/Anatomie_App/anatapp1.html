@@ -1,0 +1,1048 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie Approfondissement</h1><h2>Rachis</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+                                        <style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+  const flashcardsData = [
+{ question: { type: "image", src: "../../images/anatapp1_q1.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a1.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q2.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a2.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q3.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a3.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q4.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a4.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q5.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a5.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q6.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a6.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q7.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a7.jpg", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/anatapp1_q8.jpg", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/anatapp1_a8.jpg", alt: "Schéma réponse" } },
+{ question: "Comment est la première courbure de la colonne vertébrale ?", answer: "Convexe vers l’avant." },
+{ question: "Comment est la deuxième courbure de la colonne vertébrale ?", answer: "Convexe vers l’arrière." },
+{ question: "Comment est la dernière courbure de la colonne vertébrale ?", answer: "Convexe vers l’avant." },
+{ question: "Comment évoluent les courbures de la colonne vertébrale au cours de la vie ?", answer: "Elles augmentent progressivement." },
+{ question: "Quelle courbure devient majeure chez le sujet âgé ?", answer: "La cyphose." },
+{ question: "Comment se compose la colonne vertébrale vers l’avant ?", answer: "D’un corps vertébral." },
+{ question: "Comment se compose la colonne vertébrale vers l’arrière ?", answer: "D’un processus épineux." },
+{ question: "Que trouve-t-on entre chaque corps vertébral ?", answer: "Un espace intervertébral (ou somatique)." },
+{ question: "Que contient l’espace intervertébral ?", answer: "Le disque intervertébral (ou somatique)." },
+{ question: "Combien de vertèbres composent la colonne cervicale ?", answer: "7 vertèbres (C1 à C7)." },
+{ question: "Comment s'appelle la convexité vers l’avant de la colonne cervicale ?", answer: "Lordose." },
+{ question: "Combien de vertèbres composent la colonne thoracique ?", answer: "12 vertèbres (T1 à T12)." },
+{ question: "Quelle vertèbre thoracique marque le sommet de la convexité thoracique ?", answer: "La 6e vertèbre thoracique." },
+{ question: "Comment s'appelle la convexité vers l’arrière de la colonne thoracique ?", answer: "Cyphose." },
+{ question: "Combien de vertèbres composent la colonne lombaire ?", answer: "5 vertèbres (L1 à L5)." },
+{ question: "Comment s'appelle la convexité vers l’avant de la colonne lombaire ?", answer: "Lordose." },
+{ question: "Quelle est la première vertèbre cervicale ?", answer: "C1 ou atlas." },
+{ question: "Quelle est la forme de l’atlas ?", answer: "Un anneau qui se met en avant et en arrière." },
+{ question: "Sur quoi repose l’atlas ?", answer: "Sur la deuxième vertèbre cervicale." },
+{ question: "Que permet l’atlas ?", answer: "Les rotations de la base du crâne." },
+{ question: "Quelle est la deuxième vertèbre cervicale ?", answer: "C2 ou axis." },
+{ question: "Quel est le nom du processus situé au sommet de l’axis ?", answer: "Le processus odontoïde." },
+{ question: "Quelle est la fonction du processus odontoïde ?", answer: "Pivot de rotation pour l’atlas." },
+{ question: "Où se situe le sacrum ?", answer: "Sous la colonne lombaire." },
+{ question: "À quel ensemble appartient le sacrum ?", answer: "Au bassin (ceinture pelvienne)." },
+{ question: "Quelle est la forme du sacrum ?", answer: "Concavité vers l’avant." },
+{ question: "De quoi est formé le sacrum ?",answer: "De pièces soudées entre elles, vestiges des vertèbres sacrées." },
+{ question: "Que présente le sacrum en arrière ?", answer: "Un canal fermé : le canal sacré." },
+{ question: "Qu’est-ce que le canal vertébral ?", answer: "L’ensemble de la superposition des canaux formés par les arcs vertébraux." },
+{ question: "Où se trouve le canal vertébral ?", answer: "Entre les processus épineux en arrière et les corps vertébraux en avant." },
+{ question: "Que contient le canal vertébral ?", answer: "La moelle épinière." },
+{ question: "À quel système appartient la moelle épinière ?", answer: "Au système nerveux central (SNC)." },
+{ question: "Qu’est-ce que la moelle épinière ?", answer: "Le centre d’où émergent les racines des nerfs." },
+{ question: "Quels sont les deux renflements de la moelle épinière ?", answer: "Renflement cervical et renflement lombaire." },
+{ question: "Comment se nomme la partie basse du renflement lombaire ?", answer: "Le cône médullaire terminal." },
+{ question: "Où se situe le cône médullaire terminal ?", answer: "À la fin des vertèbres thoraciques." },
+{ question: "La moelle fait suite à quelle structure ?", answer: "Au tronc cérébral." },
+{ question: "À partir de quelle vertèbre commence la moelle épinière ?", answer: "À partir de C1." },
+{ question: "Par quoi est protégée la moelle épinière ?", answer: "Par des méninges (notamment la dure-mère)." },
+{ question: "Jusqu’où descend la dure-mère ?", answer: "Jusqu’à la deuxième pièce sacrée (S2)." },
+{ question: "Qu’y a-t-il entre la dure-mère et la moelle ?", answer: "Le liquide cérébro-spinal (LCS ou LCR)." },
+{ question: "Où se répand le liquide cérébro-spinal ?", answer: "Dans les méninges du crâne et le canal rachidien." },
+{ question: "Quel est le rôle du liquide cérébro-spinal ?", answer: "Protecteur et nourricier." },
+{ question: "Comment peut-on diagnostiquer des pathologies méningées ?", answer: "Par ponction lombaire du liquide cérébro-spinal." },
+{ question: "Qu’est-ce qu’une racine métamérique ?", answer: "Une racine qui quitte la moelle à chaque étage rachidien, vers l’avant et l’arrière." },
+{ question: "Que forment les racines métamériques en périphérie ?", answer: "Les nerfs spinaux." },
+{ question: "Combien de racines y a-t-il pour le sacrum ?", answer: "5." },
+{ question: "Comment sortent les racines lombaires et sacrées de la moelle ?", answer: "De façon verticale." },
+{ question: "Comment appelle-t-on l’ensemble des racines verticales ?", answer: "La queue de cheval." },
+{ question: "À quel niveau commence la queue de cheval ?", answer: "À partir des vertèbres L1/L2." },
+{ question: "Comment appelle-t-on l’ensemble des racines de la queue de cheval ?", answer: "Le cul-de-sac dural." },
+{ question: "Où est situé l’arc dorsal d’une vertèbre thoracique ?", answer: "En arrière." },
+{ question: "Que comporte l’arc dorsal ?", answer: "Les pédicules, les processus transverses, les processus articulaires postérieurs et le processus épineux." },
+{ question: "Qu’est-ce qu’un pédicule ?", answer: "Une tige osseuse reliant l’arc dorsal au corps vertébral." },
+{ question: "Où s’insèrent les pédicules dans les vertèbres thoraciques ?", answer: "Sur le tiers supérieur haut de la partie postérieure du corps vertébral." },
+{ question: "Sur quoi se développent les processus transverses ou costiformes ?", answer: "Sur les côtes." },
+{ question: "Quelle facette articulaire les processus transverses portent-ils ?", answer: "La fovéa costale transversaire." },
+{ question: "Où se situent les processus articulaires postérieurs ?", answer: "À la jonction entre la base du processus transverse et la base du processus épineux." },
+{ question: "Comment sont orientées les facettes articulaires des processus crâniens thoraciques ?", answer: "Elles regardent en dehors." },
+{ question: "Où s’implante le processus articulaire crânial ?", answer: "À la jonction entre le processus épineux et le processus transverse." },
+{ question: "Comment s’appelle la zone de jonction entre processus épineux et transverse ?", answer: "La lame." },
+{ question: "Comment sont orientées les facettes articulaires des processus caudaux thoraciques ?", answer: "Elles regardent en dedans." },
+{ question: "Sur quoi repose le processus caudal ?", answer: "Sur le massif articulaire crânial." },
+{ question: "Comment est le processus épineux ?", answer: "Palpable sur la ligne médiane, oblique vers le bas, très long." },
+{ question: "Par quoi s’emboîtent les vertèbres ?", answer: "Par deux colonnes articulaires en arrière et une colonne en avant." },
+{ question: "Quels mouvements permettent les surfaces articulaires planes ?", answer: "Des mouvements de glissements des vertèbres." },
+{ question: "Comment est la morphologie des côtes ?", answer: "Ce sont des os arqués, obliques vers le bas et l’avant, vrillés sur eux-mêmes." },
+{ question: "Quelles sont les deux parties des côtes ?", answer: "L’arc dorsal et l’arc ventral." },
+{ question: "Comment est orienté l’arc dorsal de la côte ?", answer: "Vers le bas et le dehors." },
+{ question: "Quels éléments composent l’arc dorsal de la côte ?", answer: "La tête, le col et le tubercule." },
+{ question: "Combien de facettes présente la tête de la côte ?", answer: "Deux facettes articulaires." },
+{ question: "Avec quoi s’articulent les facettes de la tête costale ?", answer: "Avec les corps vertébraux dans l’espace intervertébral." },
+{ question: "Qu’est-ce que le col de la côte ?", answer: "Une région rétrécie faisant suite à la tête de la côte." },
+{ question: "Que présente le tubercule de la côte ?", answer: "Une surface articulaire." },
+{ question: "Comment est orienté l’arc ventral de la côte ?", answer: "Vers le haut et le dehors." },
+{ question: "Par quoi se prolonge l’arc ventral de la côte ?", answer: "Par le cartilage costal." },
+{ question: "À quoi sert le cartilage costal ?", answer: "À rejoindre le sternum en avant." },
+{ question: "À quoi répond la tête costale ?", answer: "À l’espace intervertébral par deux surfaces articulaires." },
+{ question: "Quelles sont ces deux surfaces articulaires ?", answer: "La fovéa costale crâniale de la vertèbre du dessous et la fovéa costale caudale de la vertèbre du dessus." },
+{ question: "Qu’est-ce qu’une articulation costo-corporéale ?", answer: "Une articulation entre la tête de la côte et les corps vertébraux avec leur disque d’union." },
+{ question: "Avec quoi s’articule le col de la côte après la tête ?", answer: "Avec le processus transverse de la vertèbre de même numéro." },
+{ question: "Comment est le corps vertébral lombaire ?", answer: "Très large, avec un axe transversal plus développé que l’axe sagittal." },
+{ question: "Comment sont les pédicules de la vertèbre lombaire ?", answer: "Courts et très épais." },
+{ question: "Quelle est la forme du canal vertébral lombaire ?", answer: "Triangulaire." },
+{ question: "Que contient le canal vertébral lombaire pour les vertèbres sous L1/L2 ?", answer: "Des racines nerveuses de la queue de cheval entourées par la dure-mère." },
+{ question: "Comment sont les processus transverses lombaires ?", answer: "Plus grêles qu’à l’étage thoracique." },
+{ question: "Comment sont les processus articulaires postérieurs lombaires ?", answer: "Très volumineux." },
+{ question: "Comment est l’orientation des surfaces articulaires lombaires crâniales ?", answer: "Elles regardent en dedans." },
+{ question: "Comment est l’orientation des surfaces articulaires lombaires caudales ?", answer: "Elles regardent en dehors." },
+{ question: "Dans quelle articulation le tubercule costal répond-il au processus transverse ?", answer: "Dans l’articulation costo-transversaire." },
+{ question: "À quoi correspond le disque intervertébral ?", answer: "À un coussin entre les corps vertébraux." },
+{ question: "De quoi est composé le disque intervertébral ?", answer: "D’un annulus fibrosus, d’une couche aqueuse, d’un nucléus pulposus et d’une couche gélatineuse." },
+{ question: "À quoi répond le disque intervertébral ?", answer: "Au plateau du corps vertébral (inférieur pour la vertèbre du dessus, supérieur pour celle du dessous)." },
+{ question: "Quelle pathologie est associée au disque intervertébral ?", answer: "La hernie discale." },
+{ question: "Qu’est-ce qu’une hernie discale ?", answer: "Rupture de l’annulus provoquant une éjection du nucléus pouvant comprimer les racines nerveuses." },
+{ question: "Quelle est la hauteur du disque intervertébral ?", answer: "Un tiers d’une vertèbre." },
+{ question: "Comment est orienté le foramen intervertébral ?", answer: "Il regarde en dehors." },
+{ question: "Qu’est-ce qu’une lyse isthmique ?", answer: "Une rupture de l’isthme de la vertèbre entraînant une désolidarisation et un glissement." },
+{ question: "Que contient le fourreau dural ?", answer: "Les racines de la queue de cheval." },
+{ question: "Quelle pathologie peut rétrécir le foramen intervertébral ?", answer: "L’arthrose avec protrusion dégénérative des massifs interarticulaires postérieurs." },
+{ question: "Que sort-il de chaque étage intervertébral ?", answer: "Une racine nerveuse appelée nerf rachidien." },
+{ question: "Par où sort la racine nerveuse ?", answer: "Par le foramen intervertébral sous le pédicule." },
+{ question: "Quelle est l’orientation de la racine nerveuse qui sort du foramen intervertébral ?", answer: "Horizontale." },
+{ question: "Quelles sont les limites du foramen intervertébral ?", answer: "En haut : corps + pédicule + processus articulaire ; en bas : le disque." },
+{ question: "Qu’est-ce que l’uncus ?", answer: "Une remontée osseuse sur le plateau vertébral latéral cervical." },
+{ question: "Comment sont les processus transverses cervicaux ?", answer: "Bifides, s’insèrent directement sur le corps vertébral, marqués par un foramen transversaire." },
+{ question: "Quel vaisseau passe dans le foramen transversaire cervical ?", answer: "L’artère vertébrale." },
+{ question: "Quel est le rôle de l’artère vertébrale ?", answer: "Vasculariser le tronc cérébral et le cerveau postérieur." },
+{ question: "Comment sont les processus articulaires postérieurs cervicaux ?", answer: "Développés vers le haut." },
+{ question: "Comment est le processus épineux cervical ?", answer: "Bifide." },
+{ question: "Comment est le canal vertébral cervical ?", answer: "Large et très développé." },
+{ question: "Que contient le canal vertébral cervical ?", answer: "La moelle épinière entourée par la dure-mère." },
+ ];
+
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","" );
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Rachis</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

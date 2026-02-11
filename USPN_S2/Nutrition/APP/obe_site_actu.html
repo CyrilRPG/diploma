@@ -1,0 +1,787 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Nutrition</h1><h2>APP - Obésité</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'Que signifie HAS ?', answer: 'Haute Autorité de Santé.', },
+{ question: 'Quelles sont les dates clés de la HAS concernant l\'obésité ?', answer: '2012 : Surpoids et obésité de l\'adulte ; 2009 : Obésité ; 2022 : Prise en charge 2e et 3e niveau ; 2023 : Guide du parcours de soins.', },
+{ question: 'Comment l\'OMS définit-elle le surpoids et l\'obésité ?', answer: 'Accumulation anormale ou excessive de graisse corporelle qui peut nuire à la santé.', },
+{ question: 'Quelles sont les trois causes de l\'excès pondéral ?', answer: 'Rétention hydrosodée, augmentation des masses musculaires, excès de masse grasse.', },
+{ question: 'Quelle est la formule de l\'IMC ?', answer: 'IMC = poids (kg) / taille² (m).', },
+{ question: 'Quelles sont les valeurs normales de l\'IMC ?', answer: 'Entre 18,5 et 24,9 kg/m².', },
+{ question: 'Quelle est la formule de Lorentz pour le poids idéal ?', answer: 'Poids idéal (kg) = Taille (cm) - 100 - (Taille - 150)/x où x=4 pour homme, x=2 pour femme.', },
+{ question: 'Quel IMC définit le surpoids ?', answer: 'IMC entre 25,0 et 29,9 kg/m².', },
+{ question: 'Quel IMC définit l\'obésité de type I (modérée) ?', answer: 'IMC entre 30,0 et 34,9 kg/m².', },
+{ question: 'Quel IMC définit l\'obésité de type II (sévère) ?', answer: 'IMC entre 35,0 et 39,9 kg/m².', },
+{ question: 'Quel IMC définit l\'obésité de type III (massive/morbide) ?', answer: 'IMC ≥ 40 kg/m².', },
+{ question: 'Quels sont les seuils IMC pour les sujets Sud-Asiatiques ?', answer: '>23 pour surpoids, >27 pour obésité.', },
+{ question: 'Quelles méthodes de recherche mesurent précisément la masse grasse ?', answer: 'Plis cutanés, mesures isotopiques, imagerie.', },
+{ question: 'Quelles méthodes mesurent la masse grasse en services spécialisés ?', answer: 'Impédance électrique, densitométrie, mesures radiologiques.', },
+{ question: 'Qu\'est-ce que la répartition gynoïde ?', answer: 'Répartition en forme de poire, prédominance sous-ombilicale, graisse sous-cutanée sans conséquence métabolique.', },
+{ question: 'Qu\'est-ce que la répartition androïde ?', answer: 'Répartition en forme de pomme, prédominance sus-ombilicale, graisse viscérale associée à des comorbidités.', },
+{ question: 'Quel est le seuil normal du tour abdominal chez la femme ?', answer: 'Inférieur à 88 cm.', },
+{ question: 'Quel est le seuil normal du tour abdominal chez l\'homme ?', answer: 'Inférieur à 100 cm.', },
+{ question: 'Où se situe la régulation de la prise alimentaire ?', answer: 'Dans l\'hypothalamus, par des noyaux orexigènes et anorexigènes.', },
+{ question: 'Quelle était la prévalence de l\'obésité en France en 2000 ?', answer: 'Au moins 10%.', },
+{ question: 'Quelle était la prévalence de l\'obésité en France en 2010 ?', answer: 'Environ 15%.', },
+{ question: 'Quelle est la prévalence actuelle de l\'obésité en France ?', answer: '17%.', },
+{ question: 'Quel pourcentage des adultes français est en surpoids ou obèse ?', answer: '47%.', },
+{ question: 'Combien de personnes adultes obèses compte la France ?', answer: 'Près de 8 millions.', },
+{ question: 'Quel est l\'IMC moyen des adultes français ?', answer: '25,5 kg/m².', },
+{ question: 'Quelle est la prévalence de l\'obésité massive (IMC>40) ?', answer: '2%.', },
+{ question: 'Quel pourcentage d\'enfants de 2-7 ans sont obèses ?', answer: '18%.', },
+{ question: 'Quel pourcentage d\'enfants de 8-17 ans sont obèses ?', answer: '6%.', },
+{ question: 'Quels facteurs influencent la prévalence de l\'obésité ?', answer: 'L\'âge, la région, le niveau socio-professionnel.', },
+{ question: 'Quels sont les 6 axes de la prise en charge de l\'obésité ?', answer: 'Évaluation médicale/biologique, alimentaire, psycho-sociale, activité physique, dépense énergétique, selon niveau de prise en charge.', },
+{ question: 'Quelles comorbidités rechercher lors du bilan de l\'obésité ?', answer: 'Diabète, HTA, risque cardiovasculaire, pathologies respiratoires, stéatopathie, arthrose, atteinte rénale, cancers.', },
+{ question: 'Quelles pathologies ont un RR > 3 en cas d\'obésité ?', answer: 'Diabète, lithiase vésiculaire, dyslipidémie, insulinorésistance, dyspnée, syndrome d\'apnée du sommeil.', },
+{ question: 'Quelles pathologies ont un RR entre 2 et 3 en cas d\'obésité ?', answer: 'Insuffisance coronaire, AVC, HTA, arthrose, hyperuricémie/goutte, stéato-hépatites.', },
+{ question: 'Quelles pathologies ont un RR entre 1 et 2 en cas d\'obésité ?', answer: 'Cancer du sein, de l\'endomètre, du colon, de l\'oropharynx, infertilité, risque opératoire/obstétrical augmenté.', },
+{ question: 'Quels gènes sont identifiés dans la prise de poids ?', answer: '20 gènes, dont mutations de POMC, Proconvertase 1, MC4R.', },
+{ question: 'Quels sont les syndromes génétiques associés à l\'obésité ?', answer: 'Syndrome de Willi-Prader, Bardet-Biedl, Cohen.', },
+{ question: 'Quels sont les signes du syndrome de Willi-Prader ?', answer: 'Obésité vers 1-2 ans, hypotonie, retard psychomoteur, micropénis.', },
+{ question: 'Quels sont les signes du syndrome de Bardet-Biedl ?', answer: 'Obésité vers 1-2 ans, rétinite pigmentaire, polydactylie, difficultés cognitives, anomalies génitales et rénales.', },
+{ question: 'Quelles sont les causes neuro-endocriniennes de l\'obésité ?', answer: 'Hypercorticisme (Cushing), obésité hypothalamique, déficit en leptine.', },
+{ question: 'Quel pourcentage des diabétiques sont obèses ?', answer: '75%.', },
+{ question: 'Quel est le RR de diabète si IMC > 30 ?', answer: 'RR = 10.', },
+{ question: 'Quel pourcentage des patients > 40 ans avec obésité sont hypertendus ?', answer: '80%.', },
+{ question: 'Quelle est la prévalence de l\'hypertrophie ventriculaire gauche si IMC > 30 ?', answer: 'Prévalence x 15.', },
+{ question: 'Quel pourcentage des patients atteints de SAS sont obèses ?', answer: '60-70%.', },
+{ question: 'Quelles pathologies respiratoires sont liées à l\'obésité ?', answer: 'Trouble ventilatoire restrictif/obstructif, hypoxémie, syndrome obésité-hypoventilation.', },
+{ question: 'Qu\'est-ce que l\'échelle d\'Epworth ?', answer: 'Questionnaire évaluant la somnolence dans 8 situations quotidiennes, score 0-3 par situation.', },
+{ question: 'Quand réaliser une recherche de SAHOS ?', answer: 'IMC ≥ 30 avec signes évocateurs ou HTA résistante ; IMC ≥ 35 même sans symptômes.', },
+{ question: 'Comment diagnostique-t-on le SAHOS ?', answer: 'Par polygraphie ventilatoire, polysomnographie si doute.', },
+{ question: 'Quand réaliser des EFR dans l\'obésité ?', answer: 'IMC ≥ 30 avec dyspnée de repos ou effort léger ; IMC ≥ 35 avec SAHOS ; IMC ≥ 40.', },
+{ question: 'Qu\'est-ce que la NASH ?', answer: 'Stéato-hépatite non alcoolique, évolution de la stéatose hépatique.', },
+{ question: 'Quelle est la prévalence de la stéatose hépatique chez les obèses ?', answer: '57-74%.', },
+{ question: 'Quel est le RR de gonarthrose en cas d\'obésité ?', answer: 'RR de 2 à 6, surtout chez les femmes.', },
+{ question: 'L\'obésité protège-t-elle d\'une pathologie ?', answer: 'Oui, de l\'ostéoporose.', },
+{ question: 'Comment dépister la maladie rénale chronique chez l\'obèse ?', answer: 'Par estimation du DFG (CKD-EPI) et ratio albuminurie/créatininurie.', },
+{ question: 'Quel pourcentage des cancers est attribué à l\'obésité ?', answer: '3% chez l\'homme, 6% chez la femme.', },
+{ question: 'Quels cancers ont un lien certain avec l\'obésité ?', answer: 'Endomètre, sein, colorectal, rein.', },
+{ question: 'Quel est le RR de cancer de l\'endomètre si IMC > 27 ?', answer: 'RR = 2,7.', },
+{ question: 'Quels sont les 3 grands TCA selon le DSM-5 ?', answer: 'Anorexie mentale, boulimie, accès hyperphagique (Binge-Eating Disorder).', },
+{ question: 'Qu\'est-ce que le test SCOFF ?', answer: 'Questionnaire de 5 questions pour détecter les TCA, 2 réponses positives = suspicion de TCA.', },
+{ question: 'Qu\'est-ce que le questionnaire CRAC ?', answer: 'Cognitive Restriction Assessment check list, pour évaluer la restriction cognitive.', },
+{ question: 'Quels éléments psychiques évaluer dans l\'obésité ?', answer: 'Troubles de l\'humeur, anxiété, image du corps, estime de soi, psycho-traumatismes, addictions, TDAH.', },
+{ question: 'Qu\'est-ce que la restriction cognitive ?', answer: 'Tendance à limiter consciemment la prise alimentaire pour maintenir ou perdre du poids.', },
+{ question: 'Quel questionnaire évalue l\'activité physique ?', answer: 'Le GPAQ (Global Physical Activity Questionnaire).', },
+{ question: 'Comment mesure-t-on la dépense énergétique de repos ?', answer: 'Par calorimétrie indirecte ou formule de Harris et Benedict.', },
+{ question: 'Quelle est la formule de Harris et Benedict pour l\'homme ?', answer: '66,473 + (5,003 × taille) + (13,752 × poids) – (6,755 × âge).', },
+{ question: 'Quelle est la formule de Harris et Benedict pour la femme ?', answer: '655,096 + (1,850 × taille) + (9,563 × poids) – (4,876 × âge).', },
+{ question: 'Quelle est la dépense énergétique normale de base ?', answer: 'Femme : 1800 kcal, Homme : 2300 kcal, Grand sportif : 6000 kcal.', },
+{ question: 'Que provoque un régime très restrictif ?', answer: 'Une chute du métabolisme de base (ex: 1600 à 1300 kcal).', },
+{ question: 'Pourquoi les régimes miracles échouent-ils à long terme ?', answer: 'La restriction calorique induit une baisse de la dépense énergétique de base qui ne revient pas à l\'état antérieur.', },
+{ question: 'Quels sont les principes de l\'approche diététique conseillée ?', answer: 'Maintenir plaisir alimentaire, retrouver le rythme, adapter apports, diversifier, lutter contre restriction cognitive.', },
+{ question: 'Quelle activité physique modérée est recommandée ?', answer: '150 à 300 minutes/semaine d\'intensité modérée (effort 5-6/10).', },
+{ question: 'Quelle activité physique intense est recommandée ?', answer: '75 à 150 minutes/semaine d\'intensité vigoureuse (effort 7-8/10).', },
+{ question: 'Quel renforcement musculaire est recommandé ?', answer: 'Au moins 2 jours/semaine touchant tous les groupes musculaires.', },
+{ question: 'Qu\'est-ce que le Mediator et pourquoi a-t-il été retiré ?', answer: 'Médicament anti-obésité (1976-2009), retiré pour HTAP sévère, proche de l\'amphétamine.', },
+{ question: 'Qu\'est-ce que la Sibutramine et pourquoi a-t-elle été retirée ?', answer: 'Inhibiteur de recapture sérotonine/noradrénaline/dopamine, retiré en 2007 pour risque cardiovasculaire.', },
+{ question: 'Comment fonctionne l\'Orlistat (Xenical) ?', answer: 'Inhibiteur des lipases gastro-intestinales, réduit l\'absorption des graisses de 30%.', },
+{ question: 'Que sont les analogues au GLP-1 (AGLP-1) ?', answer: 'Traitements actuels majeurs : anti-diabétiques à faibles doses, anti-obésité à fortes doses.', },
+{ question: 'Quelles sont les indications du Saxenda (Liraglutide) ?', answer: 'IMC ≥ 30, ou IMC ≥ 27 avec comorbidité (dysglycémie, HTA, dyslipidémie, SAS).', },
+{ question: 'Quel est le prix mensuel du Saxenda ?', answer: 'Environ 240 euros/mois (8-10 euros/jour), non remboursé.', },
+{ question: 'Quels sont les critères d\'inclusion pour l\'étude Wegovy ?', answer: 'IMC ≥ 40 avec comorbidité (HTA, dyslipidémie, MCV, SAS appareillé), sans alternative thérapeutique.', },
+{ question: 'Quelles sont les indications de la chirurgie bariatrique ?', answer: 'IMC ≥ 35 avec comorbidités ou IMC > 40, âge 18-60 ans, échec des traitements conventionnels depuis au moins 1 an.', },
+{ question: 'Quelles sont les opérations restrictives ?', answer: 'Anneau gastrique, gastroplastie de Mason, anneau de MacLean.', },
+{ question: 'Quelles sont les opérations malabsorptives ?', answer: 'By-pass bilio-pancréatique (Scopinaro), duodenal switch.', },
+{ question: 'Quelles sont les opérations mixtes ?', answer: 'By-pass gastrique, by-pass avec transection gastrique.', },
+{ question: 'En quelle année date l\'anneau gastrique ?', answer: '1986.', },
+{ question: 'Quel est le principe de l\'anneau gastrique ?', answer: 'Création d\'une poche de 15-20 ml, anneau gonflable relié à un boîtier sous-cutané.', },
+{ question: 'Quelles sont les complications de l\'anneau gastrique ?', answer: 'Infections, rupture, glissement de boîtier, dilatation de la poche, inefficacité.', },
+{ question: 'Quel est le principe du by-pass gastrique ?', answer: 'Court-circuitage de l\'estomac, duodénum et grêle sans exérèse.', },
+{ question: 'Quelle est la mortalité du by-pass gastrique ?', answer: '1,5%.', },
+{ question: 'Qu\'est-ce que le dumping syndrome ?', answer: 'Malaises, sueurs, palpitations, tachycardie, céphalées, nausées par arrivée rapide des aliments.', },
+{ question: 'Quelles sont les carences nutritionnelles post-chirurgie bariatrique ?', answer: 'Fer, folates, vitamine B12, protéines (<10%).', },
+{ question: 'Quel est le 1er message clé HAS ?', answer: 'Calculer l\'IMC, mesurer le tour de taille et suivre annuellement leur évolution.', },
+{ question: 'Quel est le message HAS sur l\'évaluation ?', answer: 'S\'appuyer sur une évaluation multidimensionnelle et pluriprofessionnelle.', },
+{ question: 'Quel est le message HAS sur l\'alimentation ?', answer: 'Repérer les perturbations alimentaires et les TCA.', },
+{ question: 'Quel est le message HAS sur le psychologique ?', answer: 'Évaluer et accompagner les difficultés psychologiques et toute vulnérabilité.', },
+{ question: 'Quel est le message HAS sur la stigmatisation ?', answer: 'Reconnaître, repérer, prévenir et accompagner toute stigmatisation.', },
+{ question: 'Quel est le message HAS sur l\'ETP ?', answer: 'Proposer une éducation thérapeutique personnalisée dès le diagnostic, la poursuivre, la consolider.', },
+{ question: 'Quel est le message HAS sur le suivi ?', answer: 'Suivre régulièrement sur plusieurs années (non-complexe) ou à vie (complexe/très complexe).', },
+{ question: 'Combien y a-t-il de messages clés HAS sur l\'obésité ?', answer: '14 messages clés.', },
+{ question: 'Quels facteurs prendre en compte dans l\'obésité ?', answer: 'Facteurs alimentaires, hormonaux et génétiques.', },
+{ question: 'Quels objectifs thérapeutiques fixer avec le patient ?', answer: 'Objectifs réalistes, répondant à ses besoins, avec accompagnement dans la mise en œuvre.', },
+{ question: 'Quelle relation entre tabac et IMC ?', answer: 'Tabac + IMC faible ou Non-fumeur + IMC élevé = Risque de mortalité identique.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

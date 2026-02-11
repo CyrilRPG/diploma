@@ -1,0 +1,1034 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Histologie</h1><h2>Tissu Nerveux</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quelle est la définition du tissu nerveux ?', answer: 'Substratum histologique du système nerveux spécialisé dans la conduction, transmission et traitement des informations.' },
+  { question: 'Où se trouve le tissu nerveux ?', answer: 'Dans toutes les régions du corps.' },
+  { question: 'Quels sont les trois grands moyens de communication de l’organisme ?', answer: 'Système nerveux, système hormonal, monde des cytokines.' },
+  { question: 'Quelles sont les fonctions générales du système nerveux ?', answer: 'Réception, intégration, traitement des messages et émission d’une réponse adaptée, mémoire et apprentissage.' },
+  { question: 'Quelles sont les deux grandes divisions anatomiques du système nerveux ?', answer: 'Système nerveux central et système nerveux périphérique.' },
+  { question: 'Quel est le rôle du système nerveux central ?', answer: 'Intégration de l’information nerveuse.' },
+  { question: 'Quel est le rôle du système nerveux périphérique ?', answer: 'Relie le système nerveux au reste de l’organisme.' },
+  { question: 'Quelles sont les deux subdivisions physiologiques du système nerveux ?', answer: 'Vie de relation et vie végétative.' },
+  { question: 'Comment appelle-t-on le système nerveux végétatif ?', answer: 'Système nerveux autonome.' },
+  { question: 'Quelle est l’unité histologique de base du tissu nerveux ?', answer: 'Le neurone.' },
+  { question: 'Quelle distinction fonctionnelle existe entre afférences et efférences ?', answer: 'Afférences vont vers le système nerveux, efférences en émanent.' },
+  { question: 'Où est localisé le système nerveux central ?', answer: 'Dans le crâne et la colonne vertébrale.' },
+  { question: 'De quoi est constitué l’encéphale ?', answer: 'Cerveau, cervelet, tronc cérébral.' },
+  { question: 'Quels éléments composent le tronc cérébral ?', answer: 'Pédoncules cérébraux, protubérance, bulbe.' },
+  { question: 'Quelles sont les régions de la moelle épinière ?', answer: 'Moelle cervicale, dorsale, lombaire, sacrée.' },
+  { question: 'Comment se présente le SNP ?', answer: 'En continuité parfaite avec le SNC.' },
+  { question: 'De quoi est constitué le SNP ?', answer: 'Ganglions nerveux et nerfs périphériques.' },
+  { question: 'Quel est le rôle des nerfs périphériques ?', answer: 'Acheminer les informations vers le SNC et transmettre les ordres du SNC aux effecteurs.' },
+  { question: 'Qu’est-ce qu’un neurone ?', answer: 'Cellule fonctionnelle du système nerveux, mature, très différenciée.' },
+  { question: 'Les neurones se divisent-ils ?', answer: 'Non, ils ne se divisent pas sauf neurones olfactifs et cellules souches neurales.' },
+  { question: 'Combien existe-t-il de neurones ?', answer: 'Environ 100 milliards.' },
+  { question: 'Combien de synapses par neurone en moyenne ?', answer: 'Environ 1000 synapses.' },
+  { question: 'Quelles cellules peuvent se diviser parmi les neurones ?', answer: 'Cellules neurosensorielles olfactives et cellules souches neurales.' },
+  { question: 'Où se trouvent les cellules neurosensorielles olfactives ?', answer: 'Au niveau de la lame criblée.' },
+  { question: 'Où se trouvent les cellules souches neurales ?', answer: 'Dans les couches sous-épendymaires du cerveau.' },
+  { question: 'Quel est le rôle du neurone ?', answer: 'Recevoir, traiter, transmettre l’information via les synapses.' },
+  { question: 'Quelles sont les deux grandes fonctions du neurone ?', answer: 'Conduction du potentiel d’action et transmission synaptique.' },
+  { question: 'Qu’est-ce que la conduction dans un neurone ?', answer: 'Propagation du potentiel d’action au sein d’une même cellule.' },
+  { question: 'Qu’est-ce que la transmission dans un neurone ?', answer: 'Passage d’information d’une cellule à une autre via synapse.' },
+  { question: 'Quelles sont les trois grandes parties du neurone ?', answer: 'Membrane plasmique, corps cellulaire, prolongements.' },
+  { question: 'Quels sont les deux types de prolongements neuronaux ?', answer: 'Dendrites et axone.' },
+  { question: 'Quel est le rôle des dendrites ?', answer: 'Capter l’information et la conduire vers le corps cellulaire.' },
+  { question: 'Quel est le rôle de l’axone ?', answer: 'Conduire l’influx nerveux depuis le corps cellulaire jusqu’aux cibles.' },
+  { question: 'Qu’est-ce que le pôle récepteur du neurone ?', answer: 'Partie dendritique captant l’information.' },
+  { question: 'Qu’est-ce que le pôle émetteur du neurone ?', answer: 'Arborisation terminale et boutons synaptiques.' },
+  { question: 'Quelles sont les classifications possibles des neurones ?', answer: 'Selon prolongements, forme cellulaire, arborisation dendritique, longueur de l’axone.' },
+  { question: 'Qu’est-ce qu’un neurone unipolaire ?', answer: 'Neurone à un seul prolongement.' },
+  { question: 'Qu’est-ce qu’un neurone bipolaire ?', answer: 'Neurone avec un prolongement afférent et un efférent.' },
+  { question: 'Qu’est-ce qu’un neurone pseudounipolaire ?', answer: 'Neurone à prolongement unique bifurqué en afférent et efférent.' },
+  { question: 'Où trouve-t-on les neurones en T ?', answer: 'Dans les ganglions spinaux du SNP.' },
+  { question: 'Qu’est-ce qu’un neurone multipolaire ?', answer: 'Neurone avec un axone et plusieurs dendrites.' },
+  { question: 'Quels sont les différents types de formes neuronales ?', answer: 'Étoilée, fusiforme, pyramidale.' },
+  { question: 'Quelles cellules sont pyramidales ?', answer: 'Cellules du cortex cérébral.' },
+  { question: 'Quelles cellules possèdent une arborisation en espalier ?', answer: 'Cellules de Purkinje du cortex cérébelleux.' },
+  { question: 'Qu’est-ce qu’un neurone de projection ?', answer: 'Neurone à long axone, envoyant l’information à distance.' },
+  { question: 'Qu’est-ce qu’un interneurone ?', answer: 'Neurone à court axone participant à des circuits locaux.' },
+  { question: 'Quelles sont les trois cellules de l’arc réflexe ?', answer: 'Neurone afférent, neurone d’association, neurone efférent.' },
+  { question: 'Quels sont les synonymes du corps cellulaire ?', answer: 'Soma ou péricaryon.' },
+  { question: 'Où se situe le corps cellulaire dans le SNC ?', answer: 'Dans la substance grise.' },
+  { question: 'Où se situe le corps cellulaire dans le SNP ?', answer: 'Dans les ganglions.' },
+  { question: 'Comment est le noyau du neurone ?', answer: 'Unique, volumineux, sphérique, avec un gros nucléole.' },
+  { question: 'Où se trouve l’appareil de Golgi du neurone ?', answer: 'Dans le corps cellulaire, juxta-nucléaire.' },
+  { question: 'Où se trouve le REG dans le neurone ?', answer: 'Dans le corps cellulaire et les dendrites.' },
+  { question: 'Où le REG est-il absent ?', answer: 'Dans l’axone et le cône d’implantation.' },
+  { question: 'Qu’est-ce que les corps de Nissl ?', answer: 'Amas de REG basophile observables au MO.' },
+  { question: 'Pourquoi le neurone contient-il de nombreuses mitochondries ?', answer: 'Le caractère excitable nécessite beaucoup d’énergie.' },
+  { question: 'Quels sont les trois contingents du cytosquelette neuronal ?', answer: 'Microfilaments d’actine, microtubules, neurofilaments.' },
+  { question: 'Quelle est la fonction des microfilaments d’actine ?', answer: 'Formation des épines dendritiques.' },
+  { question: 'Quelle est la fonction des microtubules ?', answer: 'Transport axonal rapide antérograde et rétrograde.' },
+  { question: 'Quelle est la fonction des neurofilaments ?', answer: 'Structure et détermination du diamètre des axones.' },
+  { question: 'Qu’est-ce que le flux axonal ?', answer: 'Transport bidirectionnel d’organites et molécules dans l’axone.' },
+  { question: 'Quelles sont les protéines motrices du transport axonal ?', answer: 'Kinésine (antérograde) et dynéine (rétrograde).' },
+  { question: 'Quel est le potentiel de repos neuronal ?', answer: '-70 mV.' },
+  { question: 'Quelles sont les conditions ioniques du potentiel de repos ?', answer: 'Excès de Na+ extérieur et excès de K+ intérieur.' },
+  { question: 'Quelle pompe maintient le potentiel de repos ?', answer: 'Pompe Na+/K+.' },
+  { question: 'Qu’est-ce qu’une hyperpolarisation ?', answer: 'Potentiel < -70 mV par ouverture des canaux K+.' },
+  { question: 'Qu’est-ce qu’une dépolarisation ?', answer: 'Potentiel > -70 mV par ouverture des canaux Na+.' },
+  { question: 'Quel est l’inducteur du potentiel d’action ?', answer: 'Une dépolarisation seuil de la membrane à -55 mV.' },
+  { question: 'Qu’est-ce qui se produit lors de l’induction du PA ?', answer: 'Ouverture massive de canaux sodiques voltage-dépendants et entrée massive de Na+.' },
+  { question: 'Quelle est la première étape du PA ?', answer: 'Entrée des ions Na+ avec dépolarisation à +40 mV.' },
+  { question: 'Quelle est la deuxième étape du PA ?', answer: 'Sortie des ions K+ par ouverture des canaux K+ voltage-dépendants et repolarisation rapide.' },
+  { question: 'Quelle est la troisième étape du PA ?', answer: 'Hyperpolarisation.' },
+  { question: 'Quelle est la quatrième étape du PA ?', answer: 'Retour à l’équilibre.' },
+  { question: 'Comment se propage le PA ?', answer: 'De proche en proche par ouverture des canaux voltage-dépendants, sans déperdition.' },
+  { question: 'La propagation du PA est-elle coûteuse en énergie ?', answer: 'Oui, très coûteuse.' },
+  { question: 'Quelle est la vitesse de propagation du PA dans les fibres non myélinisées ?', answer: 'Inférieure à 3 m/s.' },
+  { question: 'Comment sont répartis les canaux sodiques dans les fibres non myélinisées ?', answer: 'Uniformément répartis.' },
+  { question: 'Quelle est la vitesse de propagation du PA dans les fibres myélinisées ?', answer: 'Entre 10 et 100 m/s.' },
+  { question: 'Quel type de conduction existe dans les fibres myélinisées ?', answer: 'Conduction saltatoire.' },
+  { question: 'Où se trouvent les canaux voltage-dépendants dans les fibres myélinisées ?', answer: 'Au niveau des nœuds de Ranvier.' },
+  { question: 'Quelles cellules forment la gaine de myéline dans le SNC ?', answer: 'Les oligodendrocytes.' },
+  { question: 'Quelles cellules forment la gaine de myéline dans le SNP ?', answer: 'Les cellules de Schwann.' },
+  { question: 'Quel est le rôle de la gaine de myéline ?', answer: 'Isoler, empêcher les échanges d’ions et permettre une conduction plus rapide.' },
+  { question: 'Qu’est-ce qui sépare les gaines de myéline ?', answer: 'Les nœuds de Ranvier.' },
+  { question: 'La synapse est-elle visible au microscope optique ?', answer: 'Non, uniquement au microscope électronique.' },
+  { question: 'Combien de synapses par neurone en moyenne ?', answer: 'Environ 1000.' },
+  { question: 'Combien de synapses dans le système nerveux humain ?', answer: 'Environ 10^14.' },
+  { question: 'Quels sont les trois éléments d’une synapse ?', answer: 'Élément présynaptique, fente synaptique, élément postsynaptique.' },
+  { question: 'Quel est le rôle d’une synapse ?', answer: 'Transmission de l’influx nerveux entre deux cellules voisines qui ne se touchent pas.' },
+  { question: 'Quels types de transmission peut assurer la synapse ?', answer: 'Neurone à neurone, cellule réceptrice à neurone, neurone à cellule effectrice.' },
+  { question: 'La diffusion de l’influx nerveux est-elle unidirectionnelle ?', answer: 'Oui, de l’élément présynaptique vers le postsynaptique.' },
+  { question: 'Quelles molécules assurent la transmission synaptique ?', answer: 'Neurotransmetteurs et neuromédiateurs.' },
+  { question: 'Qu’est-ce qu’un bouton synaptique ?', answer: 'Une terminaison axonale dilatée formant l’élément présynaptique.' },
+  { question: 'Que contiennent les vésicules synaptiques ?', answer: 'Des neurotransmetteurs ou des neuromédiateurs.' },
+  { question: 'Quel est le rôle des neurotransmetteurs ?', answer: 'Assurer la transmission de l’influx nerveux.' },
+  { question: 'Quel est le rôle des neuromédiateurs ?', answer: 'Moduler le potentiel de repos et l’excitabilité du neurone.' },
+  { question: 'Quelles sont les tailles des vésicules synaptiques ?', answer: 'Grandes vésicules : 60 nm ; petites vésicules : 40 nm.' },
+  { question: 'Qu’est-ce que la grille présynaptique ?', answer: 'Un épaississement membranaire avec projections denses formant les synaptopores.' },
+  { question: 'Où sont regroupées les petites vésicules synaptiques ?', answer: 'Près des zones actives de la membrane plasmique.' },
+  { question: 'Quel neurotransmetteur se trouve dans les vésicules rondes à centre clair ?', answer: 'Acétylcholine ou acides aminés excitateurs (glutamate, aspartate).' },
+  { question: 'Quels neurotransmetteurs se trouvent dans les vésicules rondes à centre dense ?', answer: 'Dopamine, adrénaline, noradrénaline, sérotonine.' },
+  { question: 'Quels neurotransmetteurs se trouvent dans les vésicules ovales à centre clair ?', answer: 'GABA et glycine.' },
+  { question: 'Où s’effectue la biosynthèse des NT dérivés d’acides aminés ?', answer: 'In situ au niveau de la terminaison synaptique.' },
+  { question: 'Comment les NT sont-ils stockés ?', answer: 'Dans des vésicules grâce à un transporteur vésiculaire ATP dépendant.' },
+  { question: 'Quelle entrée ionique déclenche la libération des NT ?', answer: 'L’entrée de calcium.' },
+  { question: 'Comment sont inactivés les NT ?', answer: 'Dégradation enzymatique ou recapture par transporteurs membranaires.' },
+  { question: 'Que contiennent les grandes vésicules à centre dense ?', answer: 'Neuropeptides.' },
+  { question: 'Quels sont les neuropeptides non opioïdes ?', answer: 'Ocytocine, vasopressine, somatostatine, neuropeptide Y.' },
+  { question: 'Quels sont les neuropeptides opioïdes ?', answer: 'Les endorphines.' },
+  { question: 'Qu’est-ce qu’une neurohormone ?', answer: 'Hormone peptidique libérée dans la circulation par un neurone sécrétoire.' },
+  { question: 'Comment les neuropeptides sont-ils libérés ?', answer: 'Par exocytose dans l’espace péri synaptique ou dans le sang.' },
+  { question: 'Où sont synthétisés les neuropeptides ?', answer: 'Dans le REG et le Golgi du péricaryon.' },
+  { question: 'La fente synaptique mesure quelle largeur ?', answer: '20 à 50 nm.' },
+  { question: 'Quels éléments composent la fente synaptique ?', answer: 'Glycocalyx, cadhérines, enzymes.' },
+  { question: 'Quels types de récepteurs postsynaptiques existent ?', answer: 'Ionotropiques et métabotropiques.' },
+  { question: 'Que provoque un récepteur ionotropique activateur ?', answer: 'Entrée de Na+, dépolarisation, propagation du PA.' },
+  { question: 'Quels sont les principaux NT excitateurs ionotropiques ?', answer: 'Acétylcholine et glutamate.' },
+  { question: 'Quel rôle ont les récepteurs NMDA ?', answer: 'Permettre l’entrée de Ca2+ et participer à l’apprentissage (LTP).' },
+  { question: 'Quels NT inhibiteurs agissent sur les récepteurs ionotropiques ?', answer: 'GABA et glycine.' },
+  { question: 'Que provoque l’ouverture de canaux Cl− ?', answer: 'Hyperpolarisation et inhibition.' },
+  { question: 'Quel système assure le couplage des récepteurs métabotropiques ?', answer: 'La protéine G.' },
+  { question: 'Quel est le rôle des épines dendritiques ?', answer: 'Implication dans l’apprentissage et la mémoire.' },
+  { question: 'Quelle structure interne caractérise les épines dendritiques ?', answer: 'Cytosquelette d’actine.' },
+  { question: 'Où retrouve-t-on de nombreuses épines dendritiques ?', answer: 'Dans les cellules pyramidales et les cellules de Purkinje.' },
+  { question: 'Quel est le rôle principal des neurones sécrétoires ?', answer: 'Sécrétion d’hormones dans des vésicules à centre dense.' },
+  { question: 'Où sont situés les neurones sécrétoires ?', answer: 'Dans l’hypothalamus et la post-hypophyse.' },
+  { question: 'Quels sont les deux groupes de neurones neuro-sécrétoires ?', answer: 'Hypothalamus latéral et noyaux supra-optiques/paraventriculaires.' },
+  { question: 'Que sécrète l’hypothalamus latéral ?', answer: 'Des neurohormones hypophysiotropes (libérines et statines).' },
+  { question: 'Que sécrètent les noyaux supra-optiques et paraventriculaires ?', answer: 'Ocytocine et vasopressine.' },
+  { question: 'Où les neurohormones sont-elles libérées dans la circulation ?', answer: 'Au contact des capillaires fenêtrés de la post-hypophyse.' },
+  { question: 'Comment sont collectées les hormones hypophysaires ?', answer: 'Par la veine porte hypophysaire.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

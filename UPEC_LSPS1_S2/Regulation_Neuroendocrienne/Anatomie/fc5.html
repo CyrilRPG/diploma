@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+<script src="../../../security.js" defer></script>
+<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS1 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Régulation Neuroendocrienne - Anatomie</h1><h2>Sécrétion hormonale</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelles sont les fonctions principales de l’axe hypothalamo-hypophysaire ?', answer: 'Modulation du système endocrinien (faim/satiété, lactation, thermorégulation), régulation du rythme circadien et influence par stress, émotions, activités psychiques et sommeil.', },
+{ question: 'Où se situe l’hypothalamus ?', answer: 'Petite région du diencéphale, au contact de la portion ventrale du 3e ventricule, reliée à l’hypophyse par la tige pituitaire.', },
+{ question: 'Par quel système vasculaire les hormones hypothalamiques contrôlent-elles l’hypophyse ?', answer: 'Un réseau capillaire et les veines porte-hypophysaires.', },
+{ question: 'Quel noyau hypothalamique produit les hormones hypophysitropes ?', answer: 'Le noyau arqué.', },
+{ question: 'Comment appelle-t-on le système neuro-sécréteur du noyau arqué ?', answer: 'Le système parvocellulaire.', },
+{ question: 'Quels noyaux hypothalamiques composent le système magnocellulaire ?', answer: 'Les noyaux paraventriculaire et supra-optique.', },
+{ question: 'Quelles hormones sont produites par le système magnocellulaire ?', answer: 'Ocytocine et vasopressine (ADH).', },
+{ question: 'Quelle partie de l’hypophyse reçoit les axones des neurones magnocellulaires ?', answer: 'La posthypophyse (neurohypophyse).', },
+{ question: 'Quels sont les trois compartiments de l’hypophyse ?', answer: 'Antéhypophyse (adénohypophyse), posthypophyse (neurohypophyse), lobe intermédiaire.', },
+{ question: 'Quelle hormone produit le lobe intermédiaire de l’hypophyse ?', answer: 'La mélanotropine (MSH).', },
+{ question: 'Quel est le rôle de la MSH ?', answer: 'Stimuler la synthèse de mélanine par les mélanocytes en réponse aux UVA.', },
+{ question: 'Quel est le rôle rénal principal de la vasopressine (ADH) ?', answer: 'Augmenter la réabsorption rénale d’eau (effet antidiurétique).', },
+{ question: 'Quels sont les effets cardiovasculaires de l’ADH ?', answer: 'Hypertension indirecte (rétention eau) et vasoconstriction directe.', },
+{ question: 'Quel est le rôle principal de l’ocytocine ?', answer: 'Contraction utérine et rôle dans l’accouchement ; participe à la lactation avec la prolactine.', },
+{ question: 'Quelles hormones hypothalamiques stimulent la libération de FSH et LH ?', answer: 'La GnRH.', },
+{ question: 'Quelle hormone hypothalamique stimule l’ACTH ?', answer: 'La CRH.', },
+{ question: 'Quelle hormone hypothalamique stimule la TSH et la PRL ?', answer: 'La TRH.', },
+{ question: 'Quelle hormone hypothalamique stimule la GH ?', answer: 'La GHRH.', },
+{ question: 'Quelle hormone hypothalamique inhibe la GH ?', answer: 'La somatostatine (GHIH).', },
+{ question: 'Quels types de récepteurs sont associés à LH, FSH, TSH et ACTH ?', answer: 'Récepteurs couplés à une protéine G.', },
+{ question: 'Quels types de récepteurs sont associés à GH et PRL ?', answer: 'Action directe via cytokines et facteurs de croissance.', },
+{ question: 'Qu’est-ce qu’un rétrocontrôle négatif hormonal ?', answer: 'L’hormone terminale freine la production des hormones hypothalamiques et hypophysaires, limitant sa propre synthèse.', },
+{ question: 'Qu’est-ce qu’un rétrocontrôle positif hormonal ?', answer: 'Activation de l’axe hypothalamo-hypophysaire par l’hormone terminale.', },
+{ question: 'Quelles hormones sont produites par l’antéhypophyse ?', answer: 'ACTH, FSH, LH, PRL, GH, TSH, MSH.', },
+{ question: 'Quelles sont les deux hormones libérées par la posthypophyse ?', answer: 'ADH et OCT.', },
+{ question: 'Quelle est la tumeur hypophysaire la plus fréquente ?', answer: 'L’adénome hypophysaire à prolactine (30 %).', },
+{ question: 'Quels symptômes provoque un adénome hypophysaire à prolactine ?', answer: 'Galactorrhée et aménorrhée.', },
+{ question: 'Quelle hormone hypothalamique stimule l’ACTH ?', answer: 'La CRH.', },
+{ question: 'Quelles zones de la corticosurrénale sont stimulées par l’ACTH ?', answer: 'Zones fasciculée et réticulée.', },
+{ question: 'Quels types d’hormones sont produits par la corticosurrénale ?', answer: 'Glucocorticoïdes, androgènes surrénaliens, minéralocorticoïdes.', },
+{ question: 'Quel type d’hormone est le cortisol ?', answer: 'Un glucocorticoïde.', },
+{ question: 'Quel est le principal glucocorticoïde ?', answer: 'Le cortisol.', },
+{ question: 'Quels sont les effets métaboliques du cortisol ?', answer: 'Mobilisation AA et AG, augmentation néoglucogenèse, augmentation glycémie, catabolisme osseux et protéique.', },
+{ question: 'Quelles pathologies sont liées à un excès de cortisol ?', answer: 'Hypercorticisme : maladie de Cushing.', },
+{ question: 'Quelle maladie est liée à une insuffisance de cortisol ?', answer: 'Hypocorticisme : maladie d’Addison.', },
+{ question: 'Quels sont les principaux androgènes surrénaliens ?', answer: 'Sulfate de DHEA et testostérone.', },
+{ question: 'Quelle proportion des androgènes féminins est produite par la surrénale ?', answer: 'Environ 50 %.', },
+{ question: 'Quelle est la fréquence de libération pulsatile de la GnRH en phase folliculaire ?', answer: 'Toutes les 90 minutes.', },
+{ question: 'Qu’est-ce qui augmente la fréquence de GnRH en phase pré-ovulatoire ?', answer: 'L’estradiol.', },
+{ question: 'Qu’est-ce qui ralentit la fréquence de GnRH en phase lutéale ?', answer: 'La progestérone.', },
+{ question: 'Quels sont les rôles de la FSH ?', answer: 'Croissance folliculaire initiale et synthèse d’œstrogènes par la granulosa.', },
+{ question: 'Quels sont les rôles de la LH ?', answer: 'Synthèse d’androgènes (thèque), maturation folliculaire, ovulation, formation du corps jaune et synthèse de progestérone.', },
+{ question: 'Quel évènement déclenche l’ovulation ?', answer: 'Le pic de LH.', },
+{ question: 'Quelles hormones sont produites par le corps jaune ?', answer: 'Œstrogènes et progestérone.', },
+{ question: 'Qu’est-ce qui provoque les menstruations en absence de fécondation ?', answer: 'Chute d’œstrogènes et progestérone → vasospasme, nécrose, desquamation.', },
+{ question: 'Quels androgènes sont produits par les cellules du stroma ovarien ?', answer: 'A4-androstènedione, testostérone, DHEA.', },
+{ question: 'Que produisent les cellules de la thèque sous l’effet de la LH ?', answer: 'Des androgènes.', },
+{ question: 'Que produisent les cellules de la granulosa sous FSH ?', answer: 'Des œstrogènes grâce à l’aromatase.', },
+{ question: 'Quel type de rétrocontrôle exercent les œstrogènes en début de cycle ?', answer: 'Rétrocontrôle négatif sur LH et FSH.', },
+{ question: 'Quel rétrocontrôle est exercé par des taux élevés d’estradiol en fin de phase folliculaire ?', answer: 'Rétrocontrôle positif sur LH → pic de LH.', },
+{ question: 'Quel est le mécanisme d’action des œstrogènes ?', answer: 'Diffusion cellulaire → récepteur nucléaire → liaison ADN → synthèse de protéines.', },
+{ question: 'Quel est le rythme de sécrétion de la prolactine ?', answer: 'Cycle nycthéméral, maximum en fin de nuit.', },
+{ question: 'Quel est l’effet d’une hyperprolactinémie sur les hormones sexuelles ?', answer: 'Diminution de la pulsatile de GnRH → aménorrhée.', },
+{ question: 'Quel est le rôle de la FSH chez l’homme ?', answer: 'Action sur les cellules de Sertoli : stimulation de la spermatogenèse.', },
+{ question: 'Quel est le rôle de la LH chez l’homme ?', answer: 'Stimulation des cellules de Leydig → production de testostérone.', },
+{ question: 'Quel rétrocontrôle exerce la testostérone ?', answer: 'Rétrocontrôle négatif sur GnRH et LH.', },
+{ question: 'Quelles hormones agissent sur la croissance ?', answer: 'GH, IGF, hormones thyroïdiennes, hormones sexuelles.', },
+{ question: 'Quel est le rythme de sécrétion de la GH ?', answer: 'Sécrétion pulsatile, pics pendant le sommeil lent.', },
+{ question: 'Quels facteurs stimulent la GH ?', answer: 'GHRH, ghréline, exercice, hypoglycémie.', },
+{ question: 'Quels facteurs inhibent la GH ?', answer: 'Somatostatine, obésité, hypothyroïdie, glucocorticoïdes chroniques.', },
+{ question: 'Qu’est-ce que la ghréline ?', answer: 'Puissant sécrétagogue de GH, hormone orexigène produite par l’estomac en jeûne.', },
+{ question: 'Quels sont les effets de l’excès de GH ?', answer: 'Gigantisme chez l’enfant ; acromégalie chez l’adulte ; hyperinsulinisme ; diabète ; maigreur.', },
+{ question: 'Quelle est la cause principale de l’acromégalie ?', answer: 'Adénome hypophysaire sécrétant de la GH (99%).', },
+{ question: 'Quel est le rôle de l’IGF1 ?', answer: 'Médiateur périphérique de la GH, stimule la croissance et la synthèse protéique.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../../index.html">Accueil</a></li>
+<li><a href="../../favorites.html">Favoris</a></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../../ICM/fc1.html">Généralités sur les médicaments (partie 1)</a></li>
+<li><a href="../../ICM/fc1_2.html">Généralités sur les médicaments (partie 2)</a></li>
+<li><a href="../../ICM/fc2.html">Interaction ligand-récepteur</a></li>
+<li><a href="../../ICM/fc3.html">Voies de signalisation</a></li>
+<li><a href="../../ICM/fc4.html">Pharmacométrie</a></li>
+<li><a href="../../ICM/fc5.html">Étapes pharmacocinétiques</a></li>
+<li><a href="../../ICM/fc6_1.html">Paramètres pharmacocinétiques</a></li>
+<li><a href="../../ICM/fc6_2.html">Pharmacocinétique et formes galéniques</a></li>
+<li><a href="../../ICM/fc7.html">Pharmacocinétique et prescription</a></li>
+<li><a href="../../ICM/fc8.html">Variabilité de la réponse au médicament</a></li>
+<li><a href="../../ICM/fc9.html">Conception et identification du médicament</a></li>
+<li><a href="../../ICM/fc10.html">Développement pré-clinique</a></li>
+<li><a href="../../ICM/fc11.html">Développement clinique</a></li>
+<li><a href="../../ICM/fc12.html">Structure et régulation du médicament</a></li>
+<li><a href="../../ICM/fc13.html">Générique et biosimilaire</a></li>
+<li><a href="../../ICM/fc14.html">Circuits de dispensation des médicaments</a></li>
+<li><a href="../../ICM/fc15.html">Iatrogénie</a></li>
+</ul></li>
+<li><span class="opener">Bio-informatique</span><ul>
+<li><a href="../../Bio_Informatique/fc1.html">Introduction à la bio-informatique</a></li>
+<li><a href="../../Bio_Informatique/fc2.html">Bases de données bio-informatiques</a></li>
+<li><a href="../../Bio_Informatique/fc3.html">Comparaison de séquences</a></li>
+</ul></li>
+<li><span class="opener">Circulation Respiration</span><ul>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../../Circulation_Respiration/Anatomie/fc1.html">Introduction sur l'appareil cardiovasculaire</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc2.html">Cœur, aspects extérieurs</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc3.html">Cœur droit et cœur gauche</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc4.html">Péricarde</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc5.html">Artères et veines coronaires</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc6.html">Innervation du cœur</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc7.html">Structure du cœur et valves cardiaques</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc8.html">Principales artères du corps</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc9.html">Coupes du cœur</a></li>
+<li><a href="../../Circulation_Respiration/Anatomie/fc10.html">Anatomie de l'appareil respiratoire</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../../Circulation_Respiration/Physiologie/fc1.html">Voies aériennes et transports gazeux</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc2.html">Équilibre acide-base</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc3.html">Cellule musculaire cardiaque</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc4.html">ECG et cœur</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc5.html">Pression artérielle</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc6.html">Régulation de la pression artérielle</a></li>
+<li><a href="../../Circulation_Respiration/Physiologie/fc7.html">Le cycle cardiaque</a></li>
+</ul></li>
+</ul></li>
+<li><span class="opener">Régulation Neuroendocrienne</span><ul>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc1.html">Anatomie générale du système nerveux</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc2.html">Neurone</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc3.html">Schéma général des réseaux neuronaux</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc4.html">Système nerveux végétatif ou autonome</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc5.html">Sécrétion hormonale</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Anatomie/fc6.html">Anatomie digestive simplifiée</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc1.html">Fonction digestive</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc2.html">Fonctions hépatiques</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc3.html">Fonctions pancréatiques</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc4.html">Rôle de l'intestin grêle et du colon</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc5.html">Diabète</a></li>
+<li><a href="../../Regulation_Neuroendocrienne/Physiologie/fc6.html">Hypothalamus, faim et satiété</a></li>
+</ul></li>
+</ul></li>
+<li><span class="opener">Squelette et Motricité</span><ul>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../../Squelette_Motricite/Anatomie/fc1.html">Les os du crâne</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc2.html">Os de la face</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc3.html">Cavités de la face</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc4.html">Membre supérieur</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc5.html">Ceinture scapulaire</a></li>
+<li><a href="../../Squelette_Motricite/Anatomie/fc6.html">Bras</a></li>
+</ul></li>
+<li><span class="opener">Activité physique et santé</span><ul>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc1.html">Connaissances générales sur l'activité physique</a></li>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc2.html">Adaptations cardiaques à l'exercice</a></li>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc3.html">Adaptations respiratoires à l'exercice</a></li>
+<li><a href="../../Squelette_Motricite/Activite_Physique/fc4.html">Adaptations hormonales à l'exercice</a></li>
+</ul></li>
+<li><span class="opener">Situations de handicap</span><ul>
+<li><a href="../../Squelette_Motricite/Situations_Handicap/fc1.html">Réadaptation</a></li>
+<li><a href="../../Squelette_Motricite/Situations_Handicap/fc2.html">Moyens de compensation</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../../Squelette_Motricite/Physiologie/fc1.html">Biomécanique de la force musculaire</a></li>
+<li><a href="../../Squelette_Motricite/Physiologie/fc2.html">Excitation-contraction</a></li>
+</ul></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+<script src="../../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Nutrition</h1><h2>SOCLE - Métabolisme lipidique</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'De quelles grandes familles de lipides fait partie le cholestérol ?', answer: 'Des lipides dérivant des acides gras et des lipides dérivant du cholestérol.', },
+{ question: 'Quels lipides dérivent des acides gras ?', answer: 'Les glycérophospholipides, les sphingolipides et les glycérides.', },
+{ question: 'Quels rôles ont les glycérophospholipides et sphingolipides ?', answer: 'Ils constituent la bicouche phospholipidique des membranes cellulaires.', },
+{ question: 'Quel est le rôle des glycérides ?', answer: 'Ils sont impliqués dans le métabolisme énergétique.', },
+{ question: 'Quels dérivés du cholestérol sont cités comme molécules actives ?', answer: 'Les acides biliaires, les hormones stéroïdiennes et la vitamine D.', },
+{ question: 'Quelles sont les deux origines du cholestérol dans l’organisme ?', answer: 'L’origine alimentaire et la synthèse endogène.', },
+{ question: 'Quelle proportion du cholestérol provient de l’alimentation ?', answer: 'Environ 1/3.', },
+{ question: 'Quelle proportion du cholestérol provient de la synthèse endogène ?', answer: 'Environ 2/3.', },
+{ question: 'Quel organe produit majoritairement le cholestérol endogène ?', answer: 'Le foie.', },
+{ question: 'Sous quelle forme le cholestérol est-il transporté dans le sang ?', answer: 'Sous forme estérifiée au sein des lipoprotéines.', },
+{ question: 'Quelles lipoprotéines transportent le cholestérol d’origine digestive ?', answer: 'Les chylomicrons.', },
+{ question: 'Quelles lipoprotéines transportent le cholestérol d’origine hépatique ?', answer: 'Les VLDL et LDL.', },
+{ question: 'Sous quelles formes le cholestérol peut-il être stocké dans les tissus périphériques ?', answer: 'Sous forme estérifiée.', },
+{ question: 'Sous quelle forme le cholestérol est-il inséré dans les membranes cellulaires ?', answer: 'Sous forme non estérifiée.', },
+{ question: 'Quels rôles cellulaires peut avoir le cholestérol dans les tissus périphériques ?', answer: 'Modifier la fluidité membranaire et permettre la synthèse de molécules actives.', },
+{ question: 'Quel est le principal catabolisme du cholestérol ?', answer: 'La synthèse hépatique des acides biliaires.', },
+{ question: 'Quelle proportion du cholestérol quotidien est utilisée pour la synthèse d’acides biliaires ?', answer: 'Environ la moitié.', },
+{ question: 'Quelle lipoprotéine ramène le cholestérol des tissus périphériques vers le foie ?', answer: 'Les HDL.', },
+{ question: 'Que deviennent le cholestérol et les acides biliaires au foie ?', answer: 'Ils sont sécrétés dans la bile et rejoignent la lumière intestinale.', },
+{ question: 'Quel est le rôle principal des acides biliaires dans l’intestin ?', answer: 'Former des micelles pour la digestion et l’absorption des lipides alimentaires.', },
+{ question: 'Quels produits dérivent du cholestérol après action de la flore intestinale ?', answer: 'Le coprostanol et le cholestanol.', },
+{ question: 'Comment ces produits sont-ils réabsorbés ?', answer: 'Par le cycle entéro-hépatique.', },
+{ question: 'Quelle est la principale voie d’élimination du cholestérol ?', answer: 'L’élimination fécale de cholestérol, cholestanol, coprostanol et acides biliaires.', },
+{ question: 'Quelle quantité de dérivés du cholestérol est éliminée chaque jour ?', answer: 'Environ 1 g par jour.', },
+{ question: 'Quelles conséquences peut avoir un excès d’apport en cholestérol ?', answer: 'Hypercholestérolémie, athérosclérose, augmentation du risque cardiovasculaire.', },
+{ question: 'Quels compartiments cellulaires participent à la synthèse du cholestérol ?', answer: 'Le cytoplasme, les mitochondries et les microsomes.', },
+{ question: 'Quelle est la molécule précurseur du cholestérol ?', answer: 'L’Acétyl-CoA.', },
+{ question: 'Combien de molécules d’Acétyl-CoA sont nécessaires pour former le mévalonate ?', answer: 'Trois molécules d’Acétyl-CoA.', },
+{ question: 'Quelle est la première molécule formée dans la synthèse du cholestérol ?', answer: 'Le mévalonate.', },
+{ question: 'Quel est le maillon de base des lipides terpéniques ?', answer: 'L’isoprène.', },
+{ question: 'Combien d’atomes de carbone possède l’isoprène ?', answer: 'Cinq atomes de carbone.', },
+{ question: 'Combien de molécules d’isoprène sont nécessaires pour former le squalène ?', answer: 'Six molécules.', },
+{ question: 'Combien d’atomes de carbone possède le squalène ?', answer: 'Trente atomes de carbone.', },
+{ question: 'Quelle étape marque l’engagement irréversible dans la voie de synthèse du cholestérol ?', answer: 'L’action de l’HMG-CoA réductase.', },
+{ question: 'Quelle enzyme forme l’HMG-CoA à partir d’Acétyl-CoA ?', answer: 'L’HMG-CoA synthase.', },
+{ question: 'Quelle enzyme transforme l’HMG-CoA en mévalonate ?', answer: 'L’HMG-CoA réductase.', },
+{ question: 'Quel cofacteur est oxydé lors de la formation du mévalonate ?', answer: 'Le NADPH.', },
+{ question: 'Quelles étapes de la synthèse du mévalonate sont communes à la cétogenèse ?', answer: 'La formation de l’acétoacétyl-CoA et de l’HMG-CoA.', },
+{ question: 'Quelle enzyme utilise deux molécules d’ATP dans la conversion du mévalonate ?', answer: 'La mévalonate kinase.', },
+{ question: 'Quel est le produit final de la décarboxylation du 5-pyrophosphoryl-mévalonate ?', answer: 'L’isopentenyl pyrophosphate.', },
+{ question: 'Quel isomère est en équilibre avec l’isopentenyl pyrophosphate ?', answer: 'Le diméthylallyl pyrophosphate (DMAPP).', },
+{ question: 'Quel composé terpénique à 10 carbones est formé à partir de deux isoprènes ?', answer: 'Le géranyl pyrophosphate.', },
+{ question: 'Comment est formé le farnésyl pyrophosphate ?', answer: 'Par condensation du géranyl pyrophosphate avec une troisième unité isoprène.', },
+{ question: 'Quelle molécule est formée par la condensation de deux farnésyl pyrophosphates ?', answer: 'Le squalène.', },
+{ question: 'Quel est le premier stéroïde formé à partir du squalène ?', answer: 'Le lanostérol.', },
+{ question: 'Quel noyau polycyclique caractérise le cholestérol ?', answer: 'Le noyau cyclopentane perhydro-phénanthrène.', },
+{ question: 'Quelle double liaison persiste dans la structure du cholestérol ?', answer: 'La double liaison en position 5-6.', },
+{ question: 'Combien de groupements méthyle sont retirés lors de la conversion lanostérol → cholestérol ?', answer: 'Trois groupements méthyle.', },
+{ question: 'Quel groupement est porté par le carbone 3 du cholestérol ?', answer: 'Un groupement hydroxyle en configuration bêta.', },
+{ question: 'Quelle enzyme est le principal point de régulation de la synthèse du cholestérol ?', answer: 'L’HMG-CoA réductase.', },
+{ question: 'Dans quel état l’HMG-CoA réductase est-elle active ?', answer: 'Sous forme déphosphorylée.', },
+{ question: 'Quel est l’effet de l’insuline sur l’HMG-CoA réductase ?', answer: 'Elle active l’enzyme via une phosphatase.', },
+{ question: 'Quel est l’effet du glucagon sur l’HMG-CoA réductase ?', answer: 'Il inactive l’enzyme via une kinase.', },
+{ question: 'Quel type de régulation exerce le cholestérol sur l’HMG-CoA réductase ?', answer: 'Une inhibition allostérique négative.', },
+{ question: 'Quel est l’effet d’une augmentation du cholestérol intracellulaire sur le gène du récepteur LDL ?', answer: 'Une diminution de son expression.', },
+{ question: 'Quel est l’effet de l’augmentation du cholestérol intracellulaire sur le gène ACAT ?', answer: 'Une augmentation de son expression.', },
+{ question: 'Quel est le rôle intracellulaire de l’ACAT ?', answer: 'Estérifier le cholestérol pour former sa forme de stockage.', },
+{ question: 'Quel est le rôle de la cholestérol estérase ?', answer: 'Libérer du cholestérol libre à partir du cholestérol estérifié.', },
+{ question: 'Quel est le rôle de la LCAT ?', answer: 'Estérifier le cholestérol dans le plasma pour son transport dans les HDL.', },
+{ question: 'Quel groupement estérifie la LCAT lors du transport du cholestérol ?', answer: 'Un acide gras provenant des lécithines.', },
+{ question: 'Quel est le précurseur des acides biliaires ?', answer: 'Le cholestérol.', },
+{ question: 'Combien d’atomes de carbone composent un acide biliaire ?', answer: '24 atomes de carbone.', },
+{ question: 'Quel groupement hydroxyle signe l’engagement dans la synthèse des acides biliaires primaires ?', answer: 'L’hydroxyle en position 7.', },
+{ question: 'Quelle enzyme catalyse l’introduction de l’hydroxyle en 7 ?', answer: 'La 7α-hydroxylase.', },
+{ question: 'Quelle régulation exerce le cholestérol sur la 7α-hydroxylase ?', answer: 'Une activation allostérique.', },
+{ question: 'Quel rétrocontrôle exerce l’acide cholique sur la 7α-hydroxylase ?', answer: 'Une inhibition allostérique négative.', },
+{ question: 'Que provoque une hypercholestérolémie au niveau du compartiment sanguin ?', answer: 'Une augmentation du taux de cholestérol, en particulier du cholestérol LDL.', },
+{ question: 'Quelle enzyme est impliquée dans la synthèse cellulaire du cholestérol et ciblée par les statines ?', answer: 'L’HMG-CoA réductase.', },
+{ question: 'Quel est le mécanisme principal des statines ?', answer: 'Elles sont des analogues structuraux de HMG-CoA et inhibent compétitivement et réversiblement l’HMG-CoA réductase.', },
+{ question: 'Quelle est la conséquence directe de l’inhibition de l’HMG-CoA réductase par les statines ?', answer: 'La diminution de la synthèse de mévalonate et de cholestérol.', },
+{ question: 'Quel est l’effet des statines à court terme ?', answer: 'Une diminution de la concentration intracellulaire de cholestérol.', },
+{ question: 'Quel est l’effet des statines à long terme sur l’HMG-CoA réductase ?', answer: 'Une augmentation du niveau d’expression du gène codant pour l’HMG-CoA réductase, mais sans hausse de cholestérol car l’enzyme reste inhibée.', },
+{ question: 'Quel gène voit son expression augmenter sous statines pour faciliter la captation du cholestérol ?', answer: 'Le gène du récepteur LDL.', },
+{ question: 'Quelle est la conséquence de l’augmentation du nombre de récepteurs LDL sous statines ?', answer: 'Augmentation de l’endocytose des LDL et diminution du taux sanguin de cholestérol LDL.', },
+{ question: 'Quel est l’effet hypocholestérolémiant majeur des statines ?', answer: 'La diminution du cholestérol LDL sanguin.', },
+{ question: 'Dans quel contexte utilise-t-on la cholestyramine ?', answer: 'En situation d’hypercholestérolémie avec augmentation du cholestérol LDL.', },
+{ question: 'Quel est le rôle des acides biliaires dans la lumière intestinale ?', answer: 'Former des micelles permettant la digestion et l’absorption des lipides alimentaires.', },
+{ question: 'Quel est le mécanisme d’action principal de la cholestyramine ?', answer: 'C’est une résine qui séquestre et complexe les acides biliaires dans l’intestin, entraînant leur élimination dans les selles.', },
+{ question: 'Quel cycle est interrompu par la cholestyramine ?', answer: 'Le cycle entéro-hépatique.', },
+{ question: 'Quelle est la conséquence de la diminution intracellulaire en acides biliaires sous cholestyramine ?', answer: 'Levée du rétrocontrôle négatif sur la 7α-hydroxylase et augmentation de la synthèse d’acides biliaires.', },
+{ question: 'Quel récepteur voit son expression augmenter sous cholestyramine ?', answer: 'Le récepteur au LDL.', },
+{ question: 'Quel est l’effet hypocholestérolémiant final de la cholestyramine ?', answer: 'Diminution du cholestérol sanguin par augmentation de la captation des LDL et utilisation du cholestérol hépatique pour synthétiser des acides biliaires.', },
+{ question: 'Sous quelle forme structurale les lipoprotéines transportent-elles les lipides ?', answer: 'Sous forme d’édifices sphériques avec une monocouche de glycérophospholipides, du cholestérol libre et des apolipoprotéines.', },
+{ question: 'Que contient le noyau des lipoprotéines ?', answer: 'Cholestérol estérifié et/ou triglycérides sous forme estérifiée.', },
+{ question: 'Quand les chylomicrons sont-ils présents dans le sang ?', answer: 'Uniquement en période postprandiale.', },
+{ question: 'Quelle est la demi-vie des chylomicrons ?', answer: 'Environ 20 minutes.', },
+{ question: 'Quelle fraction lipidique est principalement transportée par les chylomicrons ?', answer: 'Les triglycérides alimentaires.', },
+{ question: 'Quelle apolipoprotéine est spécifique de l’origine intestinale des chylomicrons ?', answer: 'Apo B48.', },
+{ question: 'Quelle apolipoprotéine active la lipoprotéine lipase ?', answer: 'Apo CII.', },
+{ question: 'Que libère l’hydrolyse des triglycérides par la LPL ?', answer: 'Du glycérol, des monoglycérides et des acides gras.', },
+{ question: 'Quelle apolipoprotéine des chylomicrons permet leur reconnaissance par un récepteur pour leur élimination ?', answer: 'Apo E.', },
+{ question: 'Quels lipides transportent les VLDL ?', answer: 'Des triglycérides majoritairement et du cholestérol d’origine hépatique.', },
+{ question: 'Quelle apolipoprotéine majeure caractérise l’origine hépatique des VLDL ?', answer: 'Apo B100.', },
+{ question: 'Quelles apolipoprotéines périphériques exposent les VLDL ?', answer: 'Apo B100, Apo CII et Apo E.', },
+{ question: 'Comment se forment les LDL ?', answer: 'Par action progressive de la LPL sur les VLDL, modifiant leur structure et augmentant leur densité.', },
+{ question: 'Quelle est la composition principale des LDL ?', answer: 'Principalement du cholestérol.', },
+{ question: 'Quelles apolipoprotéines des LDL permettent leur reconnaissance par leur récepteur ?', answer: 'L’association Apo B100 – Apo E.', },
+{ question: 'Quel lipoprotéine effectue le transport inverse du cholestérol ?', answer: 'Les HDL.', },
+{ question: 'Quelle apolipoprotéine caractérise les HDL ?', answer: 'Apo A1.', },
+{ question: 'Quelles sont les deux fonctions de l’Apo A1 ?', answer: 'Reconnaissance par des récepteurs spécifiques et activation de la LCAT.', },
+{ question: 'Quelle enzyme est activée par Apo A1 ?', answer: 'La LCAT.', },
+{ question: 'Quel est le rôle principal de la LCAT dans les HDL ?', answer: 'Estérifier le cholestérol en C3 pour le transport vers le foie.', },
+{ question: 'Quel récepteur hépatique reconnaît les HDL chargés de cholestérol estérifié ?', answer: 'SRB1.', },
+{ question: 'Pourquoi le HDL est-il appelé « bon cholestérol » ?', answer: 'Parce qu’il ramène le cholestérol des tissus périphériques vers le foie et réduit le risque d’athérome.', },
+{ question: 'Pourquoi le LDL est-il appelé « mauvais cholestérol » ?', answer: 'Parce qu’il distribue le cholestérol aux tissus périphériques et augmente le risque d’athérome.', },
+{ question: 'Quelle enzyme hydrolyse les triglycérides du tissu adipeux en cas de carence énergétique ?', answer: 'La triglycéride lipase (TGL).', },
+{ question: 'Quelle molécule transporte les acides gras libérés par la TGL ?', answer: 'L’albumine.', },
+{ question: 'Quel est le principal objectif de l’exploration des lipides sanguins ?', answer: 'Mettre en évidence des dyslipidémies et suivre leur prise en charge.', },
+{ question: 'Combien d’heures de jeûne sont nécessaires avant un prélèvement lipidique ?', answer: '12 heures.', },
+{ question: 'Pourquoi n’y a-t-il plus de chylomicrons après 12 h de jeûne ?', answer: 'Parce que leur demi-vie est très courte (10-20 min).', },
+{ question: 'Quelles valeurs sanguines de cholestérol total doit-on retenir en g/L ?', answer: '1,51–2,52 g/L.', },
+{ question: 'Quelles valeurs sanguines des triglycérides sont à retenir en g/L ?', answer: '0,44–1,47 g/L.', },
+{ question: 'Quelles valeurs du HDL-cholestérol sont à retenir en g/L ?', answer: '0,4–0,6 g/L.', },
+{ question: 'Quelles valeurs du LDL-cholestérol sont à retenir en g/L ?', answer: '1,0–1,6 g/L.', },
+{ question: 'Dans quels cas la formule de Friedewald n’est-elle plus valable ?', answer: 'Si les triglycérides dépassent 4 ou 4,6 g/L.', },
+{ question: 'Quel est l’aspect normal du sérum après centrifugation à jeun ?', answer: 'Limpide.', },
+{ question: 'Que suggère un sérum trouble ou lactescent ?', answer: 'Une augmentation majeure des triglycérides, due à des anomalies des chylomicrons et/ou VLDL.', },
+{ question: 'Quel test réalise-t-on si le sérum est trouble ?', answer: 'Le test de crémage après 24 h à 4°C.', },
+{ question: 'Quel résultat du test de crémage indique une augmentation des VLDL ou IDL ?', answer: 'Un sérum qui reste trouble sans couche crémeuse.', },
+{ question: 'Que signifie une couche crémeuse avec sérum trouble ?', answer: 'Une augmentation simultanée des chylomicrons et des VLDL/IDL.', },
+{ question: 'Pourquoi l’aspect du sérum ne permet-il pas de conclure sur une hypercholestérolémie ?', answer: 'Parce que les HDL et LDL, de petite taille et haute densité, ne troublent pas le sérum.', },
+{ question: 'Que permettent les dosages de ApoA1 et ApoB ?', answer: 'Confirmer respectivement une augmentation des HDL et des LDL.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

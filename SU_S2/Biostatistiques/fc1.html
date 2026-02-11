@@ -1,0 +1,1032 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biostatistiques</h1><h2>Probabilité</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Qu’est-ce qu’une épreuve en probabilités ?', answer: 'Expérience dont le résultat est aléatoire.' },
+  { question: 'Qu’est-ce qu’un évènement élémentaire ?', answer: 'Résultat d’une épreuve.' },
+  { question: 'Qu’est-ce que l’ensemble fondamental E (ou univers) ?', answer: 'Ensemble des évènements élémentaires, évènement certain.' },
+  { question: 'Qu’est-ce que l’ensemble vide Ø ?', answer: 'Évènement impossible, ensemble ne contenant aucun résultat possible.' },
+  { question: 'Qu’est-ce qu’un évènement A ?', answer: 'Ensemble d’évènements élémentaires présentant un caractère commun.' },
+  { question: 'Qu’est-ce qu’une partition d’un ensemble A ?', answer: 'Subdivision de A en sous-ensembles disjoints dont la réunion forme A.' },
+  { question: 'Qu’est-ce que l’évènement contraire de A ?', answer: 'Ensemble des issues qui ne réalisent pas A, noté Ā ou Aᶜ.' },
+  { question: 'Quelle est la propriété entre A et Ā ?', answer: 'Une issue est forcément dans A ou dans Ā mais jamais dans les deux.' },
+  { question: 'Qu’est-ce que l’union de A et B ?', answer: 'Ensemble des éléments appartenant à A ou B, réalise au moins un des deux évènements.' },
+  { question: 'Qu’est-ce que l’intersection de A et B ?', answer: 'Ensemble des éléments appartenant à A et à B (inclus dans l’union).' },
+  { question: 'Qu’est-ce que la diﬀérence A – B ?', answer: 'Ensemble des éléments de A qui ne réalisent pas B.' },
+  { question: 'Qu’est-ce qu’une probabilité ?', answer: 'Fonction P qui à tout évènement de l’univers associe un réel de [0 ;1].' },
+  { question: 'Comment note-t-on la probabilité d’un évènement A ?', answer: 'P(A).' },
+  { question: 'Quelles sont les propriétés fondamentales des probabilités ?', answer: '•P(Ω) = 1 •P(Ø) = 0 •P(A ∪ B) = P(A) + P(B) – P(A ∩ B) •P(Ā) = 1 – P(A).' },
+  { question: 'Qu’est-ce que la probabilité conditionnelle P(A|B) ?', answer: 'Probabilité que A se réalise sachant que B est déjà réalisé.' },
+  { question: 'Quelle est la formule de P(A|B) ?', answer: 'P(A|B) = P(A ∩ B) / P(B), si P(B) ≠ 0.' },
+  { question: 'Quelles sont les propriétés de la probabilité conditionnelle ?', answer: '•P(A ∩ B) = P(A|B) × P(B) = P(B|A) × P(A). •P(Ā|B) = 1 – P(A|B).' },
+  { question: 'Cas particulie', answer: 'que vaut P(A|B) si A et B sont indépendants ? R : P(A|B) = P(A).' },
+  { question: 'Cas particulie', answer: 'que vaut P(A₁ ∪ A₂|B) si A₁ et A₂ sont disjoints ? R : P(A₁|B) + P(A₂|B).' },
+  { question: 'Qu’est-ce que la formule des probabilités totales ?', answer: 'Si (B₁, …, Bn) est une partition de Ω avec P(Bi) > 0, alors : P(A) = Σ P(A|Bi) × P(Bi).' },
+  { question: 'Qu’est-ce que la formule de Bayes ?', answer: 'P(Bj|A) = [P(A|Bj) × P(Bj)] / Σ [P(A|Bi) × P(Bi)].' },
+  { question: 'Qu’est-ce qu’une variable aléatoire (V.A.) ?', answer: 'Fonction qui associe à chaque issue ω de Ω un nombre réel X(ω).' },
+  { question: 'Qu’est-ce qu’une loi de probabilité discrète ?', answer: 'Ensemble des couples (x, P(X = x)), avec Σ P(X = x) = 1.' },
+  { question: 'Qu’est-ce qu’une fonction de répartition F(x) ?', answer: 'F(x) = P(X ≤ x).' },
+  { question: 'Quelles sont les propriétés de F(x) ?', answer: '•Croissante. •lim (xˠ–∞) F(x) = 0. •lim (xˠ+∞) F(x) = 1.' },
+  { question: 'Quelle est l’espérance mathématique d’une V.A. discrète X ?', answer: 'E(X) = Σ x·P(X = x).' },
+  { question: 'Quelle est la variance d’une V.A. discrète X ?', answer: 'V(X) = E(X²) – (E(X))².' },
+  { question: 'Quelle est l’écart-type d’une V.A. X ?', answer: 'σ(X) = √V(X).' },
+  { question: 'Qu’est-ce que la loi de Bernoulli ?', answer: 'Expérience à deux issues : succès (proba p) et échec (proba q = 1 – p).' },
+  { question: 'Quelle est la loi de probabilité de X ~ Bernoulli(p) ?', answer: 'P(X = 1) = p, P(X = 0) = 1 – p.' },
+  { question: 'Quelle est l’espérance et la variance de X ~ Bernoulli(p) ?', answer: 'E(X) = p, V(X) = p(1 – p).' },
+  { question: 'Qu’est-ce qu’un schéma de Bernoulli de n épreuves ?', answer: 'Répétition indépendante de n expériences de Bernoulli(p).' },
+  { question: 'Qu’est-ce que la loi binomiale B(n, p) ?', answer: 'Loi de la variable X = nombre de succès dans n épreuves de Bernoulli(p).' },
+  { question: 'Quelle est la loi de probabilité de X ~ B(n, p) ?', answer: 'P(X = k) = C(n, k)·p^k·(1 – p)^(n–k).' },
+  { question: 'Quelle est l’espérance et la variance de X ~ B(n, p) ?', answer: 'E(X) = n·p, V(X) = n·p·(1 – p).' },
+  { question: 'Qu’est-ce que la loi de Poisson ?', answer: 'Loi discrète modélisant le nombre d’évènements rares dans un intervalle de temps ou d’espace.' },
+  { question: 'Quelle est la loi de probabilité de X ~ Poisson(λ) ?', answer: 'P(X = k) = (λ^k / k!) · e^(–λ).' },
+  { question: 'Quelle est l’espérance et la variance de X ~ Poisson(λ) ?', answer: 'E(X) = λ, V(X) = λ.' },
+  { question: 'Dans quel cas la loi binomiale peut-elle être approchée par une loi de Poisson ?', answer: 'Quand n est grand et p est petit, avec λ = n·p.' },
+  { question: 'Qu’est-ce qu’une variable aléatoire continue ?', answer: 'Variable pouvant prendre une inﬁnité de valeurs dans un intervalle.' },
+  { question: 'Qu’est-ce qu’une densité de probabilité f(x) ?', answer: 'Fonction positive telle que l’intégrale de f(x) sur R = 1.' },
+  { question: 'Quelle est la fonction de répartition F(x) associée à f(x) ?', answer: 'F(x) = ∫ f(t) dt de –∞ à x.' },
+  { question: 'Quelle est la probabilité que X appartienne à [a, b] ?', answer: 'P(a ≤ X ≤ b) = ∫ f(x) dx de a à b.' },
+  { question: 'Quelle est l’espérance d’une V.A. continue X ?', answer: 'E(X) = ∫ x·f(x) dx.' },
+  { question: 'Quelle est la variance d’une V.A. continue X ?', answer: 'V(X) = E(X²) – (E(X))².' },
+  { question: 'Qu’est-ce que la loi uniforme U(a, b) ?', answer: 'Loi continue où toutes les valeurs de [a, b] sont équiprobables.' },
+  { question: 'Quelle est la densité de la loi U(a, b) ?', answer: 'f(x) = 1/(b – a) pour x ∈ [a, b].' },
+  { question: 'Quelle est l’espérance et la variance de X ~ U(a, b) ?', answer: 'E(X) = (a + b)/2, V(X) = (b – a)² / 12.' },
+  { question: 'Qu’est-ce que la loi exponentielle Exp(λ) ?', answer: 'Loi continue modélisant le temps d’attente avant la réalisation d’un évènement.' },
+  { question: 'Quelle est la densité de X ~ Exp(λ) ?', answer: 'f(x) = λ·e^(–λx), pour x ≥ 0.' },
+  { question: 'Quelle est la fonction de répartition F(x) de X ~ Exp(λ) ?', answer: 'F(x) = 1 – e^(–λx).' },
+  { question: 'Quelle est l’espérance et la variance de X ~ Exp(λ) ?', answer: 'E(X) = 1/λ, V(X) = 1/λ².' },
+  { question: 'Quelle propriété particulière a la loi exponentielle ?', answer: 'Propriété de « sans mémoire ».' },
+  { question: 'Qu’est-ce que la loi de Poisson ?', answer: 'Loi discrète modélisant le nombre d’évènements rares dans un intervalle de temps ou d’espace.' },
+  { question: 'Quelle est la loi de probabilité de X ~ Poisson(λ) ?', answer: 'P(X = k) = (λ^k / k!) · e^(–λ).' },
+  { question: 'Quelle est l’espérance et la variance de X ~ Poisson(λ) ?', answer: 'E(X) = λ, V(X) = λ.' },
+  { question: 'Dans quel cas la loi binomiale peut-elle être approchée par une loi de Poisson ?', answer: 'Quand n est grand et p est petit, avec λ = n·p.' },
+  { question: 'Qu’est-ce qu’une variable aléatoire continue ?', answer: 'Variable pouvant prendre une inﬁnité de valeurs dans un intervalle.' },
+  { question: 'Qu’est-ce qu’une densité de probabilité f(x) ?', answer: 'Fonction positive telle que l’intégrale de f(x) sur R = 1.' },
+  { question: 'Quelle est la fonction de répartition F(x) associée à f(x) ?', answer: 'F(x) = ∫ f(t) dt de –∞ à x.' },
+  { question: 'Quelle est la probabilité que X appartienne à [a, b] ?', answer: 'P(a ≤ X ≤ b) = ∫ f(x) dx de a à b.' },
+  { question: 'Quelle est l’espérance d’une V.A. continue X ?', answer: 'E(X) = ∫ x·f(x) dx.' },
+  { question: 'Quelle est la variance d’une V.A. continue X ?', answer: 'V(X) = E(X²) – (E(X))².' },
+  { question: 'Qu’est-ce que la loi uniforme U(a, b) ?', answer: 'Loi continue où toutes les valeurs de [a, b] sont équiprobables.' },
+  { question: 'Quelle est la densité de la loi U(a, b) ?', answer: 'f(x) = 1/(b – a) pour x ∈ [a, b].' },
+  { question: 'Quelle est l’espérance et la variance de X ~ U(a, b) ?', answer: 'E(X) = (a + b)/2, V(X) = (b – a)² / 12.' },
+  { question: 'Qu’est-ce que la loi exponentielle Exp(λ) ?', answer: 'Loi continue modélisant le temps d’attente avant la réalisation d’un évènement.' },
+  { question: 'Quelle est la densité de X ~ Exp(λ) ?', answer: 'f(x) = λ·e^(–λx), pour x ≥ 0.' },
+  { question: 'Quelle est la fonction de répartition F(x) de X ~ Exp(λ) ?', answer: 'F(x) = 1 – e^(–λx).' },
+  { question: 'Quelle est l’espérance et la variance de X ~ Exp(λ) ?', answer: 'E(X) = 1/λ, V(X) = 1/λ².' },
+  { question: 'Quelle propriété particulière a la loi exponentielle ?', answer: 'Propriété de « sans mémoire ».' },
+  { question: 'Qu’est-ce que la loi normale N(μ, σ²) ?', answer: 'Loi continue en forme de cloche centrée sur μ, de variance σ².' },
+  { question: 'Quelle est la densité de probabilité de X ~ N(μ, σ²) ?', answer: 'f(x) = (1 / (σ√(2π))) · exp( –(x – μ)² / (2σ²) ).' },
+  { question: 'Quelle est l’espérance et la variance de X ~ N(μ, σ²) ?', answer: 'E(X) = μ, V(X) = σ².' },
+  { question: 'Qu’est-ce que la loi normale centrée réduite N(0,1) ?', answer: 'Loi normale avec μ = 0 et σ² = 1.' },
+  { question: 'Comment ramener une loi normale générale à une loi normale centrée réduite ?', answer: 'Z = (X – μ) / σ.' },
+  { question: 'Quelle est la probabilité P(–1 ≤ Z ≤ 1) pour Z ~ N(0,1) ?', answer: '≈ 0,68.' },
+  { question: 'Quelle est la probabilité P(–2 ≤ Z ≤ 2) ?', answer: '≈ 0,95.' },
+  { question: 'Quelle est la probabilité P(–3 ≤ Z ≤ 3) ?', answer: '≈ 0,997.' },
+  { question: 'Qu’est-ce que le théorème central limite ?', answer: 'La somme de n variables indépendantes de même loi tend vers une loi normale quand n ˠ ∞.' },
+  { question: 'Quelles sont les applications du TCL ?', answer: 'Justiﬁe l’utilisation de la loi normale pour modéliser des phénomènes aléatoires.' },
+  { question: 'Qu’est-ce qu’une loi conjointe ?', answer: 'Loi de probabilité d’un couple de variables aléatoires (X, Y).' },
+  { question: 'Qu’est-ce qu’une loi marginale ?', answer: 'Loi de X ou Y obtenue à partir de la loi conjointe.' },
+  { question: 'Qu’est-ce que la loi conditionnelle de X sachant Y ?', answer: 'P(X|Y) = P(X, Y) / P(Y).' },
+  { question: 'Qu’est-ce que l’indépendance de deux variables aléatoires X et Y ?', answer: 'P(X ∩ Y) = P(X)·P(Y), ou f(x, y) = fX(x)·fY(y).' },
+  { question: 'Quelle est la covariance de X et Y ?', answer: 'Cov(X, Y) = E[(X – E(X))(Y – E(Y))].' },
+  { question: 'Quelle est la corrélation de X et Y ?', answer: 'ρ(X, Y) = Cov(X, Y) / (σX·σY).' },
+  { question: 'Quelle est la valeur de ρ si X et Y sont indépendants ?', answer: 'ρ = 0.' },
+  { question: 'Qu’est-ce qu’un estimateur ponctuel ?', answer: 'Fonction des observations donnant une estimation d’un paramètre inconnu.' },
+  { question: 'Quelles sont les qualités d’un bon estimateur ?', answer: 'Sans biais, consistant, eﬃcace.' },
+  { question: 'Qu’est-ce qu’un estimateur sans biais ?', answer: 'Son espérance est égale au paramètre estimé.' },
+  { question: 'Qu’est-ce qu’un estimateur consistant ?', answer: 'Il converge vers le vrai paramètre quand la taille de l’échantillon augmente.' },
+  { question: 'Qu’est-ce qu’un estimateur eﬃcace ?', answer: 'Celui qui a la variance la plus faible parmi les estimateurs sans biais.' },
+  { question: 'Qu’est-ce qu’un intervalle de conﬁance ?', answer: 'Intervalle aléatoire qui contient le paramètre inconnu avec une probabilité donnée (niveau de conﬁance).' },
+  { question: 'Que signiﬁe un intervalle de conﬁance à 95 % ?', answer: 'Dans 95 % des échantillons, l’intervalle construit contiendra le vrai paramètre.' },
+  { question: 'Comment calcule-t-on un intervalle de conﬁance pour la moyenne si σ est connu ?', answer: 'IC = \bar{X} ± u_{1–α/2} · σ / √n.' },
+  { question: 'Comment calcule-t-on un intervalle de conﬁance si σ est inconnu ?', answer: 'IC = \bar{X} ± t_{1–α/2, n–1} · s / √n.' },
+  { question: 'Qu’est-ce qu’un test d’hypothèse ?', answer: 'Procédure permettant de décider si une hypothèse sur un paramètre est compatible avec les données observées.' },
+  { question: 'Qu’est-ce que l’hypothèse nulle H₀ ?', answer: 'Hypothèse de base à tester.' },
+  { question: 'Qu’est-ce que l’hypothèse alternative H₁ ?', answer: 'Hypothèse opposée à H₀.' },
+  { question: 'Qu’est-ce qu’une erreur de 1ère espèce (α) ?', answer: 'Risque de rejeter H₀ alors qu’elle est vraie.' },
+  { question: 'Qu’est-ce qu’une erreur de 2e espèce (β) ?', answer: 'Risque de ne pas rejeter H₀ alors qu’elle est fausse.' },
+  { question: 'Qu’est-ce que la puissance d’un test ?', answer: '1 – β, probabilité de rejeter H₀ quand elle est fausse.' },
+  { question: 'Quelle est la statistique de test pour une moyenne avec σ connu ?', answer: 'Z = (\bar{X} – μ₀) / (σ/√n).' },
+  { question: 'Quelle est la statistique de test pour une moyenne avec σ inconnu ?', answer: 't = (\bar{X} – μ₀) / (s/√n).' },
+  { question: 'Qu’est-ce que la p-value ?', answer: 'Probabilité, sous H₀, d’obtenir une valeur du test aussi extrême ou plus que celle observée.' },
+  { question: 'Quand rejette-t-on H₀ avec la p-value ?', answer: 'Quand p-value < α (seuil choisi).' },
+  { question: 'Qu’est-ce qu’un test bilatéral ?', answer: 'Test où l’hypothèse alternative est H₁ : μ ≠ μ₀.' },
+  { question: 'Qu’est-ce qu’un test unilatéral à droite ?', answer: 'Test où l’hypothèse alternative est H₁ : μ > μ₀.' },
+  { question: 'Qu’est-ce qu’un test unilatéral à gauche ?', answer: 'Test où l’hypothèse alternative est H₁ : μ < μ₀.' },
+  { question: 'Quelle est la statistique de test pour comparer deux moyennes (σ connu) ?', answer: 'Z = (\bar{X₁} – \bar{X₂}) / √(σ₁²/n₁ + σ₂²/n₂).' },
+  { question: 'Quelle est la statistique de test pour comparer deux moyennes (σ inconnu, mais variances égales) ?', answer: 't = (\bar{X₁} – \bar{X₂}) / (sp√(1/n₁ + 1/n₂)), avec sp² = ((n₁–1)s₁² + (n₂–1)s₂²)/(n₁+n₂–2).' },
+  { question: 'Quelle est la statistique de test pour comparer deux proportions p₁ et p₂ ?', answer: 'Z = (p₁ – p₂) / √(p(1–p)(1/n₁ + 1/n₂)), avec p = (n₁p₁ + n₂p₂)/(n₁+n₂).' },
+  { question: 'Qu’est-ce que le khi² d’indépendance ?', answer: 'Test pour vériﬁer si deux variables qualitatives sont indépendantes.' },
+  { question: 'Quelle est la formule de la statistique khi² ?', answer: 'χ² = Σ ( (O – E)² / E ), où O = eﬀectifs observés, E = eﬀectifs attendus.' },
+  { question: 'Quelle est la loi asymptotique de χ² ?', answer: 'Loi du khi² à (k – 1)(p – 1) degrés de liberté.' },
+  { question: 'Qu’est-ce que l’ANOVA (analyse de variance) ?', answer: 'Méthode de comparaison de plusieurs moyennes simultanément.' },
+  { question: 'Quelle est l’hypothèse nulle dans une ANOVA à un facteur ?', answer: 'H₀ : toutes les moyennes sont égales.' },
+  { question: 'Quelle est la statistique de test de l’ANOVA ?', answer: 'F = variance intergroupes / variance intragroupes.' },
+  { question: 'Selon quelle loi suit la statistique F sous H₀ ?', answer: 'Loi de Fisher-Snedecor.' },
+  { question: 'Qu’est-ce qu’une régression linéaire simple ?', answer: 'Modèle reliant une variable dépendante Y à une variable explicative X : Y = aX + b + ε.' },
+  { question: 'Comment estime-t-on les paramètres a et b ?', answer: 'Par la méthode des moindres carrés.' },
+  { question: 'Qu’est-ce que le coeﬃcient de détermination R² ?', answer: 'Mesure la proportion de la variance de Y expliquée par X.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

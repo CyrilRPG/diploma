@@ -1,0 +1,1069 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biochimie</h1><h2>Les Glucides</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quel pourcentage du poids sec des végétaux peut représenter la cellulose ?', answer: 'Jusqu’à 70%.' },
+  { question: 'Pourquoi la cellulose n’est-elle pas digérée chez les mammifères ?', answer: 'Car ils ne possèdent pas les enzymes nécessaires.' },
+  { question: 'Quels sont les rôles industriels majeurs des glucides ?', answer: 'Agroalimentaire, textile, biocarburants, papier, chauffage.' },
+  { question: 'Pourquoi les glucides sont-ils très hydrophiles ?', answer: 'Parce que ce sont des molécules polaires riches en fonctions hydroxyles.' },
+  { question: 'Quelle part des calories humaines provient des glucides ?', answer: '50 à 60%.' },
+  { question: 'Sous quelle forme les animaux stockent-ils le glucose ?', answer: 'Glycogène dans le foie et le muscle.' },
+  { question: 'Quel est l’équivalent végétal du glycogène ?', answer: 'L’amidon.' },
+  { question: 'Quels éléments structuraux contiennent des glucides ?', answer: 'Cartilage, MEC, glycosaminoglycanes, protéoglycanes.' },
+  { question: 'Les peptidoglycanes sont des constituants de quelle structure ?', answer: 'Des parois bactériennes.' },
+  { question: 'Quel glucide végétal constitue la paroi cellulaire ?', answer: 'La cellulose.' },
+  { question: 'Pourquoi les glucides sont fortement antigéniques ?', answer: 'Car leurs chaînes glucidiques membranaires participent à la reconnaissance microbienne.' },
+  { question: 'Quelle structure glucidique détermine les groupes sanguins ?', answer: 'Les chaînes glucidiques à la surface des cellules.' },
+  { question: 'Quelle est la formule générale des oses ?', answer: '(CH2O)n avec n≥3.' },
+  { question: 'Quelles sont les deux fonctions carbonyles possibles pour les oses ?', answer: 'Aldéhyde ou cétone.' },
+  { question: 'Pourquoi les oses sont-ils très hydrophiles ?', answer: 'À cause de leurs nombreuses fonctions alcool.' },
+  { question: 'Quel est le plus simple des aldoses ?', answer: 'Le glycéraldéhyde.' },
+  { question: 'Quel est le plus simple des cétoses ?', answer: 'La dihydroxyacétone.' },
+  { question: 'Qu’est-ce qu’un énantiomère ?', answer: 'Deux molécules images l’une de l’autre dans un miroir non superposables.' },
+  { question: 'Quelle série d’oses est la plus répandue dans le vivant ?', answer: 'La série D.' },
+  { question: 'Comment nomme-t-on un ose à 3 carbones ?', answer: 'Un triose.' },
+  { question: 'Comment nomme-t-on un ose à 5 carbones ?', answer: 'Un pentose.' },
+  { question: 'Comment nomme-t-on un ose à 6 carbones ?', answer: 'Un hexose.' },
+  { question: 'Qu’est-ce qu’un aldohexose ?', answer: 'Un hexose à fonction aldéhyde.' },
+  { question: 'Qu’est-ce qu’un cétohexose ?', answer: 'Un hexose à fonction cétone.' },
+  { question: 'Pourquoi les oses ont-ils des propriétés optiques ?', answer: 'À cause de leurs carbones asymétriques.' },
+  { question: 'Pourquoi le glucose est-il considéré comme le chef de file des oses ?', answer: 'Parce que la plupart des glucides y sont transformés.' },
+  { question: 'Le glucose est-il très sucré ?', answer: 'Non, moins que le fructose ou le saccharose.' },
+  { question: 'Sous quelle forme le glucose est-il stocké ?', answer: 'Sous forme de glycogène.' },
+  { question: 'Quelle est la valeur normale de la glycémie ?', answer: 'Environ 5 mmol/L.' },
+  { question: 'Pourquoi le cerveau dépend-il du glucose ?', answer: 'Car les acides gras ne traversent pas la barrière hématoencéphalique.' },
+  { question: 'Comment s’appelle la représentation linéaire du glucose ?', answer: 'La projection de Fischer.' },
+  { question: 'Quel pourcentage du glucose est sous forme linéaire dans l’eau ?', answer: 'Moins de 1%.' },
+  { question: 'Combien de carbones asymétriques possède le glucose ?', answer: 'Quatre.' },
+  { question: 'Quelle forme cyclique du glucose est majoritaire ?', answer: 'β-D-glucopyranose (63%).' },
+  { question: 'Quelle proportion représente l’anomère α du glucose ?', answer: '37%.' },
+  { question: 'Quel est le carbone anomérique du glucose ?', answer: 'Le C1.' },
+  { question: 'Comment s’appelle le cycle à 6 sommets ?', answer: 'Pyranose.' },
+  { question: 'Comment s’appelle le cycle à 5 sommets ?', answer: 'Furanose.' },
+  { question: 'Quel est le pentose présent dans l’ARN ?', answer: 'Le β-D-ribose.' },
+  { question: 'Quel est l’anomère majoritaire du fructose furanose ?', answer: 'β-D-fructofuranose.' },
+  { question: 'Quel enzyme ouvre le cycle du glucose lors de son oxydation ?', answer: 'La glucose oxydase.' },
+  { question: 'Quel acide est formé par oxydation du glucose ?', answer: 'L’acide gluconique.' },
+  { question: 'Quels produits accompagne l’oxydation du glucose ?', answer: 'L’eau oxygénée (H2O2).' },
+  { question: 'Pourquoi la méthode glucose oxydase est-elle utilisée en clinique ?', answer: 'Pour le dosage fiable de la glycémie.' },
+  { question: 'Que reflète le taux d’HbA1c ?', answer: 'La proportion d’hémoglobine glyquée correspondant à l’hyperglycémie chronique.' },
+  { question: 'Comment appelle-t-on la réduction des oses ?', answer: 'La formation de polyols.' },
+  { question: 'Quel polyol important dérive de l’inositol ?', answer: 'Les inositol-phosphates.' },
+  { question: 'Comment les oses peuvent-ils être phosphorylés ?', answer: 'Par formation de liaisons ester.' },
+  { question: 'Quel est le premier dérivé phosphorylé du glucose dans la cellule ?', answer: 'Le glucose-6-phosphate.' },
+  { question: 'Dans quelle voie retrouve-t-on fructose-1,6-bisphosphate ?', answer: 'Dans la glycolyse.' },
+  { question: 'Quelle est la forme phosphorylée du ribose dans l’AMP ?', answer: 'β-D-ribose phosphorylé en C5.' },
+  { question: 'Quel type de liaison unit deux nucléotides ?', answer: 'Une liaison phosphodiester.' },
+  { question: 'Quelle liaison unit deux oses dans un disaccharide ?', answer: 'Une liaison osidique.' },
+  { question: 'Qu’est-ce qu’un oside ?', answer: 'Un glucide contenant au moins une liaison osidique.' },
+  { question: 'Quelle est la composition du lactose ?', answer: 'β-D-galactosyl-(1-4)-D-glucose.' },
+  { question: 'Pourquoi le lactose est-il réducteur ?', answer: 'Car le carbone anomérique du glucose est libre.' },
+  { question: 'Quelle enzyme clive le lactose ?', answer: 'La lactase.' },
+  { question: 'Quelle est la composition du maltose ?', answer: 'α-D-glucosyl-(1-4)-D-glucose.' },
+  { question: 'Le maltose est-il réducteur ?', answer: 'Oui, le deuxième glucose a son carbone anomérique libre.' },
+  { question: 'Quelle est la composition du saccharose ?', answer: 'α-D-glucosyl-(1-2)-β-D-fructose.' },
+  { question: 'Le saccharose est-il réducteur ?', answer: 'Non.' },
+  { question: 'Quel enzyme clive le saccharose ?', answer: 'La saccharase.' },
+  { question: 'Quels types de liaisons possède le glycogène ?', answer: 'α-1,4 linéaires et α-1,6 ramifiées.' },
+  { question: 'Combien de glucoses contient environ une molécule de glycogène ?', answer: 'Environ 30×10⁴.' },
+  { question: 'Où est stocké le glycogène ?', answer: 'Foie et muscles.' },
+  { question: 'Quelle est la principale source de glucides chez l’homme ?', answer: 'L’amidon.' },
+  { question: 'Quelle liaison caractérise la cellulose ?', answer: 'β-1,4-glucosidique.' },
+  { question: 'Pourquoi la cellulose n’est-elle pas digérée ?', answer: 'Absence d’enzymes cellulases chez l’homme.' },
+  { question: 'Quels aliments contiennent majoritairement des polysaccharides digestibles ?', answer: 'Céréales, légumineuses, tubercules, pain.' },
+  { question: 'Quels aliments contiennent des polysaccharides non digestibles ?', answer: 'Céréales, légumineuses, fruits, légumes.' },
+  { question: 'Quels sont les principaux monosaccharides alimentaires ?', answer: 'Glucose, fructose, galactose.' },
+  { question: 'Quels sont les principaux disaccharides alimentaires ?', answer: 'Saccharose, lactose, maltose.' },
+  { question: 'Où se situe la majorité des osidases digestives ?', answer: 'Dans la bordure en brosse intestinale.' },
+  { question: 'Quelles liaisons coupe la maltase ?', answer: 'Les liaisons α-(1-4).' },
+  { question: 'Quelle est la spécificité de la lactase ?', answer: 'β-(1-4)-galactosidase.' },
+  { question: 'Quelle est la spécificité de la saccharase ?', answer: 'α-(1-2)-glucosidase / β-(2-1)-fructosidase.' },
+  { question: 'Quelle enzyme digère l’amidon dans la bouche ?', answer: 'L’amylase salivaire.' },
+  { question: 'Pourquoi l’amylase salivaire est-elle inactive dans l’estomac ?', answer: 'À cause du pH acide.' },
+  { question: 'Quelle enzyme digère l’amidon dans l’intestin ?', answer: 'L’amylase pancréatique α-(1-4)-glucosidase.' },
+  { question: 'Qu’est-ce qu’une dextrine limite ?', answer: 'Un fragment d’amidon comportant une ramification α-(1-6).' },
+  { question: 'Quel enzyme hydrolyse les liaisons α-(1-6) ?', answer: 'L’enzyme débranchante.' },
+  { question: 'Que produit l’hydrolyse du maltotriose ?', answer: 'Du glucose par action de la maltase.' },
+  { question: 'Quel transporteur permet l’entrée du glucose dans l’entérocyte ?', answer: 'Le co-transporteur sodium-glucose SGLT.' },
+  { question: 'Quel type de transport utilise SGLT ?', answer: 'Un transport actif secondaire.' },
+  { question: 'Quelle est la stœchiométrie du transport SGLT ?', answer: '1 glucose entre avec 1 sodium.' },
+  { question: 'Quelle pompe permet de faire sortir le sodium de l’entérocyte ?', answer: 'La Na+/K+ ATPase.' },
+  { question: 'Quel type de transporteur assure la sortie du glucose de l’entérocyte vers le sang ?', answer: 'Un transporteur GLUT.' },
+  { question: 'Quel type de diffusion réalisent les GLUT ?', answer: 'Diffusion facilitée.' },
+  { question: 'Que permet la diffusion facilitée via GLUT ?', answer: 'Le transport selon le gradient de concentration.' },
+  { question: 'Quel est le lien entre réhydratation du nourrisson et transport du glucose ?', answer: 'Le sodium facilite l’entrée du glucose via SGLT.' },
+  { question: 'Où se trouve GLUT2 dans l’entérocyte ?', answer: 'Au pôle basolatéral.' },
+  { question: 'GLUT2 a-t-il une faible ou une forte affinité pour le glucose ?', answer: 'Une faible affinité.' },
+  { question: 'Quels sucres GLUT2 peut-il transporter en plus du glucose ?', answer: 'Le galactose et le fructose.' },
+  { question: 'Quel est le rôle de GLUT2 dans la cellule ?', answer: 'Agir comme senseur de glucose.' },
+  { question: 'Dans quels organes GLUT2 régule-t-il l’entrée ou la sortie du glucose ?', answer: 'Dans les hépatocytes.' },
+  { question: 'Quel est le transporteur impliqué dans la sécrétion d’insuline ?', answer: 'GLUT2 dans les cellules β-pancréatiques.' },
+  { question: 'Quel transporteur est spécifique du glucose à forte affinité ?', answer: 'GLUT4.' },
+  { question: 'Dans quels tissus retrouve-t-on GLUT4 ?', answer: 'Dans les adipocytes et les cellules musculaires.' },
+  { question: 'Comment GLUT4 devient-il actif ?', answer: 'Par translocation à la membrane induite par l’insuline.' },
+  { question: 'Que deviennent les cellules après entrée de glucose via GLUT4 ?', answer: 'Elles effectuent la glycolyse.' },
+  { question: 'Le glucose peut-il sortir du muscle ?', answer: 'Non, jamais.' },
+  { question: 'Comment s’appelle la synthèse du glycogène ?', answer: 'La glycogénogenèse.' },
+  { question: 'Dans quels tissus trouve-t-on beaucoup de glycogène ?', answer: 'Dans le muscle et le foie.' },
+  { question: 'Quelle protéine initie la formation du glycogène ?', answer: 'La glycogénine.' },
+  { question: 'Quel enzyme catalyse la synthèse des liaisons α1-4 du glycogène ?', answer: 'La glycogène synthase.' },
+  { question: 'Quel type de liaison possède l’extrémité réductrice du glycogène ?', answer: 'Une fonction carbonyle disponible pour la glycogénine.' },
+  { question: 'Quelles enzymes permettent la phosphorylation du glucose ?', answer: 'Hexokinase et glucokinase.' },
+  { question: 'Quel tissu exprime la glucokinase ?', answer: 'Le foie et le pancréas.' },
+  { question: 'La glucokinase a-t-elle une forte ou faible affinité pour le glucose ?', answer: 'Une faible affinité.' },
+  { question: 'Que devient le glucose phosphorylé ?', answer: 'Du G6P qui ne peut plus sortir de la cellule.' },
+  { question: 'Quelle enzyme convertit G6P en G1P ?', answer: 'La phosphoglucomutase (isomérase).' },
+  { question: 'Quelle molécule active le glucose pour la synthèse du glycogène ?', answer: 'L’UDP-glucose.' },
+  { question: 'Quelles molécules sont nécessaires pour former l’UDP-glucose ?', answer: 'G1P et UTP.' },
+  { question: 'Quelle enzyme forme l’UDP-glucose ?', answer: 'L’UDP-glucose pyrophosphorylase.' },
+  { question: 'Quel est le rôle du pyrophosphate dans cette réaction ?', answer: 'Sa coupure rend la réaction irréversible.' },
+  { question: 'Quel enzyme crée les liaisons α1-6 du glycogène ?', answer: 'L’enzyme branchante.' },
+  { question: 'Tous les combien de glucoses se fait une ramification α1-6 ?', answer: 'Tous les 4 à 8 résidus.' },
+  { question: 'Combien de liaisons riches en énergie consomme l’ajout d’un glucose au glycogène à partir de glucose libre ?', answer: 'Deux.' },
+  { question: 'Combien en consomme l’ajout d’un glucose à partir de G6P ?', answer: 'Une.' },
+  { question: 'Comment s’appelle la dégradation du glycogène ?', answer: 'La glycogénolyse.' },
+  { question: 'Quel enzyme coupe les liaisons α1-4 lors de la glycogénolyse ?', answer: 'La glycogène phosphorylase.' },
+  { question: 'Que libère la glycogène phosphorylase ?', answer: 'Du G1P.' },
+  { question: 'Quel enzyme retire les branches α1-6 du glycogène ?', answer: 'L’enzyme débranchante.' },
+  { question: 'Que libère l’activité α1-6 glucosidase ?', answer: 'Un glucose libre.' },
+  { question: 'Que devient le G1P obtenu par glycogénolyse ?', answer: 'Il est converti en G6P.' },
+  { question: 'Que devient le G6P dans le muscle ?', answer: 'Il entre dans la glycolyse.' },
+  { question: 'Que devient le G6P dans le foie ?', answer: 'Il est déphosphorylé en glucose.' },
+  { question: 'Quel enzyme déphosphoryle le G6P ?', answer: 'La glucose-6-phosphatase.' },
+  { question: 'Quel transporteur exporte le glucose hépatique vers le sang ?', answer: 'GLUT2.' },
+  { question: 'Quelles hormones stimulent la glycogénolyse musculaire ?', answer: 'Les catécholamines.' },
+  { question: 'Quels régulateurs activent la glycogène phosphorylase ?', answer: 'AMP.' },
+  { question: 'Quels régulateurs inhibent la glycogène phosphorylase ?', answer: 'ATP.' },
+  { question: 'Quelle hormone stimule la libération hépatique de glucose ?', answer: 'Le glucagon.' },
+  { question: 'Quelle liaison rend le glycogène arrondi et flexible ?', answer: 'La liaison α1-4.' },
+  { question: 'Quelle liaison confère rigidité et fibres à la cellulose ?', answer: 'La liaison β1-4.' },
+  { question: 'Qui possède les enzymes capables d’hydrolyser la cellulose ?', answer: 'Les bactéries des ruminants.' },
+  { question: 'De quoi est composée la matrice extracellulaire ?', answer: 'De GAG et de protéoglycanes.' },
+  { question: 'Quels sont les constituants d’un GAG ?', answer: 'Un acide uronique et une osamine.' },
+  { question: 'Quel est le seul GAG non lié à une protéine ?', answer: 'L’acide hyaluronique.' },
+  { question: 'Quel type de liaisons unit les motifs d’un GAG ?', answer: 'β1-3 pour le motif et β1-4 entre les motifs.' },
+  { question: 'Pourquoi les GAG sont-ils très hydrophiles ?', answer: 'À cause de leurs charges et de leurs groupes hydroxyles.' },
+  { question: 'Quels sont les rôles de l’acide hyaluronique ?', answer: 'Lubrifiant, maintien de l’eau, rôle structural.' },
+  { question: 'Qu’est-ce qu’un protéoglycane ?', answer: 'Une protéine portant de nombreux GAG.' },
+  { question: 'Quel est un exemple de protéoglycane du cartilage ?', answer: 'L’agrécane.' },
+  { question: 'Qu’est-ce que la glycosylation des protéines ?', answer: 'Addition covalente de glucides sur des protéines.' },
+  { question: 'Quels rôles a la glycosylation ?', answer: 'Repliement, stabilité, activité, reconnaissance, trafic.' },
+  { question: 'Sur quel acide aminé se fait la N-glycosylation ?', answer: 'L’asparagine.' },
+  { question: 'Où débute la N-glycosylation ?', answer: 'Dans le RE.' },
+  { question: 'Où se poursuit la N-glycosylation ?', answer: 'Dans le Golgi.' },
+  { question: 'Sur quels acides aminés se fait l’O-glycosylation ?', answer: 'La sérine ou la thréonine.' },
+  { question: 'Où se déroule l’O-glycosylation ?', answer: 'Dans le Golgi.' },
+  { question: 'Quels glucides constituent les acides nucléiques ?', answer: 'Le ribose et le désoxyribose.' },
+  { question: 'De quel dérivé d’ose provient la vitamine C ?', answer: 'De l’acide D-glucuronique.' },
+  { question: 'Quel est le rôle majeur de la vitamine C ?', answer: 'Agent réducteur antioxydant.' },
+  { question: 'Quel enzyme nécessite la vitamine C comme cofacteur ?', answer: 'La prolyl-hydroxylase.' },
+  { question: 'Quelle pathologie résulte d’une carence en vitamine C ?', answer: 'Le scorbut.' },
+  { question: 'Quels éléments constituent les parois bactériennes ?', answer: 'Peptidoglycanes et lipopolysaccharides.' },
+  { question: 'Qu’est-ce qui relie les dérivés d’oses dans un peptidoglycane ?', answer: 'Des ponts interpeptidiques.' },
+  { question: 'Quels types de molécules peuvent reconnaître des sucres membranaires ?', answer: 'Toxines, bactéries, virus, enzymes, anticorps, hormones, lectines.' },
+  { question: 'Où se trouvent les chaînes glucidiques responsables de la reconnaissance cellulaire ?', answer: 'À la face extracellulaire des cellules.' },
+  { question: 'Que déterminent les sucres membranaires des globules rouges ?', answer: 'Le groupe sanguin.' },
+  { question: 'Quel est le groupe sanguin majoritaire en Europe ?', answer: 'Le groupe A.' },
+  { question: 'Quel est le groupe receveur universel ?', answer: 'AB.' },
+  { question: 'Quel est le groupe donneur universel ?', answer: 'O.' },
+  { question: 'Quel est l’antigène des groupes sanguins ?', answer: 'Un enchaînement de sucres.' },
+  { question: 'Que reconnaissent les anticorps ?', answer: 'Les déterminants antigéniques présents sur les sucres.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

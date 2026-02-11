@@ -1,0 +1,851 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Diploma Santé - Plateforme de Flashcards</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+
+    <style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+  </head>
+
+  <body class="is-preload">
+    <div id="wrapper">
+      <div id="main">
+        <div class="inner">
+
+          <header id="header">
+            <a href="" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+            <ul class="icons">
+              <li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"></a></li>
+              <li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"></a></li>
+              <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Anatomie LSPS1 UPEC</h1>
+              <h2>Reproduction et développement</h2>
+            </header>
+
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+
+            <div class="flashcards-container" id="flashcards"></div>
+            <div class="end-banner" id="endBanner" style="display:none;">Plus de flashcard disponible.</div>
+
+            <script>
+              const flashcardsData = [
+                { question: { type: "image", src: "../../images/upecl1_q1.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a1.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q2.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a2.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q3.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a3.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q4.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a4.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q5.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a5.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q6.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a6.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q7.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a7.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q8.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a8.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q9.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a9.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q10.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a10.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q11.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a11.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q12.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a12.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q13.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a13.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q14.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a14.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q15.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a15.png", alt: "Schéma réponse" } },
+{ question: { type: "image", src: "../../images/upecl1_q16.png", alt: "Schéma question", caption: "Compléter le schéma suivant." }, answer: { type: "image", src: "../../images/upecl1_a16.png", alt: "Schéma réponse" } },
+              ];
+
+              const container = document.getElementById("flashcards");
+              const endBanner = document.getElementById("endBanner");
+              const progressBar = document.getElementById("progressBar");
+              const originalData = [...flashcardsData];
+              let flashcards = [...originalData];
+              const pageId = location.pathname.split("/").pop().replace(".html","");
+              const progressKey = "progress_" + pageId;
+              let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+              let currentCardEl = null;
+              let currentToggleBtnEl = null;
+              let currentResetBtnEl = null;
+
+              function updateProgress() {
+                const total = originalData.length || 1;
+                const progress = Math.min(currentIndex / total, 1);
+                progressBar.style.width = `${progress * 100}%`;
+              }
+
+              function createContent(content) {
+                if (typeof content === "string") {
+                  const div = document.createElement("div");
+                  div.textContent = content;
+                  return div;
+                }
+                if (typeof content === "object" && content.type === "image") {
+                  const wrapper = document.createElement("div");
+                  wrapper.style.textAlign = "center";
+                  if (content.caption) {
+                    const caption = document.createElement("div");
+                    caption.textContent = content.caption;
+                    caption.style.marginBottom = "6px";
+                    caption.style.fontStyle = "italic";
+                    caption.style.fontSize = "0.95em";
+                    wrapper.appendChild(caption);
+                  }
+                  const img = document.createElement("img");
+                  img.src = content.src;
+                  img.alt = content.alt || "";
+                  wrapper.appendChild(img);
+                  return wrapper;
+                }
+                return document.createElement("div");
+              }
+
+              function renderCard(index) {
+                container.innerHTML = "";
+                endBanner.style.display = "none";
+
+                const { question, answer } = flashcards[index];
+
+                const card = document.createElement("div");
+                card.classList.add("flashcard", "show");
+
+                const inner = document.createElement("div");
+                inner.classList.add("flashcard-inner");
+
+                const front = document.createElement("div");
+                front.classList.add("flashcard-front");
+                front.appendChild(createContent(question));
+
+                const back = document.createElement("div");
+                back.classList.add("flashcard-back");
+                back.appendChild(createContent(answer));
+
+                const btnContainer = document.createElement("div");
+                btnContainer.classList.add("flashcard-button");
+
+                /* BOUTON GAUCHE : RÉINITIALISER */
+                const resetBtn = document.createElement("button");
+                resetBtn.classList.add("button", "large");
+                resetBtn.setAttribute("type","button");             /* ← évite comportements par défaut */
+                resetBtn.id = "reset-inline";
+                resetBtn.textContent = "Réinitialiser";
+                resetBtn.addEventListener("click", (e) => {
+                  e.stopPropagation();
+                  document.activeElement && document.activeElement.blur();
+                  localStorage.removeItem(progressKey);
+                  localStorage.removeItem("completed_" + pageId);
+                  flashcards = [...originalData];
+                  currentIndex = 0;
+                  updateProgress();
+                  showCard(currentIndex);
+                });
+
+                /* BOUTON DROIT : VOIR / CACHER LA RÉPONSE */
+                const toggleBtn = document.createElement("button");
+                toggleBtn.classList.add("button", "large");
+                toggleBtn.setAttribute("type","button");            /* ← évite comportements par défaut */
+                toggleBtn.dataset.role = "toggle";
+                toggleBtn.textContent = "Voir la réponse";
+                toggleBtn.addEventListener("click", (e) => {
+                  e.stopPropagation();
+                  const isAnswerVisible = card.classList.toggle("show-answer");
+                  // NE changer que le bouton toggle :
+                  toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+                });
+
+                btnContainer.appendChild(resetBtn);
+            
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+                        const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+                checkIcon.addEventListener("click", (e) => {
+                  e.stopPropagation();
+                  if (currentIndex + 1 >= flashcards.length) {
+                    localStorage.setItem("completed_" + pageId, "true");
+                    progressBar.style.width = "100%";
+                    endBanner.style.display = "block";
+                    return;
+                  }
+                  card.classList.add("slide-right");
+                  setTimeout(() => {
+                    currentIndex++;
+                    localStorage.setItem(progressKey, currentIndex);
+                    updateProgress();
+                    showCard(currentIndex);
+                  }, 400);
+                });
+
+                const crossIcon = document.createElement("span");
+                crossIcon.classList.add("cross-icon");
+                crossIcon.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                       stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                       viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+                crossIcon.addEventListener("click", (e) => {
+                  e.stopPropagation();
+                  card.classList.add("slide-left");
+                  setTimeout(() => {
+                    const removed = flashcards.splice(currentIndex, 1)[0];
+                    const insertAt = Math.min(currentIndex + 5, flashcards.length);
+                    flashcards.splice(insertAt, 0, removed);
+                    showCard(currentIndex);
+                  }, 400);
+                });
+
+                // Flip au clic sur la carte
+                card.addEventListener("click", () => {
+                  const isAnswerVisible = card.classList.toggle("show-answer");
+                  toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+                });
+
+                inner.appendChild(front);
+                inner.appendChild(back);
+                card.appendChild(inner);
+                card.appendChild(btnContainer);
+                card.appendChild(checkIcon);
+                card.appendChild(crossIcon);
+                container.appendChild(card);
+
+                // mémoriser les éléments de la carte courante pour la barre d'espace
+                currentCardEl = card;
+                currentToggleBtnEl = toggleBtn;
+                currentResetBtnEl = resetBtn;
+              }
+
+              function showCard(index) {
+                container.innerHTML = "";
+
+                if (!flashcards[index]) {
+                  endBanner.style.display = "block";
+                  localStorage.setItem("completed_" + pageId, "true");
+                  progressBar.style.width = "100%";
+
+                  const endWrap = document.createElement("div");
+                  endWrap.style.display = "flex";
+                  endWrap.style.flexDirection = "column";
+                  endWrap.style.alignItems = "center";
+                  endWrap.style.gap = "1rem";
+
+                  const msg = document.createElement("div");
+                  msg.textContent = "Plus de flashcard disponible.";
+                  msg.className = "end-banner";
+                  msg.style.display = "block";
+
+                  const btnContainer = document.createElement("div");
+                  btnContainer.classList.add("flashcard-button");
+
+                  const resetBtn = document.createElement("button");
+                  resetBtn.classList.add("button", "large");
+                  resetBtn.setAttribute("type","button");
+                  resetBtn.textContent = "Réinitialiser";
+                  resetBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    document.activeElement && document.activeElement.blur();
+                    localStorage.removeItem(progressKey);
+                    localStorage.removeItem("completed_" + pageId);
+                    flashcards = [...originalData];
+                    currentIndex = 0;
+                    updateProgress();
+                    showCard(currentIndex);
+                  });
+
+                  btnContainer.appendChild(resetBtn);
+                  endWrap.appendChild(msg);
+                  endWrap.appendChild(btnContainer);
+                  container.appendChild(endWrap);
+
+                  currentCardEl = null;
+                  currentToggleBtnEl = null;
+                  currentResetBtnEl = resetBtn;
+                  return;
+                }
+                renderCard(index);
+              }
+
+              // ----- BARRE ESPACE ROBUSTE (capture + prévention totale) -----
+              function isSpaceEvent(e){
+                return e.key === " " || e.code === "Space" || e.key === "Spacebar" || e.keyCode === 32;
+              }
+
+              function flipWithSpace(e){
+                if (!isSpaceEvent(e)) return;
+
+                // Ignorer si focus sur un champ éditable
+                const ae = document.activeElement;
+                const isEditable = ae && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA" || ae.isContentEditable);
+                if (isEditable) return;
+
+                // Empêche scroll + "click" implicites + autres handlers
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+                // Si un bouton/lien est focusé, on retire le focus AVANT l'action pour empêcher son "click" sur keyup
+                if (ae && (ae.tagName === "BUTTON" || ae.tagName === "A")) {
+                  ae.blur();
+                }
+
+                // Flip de la carte en cours et MAJ du seul bouton toggle
+                if (currentCardEl) {
+                  const madeVisible = currentCardEl.classList.toggle("show-answer");
+                  if (currentToggleBtnEl) {
+                    currentToggleBtnEl.textContent = madeVisible ? "Cacher la réponse" : "Voir la réponse";
+                  }
+                  if (currentResetBtnEl) {
+                    currentResetBtnEl.textContent = "Réinitialiser"; // blindage
+                  }
+                }
+              }
+
+              // keydown + keyup, en CAPTURE, pour couper court à d’éventuels scripts tiers
+              document.addEventListener("keydown", flipWithSpace, true);
+              document.addEventListener("keyup", (e) => {
+                if (!isSpaceEvent(e)) return;
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+              }, true);
+
+              showCard(currentIndex);
+              updateProgress();
+            </script>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/darkmode.js"></script>
+    <script src="../../assets/js/favorites.js"></script>
+  </body>
+</html>

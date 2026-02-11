@@ -1,0 +1,1048 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biochimie Approfondissement</h1><h2>Stéroïdes et digestion des lipides</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+</head>
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "À partir de quelle molécule les stéroïdes sont-ils synthétisés ?", answer: "À partir du cholestérol." },
+{ question: "Où la progestérone est-elle synthétisée ?", answer: "Dans la corticosurrénale ou dans les gonades." },
+{ question: "Quelle est la première réaction de synthèse de la progestérone ?", answer: "Oxydation du OH en C3 pour former une fonction cétone." },
+{ question: "Quelle isomérisation intervient lors de la synthèse de la progestérone ?", answer: "Isomérisation de la double liaison C5-C6 vers C4-C5." },
+{ question: "Quel changement structural résulte de l'isomérisation de la double liaison lors de la synthèse de la progestérone ?", answer: "La double liaison passe du cycle B au cycle A." },
+{ question: "Quelle réaction affecte la chaîne latérale en C20 lors de la synthèse de la progestérone ?", answer: "Coupure oxydative de la chaîne latérale sur le C20." },
+{ question: "Quel groupe fonctionnel est présent sur le C20 de la progestérone ?", answer: "Une fonction cétone." },
+{ question: "Combien de carbones contient la progestérone ?", answer: "21 carbones." },
+{ question: "Quelle hormone est synthétisée dans la zone glomérulée de la corticosurrénale à partir de la progestérone ?", answer: "L’aldostérone." },
+{ question: "Quelles sont les modifications successives subies par la progestérone pour former l’aldostérone ?", answer: "Hydroxylations en C21, C11, C18 puis oxydation du OH en C18." },
+{ question: "Quelle fonction résulte de l’oxydation du OH en C18 lors de la synthèse de l’aldostérone ?", answer: "Une fonction aldéhyde." },
+{ question: "Quels sont les groupes fonctionnels de l’aldostérone ?", answer: "2 cétones en C3 et C20, 2 OH en C21 et C11, et une fonction aldéhyde en C18." },
+{ question: "Quelle hormone est obtenue par hydroxylation en C17 de la progestérone ?", answer: "La 17-hydroxyprogestérone." },
+{ question: "Quel est le rôle de la 17-hydroxyprogestérone ?", answer: "Précurseur des autres hormones stéroïdes." },
+{ question: "Quelles sont les caractéristiques structurales de la 17-hydroxyprogestérone ?", answer: "21 carbones, 2 cétones, une double liaison en 4-5, une fonction OH en C17." },
+{ question: "Où est synthétisé le cortisol ?", answer: "Dans la zone fasciculée de la corticosurrénale." },
+{ question: "À partir de quelle molécule est synthétisé le cortisol ?", answer: "À partir de la 17-OH progestérone." },
+{ question: "Quelles sont les modifications subies par la 17-OH progestérone pour former le cortisol ?", answer: "Hydroxylation en C21 et C11." },
+{ question: "Quels groupes fonctionnels comporte le cortisol ?", answer: "2 cétones (C3 et C20), 3 OH (C17, C21, C11) et une double liaison en 4-5." },
+{ question: "À quelle heure la synthèse de cortisol est-elle maximale ?", answer: "À 8 heures." },
+{ question: "À quelle heure la synthèse de cortisol est-elle minimale ?", answer: "À 16 heures." },
+{ question: "Quelles cellules testiculaires synthétisent la testostérone ?", answer: "Les cellules de Leydig." },
+{ question: "Quelle transformation subit la 17-OH progestérone pour donner la testostérone ?", answer: "Coupure du reste de la chaîne latérale en C17." },
+{ question: "Combien de carbones contient la testostérone ?", answer: "19 carbones." },
+{ question: "Quels sont les groupes fonctionnels de la testostérone ?", answer: "1 cétone en C3, 1 OH en C17, double liaison en C4-C5, 2 CH3 angulaires." },
+{ question: "Quelle est la forme active de la testostérone ?", answer: "La dihydrotestostérone (DHT)." },
+{ question: "Quel est le mécanisme de formation de la DHT ?", answer: "Réduction de la double liaison en C4-C5." },
+{ question: "Quel est le rôle de la DHT ?", answer: "Effet anabolisant et favorise le morphotype masculin." },
+{ question: "Où est synthétisé l’estradiol ?", answer: "Par les ovaires." },
+{ question: "Quelle transformation subit la 17-OH progestérone pour donner l’estradiol ?", answer: "Coupure de la chaîne latérale en C17, puis aromatisation du cycle A." },
+{ question: "Quelle modification subit la fonction cétone en C3 lors de la formation de l’estradiol ?", answer: "Elle est transformée en fonction OH." },
+{ question: "Quelle perte structurale est associée à l’aromatisation du cycle A dans l’estradiol ?", answer: "Perte du CH3 angulaire en C19." },
+{ question: "Combien de carbones contient l’estradiol ?", answer: "18 carbones." },
+{ question: "Quels sont les groupes fonctionnels de l’estradiol ?", answer: "2 OH en C3 et C17, cycle A aromatique." },
+{ question: "Quand la sécrétion d’estradiol atteint-elle un pic ?", answer: "Au moment de l’ovulation." },
+{ question: "Pourquoi les hormones stéroïdes ont-elles une longue durée de vie ?", answer: "Car elles sont résistantes et leur catabolisme est difficile." },
+{ question: "Quelles protéines protègent les hormones stéroïdes dans le sang ?", answer: "Des protéines de transport." },
+{ question: "Comment les hormones stéroïdes traversent-elles les membranes cellulaires ?", answer: "Elles traversent la membrane en raison de leur hydrophobicité." },
+{ question: "Quel type de récepteur reconnaît les hormones stéroïdes ?", answer: "Des récepteurs nucléaires." },
+{ question: "Y a-t-il des réserves d’hormones stéroïdes dans l’organisme ?", answer: "Non." },
+{ question: "Quel est le rôle principal de l’aldostérone ?", answer: "Chef de file des minéralocorticoïdes." },
+{ question: "Quel effet l’aldostérone a-t-elle au niveau du rein ?", answer: "Réabsorption de Na⁺ contre élimination de K⁺." },
+{ question: "Quel est l’effet global de l’aldostérone sur la volémie ?", answer: "Augmentation de la volémie (effet hypertensif)." },
+{ question: "Quel est le rôle du cortisol dans l’organisme ?", answer: "Hormone du stress, favorise tous les catabolismes et a des propriétés anti-inflammatoires." },
+{ question: "Quel est le rôle de la progestérone pendant la grossesse ?", answer: "Sa sécrétion augmente, elle favorise la vascularisation et la contraction de l’utérus." },
+{ question: "Quelle est la première étape de la synthèse du calcitriol ?", answer: "Formation du 7-déhydro-cholestérol." },
+{ question: "Où a lieu la première étape de la synthèse du calcitriol ?", answer: "Dans le foie." },
+{ question: "Quelles doubles liaisons apparaissent sur le cycle B du 7-déhydro-cholestérol ?", answer: "Une en 5-6 et une en 7-8." },
+{ question: "Où migre le 7-déhydro-cholestérol après sa formation ?", answer: "Dans la circulation sanguine puis dans le derme." },
+{ question: "Que provoque l’exposition aux UV sur le 7-déhydro-cholestérol ?", answer: "Ouverture du cycle B par rupture du noyau cyclopentano-perhydro-phénanthrène." },
+{ question: "Quel composé est formé après l’exposition aux UV ?", answer: "Le cholécalciférol (vitamine D3)." },
+{ question: "Où se forme le calcidiol ?", answer: "Dans le foie." },
+{ question: "Quelle modification subit le cholécalciférol dans le foie ?", answer: "Hydroxylation en C25." },
+{ question: "Quels groupes fonctionnels contient le calcidiol ?", answer: "1 méthyl CH3, 2 fonctions hydroxyles en C3 et C25." },
+{ question: "Où a lieu la dernière étape de la synthèse du calcitriol ?", answer: "Dans le rein." },
+{ question: "Quelle est la modification finale subie par le calcidiol ?", answer: "Hydroxylation en C1." },
+{ question: "Quels groupes fonctionnels comporte le calcitriol ?", answer: "3 fonctions hydroxyles en C1, C3 et C25." },
+{ question: "Pourquoi le terme vitamine D est-il un abus de langage pour le calcitriol ?", answer: "Parce qu’il est synthétisé par l’organisme, il ne répond donc pas à la définition d’une vitamine." },
+{ question: 'Quelle est la source animale de vitamine D ?', answer: 'La vitamine D3' },
+{ question: 'Quelle est la source végétale de vitamine D ?', answer: "L'ergocalciférol (vitamine D2)" },
+{ question: 'En quoi la vitamine D2 diffère-t-elle de la vitamine D3 ?', answer: 'Au niveau de la chaîne latérale' },
+{ question: 'Quand la synthèse de calcitriol est-elle plus importante ?', answer: 'En été' },
+{ question: 'Quel est le rôle du calcitriol au niveau intestinal ?', answer: "Il favorise l'absorption du calcium et du phosphore" },
+{ question: 'Quel est le rôle du calcitriol sur les os ?', answer: 'Il favorise la minéralisation osseuse' },
+{ question: 'Quelles sont les conséquences d’une carence en vitamine D chez l’enfant ?', answer: 'Rachitisme' },
+{ question: 'Quelles sont les conséquences d’une carence en vitamine D chez l’adulte ?', answer: "Ostéoporose" },
+{ question: 'Quels sont les besoins journaliers en vitamine D ?', answer: '10 mg/jour' },
+{ question: "Où débute l'émulsification des lipides alimentaires ?", answer: 'Au niveau buccal par la mastication' },
+{ question: 'Que forment les sels biliaires pour émulsionner les lipides ?', answer: 'Des micelles mixtes' },
+{ question: 'Quelle enzyme agit en premier sur les triglycérides ?', answer: 'La lipase gastrique' },
+{ question: 'Quelle enzyme agit après la lipase gastrique ?', answer: 'La lipase pancréatique' },
+{ question: 'Que fait la lipase pancréatique ?', answer: 'Elle rompt les liaisons ester des triglycérides' },
+{ question: 'Quels produits résultent de la digestion des triglycérides ?', answer: 'Acides gras, glycérol, monoglycérides ou diglycérides' },
+{ question: 'Par quel mécanisme les acides gras, glycérol et monoglycérides sont-ils absorbés ?', answer: 'Par diffusion passive' },
+{ question: 'Les triglycérides peuvent-ils être absorbés directement ?', answer: 'Non' },
+{ question: 'Que faut-il pour que les triglycérides soient absorbés ?',answer: "L'action de la lipase pancréatique qui libère les acides gras, les monoglycérides et le glycérol" },
+{ question: 'Que se passe-t-il dans les entérocytes après absorption des lipides ?', answer: 'Resynthèse immédiate des triglycérides' },
+{ question: 'Sous quelle forme les triglycérides sont-ils libérés dans la circulation ?', answer: 'À l’intérieur de lipoprotéines' },
+{ question: 'Que subissent les glycérophospholipides pour être absorbés ?', answer: "L'action des phospholipases" },
+{ question: 'Quelle est la phospholipase pancréatique impliquée ?', answer: 'PLA2 pancréatique' },
+{ question: 'Quels produits forme la PLA2 ?', answer: 'Acides gras et lysophospholipides' },
+{ question: 'Sous quelle forme le cholestérol alimentaire est-il présent ?', answer: 'Sous forme estérifiée' },
+{ question: 'Pourquoi le cholestérol estérifié ne peut-il pas être absorbé ?', answer: "Il doit être transformé en cholestérol libre" },
+{ question: 'Quelle enzyme transforme le cholestérol estérifié ?', answer: 'La cholestérol estérase pancréatique' },
+{ question: 'Comment le cholestérol libre est-il absorbé ?', answer: 'Par un transport actif' },
+{ question: 'Quelles sont les concentrations normales de lipides totaux dans le sang ?', answer: '4 à 7 g/L' },
+{ question: 'Quel lipide est le plus abondant dans le sang ?', answer: 'Les triglycérides (0,8-1,6 g/L)' },
+{ question: 'Quelle est la concentration de cholestérol dans le sang ?', answer: '1,0 à 2,6 g/L' },
+{ question: 'Quelle est la concentration des phospholipides dans le sang ?', answer: '1,2 à 2,5 g/L' },
+{ question: 'Comment sont transportés les acides gras libres ?', answer: 'Liés à l’albumine' },
+{ question: 'Quelle est la concentration des acides gras libres ?', answer: '0,06 à 0,16 g/L' },
+{ question: "Quelle est l'enveloppe des lipoprotéines ?", answer: 'Une monocouche de glycérophospholipides' },
+{ question: "Comment sont orientées les têtes polaires des glycérophospholipides ?", answer: 'Vers le milieu aqueux (extérieur)' },
+{ question: "Comment est orienté le cholestérol libre dans la lipoprotéine ?", answer: 'OH près des têtes polaires, noyau et chaîne latérale vers le centre' },
+{ question: "Quelles sont les fonctions des apolipoprotéines ? (3 réponses)", answer: 'Structure, activation enzymatique, reconnaissance de récepteurs' },
+{ question: 'Que contient le noyau des lipoprotéines ?', answer: 'Triglycérides et cholestérol estérifié' },
+{ question: 'Quels sont les quatre types principaux de lipoprotéines ?', answer: 'Chylomicrons, VLDL, LDL, HDL' },
+{ question: 'Comment varie la densité des lipoprotéines ?', answer: 'Elle augmente avec la proportion de protéines' },
+{ question: 'Comment varie le diamètre des lipoprotéines ?', answer: 'Il diminue avec l’augmentation de la densité' },
+{ question: 'Quelles sont les apolipoprotéines des chylomicrons ?', answer: 'B48, C-II, E' },
+{ question: 'Quel est le rôle des chylomicrons ?', answer: 'Transport des TGs intestinaux vers les tissus périphériques' },
+{ question: 'Quand les chylomicrons sont-ils présents ?', answer: 'Uniquement après les repas' },
+{ question: 'Quelles sont les apolipoprotéines des VLDL ?', answer: 'B100, C-II' },
+{ question: 'Quelles sont les apolipoprotéines des LDL ?', answer: 'B100, B100/E' },
+{ question: 'Quelle enzyme active les VLDL ?', answer: 'Lipoprotéine lipase (LPL), activée par apo CII' },
+{ question: 'Que deviennent les VLDL après perte des TGs ?', answer: 'Elles deviennent des LDL' },
+{ question: 'Quel est le rôle des LDL ?', answer: 'Transport du cholestérol du foie vers les tissus périphériques' },
+{ question: 'Pourquoi les LDL sont-elles qualifiées de "mauvais cholestérol" ?', answer: 'Elles peuvent entraîner une accumulation de cholestérol dans les tissus' },
+{ question: 'Quel est le rôle des HDL ?', answer: 'Retour du cholestérol des tissus vers le foie (Bon cholestérol)' },
+{ question: 'Quelle est la principale apolipoprotéine des HDL ?', answer: 'Apo A1' },
+{ question: 'Comment les HDL captent-elles le cholestérol ?', answer: 'Elles s’immobilisent et captent le cholestérol libre des membranes' },
+{ question: 'Quels sont les trois types de lipases ?', answer: 'Lipases gastrique, pancréatique, triglycéride lipase' },
+{ question: 'Que fait la lipoprotéine lipase (LPL) ?', answer: 'Elle hydrolyse les TGs des CM et VLDL dans la circulation' },
+{ question: 'Où se déroule la lipolyse ?', answer: 'Dans le tissu adipeux' },
+{ question: 'Que deviennent les CM après distribution de leurs TGs ?', answer: 'Ils forment des remnants exposant l’apo E' },
+{ question: 'Que deviennent les remnants des CM ?', answer: 'Ils sont captés par le foie et transformés en HDL' },
+{ question: 'Comment le cholestérol arrive-t-il dans les tissus périphériques ?', answer: 'Par endocytose des LDL via récepteurs apoB100/apoE' },
+{ question: 'Comment les HDL sont-elles reconnues par les tissus ?', answer: 'Par les récepteurs à l’apo A1' },
+{ question: 'Comment sont les HDL naissantes produites par le foie ?', answer: 'Vidées de leur contenu.' },
+];
+
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","" );
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

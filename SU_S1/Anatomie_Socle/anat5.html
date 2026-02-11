@@ -1,0 +1,1093 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Membre Inferieur (Partie 2)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Combien de ligaments croisés possède le genou ?', answer: 'Deux, situés à l’intérieur de la capsule articulaire.' },
+  { question: 'Que relient les ligaments croisés du genou ?', answer: 'Directement le fémur et le tibia.' },
+  { question: 'À quoi correspondent les termes antérieur et postérieur pour les ligaments croisés ?', answer: 'À leur insertion sur le tibia.' },
+  { question: 'Où s’insèrent les ligaments croisés sur le tibia ?', answer: 'Sur le plateau tibial, dans l’espace intercondylaire.' },
+  { question: 'Quelle est l’insertion tibiale du ligament croisé antérieur ?', answer: 'L’aire intercondylaire antérieure.' },
+  { question: 'Quelle est l’insertion tibiale du ligament croisé postérieur ?', answer: 'La partie la plus postérieure du plateau tibial.' },
+  { question: 'Pourquoi les ligaments croisés sont-ils appelés ainsi ?', answer: 'Parce que leurs faisceaux obliques se croisent.' },
+  { question: 'Où s’insère le LCA sur le fémur ?', answer: 'Sur le condyle fémoral latéral, bord médial.' },
+  { question: 'Quelle est la direction du LCA ?', answer: 'Oblique vers le bas et le dedans.' },
+  { question: 'Où s’insère le LCP sur le fémur ?', answer: 'Sur le condyle fémoral médial.' },
+  { question: 'Quelle est la direction du LCP ?', answer: 'Oblique vers le bas et latéralement.' },
+  { question: 'Les ligaments croisés sont-ils intra-synoviaux ?', answer: 'Non, ils sont intra-articulaires mais extra-synoviaux.' },
+  { question: 'Pourquoi sont-ils extra-synoviaux ?', answer: 'La synoviale se réfléchit autour d’eux et les recouvre.' },
+  { question: 'Quelle est la fonction principale des ligaments croisés ?', answer: 'Maintenir l’alignement entre fémur et tibia.' },
+  { question: 'Quel ligament est tendu en flexion complète du genou ?', answer: 'Le LCA.' },
+  { question: 'Quel ligament devient tendu en extension ?', answer: 'Le LCP.' },
+  { question: 'Que provoque une rupture du LCA ?', answer: 'Une instabilité marquée du genou et un risque accru de luxation.' },
+  { question: 'Quelle est la capacité de régénération du cartilage et du fibrocartilage méniscal ?', answer: 'Très faible.' },
+  { question: 'Quels sont les deux ligaments collatéraux du genou ?', answer: 'Le ligament collatéral fibulaire et le ligament collatéral tibial.' },
+  { question: 'Quelle est l’origine du ligament collatéral fibulaire ?', answer: 'L’épicondyle latéral du fémur.' },
+  { question: 'Quelle est sa terminaison ?', answer: 'La tête de la fibula.' },
+  { question: 'Quelle est l’origine du ligament collatéral tibial ?', answer: 'L’épicondyle médial du fémur.' },
+  { question: 'Quelle est la terminaison du faisceau principal du LCT ?', answer: 'Face médiale de l’épiphyse tibiale.' },
+  { question: 'À quoi se rattache le faisceau ménisco-tibial ?', answer: 'Au ménisque médial.' },
+  { question: 'Où se fixe le faisceau postérieur du LCT ?', answer: 'À la face postérieure du plateau tibial.' },
+  { question: 'Quel est le rôle des collatéraux ?', answer: 'Stabiliser les côtés latéral et médial du genou.' },
+  { question: 'Que faut-il pour provoquer une luxation du genou ?', answer: 'La rupture d’au moins un collatéral.' },
+  { question: 'Quel est le rôle du ligament patellaire ?', answer: 'Transmettre la force du quadriceps au tibia et limiter la translation antérieure.' },
+  { question: 'Où s’insère le ligament patellaire ?', answer: 'Sur la tubérosité tibiale antérieure.' },
+  { question: 'Qu’est-ce que la patella ?', answer: 'Un os sésamoïde interposé dans le tendon du quadriceps.' },
+  { question: 'Les ruptures du ligament patellaire sont-elles fréquentes ?', answer: 'Non, rares en raison de sa solidité.' },
+  { question: 'Dans quel cas observe-t-on des luxations ligamentaires ?', answer: 'En appui, dans les sports à déviation latérale (ski, football).' },
+  { question: 'Quelles structures stabilisent activement le genou ?', answer: 'Les muscles périarticulaires.' },
+  { question: 'Quelles structures stabilisent passivement le genou ?', answer: 'Tendons et ligaments.' },
+  { question: 'Quelle est l’origine du muscle sartorius ?', answer: 'L’épine iliaque antérosupérieure.' },
+  { question: 'Quel est son trajet ?', answer: 'Superficiel, croise la loge antérieure, passe devant le quadriceps, direction bas-dedans.' },
+  { question: 'Où se termine le sartorius ?', answer: 'Sur la patte d’oie, face médiale proximale du tibia.' },
+  { question: 'Quelles sont les actions du sartorius ?', answer: 'Flexion, abduction, rotation latérale de hanche ; flexion de genou.' },
+  { question: 'Quel est son nerf ?', answer: 'Le nerf fémoral.' },
+  { question: 'Quelles sont les origines du quadriceps ?', answer: 'Droit fémoral : EIAS ; Vaste latéral : ligne âpre lèvre latérale ; Vaste médial : ligne âpre lèvre médiale ; Vaste intermédiaire : face antérieure du fémur.' },
+  { question: 'Quel chef du quadriceps est le plus superficiel ?', answer: 'Le droit fémoral.' },
+  { question: 'Quelle est la terminaison commune du quadriceps ?', answer: 'Le tendon quadricipital sur la patella, puis le ligament patellaire vers le tibia.' },
+  { question: 'Quel est le rôle principal du quadriceps ?', answer: 'L’extension du genou.' },
+  { question: 'Quel muscle stabilise la hanche pendant que le quadriceps stabilise le genou ?', answer: 'Le grand glutéal.' },
+  { question: 'Quels muscles appartiennent aux ischio-jambiers ?', answer: 'Biceps fémoral, semi-tendineux, semi-membraneux.' },
+  { question: 'Quelle est leur insertion proximale commune ?', answer: 'La tubérosité ischiatique.' },
+  { question: 'Où se termine le semi-tendineux ?', answer: 'Patte d’oie, face médiale proximale du tibia.' },
+  { question: 'Quels sont les trois tendons de la patte d’oie ?', answer: 'Sartorius, gracile, semi-tendineux.' },
+  { question: 'Quelles sont les trois terminaisons du semi-membraneux ?', answer: 'Tendon direct : face postérieure tibia ; Tendon réfléchi : face médiale condyle tibial ; Tendon récurrent : capsule postérieure.' },
+  { question: 'Quelle est la particularité du biceps fémoral chef court ?', answer: 'Insertion proximale sur la lèvre latérale de la ligne âpre.' },
+  { question: 'Où se terminent les deux chefs du biceps fémoral ?', answer: 'Apex de la fibula.' },
+  { question: 'Quelles actions ont les ischio-jambiers à la hanche ?', answer: 'Extension, rotation médiale pour les semis, rotation latérale pour le biceps.' },
+  { question: 'Quelle est leur action au genou ?', answer: 'Flexion.' },
+  { question: 'Quel est leur nerf ?', answer: 'Le nerf ischiatique.' },
+  { question: 'Quels muscles forment la patte d’oie ?', answer: 'Sartorius, gracile, semi-tendineux.' },
+  { question: 'Quel est le rôle de la patte d’oie ?', answer: 'Renforcer l’action du ligament collatéral tibial et lutter contre les luxations médiales.' },
+  { question: 'Quelle est l’insertion proximale du muscle poplité ?', answer: 'Condyle fémoral médial.' },
+  { question: 'Où se termine le muscle poplité ?', answer: 'Surface poplitée, face postérieure du tibia.' },
+  { question: 'Quelle est sa fonction ?', answer: 'Stabilité rotatoire latérale et médiale.' },
+  { question: 'Quelles surfaces osseuses composent l’articulation de la cheville ?', answer: 'Plateau tibial inférieur, malléole tibiale, malléole fibulaire, trochlée du talus.' },
+  { question: 'Quels mouvements se font à la cheville ?', answer: 'Flexion-extension uniquement.' },
+  { question: 'Quels sont les trois faisceaux du ligament collatéral latéral ?', answer: 'Talo-fibulaire antérieur, calcanéo-fibulaire, talo-fibulaire postérieur.' },
+  { question: 'Pourquoi est-il souvent lésé ?', answer: 'Il est fin.' },
+  { question: 'Quels sont les quatre faisceaux du ligament collatéral médial ?', answer: 'Tibio-talien postérieur, tibio-talien antérieur, tibio-calcanéen, tibio-naviculaire.' },
+  { question: 'Quel mouvement nécessite un écartement physiologique des malléoles ?', answer: 'La dorsiflexion.' },
+  { question: 'Quel est le rôle de l’articulation subtalienne ?', answer: 'Inversion/éversion.' },
+  { question: 'Quels éléments composent l’articulation transverse du tarse ?', answer: 'Calcanéo-cuboïdienne et talo-naviculaire.' },
+  { question: 'Quels sont les deux ligaments plantaires profonds ?', answer: 'Calcanéo-naviculaire plantaire (spring ligament) et ligament plantaire court.' },
+  { question: 'Quel est le ligament plantaire superficiel ?', answer: 'Le ligament plantaire long.' },
+  { question: 'Quelles sont les causes anatomiques des pieds plats ?', answer: 'Laxité/élongation des ligaments plantaires.' },
+  { question: 'Quelles sont les causes anatomiques des pieds creux ?', answer: 'Rétraction/raccourcissement des ligaments.' },
+  { question: 'Combien de muscles composent le compartiment antérieur de la jambe ?', answer: 'Quatre.' },
+  { question: 'Quel est leur nerf ?', answer: 'Le nerf fibulaire profond.' },
+  { question: 'Quelle est l’origine du tibial antérieur ?', answer: 'Face antérolatérale du tibia et membrane interosseuse.' },
+  { question: 'Où se termine le tibial antérieur ?', answer: 'Face médiale du 1er cunéiforme et base du premier métatarsien.' },
+  { question: 'Quelle est son action principale ?', answer: 'Flexion dorsale de cheville.' },
+  { question: 'Quel muscle est sous le tibial antérieur ?', answer: 'Le long extenseur de l’hallux.' },
+  { question: 'Où se termine le long extenseur de l’hallux ?', answer: 'Phalange distale du gros orteil.' },
+  { question: 'Où s’insère le long extenseur des orteils ?', answer: 'Face médiale de la fibula.' },
+  { question: 'En combien de tendons se divise-t-il ?', answer: 'Quatre (orteils 2 à 5).' },
+  { question: 'Quelle est la particularité du muscle fibulaire tertius ?', answer: 'Muscle inconstant présent chez environ 20% des individus.' },
+  { question: 'Quelle est l’origine du fibulaire tertius ?', answer: 'Le quart inférieur de la fibula, face antéro-latérale.' },
+  { question: 'Quel est le trajet du fibulaire tertius ?', answer: 'Tendon visible parallèle au tendon de l’extenseur long des orteils vers le 5e orteil, se termine plus proximalement.' },
+  { question: 'Quelle est sa terminaison ?', answer: 'Face dorsale de la base du 5e métatarsien.' },
+  { question: 'Quelle est la fonction du fibulaire tertius ?', answer: 'Contribue à la dorsiflexion et à l’éversion du pied.' },
+  { question: 'Que se passe-t-il en cas d’absence du fibulaire tertius ?', answer: 'Aucun déficit fonctionnel.' },
+  { question: 'Quels sont les deux muscles de la loge latérale de jambe ?', answer: 'Le long fibulaire et le court fibulaire.' },
+  { question: 'Quelle est l’origine du long fibulaire ?', answer: 'Tête de la fibula, deux tiers supérieurs de la face latérale de la fibula, septum intermusculaire latéral.' },
+  { question: 'Quelle est l’origine du court fibulaire ?', answer: 'Face latérale de la fibula, partie moyenne.' },
+  { question: 'Quel est le trajet des deux fibulaires autour de la malléole latérale ?', answer: 'Ils passent en arrière de la malléole latérale, maintenus par le rétinaculum des fibulaires.' },
+  { question: 'Où se termine le long fibulaire ?', answer: 'Base du premier métatarsien.' },
+  { question: 'Où se termine le court fibulaire ?', answer: 'Base du cinquième métatarsien (apophyse styloïde).' },
+  { question: 'Quelle est la fonction commune des fibulaires ?', answer: 'Éversion du pied.' },
+  { question: 'Quel est leur nerf ?', answer: 'Nerf fibulaire superficiel.' },
+  { question: 'Quel est le trajet plantaire du long fibulaire ?', answer: 'Passe sous le calcanéus, traverse la plante en profondeur sous le ligament plantaire long, se dirige vers le bord médial du pied.' },
+  { question: 'Quelle est sa terminaison plantaire ?', answer: 'Bases des 1er et 2e métatarsiens et cunéiforme médial.' },
+  { question: 'Quels sont les trois composants de l’éversion du pied ?', answer: 'Éversion, légère flexion plantaire, rotation externe.' },
+  { question: 'Quels muscles constituent le triceps sural ?', answer: 'Gastrocnémien médial, gastrocnémien latéral, soléaire.' },
+  { question: 'Quelle est l’origine du gastrocnémien médial ?', answer: 'Tubercule supracondylaire médial et coque condylaire médiale.' },
+  { question: 'Quelle est l’origine du gastrocnémien latéral ?', answer: 'Tubercule supracondylaire latéral et coque condylaire latérale.' },
+  { question: 'Quelle est l’origine du soléaire ?', answer: 'Arcade entre la tête de la fibula et la ligne du soléaire sur le tibia.' },
+  { question: 'Quelle est la terminaison commune des muscles du mollet ?', answer: 'Tendon d’Achille sur la tubérosité postérieure du calcanéus.' },
+  { question: 'Quelle est la fonction du triceps sural ?', answer: 'Flexion plantaire.' },
+  { question: 'Quel est leur nerf ?', answer: 'Nerf tibial.' },
+  { question: 'Où se situe le muscle plantaire ?', answer: 'Proche du gastrocnémien latéral en haut et du médial en bas.' },
+  { question: 'Quels muscles composent la gouttière calcanéenne ?', answer: 'Tibial postérieur, long fléchisseur des orteils, long fléchisseur de l’hallux.' },
+  { question: 'Quelles sont les origines du long fléchisseur des orteils ?', answer: 'Face postérieure du tibia.' },
+  { question: 'Quelle est son action ?', answer: 'Flexion plantaire des 2e à 5e orteils.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf tibial.' },
+  { question: 'Quelles sont les origines du tibial postérieur ?', answer: 'Face postérieure du tibia et de la fibula, membrane interosseuse.' },
+  { question: 'Où se termine le tibial postérieur ?', answer: 'Os naviculaire et cunéiforme médial.' },
+  { question: 'Quelle est sa fonction majeure ?', answer: 'Maintien de l’arche médiale de la voûte plantaire.' },
+  { question: 'Quelle est l’origine du long fléchisseur de l’hallux ?', answer: 'Face postérieure de la fibula.' },
+  { question: 'Où se termine-t-il ?', answer: 'Base de la phalange distale de l’hallux.' },
+  { question: 'Quel est son rôle ?', answer: 'Flexion plantaire de l’hallux.' },
+  { question: 'Quelle est l’origine du court extenseur des orteils ?', answer: 'Face supéro-latérale du calcanéus.' },
+  { question: 'Comment se divise-t-il ?', answer: 'En trois faisceaux pour les 2e, 3e et 4e orteils.' },
+  { question: 'Quelle est sa fonction ?', answer: 'Renforce l’extension des orteils.' },
+  { question: 'Quelle est la description du court extenseur de l’hallux ?', answer: 'Situé en dedans du court extenseur des orteils, tendon fusionné avec le long extenseur de l’hallux.' },
+  { question: 'D’où provient le court fléchisseur des orteils ?', answer: 'Tubérosité calcanéenne.' },
+  { question: 'Où se termine-t-il ?', answer: 'Phalanges intermédiaires des orteils 2 à 5.' },
+  { question: 'Quelle est l’origine de l’abducteur du 5e orteil ?', answer: 'Bord latéral de la tubérosité du calcanéus.' },
+  { question: 'Où se termine-t-il ?', answer: 'Bord latéral du petit orteil.' },
+  { question: 'Quelle est sa fonction ?', answer: 'Écarte le petit orteil.' },
+  { question: 'Quelle est l’origine de l’abducteur de l’hallux ?', answer: 'Bord médial de la tubérosité du calcanéus.' },
+  { question: 'Où se termine-t-il ?', answer: 'Bord médial de l’hallux et phalange proximale.' },
+  { question: 'Quelle est l’origine du carré plantaire ?', answer: 'Tubérosité calcanéenne, en arrière et en profondeur.' },
+  { question: 'Où se termine-t-il ?', answer: 'Sur le tendon du long fléchisseur des orteils.' },
+  { question: 'Quelle est sa fonction principale ?', answer: 'Stabilise et maintient le tendon du long fléchisseur des orteils en position.' },
+  { question: 'D’où proviennent les muscles lombricaux ?', answer: 'Des tendons des fléchisseurs communs.' },
+  { question: 'Quelle est leur fonction principale ?', answer: 'Maintenir la tension des tendons fléchisseurs.' },
+  { question: 'Quelle est l’origine du court fléchisseur de l’hallux ?', answer: 'Face plantaire du cuboïde et du cunéiforme latéral.' },
+  { question: 'Quelles sont les deux parties du muscle adducteur de l’hallux ?', answer: 'Chef oblique et chef transverse.' },
+  { question: 'Où s’insère le chef transverse de l’adducteur de l’hallux ?', answer: 'Sur les capsules des MTP des 3e à 5e orteils.' },
+  { question: 'Quelle remarque concerne l’adducteur et le court fléchisseur de l’hallux ?', answer: 'Ils forment l’éminence hallucale, analogue au thénar.' },
+  { question: 'D’où provient le court fléchisseur du 5e orteil ?', answer: 'Cuboïde et base du 5e métatarsien.' },
+  { question: 'Quelle est la particularité fonctionnelle du 5e orteil ?', answer: 'Très peu de muscles, mouvements fins réduits.' },
+  { question: 'Pourquoi l’hallux ne peut-il pas s’opposer aux autres orteils ?', answer: 'Absence d’opposition anatomique propre à l’homme.' },
+  { question: 'Quel est le rôle des interosseux dorsaux ?', answer: 'Abduction des orteils.' },
+  { question: 'Quel est le rôle des interosseux plantaires ?', answer: 'Adduction des orteils.' },
+  { question: 'Combien d’interosseux dorsaux existe-t-il ?', answer: 'Quatre.' },
+  { question: 'Combien d’interosseux plantaires ?', answer: 'Trois.' },
+  { question: 'Quelle artère principale vascularise le membre inférieur ?', answer: 'L’artère fémorale.' },
+  { question: 'D’où provient-elle ?', answer: 'De l’artère iliaque externe passant sous le ligament inguinal.' },
+  { question: 'Dans quelle lacune passe l’artère fémorale ?', answer: 'La lacune médiale.' },
+  { question: 'Quels sont les limites du triangle fémoral ?', answer: 'Haut : ligament inguinal ; bas/dedans : sartorius ; plancher : ilio-psoas, pectiné, long adducteur.' },
+  { question: 'Quels éléments transitent dans le triangle fémoral ?', answer: 'Nerf fémoral, artère fémorale, veine fémorale.' },
+  { question: 'Quelle veine superficielle se jette dans la fémorale ?', answer: 'La grande saphène (crosse saphène).' },
+  { question: 'Dans quel canal l’artère fémorale descend-elle ?', answer: 'Le canal de Hunter (canal des adducteurs).' },
+  { question: 'Par quel hiatus l’artère fémorale devient-elle poplitée ?', answer: 'Le hiatus du grand adducteur.' },
+  { question: 'Quelles sont les deux branches collatérales superficielles précoces de l’artère fémorale ?', answer: 'L’artère épigastrique superficielle et l’artère circonflexe iliaque superficielle.' },
+  { question: 'Quel est le territoire vascularisé par l’artère épigastrique superficielle ?', answer: 'La peau de la partie basse de l’abdomen.' },
+  { question: 'Quel est le trajet de l’artère épigastrique superficielle ?', answer: 'Elle remonte au-dessus du ligament inguinal.' },
+  { question: 'Quel est le trajet de l’artère circonflexe iliaque superficielle ?', answer: 'Elle longe le bord latéral du ligament inguinal.' },
+  { question: 'Que vascularise l’artère circonflexe iliaque superficielle ?', answer: 'La peau et les tissus superficiels à la racine de la cuisse.' },
+  { question: 'Quelles sont les deux branches collatérales superficielles dirigées en dedans à partir de l’artère fémorale ?', answer: 'L’artère pudendale externe superficielle et l’artère pudendale externe profonde.' },
+  { question: 'Quel territoire est vascularisé par les artères pudendales externes ?', answer: 'La face interne de la cuisse et des branches pour les organes génitaux externes.' },
+  { question: 'Quel est le trajet de l’artère pudendale externe superficielle ?', answer: 'Elle se dirige en dedans vers la ligne médiale.' },
+  { question: 'L’artère pudendale externe profonde a-t-elle le même territoire que la superficielle ?', answer: 'Oui, identique.' },
+  { question: 'Quelle est la plus grosse branche de l’artère fémorale ?', answer: 'L’artère profonde de cuisse.' },
+  { question: 'Où naît l’artère profonde de cuisse ?', answer: 'Dans le triangle fémoral, au niveau des artères pudendales.' },
+  { question: 'Quel est le trajet de l’artère profonde de cuisse ?', answer: 'Elle longe le grand adducteur en profondeur et émet des branches régulières.' },
+  { question: 'Quels territoires osseux sont vascularisés par l’artère profonde de cuisse ?', answer: 'Le col fémoral et l’extrémité supérieure de la diaphyse fémorale.' },
+  { question: 'Quels territoires musculaires sont vascularisés par l’artère profonde de cuisse ?', answer: 'Les muscles postérieurs de cuisse et des branches volumineuses pour le quadriceps.' },
+  { question: 'Quelles sont les principales branches collatérales de l’artère profonde de cuisse ?', answer: 'L’artère circonflexe médiale, l’artère circonflexe latérale, l’artère du quadriceps et trois artères perforantes.' },
+  { question: 'Quel est le rôle des artères circonflexes ?', answer: 'Elles entourent et vascularisent la tête du fémur.' },
+  { question: 'Pourquoi les réseaux collatéraux de la cuisse peuvent-ils être importants cliniquement ?', answer: 'Ils peuvent suppléer une sténose athéromateuse de l’artère fémorale.' },
+  { question: 'Où commence l’artère poplitée ?', answer: 'Au niveau du hiatus du grand adducteur, comme branche terminale de l’artère fémorale.' },
+  { question: 'Quel est le trajet de l’artère poplitée ?', answer: 'Elle passe sur la face postérieure du genou.' },
+  { question: 'Quelles sont ses branches terminales ?', answer: 'L’artère tibiale antérieure et l’artère tibiale postérieure.' },
+  { question: 'Quelles sont les cinq branches articulaires de l’artère poplitée ?', answer: 'Supéro-latérale, supéro-médiale, inféro-latérale, inféro-médiale, et la géniculaire moyenne.' },
+  { question: 'Quels muscles sont vascularisés par l’artère poplitée ?', answer: 'Les ischio-jambiers, le triceps sural et le muscle poplité.' },
+  { question: 'Qu’est-ce que le creux poplité ?', answer: 'Un losange fibro-musculaire du pli du genou qui laisse passer les éléments vasculo-nerveux.' },
+  { question: 'Quels muscles forment la limite supérieure latérale du creux poplité ?', answer: 'Le biceps fémoral.' },
+  { question: 'Quels muscles forment la limite supérieure médiale du creux poplité ?', answer: 'Les semi-tendineux et semi-membraneux.' },
+  { question: 'Quelles structures forment la limite inférieure du creux poplité ?', answer: 'Les gastrocnémiens médial et latéral et le muscle plantaire.' },
+  { question: 'Quels éléments composent le pédicule poplité ?', answer: 'L’artère poplitée, la veine poplitée et le nerf sciatique.' },
+  { question: 'Où se situe l’artère poplitée par rapport à la veine ?', answer: 'En avant et en dedans.' },
+  { question: 'D’où provient la veine poplitée ?', answer: 'De la veine petite saphène.' },
+  { question: 'En quoi se divise le nerf sciatique dans le creux poplité ?', answer: 'En nerf fibulaire commun et nerf tibial.' },
+  { question: 'Quel nerf devient très superficiel au col de la fibula ?', answer: 'Le nerf fibulaire commun.' },
+  { question: 'Quelle est l’origine de l’artère tibiale antérieure ?', answer: 'Elle provient de l’artère poplitée.' },
+  { question: 'Par où passe l’artère tibiale antérieure pour gagner la loge antérieure ?', answer: 'À travers la membrane interosseuse.' },
+  { question: 'Quelle est l’artère principale du dos du pied ?', answer: 'L’artère dorsale du pied (dorsalis pedis).' },
+  { question: 'Quel est l’emplacement du pouls pédieux ?', answer: 'Sur le dos du pied, juste au-dessus de l’articulation de la cheville.' },
+  { question: 'Quelle artère longe l’arrière du tibia ?', answer: 'L’artère tibiale postérieure.' },
+  { question: 'Quelle est sa plus grosse branche ?', answer: 'L’artère fibulaire.' },
+  { question: 'Où prend-on le pouls tibial postérieur ?', answer: 'Derrière et sous la malléole médiale, dans le tunnel tarsien.' },
+  { question: 'Quels réseaux forment l’arcade plantaire profonde ?', answer: 'Les divisions plantaires de l’artère tibiale postérieure.' },
+  { question: 'Où se situe l’anastomose principale entre réseau dorsal et plantaire ?', answer: 'Entre le 1er et le 2e métatarsien.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

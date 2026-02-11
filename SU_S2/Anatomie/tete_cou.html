@@ -1,0 +1,1305 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Tête et cou</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData =
+[
+      { question: 'Combien d’os compose le squelette osseux du crâne ?', answer: '22 os.' },
+  { question: 'Comment sont répartis les os du crâne ?', answer: 'En deux massifs : massif crânial (8 os) et massif facial (14 os).' },
+  { question: 'Quelle articulation est la seule mobile au niveau de la face ?', answer: 'L’articulation temporo-mandibulaire (ATM).' },
+  { question: 'Quels os composent le massif crânial ?', answer: 'Frontal, temporaux (x2), pariétaux (x2), occipital, ethmoïde, sphénoïde.' },
+  { question: 'Quelles sont les deux faces décrites pour chaque os du crâne ?', answer: 'Face exocrânienne (externe) et face endocrânienne (interne).' },
+  { question: 'Quelles sont les deux parties du crâne ?', answer: 'Partie supérieure (calvaria ou voûte crânienne) et partie inférieure (base).' },
+  { question: 'Quels os composent la voûte crânienne ?', answer: 'Portion verticale de l’os frontal, os pariétaux, écaille de l’os temporal, portion supérieure de l’occipital, grandes ailes du sphénoïde.' },
+  { question: 'Quels os composent la base du crâne ?', answer: 'Portion horizontale de l’os frontal, ethmoïde, sphénoïde, rocher et mastoïde de l’os temporal, portion inférieure de l’occipital.' },
+  { question: 'Où est situé l’os frontal ?', answer: 'Partie antérieure et supérieure du crâne.' },
+  { question: 'Quelles sont les deux parties de l’os frontal ?', answer: 'Écaille (verticale, voûte) et portion orbito-nasale (horizontale, base).' },
+  { question: 'Avec quels os l’os frontal s’articule-t-il en avant ?', answer: 'Os nasaux, lacrymal, maxillaire, zygomatique.' },
+  { question: 'Avec quels os l’os frontal s’articule-t-il en arrière ?', answer: 'Os pariétaux, ethmoïde, sphénoïde.' },
+  { question: 'Quels reliefs forme l’os frontal sur sa face exocrânienne ?', answer: 'Bosses frontales, arcades sourcilières (séparées par la glabelle), rebord supraorbitaire.' },
+  { question: 'Que comprend la face orbito-nasale du frontal ?', answer: 'Échancrure ethmoïdale, épine nasale, fosses orbitaires.' },
+  { question: 'Quelle cavité creuse l’os frontal ?', answer: 'Les sinus frontaux.' },
+  { question: 'Quelle est la fonction des sinus frontaux ?', answer: 'Réchauﬀement de l’air inspiré pour une meilleure hématose.' },
+  { question: 'Quelle pathologie peut toucher les sinus frontaux ?', answer: 'Infection ou tumeur.' },
+  { question: 'Que protège l’os frontal (contenant-contenu) ?', answer: 'Lobes frontaux du cerveau et cavités de la face.' },
+  { question: 'Quelle complication peut entraîner un traumatisme de l’os frontal ?', answer: 'Fracture ou embarrure ˠ hématome extradural par rupture de l’artère méningée moyenne.' },
+  { question: 'Quelles structures se trouvent sur la face endocrânienne du frontal ?', answer: 'Crête frontale (insertion faux du cerveau), sillon du sinus sagittal supérieur, fosses frontales avec fossettes granulaires (granulations arachnoïdiennes), échancrure ethmoïdale, bosses orbitaires.' },
+  { question: 'Où est situé l’os temporal ?', answer: 'Partie inférieure et latérale du crâne.' },
+  { question: 'De combien de pièces embryologiques provient l’os temporal ?', answer: 'Trois (écaille, os tympanal, rocher).' },
+  { question: 'Quelles sont les 3 parties de l’os temporal adulte ?', answer: 'Écaille (squameuse), partie pétro-tympanique, région mastoïdienne.' },
+  { question: 'Avec quels os s’articule l’os temporal ?', answer: 'Occipital, pariétal, sphénoïde (grande aile), zygomatique, mandibule.' },
+  { question: 'Quelles sont les deux parties de l’écaille temporale ?', answer: 'Partie supérieure (verticale, voûte) et partie inférieure (horizontale, base : MAE + ATM).' },
+  { question: 'Que délimite la partie tympanique de l’os temporal ?', answer: 'L’ouverture latérale du méat acoustique externe.' },
+  { question: 'Quelles sont les caractéristiques de la partie pétreuse (rocher) ?', answer: 'Forme de pyramide tronquée, 4 faces (2 exocrâniennes, 2 endocrâniennes), creusée par l’oreille.' },
+  { question: 'Quelles sont les caractéristiques de la région mastoïdienne ?', answer: 'En arrière du MAE, prolongée par le processus mastoïdien (insertion musculaire, ex. SCOM), creusée de cellules mastoïdiennes.' },
+  { question: 'Que comprend la face exocrânienne de l’écaille temporale ?', answer: 'Partie supérieure convexe (insertion muscle temporal), partie inférieure avec fosse mandibulaire (cavité glénoïde) et tubercule articulaire.' },
+  { question: 'Que comprend la face endocrânienne de l’écaille temporale ?', answer: 'Partie supérieure concave (impressions circonvolutions temporales, sillons artère méningée moyenne).' },
+  { question: 'Que protège l’os temporal ?', answer: 'Les lobes temporaux du cerveau et les cavités de l’oreille.' },
+  { question: 'Quelles cavités l’os temporal contient-il ?', answer: 'Cavités de l’oreille abritant l’équilibre et l’audition.' },
+  { question: 'Quelles sont les parties de l’oreille externe ?', answer: 'Pavillon et méat acoustique externe (MAE).' },
+  { question: 'Par quoi l’oreille moyenne est-elle séparée de l’oreille externe ?', answer: 'Par le tympan.' },
+  { question: 'Quels éléments appartiennent à l’oreille moyenne ?', answer: 'Trompe auditive d’Eustache, antre et cellules mastoïdiennes, chaîne des osselets.' },
+  { question: 'Quel est le rôle de la trompe d’Eustache ?', answer: 'Équilibrer les pressions avec le pharynx.' },
+  { question: 'Quels éléments appartiennent à l’oreille interne ?', answer: 'Cochlée (nerf auditif) et appareil vestibulaire (nerf vestibulaire).' },
+  { question: 'Quel nerf résulte de la fusion du nerf auditif et vestibulaire ?', answer: 'Le nerf cochléo-vestibulaire.' },
+  { question: 'Par quel oriﬁce sort le nerf cochléo-vestibulaire ?', answer: 'Par le méat acoustique interne (MAI).' },
+  { question: 'Où est situé l’os pariétal ?', answer: 'Partie supérieure et latérale du crâne.' },
+  { question: 'Quelle forme a l’os pariétal ?', answer: 'Os quadrilatère majeur.' },
+  { question: 'Quelle proportion de la voûte crânienne forme-t-il ?', answer: 'Plus du tiers.' },
+  { question: 'Avec quel os s’articule le pariétal sur la ligne médiane ?', answer: 'Avec l’os pariétal controlatéral (suture sagittale).' },
+  { question: 'Avec quel os s’articule le pariétal en avant ?', answer: 'Avec l’os frontal (suture coronale).' },
+  { question: 'Avec quel os s’articule le pariétal en arrière ?', answer: 'Avec l’os occipital (suture lambdoïde).' },
+  { question: 'Avec quel os s’articule le pariétal en bas et en avant ?', answer: 'Avec la grande aile du sphénoïde.' },
+  { question: 'Avec quel os s’articule le pariétal en bas, milieu et arrière ?', answer: 'Avec l’os temporal.' },
+  { question: 'Quelle est la forme de la face exocrânienne du pariétal ?', answer: 'Convexe, parcourue par les lignes temporales supérieure et inférieure.' },
+  { question: 'Quelle est la forme de la face endocrânienne du pariétal ?', answer: 'Concave, parcourue par les sillons de l’artère méningée moyenne.' },
+  { question: 'Que longe la suture sagittale au niveau endocrânien du pariétal ?', answer: 'Une semi-gouttière complétée par l’os controlatéral, donnant passage au sinus sagittal supérieur.' },
+  { question: 'Où est situé l’os occipital ?', answer: 'Partie médiane, postérieure et inférieure du crâne.' },
+  { question: 'Quel oriﬁce important perce l’os occipital ?', answer: 'Le foramen magnum.' },
+  { question: 'Que laisse passer le foramen magnum ?', answer: 'La moelle allongée.' },
+  { question: 'Quelles sont les 4 parties de l’os occipital ?', answer: 'Corps (basilaire), écaille occipitale, 2 parties latérales.' },
+  { question: 'Avec quels os s’articule l’occipital en avant et en haut ?', answer: 'Avec les os pariétaux.' },
+  { question: 'Avec quels os s’articule l’occipital en avant et latéralement ?', answer: 'Avec les os temporaux.' },
+  { question: 'Avec quoi s’articule l’occipital en bas ?', answer: 'Avec C1 (atlas).' },
+  { question: 'Avec quoi s’articule l’occipital sur la ligne médiane et en avant ?', answer: 'Avec l’os sphénoïde.' },
+  { question: 'Quelles structures protège l’os occipital ?', answer: 'Tronc cérébral, cervelet, lobes occipitaux.' },
+  { question: 'Quelle est l’importance des lignes nuchales de l’occipital ?', answer: 'Elles donnent insertion aux muscles de la nuque.' },
+  { question: 'Qu’est-ce qu’une embarrure ?', answer: 'Une poche d’air formée par la séparation des berges d’une fracture.' },
+  { question: 'Quelle est la conséquence d’une embarrure avec fragment osseux déplacé ?', answer: 'Perforation des méninges, saignement cérébral, hémorragie.' },
+  { question: 'Que provoque un hématome extradural (HED) ?', answer: 'Un saignement entre les os du crâne et les méninges, avec risque de compression.' },
+  { question: 'Quel relief se trouve sur la face exocrânienne de l’occipital ?', answer: 'Protubérance occipitale externe (POE).' },
+  { question: 'Quelles lignes partent de la POE ?', answer: 'Lignes nuchales supérieures et suprêmes.' },
+  { question: 'Quelle crête relie la POE au foramen magnum ?', answer: 'La crête occipitale externe.' },
+  { question: 'Quelles lignes se trouvent de chaque côté de la crête occipitale externe ?', answer: 'Lignes nuchales inférieures.' },
+  { question: 'Quelle surface occupe la face exocrânienne des parties latérales de l’occipital ?', answer: 'Surface articulaire ovalaire (condyle occipital).' },
+  { question: 'Avec quoi s’articule le condyle occipital ?', answer: 'Avec la masse latérale de C1.' },
+  { question: 'Quel canal s’ouvre en avant du condyle occipital ?', answer: 'Canal du nerf hypoglosse (XII).' },
+  { question: 'Quel canal s’ouvre en arrière du condyle occipital ?', answer: 'Canal condylaire (inconstant).' },
+  { question: 'Quelle structure forme la gouttière basilaire en avant du foramen magnum ?', answer: 'Le clivus (avec le sphénoïde).' },
+  { question: 'Où se trouve la protubérance occipitale interne (POI) ?', answer: 'Sur la face endocrânienne de l’occipital.' },
+  { question: 'Qu’abrite la protubérance occipitale interne (POI) ?', answer: 'Le conﬂuent des sinus veineux (vers la veine jugulaire interne).' },
+  { question: 'Quelles fosses sont visibles à la face endocrânienne de l’occipital ?', answer: '2 fosses cérébrales (lobes occipitaux) et 2 fosses cérébelleuses (hémisphères du cervelet).' },
+  { question: 'Quels éléments passent par le tubercule jugulaire ?', answer: 'Les nerfs IX, X, XI vers le foramen jugulaire.' },
+  { question: 'Que laisse passer le foramen magnum ?', answer: 'Moelle allongée, artères vertébrales, artères spinales antérieures, racines spinales du nerf XI.' },
+  { question: 'Où est situé l’os ethmoïde ?', answer: 'Entre les deux orbites, dont il forme la paroi médiale.' },
+  { question: 'Quelles sont les deux parties de la lame osseuse verticale de l’ethmoïde ?', answer: 'Partie supérieure (crista galli) et partie inférieure (lame perpendiculaire).' },
+  { question: 'Quelle est la particularité de la lame criblée ?', answer: 'Elle est perforée de minuscules oriﬁces pour le passage des ﬁlets olfactifs.' },
+  { question: 'Quelles structures contiennent les masses latérales de l’ethmoïde ?', answer: 'Des cellules s’ouvrant dans la cavité nasale (labyrinthes ethmoïdaux).' },
+  { question: 'Avec combien d’os s’articule l’ethmoïde ?', answer: '13 os.' },
+  { question: 'Quels os du crâne s’articulent avec l’ethmoïde ?', answer: 'Frontal et sphénoïde.' },
+  { question: 'Quels os de la face s’articulent avec l’ethmoïde ?', answer: 'Os nasaux, lacrymaux, maxillaires, palatins, cornets nasaux inférieurs, vomer.' },
+  { question: 'Quelles structures comprend la lame verticale de l’ethmoïde ?', answer: 'Crista galli en haut, lame perpendiculaire en bas.' },
+  { question: 'Quelle est la fonction de la crista galli ?', answer: 'Donner insertion à la faux du cerveau.' },
+  { question: 'Quel rôle joue la lame perpendiculaire de l’ethmoïde ?', answer: 'Elle participe au septum nasal osseux.' },
+  { question: 'Quelles structures se trouvent sur la lame criblée ?', answer: 'Deux gouttières olfactives séparées par la crista galli, traversées par les ﬁlets olfactifs.' },
+  { question: 'Que donnent les faces médiales des masses latérales de l’ethmoïde ?', answer: 'Les cornets nasaux supérieurs et moyens.' },
+  { question: 'Qu’est-ce que la lame orbitaire de l’ethmoïde ?', answer: 'La face latérale des masses latérales, formant la paroi de l’orbite.' },
+  { question: 'Que forment les autres faces des masses latérales ?', answer: 'Des demi-cellules ethmoïdales complétées par les os en regard (frontal, maxillaire, sphénoïde).' },
+  { question: 'Où est situé l’os sphénoïde ?', answer: 'Partie moyenne de la base du crâne.' },
+  { question: 'Quelle forme a l’os sphénoïde ?', answer: 'Forme de papillon.' },
+  { question: 'À combien d’étages du crâne participe-t-il ?', answer: 'Aux 3 étages, surtout à l’étage moyen.' },
+  { question: 'Quels os s’articulent avec le sphénoïde en avant ?', answer: 'L’ethmoïde et le frontal.' },
+  { question: 'Avec quoi s’articule le sphénoïde en arrière ?', answer: 'Avec l’os occipital.' },
+  { question: 'Avec quoi s’articule le sphénoïde latéralement ?', answer: 'Avec les os pariétaux et temporaux.' },
+  { question: 'Quelles sont les 3 grandes parties du sphénoïde ?', answer: 'Corps, ailes (2 petites et 2 grandes), processus ptérygoïdes.' },
+  { question: 'Quelles structures se trouvent sur la face supérieure du corps du sphénoïde ?', answer: 'Processus ethmoïdal, jugum, sillon chiasmatique (canaux optiques), selle turcique.' },
+  { question: 'Que contient la selle turcique ?', answer: 'L’hypophyse.' },
+  { question: 'Par quoi la selle turcique est-elle limitée en avant ?', answer: 'Tubercule de la selle et processus clinoïdes moyens.' },
+  { question: 'Par quoi la selle turcique est-elle limitée en arrière ?', answer: 'Dorsum sellae et processus clinoïdes postérieurs.' },
+  { question: 'Quelle est la fonction des processus clinoïdes ?', answer: 'Points d’insertion de la tente du cervelet.' },
+  { question: 'Que contient le corps du sphénoïde ?', answer: 'Deux sinus séparés par un septum.' },
+  { question: 'Quelle est la forme des petites ailes du sphénoïde ?', answer: 'Lames triangulaires terminées par les processus clinoïdes antérieurs.' },
+  { question: 'Quel est le rôle des petites ailes ?', answer: 'Point d’insertion antérieur de la tente du cervelet, délimitent avec les grandes ailes la ﬁssure orbitaire supérieure.' },
+  { question: 'Que présente la face endocrânienne des grandes ailes du sphénoïde ?', answer: 'Plusieurs oriﬁces de passage pour les nerfs crâniens.' },
+  { question: 'Comment sont formés les processus ptérygoïdes ?', answer: 'D’une lame médiale et d’une lame latérale séparées par la fosse ptérygoïde.' },
+  { question: 'Quelle glande contient la selle turcique ?', answer: 'L’hypophyse.' },
+  { question: 'Quel est le rôle de l’hypophyse ?', answer: 'Glande endocrine centrale sécrétant des hormones sous contrôle de l’hypothalamus.' },
+  { question: 'Quelle structure est située au-dessus de la selle turcique ?', answer: 'Le chiasma optique.' },
+  { question: 'Qu’est-ce que le chiasma optique ?', answer: 'Le croisement partiel des ﬁbres du nerf optique.' },
+  { question: 'Quelle est la conséquence d’une compression du chiasma optique ?', answer: 'Hémianopsie bitemporale.' },
+  { question: 'Qu’est-ce qu’un adénome hypophysaire ?', answer: 'Tumeur bénigne de l’hypophyse entraînant son augmentation de volume.' },
+  { question: 'Quelle autre pathologie peut toucher le sphénoïde ?', answer: 'Sinusite sphénoïdale.' },
+  { question: 'Comment se développe la voûte crânienne in utero ?', answer: 'Par points d’ossiﬁcation dans un tissu conjonctif.' },
+  { question: 'Que sont les fontanelles ?', answer: 'Espaces de tissu conjonctif entre les os à la naissance.' },
+  { question: 'Quelles sont les fontanelles impaires et médianes ?', answer: 'Bregmatique (en avant) et lambdoïde (en arrière).' },
+  { question: 'Quelles sont les fontanelles paires ?', answer: 'Ptérique (latérale antérieure) et astérique (latérale postérieure).' },
+  { question: 'Qu’est-ce que le bregma ?', answer: 'Point de jonction de la suture sagittale et coronale.' },
+  { question: 'Qu’est-ce que le lambda ?', answer: 'Point de jonction de la suture sagittale et lambdoïde.' },
+  { question: 'Qu’est-ce que l’astérion ?', answer: 'Jonction des sutures reliant pariétal, occipital et temporal.' },
+  { question: 'Qu’est-ce que le ptérion ?', answer: 'Jonction des os frontal, pariétal, sphénoïde et temporal.' },
+  { question: 'Quand se ferme la fontanelle lambdoïde ?', answer: 'Vers 3 mois.' },
+  { question: 'Quand se ferme la fontanelle ptérique ?', answer: 'Vers 6 mois.' },
+  { question: 'Quand se ferme la fontanelle astérique ?', answer: 'Vers 18 mois.' },
+  { question: 'Quand se ferme la fontanelle bregmatique ?', answer: 'Vers 36 mois (3 ans).' },
+  { question: 'Qu’est-ce qu’une suture crânienne ?', answer: 'Vestige de tissu conjonctif entre les os, articulation immobile (synﬁbrose).' },
+  { question: 'Quelle suture unit les os pariétaux sur la ligne médiane ?', answer: 'La suture sagittale (ou interpariétale).' },
+  { question: 'Quelle suture sépare l’os frontal des pariétaux ?', answer: 'La suture coronale (ou fronto-pariétale).' },
+  { question: 'Quelle suture sépare les pariétaux de l’occipital ?', answer: 'La suture lambdoïde (ou pariéto-occipitale).' },
+  { question: 'Quelle suture sépare les os temporaux et pariétaux ?', answer: 'La suture squameuse.' },
+  { question: 'Quelle suture sépare l’os temporal et la grande aile du sphénoïde ?', answer: 'La suture sphéno-squameuse.' },
+  { question: 'Quelle suture sépare l’os frontal et la grande aile du sphénoïde ?', answer: 'La suture sphéno-frontale.' },
+  { question: 'Quelle suture sépare l’os pariétal et la grande aile du sphénoïde ?', answer: 'La suture sphéno-pariétale.' },
+  { question: 'Quelle suture sépare la partie mastoïdienne du temporal et l’os pariétal ?', answer: 'La suture pariéto-mastoïdienne.' },
+  { question: 'Quelle suture sépare la partie mastoïdienne du temporal et l’occipital ?', answer: 'La suture occipito-mastoïdienne.' },
+  { question: 'En combien de parties est divisé le crâne ?', answer: 'En 2 parties : la voûte et la base.' },
+  { question: 'Quels os composent essentiellement la voûte du crâne ?', answer: 'Portion verticale de l’os frontal, 2 os pariétaux, écaille de l’os temporal, portion supérieure de l’os occipital, participation minime du sphénoïde (grandes ailes).' },
+  { question: 'De quoi est constituée la base du crâne ?', answer: 'De 3 fosses (antérieure, moyenne, postérieure) percées de foramens.' },
+  { question: 'Quelle est la fonction des foramens de la base du crâne ?', answer: 'Permettre l’entrée et la sortie du système vasculo-nerveux.' },
+  { question: 'Où se situe la fosse crânienne antérieure ?', answer: 'En avant de la base du crâne, au-dessus des fosses nasales et des orbites.' },
+  { question: 'Quel est le contenu principal de la fosse crânienne antérieure ?', answer: 'Les lobes frontaux.' },
+  { question: 'Par quoi est séparée la fosse crânienne moyenne de l’antérieure ?', answer: 'Par la partie supérieure du corps du sphénoïde, au niveau du bord antérieur du sillon chiasmatique.' },
+  { question: 'Quelle structure se situe au niveau du sillon chiasmatique ?', answer: 'Le chiasma optique (décussation partielle des ﬁbres du nerf optique).' },
+  { question: 'Quelles structures se trouvent sur la face supérieure du corps du sphénoïde ?', answer: 'Jugum sphénoïdal, sillon chiasmatique, selle turcique, dorsum de la selle.' },
+  { question: 'Qu’est-ce que le clivus ?', answer: 'Jonction entre le dorsum de la selle (sphénoïde) et la partie endocrânienne basilaire de l’os occipital, pente osseuse descendant vers le foramen magnum.' },
+  { question: 'Par quoi est limitée la fosse crânienne postérieure ?', answer: 'Latéralement par la portion pétro-mastoïdienne de l’os temporal, en arrière par l’écaille occipitale, en avant par le clivus.' },
+  { question: 'Quels os composent la fosse crânienne antérieure ?', answer: 'Portion horizontale endocrânienne du frontal, échancrure ethmoïdale (avec lame criblée + crista galli), partie antérieure du corps du sphénoïde (jugum) et petites ailes du sphénoïde.' },
+  { question: 'Que traverse le foramen caecum ?', answer: 'Petites veines émissaires reliant le sinus sagittal supérieur aux fosses nasales.' },
+  { question: 'Que traversent les foramens olfactifs ?', answer: 'Les ﬁlets du nerf olfactif (I), provenant des cellules neurosensorielles de la muqueuse nasale.' },
+  { question: 'Où se situe le canal optique ?', answer: 'Entre la petite aile du sphénoïde et les processus clinoïdes antérieurs.' },
+  { question: 'Que contient le canal optique ?', answer: 'Nerf optique (II) et artère ophtalmique (branche de la carotide interne).' },
+  { question: 'Quels os composent la fosse crânienne moyenne ?', answer: 'Le sphénoïde (sillon chiasmatique, selle turcique, grandes ailes) et la partie mastoïdienne des os temporaux.' },
+  { question: 'Qu’est-ce que la ﬁssure orbitaire supérieure ?', answer: 'Foramen entre grande et petite aile du sphénoïde.' },
+  { question: 'Que traverse la ﬁssure orbitaire supérieure ?', answer: 'Nerfs oculomoteurs (III), trochléaire (IV), abducens (VI), nerf ophtalmique (V1), veines ophtalmiques.' },
+  { question: 'Que traverse le foramen rond ?', answer: 'Le nerf maxillaire (V2).' },
+  { question: 'Que traverse le foramen ovale ?', answer: 'Le nerf mandibulaire (V3), sensitivo-moteur, et parfois l’artère méningée moyenne accessoire.' },
+  { question: 'Que traverse le foramen épineux ?', answer: 'L’artère méningée moyenne et ses veines satellites.' },
+  { question: 'Que traverse le canal carotidien ?', answer: 'L’artère carotide interne (vascularisation antérieure du cerveau).' },
+  { question: 'Où se situe le foramen lacerum (trou déchiré postérieur) ?', answer: 'Entre rocher et sphénoïde, interne de la suture sphéno-pétreuse.' },
+  { question: 'Que peut laisser passer le foramen lacerum ?', answer: 'Le nerf vidien (sympathique) et parfois une branche de l’artère pharyngienne ascendante (mais souvent fermé par du cartilage).' },
+  { question: 'Que traverse le hiatus du nerf grand pétreux ?', answer: 'Le nerf grand pétreux (rameau du VII).' },
+  { question: 'Que traverse le hiatus du nerf petit pétreux ?', answer: 'Le nerf petit pétreux (branche du IX).' },
+  { question: 'Quels os composent la fosse crânienne postérieure ?', answer: 'Dorsum de la selle du sphénoïde, os temporaux et os occipital (majoritairement).' },
+  { question: 'Quels sont les 5 foramens de la fosse crânienne postérieure ?', answer: 'Foramen magnum, méat acoustique interne, foramen jugulaire, canal de l’hypoglosse, canal condylaire.' },
+  { question: 'Que laisse passer le foramen magnum ?', answer: 'Moelle allongée, méninges, artères vertébrales, artères spinales antérieures, racines spinales du nerf XI.' },
+  { question: 'Où est situé le méat acoustique interne ?', answer: 'Face postérosupérieure du rocher de l’os temporal.' },
+  { question: 'Que traverse le méat acoustique interne ?', answer: 'Nerf cochléo-vestibulaire (VIII), nerf facial (VII), nerf intermédiaire de Wrisberg (VIIbis).' },
+  { question: 'Où est situé le foramen jugulaire ?', answer: 'Entre rocher du temporal et os occipital.' },
+  { question: 'Que traverse le foramen jugulaire ?', answer: 'Nerf glossopharyngien (IX), nerf vague (X), nerf accessoire (XI), sinus pétreux inférieur et sigmoïde (ˠ veine jugulaire interne).' },
+  { question: 'Où est localisé le canal de l’hypoglosse ?', answer: 'Dans l’os occipital, de part et d’autre du foramen magnum.' },
+  { question: 'Que traverse le canal de l’hypoglosse ?', answer: 'Nerf hypoglosse (XII) et branche méningée de l’artère pharyngienne ascendante.' },
+  { question: 'Où se situe le canal condylaire ?', answer: 'En arrière du canal de l’hypoglosse.' },
+  { question: 'Que traverse le canal condylaire ?', answer: 'Une veine émissaire (foramen inconstant).' },
+  { question: 'Combien existe-t-il de paires de nerfs crâniens ?', answer: '12 paires.' },
+  { question: 'Quels nerfs rentrent dans le crâne ?', answer: 'Nerf olfactif (I) et nerf optique (II).' },
+  { question: 'Comment sont numérotés les nerfs crâniens ?', answer: 'De I à XII, pairs et symétriques.' },
+  { question: 'Donne la liste des nerfs crâniens.', answer: 'I olfactif, II optique, III oculomoteur, IV trochléaire, V trijumeau, VI abducens, VII facial, VIIbis intermédiaire de Wrisberg, VIII cochléo-vestibulaire, IX glossopharyngien, X vague, XI accessoire, XII hypoglosse.' },
+  { question: 'Quelle est l’origine réelle des nerfs I et II ?', answer: 'Ce sont des axones du système nerveux central qui rentrent dans le crâne.' },
+  { question: 'À quel système appartiennent les nerfs III à XII ?', answer: 'Au système nerveux périphérique.' },
+  { question: 'Où se trouvent les noyaux des nerfs crâniens III à XII ?', answer: 'Dans le plancher du 4ème ventricule, organisés en colonnes.' },
+  { question: 'Quels nerfs crâniens ont une origine apparente au niveau du mésencéphale ?', answer: 'Les nerfs III et IV.' },
+  { question: 'Quel nerf a une origine apparente au niveau du pont ?', answer: 'Le nerf V.' },
+  { question: 'Quels nerfs émergent à la jonction pont-moelle allongée ?', answer: 'Le nerf VI et le paquet acoustico-facial (VII, VIIbis, VIII).' },
+  { question: 'Quels nerfs émergent de la moelle allongée ?', answer: 'Les nerfs IX, X, XI et XII.' },
+  { question: 'Où sortent les origines apparentes des nerfs crâniens ?', answer: 'Sur la face antérieure ou latérale du tronc cérébral, sauf le IV qui sort en arrière.' },
+  { question: 'Quel est le rôle principal du nerf trijumeau ?', answer: 'Nerf de la sensibilité de la face.' },
+  { question: 'Quelle est l’origine apparente du trijumeau ?', answer: 'Partie antéro-latérale du pont, par deux racines.' },
+  { question: 'Quelles sont les deux racines du trijumeau ?', answer: 'Une grosse racine sensitive, une petite racine motrice.' },
+  { question: 'Quel espace traverse la racine sensitive du trijumeau ?', answer: 'Le trigone ponto-cérébelleux.' },
+  { question: 'Quelles sont les limites du trigone ponto-cérébelleux ?', answer: 'Rocher en avant et dehors, pont et moelle allongée en dedans, cervelet en arrière.' },
+  { question: 'Où se situe le ganglion trigéminal de Gasser ?', answer: 'Face antérosupérieure du rocher.' },
+  { question: 'Quelles branches naissent du ganglion de Gasser ?', answer: 'Nerf ophtalmique (V1), nerf maxillaire (V2), nerf mandibulaire (V3).' },
+  { question: 'Avec quelle branche le trijumeau associe-t-il sa racine motrice ?', answer: 'Avec V3, au niveau du foramen ovale.' },
+  { question: 'Quel trajet suit le nerf ophtalmique (V1) ?', answer: 'Se dirige vers la paroi latérale du sinus caverneux, quitte le crâne par la ﬁssure orbitaire supérieure.' },
+  { question: 'Quelles sont les 3 branches terminales du nerf ophtalmique ?', answer: 'Nerf frontal, nerf lacrymal, nerf naso-ciliaire.' },
+  { question: 'Quels territoires sensitifs sont innervés par V1 ?', answer: 'Œil, cornée, orbite, glande lacrymale, téguments péri-orbitaires, partie antérieure de la cavité nasale, partie antérieure du scalp, partie antérosupérieure et médiane de la face.' },
+  { question: 'Par quel foramen sort le nerf maxillaire (V2) ?', answer: 'Le foramen rond.' },
+  { question: 'Quel est le trajet du nerf maxillaire (V2) après le foramen rond ?', answer: 'Pénètre dans la fosse ptérygo-palatine, chemine dans le sillon infra-orbitaire puis le canal infra-orbitaire.' },
+  { question: 'En quoi se termine le nerf maxillaire ?', answer: 'En nerf infra-orbitaire donnant des rameaux cutanés (dont rameaux alvéolaires).' },
+  { question: 'Quels territoires cutanés sont innervés par V2 ?', answer: 'Partie de la lèvre, aile du nez, joue, partie du front.' },
+  { question: 'Quels territoires oraux sont innervés par V2 ?', answer: 'Dents et gencives supérieures, palais, sinus maxillaire, partie supérieure du vestibule oral, lèvre supérieure.' },
+  { question: 'Quelle communication existe entre V2 et V1 ?', answer: 'Rameau communicant entre nerf zygomatique (issu de V2) et nerf lacrymal (V1).' },
+  { question: 'Quels autres territoires sont innervés par V2 ?', answer: 'La cavité nasale.' },
+  { question: 'D’où naît le nerf mandibulaire (V3) ?', answer: 'De la réunion de la racine motrice du V et de V3 au niveau du foramen ovale.' },
+  { question: 'Quel est le trajet initial du nerf mandibulaire (V3) ?', answer: 'Sort dans la fosse infra-temporale.' },
+  { question: 'Quelles divisions présente V3 ?', answer: 'Un tronc antérieur (plutôt moteur) et un tronc postérieur (plutôt sensitif).' },
+  { question: 'Quelles branches comporte le tronc postérieur de V3 ?', answer: 'Nerfs auriculo-temporal, lingual et alvéolaire inférieur.' },
+  { question: 'Quels territoires cutanés de la face sont innervés par V3 ?', answer: 'Tempe, partie de la joue, menton, oreille.' },
+  { question: 'Quelle modalité sensorielle est transmise par V3 ?', answer: 'La gustation (noyaux gustatifs).' },
+  { question: 'Quelle pathologie est liée au nerf trijumeau ?', answer: 'La névralgie trigéminale.' },
+  { question: 'Quels sont les signes de la névralgie trigéminale ?', answer: 'Douleurs très fortes et brèves (paroxystiques) dans le territoire de V1, V2 ou V3, déclenchées parfois par simple eﬄeurement.' },
+  { question: 'Quels sont les traitements de la névralgie trigéminale ?', answer: 'Antalgiques, thermo-coagulation du ganglion de Gasser, destruction partielle des ﬁbres de V1, V2 ou V3.' },
+  { question: 'Quelle est l’origine apparente du nerf facial (VII) ?', answer: 'Sillon bulbo-pontique, en avant du VIII.' },
+  { question: 'Quelle est l’origine apparente du VIIbis ?', answer: 'En arrière et latéral par rapport au VII, plus grêle.' },
+  { question: 'Quel trajet initial emprunte le nerf facial avec le VIII ?', answer: 'Le trigone ponto-cérébelleux et le méat acoustique interne.' },
+  { question: 'Quel trajet intra-osseux suit le nerf facial ?', answer: 'Trajet en Z dans le canal facial, avec ganglion géniculé.' },
+  { question: 'Quelles branches intra-pétreuses abandonne le nerf facial ?', answer: 'Nerf grand pétreux, corde du tympan.' },
+  { question: 'Où le VII et le VIIbis s’accolent-ils ?', answer: 'Au niveau du ganglion géniculé.' },
+  { question: 'Par quel foramen sort le nerf facial ?', answer: 'Foramen stylo-mastoïdien.' },
+  { question: 'Où chemine ensuite le nerf facial ?', answer: 'Espace rétro-stylien ˠ loge parotidienne ˠ glande parotide (trajet oblique bas/avant).' },
+  { question: 'Comment se termine le nerf facial dans la parotide ?', answer: 'En 2 branches : temporo-faciale (motricité supérieure de la face), cervico-faciale (motricité inférieure de la face et muscles du cou).' },
+  { question: 'Quels muscles sont innervés par le nerf facial ?', answer: 'Les muscles peauciers (mimique).' },
+  { question: 'Quelle zone cutanée est innervée par VIIbis ?', answer: 'Zone de Ramsay Hunt (MAE, tympan, conque auriculaire).' },
+  { question: 'Quelle innervation sensorielle assure le facial ?', answer: 'Gustation des 2/3 antérieurs de la langue.' },
+  { question: 'Quelle innervation végétative assure le facial ?', answer: 'Glande lacrymale, muqueuses nasale et palatine, glandes submandibulaire et sublinguale.' },
+  { question: 'Quelle glande n’est PAS innervée par le facial ?', answer: 'La parotide.' },
+  { question: 'Quels signes caractérisent une paralysie faciale périphérique ?', answer: 'Paralysie territoriale d’un côté, visage lisse, impossibilité de fermer la paupière supérieure, asymétrie faciale.' },
+  { question: 'Quelles solutions thérapeutiques existent pour la paralysie faciale périphérique ?', answer: 'Tarsorraphie, injection de botox, protection oculaire par compresse/bandage, traction labiale du côté sain.' },
+  { question: 'Quelle est l’origine apparente du nerf IX ?', answer: 'Surface de la moelle allongée.' },
+  { question: 'Par quel foramen sort le nerf IX ?', answer: 'Foramen jugulaire (en avant du X).' },
+  { question: 'Quel est le trajet initial du IX après le foramen ?', answer: 'Croise l’artère carotide interne, longe la face latérale du pharynx, se termine par des rameaux sensitifs et gustatifs de la langue.' },
+  { question: 'Quels muscles sont innervés par le IX ?', answer: 'Constricteur du pharynx, stylo-pharyngien, stylo-glosse.' },
+  { question: 'Quels territoires sensitifs sont innervés par IX ?', answer: '1/3 postérieur de la langue, voile du palais, tonsille palatine, trompe auditive, caisse du tympan.' },
+  { question: 'Quelle innervation sensorielle assure IX ?', answer: 'Gustation du V lingual (jonction langue antérieure/postérieure) + 1/3 postérieur de la langue.' },
+  { question: 'Quelle innervation végétative assure IX ?', answer: 'Sécrétion salivaire réﬂexe de la parotide, sinus carotidien (barorécepteurs).' },
+  { question: 'Quels signes révèlent une atteinte du IX ?', answer: 'Réﬂexe nauséeux diminué/aboli, altération du goût (1/3 postérieur langue), paralysie constricteur du pharynx (signe du rideau avec déplacement du pharynx vers côté sain).' },
+  { question: 'Quelle est l’origine apparente du nerf X ?', answer: 'Sillon postéro-latéral de la moelle allongée.' },
+  { question: 'Par quel foramen sort le nerf X ?', answer: 'Foramen jugulaire (en arrière du IX).' },
+  { question: 'Quelle est la fonction principale du nerf vague ?', answer: 'Principal nerf parasympathique de l’organisme.' },
+  { question: 'Quel est son trajet extra-crânien ?', answer: 'Région cervicale, thoracique (médiastin moyen/postérieur), traverse le diaphragme.' },
+  { question: 'Quels organes abdominaux sont innervés par le X ?', answer: 'Estomac (commande sécrétion acide).' },
+  { question: 'Quelles branches cervicales donne le X ?', answer: 'Nerf laryngé supérieur et nerf laryngé inférieur (récurrent).' },
+  { question: 'Où naît le nerf laryngé récurrent ?', answer: 'Dans le thorax (passe sous l’arc aortique à gauche).' },
+  { question: 'Où se termine le nerf vague droit ?', answer: 'Plexus cœliaque.' },
+  { question: 'Où se termine le nerf vague gauche ?', answer: 'Œsophage abdominal et petite courbure gastrique.' },
+  { question: 'Quel muscle lingual est innervé par le X ?', answer: 'Muscle palatoglosse.' },
+  { question: 'Quelles pathologies sont liées au X ?', answer: 'Troubles de la déglutition, troubles de la phonation, paralysie hémi-voile, dysphonie (lésion des nerfs laryngés).' },
+  { question: 'Quelle est l’origine apparente du nerf hypoglosse (XII) ?', answer: 'Surface de la moelle allongée, position médiane.' },
+  { question: 'Par quel foramen sort le XII ?', answer: 'Canal du nerf hypoglosse (dans l’os occipital).' },
+  { question: 'Quel est le trajet du XII après sa sortie ?', answer: 'Espace latéro-pharyngien ˠ trigone carotidien ˠ trigone submandibulaire ˠ face latérale de la langue.' },
+  { question: 'Quelle est la nature du XII ?', answer: 'Racine purement motrice.' },
+  { question: 'Quels muscles sont innervés par le XII ?', answer: 'Tous les muscles infra-hyoïdiens et tous les muscles de la langue sauf stylo-glosse (IX) et palatoglosse (X).' },
+  { question: 'Quelles sont les pathologies liées au XII ?', answer: 'Troubles de la mastication, de la succion, de la déglutition, de la phonation, paralysie d’une hémi-langue.' },
+  { question: 'Combien d’os comprend le crâne ?', answer: '22 os.' },
+  { question: 'Comment se répartissent les os du crâne ?', answer: 'En 2 massifs : un massif crânial (8 os) et un massif facial (14 os).' },
+  { question: 'Quels os du massif crânial participent aussi au massif facial ?', answer: 'L’os frontal, l’os ethmoïde, l’os sphénoïde.' },
+  { question: 'Comment l’os frontal participe-t-il à la face ?', answer: 'Par ses fosses orbitaires dans la paroi supérieure de l’orbite.' },
+  { question: 'Comment l’os ethmoïde participe-t-il à la face ?', answer: 'Par ses labyrinthes et sa lame perpendiculaire.' },
+  { question: 'Comment l’os sphénoïde participe-t-il à la face ?', answer: 'Par ses processus ptérygoïdes et la face infra-temporale de sa grande aile.' },
+  { question: 'De combien d’os est composé le massif facial ?', answer: '14 os.' },
+  { question: 'Quels sont les os pairs du massif facial ?', answer: 'Os lacrymaux, os zygomatiques, os palatins, os nasaux, cornets nasaux inférieurs, os maxillaires.' },
+  { question: 'Quels sont les os impairs du massif facial ?', answer: 'Le vomer et la mandibule.' },
+  { question: 'Quelles grandes cavités sont délimitées par le massif facial ?', answer: '2 cavités orbitaires, 2 cavités nasales, 1 cavité buccale.' },
+  { question: 'Quelles fosses sont délimitées par le massif facial ?', answer: 'La fosse infra-temporale et la fosse ptérygo-palatine.' },
+  { question: 'À quelles parois participe l’os lacrymal ?', answer: 'Paroi médiale de l’orbite et paroi latérale de la cavité nasale.' },
+  { question: 'Où est situé l’os lacrymal ?', answer: 'En arrière du processus frontal de l’os maxillaire.' },
+  { question: 'Quelle est la forme de l’os lacrymal ?', answer: 'Lame quadrilatère.' },
+  { question: 'Comment est la face latérale de l’os lacrymal ?', answer: 'Concave, divisée par la crête lacrymale postérieure qui porte l’hamulus lacrymal.' },
+  { question: 'Comment est la face médiale de l’os lacrymal ?', answer: 'Convexe, avec une partie supérieure creusée de demi-cellules (ˠ sinus) et une partie inférieure répondant au méat moyen de la cavité nasale.' },
+  { question: 'Avec quels os s’articule l’os lacrymal ?', answer: 'En haut avec le processus nasal de l’os frontal, en avant avec le processus frontal du maxillaire, en bas avec le processus lacrymal du cornet nasal inférieur, en arrière avec l’ethmoïde.' },
+  { question: 'Quelles fonctions remplit l’os lacrymal ?', answer: 'Constitue les parois médiales de l’orbite et latérales des fosses nasales, abrite une partie de l’appareil lacrymal.' },
+  { question: 'Où s’écoulent en partie les larmes produites par l’appareil lacrymal ?', answer: 'Dans les fosses nasales.' },
+  { question: 'Quel rôle morphologique joue l’os zygomatique ?', answer: 'Il forme le relief de la pommette.' },
+  { question: 'Où se situe l’os zygomatique ?', answer: 'C’est l’os le plus latéral de la face.' },
+  { question: 'Quelle est la fonction de l’os zygomatique ?', answer: 'Protéger l’orbite et contribuer à l’esthétique du visage.' },
+  { question: 'Que présente la face latérale de l’os zygomatique ?', answer: 'Le relief de la pommette, l’oriﬁce de sortie du nerf zygomatique, insertion des muscles zygomatiques.' },
+  { question: 'Comment se forme l’arcade zygomatique ?', answer: 'Par l’articulation du processus temporal de l’os zygomatique avec le processus zygomatique de l’os temporal.' },
+  { question: 'Quelles particularités présente la face antéro-médiale de l’os zygomatique ?', answer: 'Segment vertical articulé avec l’os frontal, segment horizontal participant au plancher de l’orbite (traversé par le nerf zygomatique).' },
+  { question: 'Que loge le segment inférieur de la face postéro-médiale de l’os zygomatique ?', answer: 'La boule graisseuse de Bichat.' },
+  { question: 'À quoi participe l’os palatin ?', answer: 'À la formation du palais osseux (lame horizontale), des parois latérales de la cavité nasale (lame verticale), et du plancher de l’orbite (processus orbitaire).' },
+  { question: 'Quelles cavités de la face impliquent l’os palatin ?', answer: 'Cavité buccale, cavité nasale, cavité orbitaire.' },
+  { question: 'Quelle est la forme de l’os palatin ?', answer: 'En L avec deux lames (horizontale et verticale).' },
+  { question: 'Quelle partie de l’os palatin forme le 1/4 postérieur du palais osseux ?', answer: 'La lame horizontale.' },
+  { question: 'Quelle crête se forme sur le bord médial de la lame horizontale ?', answer: 'La crête nasale.' },
+  { question: 'Quelle est la fonction de la lame verticale du palatin ?', answer: 'Former la partie postérieure de la paroi latérale de la cavité nasale (avec crête conchale et crête ethmoïdale).' },
+  { question: 'Quels processus naissent de la lame verticale de l’os palatin ?', answer: 'Processus pyramidal, orbitaire et sphénoïdal.' },
+  { question: 'Quelle est la position des os nasaux ?', answer: 'Sur la ligne médiane, entre les processus frontaux des maxillaires, en dessous de l’os frontal.' },
+  { question: 'Quelle est la forme des os nasaux ?', answer: 'Lames quadrilatères, plus larges en bas qu’en haut.' },
+  { question: 'Avec quels os s’articulent les os nasaux ?', answer: 'Avec l’os frontal en haut, les maxillaires en bas et sur les côtés, et entre eux sur la ligne médiane.' },
+  { question: 'Quelle est la fonction des os nasaux ?', answer: 'Former la partie supérieure du squelette du nez.' },
+  { question: 'Quelle est la position du cornet nasal inférieur ?', answer: 'Sur la paroi latérale de chaque fosse nasale.' },
+  { question: 'Quelle est la forme du cornet nasal inférieur ?', answer: 'Os pair, aplati transversalement, enroulé en bas et en dedans en une lame.' },
+  { question: 'Que délimite le cornet nasal inférieur ?', answer: 'Le méat inférieur.' },
+  { question: 'Avec quels os s’articule le cornet nasal inférieur ?', answer: 'Maxillaire, palatin, lacrymal, ethmoïde.' },
+  { question: 'Quelle est la fonction du cornet nasal inférieur ?', answer: 'Augmenter la surface muqueuse pour le réchauﬀement et l’humidiﬁcation de l’air inspiré.' },
+  { question: 'Quelle est la position du vomer ?', answer: 'Sur la ligne médiane, il forme la partie postérieure et inférieure de la cloison nasale osseuse.' },
+  { question: 'Quelle est la forme du vomer ?', answer: 'Lame quadrilatère mince, oblique en bas et en avant.' },
+  { question: 'Avec quels os s’articule le vomer ?', answer: 'Sphénoïde, ethmoïde, palatin, maxillaires.' },
+  { question: 'Quelle est la fonction du vomer ?', answer: 'Former la partie postéro-inférieure de la cloison nasale.' },
+  { question: 'Quelle est la position de la mandibule ?', answer: 'Os impair, médian, mobile, situé dans la partie inférieure de la face.' },
+  { question: 'Quelle est la forme générale de la mandibule ?', answer: 'En fer à cheval ouvert en arrière.' },
+  { question: 'Quelles sont les parties de la mandibule ?', answer: 'Corps horizontal (2/3 antérieurs) et 2 branches montantes (en arrière).' },
+  { question: 'Quelles sont les caractéristiques du corps de la mandibule ?', answer: 'Arcade alvéolaire portant les dents inférieures, face externe avec foramen mentonnier, face interne avec épine de la langue.' },
+  { question: 'Que porte chaque branche montante de la mandibule ?', answer: 'En haut deux processus : coronoïde (antérieur, insertion du temporal) et condyle (postérieur, articulaire).' },
+  { question: 'Par quoi sont séparés les processus de la mandibule ?', answer: 'Par l’incisure mandibulaire.' },
+  { question: 'Quelle structure traverse la branche montante ?', answer: 'Le canal dentaire inférieur.' },
+  { question: 'Quelle est la fonction de la mandibule ?', answer: 'Supporter les dents inférieures et permettre les mouvements de la mastication.' },
+  { question: 'Quelle est la position de l’os maxillaire ?', answer: 'Pair, situé au centre de la face.' },
+  { question: 'Quelles structures comporte l’os maxillaire ?', answer: 'Un corps et quatre processus (zygomatique, frontal, alvéolaire, palatin).' },
+  { question: 'Quelle est la forme du corps du maxillaire ?', answer: 'Il contient le sinus maxillaire, pyramide à quatre faces.' },
+  { question: 'Que présente la face antérieure du corps du maxillaire ?', answer: 'Fosse canine, foramen infra-orbitaire.' },
+  { question: 'Que présente la face orbitaire du corps du maxillaire ?', answer: 'Constitue une grande partie du plancher de l’orbite.' },
+  { question: 'Que présente la face nasale du corps du maxillaire ?', answer: 'S’ouvre largement dans la cavité nasale.' },
+  { question: 'Que présente la face postérieure du corps du maxillaire ?', answer: 'Tubérosité maxillaire.' },
+  { question: 'Quelle est la fonction du processus zygomatique du maxillaire ?', answer: 'S’articuler avec l’os zygomatique.' },
+  { question: 'Quelle est la fonction du processus frontal du maxillaire ?', answer: 'S’élever vers l’os frontal, formant partie de la paroi nasale latérale.' },
+  { question: 'Quelle est la fonction du processus alvéolaire du maxillaire ?', answer: 'Supporter les dents supérieures.' },
+  { question: 'Quelle est la fonction du processus palatin du maxillaire ?', answer: 'Former les 3/4 antérieurs du palais osseux.' },
+  { question: 'Avec quels os s’articule le maxillaire ?', answer: 'Frontal, nasal, lacrymal, ethmoïde, palatin, vomer, zygomatique, cornet nasal inférieur.' },
+  { question: 'Quelles cavités impliquent le maxillaire ?', answer: 'Cavité buccale, cavité nasale, cavité orbitaire.' },
+  { question: 'Quelle pathologie fréquente est liée au maxillaire ?', answer: 'Sinusite maxillaire.' },
+  { question: 'Combien d’oriﬁces principaux présente la face ?', answer: 'Trois : cavités orbitaires, cavités nasales, cavité buccale.' },
+  { question: 'Quelle est la forme des cavités orbitaires ?', answer: 'Forme pyramidale à base antérieure et sommet postérieur.' },
+  { question: 'Que contient l’orbite ?', answer: 'Globe oculaire, muscles oculomoteurs, vaisseaux, nerfs.' },
+  { question: 'Quels sont les oriﬁces de communication de l’orbite ?', answer: 'Canal optique, ﬁssure orbitaire supérieure, ﬁssure orbitaire inférieure, canal naso-lacrymal, canal ethmoïdal antérieur et postérieur.' },
+  { question: 'Par quoi sont séparées les fosses nasales ?', answer: 'Par la cloison nasale médiane.' },
+  { question: 'Quels sont les cornets nasaux ?', answer: 'Cornets supérieur, moyen (ethmoïde) et inférieur (os indépendant).' },
+  { question: 'Que délimitent les cornets nasaux ?', answer: 'Les méats (supérieur, moyen, inférieur).' },
+  { question: 'Où débouchent les sinus paranasaux ?', answer: 'Dans les méats des fosses nasales.' },
+  { question: 'Quels sont les sinus paranasaux ?', answer: 'Sinus frontal, ethmoïdal, sphénoïdal, maxillaire.' },
+  { question: 'Quel est le rôle des sinus paranasaux ?', answer: 'Alléger les os de la face et participer à la résonance de la voix.' },
+  { question: 'Quel est le rôle de la cavité buccale ?', answer: 'Début du tube digestif, phonation, gustation, respiration accessoire.' },
+  { question: 'Où se situe la fosse infra-temporale ?', answer: 'En arrière du maxillaire et en dedans de l’os zygomatique.' },
+  { question: 'Que contient la fosse infra-temporale ?', answer: 'Muscles ptérygoïdiens, vaisseaux maxillaires, plexus veineux ptérygoïdien, branches du nerf mandibulaire (V3).' },
+  { question: 'Où se situe la fosse ptérygo-palatine ?', answer: 'En arrière du maxillaire, entre les processus ptérygoïdes et l’os palatin.' },
+  { question: 'Que contient la fosse ptérygo-palatine ?', answer: 'Nerf maxillaire (V2) et ses branches, ganglion ptérygo-palatin, artère maxillaire.' },
+  { question: 'Quelles sont les 3 grandes cavités de la face ?', answer: 'La cavité orbitaire, la cavité nasale et la cavité orale.' },
+  { question: 'Quelles sont les 2 fosses du massif facial ?', answer: 'La fosse infra-temporale et la fosse ptérygo-palatine.' },
+  { question: 'Où est située la cavité orbitaire ?', answer: 'Partie supérieure de la face, sous la fosse crânienne antérieure et en avant de la fosse crânienne moyenne.' },
+  { question: 'Quelle est la forme de la cavité orbitaire ?', answer: 'Pyramide dont la base s’ouvre en avant au niveau de la face.' },
+  { question: 'Que contient la cavité orbitaire ?', answer: 'Nerfs (dont le nerf optique), vaisseaux, muscles oculomoteurs, globe oculaire et appareil lacrymal.' },
+  { question: 'Quelle est la paroi supérieure de la cavité orbitaire ?', answer: 'Partie orbitaire de l’os frontal et face inférieure de la petite aile du sphénoïde.' },
+  { question: 'Quelle est la paroi inférieure de la cavité orbitaire ?', answer: 'Surface orbitaire de l’os maxillaire, os zygomatique, processus de l’os palatin.' },
+  { question: 'Quelle est la paroi médiale de la cavité orbitaire ?', answer: 'Processus frontal du maxillaire, os lacrymal, labyrinthe de l’éthmoïde, partie antérieure du corps du sphénoïde.' },
+  { question: 'Quelle est la paroi latérale de la cavité orbitaire ?', answer: 'Os zygomatique et grande aile du sphénoïde.' },
+  { question: 'Quel est le contenu du canal optique ?', answer: 'Nerf optique et artère ophtalmique.' },
+  { question: 'Que traverse la ﬁssure orbitaire supérieure (FOS) ?', answer: 'Nerfs III, IV, VI, V1 et veines ophtalmiques.' },
+  { question: 'Que traverse la ﬁssure orbitaire inférieure (FOI) ?', answer: 'Nerf V2, vaisseaux infra-orbitaires et veines communicantes.' },
+  { question: 'Quel foramen est situé sur la paroi médiale de l’orbite ?', answer: 'Les foramens ethmoïdaux antérieur et postérieur.' },
+  { question: 'Où se situe l’oriﬁce du conduit lacrymo-nasal ?', answer: 'Sur le bord inféro-médial de l’orbite.' },
+  { question: 'Où est située la cavité nasale ?', answer: 'Sous la base du crâne, en dedans des orbites et au-dessus de la cavité orale.' },
+  { question: 'Qu’est-ce qui sépare la cavité nasale en deux ?', answer: 'Le septum nasal.' },
+  { question: 'Quelles sont les ouvertures de la cavité nasale ?', answer: 'Les narines en avant et les choanes en arrière.' },
+  { question: 'Quels sont les cartilages du nez ?', answer: 'Cartilage septal, processus latéral du cartilage septal, grand cartilage alaire et cartilages alaires accessoires.' },
+  { question: 'Quels os forment la paroi supérieure (toit) de la cavité nasale ?', answer: 'Os nasal, épine nasale du frontal, lame criblée de l’éthmoïde, sphénoïde (parois antérieure et inférieure), aile du vomer.' },
+  { question: 'Quels os forment la paroi inférieure (plancher) de la cavité nasale ?', answer: 'Processus palatin du maxillaire (¾ antérieurs) et lame horizontale du palatin (¼ postérieur).' },
+  { question: 'Quels éléments forment la paroi médiale de la cavité nasale ?', answer: 'Cartilage septal en avant, vomer en arrière et en bas, lame perpendiculaire de l’éthmoïde en arrière et en haut.' },
+  { question: 'Quelle particularité présente la paroi médiale de la cavité nasale ?', answer: 'Elle est richement vascularisée (tâche vasculaire, responsable d’épistaxis).' },
+  { question: 'Quels os forment la paroi latérale de la cavité nasale ?', answer: 'Processus frontal du maxillaire, os lacrymal, ethmoïde (labyrinthe et processus unciné), cornet inférieur, lame perpendiculaire du palatin, lame médiale du processus ptérygoïde du sphénoïde.' },
+  { question: 'Quels sont les trois foramens de la cavité nasale ?', answer: 'Lame criblée de l’éthmoïde, foramen sphéno-palatin, canal incisif.' },
+  { question: 'Quels sont les contenus de la cavité nasale ?', answer: 'Muqueuse nasale (respiratoire et olfactive), cornets nasaux, sinus paranasaux (frontal, ethmoïdaux, maxillaires, sphénoïdaux).' },
+  { question: 'Où est située la cavité orale ?', answer: 'Sous les cavités nasales, en dedans des fosses infra-temporales.' },
+  { question: 'Que contient la cavité orale ?', answer: 'La langue, les glandes salivaires (sauf la parotide) et les dents.' },
+  { question: 'Quelles sont les 3 fonctions principales de la cavité orale ?', answer: 'Digestion, respiration et phonation.' },
+  { question: 'Par quoi est formée la paroi antérieure de la cavité orale ?', answer: 'Par la fente orale entre les lèvres.' },
+  { question: 'Quelles structures composent les lèvres ?', answer: 'Tissus mous, muqueuse orale (interne), peau (externe), frein de la lèvre, muscle orbiculaire de la bouche et glandes labiales.' },
+  { question: 'Comment est constituée la paroi postérieure de la cavité orale ?', answer: 'Ouverte, communiquant avec l’oropharynx (isthme du gosier).' },
+  { question: 'Quelles structures forment les parois latérales (joues) ?', answer: 'Couche cutanée externe, muscle buccinateur, muqueuse buccale.' },
+  { question: 'Quelles sont les caractéristiques du palais mou ?', answer: 'Prolonge le palais osseux, vertical et musculaire, bord postérieur avec la luette, 2 replis (palato-pharyngien et palato-glosse), 4 muscles (tenseur, élévateur, palato-pharyngien, palato-glosse + muscle uvulaire).' },
+  { question: 'Quelles sont les composantes de la paroi inférieure de la cavité orale ?', answer: 'Plancher osseux (mandibule) + plancher mou (mylohyoïdien, géniohyoïdien, ventre antérieur du digastrique, langue, glandes sublinguale et submandibulaire).' },
+  { question: 'Quelles sont les deux parties de la langue ?', answer: 'Partie mobile antérieure (apex) et racine postérieure ﬁxée au plancher buccal.' },
+  { question: 'Qu’est-ce que le sillon terminal de la langue ?', answer: 'Limite entre parties orale et pharyngienne de la langue (forme un V lingual).' },
+  { question: 'Où se situe le foramen caecum ?', answer: 'Au sommet du V lingual, site embryonnaire de la glande thyroïde.' },
+  { question: 'Quelles papilles recouvrent la face supérieure de la langue ?', answer: 'Filiformes, fongiformes (bords), circumvallées (avant du V lingual), foliées (côtés près du V lingual).' },
+  { question: 'Quels goûts perçoivent les papilles gustatives ?', answer: 'Les 5 goûts de base.' },
+  { question: 'Quelle particularité présente la face inférieure de la langue ?', answer: 'Nombreux replis muqueux dont le frein de la langue.' },
+  { question: 'Combien de muscles composent la langue ?', answer: '15 à 17 muscles.' },
+  { question: 'Quelle est la diﬀérence entre muscles intrinsèques et extrinsèques de la langue ?', answer: 'Intrinsèques : modiﬁent la forme. Extrinsèques : mobilisent la langue (génio-glosse, hyo-glosse, stylo-glosse, palato-glosse).' },
+  { question: 'Quels sont les rôles de la langue ?', answer: 'Gustatif, digestif et phonatoire.' },
+  { question: 'Quelle est la fonction des glandes salivaires ?', answer: 'Sécréter la salive, amorçant la digestion.' },
+  { question: 'Où se trouvent les glandes salivaires microscopiques ?', answer: 'Dans la muqueuse orale et linguale, avec canal excréteur court.' },
+  { question: 'Quelles sont les glandes salivaires macroscopiques ?', answer: 'Parotides, submandibulaires, sublinguales.' },
+  { question: 'Où se trouvent les parotides et où s’ouvrent-elles ?', answer: 'Sous le méat acoustique externe, en arrière de la mandibule, en avant du SCOM ; canal de Sténon au niveau de la 2e molaire supérieure.' },
+  { question: 'Où se trouvent les submandibulaires et où s’ouvrent-elles ?', answer: 'Sous le plancher oral, médialement à la mandibule ; canal de Wharton à côté du frein de la langue.' },
+  { question: 'Où se trouvent les sublinguales et où s’ouvrent-elles ?', answer: 'Sous le plancher buccal, au contact de la face médiale de la mandibule ; canal de Bartholin et nombreux conduits mineurs.' },
+  { question: 'Quelle est l’origine des dents ?', answer: 'Organe vivant dermoépidermique situé à l’entrée du tube digestif.' },
+  { question: 'Quels sont les rôles des dents ?', answer: 'Ingestion et broyage des aliments.' },
+  { question: 'Où sont implantées les dents ?', answer: 'Dans les alvéoles des arcades maxillaire et mandibulaire, recouvertes par la gencive.' },
+  { question: 'Quelles sont les parties morphologiques de la dent ?', answer: 'Couronne (émail), racine (cément, reliée par ligament parodontal), collet (jonction couronne-racine).' },
+  { question: 'Que contient la cavité pulpaire ?', answer: 'Pulpe dentaire (tissu conjonctif, vaisseaux, nerfs), entourée par dentine et émail.' },
+  { question: 'Comment sont numérotées les dents ?', answer: 'Quadrants : 1 (supérieur droit), 2 (supérieur gauche), 3 (inférieur gauche), 4 (inférieur droit). Numérotation de 1 à 8 dans chaque quadrant. Exemple : dent 21 = incisive supérieure gauche.' },
+  { question: 'Combien de dents possède un adulte ?', answer: '32 dents.' },
+  { question: 'Combien de dents dans la dentition lactéale ?', answer: '20 dents déciduales (4 incisives, 2 canines, 4 molaires par arcade).' },
+  { question: 'Quand apparaît la dentition permanente ?', answer: 'Entre 6 et 13 ans, jusqu’à 20–22 ans pour les dents de sagesse.' },
+  { question: 'Où se situe la fosse infratemporale ?', answer: 'Entre la branche montante de la mandibule (dehors) et la paroi du pharynx (dedans), sous la fosse temporale.' },
+  { question: 'Où se situe la fosse ptérygo-palatine ?', answer: 'Entre l’os palatin et le processus ptérygoïde du sphénoïde.' },
+  { question: 'Avec quelle fosse communique la fosse ptérygo-palatine ?', answer: 'Avec la fosse infratemporale.' }];
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Techniques d'études de biologie cellulaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+</head>
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quelle est la définition du pouvoir de résolution ?", answer: "Plus petite distance observable entre 2 points sans qu’ils soient confondus." },
+{ question: "Que peut-on dire d’un microscope dont D est petit ?", answer: "Il est plus puissant." },
+{ question: "Quel est le pouvoir de résolution de l’œil ?", answer: "0,2 mm." },
+{ question: "Quelle est la formule du pouvoir de résolution D ?", answer: "D = 0.61 λ / (N sin α)." },
+{ question: "Que représente N dans la formule du pouvoir de résolution ?", answer: "Indice de réfraction du milieu, entre la préparation et l’objectif." },
+{ question: "Quelle est la valeur de N pour l’air ?", answer: "1." },
+{ question: "Quelle est la valeur de N pour l’huile ?", answer: "1.5." },
+{ question: "Que représente λ dans la formule du pouvoir de résolution ?", answer: "La longueur d’onde du faisceau." },
+{ question: "Que représente α dans la formule du pouvoir de résolution ?", answer: "Moitié de l’angle du cône de lumière qui entre dans l’objectif." },
+{ question: "Quel est le meilleur angle pour α ?", answer: "70°." },
+{ question: "Que permettent les techniques morphologiques ?", answer: "Observer des cellules et des tissus." },
+{ question: "Pourquoi la préparation est-elle indispensable en microscopie ?", answer: "Pour observer dans des conditions proches de celles du vivant." },
+{ question: "Quel type de faisceau utilise le microscope optique ?", answer: "Photons." },
+{ question: "Quel type de faisceau utilise le microscope électronique ?", answer: "Électrons." },
+{ question: "Qu’étudie l’histochimie et comment ?", answer: "Constituants biochimiques par réaction chimique." },
+{ question: "Qu’étudie l’histoenzymologie et comment ?", answer: "Constituants biochimiques par réaction enzymatique." },
+{ question: "Que permet l’immuno-histologie ?",answer: "Analyse in situ des protéines." },
+{ question: "Que permet l’hybridation in situ ?", answer: "Analyse in situ des acides nucléiques." },
+{ question: "Que permet l’autoradiographie ?", answer: "Analyse in situ de macromolécules." },
+{ question: "Sur quel type de cellules travaille-t-on avec la microscopie optique ?", answer: "Cellules vivantes ex vivo ou in vivo." },
+{ question: "Comment incube-t-on les cellules en culture ?", answer: "À 37°, dans une atmosphère humidifiée (5% de CO₂)." },
+{ question: "Que doit contenir le milieu de culture cellulaire ?", answer: "Des nutriments spécifiques ou des facteurs de croissance." },
+{ question: "Quels types d’échantillons cellulaires peut-on obtenir en clinique ?", answer: "Liquides biologiques, pathologiques ou d'exploration, brossage ou grattage." },
+{ question: "Citez des exemples de liquides biologiques étudiés.", answer: "Sang, moelle hématopoïétique, LCR, urines." },
+{ question: "Citez des exemples de liquides pathologiques étudiés.", answer: "Épanchement pleural, péritonéal, articulaire." },
+{ question: "Donnez un exemple de liquide d’exploration.", answer: "Lavage broncho-alvéolaire." },
+{ question: "Donnez un exemple de prélèvement par grattage ou brossage.", answer: "Frottis vaginal." },
+{ question: "Quels types d’échantillons tissulaires peut-on observer ?", answer: "Biopsies ou résections." },
+{ question: "Comment prépare-t-on un étalement cellulaire ?", answer: "En déposant une goutte de sang qu'on étale avec une lamelle." },
+{ question: "Que permet la congélation rapide d’une biopsie ?", answer: "Préserver les cellules sans cristaux de glace." },
+{ question: "À quelle température congèle-t-on une biopsie avec de l’azote liquide ?", answer: "-196°C." },
+{ question: "À quoi sert le cryostat ?", answer: "Faire des coupes à -20/-30°C de 5 à 10 µm." },
+{ question: "Quels sont les fixateurs chimiques utilisés pour la 2e méthode de préparation ?", answer: "Formaldéhyde, glutaraldéhyde, osmium." },
+{ question: "Quel mélange est utilisé pour la fixation au MET ?", answer: "Mélange de formaldéhyde et de glutaraldéhyde." },
+{ question: "Quelle est la température de la paraffine pour inclusion ?", answer: "55-60°C." },
+{ question: "Quels outils utilise-t-on pour les coupes fines au MET ?", answer: "Ultramicrotome." },
+{ question: "Quels contrastes utilise-t-on au MET ?", answer: "Acétate d’uranyl ou citrate de plomb." },
+{ question: "Que faut-il faire pour observer des échantillons massifs au MEB ?", answer: "Les métalliser." },
+{ question: "Quels sont les éléments optiques traversés par les photons dans le MO ?", answer: "Condenseur, objectif, oculaire." },
+{ question: "Quel est le grossissement total du MO standard ?", answer: "Environ 400x." },
+{ question: "Quels sont les types de lentilles du microscope optique ?", answer: "Verre." },
+{ question: "Pourquoi faut-il colorer les tissus biologiques ?", answer: "Car ils sont peu colorés naturellement." },
+{ question: "Quelles colorations peut-on utiliser au MO standard ?", answer: "Éosine, hémalun." },
+{ question: "Quel est le pouvoir de résolution du MO standard ?", answer: "0,2 μm." },
+{ question: "Que permet d’observer le MO standard ?", answer: "Forme de la cellule, noyau, certaines structures internes." },
+{ question: "Quel est le principe du microscope à contraste de phase ?", answer: "Exploitation des interférences dues aux différences de phase des ondes." },
+{ question: "Quelle est la préparation nécessaire pour le microscope à contraste de phase ?", answer: "Aucune." },
+{ question: "Quel est l’inconvénient du microscope à contraste de phase ?", answer: "Moins de contraste que les autres microscopes." },
+{ question: "Quelles sont les sources lumineuses du microscope à fluorescence ?", answer: "Lampe halogène et lampe à arc (vapeur de mercure)." },
+{ question: "Quel est le principe de la fluorescence ?", answer: "Absorption d’une lumière à λ₁, restitution à une autre longueur d’onde λ₂." },
+{ question: "Quels sont les deux types de filtres en microscopie à fluorescence ?", answer: "Filtre d’excitation et filtre d’arrêt." },
+{ question: "À quoi sert le filtre d’excitation ?", answer: "Sélectionner la longueur d’onde absorbée par la molécule fluorescente." },
+{ question: "À quoi sert le filtre d’arrêt ?", answer: "Laisser passer la lumière émise par la molécule fluorescente." },
+{ question: "Citez deux fluorochromes utilisés en microscopie à fluorescence.", answer: "Fluorescéine et rhodamine." },
+{ question: "Quelle est la couleur émise par la fluorescéine ?", answer: "Jaune/vert." },
+{ question: "Quelle est la couleur émise par la rhodamine ?", answer: "Rouge." },
+{ question: "Quelle est la préparation nécessaire pour la microscopie à fluorescence ?", answer: "Trajet optique avec lentilles, prismes, miroir dichroïque, capteurs CCD." },
+{ question: "Quel est le résultat obtenu en microscopie à fluorescence ?", answer: "Localisation de molécules marquées sur fond noir." },
+{ question: "Quel est l’avantage de la microscopie à fluorescence ?", answer: "Prise en main facile et acquisition rapide." },
+{ question: "Quel est l’inconvénient de la microscopie à fluorescence ?", answer: "Moins net (amélioration par déconvolution), volumineux." },
+{ question: "Quelle est la source lumineuse utilisée dans le microscope électronique à transmission (MET) ?", answer: "Un faisceau d’électrons" },
+{ question: "Pourquoi le faisceau d’électrons est-il plus pénétrant que les photons ?", answer: "Parce que les électrons ont une longueur d’onde plus courte" },
+{ question: "Quel est le rôle des lentilles dans le MET ?", answer: "Le faisceau d’électrons traverse des lentilles électromagnétiques" },
+{ question: "Pourquoi doit-on maintenir un vide poussé dans le MET ?", answer: "Pour éviter les déviations du faisceau par des molécules de gaz" },
+{ question: "Que pourrait provoquer la présence de gaz dans la colonne du MET ?", answer: "Elle pourrait modifier l’axe du faisceau et empêcher l’obtention d’une image nette" },
+{ question: "Comment sont canalisés les électrons dans le MET ?", answer: "Par un condenseur" },
+{ question: "Sur quel type d’écran se fait l’observation dans un MET ?", answer: "Un écran phosphorescent" },
+{ question: "Quelle est la tension utilisée dans un MET ?", answer: "Entre 40 et 100 kVolt" },
+{ question: "Comment doit être l’échantillon pour l’observation au MET ?", answer: "Fixé et mort" },
+{ question: "Quelle est la première étape de préparation de l’échantillon en MET ?", answer: "Déshydratation et inclusion en résine plastique de type époxyaraldite" },
+{ question: "À quelle température les résines en MET sont-elles polymérisées ?", answer: "À 60°C" },
+{ question: "Quelle est l’épaisseur des coupes pour le MET ?", answer: "50 nm" },
+{ question: "Quel outil est utilisé pour faire les coupes en MET ?", answer: "Un couteau en diamant" },
+{ question: "Sur quoi dépose-t-on les coupes pour le MET ?", answer: "Une grille de cuivre ou de platine de 2 mm de diamètre" },
+{ question: "Quel est le pouvoir de résolution du MET ?", answer: "0,1 à 0,2 nm" },
+{ question: "Quelle est la couleur des images obtenues en MET ?", answer: "Noir et blanc" },
+{ question: "Quel est le grossissement possible en MET ?", answer: "30 000, 50 000 voire 100 000x" },
+{ question: "Quelles structures permet d’observer le MET ?", answer: "Les structures infracellulaires" },
+{ question: "Quelle est la source du MEB ?", answer: "Des électrons" },
+{ question: "Quel est le principe du MEB ?", answer: "Un faisceau d’électrons frappe la surface de l’échantillon recouvert de métal" },
+{ question: "Pourquoi l’échantillon doit-il être recouvert de métal en MEB ?", answer: "Pour renvoyer des électrons vers un détecteur" },
+{ question: "Quel détecteur est utilisé dans le MEB ?", answer: "Un détecteur à scintillation" },
+{ question: "Comment est amplifié le signal dans le MEB ?", answer: "Par un photomultiplicateur" },
+{ question: "Quelle est la tension utilisée dans un MEB ?", answer: "Entre 1 et 40 kV" },
+{ question: "L’échantillon doit-il être vivant en MEB ?", answer: "Non, il doit être fixé et mort" },
+{ question: "Y a-t-il une coupe dans la préparation au MEB ?", answer: "Non" },
+{ question: "Quelle est la technique de préparation spécifique au MEB ?", answer: "Métallisation (recouvrement par du carbone, or, platine)" },
+{ question: "Quelle est la nature de l’image obtenue en MEB ?", answer: "Une image en relief" },
+{ question: "Que permet d’étudier le MEB ?", answer: "La surface des objets, la forme des cellules et des tissus" },
+{ question: "Jusqu’à quelle taille d’objet peut-on observer en MEB ?", answer: "Des particules jusqu’à des petits insectes" },
+{ question: "Quelle est la source lumineuse du microscope confocal ?", answer: "Un laser" },
+{ question: "Quel type de microscope est repris pour le mécanisme du microscope confocal ?", answer: "Le microscope à fluorescence classique" },
+{ question: "Quelles sont les étapes du trajet du laser dans le microscope confocal ?", answer: "Filtre d'excitation → préparation → filtre d’arrêt" },
+{ question: "Que réalise le microscope confocal de manière automatique ?", answer: "Des coupes optiques" },
+{ question: "Comment peut-on visualiser les images du microscope confocal ?", answer: "En 3D grâce à un travail informatique" },
+{ question: "Les échantillons en confocal peuvent-ils être plus épais qu’en fluorescence classique ?", answer: "Oui" },
+{ question: "Qu’observe-t-on avec plus de netteté avec un microscope confocal ?", answer: "La localisation des molécules marquées" },
+{ question: "Qu’obtient-on en plus avec le confocal par rapport à la fluorescence classique ?", answer: "Des images vues en 3D dans un plan Z (Z série)" },
+{ question: "Que permet de distinguer le confocal concernant les molécules ?", answer: "Si elles sont dans la cellule ou sur la membrane plasmique" },
+{ question: "Quel est le principe de l’histochimie ?", answer: "Localiser et détecter les constituants cellulaires par des réactions chimiques" },
+{ question: "Quelle réaction permet de mettre en évidence les résidus glucidiques ?", answer: "La réaction PAS (acide périodique / Schiff)" },
+{ question: "Quelle réaction met en évidence l’ADN ?", answer: "Feulgen-Rossenbeck" },
+{ question: "Quel est le principe de l’histoenzymologie ?", answer: "Localiser des enzymes par des réactions enzymatiques" },
+{ question: "Quelle est la première étape d’une histoenzymologie ?", answer: "Incubation avec le substrat de l’enzyme" },
+{ question: "Quelle est la seconde étape de l’histoenzymologie ?", answer: "Révélation du produit coloré" },
+{ question: "Quel est l’exemple donné d’enzyme révélée avec la DAB ?", answer: "Peroxydase" },
+{ question: "Quelles enzymes peuvent être détectées par histoenzymologie ?", answer: "Peroxydase, tyrosinase, ATPase, phosphatase acide" },
+{ question: "Quel microscope peut-on utiliser pour observer le produit coloré avec DAB ?", answer: "Le microscope optique ou électronique" },
+{ question: "Que détecte l’immunohistologie ?", answer: "Des molécules antigéniques" },
+{ question: "Quels types de molécules sont surtout détectés en immunohistologie ?", answer: "Les protéines et glycoprotéines" },
+{ question: "Quels types d’anticorps sont utilisés en immunohistologie ?", answer: "Monoclonaux ou polyclonaux" },
+{ question: "Quels sont les trois marquages possibles en immunohistologie ?", answer: "Fluorochrome, enzyme, billes d’or colloïdales" },
+{ question: "Quel est le principe de la réaction directe en immunohistologie ?", answer: "L’anticorps est couplé à un marqueur visible" },
+{ question: "Quel est le principe de la réaction indirecte en immunohistologie ?", answer: "Un anticorps primaire est reconnu par plusieurs anticorps secondaires couplés à un marqueur" },
+{ question: "Pourquoi utilise-t-on la méthode indirecte ?", answer: "Pour amplifier le signal quand l’antigène est peu abondant" },
+{ question: "Qu’est-ce qui détermine le choix de la technique en immunohistologie ?", answer: "L’antigène, sa localisation et sa quantité" },
+{ question: "Quel est le principe de l’hybridation in situ ?", answer: "Localiser un acide nucléique grâce à une sonde complémentaire marquée" },
+{ question: "Quels types d’hybridation sont possibles ?", answer: "ADN/ADN, ADN/ARN, ARN/ARN" },
+{ question: "Quels types de sondes peuvent être utilisées ?", answer: "ADN bicaténaire, ARN monocaténaire, oligonucléotide" },
+{ question: "Qu’est-ce qu’une sonde chaude ?", answer: "Une sonde marquée avec des isotopes radioactifs" },
+{ question: "Pourquoi préfère-t-on les sondes froides ?", answer: "Elles sont moins coûteuses et plus faciles à utiliser" },
+{ question: "Quel est l’exemple d’hybridation in situ donné dans le cours ?", answer: "Mise en évidence du gène de la calbindin 28k dans les neurones de Purkinje" },
+{ question: "Que permet de détecter l’hybridation in situ ?", answer: "L’expression des gènes et l’ARN messager" },
+{ question: "Quel est le principe de l’autoradiographie ?", answer: "Suivre des macromolécules dans la cellule à l’aide de précurseurs radioactifs" },
+{ question: "Quelle est la première étape de l’autoradiographie ?", answer: "Incubation avec une molécule radioactive" },
+{ question: "Quelle est la deuxième étape de l’autoradiographie ?", answer: "Plongée dans une émulsion photographique et révélation" },
+{ question: "Que permet d’observer l’autoradiographie ?", answer: "Des grains d’argent métalliques visibles au MO ou au MET" },
+{ question: "Quel exemple d’autoradiographie est donné ?", answer: "Un neurotransmetteur dans une fente synaptique" },
+{ question: "Quel est le but de la cytométrie de flux ?", answer: "Différencier, trier et compter les cellules marquées par anticorps fluorescents" },
+{ question: "Que reconnaissent les anticorps utilisés en cytométrie de flux ?", answer: "Surtout les antigènes de surface" },
+{ question: "Comment les cellules sont-elles excitées en cytométrie de flux ?", answer: "Par un laser" },
+{ question: "Comment les cellules sont-elles triées en cytométrie de flux ?", answer: "Par courant selon leur fluorescence" },
+{ question: "Que permet d’analyser la cytométrie de flux concernant l’ADN ?", answer: "La quantification de l’ADN et la ploïdie" },
+{ question: "Dans quels contextes est utilisée la cytométrie de flux ? (3 réponses) ", answer: "Typage des leucémies, numération lymphocytaire, étude du cycle cellulaire" },
+{ question: "Quelle est la première étape de la fabrication d’anticorps monoclonaux ?", answer: "Immunisation de souris saines par différents antigènes." },
+{ question: "Que fait-on après l’immunisation des souris dans la fabrication d’anticorps monoclonaux ?", answer: "On récupère la rate pour en extraire les lymphocytes B." },
+{ question: "Que prélève-t-on parallèlement chez une souris atteinte de myélome ?", answer: "Des cellules malades que l'on met en culture." },
+{ question: "Quel type de fusion cellulaire est le plus intéressant lors de la fabrication d’anticorps monoclonaux ?", answer: "La fusion entre lymphocytes B et cellules myélomateuses." },
+{ question: "Pourquoi la fusion LB-cellules myélomateuses est-elle intéressante ?", answer: "Car elle entraîne une production d’anticorps." },
+{ question: "Que fait-on après les fusions cellulaires dans la fabrication d’anticorps monoclonaux ?", answer: "On sélectionne les clones qui produisent l’anticorps recherché." },
+{ question: "Quelle est l’étape suivant la sélection des clones dans la fabrication d’anticorps monoclonaux ?", answer: "L’amplification des clones sélectionnés." },
+{ question: "Comment peut-on récupérer les anticorps produits après amplification des clones ?", answer: "Soit par injection intrapéritonéale chez des souris, soit en les récupérant directement." },
+{ question: "Quel liquide peut-on récupérer après injection intrapéritonéale ?", answer: "Le liquide d’ascite." },
+{ question: "Quel est le principe du test ELISA ?", answer: "Test immuno-enzymatique par réaction antigène-anticorps colorée grâce à une enzyme fixée à un anticorps secondaire." },
+{ question: "Où réalise-t-on le test ELISA ?", answer: "Dans des petits puits de type boîte de culture." },
+{ question: "Quel est le but de l’ELISA indirecte ?", answer: "Dosage ou recherche d’un anticorps." },
+{ question: "Que met-on au fond des puits pour l’ELISA indirecte ?", answer: "Un antigène spécifique de l’anticorps recherché." },
+{ question: "Que dépose-t-on ensuite dans le puits pour l’ELISA indirecte ?", answer: "L’échantillon contenant l’anticorps à doser." },
+{ question: "Quel est le rôle du 2e anticorps dans l’ELISA indirecte ?", answer: "Il est lié à une enzyme et se fixe sur l’anticorps à doser." },
+{ question: "Comment mesure-t-on les résultats de l’ELISA indirecte ?", answer: "Par colorimétrie avec un spectrophotomètre." },
+{ question: "Quel est le but de l’ELISA sandwich ?", answer: "Dosage ou recherche d’un antigène." },
+{ question: "Que met-on au fond des puits pour l’ELISA sandwich ?", answer: "Un anticorps spécifique de l’antigène recherché." },
+{ question: "Que dépose-t-on dans le puits pour l’ELISA sandwich ?", answer: "L’échantillon contenant l’antigène à doser." },
+{ question: "Quel est le rôle du 2e anticorps dans l’ELISA sandwich ?", answer: "Il est lié à une enzyme et se fixe sur l’antigène." },
+{ question: "Comment mesure-t-on les résultats de l’ELISA sandwich ?", answer: "Par spectrophotométrie." },
+{ question: "Cite un exemple d’application de l’ELISA.", answer: "Identifier les anticorps anti-protéine de l’enveloppe du virus du VIH." },
+{ question: "Quel type d’anticorps est utilisé dans l’ELISA pour une détection spécifique ?", answer: "Des anticorps monoclonaux." },
+{ question: "Quel appareil est nécessaire pour la détection du signal en ELISA ?", answer: "Un spectrophotomètre." },
+{ question: "Cite un inconvénient majeur de l’ELISA.", answer: "Difficile de détecter une très faible quantité d’antigènes ou d’anticorps." },
+{ question: "Quels facteurs influencent la réaction enzymatique de l’ELISA ?", answer: "Température, pH." },
+{ question: "Quel est le principe général de la chromatographie ?", answer: "Séparation d’un mélange de protéines entre une phase mobile et une phase fixe." },
+{ question: "Qu’utilise-t-on comme phase mobile en chromatographie ?", answer: "Un liquide contenant un mélange de molécules." },
+{ question: "Qu’utilise-t-on comme phase fixe en chromatographie ?", answer: "Du papier, gel, cellulose..." },
+{ question: "Comment se fait la séparation des protéines en chromatographie ?", answer: "Par migration à différentes vitesses selon leur taille ou charge." },
+{ question: "Quelle est la particularité de la chromatographie sur gel ?", answer: "La séparation se fait uniquement en fonction de la taille." },
+{ question: "Quel type de billes utilise-t-on dans la chromatographie sur gel ?", answer: "Des billes poreuses." },
+{ question: "Comment récupère-t-on les protéines non reconnues en chromatographie d’affinité ?", answer: "Elles passent à travers et sont récupérées." },
+{ question: "Comment récupère-t-on les protéines reconnues en chromatographie d’affinité ?", answer: "On lave la colonne, les protéines restent fixées aux anticorps." },
+{ question: "Sur quel critère se fait la séparation en chromatographie d’affinité ?", answer: "L’affinité." },
+{ question: "Quel est un exemple de couple utilisé en chromatographie d’affinité ?", answer: "Anticorps-antigène." },
+{ question: "Quelle est la première étape de l’électrophorèse des protéines ?", answer: "La dénaturation des protéines." },
+{ question: "Quel détergent utilise-t-on pour ajouter une charge négative aux protéines ?", answer: "Le SDS." },
+{ question: "Quel agent ajoute-t-on pour détruire les ponts disulfures ?", answer: "Un agent réducteur." },
+{ question: "Où dépose-t-on les protéines dans le gel d’électrophorèse ?", answer: "En haut du gel de polyacrylamide." },
+{ question: "Vers quel pôle migrent les protéines en électrophorèse ?", answer: "Vers le pôle positif." },
+{ question: "De quoi dépend la vitesse de migration des protéines ?", answer: "De leur poids moléculaire." },
+{ question: "Comment visualise-t-on les protéines après électrophorèse ?", answer: "Coloration au bleu de Coomassie ou Western Blot." },
+{ question: "Quelle technique utilise un anticorps marqué après électrophorèse ?", answer: "Le Western Blot." },
+{ question: "Pourquoi met-on des marqueurs de taille dans un puits à part ?", answer: "Pour déterminer le poids moléculaire par analogie." },
+{ question: "Que permet la radioactivité en biologie cellulaire ?", answer: "La détection et le suivi du devenir de molécules d’ADN ou de protéines." },
+{ question: "Quels sont les deux types de culture cellulaire ?", answer: "Culture primaire ou secondaire." },
+{ question: "Que permet le fractionnement subcellulaire ?", answer: "Séparer les constituants d’une cellule." },
+{ question: "Quelles autres techniques sont utilisées en biologie moléculaire ?", answer: "Extraction, purification, détermination de séquences, PCR, RT-PCR." },
+{ question: "À quoi servent les outils informatiques en biologie cellulaire ?", answer: "Recherche dans les bases de données de séquences." },
+];
+
+ 	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

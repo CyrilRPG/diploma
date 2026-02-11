@@ -1,0 +1,1088 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Membre Inferieur (Partie 1)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quels sont les éléments qui constituent la ceinture pelvienne en avant ?', answer: 'L’union des os coxaux par une articulation fibrocartilagineuse : la symphyse pubienne.' },
+  { question: 'Quels éléments composent la ceinture pelvienne en arrière ?', answer: 'Le sacrum entre les deux os coxaux via l’articulation sacro-iliaque.' },
+  { question: 'Quelle articulation unit le bassin et la cuisse ?', answer: 'L’articulation de la hanche.' },
+  { question: 'Quelles sont les caractéristiques générales du fémur ?', answer: 'C’est un os long avec une épiphyse proximale (tête et col), une diaphyse, et une épiphyse distale portant les condyles.' },
+  { question: 'Quels éléments composent l’épiphyse proximale du fémur ?', answer: 'La tête fémorale, le col, le grand trochanter et le petit trochanter.' },
+  { question: 'Quels éléments composent l’épiphyse distale du fémur ?', answer: 'Les condyles latéral et médial.' },
+  { question: 'Quels os forment le genou ?', answer: 'La patella, le fémur et le tibia.' },
+  { question: 'Quels os composent la jambe ?', answer: 'Le tibia en médial et la fibula en latéral.' },
+  { question: 'Qu’est-ce que la malléole tibiale ?', answer: 'L’extrémité distale du tibia.' },
+  { question: 'Qu’est-ce que la malléole fibulaire ?', answer: 'L’extrémité distale de la fibula.' },
+  { question: 'Quel os forme le dôme de l’arrière-pied ?', answer: 'Le talus.' },
+  { question: 'Quelles sont les trois régions de l’os coxal ?', answer: 'Le pubis, l’ischion et l’ilion.' },
+  { question: 'Où se situe le pubis sur l’os coxal ?', answer: 'Dans la moitié inféro-antérieure, formant la symphyse pubienne.' },
+  { question: 'Où se situe l’ischion sur l’os coxal ?', answer: 'Dans la moitié inféro-postérieure, représentant la zone de l’assise.' },
+  { question: 'Où se situe l’ilion ?', answer: 'Dans la partie supérieure de l’os coxal : l’aile iliaque.' },
+  { question: 'Que deviennent les lignes d’ossification de l’os coxal chez l’enfant ?', answer: 'Elles sont franches et permettent la croissance du bassin.' },
+  { question: 'Que deviennent les lignes d’ossification de l’os coxal chez l’adulte ?', answer: 'Elles deviennent une séparation artificielle lorsque l’ossification est terminée.' },
+  { question: 'Qu’est-ce que le foramen obturé ?', answer: 'Un large orifice entre pubis et ischion, totalement fermé par une membrane obturatrice.' },
+  { question: 'Quelles sont les trois branches de l’os coxal ?', answer: 'La branche ischio-pubienne, la branche ilio-pubienne et la branche ilio-ischiatique.' },
+  { question: 'Quel est le centre d’union des trois pièces et des trois branches de l’os coxal ?', answer: 'L’acétabulum.' },
+  { question: 'Quel est le bord supérieur de l’os coxal ?', answer: 'La crête iliaque entre EIAS et EIPS.' },
+  { question: 'Quel est le bord inférieur de l’os coxal ?', answer: 'La branche ischio-pubienne.' },
+  { question: 'Quel est le bord antérieur de l’os coxal ?', answer: 'De l’EIAS au pubis.' },
+  { question: 'Quel est le bord postérieur de l’os coxal ?', answer: 'De l’EIPS à la tubérosité ischiatique.' },
+  { question: 'Quels sont les deux faces de l’os coxal ?', answer: 'Une face exopelvienne convexe et une face endopelvienne concave.' },
+  { question: 'Quels sont les reliefs du bord postérieur de la face exopelvienne ?', answer: 'EIPS, EIPI, grande incisure ischiatique, épine ischiatique, petite incisure ischiatique, tubérosité ischiatique.' },
+  { question: 'Quel relief osseux supporte le poids du corps en position assise ?', answer: 'La tubérosité ischiatique.' },
+  { question: 'Quels sont les reliefs du bord antérieur de l’os coxal ?', answer: 'EIAS, EIAI, éminence iliopéctinée, branche supérieure du pubis, branche inférieure du pubis.' },
+  { question: 'Quelle insertion se fait sur l’EIAS ?', answer: 'Le ligament inguinal.' },
+  { question: 'Quelle insertion se fait sur l’EIAI ?', answer: 'Le tendon direct du droit fémoral.' },
+  { question: 'Quelle est la particularité de la branche supérieure du pubis ?', answer: 'Elle se dirige vers la symphyse pubienne et appartient surtout à la face endopelvienne.' },
+  { question: 'Comment se forme le bord inférieur de l’os coxal ?', answer: 'Par la réunion de la branche inférieure du pubis et de la branche de l’ischion.' },
+  { question: 'Quels éléments forment la fosse glutéale ?', answer: 'Les lignes glutéales antérieure, postérieure et inférieure.' },
+  { question: 'Quels muscles s’insèrent sur les champs déterminés par les lignes glutéales ?', answer: 'Petit fessier (champ antérieur), moyen fessier (champ moyen), grand fessier (champ postérieur).' },
+  { question: 'Quelles sont les zones du pourtour de l’acétabulum ?', answer: 'En avant : branche ilio-pubienne ; en arrière : branche ilio-ischiatique et épine sciatique ; en supérieur : sillon supra-acétabulaire ; en inférieur : éminence ilio-pubienne.' },
+  { question: 'Quelle est la structure cartilagée de l’acétabulum ?', answer: 'La surface semi-lunaire (croissant) avec corne ventrale fine et corne dorsale épaisse reliées par le ligament transverse.' },
+  { question: 'Qu’est-ce que la ligne arquée ?', answer: 'Une limite séparant ilion et ischion-pubis et le passage important de l’accouchement.' },
+  { question: 'Qu’est-ce que la surface quadrilatère ?', answer: 'La face endopelvienne de la coxo-fémorale, zone de passage de l’obturateur médial.' },
+  { question: 'Qu’est-ce que la surface auriculaire ?', answer: 'La surface articulaire avec le sacrum, sur l’ilion.' },
+  { question: 'Quel est le moyen d’union diaphysaire entre le tibia et la fibula ?', answer: 'La membrane interosseuse.' },
+  { question: 'Quels sont les moyens d’union épiphysaires supérieurs entre tibia et fibula ?', answer: 'L’articulation tibio-fibulaire proximale, qui arrime les deux os avec un petit jeu d’éloignement.' },
+  { question: 'Quels sont les moyens d’union épiphysaires inférieurs entre tibia et fibula ?', answer: 'Les ligaments tibio-fibulaires antérieur et postérieur.' },
+  { question: 'Que permettent les moyens d’union épiphysaires inférieurs ?', answer: 'Un écartement des deux os lors de la flexion-extension de cheville.' },
+  { question: 'Quels os constituent le tarse postérieur ?', answer: 'Le talus en haut et le calcanéus en bas.' },
+  { question: 'Quel os du pied est en contact avec les extrémités inférieures du tibia et de la fibula ?', answer: 'Le talus.' },
+  { question: 'Quel os du pied repose sur le sol ?', answer: 'Le calcanéus.' },
+  { question: 'Comment s’appelle la ligne articulaire séparant tarse postérieur et tarse antérieur ?', answer: 'L’articulation transverse du tarse.' },
+  { question: 'Quels os composent le tarse antérieur ?', answer: 'Le naviculaire, le cuboïde et les trois cunéiformes.' },
+  { question: 'Que sépare la ligne articulaire tarsométatarsienne ?', answer: 'Le tarse antérieur et les métatarsiens.' },
+  { question: 'Combien le pied possède-t-il de métatarsiens ?', answer: 'Cinq.' },
+  { question: 'Combien de phalanges possèdent les doigts II à V ?', answer: 'Trois chacun.' },
+  { question: 'Combien de phalanges possède l’hallux ?', answer: 'Deux.' },
+  { question: 'Avec quels os le talus s’articule-t-il ?', answer: 'Avec tibia et fibula en haut, avec le calcanéus en bas, et avec le naviculaire en avant.' },
+  { question: 'Comment se nomme la surface articulaire supérieure du talus ?', answer: 'La trochlée.' },
+  { question: 'Quel est le rôle de la trochlée ?', answer: 'Surface articulaire pour les malléoles tibiales et fibulaires.' },
+  { question: 'Quelle est la particularité de la trochlée du talus ?', answer: 'Elle est plus large en avant qu’en arrière.' },
+  { question: 'Où se situe le col du talus ?', answer: 'Entre la trochlée et la tête.' },
+  { question: 'Avec quel os s’articule la tête du talus ?', answer: 'Avec le naviculaire.' },
+  { question: 'Quel angle sépare tête et trochlée en vue supérieure ?', answer: '150°.' },
+  { question: 'Quel angle sépare tête et trochlée en vue latérale ?', answer: '110°.' },
+  { question: 'Quelle surface articulaire du talus est plus volumineuse : malléolaire latérale ou médiale ?', answer: 'La malléolaire latérale.' },
+  { question: 'Quels types de surfaces articulaires se trouvent sous le talus ?', answer: 'Les surfaces calcanéennes postérieure et moyenne.' },
+  { question: 'Quel est l’os le plus volumineux du tarse ?', answer: 'Le calcanéus.' },
+  { question: 'Avec quels os le calcanéus s’articule-t-il ?', answer: 'Avec le talus en haut et le cuboïde en avant.' },
+  { question: 'Combien le calcanéus possède-t-il de surfaces articulaires taliennes ?', answer: 'Trois : antérieure, moyenne et postérieure.' },
+  { question: 'Quelle est la plus grosse des surfaces articulaires taliennes ?', answer: 'La surface postérieure.' },
+  { question: 'Qu’est-ce que le sillon calcanéen ?', answer: 'Un sillon séparant les surfaces articulaires moyenne et antérieure, devenant avec le talus le sinus du tarse.' },
+  { question: 'Qu’est-ce que la tubérosité calcanéenne ?', answer: 'Le relief postérieur du calcanéus formant le talon.' },
+  { question: 'Quel type d’articulation unit talus et calcanéus ?', answer: 'L’articulation talo-calcanéenne (subtalaire).' },
+  { question: 'Quel os est situé en avant du talus ?', answer: 'Le naviculaire.' },
+  { question: 'Avec quels os le naviculaire s’articule-t-il ?', answer: 'Avec la tête du talus et les trois cunéiformes.' },
+  { question: 'Quel cunéiforme est le plus médial ?', answer: 'Le premier cunéiforme (C1).' },
+  { question: 'Quel cunéiforme est le plus petit ?', answer: 'Le deuxième cunéiforme (C2).' },
+  { question: 'Quel cunéiforme s’articule avec le cuboïde ?', answer: 'Le troisième cunéiforme (C3).' },
+  { question: 'Quel os constitue le tiers latéral du tarse antérieur ?', answer: 'Le cuboïde.' },
+  { question: 'Quel métatarsien s’articule uniquement avec le cunéiforme médial ?', answer: 'Le premier métatarsien.' },
+  { question: 'Quel métatarsien possède le plus d’articulations ?', answer: 'Le deuxième métatarsien (avec les trois cunéiformes).' },
+  { question: 'Quels métatarsiens s’articulent uniquement avec un seul os ?', answer: 'Le premier avec C1 et le cinquième avec le cuboïde.' },
+  { question: 'Quelles sont les zones d’appui classiques du pied ?', answer: 'Les tubérosités calcanéennes à l’arrière et les têtes des métatarsiens à l’avant.' },
+  { question: 'Quel métatarsien repose le plus entièrement sur le sol ?', answer: 'Le cinquième métatarsien (le plus horizontal).' },
+  { question: 'Quel métatarsien constitue l’axe du pied ?', answer: 'Le deuxième métatarsien.' },
+  { question: 'Combien de phalanges possède l’hallux ?', answer: 'Deux.' },
+  { question: 'Combien d’os sésamoïdes se trouvent sous la tête du premier métatarsien ?', answer: 'Deux.' },
+  { question: 'Quel est le type articulaire de l’articulation coxo-fémorale ?', answer: 'Une synoviale sphéroïde.' },
+  { question: 'Combien de degrés de liberté possède l’articulation coxo-fémorale ?', answer: 'Trois.' },
+  { question: 'Qu’est-ce que la fossette de la tête du fémur ?', answer: 'Une zone non cartilagineuse où s’insère le ligament de la tête.' },
+  { question: 'Quelle est la fonction du labrum acétabulaire ?', answer: 'Augmenter les contacts entre fémur et os coxal.' },
+  { question: 'Quel ligament ferme les cornes de l’acétabulum ?', answer: 'Le ligament transverse.' },
+  { question: 'Pourquoi la luxation de hanche est-elle difficile ?', answer: 'À cause de la forte coaptation et des moyens d’union.' },
+  { question: 'Combien existe-t-il de ligaments extracapsulaires de la hanche ?', answer: 'Trois.' },
+  { question: 'Quel est le ligament antérieur médial de la hanche ?', answer: 'Le ligament pubo-fémoral.' },
+  { question: 'Quel est le ligament antérosupérieur le plus puissant ?', answer: 'Le ligament ilio-fémoral.' },
+  { question: 'Quel est le ligament postéroinférieur ?', answer: 'Le ligament ischio-fémoral.' },
+  { question: 'Quels sont les mouvements permis par la hanche ?', answer: 'Flexion, extension, abduction, adduction, rotations médiale et latérale.' },
+  { question: 'Quel muscle assure la quasi-totalité de la flexion de hanche ?', answer: 'Le muscle ilio-psoas.' },
+  { question: 'Quels muscles composent l’ilio-psoas ?', answer: 'Le psoas major et l’iliaque.' },
+  { question: 'De quelles vertèbres proviennent les insertions proximales du psoas ?', answer: 'Des corps vertébraux et processus transverses de T12 à L5.' },
+  { question: 'Quel est le tendon commun de l’ilio-psoas ?', answer: 'Le tendon terminal au petit trochanter.' },
+  { question: 'Quelle est l’action principale de l’ilio-psoas ?', answer: 'Flexion de la hanche.' },
+  { question: 'Quelle est son innervation ?', answer: 'Le nerf fémoral.' },
+  { question: 'Quels sont les trois muscles glutéaux ?', answer: 'Grand glutéal, moyen glutéal, petit glutéal.' },
+  { question: 'Quel muscle forme le relief fessier ?', answer: 'Le grand glutéal.' },
+  { question: 'Où s’insère principalement le grand glutéal ?', answer: 'Sur la crête iliaque, la face exopelvienne postérieure, le sacrum et le coccyx.' },
+  { question: 'Quelle est l’action principale du grand glutéal ?', answer: 'L’extension de la cuisse.' },
+  { question: 'Quel est son rôle dans la station debout ?', answer: 'Maintien de la hanche en extension en appui unipodal.' },
+  { question: 'Quel est le nerf du grand glutéal ?', answer: 'Le nerf glutéal inférieur.' },
+  { question: 'Quelle est l’insertion proximale du tenseur du fascia lata ?', answer: 'L’EIAS.' },
+  { question: 'Où se termine le TFL ?', answer: 'Sur le tractus ilio-tibial puis sur le tubercule infracondylaire du tibia.' },
+  { question: 'Quelles actions le TFL exerce-t-il ?', answer: 'Abduction, rotation médiale de hanche et légère extension du genou.' },
+  { question: 'Quel est son nerf ?', answer: 'Le nerf glutéal supérieur.' },
+  { question: 'Où s’insère le moyen fessier ?', answer: 'Entre les lignes glutéales antérieure et postérieure.' },
+  { question: 'Où se termine le moyen fessier ?', answer: 'Sur la partie supérieure du grand trochanter.' },
+  { question: 'Quel est son rôle principal lors de la marche ?', answer: 'Maintien du bassin horizontal en appui unipodal.' },
+  { question: 'Quelle est sa fonction articulaire ?', answer: 'Abduction de la hanche.' },
+  { question: 'Quel est son nerf ?', answer: 'Le nerf glutéal supérieur.' },
+  { question: 'Quels muscles appartiennent au groupe des pelvitrochantériens ?', answer: 'Piriforme, obturateur interne, jumeau supérieur, jumeau inférieur, obturateur externe, carré fémoral.' },
+  { question: 'Où se situent les muscles pelvitrochantériens ?', answer: 'Dans la région postérieure du bassin, sous le petit glutéal.' },
+  { question: 'Quel est le rôle général des pelvitrochantériens ?', answer: 'Ils s’insèrent du sacrum et de l’os coxal vers le grand trochanter.' },
+  { question: 'Quelle est l’insertion proximale du muscle piriforme ?', answer: 'La face latérale du sacrum.' },
+  { question: 'Quelle est l’insertion distale du muscle piriforme ?', answer: 'Le bord médial du grand trochanter.' },
+  { question: 'Quels espaces sont délimités par le piriforme ?', answer: 'Le foramen supra-piriforme et le foramen infra-piriforme.' },
+  { question: 'Quel est le trajet du piriforme ?', answer: 'Fibres obliques en bas et en dedans, traversant la grande incisure ischiatique.' },
+  { question: 'Que contient la région des foramens supra- et infra-piriforme ?', answer: 'Le passage des nerfs et vaisseaux destinés à la région fessière.' },
+  { question: 'Quelle est l’insertion proximale de l’obturateur interne ?', answer: 'La membrane obturatrice interne et les portions osseuses du pourtour.' },
+  { question: 'Quel est le trajet de l’obturateur interne ?', answer: 'Tendon quasi horizontal.' },
+  { question: 'Quelle est l’insertion distale de l’obturateur interne ?', answer: 'Grand trochanter.' },
+  { question: 'D’où provient le jumeau supérieur ?', answer: 'De l’épine ischiatique.' },
+  { question: 'D’où provient le jumeau inférieur ?', answer: 'De la tubérosité ischiatique.' },
+  { question: 'Où se terminent les jumeaux ?', answer: 'Avec l’obturateur interne, sur le grand trochanter.' },
+  { question: 'D’où provient l’obturateur externe ?', answer: 'De la face externe de la membrane obturatrice et du pourtour du foramen obturateur.' },
+  { question: 'Quel est le trajet de l’obturateur externe ?', answer: 'Il contourne le col du fémur sous et en arrière.' },
+  { question: 'Où se termine l’obturateur externe ?', answer: 'Dans la fosse trochantérique (face médiale du grand trochanter).' },
+  { question: 'D’où provient le carré fémoral ?', answer: 'De la face latérale de la tubérosité ischiatique.' },
+  { question: 'Où se termine le carré fémoral ?', answer: 'Sur la crête intertrochantérique du fémur.' },
+  { question: 'Quelle action commune partagent tous les pelvitrochantériens ?', answer: 'La rotation latérale de la hanche.' },
+  { question: 'Quelles sont les actions du piriforme ?', answer: 'Abduction de la hanche, rotation latérale et extension.' },
+  { question: 'Quelles sont les actions des obturateurs et des jumeaux ?', answer: 'Principaux moteurs de la rotation latérale de hanche.' },
+  { question: 'Quelles sont les actions de l’obturateur externe ?', answer: 'Rotation latérale et adduction.' },
+  { question: 'Quelle est la fonction principale du carré fémoral ?', answer: 'Adduction de la hanche (et rotation latérale modeste).' },
+  { question: 'Où s’insèrent proximalement les muscles adducteurs ?', answer: 'Sur la partie inférieure de l’os coxal, principalement le pubis.' },
+  { question: 'Où se terminent les muscles adducteurs ?', answer: 'Sur la ligne âpre du fémur.' },
+  { question: 'Quels muscles appartiennent aux couches superficielles et moyennes des adducteurs ?', answer: 'Pectiné, long adducteur, court adducteur.' },
+  { question: 'Quels muscles appartiennent aux couches profondes des adducteurs ?', answer: 'Gracile et grand adducteur.' },
+  { question: 'Quelle est l’origine du court adducteur ?', answer: 'La branche inférieure du pubis.' },
+  { question: 'Où se termine le court adducteur ?', answer: 'Sur le tiers supérieur de la diaphyse fémorale, lèvre médiale de la ligne âpre.' },
+  { question: 'Quel nerf innerve le court adducteur ?', answer: 'Le nerf obturateur.' },
+  { question: 'Quelle est l’origine du pectiné ?', answer: 'Le pecten du pubis.' },
+  { question: 'Où se termine le pectiné ?', answer: 'Sur la ligne pectinée du fémur.' },
+  { question: 'Quelle est son innervation ?', answer: 'Le nerf fémoral.' },
+  { question: 'Quelle est l’origine du long adducteur ?', answer: 'La face latérale du pubis proche de la symphyse.' },
+  { question: 'Où se termine le long adducteur ?', answer: 'Sur la lèvre médiale de la ligne âpre, tiers moyen du fémur.' },
+  { question: 'Quel est le nerf du long adducteur ?', answer: 'Le nerf obturateur.' },
+  { question: 'Quelle est l’origine du gracile ?', answer: 'Le pubis.' },
+  { question: 'Pourquoi le gracile ne s’insère-t-il pas sur le fémur ?', answer: 'Car il descend jusqu’à la patte d’oie sur le tibia.' },
+  { question: 'Quelles sont les fonctions du gracile ?', answer: 'Adduction de hanche et stabilisation du genou via la patte d’oie.' },
+  { question: 'Quel nerf innerve le gracile ?', answer: 'Le nerf obturateur.' },
+  { question: 'Quelle est l’origine du grand adducteur ?', answer: 'Branche inférieure du pubis et branche de l’ischion.' },
+  { question: 'Où se termine le chef oblique du grand adducteur ?', answer: 'Sur la lèvre médiale de la ligne âpre, sur toute la hauteur du fémur.' },
+  { question: 'Où se termine le chef vertical du grand adducteur ?', answer: 'Sur le tubercule de l’adducteur (épicondyle médial du fémur).' },
+  { question: 'Quel nerf innerve le grand adducteur ?', answer: 'Le nerf obturateur (et partiellement le nerf sciatique pour le faisceau ischio-condylaire).' },
+  { question: 'Qu’est-ce que le hiatus du grand adducteur ?', answer: 'Un espace entre les faisceaux oblique et vertical où passe l’artère fémorale.' },
+  { question: 'Quels os participent à l’articulation du genou ?', answer: 'Le fémur, le tibia et la patella.' },
+  { question: 'La fibula participe-t-elle à l’articulation du genou ?', answer: 'Non.' },
+  { question: 'Quels sont les deux compartiments de l’articulation fémorotibiale ?', answer: 'Latéral et médial.' },
+  { question: 'Quels éléments articulaires composent l’articulation fémoropatellaire ?', answer: 'La trochlée fémorale et la face articulaire postérieure de la patella.' },
+  { question: 'Quelle est la particularité géométrique du genou ?', answer: 'Condyles fémoraux convexes et plateaux tibiaux concaves.' },
+  { question: 'Pourquoi la hanche est-elle plus stable que le genou ?', answer: 'Car elle possède une forte imbrication osseuse, contrairement au genou.' },
+  { question: 'De quoi dépend surtout la stabilité du genou ?', answer: 'Des ligaments intra- et péri-articulaires.' },
+  { question: 'Quel type d’articulation est l’articulation fémoro-patellaire ?', answer: 'Un ginglyme.' },
+  { question: 'Quel mouvement principal accomplit la patella ?', answer: 'Une translation proximodistale.' },
+  { question: 'La stabilité de la patella dépend-elle principalement des surfaces osseuses ?', answer: 'Non, elle dépend surtout des structures périarticulaires.' },
+  { question: 'Quelles sont les principales structures péri-articulaires autour du genou ?', answer: 'Cartilage, ligaments, capsule, membrane synoviale, tendons, muscles, ménisques, os sous-chondral, bourses.' },
+  { question: 'Quels sont les rôles principaux des structures péri-articulaires ?', answer: 'Stabilisation, mobilité, transmission des forces, amortissement et lubrification.' },
+  { question: 'Quelle est la nature des ménisques ?', answer: 'Fibrocartilages recouverts de cartilage articulaire.' },
+  { question: 'Combien existe-t-il de ménisques ?', answer: 'Deux : médial et latéral.' },
+  { question: 'Quelle est la forme du ménisque latéral ?', answer: 'Quasi circulaire (≈ O).' },
+  { question: 'Quelle est la forme du ménisque médial ?', answer: 'Plus ouvert (≈ C).' },
+  { question: 'Où les ménisques se fixent-ils ?', answer: 'Sur le tibia à leurs cornes antérieure et postérieure.' },
+  { question: 'Où les ménisques n’ont-ils pas d’insertion osseuse ?', answer: 'Au milieu de leur longueur.' },
+  { question: 'Avec quoi le bord périphérique des ménisques est-il attaché ?', answer: 'Avec la capsule articulaire.' },
+  { question: 'Comment apparaissent les ménisques en coupe sagittale ?', answer: 'Comme deux triangles fibrocartilagineux.' },
+  { question: 'Pourquoi un même ménisque peut-il apparaître deux fois en coupe ?', answer: 'Parce que la coupe peut traverser la portion antérieure et postérieure.' },
+  { question: 'Quel rôle ont les ménisques dans la congruence articulaire ?', answer: 'Améliorer la conformité entre condyles fémoraux et plateau tibial.' },
+  { question: 'Comment les ménisques modifient-ils la surface d’appui ?', answer: 'Ils multiplient la surface articulaire.' },
+  { question: 'Quel rôle ont les ménisques dans les mouvements du genou ?', answer: 'Ils facilitent et stabilisent la flexion-extension.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

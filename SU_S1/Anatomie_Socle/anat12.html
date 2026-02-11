@@ -1,0 +1,1054 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Appareild Digestif</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quelles sont les deux grandes composantes de l’appareil digestif ?', answer: 'Le tractus digestif et les glandes annexes.' },
+  { question: 'Quels organes appartiennent au tractus digestif ?', answer: 'Cavité orale, pharynx, œsophage, estomac, intestin grêle, côlon, rectum.' },
+  { question: 'Quelles glandes appartiennent aux glandes annexes du tube digestif ?', answer: 'Les glandes salivaires, le foie et le pancréas.' },
+  { question: 'Quelles sont les fonctions du tractus digestif ?', answer: 'Ingestion, digestion mécanique et chimique, absorption des nutriments, élimination des matières fécales.' },
+  { question: 'Quelles sont les fonctions des glandes annexes ?', answer: 'Digestion chimique par sécrétions exocrines, métabolisme et sécrétions endocrines.' },
+  { question: 'Quelles sont les deux fonctions principales de la cavité orale ?', answer: 'Préhension et mastication des aliments (mécanique), digestion par sucs salivaires (chimique).' },
+  { question: 'Quelles sont les deux fonctions principales du pharynx ?', answer: 'Passage de l’air et progression du bol alimentaire.' },
+  { question: 'Quelles fonctions annexes sont assurées par le pharynx ?', answer: 'Déglutition, respiration, phonation et audition.' },
+  { question: 'Quelles sont les deux parties de la cavité orale ?', answer: 'Le vestibule et la cavité buccale.' },
+  { question: 'Où se situe le vestibule de la cavité orale ?', answer: 'Entre lèvres/joues en dehors et gencives/dents en dedans.' },
+  { question: 'Quel conduit s’ouvre en face de la 2e molaire supérieure ?', answer: 'Le canal de Sténon de la glande parotide.' },
+  { question: 'Que contient la cavité buccale ?', answer: 'La langue.' },
+  { question: 'Quelles sont les limites hautes de la cavité orale ?', answer: 'Palais dur en avant, palais mou en arrière.' },
+  { question: 'Quelles structures forment le plancher buccal ?', answer: 'Le frein de la langue, le canal de Wharton et le pli sublingual avec les canaux de Rivinus et Walther.' },
+  { question: 'Quelles sont les limites arrière de la cavité orale ?', answer: 'L’isthme du gosier.' },
+  { question: 'Quels éléments forment l’isthme du gosier ?', answer: 'Arcs palato-glosse et palato-pharyngien, luette, fosse tonsillaire.' },
+  { question: 'Quelle est la structure lymphoïde présente entre les piliers du gosier ?', answer: 'L’amygdale palatine.' },
+  { question: 'Quelle est la forme générale du pharynx ?', answer: 'Un demi-entonnoir musculomembraneux.' },
+  { question: 'Quels sont les trois étages du pharynx ?', answer: 'Nasopharynx, oropharynx, laryngopharynx.' },
+  { question: 'Le nasopharynx appartient-il au tube digestif ?', answer: 'Non.' },
+  { question: 'Quelle est la fonction de la trompe d’Eustache ?', answer: 'Communiquer le nasopharynx avec l’oreille moyenne.' },
+  { question: 'Quel étage du pharynx appartient au carrefour aéro-digestif ?', answer: 'L’oropharynx.' },
+  { question: 'Quel étage contient les cordes vocales ?', answer: 'Le laryngopharynx.' },
+  { question: 'Quelle est la longueur de l’œsophage ?', answer: '25 cm.' },
+  { question: 'Quel est le diamètre de l’œsophage ?', answer: '15 mm.' },
+  { question: 'Quels sont les trois segments de l’œsophage ?', answer: 'Cervical, thoracique, abdominal.' },
+  { question: 'Où se situe le premier rétrécissement de l’œsophage ?', answer: 'À la bouche œsophagienne de Killian en C6.' },
+  { question: 'Où se situe le deuxième rétrécissement de l’œsophage ?', answer: 'Au niveau de la crosse de l’aorte (T4) et la bronche souche gauche (T5).' },
+  { question: 'Où se situe le troisième rétrécissement de l’œsophage ?', answer: 'À l’orifice œsophagien du diaphragme (T10).' },
+  { question: 'Entre quelles vertèbres s’étend l’œsophage abdominal ?', answer: 'De T10 à T11.' },
+  { question: 'Qu’est-ce que le cardia ?', answer: 'Le sphincter inférieur de l’œsophage.' },
+  { question: 'Quel est le risque si le cardia reste ouvert après le passage des aliments ?', answer: 'Œsophagite par reflux acide.' },
+  { question: 'Quels sont les trois étages superficiels de l’abdomen ?', answer: 'Épigastre, ombilic, hypogastre.' },
+  { question: 'Quels sont les étages latéraux superficiels de l’abdomen ?', answer: 'Hypochondres, flancs, fosses iliaques.' },
+  { question: 'Quelles sont les limites de la cavité abdominale ?', answer: 'Diaphragme thoracique en haut, diaphragme pelvien en bas.' },
+  { question: 'Quels espaces contient la cavité abdominale ?', answer: 'Cavité péritonéale, espaces rétro- et sous-péritonéaux, mésos.' },
+  { question: 'Qu’est-ce que le péritoine ?', answer: 'Une membrane séreuse à deux feuillets, viscéral et pariétal.' },
+  { question: 'Qu’est-ce qu’un méso ?', answer: 'Un repli péritonéal reliant un segment digestif à l’espace rétro-péritonéal.' },
+  { question: 'Quelle est la capacité moyenne de l’estomac ?', answer: 'Environ 1,5 L.' },
+  { question: 'Quelle est la forme de l’estomac ?', answer: 'Une forme de J avec une petite et une grande courbure.' },
+  { question: 'Quelles sont les quatre parties de l’estomac ?', answer: 'Cardia, fundus, corps, pylore.' },
+  { question: 'Quel est le rôle du fundus ?', answer: 'Réservoir supérieur séparé du cardia par l’incisure cardiale.' },
+  { question: 'Quelle est la fonction du pylore ?', answer: 'Réguler la vidange gastrique vers le duodénum.' },
+  { question: 'Quel est le pH du suc gastrique ?', answer: 'Inférieur à 2.' },
+  { question: 'Quelle vitamine nécessite le facteur intrinsèque pour être absorbée ?', answer: 'La vitamine B12.' },
+  { question: 'Quel est le nom de l’anémie causée par un manque de facteur intrinsèque ?', answer: 'L’anémie de Biermer.' },
+  { question: 'Quelle est la longueur totale de l’intestin grêle ?', answer: 'Environ 5 mètres.' },
+  { question: 'Quelles sont les trois parties de l’intestin grêle ?', answer: 'Duodénum, jéjunum, iléon.' },
+  { question: 'Quelle est la fonction générale de l’intestin grêle ?', answer: 'Digestion et absorption des nutriments.' },
+  { question: 'Quelle est la longueur du duodénum ?', answer: '25 cm.' },
+  { question: 'Quelle est la forme du duodénum ?', answer: 'Un C entourant le pancréas.' },
+  { question: 'Quelles sont les portions du duodénum ?', answer: 'D1, D2, D3, D4.' },
+  { question: 'Où se jettent les canaux pancréatiques et biliaires ?', answer: 'Dans D2 via les papilles duodénales.' },
+  { question: 'Quel angle marque la transition duodénum–jéjunum ?', answer: 'L’angle de Treitz.' },
+  { question: 'Quelle bactérie est responsable des ulcères gastroduodénaux ?', answer: 'Helicobacter pylori.' },
+  { question: 'Quel segment de l’intestin grêle représente 2/5 de sa longueur ?', answer: 'Le jéjunum.' },
+  { question: 'Quel segment représente 3/5 de l’intestin grêle ?', answer: 'L’iléon.' },
+  { question: 'Avec quel segment du gros intestin s’abouche l’iléon ?', answer: 'Le caecum.' },
+  { question: 'Qu’est-ce qu’une anse intestinale ?', answer: 'Un segment mobile dépendant d’une branche artérielle mésentérique.' },
+  { question: 'Qu’est-ce que le mésentère du jéjuno-iléon ?', answer: 'Un repli péritonéal reliant le jéjuno-iléon à l’espace rétro-péritonéal et contenant ses vaisseaux.' },
+  { question: 'Quels sont les deux éléments constituant la partie terminale du tube digestif ?', answer: 'Le côlon et le rectum.' },
+  { question: 'Quelle est la longueur du gros intestin ?', answer: '1,8 m.' },
+  { question: 'De quel segment à quel segment s’étend le gros intestin ?', answer: 'De l’angle iléo-caecal à l’anus.' },
+  { question: 'Quelle est la fonction principale du gros intestin ?', answer: 'Réabsorption de l’eau et stockage des matières fécales.' },
+  { question: 'Où se situe le caecum ?', answer: 'Dans la fosse iliaque droite.' },
+  { question: 'Quel organe s’abouche dans le caecum ?', answer: 'L’intestin grêle.' },
+  { question: 'Quel appendice anatomique se trouve dans le caecum ?', answer: 'L’appendice vermiforme.' },
+  { question: 'De quel niveau part le côlon ascendant ?', answer: 'De la fosse iliaque droite, au niveau de L5.' },
+  { question: 'Où se termine le côlon ascendant ?', answer: 'Dans l’hypochondre droit, au niveau de L1.' },
+  { question: 'Dans quelle région se situe l’angle colique droit ?', answer: 'Dans l’hypochondre droit.' },
+  { question: 'Entre quelles régions le côlon transverse s’étend-il ?', answer: 'De l’hypochondre droit à l’hypochondre gauche.' },
+  { question: 'Quel trajet suit le côlon transverse ?', answer: 'Un trajet transversal passant par la partie supérieure de la région ombilicale.' },
+  { question: 'Dans quelle région se situe l’angle colique gauche ?', answer: 'Dans l’hypochondre gauche.' },
+  { question: 'Où commence et finit le côlon descendant ?', answer: 'De l’hypochondre gauche vers la fosse iliaque gauche (L4).' },
+  { question: 'Quelle est la particularité du côlon sigmoïde ?', answer: 'Il s’enroule sur lui-même en boucle en S et se prolonge par le rectum.' },
+  { question: 'Quels segments du côlon sont accolés au rétro-péritoine ?', answer: 'Le côlon ascendant et le côlon descendant.' },
+  { question: 'Quels segments du côlon sont mobiles grâce à leur méso ?', answer: 'Le caecum, le côlon transverse et le côlon sigmoïde.' },
+  { question: 'Quelle pathologie touche essentiellement les segments mobiles du côlon ?', answer: 'Le volvulus.' },
+  { question: 'Quelles sont les conséquences d’un volvulus ?', answer: 'Torsion, obstruction du bol alimentaire, et nécrose par occlusion artérielle.' },
+  { question: 'Quels sont les trois éléments visibles sur la surface externe du côlon ?', answer: 'Ténias coliques, haustrations, appendices épiploïques.' },
+  { question: 'Combien existe-t-il de ténias coliques ?', answer: 'Trois.' },
+  { question: 'À quoi correspondent les haustrations ?', answer: 'À des bosselures séparées par des sillons transversaux.' },
+  { question: 'À quoi correspondent les plis semi-lunaires ?', answer: 'Aux sillons transversaux visibles en lumière colique.' },
+  { question: 'Quelle est la longueur de l’appendice vermiculaire ?', answer: '7 cm.' },
+  { question: 'Dans quel segment s’ouvre l’appendice ?', answer: 'Dans le caecum, via l’orifice caeco-appendiculaire.' },
+  { question: 'Quel est le nom de la valvule de l’appendice ?', answer: 'La valvule de Gerlach.' },
+  { question: 'Quel est le rôle digestif de l’appendice ?', answer: 'Aucun.' },
+  { question: 'Quel est le rôle immunitaire de l’appendice chez l’enfant ?', answer: 'Former des lymphoïdes pour apprendre la tolérance aux bactéries commensales.' },
+  { question: 'Dans quelle région survient l’appendicite ?', answer: 'En fosse iliaque droite, au point de McBurney.' },
+  { question: 'Où commence le rectum ?', answer: 'Au niveau de la charnière recto-sigmoïdienne, en regard de S3.' },
+  { question: 'Quelle est la longueur du rectum ?', answer: '15 cm.' },
+  { question: 'Quelle est la forme du rectum dans le plan sagittal ?', answer: 'Un S.' },
+  { question: 'Quelle est la longueur de l’ampoule rectale ?', answer: '12 cm.' },
+  { question: 'Où se situe l’ampoule rectale ?', answer: 'Dans la concavité du sacrum, au-dessus du plancher pelvien.' },
+  { question: 'Quel est le rôle de l’ampoule rectale ?', answer: 'Stocker les matières fécales.' },
+  { question: 'Qu’est-ce que l’angle ano-rectal ?', answer: 'Le cap anal entre ampoule rectale et canal anal.' },
+  { question: 'Quelle est l’angulation de l’angle ano-rectal ?', answer: 'Environ 100 degrés.' },
+  { question: 'Quelle est la longueur du canal anal ?', answer: '3 cm.' },
+  { question: 'Où se situe le canal anal ?', answer: 'Dans le périnée, sous le plancher pelvien.' },
+  { question: 'Quel appareil musculaire entoure le canal anal ?', answer: 'Deux sphincters : lisse et strié.' },
+  { question: 'Quelle est la production quotidienne de salive ?', answer: '1,5 L.' },
+  { question: 'Quelles sont les fonctions de la salive ?', answer: 'Lubrification et début de la digestion enzymatique.' },
+  { question: 'Quelles sont les glandes salivaires mineures ?', answer: 'Labiales, jugales, linguales, palatines.' },
+  { question: 'Quelle est la glande salivaire la plus volumineuse ?', answer: 'La glande parotide.' },
+  { question: 'Quels éléments traversent la glande parotide ?', answer: 'L’artère carotide externe et le nerf facial.' },
+  { question: 'Quel canal excréteur appartient à la parotide ?', answer: 'Le canal de Sténon.' },
+  { question: 'Où s’abouche le canal de Sténon ?', answer: 'Dans le vestibule en regard de la 2e molaire supérieure.' },
+  { question: 'Quelle glande salivaire est palpable sous la mandibule ?', answer: 'La glande submandibulaire.' },
+  { question: 'Quel canal excréteur appartient à la glande submandibulaire ?', answer: 'Le canal de Wharton.' },
+  { question: 'Où s’abouche le canal de Wharton ?', answer: 'De chaque côté du frein de la langue, dans la caroncule sublinguale.' },
+  { question: 'Quelle glande salivaire est située sous le bord latéral de la langue ?', answer: 'La glande sublinguale.' },
+  { question: 'Quels sont les canaux excréteurs de la glande sublinguale ?', answer: 'Les canaux de Rivinus et Walther.' },
+  { question: 'Quel est le poids du foie ?', answer: '1,5 kg.' },
+  { question: 'Dans quelle région est situé le foie ?', answer: 'Hypochondre droit et épigastre, débordant partiellement dans l’hypochondre gauche.' },
+  { question: 'Quel signe clinique indique une augmentation du volume du foie ?', answer: 'Une hépatomégalie.' },
+  { question: 'Quel ligament sépare les lobes droit et gauche du foie sur la face supérieure ?', answer: 'Le ligament falciforme.' },
+  { question: 'En combien de lobes la face inférieure du foie est-elle divisée ?', answer: 'Quatre : droit, gauche, carré, caudé.' },
+  { question: 'Quels sillons forment un H sur la face viscérale du foie ?', answer: 'Les deux sillons sagittaux et le sillon transversal.' },
+  { question: 'Que contient le sillon sagittal droit ?', answer: 'La fosse de la vésicule biliaire et la VCI.' },
+  { question: 'Que contient le sillon sagittal gauche ?', answer: 'Le ligament rond et le ligament veineux.' },
+  { question: 'Que représente le sillon transversal ?', answer: 'Le hile du foie.' },
+  { question: 'Que constituent les voies biliaires intrahépatiques ?', answer: 'Des canalicules intralobulaires.' },
+  { question: 'Où confluent les voies biliaires intrahépatiques ?', answer: 'Dans les conduits hépatiques droit et gauche.' },
+  { question: 'Que forment les conduits hépatiques droit et gauche ?', answer: 'Le canal hépatique commun.' },
+  { question: 'Quelles structures forment la voie biliaire principale ?', answer: 'Canal hépatique commun + canal cystique = canal cholédoque.' },
+  { question: 'Où s’abouche le canal cholédoque ?', answer: 'Dans la papille duodénale majeure de D2.' },
+  { question: 'Dans quelle ampoule se réunissent le cholédoque et le canal de Wirsung ?', answer: 'Dans l’ampoule hépatopancréatique de Vater.' },
+  { question: 'Quel sphincter entoure l’ampoule hépatopancréatique ?', answer: 'Le sphincter d’Oddi.' },
+  { question: 'Quel est le rôle de la vésicule biliaire ?', answer: 'Stocker la bile entre les digestions.' },
+  { question: 'Quel canal relie la vésicule biliaire au cholédoque ?', answer: 'Le canal cystique.' },
+  { question: 'Quel est le risque d’une bile trop riche en lipides ?', answer: 'Formation de calculs biliaires.' },
+  { question: 'Que provoque l’obstruction du cholédoque par un calcul ?', answer: 'Une cholécystite.' },
+  { question: 'Quelles sont les fonctions exocrines du pancréas ?', answer: 'Production de sucs enzymatiques pour la digestion.' },
+  { question: 'Quelles sont ses fonctions endocrines ?', answer: 'Sécrétion d’insuline et de glucagon.' },
+  { question: 'Quelle est la localisation du pancréas ?', answer: 'Région épigastrique, devant L1-L2.' },
+  { question: 'Quelle est la longueur du pancréas ?', answer: '15 cm.' },
+  { question: 'Quelles sont les 4 parties du pancréas ?', answer: 'Tête, isthme, corps, queue.' },
+  { question: 'Quel est le rapport anatomique du processus unciné ?', answer: 'Avec les vaisseaux mésentériques supérieurs.' },
+  { question: 'Vers quel organe est orientée la queue du pancréas ?', answer: 'Vers la rate.' },
+  { question: 'Quelles sont les trois artères digestives principales ?', answer: 'Tronc coeliaque, AMS, AMI.' },
+  { question: 'Que vascularise le tronc cœliaque ?', answer: 'Foie, rate, estomac, duodénum, pancréas.' },
+  { question: 'Que vascularise l’artère mésentérique supérieure ?', answer: 'Intestin grêle, caecum, côlon ascendant, angle droit, 2/3 du côlon transverse.' },
+  { question: 'Que vascularise l’artère mésentérique inférieure ?', answer: '1/3 gauche du côlon transverse, côlon descendant, sigmoïde, rectum.' },
+  { question: 'Quelles veines forment la veine porte ?', answer: 'Mésentérique supérieure, mésentérique inférieure, splénique.' },
+  { question: 'Où se jette la veine porte ?', answer: 'Dans le foie.' },
+  { question: 'Que deviennent les veines intrahépatiques ?', answer: 'Elles forment les veines hépatiques.' },
+  { question: 'Où se jettent les veines hépatiques ?', answer: 'Dans la veine cave inférieure.' },
+  { question: 'Qu’est-ce que la première barrière hépatique ?', answer: 'Détoxification du sang veineux riche en nutriments.' },
+  { question: 'Quelles molécules sont éliminées par le foie ?', answer: 'Alcool, médicaments, excès métaboliques.' },
+  { question: 'Quelle est l’unité fonctionnelle du foie ?', answer: 'Le lobule hépatique.' },
+  { question: 'Quels éléments y convergent ?', answer: 'Divisions de la veine porte, de l’artère hépatique et des voies biliaires.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

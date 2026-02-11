@@ -1,0 +1,1135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>La matrice extra cellulaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Qu’est-ce qui remplace la paroi chez les cellules animales ?", answer: "La matrice extracellulaire (MEC)," },
+{ question: "Dans quel type d’organisme retrouve-t-on une MEC ?", answer: "Dans tous les tissus des organismes pluricellulaires," },
+{ question: "Quel est le rôle de la MEC dans l’organisation tissulaire ?", answer: "Elle permet l’organisation en tissu des organismes pluricellulaires," },
+{ question: "Que remplit la MEC entre les cellules ?", answer: "Les espaces entre les cellules," },
+{ question: "La MEC est-elle une substance inerte ?", answer: "Non, elle possède plusieurs fonctions associées," },
+{ question: "De quoi est constituée la MEC ?", answer: "De protéines et de polysaccharides synthétisés par les cellules de la MEC," },
+{ question: "Comment les composants de la MEC sont-ils assemblés ?", answer: "En un réseau structuré," },
+{ question: "Quelles sont les deux fonctions principales de la MEC ?", answer: "Cohésion et assemblage des cellules," },
+{ question: "Quel est le rôle de la MEC vis-à-vis des épithéliums ?", answer: "Elle protège et soutient les épithéliums," },
+{ question: "Quels 4 phénomènes la MEC contrôle-t-elle ?", answer: "Différenciation, prolifération, migration et polarité cellulaire," },
+{ question: "Quels sont les composants d’un tissu conjonctif (TC) ?", answer: "MEC avec des fibres, cellules et vascularisation," },
+{ question: "Quel type cellulaire synthétise les composants de la MEC dans les TC ?", answer: "Les fibroblastes," },
+{ question: "Comment la cellule épithéliale participe à la MEC ?", answer: "Elle sécrète les constituants de sa lame basale," },
+{ question: "Quelles 3 cellules migrent dans la MEC ?", answer: "Macrophages, leucocytes, mastocytes," },
+{ question: "Quelle est la localisation du TC lâche ?", answer: "Sous-jacent aux épithéliums," },
+{ question: "Quelle est la composition du TC lâche ?", answer: "Essentiellement de la MEC avec quelques fibroblastes," },
+{ question: "Où trouve-t-on du TC dense fibreux ?", answer: "Dans les tendons," },
+{ question: "Quel est le principal composant du cartilage ?", answer: "Des polysaccharides formant un gel," },
+{ question: "Quelle propriété donne le gel polysaccharidique au cartilage ?", answer: "Une résistance à la compression," },
+{ question: "Qu’est-ce qui rigidifie la MEC dans l’os ?", answer: "La minéralisation par des cristaux de phosphate de calcium," },
+{ question: "Quels sont les 3 constituants de la MEC ?", answer: "Protéines fibreuses, glycoprotéines adhésives, polysaccharides," },
+{ question: "Quels sont les 2 exemples de protéines fibreuses de la MEC ?", answer: "Les collagènes et l’élastine," },
+{ question: "Quels sont les 4 exemples de glycoprotéines adhésives ?", answer: "Fibronectine, laminines, facteur de von Willebrand, thrombospondine," },
+{ question: "Quels sont les 2 types de polysaccharides de la MEC ?", answer: "Glycosaminoglycanes (GAG) et protéoglycanes," },
+{ question: "Quelles associations structurent la MEC ?", answer: "Entre fibres, fibronectine et polysaccharides," },
+{ question: "Quelle est la principale molécule d’adhésion transmembranaire de la MEC ?", answer: "Les intégrines," },
+{ question: "Quel lien existe-t-il entre la MEC, les CAM (molécules d'adhérence) et le cytosquelette ?", answer: "Les CAM organisent la MEC via le cytosquelette," },
+{ question: "Que contrôlent les molécules d’adhésion sur le collagène et la fibronectine ?", answer: "La vitesse de formation et la taille," },
+{ question: "Quelle est la protéine la plus abondante des organismes animaux ?", answer: "Le collagène," },
+{ question: "Quelle proportion des protéines totales représente le collagène ?", answer: "25 %," },
+{ question: "Combien de familles de collagènes sont connues ?", answer: "19 familles," },
+{ question: "Quel est le premier type de collagène identifié ?", answer: "Le collagène de type I," },
+{ question: "Quel est le collagène le plus abondant et ubiquitaire ?", answer: "Le collagène de type I," },
+{ question: "Quelle est la structure du collagène de type I ?", answer: "Fibrillaire avec striation périodique," },
+{ question: "Quel type de collagène forme un réseau plan ?", answer: "Le collagène de type IV," },
+{ question: "Quelle est la localisation du collagène de type I ? (6 réponses)", answer: "Peau, tendon, os, ligaments, cornée, organes internes," },
+{ question: "Quelle est la localisation du collagène de type II ? (4 réponses)", answer: "Cartilage, disque intervertébral, notochorde, corps vitré de l’œil," },
+{ question: "Quelle est la localisation du collagène de type III ? (3 réponses)", answer: "Peau, vaisseaux sanguins, organes internes," },
+{ question: "Où trouve-t-on le collagène de type IV ?", answer: "Dans les lames basales," },
+{ question: "Quel collagène est disséminé en petite quantité ?", answer: "Le collagène de type V," },
+{ question: "Quelle est la composition moléculaire du collagène de type I ?", answer: "2x α1[I] + 1x α2[I]" },
+{ question: "Quelle est la forme polymérisée du collagène de type I ?", answer: "Fibrille" },
+{ question: "Le collagène de type I est-il riche ou pauvre en LYS[OH] ?", answer: "Pauvre en LYS[OH]" },
+{ question: "Le collagène de type I est-il riche ou pauvre en glucides ?", answer: "Pauvre en glucides" },
+{ question: "Quelle est la composition moléculaire du collagène de type II ?", answer: "3x α1[II]" },
+{ question: "Quelle est la forme polymérisée du collagène de type II ?", answer: "Fibrille" },
+{ question: "Le collagène de type II est-il riche ou pauvre en LYS[OH] ?", answer: "Riche en LYS[OH]" },
+{ question: "Le collagène de type II est-il riche ou pauvre en glucides ?", answer: "Riche en glucides" },
+{ question: "Comment sont les fibrilles du collagène de type II par rapport au type I ?", answer: "Fibrilles en général plus minces que le type I" },
+{ question: "Quelle est la composition moléculaire du collagène de type III ?", answer: "3x α1[III]" },
+{ question: "Quelle est la forme polymérisée du collagène de type III ?", answer: "Fibrille" },
+{ question: "Le collagène de type III est-il riche ou pauvre en LYS[OH] ?", answer: "Pauvre en LYS[OH]" },
+{ question: "Le collagène de type III est-il riche ou pauvre en glucides ?", answer: "Pauvre en glucides" },
+{ question: "Le collagène de type III est-il riche ou pauvre en PRO[OH] ?", answer: "Riche en PRO[OH]" },
+{ question: "Quelle est la composition moléculaire du collagène de type IV ?", answer: "3x α1[IV]" },
+{ question: "Le collagène de type IV est-il riche ou pauvre en LYS[OH] ?", answer: "Très riche en LYS[OH]" },
+{ question: "Le collagène de type IV est-il riche ou pauvre en glucides ?", answer: "Riche en glucides" },
+{ question: "Que renferme probablement le collagène de type IV ?", answer: "Des rallonges peptidiques du procollagène" },
+{ question: "Quelle est la composition moléculaire du collagène de type V ?", answer: "2x α1[V] + 1x α2[V]" },
+{ question: "Quelle est la forme polymérisée du collagène de type V ?", answer: "Inconnue" },
+{ question: "Le collagène de type V est-il riche ou pauvre en LYS[OH] ?", answer: "Riche en LYS[OH]" },
+{ question: "Le collagène de type V est-il riche ou pauvre en glucides ?", answer: "Riche en glucides" },
+{ question: "Quel est l’aspect du collagène de type I en microscopie optique ?", answer: "Faisceaux épais, plusieurs micromètres de long," },
+{ question: "Quel est l’aspect du collagène de type I en microscopie électronique ?", answer: "Fibrilles < 0,1 µm avec striation périodique de 60 nm," },
+{ question: "Quelle est l’unité élémentaire du collagène ?", answer: "Trois chaînes alpha glycosylées en superhélice," },
+{ question: "Quelle est la masse d’une chaîne alpha du collagène ?", answer: "100 kDa," },
+{ question: "Quel est le nom de la forme non encore clivée du collagène ?", answer: "Le procollagène," },
+{ question: "Quel est le motif d’acide aminé répété dans les chaînes alpha ?", answer: "Glycine-X-Y," },
+{ question: "Quel est le rôle de la glycine dans l’hélice ?", answer: "Elle est au centre de l’hélice, stabilise par sa petite taille," },
+{ question: "Quel est souvent l’acide aminé en position X du motif Gly-X-Y ?", answer: "Proline (PRO)," },
+{ question: "Quel est souvent l’acide aminé en position Y du motif Gly-X-Y ?", answer: "Hydroxyproline (PRO[OH])," },
+{ question: "Quels autres résidus trouve-t-on dans les chaînes alpha ?", answer: "Lysine et hydroxylysine," },
+{ question: "Quelles liaisons stabilisent la triple hélice du collagène ?", answer: "Des liaisons hydrogène entre chaînes alpha," },
+{ question: "Qu’est-ce qui est à l’origine de la striation périodique du collagène ?", answer: "Le motif répété et le décalage d’un quart dans l’assemblage des macromolécules," },
+{ question: "Quelle cellule est responsable de la synthèse des chaînes alpha du collagène I ?", answer: "Le fibroblaste", },
+{ question: "Quelle est la première étape de la biosynthèse du collagène I ?", answer: "La synthèse des chaînes alpha par les fibroblastes", },
+{ question: "Que possède chaque chaîne alpha du collagène I ?", answer: "Une séquence signal", },
+{ question: "Que trouve-t-on aux extrémités N et C-terminales du procollagène I ?", answer: "Des propeptides de forme non hélicoïdale", },
+{ question: "Que deviennent les propeptides du collagène I ?", answer: "Ils sont éliminés", },
+{ question: "Quelles modifications subissent les prolines et lysines dans la biosynthèse du collagène I ?", answer: "Hydroxylation", },
+{ question: "Quel type de glycosylation agit pendant la biosynthèse du collagène I ?", answer: "N-glycosylation d'baord puis O-Glycosylation", },
+{ question: "Où s’achèvent la N-glycosylation et se déroule l’O-glycosylation du collagène I ?", answer: "Dans l'appareil de Golgi", },
+{ question: "Quelle est l’étape d’assemblage des trois chaînes alpha du collagène I ?", answer: "Formation d’une super hélice de procollagène", },
+{ question: "Quelles liaisons stabilisent les chaînes alpha du procollagène ?", answer: "Des liaisons hydrogène", },
+{ question: "Comment est transporté le procollagène vers la membrane plasmique ?", answer: "Par transport vésiculaire", },
+{ question: "Comment le procollagène est-il libéré dans la MEC ?", answer: "Par exocytose", },
+{ question: "En quoi consiste la maturation du collagène I ?", answer: "Clivage des propeptides par des enzymes protéolytiques dans la MEC", },
+{ question: "Quels types de collagène sont concernés par la maturation par clivage enzymatique ?", answer: "Collagène I, II et III", },
+{ question: "Comment appelle-t-on le collagène mature après clivage ?", answer: "Tropocollagène", },
+{ question: "Quel est le diamètre d’un tropocollagène ?", answer: "1,5 nm", },
+{ question: "Comment les collagènes matures s’assemblent-ils dans la MEC ?", answer: "En fibrilles", },
+{ question: "Comment les fibrilles s’assemblent-elles dans la MEC ?", answer: "En fibres de collagène, puis en faisceaux", },
+{ question: "Quel est le diamètre des fibres de collagène ?", answer: "De 10 à 300 nm", },
+{ question: "Quel rôle joue le cytosquelette dans la formation des fibres de collagène ? (3 réponses)", answer: "Il agit sur les sites de formation, la vitesse d’organisation et l’orientation des fibrilles", },
+{ question: "Quel est le rôle des propeptides dans la biosynthèse du collagène ?", answer: "Ils servent de guidage intracellulaire et empêchent la formation de fibrilles dans la cellule", },
+{ question: "Quelles hormones peuvent réguler la biosynthèse du collagène ?", answer: "Plusieurs hormones, notamment l'hormone de croissance", },
+{ question: "Quelles cytokines régulent la biosynthèse du collagène ?",answer: "Celles produites par les macrophages", },
+{ question: "Qu’est-ce que les cytokines stimulent ?", answer: "Les fibroblastes", },
+{ question: "Que provoque la stimulation des fibroblastes par les cytokines ?", answer: "La formation de fibres de collagène en grande quantité", },
+{ question: "Quel phénomène peut être causé par une production excessive de collagène ?", answer: "La fibrose", },
+{ question: "Quelle est la durée de vie du collagène dans la peau et le derme ?", answer: "2 mois", },
+{ question: "Quelles enzymes dégradent le collagène ?", answer: "Les collagénases", },
+{ question: "Qui synthétise et excrète les collagénases ?", answer: "Les fibroblastes, macrophages et polynucléaires neutrophiles", },
+{ question: "Quel mécanisme cellulaire participe à la dégradation du collagène ?", answer: "La phagocytose par les macrophages", },
+{ question: "Quelles anomalies génétiques peuvent affecter le collagène ?", answer: "Des mutations dans les gènes codant les chaînes alpha", },
+{ question: "Quelles déficiences enzymatiques peuvent affecter le collagène ?", answer: "Une déficience en enzymes protéolytiques", },
+{ question: "Quelle pathologie est liée à une anomalie du collagène ?", answer: "Le syndrome d’Ehlers-Danlos", },
+{ question: "Quels symptômes sont associés au syndrome d’Ehlers-Danlos ?", answer: "Hyper mobilité des articulations et anomalies de la peau", },
+{ question: "Quel est le rôle de la vitamine C dans la synthèse du collagène ?", answer: "Elle est indispensable à l'hydroxylation des prolines et des lysines", },
+{ question: "Que provoque une carence en vitamine C ?", answer: "Un déficit de la synthèse de collagène et un déchaussement des dents", },
+{ question: "Pourquoi les gencives sont-elles touchées par une carence en vitamine C ?", answer: "Parce qu’elles sont riches en collagène", },
+{ question: "Dans quels tissus trouve-t-on beaucoup de fibres élastiques ?", answer: "Peau, poumon et vaisseaux sanguins", },
+{ question: "Quel est le rôle principal des fibres élastiques ?", answer: "Elles confèrent des propriétés élastiques aux tissus", },
+{ question: "Avec quelles molécules les fibres élastiques sont-elles associées ?", answer: "Avec les collagènes et les polysaccharides", },
+{ question: "Quel est le type de liaison entre fibres élastiques et autres composants ?", answer: "Des liaisons non covalentes", },
+{ question: "Comment se présentent les fibres élastiques au microscope optique ?", answer: "Comme un réseau de fibres plus fines que les fibres de collagène, visibles uniquement après coloration spécifique", },
+{ question: "Quelle est la structure principale des fibres élastiques ?", answer: "Un réseau de molécules d’élastine", },
+{ question: "Quelles sont les 5 caractéristiques de la molécule d’élastine ? (glycosylée ou non? riche en quels AAs? hydrophile ou hydrophobe? masse? nombre AAs?)", answer: "Protéine non glycosylée, riche en proline et en lysine non hydroxylées, hydrophobe, 70 kDa, 830 acides aminés", },
+{ question: "Comment les molécules d’élastine sont-elles reliées entre elles ?", answer: "Par des liaisons covalentes entre résidus lysine", },
+{ question: "Comment s’appelle la structure formée par ces liaisons entre molécules d’élastine ?", answer: "Réticulation en réseau de fibres", },
+{ question: "Par qui est renouvelée l’élastine ?", answer: "Par les fibroblastes", },
+{ question: "Quelle enzyme est responsable de la dégradation de l’élastine ?", answer: "L’élastase", },
+{ question: "Qui sécrète l’élastase ?", answer: "Les macrophages, les polynucléaires neutrophiles et les fibroblastes", },
+{ question: "Par qui est synthétisée la fibronectine ?", answer: "Par les fibroblastes", },
+{ question: "Où trouve-t-on la fibronectine ?", answer: "Dans tout l’organisme, dans la MEC et la lame basale", },
+{ question: "Quelle est la structure de la fibronectine ?", answer: "Deux chaînes polypeptidiques A et B de 2500 AA reliées par deux ponts disulfures aux extrémités C-ter", },
+{ question: "Quelle est la masse moléculaire de la fibronectine ?", answer: "220 kDa", },
+{ question: "Combien de domaines de liaison possède la fibronectine ?", answer: "6 domaines de liaison de haute affinité", },
+{ question: "Quelles 5 molécules peuvent se lier à la fibronectine ?", answer: "Collagène, héparane sulfate, fibrine, glycosaminoglycanes, intégrines", },
+{ question: "Quel est le motif minimal de reconnaissance des intégrines ?", answer: "La séquence RGD (Arginine-Glycine-Acide aspartique)", },
+{ question: "Quelles sont les deux formes de la fibronectine ?", answer: "Insoluble dans la MEC et soluble dans le sang", },
+{ question: "Où est synthétisée la forme soluble de la fibronectine ?", answer: "Dans le foie", },
+{ question: "Quel est le rôle de la forme soluble de la fibronectine ?", answer: "Elle participe à la coagulation sanguine", },
+{ question: "Quels 3 rôles joue la fibronectine ?", answer: "Adhésion, migration cellulaire, différenciation cellulaire", }, 
+{ question: "Quand la fibronectine apparaît-elle au cours du développement ?", answer: "Précocement, durant la migration des cellules de la crête neurale et la gastrulation", },
+{ question: "Quel est le rôle principal de la fibronectine dans l’embryogenèse ?", answer: "Régulation de la migration cellulaire, notamment des neurones", },
+{ question: "Où trouve-t-on la laminine ?", answer: "Dans la lame basale", },
+{ question: "Quelle est la masse moléculaire de la laminine ?", answer: "850 kDa", },
+{ question: "Quelle est la structure de la laminine ?", answer: "3 chaînes polypeptidiques : alpha, bêta, gamma", }, 
+{ question: "Comment sont disposées les extrémités N-ter de la laminine ?", answer: "En triple hélice", },
+{ question: "Comment sont disposées les extrémités C-ter de la laminine ?", answer: "En structure en croix", },
+{ question: "À quoi peut se lier la laminine ? (4 réponses)", answer: "Au collagène de type IV, aux protéoglycannes (ex: perlecan), aux intégrines, au nidogène", },
+{ question: "Quel est le rôle d’interactions de la laminine avec les cellules ?", answer: "Elle permet l’adhérence cellule/MEC via les intégrines", },
+{ question: "Comment sont formées les chaînes des glycosaminoglycanes (GAG) ?", answer: "Ce sont de longues chaînes polysaccharidiques non ramifiées, linéaires, formées de disaccharides répétés A et B.", },
+{ question: "Quelle est la nature chimique du sucre A dans les GAG ?", answer: "Le sucre A est souvent modifié en glucuronate ou iduronate.", },
+{ question: "Quelle est la nature chimique du sucre B dans les GAG ?", answer: "Le sucre B est un sucre aminé, comme la N-acétylglucosamine ou la N-acétylgalactosamine, et/ou sulfaté.", },
+{ question: "De quoi dépend le nombre de disaccharides répétés dans les GAG ?", answer: "Il dépend de la famille de GAG.", },
+{ question: "Pourquoi les GAG sont-ils chargés négativement ?", answer: "À cause des groupements sulfates SO₃⁻ et des groupements carboxylates COO⁻ de l'acide uronique.", },
+{ question: "Quel GAG ne présente pas de groupements sulfates ?", answer: "L'acide hyaluronique.", },
+{ question: "À quoi peuvent se fixer les GAG grâce à leur charge négative ?", answer: "Ils peuvent se fixer à des ions chargés positivement, appelés cations.", },
+{ question: "Sous quelles formes les GAG sont-ils présents dans la MEC ?", answer: "Ils peuvent être libres ou associés à des protéines.", },
+{ question: "Que forment les GAG par capture des molécules d’eau ?", answer: "Un gel hydraté plus ou moins visqueux.", },
+{ question: "Comment s'appelle le gel formé par les GAG dans la MEC ?", answer: "La substance fondamentale de la MEC.", },
+{ question: "Quel est le rôle mécanique des GAG dans la MEC ?", answer: "Ils ont un rôle de soutien mécanique.", },
+{ question: "Que permet la charge négative des GAG dans la diffusion ?", answer: "La diffusion rapide des molécules d'oxygène, des nutriments et des hormones à travers la MEC.", },
+{ question: "Quels sont les rôles de l’hyaluronane ?", answer: "Il intervient dans la morphogenèse et peut être dégradé par une hyaluronidase.", },
+{ question: "Quel est l’effet de la dégradation de l’hyaluronane par la hyaluronidase ?", answer: "Elle peut mettre fin à la migration et à la différenciation cellulaire.", },
+{ question: "Quel est le monosaccharide A dans l'acide hyaluronique ?", answer: "L'acide D-glucuronique.", },
+{ question: "Quel est le monosaccharide B dans l'acide hyaluronique ?", answer: "La N-acétyl-D-glucosamine.", },
+{ question: "Dans quels 4 tissus trouve-t-on l’acide hyaluronique ?", answer: "Dans la peau, le corps vitré, le cartilage et le liquide synovial.", },
+{ question: "Quel est le monosaccharide B dans les chondroïtines-4 et -6-sulfate ?", answer: "La N-acétyl-D-galactosamine.", },
+{ question: "Quel est le monosaccharide A dans les chondroïtines-4 et -6-sulfate ?", answer: "L'acide D-glucuronique.", },
+{ question: "Dans quels 4 tissus trouve-t-on les chondroïtines-4 et -6-sulfate ?", answer: "Dans le cartilage, la cornée, les os, la peau et les artères.", },
+{ question: "Quel est le monosaccharide A dans le dermatane sulfate ?", answer: "L'acide D-glucuronique ou l'acide L-iduronique.", },
+{ question: "Quel est le monosaccharide B dans le dermatane sulfate ?", answer: "La N-acétyl-D-galactosamine.", },
+{ question: "Où trouve-t-on le dermatane sulfate ? (4 réponses)", answer: "Dans la peau, les vaisseaux, le cœur et les valvules cardiaques.", },
+{ question: "Quels sont les monosaccharides A possibles dans l'héparane sulfate et l'héparine ?", answer: "L'acide D-glucuronique ou l'acide L-iduronique.", },
+{ question: "Quel est le monosaccharide B de l'héparane sulfate ?", answer: "La N-acétyl-D-glucosamine.", },
+{ question: "Où trouve-t-on l'héparane sulfate ? (3 réponses)", answer: "Dans les poumons, les artères et à la surface cellulaire.", },,
+{ question: "Où trouve-t-on l'héparine ? (3 réponses)", answer: "Dans les poumons, le foie et la peau.", },
+{ question: "Qu’est-ce qu’un protéoglycane (PG) ?", answer: "C’est une protéine liée à un ou plusieurs GAG, sauf l’acide hyaluronique.", },
+{ question: "Quelle est la masse des protéines des protéoglycanes ?", answer: "De 10 à 500 kDa.", },
+{ question: "Quelle est la proportion de polysaccharides dans les PG ?", answer: "Jusqu'à 95% de la masse totale de la molécule.", },
+{ question: "Combien d’unités disaccharidiques maximum peuvent contenir les GAG des PG ?", answer: "Un maximum de 300 unités disaccharidiques.", },
+{ question: "Comment les chaînes de GAG sont-elles assemblées à la protéine dans les PG ?", answer: "Par une liaison covalente à la sérine via une O-glycosylation et un tétrasaccharide de liaison.", },
+{ question: "Comment les GAG peuvent-ils s'associer à l'acide hyaluronique ?", answer: "Sous forme d’agrégats volumineux non covalents.", },
+{ question: "Avec quoi les PG interagissent-ils dans la MEC ?", answer: "Avec le collagène et les glycoprotéines.", },
+{ question: "Quel est l'effet des PG sur le volume dans la MEC ?", answer: "Ils gonflent par capture d'eau et occupent un volume important.", },
+{ question: "Quel est le rôle des PG dans le stockage moléculaire ?", answer: "Ils forment un réservoir de facteurs de croissance et d’hormones.", },
+{ question: "Qu’est-ce que la lame basale ?", answer: "Une région différenciée de la MEC qui sépare l'épithélium du tissu conjonctif.", },
+{ question: "Où se situe la lame basale ?", answer: "Sous les cellules épithéliales et endothéliales, autour des cellules musculaires, adipocytes, nerfs périphériques (ou cellules de Schwann).", },
+{ question: "Quelle est l’épaisseur de la lame basale ?", answer: "Quelques dizaines de nm sous les cellules épithéliales, plus de 100 nm autour des cellules endothéliales du glomérule rénal.", },
+{ question: "Quels 8 composants de la MEC retrouve-t-on dans la lame basale ?", answer: "Fibronectine, protéoglycanes, collagènes I, II, III, IV, entactine et laminine.", },
+{ question: "Quel type de collagène est spécifique à la lame basale ?", answer: "Le collagène de type IV.", },
+{ question: "Quelle est la particularité structurale du collagène IV ?", answer: "Il est non fibrillaire et organisé en réseau bidimensionnel.", },
+{ question: "Comment est synthétisée la lame basale ?", answer: "Par les cellules en contact avec elle, notamment les cellules conjonctives des tissus conjonctifs.", },
+{ question: "Quels 4 composants sont toujours présents dans la lame basale ?", answer: "Collagène IV, protéoglycanes (héparane sulfate), laminine et entactine.", },
+{ question: "Quel est le rôle de l’entactine dans la lame basale ?", answer: "Elle se fixe conjointement aux laminines et au collagène IV.", },
+{ question: "Quel type de récepteur spécifique retrouve-t-on dans la lame basale ?", answer: "Des récepteurs aux intégrines, notamment la sous-unité béta-4.", },
+{ question: "Quel est le rôle de la lame basale dans la migration cellulaire ?", answer: "Elle sert de substrat aux cellules migrantes, comme celles des crêtes neurales.", },
+{ question: "Quel est le rôle de la lame basale dans la filtration ?", answer: "Elle agit comme un filtre sélectif entre les épithéliums et les tissus conjonctifs.", },
+{ question: "Quel est l’exemple de filtration par la lame basale dans le corps humain ?", answer: "Le glomérule rénal, dans la formation de l’urine primitive.", },
+{ question: "Quel est le rôle de la lame basale dans les lésions épithéliales ?", answer: "Elle sert de support à la régénération cellulaire grâce à la persistance de la laminine.", },
+{ question: "Quel est l'exemple intestinal du rôle régénératif de la lame basale ?", answer: "Les cellules souches au fond des villosités migrent vers le sommet en 1 à 2 jours avant de mourir par apoptose.", },
+{ question: "Quel est le rôle de la lame basale dans la jonction neuromusculaire ?", answer: "Elle contient des glycoprotéines responsables de l’agrégation des récepteurs comme ceux à l’acétylcholine.", },
+{ question: "Comment les cellules cancéreuses traversent-elles la lame basale ?", answer: "Elles sécrètent des enzymes capables d’hydrolyser les constituants de la MEC.", },
+{ question: "Quels sont les pôles d’une cellule épithéliale en lien avec la MEC ?", answer: "Un pôle apical en contact avec le milieu extérieur et un pôle basolatéral en contact avec la lame basale.", },
+{ question: "Comment la polarité cellulaire est-elle maintenue dans l'épithélium ?", answer: "Par la répartition inégale des jonctions cellulaires aux pôles apical et basolatéral.", }, 
+{ question: "Quels 3 exemples de jonctions cellulaires limitent les mouvements ou échanges ?", answer: "Les hémidesmosomes, les jonctions serrées et les ceintures d’adhérence.", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Nutrition</h1><h2>SOCLE - Métabolisme des acides aminés</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'Combien d\'AA protéinogènes existe-t-il ?', answer: '20 acides aminés standards incorporés dans les protéines.', },
+{ question: 'Qu\'est-ce qu\'un acide aminé indispensable ?', answer: 'AA que l\'organisme ne peut pas synthétiser, devant être apporté par l\'alimentation.', },
+{ question: 'Quels sont les 8 AA indispensables chez l\'adulte ?', answer: 'Isoleucine, Leucine, Lysine, Méthionine, Phénylalanine, Thréonine, Tryptophane, Valine.', },
+{ question: 'Quels sont les 2 AA indispensables supplémentaires chez l\'enfant ?', answer: 'Arginine et Histidine.', },
+{ question: 'Comment retenir les AA indispensables ?', answer: '\'Le très lyrique Tristan fait vachement méditer Iseult\' (Leu, Thr, Lys, Trp, Phe, Val, Met, Ile).', },
+{ question: 'Quelles sont les fonctions des AA ?', answer: 'Synthèse protéique, production d\'énergie, précurseurs de molécules bioactives.', },
+{ question: 'Quel est le pool d\'AA libre de l\'organisme ?', answer: '70 g, dont 1/4 dans le plasma.', },
+{ question: 'Comment varie le pool d\'AA libre ?', answer: 'Peu de variations grâce au foie qui régule l\'homéostasie des AA.', },
+{ question: 'Quelles sont les 3 sources d\'AA pour le pool libre ?', answer: 'Alimentation (digestion protéique), synthèse de novo, catabolisme des protéines endogènes.', },
+{ question: 'Quels sont les 3 devenirs des AA du pool libre ?', answer: 'Synthèse protéique, catabolisme oxydatif, synthèse de molécules dérivées.', },
+{ question: 'Quel est le turnover protéique quotidien ?', answer: '300-400 g de protéines sont synthétisées et dégradées chaque jour.', },
+{ question: 'Quelle est la demie-vie de l\'hémoglobine ?', answer: '120 jours.', },
+{ question: 'Quelle est la demie-vie du collagène ?', answer: '300 jours.', },
+{ question: 'Quelle est la demie-vie de l\'ornithine décarboxylase ?', answer: '11 minutes (la plus courte).', },
+{ question: 'Quelles enzymes digèrent les protéines dans l\'estomac ?', answer: 'Pepsine (et HCl pour dénaturation).', },
+{ question: 'Quelles enzymes pancréatiques digèrent les protéines ?', answer: 'Trypsine, chymotrypsine, élastase, carboxypeptidases A et B.', },
+{ question: 'Quelles enzymes intestinales complètent la digestion ?', answer: 'Aminopeptidases et dipeptidases de la bordure en brosse.', },
+{ question: 'Sous quelle forme les produits de digestion sont-ils absorbés ?', answer: 'AA libres, dipeptides et tripeptides.', },
+{ question: 'Comment sont transportés les AA dans l\'entérocyte ?', answer: 'Par des transporteurs spécifiques couplés au Na+ (cotransport actif secondaire).', },
+{ question: 'Combien de transporteurs d\'AA existe-t-il ?', answer: 'Au moins 7 transporteurs avec spécificité de groupe.', },
+{ question: 'Comment les dipeptides sont-ils absorbés ?', answer: 'Par le transporteur PepT1, couplé au gradient de H+.', },
+{ question: 'Quels sont les produits du catabolisme des AA ?', answer: 'NH4+ (ammoniaque), squelette carboné, CO2, H2O, énergie.', },
+{ question: 'Pourquoi l\'ammoniaque est-il toxique ?', answer: 'Il est neurotoxique et doit être éliminé sous forme d\'urée.', },
+{ question: 'Comment s\'appellent les réactions de transfert du groupement aminé ?', answer: 'Transaminations, catalysées par des aminotransférases.', },
+{ question: 'Quel est le coenzyme des aminotransférases ?', answer: 'Le phosphate de pyridoxal (PLP), forme active de la vitamine B6.', },
+{ question: 'Quelles sont les 2 aminotransférases les plus importantes ?', answer: 'ASAT (GOT) et ALAT (GPT).', },
+{ question: 'Quel AA reçoit le groupement aminé lors des transaminations ?', answer: 'L\'α-cétoglutarate qui devient glutamate.', },
+{ question: 'Qu\'est-ce que la désamination oxydative ?', answer: 'Libération de NH4+ à partir du glutamate par la glutamate déshydrogénase.', },
+{ question: 'Où a lieu principalement la désamination oxydative ?', answer: 'Dans le foie (mitochondries).', },
+{ question: 'Quel est le destin de l\'ammoniaque hépatique ?', answer: 'Incorporation dans l\'urée (cycle de l\'urée).', },
+{ question: 'Qu\'est-ce que l\'uréogenèse ?', answer: 'Cycle de l\'urée : synthèse de l\'urée à partir de 2 NH4+ et du CO2.', },
+{ question: 'Où se déroule le cycle de l\'urée ?', answer: 'Dans les hépatocytes (mitochondrie et cytosol).', },
+{ question: 'Quelle est la formule de l\'urée ?', answer: 'CO(NH2)2, contenant 2 atomes d\'azote.', },
+{ question: 'Quelle enzyme initie le cycle de l\'urée ?', answer: 'La carbamyl-phosphate synthétase I (CPS I), mitochondriale.', },
+{ question: 'Quels sont les intermédiaires du cycle de l\'urée ?', answer: 'Carbamyl-phosphate, citrulline, argininosuccinate, arginine, ornithine.', },
+{ question: 'Quelle enzyme produit l\'urée ?', answer: 'L\'arginase, qui hydrolyse l\'arginine en urée + ornithine.', },
+{ question: 'Comment les tissus périphériques éliminent-ils l\'ammoniaque ?', answer: 'Par la glutamine synthétase : glutamate + NH4+ → glutamine.', },
+{ question: 'Quel est le rôle de la glutamine ?', answer: 'Transport non toxique de l\'ammoniaque vers le foie et les reins.', },
+{ question: 'Quel est le destin de la glutamine rénale ?', answer: 'Libération de NH4+ excrété dans l\'urine (régulation acido-basique).', },
+{ question: 'Qu\'est-ce qu\'un AA glucoformateur ?', answer: 'AA dont le squelette carboné peut être converti en glucose (néoglucogenèse).', },
+{ question: 'Qu\'est-ce qu\'un AA cétoformateur ?', answer: 'AA dont le squelette carboné donne des corps cétoniques (acétyl-CoA).', },
+{ question: 'Combien d\'AA sont uniquement glucoformateurs ?', answer: '14 AA sont strictement glucoformateurs.', },
+{ question: 'Quels AA sont uniquement cétoformateurs ?', answer: 'Leucine et Lysine.', },
+{ question: 'Quels AA sont à la fois gluco- et cétoformateurs ?', answer: 'Isoleucine, Phénylalanine, Tryptophane, Tyrosine.', },
+{ question: 'Quels intermédiaires proviennent du catabolisme des AA ?', answer: 'Pyruvate, acétyl-CoA, α-cétoglutarate, succinyl-CoA, fumarate, oxaloacétate.', },
+{ question: 'Quels neurotransmetteurs dérivent des AA ?', answer: 'Sérotonine (Trp), dopamine et catécholamines (Tyr), GABA (Glu), histamine (His).', },
+{ question: 'De quel AA dérive la sérotonine ?', answer: 'Du tryptophane, via le 5-hydroxytryptophane.', },
+{ question: 'De quel AA dérivent les catécholamines ?', answer: 'De la tyrosine : dopamine → noradrénaline → adrénaline.', },
+{ question: 'De quel AA dérive le monoxyde d\'azote (NO) ?', answer: 'De l\'arginine, par la NO synthase.', },
+{ question: 'De quel AA dérive la créatine ?', answer: 'De l\'arginine, la glycine et la méthionine.', },
+{ question: 'Qu\'est-ce que la créatine ?', answer: 'Réservoir d\'énergie musculaire sous forme de phosphocréatine.', },
+{ question: 'De quoi dérivent les bases puriques et pyrimidiques ?', answer: 'Glutamine, glycine, aspartate fournissent les atomes du cycle.', },
+{ question: 'De quoi dérive l\'hème ?', answer: 'De la glycine et du succinyl-CoA.', },
+{ question: 'Qu\'est-ce que le glutathion ?', answer: 'Tripeptide antioxydant (Glu-Cys-Gly) protégeant les cellules du stress oxydatif.', },
+{ question: 'Qu\'est-ce que la mélanine ?', answer: 'Pigment cutané dérivé de la tyrosine.', },
+{ question: 'Qu\'est-ce que la mélatonine ?', answer: 'Hormone du sommeil dérivée du tryptophane.', },
+{ question: 'Qu\'est-ce que les hormones thyroïdiennes ?', answer: 'T3 et T4, dérivées de la tyrosine iodée.', },
+{ question: 'Comment varie le métabolisme des AA selon l\'état nutritionnel ?', answer: 'À jeun : catabolisme accru ; en période post-prandiale : synthèse protéique favorisée.', },
+{ question: 'Quel est l\'effet de l\'insuline sur le métabolisme des AA ?', answer: 'Favorise la captation des AA et la synthèse protéique.', },
+{ question: 'Quel est l\'effet du glucagon sur le métabolisme des AA ?', answer: 'Favorise le catabolisme des AA et l\'uréogenèse.', },
+{ question: 'Quel est l\'effet du cortisol sur le métabolisme des AA ?', answer: 'Stimule la protéolyse musculaire et la néoglucogenèse hépatique.', },
+{ question: 'Qu\'est-ce que la phénylcétonurie ?', answer: 'Déficit en phénylalanine hydroxylase → accumulation de phénylalanine → retard mental si non traité.', },
+{ question: 'Quel est le traitement de la phénylcétonurie ?', answer: 'Régime pauvre en phénylalanine dès la naissance.', },
+{ question: 'Qu\'est-ce que l\'albinisme ?', answer: 'Déficit en tyrosinase → absence de mélanine.', },
+{ question: 'Qu\'est-ce que l\'homocystinurie ?', answer: 'Déficit enzymatique du métabolisme de la méthionine → risques thrombotiques et oculaires.', },
+{ question: 'Qu\'est-ce que la maladie du sirop d\'érable ?', answer: 'Déficit en complexe BCKDH → accumulation d\'AA branchés → odeur de sirop d\'érable des urines.', },
+{ question: 'Qu\'est-ce que l\'hyperammoniémie ?', answer: 'Élévation de l\'ammoniaque sanguin par déficit du cycle de l\'urée → encéphalopathie.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

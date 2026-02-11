@@ -1,0 +1,1054 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Différenciation cellulaire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Qu’est-ce que la différenciation cellulaire ?", answer: "Capacité d’une cellule à donner dans un environnement défini différents types cellulaires fonctionnels." },
+{ question: "À quoi aboutit la différenciation cellulaire ?", answer: "À la formation d’une cellule spécialisée." },
+{ question: "Qu’est-ce qu’une cellule spécialisée ?", answer: "Une cellule capable d’accomplir des fonctions particulières dans un organisme." },
+{ question: "Que perd la cellule lors de sa différenciation ?", answer: "Sa totipotence." },
+{ question: "Quel type de cellule devient une cellule qui perd sa totipotence ?", answer: "Une cellule souche engagée." },
+{ question: "Quelles modifications accompagnent la différenciation ?", answer: "Une modification de l’expression des gènes." },
+{ question: "Par quoi est induite la différenciation ?", answer: "Par des signaux extérieurs et un programme de détermination interne." },
+{ question: "La différenciation est-elle réversible ?", answer: "Non, c’est un phénomène naturellement irréversible." },
+{ question: "Quelle est la seule exception à l’irréversibilité de la différenciation ?", answer: "Expérimentalement, elle peut être réversible." },
+{ question: "Quelles sont les seules cellules pouvant produire par différenciation des cellules spécialisées ?", answer: "Les cellules souches." },
+{ question: "Qu’est-ce que l’auto-renouvellement ?", answer: "La capacité de faire des copies d’elles-mêmes pour remplacer celles qui meurent." },
+{ question: "Quel est le rôle des cellules souches dans la réparation tissulaire ?",answer: "Elles remplacent les cellules mortes, comme les globules rouges ou les cellules de la peau." },
+{ question: "Quelle est la durée de vie d’un globule rouge ?", answer: "120 jours." },
+{ question: "Pourquoi les cellules souches de la moelle osseuse doivent-elles produire des GR chaque jour ?", answer: "Pour remplacer les millions de GR qui meurent quotidiennement." },
+{ question: "Quelle est la durée de vie d’une cellule de la peau ?", answer: "3 à 4 semaines." },
+{ question: "Combien de kilos de cellules mortes perdons-nous chaque année ?", answer: "Quelques kilos." },
+{ question: "Quels sont les trois devenirs possibles d’une cellule souche selon les signaux ?", answer: "Apoptose, différenciation, prolifération." },
+{ question: "Quelles sont les 3 propriétés communes des cellules souches ?", answer: "Auto-renouvellement, non différenciées, capables de donner des cellules différenciées." },
+{ question: "Qu’est-ce qu’une cellule unipotente ?", answer: "Une cellule souche qui ne peut former qu’un seul type de cellule différenciée." },
+{ question: "Une cellule unipotente conserve-t-elle sa capacité d’auto-renouvellement ?", answer: "Oui." },
+{ question: "Donne 3 exemples de cellules unipotentes.", answer: "Hépatocyte, kératinocyte, spermatogonie." },
+{ question: "Qu’est-ce qu’une cellule multipotente ?", answer: "Cellule caractérisée par la multiplication et maturation cellulaires, identifiable morphologiquement." },
+{ question: "Où trouve-t-on des cellules multipotentes ?", answer: "Dans le sang du cordon ombilical et très peu dans les tissus adultes." },
+{ question: "Quelles cellules sont issues des cellules multipotentes ?", answer: "Cellules hématopoïétiques (GR, GB) et cellules mésenchymateuses (cartilage, muscle, adipocytes)." },
+{ question: "Les cellules souches uni et multipotentes sont-elles présentes dans l’organisme adulte ?", answer: "Oui." },
+{ question: "Comment appelle-t-on les cellules souches pluripotentes ?", answer: "Cellules embryonnaires." },
+{ question: "De quoi proviennent les cellules pluripotentes ?", answer: "D’un embryon de 5 à 7 jours." },
+{ question: "Combien de types cellulaires différents peuvent donner les cellules pluripotentes ?", answer: "Environ 200." },
+{ question: "Où retrouve-t-on les cellules pluripotentes à 5 à 10 semaines d’embryon ?", answer: "Dans des zones à l’origine des ovaires et testicules." },
+{ question: "Pourquoi dit-on que les cellules pluripotentes ne peuvent pas engendrer un organisme entier ?", answer: "Parce qu’elles ne peuvent pas donner toutes les annexes embryonnaires." },
+{ question: "Que perdent progressivement les cellules pluripotentes au cours de leur différenciation ?", answer: "Leur capacité d’auto-renouvellement." },
+{ question: "Les cellules pluripotentes sont-elles identifiables morphologiquement ?", answer: "Non." },
+{ question: "Les cellules pluripotentes sont-elles nombreuses ?", answer: "Non, elles sont peu nombreuses." },
+{ question: "De quoi proviennent les cellules totipotentes ?", answer: "Des premières divisions après la fécondation." },
+{ question: "Combien de premières cellules sont totipotentes ?", answer: "Les 8 premières cellules." },
+{ question: "Que peuvent donner les cellules totipotentes ?", answer: "Un individu complet (embryon + annexes)." },
+{ question: "Les cellules totipotentes sont-elles fréquentes ?", answer: "Non, elles sont rares et quiescentes." },
+{ question: "Quel est le rôle des cellules totipotentes ?", answer: "Maintien du stock de cellules souches et production de cellules différenciées." },
+{ question: "Où trouve-t-on les cellules pluri et totipotentes ?", answer: "Exclusivement dans un embryon." },
+{ question: "Qui a découvert les cellules IPS ?", answer: "Le chercheur japonais Shinya Yamanaka." },
+{ question: "Quel prix a reçu Yamanaka en 2012 ?", answer: "Le prix Nobel de médecine." },
+{ question: "Qu’a montré Yamanaka concernant les cellules IPS ?", answer: "Qu’il est possible de reprogrammer une cellule adulte spécialisée en cellule immature pluripotente." },
+{ question: "Quel est le potentiel des IPS ?", answer: "Elles peuvent redonner n’importe quelle cellule de l’organisme." },
+{ question: "Quels types cellulaires peuvent donner les IPS ?", answer: "Un neurone ou une cellule du foie." },
+{ question: "Que faut-il pour que les IPS se développent ?", answer: "Des facteurs de croissance adéquats." },
+{ question: "Pourquoi les IPS sont-elles utiles ?", answer: "Elles modélisent des pathologies et testent l’efficacité de molécules thérapeutiques." },
+{ question: "Quel problème éthique les IPS permettent-elles d’éviter ?", answer: "L’utilisation d’embryons humains." },
+{ question: "Quel est le principe des IPS ?", answer: "Reprogrammer génétiquement une cellule adulte pour la rendre pluripotente." },
+{ question: "Comment ont été testées les IPS au départ ?", answer: "Greffées chez des souris malades." },
+{ question: "Quel avantage présentent les IPS ?", answer: "Produites à partir des cellules du patient, donc pas de rejet." },
+{ question: "Quelles 2 maladies espère-t-on soigner avec les IPS ?", answer: "Dégénérescence de la rétine et traumatismes de la moelle épinière." },
+{ question: "Qu’est-ce qu’une niche ?", answer: "Site spécifique dans un tissu où résident les cellules souches." },
+{ question: "Que contient aussi une niche ?", answer: "Des cellules mésenchymateuses." },
+{ question: "Quel est le rôle des niches ?", answer: "Contrôler l’auto-renouvellement via des facteurs de croissance." },
+{ question: "Qu’est-ce qu’un lignage cellulaire ?", answer: "Des cellules issues d’une même cellule souche avec un devenir restreint à un type de différenciation." },
+{ question: "Donne un exemple de lignage cellulaire.", answer: "Les cellules mésodermiques donnant des cellules osseuses et musculaires." },
+{ question: "D’où proviennent les cellules entérocytaires ?", answer: "Des cryptes intestinales." },
+{ question: "Que représentent les cryptes ?", answer: "Le compartiment prolifératif." },
+{ question: "Où migrent les cellules entérocytaires après leur différenciation ?", answer: "Le long de la villosité, vers la lumière intestinale." },
+{ question: "Que deviennent les entérocytes à leur stade terminal ?", answer: "Ils sont éliminés par apoptose (desquamation)." },
+{ question: "Quels 4 types de cellules donnent les cellules souches intestinales ?", answer: "Cellules de Paneth, à mucus, neuroendocrines, entérocytes." },
+{ question: "Quelles cellules constituent la majeure partie des villosités intestinales ?", answer: "Les entérocytes." },
+{ question: "Quelle est la première étape de la différenciation ?", answer: "Signal de maintien de l’état indifférencié et prolifération." },
+{ question: "Quelle est la deuxième étape de la différenciation ?", answer: "Réception d’un signal de différenciation sans modification morphologique." },
+{ question: "Quelle est la troisième étape de la différenciation ?", answer: "Apparition de quelques modifications fonctionnelles (cellule déterminée)." },
+{ question: "Quelle est la quatrième étape de la différenciation ?", answer: "Réception de deuxièmes signaux et acquisition d’une structure et fonction spécifiques (cellule différenciée)." },
+{ question: "Quelle propriété permet aux cellules de rester dans un état différencié stable malgré les changements de l’environnement ?", answer: "La mémoire cellulaire", },
+{ question: "Quels sont les trois types de facteurs qui contrôlent la mémoire cellulaire ?", answer: "Facteurs cytoplasmiques, nucléaires et autocrines", },
+{ question: "Quel est l’exemple de facteur cytoplasmique donné pour la mémoire cellulaire ?", answer: "Le gradient d’ARNm chez les drosophiles donnant l’identité de la région antérieure de l’embryon", },
+{ question: "Quels sont les trois exemples de facteurs nucléaires contrôlant la mémoire cellulaire ?", answer: "Inactivation du chromosome X, empreinte parentale (méthylation de l’ADN), facteurs de transcription", },
+{ question: "Comment sont les facteurs autocrines ?", answer: "Des facteurs extérieurs", },
+{ question: "Quelle est la base de la différenciation cellulaire ?", answer: "L’expression combinée de différentes catégories de gènes (5 catégories au total)", },
+{ question: "Quels groupes de gènes sont regroupés sous le nom de gènes de la différenciation ?", answer: "Groupes 3, 4 et 5", },
+{ question: "Quelles sont les caractéristiques des gènes du groupe 1 ?", answer: "Gradients housekeeper, non régulés, exprimés dans pratiquement toutes les cellules", },
+{ question: "Quelle est la fonction des gènes du groupe 2 ?", answer: "Impliqués dans la prolifération, inactivés dans les cellules différenciées", },
+{ question: "Quelle est la fonction des gènes du groupe 3 ?", answer: "Spécifiques du lignage cellulaire, permettent la conservation de la mémoire cellulaire", },
+{ question: "Quelle est la fonction des gènes du groupe 4 ?", answer: "Spécifiques des cellules différenciées", },
+{ question: "Quelle est la fonction des gènes du groupe 5 ?", answer: "Impliqués dans les voies de contrôle de la fonction spécifique", },
+{ question: "De quoi dépend la différenciation cellulaire ?", answer: "De la régulation fine de l’expression des gènes", },
+{ question: "Les cellules eucaryotes possèdent combien de fois plus d’information que nécessaire pour coder toutes les protéines ?", answer: "10 fois plus", },
+{ question: "Quelles sont les deux grandes catégories de gènes codant les protéines chez les vertébrés supérieurs ?", answer: "Gènes domestiques et gènes spécifiques", },
+{ question: "Donnez un exemple de gène domestique.", answer: "Les gènes codant pour les enzymes de la glycolyse", },
+{ question: "Où sont actifs les gènes spécifiques ?", answer: "Actifs dans certaines cellules et réprimés dans d’autres", },
+{ question: "Quel est le premier niveau de régulation de l’expression des gènes ?", answer: "Organisation structurale et fonctionnelle de l’ADN dans la chromatine", },
+{ question: "Quel contrôle est exercé au niveau local de la chromatine ?",answer: "Contrôle de la structure de la chromatine et de l’accessibilité au complexe de transcription", },
+{ question: "L’épigénétique est-elle liée à une modification de la séquence des nucléotides ?", answer: "Non", },
+{ question: "Quel est le deuxième niveau de régulation de l’expression des gènes ?", answer: "Transcription de l’ADN en ARN messager", },
+{ question: "Quels éléments sont régulés lors de la transcription ?", answer: "Activité du complexe de transcription, ARN polymérase et facteurs associés", },
+{ question: "Quel est le troisième niveau de régulation ?", answer: "Modifications post-transcriptionnelles des ARNm", },
+{ question: "Quel exemple de modification post-transcriptionnelle peut être cité ?", answer: "Épissage alternatif", },
+{ question: "La régulation peut-elle aussi s’effectuer lors du transport de l’ARNm ?", answer: "Oui, du noyau vers le cytosol", },
+{ question: "Quel est le quatrième niveau de régulation ?", answer: "Traduction de l’ARNm", },
+{ question: "Quels types d’ARN régulent la traduction ?", answer: "Micro-ARN", },
+{ question: "Quel est le cinquième niveau de régulation ?", answer: "Modifications post-traductionnelles des protéines", },
+{ question: "Quels sont les deux types de facteurs maintenant l’état différencié ?", answer: "Facteurs intrinsèques et extrinsèques", },
+{ question: "Quel est le rôle des facteurs intrinsèques dans la différenciation ?", answer: "Ils répriment les gènes de prolifération et expriment les gènes du lignage cellulaire", },
+{ question: "Quel est l’effet d’un fort degré de méthylation de l’ADN ?", answer: "Moins d’accessibilité au génome pour les facteurs de transcription", },
+{ question: "Quelle enzyme est impliquée dans la méthylation de l’ADN ?", answer: "La 3-DNA-méthyltransférase", },
+{ question: "Quel est le taux de cette enzyme dans les cellules souches ?", answer: "Très faible", },
+{ question: "Que provoque l’hyperméthylation durant la différenciation ?", answer: "Répression du programme de pluripotence", },
+{ question: "Quelles sont les trois variables influençant le ratio euchromatine/hétérochromatine ?", answer: "Le noyau, la différenciation, le cycle cellulaire", },
+{ question: "Quels sont les trois facteurs ATP-dépendants cités pour la décompaction ?", answer: "Myc, Max, Mad", },
+{ question: "Quelle est la demi-vie de Myc ?", answer: "20 à 30 minutes", },
+{ question: "À quel moment Myc est-il exprimé ?", answer: "Lors de la transition G0-G1", },
+{ question: "Que se passe-t-il si le niveau de Myc est élevé ?", answer: "Il y a prolifération", },
+{ question: "Quand Mad est-il exprimé ?", answer: "Pas exprimé lors de la prolifération, son expression est augmentée par les inducteurs de différenciation", },
+{ question: "Quelle est la propriété de Mad par rapport à Max ?", answer: "Mad peut se lier à Max, ce qui crée une compétition avec Myc qui veut également se lier a Max pour former un hétérodimère actif.", },
+{ question: "Comment varie l’expression de Max durant le cycle cellulaire ?", answer: "Elle reste constante", },
+{ question: "Citez cinq types de facteurs extrinsèques influençant la différenciation :", answer: "Hormones, facteurs de croissance, interactions avec la MEC, relations intercellulaires, récepteurs transmembranaires", },
+{ question: "Comment définit-on l’épigénétique ?", answer: "Changement de l’expression des gènes sans changement de la séquence de l’ADN", },
+{ question: "L’épigénétique est-elle réversible ?", answer: "Oui", },
+{ question: "Sur quoi repose l’épigénétique ?", answer: "Méthylation de l’ADN et modifications de la chromatine (code histone)", },
+{ question: "Qu’est-ce qui permet aux cellules d’acquérir une identité stable ?", answer: "Les marqueurs épigénétiques", },
+{ question: "Pourquoi parle-t-on de mémoire épigénétique réversible ?", answer: "Parce qu’elle peut s’effacer", },
+{ question: "Qui a mené une expérience en 1980 sur l’épigénétique ?", answer: "Peter Jones", },
+{ question: "Que contenait la boîte de Pétri utilisée par Jones ?", answer: "Des fibroblastes de souris et 5-azacytidine", },
+{ question: "Qu’est-ce qui est apparu dans la culture après quelques jours ?", answer: "Des myotubes (cellules musculaires)", },
+{ question: "Quel était le rôle de la 5-azacytidine ?", answer: "Effacer les marqueurs épigénétiques et reprogrammer les cellules embryonnaires en cellules musculaires", },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

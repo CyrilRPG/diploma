@@ -1,0 +1,791 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Histologie</h1><h2>SOCLE - Tissu conjonctif (cellules)</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'Quelles sont les deux grandes catégories de cellules du tissu conjonctif commun ?', answer: 'Cellules résidentes (mésenchymateuses) et cellules mobiles (origine hématopoïétique).', },
+{ question: 'Quels sont les types de cellules résidentes du tissu conjonctif ?', answer: 'Fibroblastes, fibrocytes, myofibroblastes, adipocytes blancs et bruns.', },
+{ question: 'Quels sont les types de cellules mobiles du tissu conjonctif ?', answer: 'Mastocytes, macrophages, plasmocytes, cellules sanguines.', },
+{ question: 'Quelle est l’origine des cellules résidentes du tissu conjonctif ?', answer: 'Le mésoderme, via des cellules mésenchymateuses.', },
+{ question: 'Quelle est l’origine des cellules mobiles du tissu conjonctif ?', answer: 'La moelle osseuse via une origine hématopoïétique.', },
+{ question: 'Que synthétisent les cellules du tissu conjonctif dans la MEC ?', answer: 'Fibres de collagène, fibres élastiques, fibres de réticuline et substance fondamentale.', },
+{ question: 'Quel est le rôle principal des fibroblastes ?', answer: 'Synthèse et renouvellement de la matrice extracellulaire.', },
+{ question: 'Quelle est l’origine embryonnaire des fibroblastes ?', answer: 'Cellules-souches mésenchymateuses CD34+ du mésoblaste intra-embryonnaire.', },
+{ question: 'Comment appelle-t-on la forme inactive du fibroblaste ?', answer: 'Fibrocyte.', },
+{ question: 'Que peuvent devenir les fibroblastes en cas de besoin ?', answer: 'Des myofibroblastes.', },
+{ question: 'Les fibroblastes possèdent-ils une lame basale ?', answer: 'Non, aucune lame basale.', },
+{ question: 'Quel est le marquage immunohistochimique des fibroblastes ?', answer: 'Vimentine + ; pas de marqueur spécifique.', },
+{ question: 'Quelle est la forme générale d’un fibroblaste en microscopie optique ?', answer: 'Cellule étoilée, volumineuse, prolongements cytoplasmiques nombreux.', },
+{ question: 'Quelle est la coloration du cytoplasme du fibroblaste en MO ?', answer: 'Basophile (bleu).', },
+{ question: 'Comment est le noyau d’un fibroblaste en MO ?', answer: 'Volumineux, clair, ovoïde, nucléolé, chromatine peu condensée.', },
+{ question: 'Quelle est la forme générale d’un fibrocyte ?', answer: 'Cellule fusiforme, allongée, peu de prolongements.', },
+{ question: 'Comment est le noyau d’un fibrocyte ?', answer: 'Dense, allongé, ovoïde, riche en hétérochromatine.', },
+{ question: 'Comment est le cytoplasme du fibrocyte ?', answer: 'Acidophile, peu abondant, pauvre en organites.', },
+{ question: 'Quelles jonctions relient les prolongements des fibroblastes ?', answer: 'Macula adhaerens et jonctions gap.', },
+{ question: 'Quels organites sont très développés chez le fibroblaste actif ?', answer: 'REG, appareil de Golgi, nombreuses vésicules de pinocytose.', },
+{ question: 'Quelle est la taille d’un fibroblaste en ME ?', answer: '5–10 µm de large et 20–30 µm de long.', },
+{ question: 'Quels sont les rôles majeurs des fibroblastes ?', answer: 'Synthèse de la MEC, dégradation de la MEC, immunité locale, mécanosensibilité, métabolisme lipidique.', },
+{ question: 'Quelles métalloprotéases sont produites par les fibroblastes ?', answer: 'Collagénases et élastases.', },
+{ question: 'Qu’est-ce que la fibroclasie ?', answer: 'Phagocytose des vieilles fibres de la matrice extracellulaire.', },
+{ question: 'Quel est le rôle immunitaire du fibroblaste ?', answer: 'Synthèse de cytokines et recrutement des cellules sanguines.', },
+{ question: 'Quel est le rôle du fibroblaste dans l’athérome ?', answer: 'Protection via métabolisme lipidique (récepteurs LDL).', },
+{ question: 'Qu’est-ce qu’un myofibroblaste ?', answer: 'Un fibroblaste différencié exprimant l’actine α-SMA et doté de propriétés contractiles.', },
+{ question: 'Dans quels processus les myofibroblastes sont-ils impliqués ?', answer: 'Réparation et cicatrisation tissulaire.', },
+{ question: 'Quelle protéine marque les myofibroblastes en immunohistochimie ?', answer: 'Actine α-SMA.', },
+{ question: 'Les myofibroblastes possèdent-ils une lame basale ?', answer: 'Non, comme les fibroblastes.', },
+{ question: 'Que se passe-t-il pathologiquement si les myofibroblastes persistent ?', answer: 'Fibrose et perturbation de l’homéostasie tissulaire.', },
+{ question: 'Quelle est la caractéristique principale d’un adipocyte blanc ?', answer: 'Vacuole lipidique uniloculaire volumineuse.', },
+{ question: 'Quelle est la caractéristique d’un adipocyte brun ?', answer: 'Multiples vacuoles lipidiques (multiloculaires) et rôle thermogénique.', },
+{ question: 'Quelle est l’origine des adipocytes ?', answer: 'Cellules-souches mésenchymateuses dérivant du mésoblaste intra-embryonnaire.', },
+{ question: 'Quels sont les précurseurs successifs des adipocytes ?', answer: 'Adipoblastes → préadipocytes → adipocytes blancs/bruns.', },
+{ question: 'Quels marqueurs immunohistochimiques marquent les adipocytes ?', answer: 'S100+, vimentine+, vinculine+.', },
+{ question: 'Pourquoi les adipocytes apparaissent-ils optiquement vides en MO ?', answer: 'Car les graisses sont dissoutes par les colorants standards.', },
+{ question: 'Quelle coloration spéciale révèle les lipides des adipocytes ?', answer: 'Oil Red (rouge orangé) ou Noir Soudan (noir).', },
+{ question: 'Où se trouve le noyau de l’adipocyte blanc ?', answer: 'En périphérie (aspect en bague à chaton).', },
+{ question: 'Quel est le diamètre des adipocytes blancs ?', answer: '10 à 120 µm.', },
+{ question: 'Que contient la vacuole lipidique de l’adipocyte blanc en ME ?', answer: 'Triglycérides, aspect amorphe, peu dense aux électrons.', },
+{ question: 'Quelle est l’épaisseur du liseré cytoplasmique périphérique de l’adipocyte blanc ?', answer: '0,2 à 0,3 µm.', },
+{ question: 'Quel est le rôle des vésicules de pinocytose périphériques de l’adipocyte blanc ?', answer: 'Hydrolyse des triglycérides.', },
+{ question: 'Quelle est la localisation du noyau dans l’adipocyte brun ?', answer: 'Central.', },
+{ question: 'Quelles sont les activités métaboliques de l’adipocyte brun ?', answer: 'Thermogenèse via UCP1, combustion des triglycérides.', },
+{ question: 'Quelles sont les fonctions des adipocytes blancs ?', answer: 'Lipogenèse, lipolyse, stockage énergétique, protection mécanique.', },
+{ question: 'Qu’est-ce qui provoque l’obésité au niveau adipocytaire ?', answer: 'Augmentation du nombre mais surtout du volume des adipocytes.', },
+{ question: 'À quelles familles appartiennent tous les macrophages ?', answer: 'Aux phagocytes mononucléés et aux cellules présentatrices d’antigènes aux lymphocytes TH.', },
+{ question: 'Quelle est l’origine des macrophages ?', answer: 'Origine hématopoïétique via la moelle, CFU-GM puis CFU-M sous GM-CSF et M-CSF.', },
+{ question: 'Quel est le nom des macrophages dans le sang ?', answer: 'Les monocytes.', },
+{ question: 'Les monocytes sont-ils présents dans le tissu conjonctif ?', answer: 'Non, dans les tissus ils deviennent macrophages ou cellules dendritiques.', },
+{ question: 'Citer trois noms particuliers de macrophages selon les organes.', answer: 'Mélanophages (peau), cellules de Küpffer (foie), macrophages alvéolaires (poumon).', },
+{ question: 'Quel est le macrophage du tissu osseux ?', answer: 'L’ostéoclaste.', },
+{ question: 'Quel type cellulaire apparaît dans les granulomes inflammatoires ?', answer: 'Cellules épithélioïdes et cellules géantes.', },
+{ question: 'Quelle est la taille d’un macrophage en MO ?', answer: '20 à 50 µm.', },
+{ question: 'Quelle est la forme du noyau du macrophage en MO ?', answer: 'Rond ou encoché, réniforme, excentré.', },
+{ question: 'Quelle est la coloration du cytoplasme du macrophage ?', answer: 'Faiblement éosinophile, contenant lipofuscine et parfois corps étrangers.', },
+{ question: 'Quelles structures de membrane caractérisent le macrophage en ME ?', answer: 'Microvillosités et pseudopodes.', },
+{ question: 'Quelles structures cytoplasmiques sont très développées dans le macrophage ?', answer: 'Lysosomes, endosomes, phagosomes, phagolysosomes.', },
+{ question: 'Où se trouve le Golgi du macrophage ?', answer: 'Dans l’encoche nucléaire.', },
+{ question: 'Quel cytosquelette est très développé dans le macrophage ?', answer: 'Le cytosquelette d’actine.', },
+{ question: 'Les macrophages sont-ils mobiles ?', answer: 'Oui, très mobiles.', },
+{ question: 'Quelles sont les trois grandes fonctions immunitaires du macrophage ?', answer: 'Phagocytose, présentation de l’antigène via CMH II, sécrétion de cytokines.', },
+{ question: 'Qu’est-ce que l’opsonisation ?', answer: 'Processus où une molécule recouvre une cible pour faciliter sa phagocytose.', },
+{ question: 'Quels récepteurs aux opsonines portent les macrophages ?', answer: 'CR1, CR3, CR4 et Fcg-RI/Fcg-RII (CD16).', },
+{ question: 'Quel récepteur spécifique rend les macrophages sensibles au LPS ?', answer: 'CD14.', },
+{ question: 'Quels marqueurs immunohistochimiques sont positifs dans les macrophages ?', answer: 'CD4, CD15, CD68, CMH II.', },
+{ question: 'Quelles enzymes caractérisent les lysosomes du macrophage ?', answer: 'Phosphatases acides positives, activité estérasique positive.', },
+{ question: 'Quel est le précurseur des mastocytes ?', answer: 'Cellule hématopoïétique CD34+ et c-Kit+.', },
+{ question: 'Où se trouvent les mastocytes ?', answer: 'Dans le tissu conjonctif lâche, surtout peau, poumon, bouche.', },
+{ question: 'Existe-t-il des mastocytes dans le sang ?', answer: 'Non.', },
+{ question: 'Quels sont les deux types de mastocytes ?', answer: 'Mastocytes séreux (TC) et mastocytes muqueux (T).', },
+{ question: 'Quels sont les deux états fonctionnels des mastocytes ?', answer: 'État quiescent et état activé.', },
+{ question: 'Quelle est la taille d’un mastocyte ?', answer: '12 à 20 µm.', },
+{ question: 'Quelle est la caractéristique du cytoplasme du mastocyte en MO ?', answer: 'Très nombreuses granulations basophiles.', },
+{ question: 'Quelles colorations révèlent les granulations mastocytaires ?', answer: 'HE, PAS, bleu de toluidine (métachromasie), bleu alcian, Giemsa, acridine orange.', },
+{ question: 'Quelle structure de surface caractérise le mastocyte en ME ?', answer: 'Microvillosités.', },
+{ question: 'Quelle est la forme du noyau du mastocyte ?', answer: 'Petit, central, dense, jamais polylobé.', },
+{ question: 'Comment apparaissent les granulations en ME ?', answer: 'Très grosses, denses ou hétérogènes (cellule quiescente) ou vidées (active).', },
+{ question: 'Quel est le rôle principal du mastocyte dans l’immunité ?', answer: 'Déclenchement de l’hypersensibilité immédiate de type I IgE dépendante.', },
+{ question: 'Quel médiateur est libéré immédiatement lors de la dégranulation ?', answer: 'Histamine.', },
+{ question: 'Quels processus le mastocyte contrôle-t-il hors allergie ?', answer: 'Angiogenèse, fibrose, défense contre parasites et bactéries.', },
+{ question: 'Que provoque l’activation des mastocytes ?', answer: 'Dégranulation et libération rapide de médiateurs inflammatoires.', },
+{ question: 'Quel est le récepteur des IgE présent sur les mastocytes ?', answer: 'FcεRI.', },
+{ question: 'Quels médiateurs préformés sont contenus dans les granules ?', answer: 'Histamine, protéoglycanes à héparine (serglycine), tryptase, chymase.', },
+{ question: 'Quels médiateurs néoformés sont produits par les mastocytes ?', answer: 'Leucotriènes, prostaglandines, PAF, IL-4, IL-8, TNF-α.', },
+{ question: 'Qu’est-ce que l’urticaire ?', answer: 'Dermatose fugace liée à une libération non immunologique d’histamine.', },
+{ question: 'Quels sont les signes de l’urticaire ?', answer: 'Érythème, œdème, prurit.', },
+{ question: 'Quelles sont les causes de l’urticaire ?', answer: 'Allergènes ou stimuli non allergiques (froid, chaleur, effort).', },
+{ question: 'Quelles sont les deux phases de la réaction allergique ?', answer: 'Phase précoce (dégranulation) puis phase tardive (médiateurs néoformés).', },
+{ question: 'Quelle est l’origine des plasmocytes ?', answer: 'Étape terminale de différenciation des lymphocytes B.', },
+{ question: 'Où se trouvent principalement les plasmocytes ?', answer: 'Dans les muqueuses (MALT) et la moelle hématopoïétique.', },
+{ question: 'Les plasmocytes sont-ils présents dans le sang ?', answer: 'Non.', },
+{ question: 'Quelles immunoglobulines peuvent produire les plasmocytes ?', answer: 'IgA, IgG, IgM, IgE, IgD.', },
+{ question: 'Que synthétise un plasmocyte donné ?', answer: 'Toujours la même Ig avec même chaîne lourde et même chaîne légère.', },
+{ question: 'Quelle est la durée de vie des plasmocytes ?', answer: 'Quelques jours pour IgM, 2-3 semaines pour IgG/IgA.', },
+{ question: 'Quelle est la forme du plasmocyte en MO ?', answer: 'Cellule ovoïde de 10-20 µm.', },
+{ question: 'Quel aspect a son noyau ?', answer: 'Excentré, chromatine en « rayons de roue ». ', },
+{ question: 'Quelle zone claire apparaît en MO dans le plasmocyte ?', answer: 'Zone périnucléaire correspondant au Golgi.', },
+{ question: 'Pourquoi le cytoplasme est-il très basophile ?', answer: 'REG très développé et nombreux ribosomes.', },
+{ question: 'Comment reconnaître un plasmocyte en ME ?', answer: 'REG très développé, Golgi volumineux, noyau excentré à chromatine mottée.', },
+{ question: 'Quels marqueurs immunohistochimiques marquent les plasmocytes ?', answer: 'Chaînes légères kappa ou lambda (2/3 kappa, 1/3 lambda).', },
+{ question: 'Que signifie la présence d’une seule chaîne légère ?', answer: 'Prolifération monoclonale.', },
+{ question: 'Quelles sont les cellules sanguines d’origine hématopoïétique présentes dans le tissu conjonctif ?', answer: 'Lymphocytes B, TH, Tc ; granulocytes neutrophiles et éosinophiles.', },
+{ question: 'Quelles cellules hématopoïétiques ne sont normalement jamais présentes dans le tissu conjonctif ?', answer: 'Cellules sanguines en circulation, sauf recrutement particulier.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

@@ -1,0 +1,1161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Membre Superieur (Partie 1)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quelle est la forme générale de la clavicule ?', answer: 'Un os plat en forme de S.' },
+  { question: 'Comment est la convexité de la clavicule dans ses 2/3 médiaux ?', answer: 'Convexe antérieure.' },
+  { question: 'Comment est la convexité de la clavicule dans son tiers latéral ?', answer: 'Convexe postérieure.' },
+  { question: 'Avec quel os s’articule l’extrémité latérale de la clavicule ?', answer: 'Avec l’acromion de la scapula.' },
+  { question: 'Avec quelles structures s’articule l’extrémité médiale de la clavicule ?', answer: 'Avec le manubrium et la 1ère côte.' },
+  { question: 'Quels muscles s’insèrent sur la face supérieure de la clavicule ?', answer: 'Deltoïde, trapèze et SCOM.' },
+  { question: 'Quels reliefs se trouvent sur l’extrémité latérale de la clavicule (face inférieure) ?', answer: 'Tubercule conoïde et ligne trapézoïde.' },
+  { question: 'Quels ligaments s’insèrent sur le tubercule conoïde et la ligne trapézoïde ?', answer: 'Les ligaments conoïde et trapézoïde.' },
+  { question: 'Quelle structure s’insère dans la gouttière sous-clavière ?', answer: 'Le muscle subclavier.' },
+  { question: 'Quel ligament s’attache sur la tubérosité costale ?', answer: 'Le ligament costo-claviculaire.' },
+  { question: 'Que trouve-t-on sur l’extrémité médiale de la clavicule ?', answer: 'Deux facettes articulaires, sternale et costale.' },
+  { question: 'Comment est décrite la scapula vue en face antérieure ?', answer: 'Comme une écaille plate traversée de crêtes obliques.' },
+  { question: 'Que forme la face antérieure de la scapula ?', answer: 'La fosse subscapulaire.' },
+  { question: 'Quelle est la forme du processus coracoïde ?', answer: 'Une excroissance antérieure en forme de doigt semi-fléchi.' },
+  { question: 'La coracoïde est-elle palpable ?', answer: 'Non.' },
+  { question: 'Quel est le rôle du processus coracoïde ?', answer: 'Il sert de zone d’insertion à des muscles du bras, de l’avant-bras et de la cage thoracique.' },
+  { question: 'Où se situe la cavité glénoïde ?', answer: 'À l’angle du bord supérieur et du bord latéral de la scapula.' },
+  { question: 'Qu’est-ce que l’incisure scapulaire ?', answer: 'Une encoche du bord supérieur laissant passer le nerf et les vaisseaux suprascapulaires.' },
+  { question: 'Quel relief sépare la scapula en deux fosses sur sa face postérieure ?', answer: 'L’épine de la scapula.' },
+  { question: 'Quelle fosse se trouve au-dessus de l’épine ?', answer: 'La fosse supra-épineuse.' },
+  { question: 'Quelle fosse se trouve au-dessous de l’épine ?', answer: 'La fosse infra-épineuse.' },
+  { question: 'Par quel relief l’épine se prolonge-t-elle latéralement ?', answer: 'Par l’acromion.' },
+  { question: 'L’acromion possède-t-il une surface articulaire ?', answer: 'Oui, pour la clavicule.' },
+  { question: 'Comment se présente la scapula vue en latéral ?', answer: 'Comme un Y.' },
+  { question: 'Dans quel sens est orientée la cavité glénoïde ?', answer: '20° en avant et en dehors.' },
+  { question: 'Quel relief relie l’épine à la glène ?', answer: 'L’incisure spino-glénoïdale.' },
+  { question: 'Comment se nomme le bord latéral épais de la scapula ?', answer: 'Le pilier de la scapula.' },
+  { question: 'Combien de parties possède l’humérus ?', answer: 'Trois : corps, épiphyse proximale, épiphyse distale.' },
+  { question: 'Quels sont les muscles insérés sur le tubercule majeur ?', answer: 'Supra-épineux, infra-épineux, petit rond.' },
+  { question: 'Quels muscles s’insèrent sur le tubercule mineur ?', answer: 'Grand rond, grand dorsal, grand pectoral.' },
+  { question: 'Quel est le rôle du sillon intertuberculaire ?', answer: 'Loger le tendon du chef long du biceps.' },
+  { question: 'Quel est l’angle d’inclinaison de la tête humérale ?', answer: '130°.' },
+  { question: 'Quel est l’angle de rétroversion de la tête humérale ?', answer: '20°.' },
+  { question: 'Quelle est la différence entre col anatomique et col chirurgical ?', answer: 'Le col anatomique est au-dessus des tubérosités, le col chirurgical en dessous.' },
+  { question: 'Que trouve-t-on sur la face antéro-médiale de l’humérus ?', answer: 'Insertion du coraco-brachial (1/3 sup) et du brachial (2/3 inf).' },
+  { question: 'Quel relief se trouve sur la face antéro-latérale ?', answer: 'Le V deltoïdien.' },
+  { question: 'Quel nerf circule dans le sillon de la face postérieure de l’humérus ?', answer: 'Le nerf radial.' },
+  { question: 'Quelle surface articulaire latérale se trouve à l’extrémité distale de l’humérus ?', answer: 'Le capitulum.' },
+  { question: 'Avec quel os s’articule le capitulum ?', answer: 'Avec le radius.' },
+  { question: 'Quelle surface articulaire médiale se trouve à l’extrémité distale de l’humérus ?', answer: 'La trochlée.' },
+  { question: 'Avec quel os s’articule la trochlée ?', answer: 'Avec l’ulna.' },
+  { question: 'Quel est l’épicondyle le plus volumineux ?', answer: 'L’épicondyle médial (épitrochlée).' },
+  { question: 'Que permet la fosse coronoïdienne ?', answer: 'L’accueil du processus coronoïde en flexion.' },
+  { question: 'Que permet la fosse radiale ?', answer: 'L’accueil du radius en flexion.' },
+  { question: 'Où se trouve la fosse olécranienne ?', answer: 'À l’arrière de la trochlée.' },
+  { question: 'Quel est l’os latéral de l’avant-bras ?', answer: 'Le radius.' },
+  { question: 'Comment se nomme la surface articulaire supérieure du radius ?', answer: 'La fovéa radiale.' },
+  { question: 'Avec quoi s’articule la fovéa ?', answer: 'Avec le capitulum.' },
+  { question: 'Quel est le nom de la tubérosité du radius ?', answer: 'La tubérosité radiale ou bicipitale.' },
+  { question: 'Quel muscle s’y insère ?', answer: 'Le biceps brachial.' },
+  { question: 'Quel bord du radius participe à la membrane interosseuse ?', answer: 'Le bord médial.' },
+  { question: 'Quel est l’os médial de l’avant-bras ?', answer: 'L’ulna.' },
+  { question: 'Quel relief de l’ulna s’insère dans la fosse olécranienne ?', answer: 'L’olécrane.' },
+  { question: 'Quel relief de l’ulna s’insère dans la fosse coronoïdienne ?', answer: 'Le processus coronoïde.' },
+  { question: 'Comment se nomme la grande surface articulaire de l’ulna ?', answer: 'L’incisure trochléaire.' },
+  { question: 'Entre quels bords s’insère la membrane interosseuse ?', answer: 'Entre le bord latéral de l’ulna et le bord médial du radius.' },
+  { question: 'Quelle est la surface articulaire distale du radius ?', answer: 'Une surface inclinée en bas et en dehors.' },
+  { question: 'Quelle styloïde est plus basse ?', answer: 'La styloïde radiale.' },
+  { question: 'Quels sont les os de la 1ère rangée du carpe ?', answer: 'Scaphoïde, lunatum, triquetrum, pisiforme.' },
+  { question: 'Quels sont les os de la 2ème rangée du carpe ?', answer: 'Trapèze, trapézoïde, capitatum, hamatum.' },
+  { question: 'Quel os du carpe s’articule avec le 1er métacarpien ?', answer: 'Le trapèze.' },
+  { question: 'Quel os porte l’hamulus ?', answer: 'L’hamatum.' },
+  { question: 'Combien de phalanges possède un doigt ?', answer: 'Trois (P1, P2, P3), sauf le pouce qui en a deux.' },
+  { question: 'Quelles sont les trois articulations vraies de la ceinture scapulaire ?', answer: 'Sterno-costo-claviculaire, acromio-claviculaire, scapulo-humérale.' },
+  { question: 'Quels sont les espaces de glissement de la ceinture scapulaire ?', answer: 'Scapulo-thoracique et subdeltoïdien.' },
+  { question: 'Quel est le type de l’articulation sterno-costo-claviculaire ?', answer: 'En selle.' },
+  { question: 'Combien de DDL possède-elle ?', answer: 'Deux.' },
+  { question: 'Quel est le type de l’articulation acromio-claviculaire ?', answer: 'Plane.' },
+  { question: 'Combien de DDL possède-elle ?', answer: 'Trois.' },
+  { question: 'Quels ligaments stabilisent l’articulation acromio-claviculaire ?', answer: 'Acromio-claviculaire et coraco-claviculaire.' },
+  { question: 'Quel est le type de l’articulation scapulo-humérale ?', answer: 'Sphéroïde.' },
+  { question: 'Combien de DDL possède-elle ?', answer: 'Trois.' },
+  { question: 'Quels ligaments stabilisent l’articulation scapulo-humérale ?', answer: 'Coraco-huméral, gléno-huméral en Z (supérieur, moyen, inférieur), huméral transverse.' },
+  { question: 'Quel ligament maintient le biceps à l’humérus ?', answer: 'Le ligament huméral transverse.' },
+  { question: 'Où se situe la membrane synoviale de la scapulo-humérale ?', answer: 'Entre le cartilage huméral et le cartilage scapulaire.' },
+  { question: 'Quel muscle traverse l’espace sous-deltoïdien ?', answer: 'Le supra-épineux.' },
+  { question: 'Quelle est l’origine du muscle subclavier ?', answer: 'Le cartilage costal de K1.' },
+  { question: 'Quel est le trajet du muscle subclavier ?', answer: 'Haut, dehors.' },
+  { question: 'Où se termine le muscle subclavier ?', answer: 'Sur la face inférieure de la clavicule.' },
+  { question: 'Quelle est l’action du muscle subclavier ?', answer: 'Abaissement de la clavicule.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf subclavier.' },
+  { question: 'Quelle est l’origine du petit pectoral ?', answer: 'K3 à K5.' },
+  { question: 'Quel est le trajet du petit pectoral ?', answer: 'Arrière, dehors.' },
+  { question: 'Où se termine le petit pectoral ?', answer: 'Sur le processus coracoïde.' },
+  { question: 'Quelles sont les actions du petit pectoral ?', answer: 'Élève les côtes et abaisse la scapula.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf pectoral médial.' },
+  { question: 'Quelles sont les origines du grand pectoral ?', answer: 'Clavicule, sternum, K2 à K6, grand droit de l’abdomen.' },
+  { question: 'Où se termine le grand pectoral ?', answer: 'En J sur la crête latérale du sillon bicipital.' },
+  { question: 'Quelle est l’action du grand pectoral ?', answer: 'Adduction et rotation interne du bras.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf pectoral latéral.' },
+  { question: 'Quelle est l’origine du subscapulaire ?', answer: 'Face antérieure de la scapula.' },
+  { question: 'Quel est le trajet du subscapulaire ?', answer: 'Dehors.' },
+  { question: 'Où se termine le subscapulaire ?', answer: 'Sur la face supérieure du tubercule mineur.' },
+  { question: 'Quelle est l’action du subscapulaire ?', answer: 'Rotation interne de l’épaule.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf sup et inf du subscapulaire.' },
+  { question: 'D’où provient le supra-épineux ?', answer: 'De la fosse supra-épineuse.' },
+  { question: 'Quel est son trajet ?', answer: 'Dehors, passe sous l’acromion et le ligament coraco-acromial.' },
+  { question: 'Où se termine le supra-épineux ?', answer: 'Face supérieure du tubercule majeur.' },
+  { question: 'Quelle est son action ?', answer: 'Abduction de l’épaule.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf sus-scapulaire.' },
+  { question: 'D’où provient l’infra-épineux ?', answer: 'De la fosse infra-épineuse.' },
+  { question: 'Quel est son trajet ?', answer: 'Dehors, sous l’acromion et le ligament coraco-acromial.' },
+  { question: 'Où se termine l’infra-épineux ?', answer: 'Face postérieure du tubercule majeur.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Abduction et rotation externe.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf sus-scapulaire.' },
+  { question: 'Quelle est l’origine du petit rond ?', answer: 'Bord latéral de la scapula au-dessus du grand rond.' },
+  { question: 'Quel est le trajet du petit rond ?', answer: 'Haut, dehors.' },
+  { question: 'Où se termine le petit rond ?', answer: 'Face postérieure du tubercule majeur.' },
+  { question: 'Quelle est l’action du petit rond ?', answer: 'Rotation externe.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf axillaire.' },
+  { question: 'Quelle est l’origine du grand rond ?', answer: 'Bord latéral de la scapula sous le petit rond.' },
+  { question: 'Quel est son trajet ?', answer: 'Haut, dehors, avant.' },
+  { question: 'Où se termine le grand rond ?', answer: 'Lèvre médiale du sillon bicipital.' },
+  { question: 'Quelles sont ses actions ?', answer: 'ADD, rétropulsion, RI.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf du grand rond.' },
+  { question: 'Quelles sont les origines du grand dorsal ?', answer: 'Crête iliaque, sacrum, T7 à L5, K10 à K12, angle inférieur de la scapula (inconstant).' },
+  { question: 'Quel est son trajet ?', answer: 'Haut, avant, dehors.' },
+  { question: 'Où se termine le grand dorsal ?', answer: 'Fond de la gouttière bicipitale.' },
+  { question: 'Quelles sont ses actions ?', answer: 'ADD, rétropulsion, RI, élévation du bassin.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf thoraco-dorsal.' },
+  { question: 'Quelle est l’origine du dentelé antérieur ?', answer: 'K1 à K9/K10.' },
+  { question: 'Quel est son trajet ?', answer: 'Dehors en trois faisceaux.' },
+  { question: 'Où se termine le dentelé antérieur ?', answer: 'Bord médial de la scapula.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Maintien et glissement de la scapula, antépulsion.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf thoracique long.' },
+  { question: 'Quelles sont les origines du deltoïde ?', answer: 'Clavicule (ant), acromion (moyen), épine de la scapula (post).' },
+  { question: 'Quel est son trajet ?', answer: 'Dehors puis bas.' },
+  { question: 'Où se termine le deltoïde ?', answer: 'V deltoïdien.' },
+  { question: 'Quelles sont ses actions ?', answer: 'ABD, RI + flexion (ant), RE + extension (post).' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf axillaire.' },
+  { question: 'Quels muscles constituent la loge antérieure profonde du bras ?', answer: 'Coraco-brachial et brachial.' },
+  { question: 'Quels muscles constituent la loge antérieure superficielle ?', answer: 'Biceps brachial.' },
+  { question: 'Quel est le muscle de la loge postérieure du bras ?', answer: 'Triceps brachial.' },
+  { question: 'Quelle est l’origine du coraco-brachial ?', answer: 'Processus coracoïde.' },
+  { question: 'Où se termine le coraco-brachial ?', answer: '1/3 supérieur de la face antéro-médiale de l’humérus.' },
+  { question: 'Quelle est son action ?', answer: 'Flexion et adduction de l’épaule.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf musculo-cutané.' },
+  { question: 'Quelle est l’origine du brachial ?', answer: 'Moitié inférieure des faces antéro-médiale et antéro-latérale.' },
+  { question: 'Où se termine le brachial ?', answer: 'Processus coronoïde de l’ulna.' },
+  { question: 'Quelle est son action ?', answer: 'Flexion de coude.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf musculo-cutané.' },
+  { question: 'Quelles sont les origines du biceps brachial ?', answer: 'Chef long : tubercule supra-glénoïdien ; chef court : processus coracoïde.' },
+  { question: 'Quel est le trajet du chef long ?', answer: 'Intra-capsulaire mais extra-synovial, dans le sillon intertuberculaire.' },
+  { question: 'Où se termine le biceps ?', answer: 'Sur la tubérosité radiale.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Flexion et supination du coude.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf musculo-cutané.' },
+  { question: 'Quelles sont les origines du triceps brachial ?', answer: 'Infra-glénoïdien et face postérieure de l’humérus.' },
+  { question: 'Où se termine le triceps ?', answer: 'Olécrane de l’ulna.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Extension du coude et extension d’épaule.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial (4 rameaux).' },
+  { question: 'Quelle est la valeur du valgus physiologique ?', answer: '160 à 170°.' },
+  { question: 'Quels repères forment le triangle du coude en flexion ?', answer: 'Épicondyle médial, épicondyle latéral, olécrâne.' },
+  { question: 'Quelles surfaces articulaires composent l’extrémité distale de l’humérus ?', answer: 'Capitulum et trochlée.' },
+  { question: 'Quelles sont les surfaces articulaires de l’ulna au coude ?', answer: 'Incisure trochléaire et incisure radiale.' },
+  { question: 'Quel est le type de l’articulation huméro-radiale ?', answer: 'Condylienne.' },
+  { question: 'Combien de DDL possède l’huméro-radiale ?', answer: 'Deux.' },
+  { question: 'Quel est le type de l’huméro-ulnaire ?', answer: 'Trochléaire.' },
+  { question: 'Combien de DDL possède l’huméro-ulnaire ?', answer: 'Un.' },
+  { question: 'Quel est le type de la radio-ulnaire proximale ?', answer: 'Trochoïde.' },
+  { question: 'Combien de DDL possède la radio-ulnaire proximale ?', answer: 'Un.' },
+  { question: 'Quel ligament entoure la tête radiale ?', answer: 'Le ligament annulaire.' },
+  { question: 'Quels sont les trois faisceaux du ligament collatéral radial ?', answer: 'Antérieur, moyen, postérieur.' },
+  { question: 'Les faisceaux du LCR s’attachent-ils au radius ?', answer: 'Non.' },
+  { question: 'Quels sont les trois faisceaux du ligament collatéral ulnaire ?', answer: 'Antérieur, moyen, postérieur.' },
+  { question: 'Qu’est-ce que le ligament de Cooper ?', answer: 'Un renforcement transverse du LCU.' },
+  { question: 'Qu’est-ce que le ligament carré ?', answer: 'Un épaississement inférieur de la capsule entre ulna et radius.' },
+  { question: 'Quels sont les éléments de l’articulation radio-ulnaire distale ?', answer: 'Tête de l’ulna, incisure ulnaire du radius, ligament triangulaire.' },
+  { question: 'Qu’est-ce que le ligament triangulaire ?', answer: 'Un fibro-cartilage tendu entre la styloïde ulnaire et l’incisure ulnaire.' },
+  { question: 'Quels mouvements définissent la prono-supination ?', answer: 'Pronation : paume arrière, radius croisé ; supination : paume avant, radius non croisé.' },
+  { question: 'Quelle est l’origine du rond pronateur ?', answer: 'Épicondyle médial de l’humérus et face antérieure du processus coronoïde de l’ulna.' },
+  { question: 'Comment se présente le trajet du rond pronateur ?', answer: 'Forme une boutonnière par deux chefs.' },
+  { question: 'Où se termine le rond pronateur ?', answer: 'Sur le radius.' },
+  { question: 'Quelle est l’action du rond pronateur ?', answer: 'Pronation du coude.' },
+  { question: 'Quelle est l’innervation du rond pronateur ?', answer: 'Nerf médian passant entre les deux chefs.' },
+  { question: 'Quelle est l’origine du fléchisseur radial du carpe ?', answer: 'Épicondyle médial de l’humérus.' },
+  { question: 'Où se termine le fléchisseur radial du carpe ?', answer: 'Base des 2e et 3e métacarpiens.' },
+  { question: 'Quelles sont les actions du fléchisseur radial du carpe ?', answer: 'Flexion et abduction du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf médian.' },
+  { question: 'Quelle est l’origine du long palmaire ?', answer: 'Épicondyle médial de l’humérus.' },
+  { question: 'Où se termine le long palmaire ?', answer: 'Rétinaculum des fléchisseurs.' },
+  { question: 'Quelle est l’action du long palmaire ?', answer: 'Flexion du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf médian.' },
+  { question: 'Quelle est l’origine du fléchisseur ulnaire du carpe ?', answer: 'Épicondyle médial de l’humérus et zone proche de l’olécrane.' },
+  { question: 'Où se termine le fléchisseur ulnaire du carpe ?', answer: 'Pisiforme et hamatum.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Flexion et adduction du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf ulnaire.' },
+  { question: 'Quelle est l’origine du fléchisseur superficiel des doigts ?', answer: 'Épicondyle médial et deux chefs formant une arcade fibreuse.' },
+  { question: 'Où se termine le fléchisseur superficiel des doigts ?', answer: 'Sur P2 (avec deux languettes).' },
+  { question: 'Quelles sont ses actions ?', answer: 'Flexion de P2 sur P1, flexion de P1 sur métacarpien, flexion du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf médian.' },
+  { question: 'Quelle est l’origine du long fléchisseur du pouce ?', answer: 'Face antérieure du radius et membrane interosseuse.' },
+  { question: 'Où se termine le long fléchisseur du pouce ?', answer: 'Face palmaire de P2 du pouce.' },
+  { question: 'Quelle est son action ?', answer: 'Flexion de P2 sur P1 du pouce.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf médian.' },
+  { question: 'Quelles sont les origines du fléchisseur profond des doigts ?', answer: 'Faces antérieures du radius, de l’ulna et membrane interosseuse.' },
+  { question: 'Où se termine le fléchisseur profond des doigts ?', answer: 'P3 des doigts II à V.' },
+  { question: 'Quelle est l’action du fléchisseur profond des doigts ?', answer: 'Flexion de P3 sur P2.' },
+  { question: 'Quelle est l’innervation du fléchisseur profond des doigts ?', answer: 'Nerf médian pour doigts II et III, nerf ulnaire pour doigts IV et V.' },
+  { question: 'Quelle est l’origine du carré pronateur ?', answer: 'Face antérieure de la partie distale de l’ulna.' },
+  { question: 'Où se termine le carré pronateur ?', answer: 'Face antérieure de la partie distale du radius.' },
+  { question: 'Quelle est l’action du carré pronateur ?', answer: 'Pronation de l’avant-bras.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf médian transverse.' },
+  { question: 'Que fait le fléchisseur superficiel sur les tendons ?', answer: '2 languettes sur P2 et flexion de P2 sur P1.' },
+  { question: 'Comment se termine le fléchisseur profond ?', answer: 'Perfore le fléchisseur superficiel et rejoint P3.' },
+  { question: 'Quelle est l’origine du long abducteur du I ?', answer: 'Faces postérieures du radius, de l’ulna et membrane interosseuse.' },
+  { question: 'Où se termine le long abducteur du I ?', answer: 'Tubercule latéral du 1er métacarpien.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Abduction et extension du pouce ; abduction du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine du court extenseur du I ?', answer: 'Faces postérieures radius, ulna et membrane interosseuse.' },
+  { question: 'Où se termine le court extenseur du I ?', answer: 'Base de P1 du pouce.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Abduction et extension du pouce ; extension du 1er métacarpien.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine du long extenseur du I ?', answer: 'Face postérieure de l’ulna.' },
+  { question: 'Où se termine le long extenseur du I ?', answer: 'Base de P2 du pouce.' },
+  { question: 'Quelle est son action ?', answer: 'Extension du pouce.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine de l’extenseur propre du II ?', answer: 'Face postérieure de l’ulna et membrane interosseuse.' },
+  { question: 'Où se termine l’extenseur propre du II ?', answer: 'Rejoint le tendon de l’extenseur commun pour l’index.' },
+  { question: 'Quelle est son action ?', answer: 'Extension de l’index.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine de l’anconé ?', answer: 'Épicondyle latéral de l’humérus.' },
+  { question: 'Où se termine l’anconé ?', answer: 'Olécrane.' },
+  { question: 'Quelle est son action ?', answer: 'Extension du coude.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine de l’extenseur propre du V ?', answer: 'Épicondyle latéral.' },
+  { question: 'Où se termine l’extenseur propre du V ?', answer: 'Dans le tendon de l’extenseur commun destiné au V.' },
+  { question: 'Quelle est son action ?', answer: 'Extension du V.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine de l’extenseur ulnaire du carpe ?', answer: 'Épicondyle latéral.' },
+  { question: 'Où se termine l’extenseur ulnaire du carpe ?', answer: 'Base du 5e métacarpien.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Extension et adduction du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine de l’extenseur commun des doigts ?', answer: 'Épicondyle latéral.' },
+  { question: 'Où se termine l’extenseur commun des doigts ?', answer: 'P1, P2 et P3 des 4 derniers doigts.' },
+  { question: 'Quelle est son action ?', answer: 'Extension des 4 derniers doigts.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine du supinateur ?', answer: 'Épicondyle latéral, ligament collatéral radial et ulna.' },
+  { question: 'Où se termine le supinateur ?', answer: 'Bord antérieur du radius et col du radius.' },
+  { question: 'Quelle est son action ?', answer: 'Supination.' },
+  { question: 'Quelle est son innervation ?', answer: 'Rameau postérieur moteur du nerf radial.' },
+  { question: 'Quelle est l’origine du brachio-radial ?', answer: 'Bord latéral de l’humérus.' },
+  { question: 'Où se termine le brachio-radial ?', answer: 'Processus styloïde du radius.' },
+  { question: 'Quelle est son action ?', answer: 'Flexion du coude.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine du LERC ?', answer: 'Crête supra-condylaire latérale.' },
+  { question: 'Où se termine le LERC ?', answer: 'Base du 2e métacarpien.' },
+  { question: 'Quelles sont ses actions ?', answer: 'Extension et abduction du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quelle est l’origine du CERC ?', answer: 'Épicondyle latéral.' },
+  { question: 'Où se termine le CERC ?', answer: 'Base du 3e métacarpien.' },
+  { question: 'Quelle est son action ?', answer: 'Extension du poignet.' },
+  { question: 'Quelle est son innervation ?', answer: 'Nerf radial.' },
+  { question: 'Quel élément maintient les tendons au poignet ?', answer: 'Ligament annulaire dorsal et rétinaculum des fléchisseurs.' },
+  { question: 'Que permet la bourse digitale ?', answer: 'Une zone de glissement des tendons.' },
+  { question: 'Quels limites définissent la tabatière anatomique ?', answer: 'Long abducteur du I, court extenseur du I, long extenseur du I.' },
+  { question: 'Quels os constituent le fond de la tabatière ?', answer: 'Styloïde radiale, scaphoïde, trapèze.' },
+  { question: 'Quel vaisseau chemine dans la tabatière ?', answer: 'L’artère radiale.' },
+  { question: 'Quels os forment le condyle carpien ?', answer: 'Scaphoïde, lunatum, triquetrum.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

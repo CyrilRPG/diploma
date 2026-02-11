@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Embryologie</h1><h2>APP - 3ème semaine de développement</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: "Quel est l'événement majeur de la 3ème semaine de développement ?", answer: "La gastrulation." },
+{ question: "Qu'est-ce que la gastrulation ?", answer: "Mécanisme complexe et programmé associant prolifération et migration cellulaires à partir de l'épiblaste pour mettre en place les 3 feuillets fondamentaux." },
+{ question: "Quels sont les 3 feuillets fondamentaux mis en place lors de la gastrulation ?", answer: "Ectoblaste (ectoderme), mésoblaste (mésoderme), entoblaste (endoderme)." },
+{ question: "Quelles autres structures se mettent en place lors de la gastrulation ?", answer: "La chorde, la neurulation, l'orientation et symétrisation de l'embryon (droite/gauche)." },
+{ question: "Quand débute la gastrulation ?", answer: "À J15." },
+{ question: "Qu'est-ce que la ligne primitive ?", answer: "Sillon le long de l'axe longitudinal médian du disque embryonnaire didermique, apparaissant dans l'épiblaste vers l'extrémité caudale à J15." },
+{ question: "Que représente l'apparition de la ligne primitive ?", answer: "L'établissement de l'axe longitudinal (plan de symétrie bilatéral du futur enfant)." },
+{ question: "Qu'est-ce que le nœud primitif ou nœud de Hensen ?", answer: "Surélévation de l'épiblaste entourant la dépression primitive, à l'extrémité crâniale de la ligne primitive, apparaissant à J16." },
+{ question: "De quoi est composée la ligne primitive ?", answer: "Sillon primitif, dépression primitive, nœud primitif (nœud de Hensen)." },
+{ question: "Quels sont les 3 axes fondamentaux du corps établis par la ligne primitive ?", answer: "Crânial/caudal, droite/gauche, ventral/dorsal." },
+{ question: "Que se passe-t-il à J15/16 au niveau de la ligne primitive ?", answer: "Prolifération des cellules épiblastiques, aplatissement, perte d'adhérence, développement de pseudopodes, migration à travers la ligne primitive." },
+{ question: "Qu'est-ce que l'ingression ?", answer: "Envahissement de l'hypoblaste par les cellules épiblastiques pour former l'entoblaste." },
+{ question: "Comment se forme l'entoblaste ?", answer: "Par remplacement des cellules de l'hypoblaste par les cellules épiblastiques qui migrent (1ère vague de migration)." },
+{ question: "Comment se forme le mésoblaste ?", answer: "Par 2ème vague de migration à J16 : déplacement de cellules épiblastiques entre l'épiblaste et l'entoblaste." },
+{ question: "Quels sont les 2 types de mésoblaste selon la trajectoire de migration ?", answer: "Mésoblaste latéral (migration latérale et vers le pôle crânial) et mésoblaste axial/chordal (migration sur la ligne médiane vers l'avant)." },
+{ question: "Qu'est-ce que la plaque préchordale ?", answer: "Structure formée antérieurement par le mésoblaste axial." },
+{ question: "Qu'est-ce que le canal chordal ?", answer: "Structure formée postérieurement par le mésoblaste axial." },
+{ question: "Où le mésoblaste ne migre-t-il pas ?", answer: "Au niveau de la membrane bucco-pharyngienne (pôle crânial) et de la membrane cloacale (pôle caudal)." },
+{ question: "Que deviendront les zones d'accolement ecto-endoblastes ?", answer: "Les extrémités du tube digestif : cavité orale (membrane bucco-pharyngienne) et anus/ouverture uro-génitale (membrane cloacale)." },
+{ question: "Quand l'épiblaste prend-il le nom d'ectoblaste ?", answer: "Quand le mésoblaste et l'entoblaste sont constitués (embryon tridermique)." },
+{ question: "Comment évolue la ligne primitive ?", answer: "À J16 elle s'étend sur environ la moitié de l'embryon, diminue au fur et à mesure, disparaît presque totalement à J26 pour donner le bourgeon caudal." },
+{ question: "Qu'est-ce que la chorde ?", answer: "1er axe longitudinal médian autour duquel s'organisent les corps vertébraux (base du squelette axial)." },
+{ question: "Quels sont les 3 stades de formation de la chorde ?", answer: "Canal chordal (tube creux, J17), plaque chordale (J19), chorde (cordon plein, J20/21)." },
+{ question: "D'où proviennent les cellules qui forment la chorde ?", answer: "Des cellules épiblastiques (mésoblaste) qui pénètrent au niveau du nœud primitif et migrent vers l'avant sur la ligne médiane." },
+{ question: "Qu'est-ce que le processus notochordal ?", answer: "Tube dense présent sur la ligne médiane, formé en invagination borgne 'en doigt de gant' à partir du nœud de Hensen." },
+{ question: "Qu'est-ce que le canal neurentérique ?", answer: "Communication transitoire entre la cavité amniotique et la cavité vitelline à l'extrémité caudale du nœud, formée à J19." },
+{ question: "Comment se forme la chorde définitive ?", answer: "La plaque chordale (tissu chordal en continuité avec l'entoblaste) se détache de l'entoblaste pour former un cordon plein (notochorde)." },
+{ question: "Quels sont les rôles de la chorde ?", answer: "Induction de l'ectoblaste en neurectoblaste (plaque neurale), induction de la formation des corps vertébraux, origine du nucleus pulposus." },
+{ question: "Qu'est-ce que l'allantoïde ?", answer: "Évagination de l'entoblaste au pôle caudal vers J16, s'intègre dans le pédicule embryonnaire, deviendra la future vessie." },
+{ question: "Quels sont les 3 types de mésoblaste formés latéralement ?", answer: "Mésoblaste para-axial, mésoblaste intermédiaire, lame latérale." },
+{ question: "Où se situe le mésoblaste para-axial ?", answer: "De chaque côté, au contact immédiat de la chorde." },
+{ question: "Que donnera le mésoblaste para-axial chez l'adulte ?", answer: "Squelette axial, muscles volontaires, derme cutané." },
+{ question: "Que donnera le mésoblaste intermédiaire chez l'adulte ?", answer: "Système urinaire, une partie de l'appareil génital." },
+{ question: "Comment se divise la lame latérale ?", answer: "En 2 feuillets : splanchnopleure (ventral, avec l'entoblaste) et somatopleure (dorsal, avec l'ectoblaste)." },
+{ question: "Que donnera la splanchnopleure ?", answer: "Épithélium recouvrant les viscères dérivés de l'entoblaste." },
+{ question: "Que donnera la somatopleure ?", answer: "Revêtement intérieur du corps, parties des membres, l'essentiel du derme." },
+{ question: "Que sont les somitomères ?", answer: "Structures arrondies formées par condensation du mésoblaste para-axial, qui formeront ensuite les somites." },
+{ question: "Quand apparaissent les premiers somites ?", answer: "À J20, dans la région de la future base du crâne." },
+{ question: "Combien de somites se forment par jour et jusqu'à quand ?", answer: "3 à 4 par jour jusqu'à J30." },
+{ question: "À quoi sont à l'origine les somites ?", answer: "La plus grande partie du squelette axial." },
+{ question: "Quand apparaît la plaque neurale ?", answer: "Vers J17-18, à l'extrémité crâniale de l'embryon." },
+{ question: "Qu'est-ce qui induit la formation de la plaque neurale ?", answer: "Le mésoblaste axial qui induit la différenciation de l'ectoblaste sus-jacent en neurectoblaste." },
+{ question: "Que donnera la plaque neurale ?", answer: "Le cerveau et la moelle épinière." },
+{ question: "Comment évolue la plaque neurale entre J17 et J21 ?", answer: "Plaque neurale (J17) → gouttière neurale (J19-20) → tube neural (J21)." },
+{ question: "Quel est le rôle du FGF8 ?", answer: "Facteur sécrété par le nœud primitif qui contrôle les mouvements cellulaires lors de l'invagination en inhibant la E-cadhérine, et régule l'expression du gène Brachyury." },
+{ question: "Qu'est-ce que le gène Brachyury (T) ?", answer: "Gène essentiel au bon déroulement de la gastrulation et à la formation des dérivés du mésoderme." },
+{ question: "Quelles sont les conséquences d'une mutation homozygote du gène Brachyury ?", answer: "Agénésie sacrée, canal notochordal persistant, ossification anormale des corps vertébraux." },
+{ question: "Quel est le rôle du gène Nodal ?", answer: "Rôle primordial dans la latéralisation gauche/droite, exprimé uniquement à gauche grâce à l'accumulation asymétrique de sérotonine." },
+{ question: "Comment le gène Nodal détermine-t-il le côté gauche ?", answer: "Nodal initie une cascade de signalisation incluant Lefty2 pour stimuler Pitx2, facteur de transcription déterminant le côté gauche (cœur, estomac, intestin primitif)." },
+{ question: "Quels gènes inhibent l'expression de Nodal du côté droit ?", answer: "Sonic Hedgehog (SHH), Lefty1, ZIC3." },
+{ question: "Quel est le rôle du gène BMP4 ?", answer: "Rôle primordial dans la latéralisation ventral/dorsal. En présence de FGF, effet ventralisant (ébauches rénales, cellules sanguines, paroi abdominale)." },
+{ question: "Quels gènes inhibent l'effet de BMP4 ?", answer: "Noggin, Chordin et Follistatin, exprimés dans la région dorsale." },
+{ question: "Pourquoi la gastrulation est-elle une période sensible ?", answer: "Grande sensibilité aux agents tératogènes alors que la femme ne sait pas encore qu'elle est enceinte (J15-J20 coïncide avec l'absence de retour des règles)." },
+{ question: "Qu'est-ce que la dysgénésie caudale (sirénomélie) ?", answer: "Défaut de production de mésoderme à l'extrémité caudale causant hypoplasie/fusion des membres inférieurs, anomalies vertébrales, agénésie rénale, imperforation anale." },
+{ question: "Qu'est-ce que le situs inversus ?", answer: "Transposition en miroir de tous les viscères droits à gauche et vice versa, anomalie de la latéralité." },
+{ question: "Qu'est-ce que le situs ambigus ou hétérotaxie ?", answer: "Anomalie de latéralité ne concernant qu'un ou plusieurs viscères, peut être associé à d'autres anomalies." },
+{ question: "Quelle est la filiation du trophoblaste ?", answer: "Trophoblaste → syncytiotrophoblaste + cytotrophoblaste → placenta." },
+{ question: "Quelle est la filiation de la masse cellulaire interne ?", answer: "MCI → épiblaste + hypoblaste → embryon didermique puis tridermique → fœtus." },
+{ question: "Que donnent les dérivés de l'hypoblaste ?", answer: "Membrane de Heuser → entoblaste extra-embryonnaire, vésicule vitelline, allantoïde." },
+{ question: "Que donnent les dérivés de l'épiblaste ?", answer: "Amnios, mésoblaste extra-embryonnaire, puis les 3 feuillets intra-embryonnaires." },
+{ question: "Quels sont les 3 feuillets intra-embryonnaires issus de l'épiblaste ?", answer: "Ectoblaste, mésoblaste et entoblaste intra-embryonnaires." },
+{ question: "Quelles sont les conséquences de la gastrulation ?", answer: "Mise en place des 3 feuillets fondamentaux, de la chorde, des membranes bucco-pharyngienne et cloacale, du bourgeon caudal, et des 3 axes de l'embryon." },
+{ question: "Quels sont les 3 axes de l'embryon établis par la gastrulation ?", answer: "Axe antéro-postérieur, axe dorsal/ventral, axe gauche/droite." },
+{ question: "Quels plans de section utilise-t-on pour décrire l'embryon ?", answer: "Plan frontal, plan transverse, plan sagittal/para-sagittal." },
+{ question: "Quelle taille fait l'œuf à la fin de la 2ème semaine ?", answer: "Environ 2,5 mm, totalement implanté." },
+{ question: "Que signifie que l'épiblaste est adjacent à la ligne primitive ?", answer: "Il forme la face dorsale de l'embryon." },
+{ question: "Les cellules migrent-elles à travers la ligne médiane ?", answer: "Non, les tissus situés à droite de la ligne primitive sont à l'origine de la moitié droite du corps." },
+{ question: "À partir de quelle structure se différencie le neurectoblaste ?", answer: "De l'ectoblaste, sous l'induction du mésoblaste axial." },
+{ question: "Quelles protéines sont responsables de l'induction de la plaque neurale ?", answer: "Chordin, Noggin et Follistatin (qui inhibent BMP4), et FGF pour les structures caudales." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+function updateProgress() { progressBar.style.width = `${Math.min(currentIndex / originalData.length, 1) * 100}%`; }
+function createContent(content) { const div = document.createElement("div"); div.textContent = content; return div; }
+function showCard(index) { container.innerHTML = ""; if (flashcards[index]) { const { question, answer } = flashcards[index]; const card = document.createElement("div"); card.classList.add("flashcard", "show"); const inner = document.createElement("div"); inner.classList.add("flashcard-inner"); const front = document.createElement("div"); front.classList.add("flashcard-front"); front.appendChild(createContent(question)); const back = document.createElement("div"); back.classList.add("flashcard-back"); back.appendChild(createContent(answer)); const btnContainer = document.createElement("div"); btnContainer.classList.add("flashcard-button"); const toggleBtn = document.createElement("button"); toggleBtn.classList.add("button", "large"); toggleBtn.textContent = "Voir la réponse"; const resetBtn = document.createElement("button"); resetBtn.classList.add("button", "large"); resetBtn.textContent = "Réinitialiser"; resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); }); btnContainer.appendChild(toggleBtn); btnContainer.appendChild(resetBtn); const checkIcon = document.createElement("span"); checkIcon.classList.add("check-icon"); checkIcon.innerHTML = '<i class="fas fa-check"></i>'; checkIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-right"); setTimeout(() => { currentIndex++; localStorage.setItem(progressKey, currentIndex); updateProgress(); showCard(currentIndex); }, 400); }); const crossIcon = document.createElement("span"); crossIcon.classList.add("cross-icon"); crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`; crossIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-left"); setTimeout(() => { const removed = flashcards.splice(currentIndex, 1)[0]; flashcards.splice(currentIndex + 5, 0, removed); showCard(currentIndex); }, 400); }); const favIcon = document.createElement("span"); favIcon.classList.add("favorite-icon"); favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`; function updateFav() { if (isFavorite({question, answer})) favIcon.classList.add("active"); else favIcon.classList.remove("active"); } favIcon.addEventListener("click", (e) => { e.stopPropagation(); toggleFavorite({question, answer}); updateFav(); }); updateFav(); card.addEventListener("click", () => { const isAnswerVisible = card.classList.toggle("show-answer"); toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse"; }); inner.appendChild(front); inner.appendChild(back); inner.appendChild(checkIcon); inner.appendChild(crossIcon); inner.appendChild(favIcon); card.appendChild(inner); card.appendChild(btnContainer); container.appendChild(card); } else { const endCard = document.createElement("div"); endCard.classList.add("flashcard", "show", "show-answer"); const inner = document.createElement("div"); inner.classList.add("flashcard-inner"); const back = document.createElement("div"); back.classList.add("flashcard-back"); back.innerHTML = "<p>Plus de flashcard disponible.</p>"; const btnContainer = document.createElement("div"); btnContainer.classList.add("flashcard-button"); const resetBtn = document.createElement("button"); resetBtn.classList.add("button", "large"); resetBtn.textContent = "Réinitialiser"; resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); }); btnContainer.appendChild(resetBtn); inner.appendChild(back); endCard.appendChild(inner); endCard.appendChild(btnContainer); container.appendChild(endCard); updateProgress(); } }
+showCard(currentIndex); updateProgress();
+</script>
+
+</section>
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

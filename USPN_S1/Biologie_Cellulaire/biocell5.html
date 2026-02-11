@@ -1,0 +1,1043 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>ADN - Cycle cellulaire - Mitose - Méiose</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+</head>
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+     { question: "Quelle est la structure générale de l’ADN ?", answer: "Molécule bicaténaire organisée en double hélice dextre." },
+{ question: "De quoi est composée la molécule d’ADN ?", answer: "De deux chaînes hélicoïdales antiparallèles enroulées autour d’un axe commun." },
+{ question: "Pourquoi l’ADN est-il indispensable à la vie cellulaire ?", answer: "Parce qu’il contient les informations nécessaires à la synthèse de toutes les protéines structurales et enzymatiques." },
+{ question: "De quoi est constitué un nucléotide ?", answer: "D’un sucre (désoxyribose), d’une base azotée et d’un groupement phosphate." },
+{ question: "Quel est l’unique élément qui distingue un nucléotide d’un autre ?", answer: "Sa base azotée." },
+{ question: "Quelles sont les quatre bases azotées de l’ADN ?", answer: "Adénine (A), Guanine (G), Cytosine (C) et Thymine (T)." },
+{ question: "Quelles bases s’apparient ensemble dans l’ADN et avec combien de liaisons ?", answer: "Adénine avec Thymine (2 liaisons), Guanine avec Cytosine (3 liaisons)." },
+{ question: "Quel est le pas de l’hélice d’ADN ?", answer: "3,4 nm contenant 10 paires de désoxyribonucléotides distants de 0,34 nm." },
+{ question: "Quel est le diamètre extérieur de la molécule d’ADN ?", answer: "2 nm." },
+{ question: "Quelle est la longueur d’ADN d’Escherichia Coli et combien de paires de bases contient-elle ?", answer: "1 mm de long, 4 x 10⁴ paires de bases." },
+{ question: "Quelle est la longueur d’ADN dans les spermatozoïdes et combien de paires de bases contient-elle ?", answer: "1 m de long, 10⁹ paires de bases." },
+{ question: "Pourquoi parle-t-on de brins antiparallèles dans l’ADN ?", answer: "Car un brin est orienté 3’→5’ et l’autre 5’→3’." },
+{ question: "Pourquoi l’ADN se condense-t-il dans le noyau ?", answer: "Pour faire rentrer une longue molécule d’ADN dans un espace restreint." },
+{ question: "Quelle est la forme des histones ?", answer: "Petits cylindres autour desquels l’ADN s’enroule." },
+{ question: "Qu’est-ce qu’un nucléosome ?", answer: "Un assemblage de 8 histones (2 fois 4 protéines différentes)." },
+{ question: "Quel est le rôle de l’histone H1 ?", answer: "Permet de regrouper des nucléosomes pour former des solénoïdes." },
+{ question: "Quelle est la différence de diamètre entre ADN actif et inactif ?", answer: "2 nm (ADN actif) à 30 nm (ADN inactif)." },
+{ question: "Qu’indique le degré de compaction de l’ADN ?", answer: "L’activité de l’ADN (actif si peu condensé, inactif si condensé)." },
+{ question: "Que représente une structure en 'chapelet de perles' ?", answer: "ADN sous forme de fibre nucléosomique, actif." },
+{ question: "A partir de quand la transcription est-elle impossible ?", answer: "Lorsque l’ADN est sous forme de fibre de 30 nm (condensé)." },
+{ question: "Quand a lieu le déroulement temporaire de l’ADN ?", answer: "Lors de la transcription, pour permettre la lecture par la machinerie de transcription." },
+{ question: "Qu’est-ce que le cycle cellulaire ?", answer: "L’ensemble des évènements entre deux divisions cellulaires." },
+{ question: "Quelles sont les deux grandes étapes du cycle cellulaire ?", answer: "Interphase et mitose." },
+{ question: "Quelles sont les phases successives du cycle cellulaire ?", answer: "G1, S, G2 et M." },
+{ question: "Que se passe-t-il pendant la phase S ?", answer: "La quantité d’ADN double." },
+{ question: "Quelles sont les caractéristiques du cycle cellulaire des procaryotes ?", answer: "Cycles rapides avec réplication continue du chromosome." },
+{ question: "Comment est mesurée l’ADN par cytométrie en flux ?", answer: "Grâce à une molécule fluorescente liée à l’ADN analysée au passage devant un laser." },
+{ question: "Quel est le pic observé en G1 sur un histogramme de cytométrie ?", answer: "Un premier pic élevé représentant un grand nombre de cellules en G1." },
+{ question: "Que montre le plateau entre deux pics de cytométrie ?", answer: "La phase S, où les cellules doublent leur ADN." },
+{ question: "Que représente le deuxième pic de cytométrie ?", answer: "Les cellules en phase G2 avec double quantité d’ADN." },
+{ question: "Quelle expérience prouve l’existence d’un facteur inducteur de mitose ?", answer: "Fusion cellule en mitose avec cellule en G2 ; la G2 entre en mitose." },
+{ question: "Quel facteur a été mis en évidence par cette expérience ?", answer: "Le MPF (Mitosis Promoting Factor)." },
+{ question: "Quel est l’effet de la fusion d’une cellule en phase S avec une cellule en G1 ?", answer: "L’ADN de la cellule en G1 se réplique et entre en phase S." },
+{ question: "Que prouve la fusion d’une cellule en phase S avec une en G2 ?", answer: "Qu’il existe un mécanisme empêchant une seconde réplication." },
+{ question: "Qu’est-ce que le MPF ?", answer: "Un facteur universel qui permet le passage de G2 à M." },
+{ question: "De quoi est composé le MPF ?", answer: "Cdk1 et cycline B." },
+{ question: "Quelle est la fonction de Cdk1 ?", answer: "Protéine kinase dépendante des cyclines." },
+{ question: "Quelles conditions doivent être remplies avant le passage en phase S ?", answer: "Volume cellulaire suffisant et environnement favorable." },
+{ question: "Qu’est-ce que la phase G0 ?", answer: "Phase de quiescence où la cellule ne se divise plus." },
+{ question: "Donne un exemple de cellule en G0 définitive.", answer: "Le neurone." },
+{ question: "Quels contrôles sont faits en phase S ?", answer: "Vérification du bon dédoublement de l’ADN et correction des erreurs." },
+{ question: "Que se passe-t-il si les erreurs d’ADN sont trop nombreuses ?", answer: "Apoptose : la cellule meurt pour éviter la transmission d’erreurs." },
+{ question: "Quels sont les contrôles en phase G2 ?", answer: "ADN répliqué, intégrité de l’ADN, environnement favorable, volume cellulaire et cytosquelette." },
+{ question: "Quel est le contrôle principal en mitose ?", answer: "Alignement des chromosomes sur le fuseau mitotique." },
+{ question: "Que permettent les checkpoints du cycle cellulaire ?", answer: "Vérifier que tout est correct avant de passer à la phase suivante." },
+{ question: "Quels sont les principaux régulateurs du cycle cellulaire ?", answer: "Les cyclines, les Cdk et les Cdki." },
+{ question: "Que sont les Cdki ?", answer: "Des inhibiteurs endogènes des complexes cycline-Cdk." },
+{ question: "Quels Cdki interviennent en phase G1 ?", answer: "P16, P21, P27." },
+{ question: "Quel Cdki intervient aussi en phase S ?", answer: "P21." },
+{ question: "Quelle est l’expression de Cdk1 au cours du cycle ?", answer: "Elle est permanente." },
+{ question: "Quelle est l’expression de la cycline B au cours du cycle ?", answer: "Temporaire et cyclique." },
+{ question: "Quand le MPF est-il actif ?", answer: "Quand la quantité de cycline B est suffisante pour s’associer à Cdk1." },
+{ question: "Que devient le MPF après dégradation de la cycline B ?", answer: "Il devient inactif." },
+{ question: "Quel est le rôle de la phosphorylation des histones H1 ?", answer: "Elle permet la condensation des chromosomes, essentielle à leur ségrégation équitable dans les deux cellules filles." },
+{ question: "Que provoque le MPF sur les lamines ?", answer: "Il entraîne leur désorganisation et dépolymérisation, provoquant la disparition de l’enveloppe nucléaire." },
+{ question: "Pourquoi la désorganisation de l’enveloppe nucléaire est-elle nécessaire ?", answer: "Elle est nécessaire à la bonne ségrégation des chromosomes." },
+{ question: "Quels sont les effets du MPF sur le réticulum endoplasmique et l’appareil de Golgi ?", answer: "Le MPF provoque leur désorganisation pour permettre une répartition dans les deux cellules filles." },
+{ question: "Quels processus le MPF inhibe-t-il pendant la mitose ?", answer: "Il agit sur des inhibiteurs qui limitent la transcription et la traduction." },
+{ question: "Quels éléments du cytosquelette sont réorganisés par le MPF ?", answer: "Les microtubules et l’actine sont réorganisés pour former le fuseau de division." },
+{ question: "Quel système protéolytique est activé par le MPF ?", answer: "Le système de l'ubiquitine." },
+{ question: "Quel est l’effet final de l’activation du système ubiquitine par le MPF ?", answer: "La dégradation de la cycline B, entraînant l’autodestruction du MPF." },
+{ question: "Quel est l’objectif de la mitose ?", answer: "Répartir équitablement le cytoplasme et les organites entre deux cellules filles identiques." },
+{ question: "Quelle forme prend l’ADN en interphase ?", answer: "Une fibre de 30 nm." },
+{ question: "Quelles sont les deux duplications importantes en phase S ?", answer: "La duplication des chromosomes et des centrosomes." },
+{ question: "Quels événements doivent avoir lieu avant la fin de la mitose ?", answer: "Condensation de la chromatine, disparition de l’enveloppe nucléaire, séparation et répartition des chromatides." },
+{ question: "Quelles sont les phases successives de la mitose ?", answer: "Prophase, Prométaphase, Métaphase, Anaphase, Télophase." },
+{ question: "Que suit immédiatement la mitose ?", answer: "La cytokinèse, puis l’interphase (G1, S, G2)." },
+{ question: "Quelle est la phase la plus longue de la mitose ?", answer: "La prophase." },
+{ question: "Que se passe-t-il sur l’ADN durant la prophase ?", answer: "Condensation de la chromatine, rendant l’ADN inaccessible aux machineries transcriptionnelles." },
+{ question: "Quel effet a la condensation de la chromatine sur la transcription ?", answer: "Elle entraîne l’arrêt progressif de la transcription." },
+{ question: "Que se passe-t-il au niveau du fuseau mitotique durant la prophase ?", answer: "Le fuseau de division se met en place à partir des centrosomes." },
+{ question: "Comment les centrosomes évoluent durant la prophase ?", answer: "Ils se séparent et migrent aux pôles de la cellule." },
+{ question: "Quel événement marque la fin de la prophase ?", answer: "La fragmentation de l’enveloppe nucléaire en petites vésicules." },
+{ question: "Quand commence la prométaphase ?", answer: "Après la disparition complète de l’enveloppe nucléaire." },
+{ question: "Qu’arrive-t-il au RE et au Golgi durant la prométaphase ?", answer: "Ils se désagrègent en petites vésicules pour une meilleure répartition." },
+{ question: "Que sont les kinétochores ?", answer: "Des assemblages protéiques permettant la liaison des chromosomes aux microtubules kinétochoriens." },
+{ question: "Comment les microtubules kinétochoriens interagissent-ils avec les kinétochores ?", answer: "Ils s’allongent ou se raccourcissent pour s’y accrocher, formant un pontage." },
+{ question: "Qu’est-ce que l’attachement unipolaire ?", answer: "Un seul pôle est connecté au kinétochore." },
+{ question: "Qu’est-ce que l’attachement bipolaire ?", answer: "Les deux pôles sont connectés aux kinétochores d’un chromosome." },
+{ question: "Combien de microtubules s’attachent à un kinétochore chez les mammifères ?", answer: "Environ 30." },
+{ question: "Que permet l’attachement bipolaire des kinétochores ?", answer: "Le déplacement des chromosomes vers la plaque métaphasique." },
+{ question: "Quel alignement caractérise la métaphase ?", answer: "Alignement des centromères et des centrosomes sur le plan équatorial." },
+{ question: "Quel point de contrôle existe durant la métaphase ?", answer: "La vérification de l’attachement et de l’alignement des chromosomes." },
+{ question: "Que provoquent les enzymes durant l’anaphase A ?", answer: "La rupture des cohésines liant les chromatides." },
+{ question: "Que font les microtubules kinétochoriens durant l’anaphase A ?", answer: "Ils se dépolymérisent, attirant les chromosomes vers les pôles." },
+{ question: "Que contient chaque pôle à la fin de l’anaphase A ?", answer: "Des chromosomes constitués d’une seule chromatide." },
+{ question: "Que se passe-t-il durant l’anaphase B ?", answer: "La cellule s’allonge et un sphincter contractile se forme au centre." },
+{ question: "Quelles protéines contractiles interviennent dans l’anaphase B ?", answer: "Actine et myosine." },
+{ question: "Quel est le rôle des protéines contractiles durant la télophase ?", answer: "Elles provoquent le clivage de la cellule mère." },
+{ question: "Que devient la chromatine durant la télophase ?", answer: "Elle se décondense." },
+{ question: "Comment se reforme l’enveloppe nucléaire ?", answer: "À partir des vésicules de l’enveloppe de la cellule mère." },
+{ question: "Qu’est-ce que la cytocinèse ?", answer: "La séparation physique définitive des deux cellules filles." },
+{ question: "Que devient la chromatine après la cytocinèse ?", answer: "Elle est complètement décondensée." },
+{ question: "Quand reprend la transcription après la mitose ?", answer: "À la fin de la cytocinèse, en phase G1." },
+{ question: "Quelle est la finalité de la méiose ?", answer: "Former des gamètes haploïdes à partir de cellules diploïdes." },
+{ question: "Pourquoi les gamètes doivent-ils être haploïdes ?", answer: "Pour permettre une fécondation donnant un œuf diploïde." },
+{ question: "Combien de divisions comporte la méiose ?", answer: "Deux divisions successives après une seule réplication." },
+{ question: "Quelle est la première division de la méiose ?", answer: "La division réductionnelle (méiose I)." },
+{ question: "Quel est le résultat de la méiose I ?", answer: "Deux cellules haploïdes à chromosomes à deux chromatides." },
+{ question: "Comment s’appelle la deuxième division de méiose ?", answer: "La division équationnelle (méiose II)." },
+{ question: "Quel est le résultat final de la méiose ?", answer: "Quatre cellules haploïdes différentes." },
+{ question: "Qu’est-ce que le crossing-over ?", answer: "Un échange de morceaux de chromosomes entre homologues pendant la prophase I." },
+{ question: "Combien d’étapes comporte la prophase I ? Lesquelles ? ", answer: "Cinq étapes : leptotène, zygotène, pachytène, diplotène, diacinèse." },
+{ question: "Que se passe-t-il durant le leptotène ?", answer: "Rapprochement des chromosomes homologues." },
+{ question: "Que se passe-t-il durant le zygotène ?", answer: "Formation du complexe synaptonémal." },
+{ question: "Qu’est-ce que le complexe synaptonémal ?", answer: "Un complexe protéique qui lie deux chromatides homologues sur toute leur longueur." },
+{ question: "Que se passe-t-il durant le pachytène ?", answer: "Condensation des chromosomes et apparition possible de crossing-over ; les chromosomes forment des tétrades." },
+{ question: "Que se passe-t-il durant le diplotène ?", answer: "Séparation des chromosomes homologues, désagrégation du complexe synaptonémal et formation des chiasmas." },
+{ question: "Que sont les chiasmas ?", answer: "Les zones d’enjambement ayant eu lieu au pachytène." },
+{ question: "Que se passe-t-il durant la diacinèse ?", answer: "Séparation finale des chromosomes homologues qui migrent vers la périphérie." },
+{ question: "Quelle différence majeure oppose la mitose à la méiose I ?", answer: "En mitose, les chromatides se séparent, alors qu’en méiose I, ce sont les chromosomes homologues." },
+{ question: "Pourquoi les 4 cellules issues de la méiose ont-elles un patrimoine génétique différent ?", answer: "À cause des crossing-over pendant la prophase I." },
+];
+
+ 	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

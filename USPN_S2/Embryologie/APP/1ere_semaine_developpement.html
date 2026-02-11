@@ -1,0 +1,783 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Embryologie</h1><h2>APP - 1ère semaine de développement</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: "Qu'est-ce que la syngamie ?", answer: "Fusion des 2 gamètes permettant la restauration de la diploïdie." },
+{ question: "Qu'est-ce que le spermaster ?", answer: "Demi-fuseau mitotique formé à partir du centriole proximal du spermatozoïde, constitué d'un aster qui s'étend progressivement à l'œuf entier." },
+{ question: "Quel est le rôle du spermaster ?", answer: "Il attire le pro-nucléus femelle et entraîne les deux pro-nucléis au centre de l'œuf." },
+{ question: "Qu'est-ce qui se passe lors de la reprise de méiose à la fin de la fécondation ?", answer: "Expulsion du 2nd globule polaire, l'œuf contient alors un centrosome d'origine maternelle formé de 2 centrioles." },
+{ question: "Comment se forme le second centrosome ?", answer: "Par formation du spermaster à partir du centriole proximal du spermatozoïde, puis duplication du centriole placé entre les 2 pro-nucléis." },
+{ question: "Que deviennent les centrioles après leur duplication ?", answer: "Ils occupent les deux pôles opposés du premier fuseau mitotique pour la mise en place du fuseau de 1ère division de segmentation." },
+{ question: "Qu'est-ce qui caractérise la 1ère semaine de développement ?", answer: "La migration tubaire de l'embryon vers la cavité utérine, sous l'influence de la progestérone." },
+{ question: "Quels événements caractérisent la 1ère semaine de développement ?", answer: "Migration tubaire, succession de divisions mitotiques (2 cellules au blastocyste), nidation, activation du génome embryonnaire." },
+{ question: "Qu'est-ce qu'une GEU ?", answer: "Grossesse extra-utérine : implantation de l'embryon hors de la cavité utérine." },
+{ question: "Qu'est-ce qu'une FCS ?", answer: "Fausse couche spontanée. La grande majorité a lieu au cours des deux premières semaines du développement." },
+{ question: "Où a lieu la fécondation ?", answer: "Dans l'ampoule utérine (ou ampoule tubaire)." },
+{ question: "Qu'est-ce que la segmentation ?", answer: "Série de divisions cellulaires que subit le zygote au cours des 5 premiers jours, pendant sa migration de l'ampoule tubaire à la cavité utérine." },
+{ question: "Comment se fait la migration tubaire de l'embryon ?", answer: "Grâce à la contraction des cellules musculaires lisses de la paroi tubaire et aux battements ciliaires (mouvement péristaltique), facilité par la sécrétion des cellules de la muqueuse." },
+{ question: "Sous l'influence de quelle hormone se fait la migration tubaire ?", answer: "La progestérone, qui inverse le mouvement péristaltique." },
+{ question: "Qu'est-ce que l'embryon préimplantatoire ?", answer: "L'embryon qui arrivera dans la cavité utérine vers le 5ème-6ème jour après la fécondation pour s'implanter dans l'endomètre." },
+{ question: "Qu'est-ce que la nidation ?", answer: "L'implantation du blastocyste éclos dans l'endomètre à J6." },
+{ question: "À quel jour l'embryon atteint-il le stade 4 cellules et où se situe-t-il ?", answer: "J2, dans l'isthme tubaire." },
+{ question: "À quel jour l'embryon atteint-il le stade 8 cellules et où se situe-t-il ?", answer: "J3, dans l'isthme tubaire." },
+{ question: "À quel jour l'embryon atteint-il le stade morula et où se situe-t-il ?", answer: "J4, à la jonction utéro-tubaire." },
+{ question: "À quel jour l'embryon atteint-il le stade blastocyste ?", answer: "J5, embryon préimplantatoire dans la cavité utérine." },
+{ question: "Quand a lieu l'éclosion du blastocyste ?", answer: "J6, par rupture de la zone pellucide, puis implantation dans l'endomètre." },
+{ question: "Qu'est-ce que la segmentation embryonnaire ?", answer: "Passage du zygote au blastocyste par successions de divisions cellulaires." },
+{ question: "Quelle est la cinétique de clivage du zygote ?", answer: "Le zygote se clive toutes les 20 heures en cellules appelées blastomères." },
+{ question: "Quelles sont les caractéristiques des divisions de la segmentation ?", answer: "Holoblastiques (concernent la totalité de la cellule), à volume constant de l'embryon (120-150 µm), et légèrement asynchrones." },
+{ question: "Quel est le rôle de la zone pellucide pendant la segmentation ?", answer: "Elle protège l'embryon et maintient un volume constant malgré les divisions." },
+{ question: "Quand apparaissent les 2 pro-nucléus après la fécondation ?", answer: "17 heures (+/- 1h) post fécondation." },
+{ question: "Quand a lieu la syngamie ?", answer: "À 23h (+/-1h), soit J1." },
+{ question: "Quand a lieu le 1er clivage ?", answer: "À 26h (+/-1h), permettant d'obtenir 2 blastomères." },
+{ question: "Combien de cellules l'embryon possède-t-il au stade morula (J4) ?", answer: "12 à 32 cellules." },
+{ question: "Selon quel plan se fait la 1ère division de segmentation ?", answer: "Plan méridional, perpendiculaire à l'équateur et dans l'alignement avec les globules polaires." },
+{ question: "Caractéristiques de la 2ème division de segmentation ?", answer: "Légèrement asynchrone entre les 2 blastomères. Le 1er se divise selon un plan perpendiculaire à l'équateur, le 2nd selon un plan méridien passant par l'équateur." },
+{ question: "Quelle disposition obtient-on après la 2ème division de segmentation ?", answer: "Disposition tétraédrique ou pyramidale avec 4 blastomères." },
+{ question: "Quelles sont les caractéristiques des blastomères jusqu'au stade 16 cellules ?", answer: "Sphériques, non polarisés, adhérences ponctuelles type desmosome, totipotents." },
+{ question: "Qu'est-ce qu'une cellule totipotente ?", answer: "Cellule capable de se différencier en n'importe quelle cellule spécialisée et de se structurer en formant un être vivant multicellulaire." },
+{ question: "De quelles mitochondries dépend le développement précoce de l'embryon ?", answer: "Du stock de mitochondries ovocytaires (les mitochondries spermatiques sont détruites)." },
+{ question: "À quel stade a lieu l'activation du génome embryonnaire ?", answer: "Au stade 8 cellules." },
+{ question: "À partir de quel stade débute la compaction ?", answer: "À partir du stade 16-32 cellules (stade morula)." },
+{ question: "Qu'est-ce que la compaction ?", answer: "Les cellules les plus externes de la morula commencent à se resserrer entre elles, formant une paroi cellulaire épithéliale étanche." },
+{ question: "Quelles sont les caractéristiques de la compaction ?", answer: "Mise en place de jonctions intercellulaires, polarisation des blastomères périphériques, orientation du fuseau mitotique des cellules externes." },
+{ question: "Quels sont les 3 types de jonctions intercellulaires mises en place lors de la compaction ?", answer: "Jonctions adhérentes, jonctions serrées (tight junctions), jonctions communicantes (gap junctions)." },
+{ question: "Quel est le rôle des jonctions adhérentes ?", answer: "Adhésion cellulaire via la E-cadhérine, initiateur de compaction en présence de calcium." },
+{ question: "Quelle est la structure des jonctions serrées ?", answer: "Occludine, protéines zona occludens ZO1 et ZO2, Cinguline." },
+{ question: "Quel est le rôle des jonctions serrées ?", answer: "Établissement d'une polarité cellulaire, barrière quasi étanche avec le milieu extérieur, rôle dans la formation du blastocèle." },
+{ question: "Quelle est la structure des jonctions communicantes ?", answer: "Connexines, dont la connexine 43." },
+{ question: "Quel est le rôle des jonctions communicantes ?", answer: "Passage de molécules < 1000 Da d'un blastomère à l'autre." },
+{ question: "Comment se caractérise une cellule polarisée ?", answer: "Pôle apical vers l'extérieur, pôle baso-latéral vers les autres cellules, faces latérales vers les cellules adjacentes." },
+{ question: "Quelles sont les 2 lignées cellulaires qui apparaissent après la compaction ?", answer: "Le trophectoderme (cellules périphériques) et la masse cellulaire interne (MCI)." },
+{ question: "Quelles sont les caractéristiques des cellules du trophectoderme ?", answer: "Cellules aplaties, polarisées, organisées en tissu épithélial, non contractiles, environ 2/3 des cellules, à l'origine des annexes et du placenta." },
+{ question: "Quels facteurs de transcription régulent le développement du trophectoderme ?", answer: "Cdx2 et Eomes." },
+{ question: "Quelles sont les caractéristiques des cellules de la MCI ?", answer: "Plus volumineuses, plus arrondies, en amas, à l'origine des annexes et de l'embryon." },
+{ question: "Quels facteurs de transcription régulent le développement de la MCI ?", answer: "Oct3/4, Nanog et Sox2 (facteurs de pluripotence)." },
+{ question: "Que se passe-t-il lors de la compaction concernant la totipotence ?", answer: "Perte de la totipotence des cellules." },
+{ question: "Comment le fuseau mitotique conditionne-t-il le devenir des cellules ?", answer: "Division symétrique donne 2 cellules filles identiques, division asymétrique donne une cellule polarisée et une non polarisée." },
+{ question: "Qu'est-ce que la aPKC ?", answer: "Atypical protein kinase C, présente dans les cellules apicales non contractiles qui formeront le trophectoderme." },
+{ question: "Qu'est-ce que la cavitation ?", answer: "Formation d'une cavité (blastocèle) à l'intérieur du blastocyste qui se remplit de liquide, entre le stade morula et blastocyste." },
+{ question: "D'où provient la MCI ?", answer: "Des 2 à 4 cellules les plus internes de la jeune morula." },
+{ question: "Comment appelle-t-on aussi la MCI ?", answer: "Embryoblaste ou bouton embryonnaire." },
+{ question: "Où se situe la MCI dans le blastocyste ?", answer: "Au pôle embryonnaire du blastocyste." },
+{ question: "Quels mécanismes permettent la cavitation ?", answer: "1. Gradient osmotique (pompe Na+/K+-ATPase), 2. Influx d'ions sodium au pôle apical, 3. Passage d'eau contrôlé par les aquaporines." },
+{ question: "Comment se forme le blastocèle ?", answer: "Pénétration du flux liquidien dans les espaces intercellulaires qui confluent pour former une cavité unique." },
+{ question: "Comment le trophoblaste se forme-t-il à partir du trophectoderme ?", answer: "Le trophectoderme devient trophoblaste au stade blastocyste." },
+{ question: "Quelles sont les 3 couches de la paroi utérine ?", answer: "Endomètre (muqueuse), myomètre (muscle lisse), séreuse péritonéale (paroi externe)." },
+{ question: "Quand a lieu l'éclosion du blastocyste ?", answer: "À J6, par amincissement puis rupture de la zone pellucide due à l'augmentation du volume du blastocyste et à une digestion enzymatique." },
+{ question: "Qu'est-ce que la fenêtre implantatoire ?", answer: "La période durant la phase sécrétoire de l'endomètre où la nidation peut se faire (J20-23 du cycle)." },
+{ question: "Sous l'effet de quelle hormone se fait la nidation ?", answer: "La progestérone sécrétée par le corps jaune." },
+{ question: "Quels facteurs favorisent l'implantation pendant la fenêtre implantatoire ?", answer: "La riche vascularisation, l'œdème et la sécrétion de mucus et de glycogène." },
+{ question: "Comment l'embryon s'oriente-t-il avant l'apposition à l'endomètre ?", answer: "Il présente son pôle embryonnaire." },
+{ question: "Quelles sont les deux phases de liaison lors de la nidation ?", answer: "Phase d'apposition (liaison instable) puis phase d'adhésion (liaison stable)." },
+{ question: "Quand a lieu la phase d'invasion de la nidation ?", answer: "Au cours de la 2ème semaine." },
+{ question: "Jusqu'à quel stade le génome embryonnaire est-il silencieux ?", answer: "Jusqu'au stade 4 cellules." },
+{ question: "Que se passe-t-il avant l'activation du génome embryonnaire ?", answer: "Seuls les transcrits ovocytaires entrent en jeu, le génome embryonnaire est silencieux." },
+{ question: "Qu'est-ce que la transition materno-embryonnaire ?", answer: "Dégradation des réserves ovocytaires et activation du génome embryonnaire (entre stade 4 et 8 cellules)." },
+{ question: "Quand les allèles paternels et maternels commencent-ils à s'exprimer ?", answer: "Après la transition materno-embryonnaire, lors de l'activation du génome embryonnaire." },
+{ question: "Qu'est-ce que l'épigénétique ?", answer: "Étude des changements d'expression des gènes transmissibles au travers des divisions cellulaires sans changement de la séquence de l'ADN." },
+{ question: "Quels sont les mécanismes épigénétiques possibles ?", answer: "Modifications des histones, méthylation de l'ADN, micro-ARN." },
+{ question: "Qu'est-ce que l'empreinte génomique parentale ?", answer: "Phénomène permettant la régulation de l'expression d'un allèle en fonction de leur origine parentale, sans modification de la séquence codante." },
+{ question: "Qu'est-ce qu'un gène soumis à empreinte ?", answer: "Un gène dont un seul des 2 allèles est exprimé (l'autre est inactivé), selon l'origine parentale." },
+{ question: "Quel est le mécanisme d'inactivation le plus courant pour l'empreinte ?", answer: "Méthylation de l'ADN et donc du gène, le rendant silencieux." },
+{ question: "Qu'est-ce qu'un gène soumis à empreinte paternelle ?", answer: "Seule la copie du gène maternel est exprimée." },
+{ question: "Qu'est-ce qu'un gène soumis à empreinte maternelle ?", answer: "Seule la copie du gène paternel est exprimée." },
+{ question: "Quelle région chromosomique est impliquée dans les syndromes d'Angelman et Prader-Willi ?", answer: "La région 15q11-q13 du chromosome 15." },
+{ question: "Qu'est-ce que le syndrome d'Angelman ?", answer: "Syndrome génétique lié au gène UBE3A, empreinte paternelle, microdélétion 15q11.2-q13 d'origine maternelle dans 70% des cas." },
+{ question: "Quels sont les symptômes du syndrome d'Angelman ?", answer: "Déficit intellectuel et moteur sévère, absence de langage, accès de rire/jovialité, troubles de l'équilibre, tremblement des membres, épilepsie, troubles du sommeil." },
+{ question: "Qu'est-ce que le syndrome de Prader-Willi ?", answer: "Syndrome lié à une empreinte maternelle, délétion 15q11.2-q13 d'origine paternelle dans 70% des cas." },
+{ question: "Quels sont les symptômes du syndrome de Prader-Willi ?", answer: "Hypotonie, difficultés à s'alimenter, puis obésité précoce associée à une hyperphagie." },
+{ question: "Qu'est-ce qui distingue les jumeaux dizygotes des monozygotes ?", answer: "Dizygotes : fécondation de 2 ovocytes par 2 spermatozoïdes, constitution génétique différente. Monozygotes : même constitution génétique." },
+{ question: "Quelle est la fréquence des jumeaux monozygotes ?", answer: "3 à 4 pour 1000 naissances." },
+{ question: "Qu'est-ce qu'une grossesse bichoriale biamniotique ?", answer: "Chaque embryon a sa propre cavité amniotique et son propre placenta (clivage au stade zygote)." },
+{ question: "Qu'est-ce qu'une grossesse monochoriale biamniotique ?", answer: "Les deux embryons ont un placenta et une cavité choriale commune mais une cavité amniotique propre (clivage au stade blastocyste)." },
+{ question: "Qu'est-ce qu'une grossesse monochoriale monoamniotique ?", answer: "Placenta, cavité choriale et cavité amniotique commune (clivage au stade didermique, rare)." },
+{ question: "Où se localise le plus souvent une GEU ?", answer: "Dans l'ampoule tubaire (80%) et dans la trompe (12%)." },
+{ question: "Quel est le risque principal d'une GEU ?", answer: "Ablation de la trompe utérine, mise en danger de la mère, chirurgie peut être nécessaire." },
+{ question: "Qu'est-ce qu'une môle hydatiforme ?", answer: "Forme bénigne de maladie trophoblastique gestationnelle avec prolifération excessive du trophoblaste sans développement de bouton embryonnaire." },
+{ question: "Quelle est la cause d'une môle hydatiforme ?", answer: "Anomalies de la fécondation avec excès de matériel chromosomique paternel." },
+{ question: "Quelles sont les caractéristiques histologiques d'une môle hydatiforme ?", answer: "Hyperplasie du trophoblaste, dégénérescence généralisée des villosités choriales, absence de cavité amniotique et de tissu embryonnaire." },
+{ question: "Quelle est la cause principale des FCS au cours des 2 premières semaines ?", answer: "Dans 40 à 50% des cas, elles sont dues à des anomalies chromosomiques (anomalies de nombre comme T16, T22, monosomie X, ou translocations)." },
+{ question: "Qu'est-ce que le mosaïcisme embryonnaire ?", answer: "Présence de cellules avec des caryotypes différents au sein du même embryon." },
+{ question: "Qu'est-ce que l'embryoscopie ?", answer: "Technique de photos de l'évolution de l'embryon permettant une meilleure connaissance de la cinétique du clivage." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

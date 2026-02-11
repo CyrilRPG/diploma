@@ -1,0 +1,1000 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Jonctions</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Pourquoi les cellules doivent-elles interagir avec leur environnement ?', answer: 'Pour s’organiser en tissus puis en organes et assurer leurs fonctions biologiques.' },
+  { question: 'Que permettent les interactions cellulaires dans un organisme multicellulaire ?', answer: 'La mise en place et le maintien de l’architecture, de la forme et de la résistance mécanique.' },
+  { question: 'Quels sont les deux principaux types de tissus concernés par les jonctions ?', answer: 'Le tissu épithélial et le tissu conjonctif.' },
+  { question: 'Qu’est-ce qui relie le tissu épithélial au tissu conjonctif ?', answer: 'Les attachements entre cellules et matrice extracellulaire.' },
+  { question: 'Par quoi les contraintes mécaniques sont-elles transmises entre cellules ?', answer: 'Par les filaments du cytosquelette ancrés aux jonctions.' },
+  { question: 'Quelles sont les caractéristiques des cellules du tissu épithélial ?', answer: 'Elles sont jointives et fortement connectées.' },
+  { question: 'Quels rôles assurent les épithéliums ?', answer: 'Protection, barrière et transport.' },
+  { question: 'Que trouve-t-on sous les cellules épithéliales ?', answer: 'Le tissu conjonctif et la lame basale.' },
+  { question: 'Comment sont polarisées les cellules de l’intestin ?', answer: 'Avec un pôle apical et un pôle basal.' },
+  { question: 'Qu’est-ce qui supporte les contraintes mécaniques dans le tissu conjonctif ?', answer: 'La matrice extracellulaire.' },
+  { question: 'Que sont les jonctions cellulaires ?', answer: 'Des complexes transmembranaires assurant les interactions cellulaires.' },
+  { question: 'Quels rôles assurent les jonctions ?', answer: 'Stabilité architecturale, contrôle de perméabilité, migration, prolifération, différenciation, survie.' },
+  { question: 'Qu’assurent les jonctions d’ancrage ?', answer: 'L’attachement des cellules entre elles.' },
+  { question: 'À quoi les jonctions d’ancrage sont-elles reliées ?', answer: 'Au cytosquelette (actine ou filaments intermédiaires).' },
+  { question: 'De quoi dépendent les jonctions d’ancrage ?', answer: 'Du calcium extracellulaire.' },
+  { question: 'Quel est le rôle des jonctions d’ancrage dans le développement embryonnaire ?', answer: 'Coordonner les modifications du cytosquelette pour permettre l’invagination du neurectoderme.' },
+  { question: 'Qu’assurent les jonctions adhérentes ?', answer: 'L’attachement des cytosquelettes d’actine entre cellules voisines.' },
+  { question: 'Quels types de protéines transmembranaires composent les jonctions adhérentes ?', answer: 'Les cadhérines.' },
+  { question: 'Les cadhérines sont-elles dépendantes du calcium ?', answer: 'Oui.' },
+  { question: 'Quels sont les types de cadhérines selon les tissus ?', answer: 'E-cadhérines (épithéliums) et N-cadhérines (système nerveux).' },
+  { question: 'Comment évoluent les cadhérines en absence de calcium ?', answer: 'Elles perdent leur stabilisation membranaire et deviennent diffuses.' },
+  { question: 'Quels types d’interactions établissent les cadhérines ?', answer: 'Des interactions homophiles.' },
+  { question: 'Quel domaine permet la liaison homophile entre deux cadhérines ?', answer: 'Le dernier domaine extracellulaire et le N-ter en “boutonnière”.' },
+  { question: 'Comment le lien entre cadhérines et cytosquelette est-il établi ?', answer: 'Via des protéines adaptatrices comme les caténines et l’α-caténine.' },
+  { question: 'Quels rôles jouent les jonctions adhérentes ?', answer: 'Cohésion tissulaire, reconnaissance cellulaire, morphogénèse, maintien des fonctions cellulaires.' },
+  { question: 'Que se passe-t-il au cours de la cancérogenèse concernant les cadhérines ?', answer: 'Il y a perte d’expression favorisant la migration et les métastases.' },
+  { question: 'Quel est le rôle principal des desmosomes ?', answer: 'Assurer une forte résistance mécanique.' },
+  { question: 'Quels filaments se fixent aux desmosomes dans les cellules épithéliales ?', answer: 'Les filaments de kératine.' },
+  { question: 'Quels filaments se fixent aux desmosomes dans le muscle cardiaque ?', answer: 'Les filaments de desmine.' },
+  { question: 'Quelles protéines adaptatrices se lient aux cadhérines desmosomales ?', answer: 'Plakoglobuline, plakophiline, desmoplakine.' },
+  { question: 'Quel autre nom porte la plakoglobuline ?', answer: 'γ-caténine.' },
+  { question: 'Quelle pathologie peut résulter d’une mutation des protéines desmosomales cardiaques ?', answer: 'La cardiomyopathie arythmogène du ventricule droit.' },
+  { question: 'Quelle pathologie cutanée est liée à une perte d’adhérence des desmosomes ?', answer: 'Le pemphigus vulgaris.' },
+  { question: 'Quelle est la cause du pemphigus vulgaris ?', answer: 'Des autoanticorps anti-desmogléines.' },
+  { question: 'Que permettent les jonctions serrées ?', answer: 'De sceller les cellules et d’assurer une barrière entre compartiments.' },
+  { question: 'Comment s’appellent les jonctions serrées entourant la cellule ?', answer: 'Zonula occludens.' },
+  { question: 'Quel rôle jouent les jonctions serrées dans la perméabilité ?', answer: 'Elles contrôlent la voie paracellulaire.' },
+  { question: 'Que séparent les jonctions serrées sur la membrane cellulaire ?', answer: 'Le domaine apical du domaine basolatéral.' },
+  { question: 'Quelles sont les deux classes de protéines des jonctions serrées ?', answer: 'Les protéines transmembranaires (claudines, occludines) et les protéines d’attachement ZO.' },
+  { question: 'Quel est le rôle des claudines ?', answer: 'Assurer l’assemblage, la structure et le rôle de canaux.' },
+  { question: 'Quel est le rôle des occludines ?', answer: 'Limiter la perméabilité.' },
+  { question: 'À quel cytosquelette les jonctions serrées sont-elles reliées ?', answer: 'Aux microfilaments d’actine.' },
+  { question: 'Quel pathogène altère les jonctions serrées dans le choléra ?', answer: 'Vibrio cholerae.' },
+  { question: 'Quelles conséquences provoque l’altération des jonctions serrées dans le choléra ?', answer: 'Hyperperméabilité et fuite liquidienne menant à des diarrhées massives.' },
+  { question: 'Quel type de mutation des claudines peut provoquer des surdités héréditaires ?', answer: 'Des mutations des gènes des claudines.' },
+  { question: 'Quel lien existe entre jonctions serrées et MICI ?', answer: 'Une hyperperméabilité intestinale due à une perte d’étanchéité.' },
+  { question: 'Quel est le rôle principal des jonctions communicantes ?', answer: 'Assurer une communication directe entre le cytoplasme de deux cellules voisines.' },
+  { question: 'Dans quels types de tissus trouve-t-on les jonctions communicantes ?', answer: 'Dans tous les tissus : conjonctifs, épithéliaux, muscles.' },
+  { question: 'Quelles molécules passent à travers les jonctions GAP ?', answer: 'Ions inorganiques et petites molécules hydrophiles.' },
+  { question: 'Quelle expérience démontre la communication via jonctions GAP ?', answer: 'Injection de molécules fluorescentes dans une cellule et détection dans les cellules voisines.' },
+  { question: 'Quelles structures permettent le passage de molécules dans les jonctions GAP ?', answer: 'Les connexons.' },
+  { question: 'Quelle pathologie est associée à des mutations de la connexine 32 ?', answer: 'La maladie de Charcot-Marie-Tooth type X1.' },
+  { question: 'Quelles connexines sont impliquées dans certaines surdités héréditaires ?', answer: 'Les connexines 26 et 30.' },
+  { question: 'Quelle est la taille maximale des molécules pouvant passer dans les jonctions GAP ?', answer: '< 1000 daltons.' },
+  { question: 'Par combien de connexines est formé un connexon ?', answer: '6 connexines.' },
+  { question: 'Que forment deux connexons face à face ?', answer: 'Un canal transmembranaire hydrophile.' },
+  { question: 'De quoi dépend l’ouverture du canal GAP ?', answer: 'Du pH et de la concentration en calcium.' },
+  { question: 'Quels types de protéines permettent les adhésions transitoires ?', answer: 'Les sélectines, les CAMs de la superfamille des Ig, et les intégrines.' },
+  { question: 'Dans quels processus interviennent les contacts non jonctionnels ?', answer: 'Amorce de formation des jonctions et rolling des cellules sanguines.' },
+  { question: 'Que permet le rolling ?', answer: 'Le passage de la barrière endothéliale par les cellules sanguines.' },
+  { question: 'Qu’est-ce que la matrice extracellulaire ?', answer: 'Un milieu extracellulaire assurant soutien physique et régulation du comportement cellulaire.' },
+  { question: 'Quels aspects cellulaires la MEC influence-t-elle ?', answer: 'Survie, développement, migration, prolifération, forme, fonction.' },
+  { question: 'Quels tissus sont les plus riches en MEC ?', answer: 'Les tissus conjonctifs.' },
+  { question: 'Quelles sont les trois grandes classes de macromolécules de la MEC ?', answer: 'Protéoglycanes/GAG, protéines fibreuses, glycoprotéines d’adhérence.' },
+  { question: 'Quels rôles ont les GAG et protéoglycanes ?', answer: 'Donner consistance, volume, résistance à la compression.' },
+  { question: 'Quels rôles ont le collagène et l’élastine ?', answer: 'Résistance mécanique, élasticité.' },
+  { question: 'Quels rôles ont la fibronectine et la laminine ?', answer: 'Adhérence et migration.' },
+  { question: 'Qu’est-ce qu’un GAG ?', answer: 'Une grande chaîne de polysaccharides hydrophiles formant un gel hydraté.' },
+  { question: 'Quels sont les quatre types de GAG ?', answer: 'Acides hyaluroniques, chondroïtines/dermatanes sulfates, héparanes sulfates, kératanes sulfates.' },
+  { question: 'Quel est le rôle structural des GAG ?', answer: 'Résister aux forces de compression grâce à leur hydratation.' },
+  { question: 'Qu’est-ce qu’un protéoglycane ?', answer: 'Un noyau protéique lié covalemment à des chaînes de GAG.' },
+  { question: 'Que forment les protéoglycanes dans la MEC ?', answer: 'Des réseaux complexes très hydrophiles.' },
+  { question: 'Combien existe-t-il de gènes de collagène chez l’humain ?', answer: '42 gènes.' },
+  { question: 'Quels sont les trois types majeurs de collagènes ?', answer: 'Fibrillaires (I), associés aux fibrilles (II, IX, XII), formant des réseaux (IV).' },
+  { question: 'Quel est le rôle des fibrilles de collagène ?', answer: 'Résister aux forces de tension.' },
+  { question: 'Quelle maladie est liée à des mutations du collagène ?', answer: 'Le syndrome d’Ehlers-Danlos.' },
+  { question: 'De quoi sont constituées les fibres élastiques ?', answer: 'Principalement d’élastine.' },
+  { question: 'Où les fibres élastiques sont-elles dominantes ?', answer: 'Dans les artères.' },
+  { question: 'Quel type de glycoprotéine est la fibronectine ?', answer: 'Une glycoprotéine matricielle d’adhérence.' },
+  { question: 'Quel motif de la fibronectine interagit avec les intégrines ?', answer: 'Le motif RGD.' },
+  { question: 'Quel type de collagène forme le réseau de la lame basale ?', answer: 'Le collagène de type IV.' },
+  { question: 'Quels sont les principaux composants de la lame basale ?', answer: 'Collagène IV, laminine, nidogène, perlecan.' },
+  { question: 'Quelles pathologies sont liées à des anomalies de la laminine ?', answer: 'La dystrophie musculaire congénitale et l’épidermolyse bulleuse jonctionnelle.' },
+  { question: 'De quoi sont constituées les intégrines ?', answer: 'D’un hétérodimère α/β non covalent.' },
+  { question: 'Quel est le rôle principal des intégrines ?', answer: 'Attacher les cellules à la matrice extracellulaire.' },
+  { question: 'Combien existe-t-il de récepteurs intégrines différents ?', answer: '24 récepteurs.' },
+  { question: 'Quel récepteur intégrine reconnaît le collagène ?', answer: 'α1β1.' },
+  { question: 'Quel récepteur intégrine reconnaît les laminines ?', answer: 'α6β4.' },
+  { question: 'Quel récepteur intégrine reconnaît la séquence RGD ?', answer: 'α5β1.' },
+  { question: 'Que se passe-t-il lorsque l’intégrine est inactive ?', answer: 'Elle adopte une conformation repliée de faible affinité.' },
+  { question: 'Que se passe-t-il lorsque l’intégrine devient active ?', answer: 'Elle expose ses sites de liaison à forte affinité.' },
+  { question: 'À quoi servent les plaques d’adhésion focale ?', answer: 'À relier indirectement l’actine à la matrice extracellulaire.' },
+  { question: 'Quelles protéines relient intégrines et actine dans l’adhésion focale ?', answer: 'La taline et la vinculine.' },
+  { question: 'Qu’est-ce qu’un hémidesmosome ?', answer: 'Une structure asymétrique reliant filaments intermédiaires et matrice.' },
+  { question: 'Quelle intégrine caractérise les hémidesmosomes ?', answer: 'L’intégrine α6β4.' },
+  { question: 'Que permettent les intégrines activées au niveau du comportement cellulaire ?', answer: 'Des signaux influençant prolifération, survie, polarité et migration.' },
+  { question: 'Quel est le rôle global des jonctions matricielles et intercellulaires ?', answer: 'Organisation, fonction et dynamique des structures multicellulaires.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

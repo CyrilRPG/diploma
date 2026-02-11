@@ -1,0 +1,1084 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biochimie Socle</h1><h2>Organisation et expression du génôme</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+</head>
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: 'Qu’est-ce que la chromatine ?', answer: 'Un complexe organisé d’ADN et de protéines présent dans le noyau.' },
+{ question: 'Quelle proportion des protéines de la chromatine sont des histones ?', answer: '50 %' },
+{ question: 'Quel est le rôle principal de la chromatine ?', answer: 'Permettre la compaction de l’ADN.' },
+{ question: 'Quelle est la longueur d’une molécule d’ADN présente dans le noyau ?', answer: 'Environ 2 mètres.' },
+{ question: 'Quel est le diamètre moyen du noyau cellulaire ?', answer: 'Environ 6 micromètres.' },
+{ question: 'Quel est le premier niveau de compaction de l’ADN ?', answer: 'Le nucléosome.' },
+{ question: 'De quoi est constitué un nucléosome ?', answer: 'D’un octamère d’histones autour duquel s’enroule l’ADN.' },
+{ question: 'Quelle est la charge des histones à pH physiologique ?',answer: 'Positive.' },
+{ question: 'Pourquoi les histones peuvent-elles interagir avec l’ADN ?', answer: 'Parce qu’elles sont chargées positivement et l’ADN est chargé négativement.' },
+{ question: 'Quelle est la longueur de l’ADN enroulé autour d’un octamère ?', answer: 'Environ 142 à 146 paires de bases.' },
+{ question: 'Comment appelle-t-on l’aspect de la chromatine formée par la succession des nucléosomes ?', answer: 'Collier de perles.' },
+{ question: 'Quel est le degré de compaction suivant les nucléosomes ?', answer: 'Les solénoïdes formant la fibre de chromatine.' },
+{ question: 'Qu’est-ce qui permet un degré de compaction supplémentaire après la fibre de chromatine ?', answer: 'Les super-enroulements.' },
+{ question: 'À quel moment le degré de compaction est-il maximal ?', answer: 'En métaphase, au niveau des chromosomes.' },
+{ question: 'Quelle est la conséquence d’un degré de compaction élevé ?', answer: 'L’ADN est moins accessible à la machinerie transcriptionnelle.' },
+{ question: 'Comment est qualifié l’ADN dans le collier de perles ? (actif ou inactif)', answer: 'Actif (accessible et transcrit).' },
+{ question: 'Comment est qualifié l’ADN à partir de la fibre de chromatine (actif ou inactif) ?', answer: 'Inactif (non accessible à la machinerie transcriptionnelle).' },
+{ question: 'Quelles sont les trois modifications post-traductionnelles des histones ?', answer: 'Acétylation, méthylation, phosphorylation.' },
+{ question: 'Quelle enzyme réalise l’acétylation des histones ?', answer: 'HAT (Histone Acétyle Transférase).' },
+{ question: 'Quel résidu est acétylé lors de l’acétylation des histones ?', answer: 'La lysine des histones.' },
+{ question: 'Quel est l’effet de l’acétylation sur la charge des histones ?', answer: 'Perte de charge positive.' },
+{ question: 'Quel est l’effet de l’acétylation sur la chromatine ?', answer: 'Déstabilisation de la chromatine et favorisation de la transcription.' },
+{ question: 'Quelle enzyme réalise la désacétylation des histones ?', answer: 'HDAC (Histone Désacétylase).' },
+{ question: 'Quel est l’effet de la désacétylation sur la transcription ?', answer: 'Limite la transcription des gènes.' },
+{ question: 'Quelle enzyme réalise la méthylation des histones ?', answer: 'HMT (Histone Méthyle Transférase).' },
+{ question: 'Quels résidus sont méthylés lors de la méthylation des histones ?', answer: 'Lysine ou arginine.' },
+{ question: 'Quel est l’effet principal de la méthylation des histones ?', answer: 'Favorise la répression des gènes.' },
+{ question: 'Quels résidus sont ciblés lors de la phosphorylation des histones ?', answer: 'Sérine ou thréonine.' },
+{ question: 'Quelles enzymes interviennent dans la phosphorylation des histones ?', answer: 'Kinases ou phosphatases.' },
+{ question: 'Peut-on affirmer que la phosphorylation active ou réprime les gènes ?', answer: 'Non, cela dépend des résidus concernés.' },
+{ question: 'Quels sont les deux types de chromatine en interphase ?', answer: 'Hétérochromatine et euchromatine.' },
+{ question: 'Quelles modifications caractérisent l’hétérochromatine ?', answer: 'Histones hypoacétylées/méthylées.' },
+{ question: 'Quel est l’effet de la méthylation de l’ADN sur l’expression génique ?', answer: 'Favorise la répression des gènes.' },
+{ question: 'Quelles modifications caractérisent l’euchromatine ?', answer: 'Histones acétylées/hypométhylées.' },
+{ question: 'Quelle est la forme du génome mitochondrial ?', answer: 'ADN circulaire.' },
+{ question: 'Combien de copies d’ADN mitochondrial peut contenir une mitochondrie ?', answer: 'Jusqu’à 10 copies.' },
+{ question: 'Combien de gènes contient l’ADN mitochondrial ?', answer: '37 gènes.' },
+{ question: 'Combien de gènes mitochondriaux codent pour les protéines de la chaîne respiratoire ?', answer: '13 gènes.' },
+{ question: 'Combien de chromosomes comporte le génome nucléaire ?', answer: '46 chromosomes.' },
+{ question: 'Quels chromosomes composent les 46 chromosomes humains ?', answer: '22 paires homologues + 2 chromosomes sexuels.' },
+{ question: 'La cellule humaine est-elle diploïde ?', answer: 'Oui, elle possède deux copies (allèles) de chaque gène nucléaire.' },
+{ question: 'Quels éléments constituent un chromosome ?', answer: 'Un bras long, un bras court et deux télomères aux extrémités.' },
+{ question: 'Que se passe-t-il au niveau des chromosomes pendant la métaphase ?', answer: 'Chaque chromosome comporte deux chromatides.' },
+{ question: 'Comment les gènes sont-ils répartis sur l’ADN ?', answer: 'En mosaïque.' },
+{ question: 'Que contient la région régulatrice d’un gène ?', answer: 'Un promoteur et d’autres séquences de fixation des facteurs de transcription.' },
+{ question: 'Comment est fragmentée l’information dans le génome nucléaire ?', answer: 'Exons (codants) morcelés par des introns (non codants).' },
+{ question: 'Le génome mitochondrial contient-il des introns ?', answer: 'Non, uniquement des exons.' },
+{ question: 'Quel pourcentage du génome nucléaire correspond aux séquences codantes ?', answer: 'Quelques %.' },
+{ question: 'Quel pourcentage du génome est constitué d’introns ?', answer: 'Environ 20 %.' },
+{ question: 'Quelle proportion du génome est constituée de séquences uniques ?', answer: 'Environ 50 %.' },
+{ question: 'Quels sont les trois types d’ADN répétés en tandem ?', answer: 'Satellite, minisatellite, microsatellite.' },
+{ question: 'Où se trouve l’ADN satellite ?', answer: 'Au niveau des centromères.' },
+{ question: 'Où se trouve l’ADN minisatellite ?', answer: 'Au niveau des télomères.' },
+{ question: 'Où se trouve l’ADN microsatellite ?', answer: 'Réparti sur l’ensemble du génome.' },
+{ question: 'Quelle est la taille du motif de l’ADN satellite ?', answer: '5 à 170 pb.' },
+{ question: 'Combien de répétitions peut avoir l’ADN satellite ?', answer: 'Jusqu’à 5000.' },
+{ question: 'Quelle est la taille du motif de l’ADN minisatellite ?', answer: '6 à 64 pb.' },
+{ question: 'Combien de répétitions peut avoir l’ADN minisatellite ?', answer: '1000 à 2000.' },
+{ question: 'Quelle est la taille du motif de l’ADN microsatellite ?', answer: '1 à 6 pb.' },
+{ question: 'Combien de répétitions peut avoir l’ADN microsatellite ?', answer: '5 à 50.' },
+{ question: 'Qu’est-ce qu’un gène ?', answer: 'Une région d’ADN qui contrôle un caractère héréditaire et code en général pour une protéine ou un ARN.' },
+{ question: 'Que contient un gène ?', answer: 'Une région régulatrice avec promoteur, des exons, des introns.' },
+{ question: 'Quel est le nombre de séquences exprimées (exons) dans un gène ?', answer: 'Entre 1 et 80.' },
+{ question: 'Combien d’exons comporte le gène de l’interféron 1-alpha ?', answer: 'Un seul exon.' },
+{ question: 'Combien d’exons comporte le gène de la dystrophine ?', answer: '79 exons.' },
+{ question: 'Quel brin d’ADN correspond à la séquence d’un gène ?', answer: 'Le brin sens (avec promoteur en 5’P).' },
+{ question: 'Qu’est-ce que la transcription ?', answer: 'La transcription correspond à l’ensemble des réactions permettant la synthèse d’ARN à partir d’un brin matrice d’ADN.' },
+{ question: 'Quelle enzyme effectue la transcription ?', answer: 'Les ARN polymérases effectuent la transcription.' },
+{ question: 'Quels sont les substrats nécessaires pour l’action des ARN polymérases ?', answer: 'Les riboses nucléotides triphosphates (NTP = ATP, CTP, GTP, UTP).' },
+{ question: 'Quel ion est nécessaire à l’action des ARN polymérases ?', answer: 'Les ions magnésium (Mg2+).' },
+{ question: 'Quel est le produit formé par l’ARN polymérase ?', answer: 'Un brin d’ARN appelé transcrit primaire.' },
+{ question: 'L’ADN matrice est-il modifié pendant la transcription ?', answer: 'Non, le brin d’ADN matrice reste indemne.' },
+{ question: 'Combien existe-t-il de types d’ARN polymérase ?', answer: 'Il existe 3 types d’ARN polymérase.' },
+{ question: 'Quel type d’ARN polymérase synthétise les ARNr 18S, 28S et 5,8S ?', answer: 'L’ARN polymérase I.' },
+{ question: 'Quel type d’ARN polymérase synthétise les ARNm ?', answer: 'L’ARN polymérase II.' },
+{ question: 'Quels ARN sont synthétisés par l’ARN polymérase III ?',answer: 'L’ARNr 5S, des ARNt et des ARNsn.' },
+{ question: 'Quelle est la masse de l’ARN polymérase II ?', answer: 'Son poids moléculaire est de 500 kDa.' },
+{ question: 'Quel brin est utilisé comme matrice par l’ARN polymérase II ?', answer: 'Le brin anti-sens.' },
+{ question: 'Dans quel sens se déplace l’ARN polymérase sur le brin matrice ?', answer: 'De l’extrémité 3’OH vers l’extrémité 5’P du brin matrice.' },
+{ question: 'Dans quel sens est synthétisé le transcrit primaire ?', answer: 'De l’extrémité 5’P vers l’extrémité 3’OH.' },
+{ question: 'Quelle liaison est formée lors de l’incorporation d’un nucléotide ? Avec libération de quelle molécule ?', answer: 'Une liaison 3’-5’ phosphodiester avec libération de pyrophosphate.' },
+{ question: 'La séquence du transcrit primaire est-elle complémentaire au brin anti-sens ?', answer: 'Oui, elle est complémentaire au brin anti-sens et reflète le brin sens (avec des U à la place des T).' },
+{ question: 'Quelle est la taille de l’hybridation ARN/ADN pendant la transcription ?', answer: 'Environ 8 paires de bases, de manière partielle et transitoire.' },
+{ question: 'Le brin matrice est-il toujours le brin anti-sens ?', answer: 'Majoritairement oui, mais ce n’est pas toujours le cas selon l’orientation du gène.' },
+{ question: 'Qu’est-ce qui détermine l’orientation d’un gène ?', answer: 'La position de son promoteur.' },
+{ question: 'Sur quel brin est positionné le promoteur si le gène est en sens inverse ?', answer: 'Sur le brin sens, mais en 3’ de ce brin.' },
+{ question: 'Quelles sont les trois étapes de la transcription ?', answer: 'Initiation, élongation, terminaison.' },
+{ question: 'Qu’est-ce que l’initiation de la transcription ?', answer: 'C’est l’association de l’ARN polymérase et des facteurs de transcription pour former le complexe d’initiation.' },
+{ question: 'Qu’est-ce que l’élongation ?', answer: 'C’est la synthèse par l’ARN polymérase du transcrit primaire, avec déplacement le long du brin d’ADN.' },
+{ question: 'Qu’est-ce que la terminaison ?', answer: 'C’est l’arrêt de la synthèse, avec libération de l’enzyme et dissociation du transcrit.' },
+{ question: 'Quel est le poids du complexe d’initiation de la transcription ?', answer: 'Environ 2 millions de Da.' },
+{ question: 'Quels sont les 3 types de domaines protéiques des facteurs de transcription ?', answer: 'Domaines hélice-boucle-hélice, en doigts de zinc ou fermeture à leucine.' },
+{ question: 'Où les facteurs de transcription interagissent-ils principalement avec l’ADN ?', answer: 'Au niveau du grand sillon de la double hélice.' },
+{ question: 'Quels types d’interactions les facteurs de transcription établissent-ils avec l’ADN ?', answer: 'Liaisons hydrogènes, ioniques ou interactions hydrophobes.' },
+{ question: 'Qu’est-ce qu’un facteur cis régulateur ?', answer: 'Une séquence d’ADN reconnue spécifiquement par des facteurs de transcription.' },
+{ question: 'Quelle séquence est souvent retrouvée en -25 ?', answer: 'La boîte TATA (TATAAAA).' },
+{ question: 'Dans quel pourcentage des gènes la boîte TATA est-elle présente ?', answer: 'Dans 70% des gènes.' },
+{ question: 'Quelle boîte peut être présente en -50 ?', answer: 'La boîte GC.' },
+{ question: 'Quel facteur de transcription se fixe sur la boîte GC ?', answer: 'Le facteur SP1.' },
+{ question: 'Quelle séquence est toujours retrouvée en -90 ?', answer: 'La boîte CAAT.' },
+{ question: 'Quel facteur reconnaît la boîte CAAT ?', answer: 'Le facteur CTF.' },
+{ question: 'Jusqu’où peuvent s’étendre les régions promotrices ?', answer: 'Jusqu’à plus de 100 000 nucléotides en amont de l’origine de la transcription.' },
+{ question: 'Quels types de facteurs se fixent sur la région promotrice en dehors du promoteur basal ?',answer: 'Des facteurs de transcription spécifiques activateurs ou répresseurs.' },
+{ question: "Quel est le rôle du TFIID dans l’initiation de la transcription ?", answer: "Il permet la reconnaissance de la TATA box au niveau de la région promotrice du gène d’intérêt." },
+{ question: "Quels sont les composants structurels du TFIID ?", answer: "La TBP (TATA Binding Protein) et des TAFs (Transcription Activating Factors)." },
+{ question: "Quel est le rôle de la TBP dans la transcription ?", answer: "Elle permet la reconnaissance de la boîte TATA et le recrutement d'autres TFII." },
+{ question: "Quelle est la première étape de la formation du complexe d’initiation ?", answer: "La reconnaissance de la TATA box par le TFIID." },
+{ question: "Que permet le TFIIA lors de l’initiation ?", answer: "Il stabilise le complexe TFIID-ADN." },
+{ question: "Quel facteur se lie à l’ADN et positionne l’ARN polymérase II ?", answer: "Le TFIIB." },
+{ question: "Avec quel facteur l’ARN polymérase II est-elle pré-associée ?", answer: "Avec le TFIIF." },
+{ question: "Quel est le rôle du TFIIE dans l’initiation ?", answer: "Il se lie à l’ADN et positionne le TFIIH." },
+{ question: "Quelle activité enzymatique le TFIIH possède-t-il pour écarter les brins d’ADN ?", answer: "Une activité hélicase." },
+{ question: "Quelle est la deuxième activité enzymatique du TFIIH ?", answer: "Une activité kinase qui phosphoryle la partie C-terminale de l’ARN polymérase II." },
+{ question: "Que permet la phosphorylation de la partie C-term de l’ARN polymérase II ?", answer: "L’activation de la polymérase II et la libération des facteurs de transcription généraux." },
+{ question: "Qu’est-ce qui déclenche le début de ka synthèse du transcrit primaire ?", answer: "L’activation de l’ARN polymérase II par TFIIH." },
+{ question: "Quel événement déclenche la dissociation du complexe de transcription ?", answer: "La déphosphorylation de la partie C-terminale de l’ARN polymérase II." },
+{ question: "Quel est le produit final de la transcription avant maturation ?", answer: "Un pré-ARN messager (transcrit primaire)." },
+{ question: "Quel niveau de transcription permet le complexe d’initiation seul ?", answer: "Un niveau basal de faible intensité." },
+{ question: "Quel est l’effet des facteurs de transcription spécifiques activateurs ?", answer: "Ils facilitent la formation du complexe et augmentent l’efficacité de l’initiation de la transcription." },
+{ question: "Quel est l’effet des FT spécifiques répresseurs ?", answer: "Ils limitent l’efficacité de la formation du complexe d’initiation et diminuent l’expression du gène." },
+{ question: "Comment les FT éloignés peuvent-ils agir sur l’initiation ?", answer: "Par repliement de l’ADN et par l’intermédiaire de complexes protéiques." },
+{ question: "Sur quel type de site les FT activateurs se fixent-ils ?", answer: "Sur des sites appelés enhancer." },
+{ question: "Sur quel type de site les FT répresseurs se fixent-ils ?", answer: "Sur des sites appelés silencer." },
+{ question: "Quel est le rôle du domaine de fixation à l’ADN présent chez les FTs ?", answer: "Il permet au FT de se fixer à son site spécifique sur l’ADN." },
+{ question: "Comment peut-on moduler l’expression d’un gène via les FT ?", answer: "En modulant l’expression du FT lui-même." },
+{ question: "Quel type de modification post-traductionnelle régule l’activité des FT ?", answer: "La phosphorylation." },
+{ question: "Quel est le rôle de la translocation nucléaire dans la régulation des FT ?", answer: "Un FT doit être transloqué dans le noyau pour pouvoir réguler un gène cible." },
+{ question: "Quel est l’impact des interactions protéiques sur les FT ?", answer: "Elles peuvent empêcher la fixation du FT à son site spécifique, modifiant ainsi l’expression du gène cible." },
+{ question: "Que se passe-t-il lorsqu’un facteur de transcription répresseur empêche l’interactions entre un activateur et le complexe d’initiation ?", answer: "Le facteur d’activateur ne peut plus interagir avec la machinerie transcriptionnelle, ce qui empêche l’augmentation de l’expression du gène." },
+{ question: "Quel est le principe de la compétition de liaison à l’ADN entre deux FT ?", answer: "Les deux FT ont des séquences de fixation qui se recouvrent +/- partiellement, empêchant ainsi la fixation de l’un si l’autre est déjà fixé." },
+{ question: "Quels types d’hormones utilisent des récepteurs nucléaires pour exercer leurs effets ?", answer: "Les hormones stéroïdiennes, thyroïdiennes et le calcitriol (forme active de la vitamine D)." },
+{ question: "Quels sont les trois domaines caractéristiques des récepteurs nucléaires ?", answer: "Un domaine d’activation de la transcription (N-term), un domaine de fixation à l’ADN, un domaine de liaison au ligand (C-term)." },
+{ question: "Comment le cortisol atteint-il son récepteur nucléaire ?", answer: "Transporté par une protéine plasmatique, il se dissocie, traverse la membrane cellulaire passivement et se fixe à son récepteur cytoplasmique." },
+{ question: "Que se passe-t-il après fixation du cortisol à son récepteur nucléaire ?", answer: "Translocation nucléaire, homo-dimérisation du récepteur et fixation aux HRE dans la région promotrice de gènes cibles." },
+{ question: "Quel est l’effet de la fixation du récepteur du cortisol aux HRE ?", answer: "Augmentation de la transcription de gènes, par exemple ceux impliqués dans la néoglucogenèse." },
+{ question: "Comment l’adrénaline active la transcription via CBP/p300 ?", answer: "Elle active une protéine G → adényl cyclase → AMPc → PKA → phosphorylation de CREB → fixation sur CRE → recrutement de CBP." },
+{ question: "Que permet la fixation de CBP sur CREB au niveau de CRE ?", answer: "Une augmentation de la transcription des gènes ciblés." },
+{ question: "Avec quels types de facteurs CBP/p300 peuvent-ils interagir ?", answer: "Avec des FT généraux et spécifiques." },
+{ question: "Quelle est l’activité enzymatique propre à CBP/p300 sur les histones ?", answer: "Activité HAT (Histone Acétyle Transférase)." },
+{ question: "CBP/p300 peuvent-ils acétyler des protéines autres que les histones ?", answer: "Oui, ils peuvent acétyler des facteurs de transcription." },
+{ question: "Quel est l’effet de l’acétylation de la p53 par CBP/p300 ?", answer: "Elle conduit à sa dégradation et empêche la régulation de gènes impliqués dans l’apoptose." },
+{ question: "Quels sont les trois mécanismes par lesquels CBP/p300 régulent la transcription ?", answer: "1) Interaction avec FT et machinerie T, 2) Remodelage de la chromatine (HAT), 3) Acétylation de FT non-histones." },
+{ question: "Qu’est-ce que l’épigénétique ?", answer: "L’étude des modifications transmissibles et réversibles de l’expression des gènes sans changement de la séquence d’ADN." },
+{ question: "Quel type de méthylation est impliqué dans l’épigénétique ?", answer: "La méthylation des cytosines des îlots CpG situés dans le promoteur de 60% des gènes." },
+{ question: "Par quelle enzyme s’effectue la méthylation des cytosines ?", answer: "Par des ADN Méthyl Transférases." },
+{ question: "À quel endroit de la cytosine a lieu la méthylation ?", answer: "Dans le noyau pyrimidique, en position 5." },
+{ question: "Quel est l’effet de la présence de 5-méthylcytosine dans la région promotrice d’un gène ?", answer: "Elle diminue la transcription du gène concerné." },
+{ question: "Quel est l’effet à court terme de la méthylation des cytosines ?", answer: "Elle diminue les liaisons hydrogène, réduisant l’interaction avec les FT et donc l’expression des gènes." },
+{ question: "Quel est l’effet à long terme de la méthylation de l’ADN ?", answer: "Recrutement de MeCP2, puis de HDAC, augmentation des interactions avec l’ADN, compaction, et diminution de la transcription." },
+{ question: "Qu’est-ce que MeCP2 et son rôle ?", answer: "C’est une protéine recrutée sur les régions méthylées qui permet de recruter les HDAC." },
+{ question: "Quel est l’effet des HDAC recrutées par MeCP2 ?", answer: "Elles augmentent la compaction de la chromatine, diminuant la transcription." },
+{ question: "Quels phénomènes biologiques sont expliqués par la régulation épigénétique à long terme ?", answer: "Spécialisation cellulaire, empreinte parentale, inactivation d’un chromosome X chez la femme, développement." },
+{ question: "Que démontre la différence entre jumeaux monozygotes élevés dans des milieux différents ?", answer: "Que l’environnement modifie l’expression génique via l’épigénétique." },
+{ question: "Quel phénomène métabolique est observé chez les enfants nés durant une famine ?", answer: "Ils ont un risque accru d’obésité en cas de retour à une alimentation normale, à cause d’une programmation métabolique." },
+{ question: "Cette programmation métabolique est-elle transmissible ?", answer: "Oui, elle est transmissible à la 2e génération, démontrée chez l’animal." },
+];
+
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

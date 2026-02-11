@@ -1,0 +1,1047 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Organe des Sens</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quelles sont les deux grandes catégories de voies aériennes respiratoires ?', answer: 'Les voies aériennes supérieures et les voies aériennes inférieures.' },
+  { question: 'Quel est le rôle des voies aériennes ?', answer: 'Conduire l’air dans les régions de la face, du cou et du thorax.' },
+  { question: 'Que sont les fosses nasales ?', answer: 'Des cavités creusées dans le massif osseux de la face, séparées par le septum nasal.' },
+  { question: 'Qu’est-ce que le nasopharynx ?', answer: 'La partie supérieure du pharynx située en arrière de la cavité nasale.' },
+  { question: 'Quelles structures limitent la cavité buccale ?', answer: 'Les deux maxillaires et la mandibule ; en avant l’orifice buccal, en arrière l’oropharynx.' },
+  { question: 'Qu’est-ce que l’oropharynx ?', answer: 'La partie moyenne du pharynx située en arrière de la cavité buccale.' },
+  { question: 'L’oropharynx appartient-il aux voies aériennes ?', answer: 'Non, il a surtout une vocation digestive.' },
+  { question: 'Quels sont les cartilages du larynx visibles ou non visibles de face ?', answer: 'Cricoïde, thyroïde, épiglottique visibles ; aryténoïdes et corniculés non visibles.' },
+  { question: 'Quels rôles a le larynx ?', answer: 'La respiration et la phonation.' },
+  { question: 'Que contient le larynx ?', answer: 'Les cordes vocales.' },
+  { question: 'À quel niveau commence la trachée ?', answer: 'En regard de C6, sous le larynx.' },
+  { question: 'À quel niveau la trachée devient-elle thoracique ?', answer: 'Au niveau de T5.' },
+  { question: 'Combien d’anneaux cartilagineux possède la trachée ?', answer: 'Entre 16 et 20, en forme de U.' },
+  { question: 'Qu’est-ce qui ferme la trachée en arrière ?', answer: 'Le muscle trachéal.' },
+  { question: 'D’où naissent les bronches souches ?', answer: 'De la division de la trachée.' },
+  { question: 'Quelle bronche souche est la plus verticale ?', answer: 'La bronche souche droite.' },
+  { question: 'Dans quelle bronche se logent le plus souvent les corps étrangers ?', answer: 'Dans la bronche souche droite.' },
+  { question: 'Combien de bronches lobaires possède le poumon droit ?', answer: 'Trois : supérieure, moyenne et inférieure.' },
+  { question: 'Combien de bronches lobaires possède le poumon gauche ?', answer: 'Deux : supérieure et inférieure.' },
+  { question: 'Combien existe-t-il de bronches segmentaires ?', answer: 'Dix à droite et dix à gauche.' },
+  { question: 'Qu’est-ce qu’une bronchiole ?', answer: 'Une division des bronches subsegmentaires dépourvue de cartilage.' },
+  { question: 'Qu’est-ce qu’un sac alvéolaire ?', answer: 'Une dilatation terminale de la bronchiole contenant des alvéoles.' },
+  { question: 'Quel phénomène physiologique se déroule dans les alvéoles ?', answer: 'L’hématose.' },
+  { question: 'Quel est le rôle des poumons ?', answer: 'Assurer les échanges gazeux entre l’air et le sang.' },
+  { question: 'Quel est le volume total d’air contenu dans les poumons ?', answer: 'Environ 5 litres, répartis en 2,5 L à droite et 2,5 L à gauche.' },
+  { question: 'Où sont situés les poumons ?', answer: 'Dans le thorax de part et d’autre du médiastin, moulés sur le grill costal.' },
+  { question: 'Comment s’appelle la partie cervicale du poumon ?', answer: 'L’apex.' },
+  { question: 'Combien de lobes possède le poumon droit ?', answer: 'Trois.' },
+  { question: 'Combien de scissures possède le poumon droit ?', answer: 'Deux : horizontale et oblique.' },
+  { question: 'Combien de lobes possède le poumon gauche ?', answer: 'Deux.' },
+  { question: 'Combien de scissures possède le poumon gauche ?', answer: 'Une scissure oblique.' },
+  { question: 'Pourquoi le poumon gauche est-il plus petit ?', answer: 'Car il est moulé contre le cœur.' },
+  { question: 'Combien de faces possède chaque poumon ?', answer: 'Trois faces : costale, diaphragmatique et médiale.' },
+  { question: 'Combien de bords possède chaque poumon ?', answer: 'Trois bords.' },
+  { question: 'Comment s’appelle la zone non recouverte de plèvre sur la face médiale ?', answer: 'Le hile pulmonaire.' },
+  { question: 'Qu’est-ce que le pédicule fonctionnel ?', answer: 'L’ensemble bronche – artère pulmonaire – veines pulmonaires assurant l’hématose.' },
+  { question: 'Qu’est-ce que le pédicule nourricier ?', answer: 'Artères bronchiques, veines bronchiques et nerfs bronchiques assurant le fonctionnement du parenchyme.' },
+  { question: 'D’où proviennent les artères bronchiques ?', answer: 'De l’aorte.' },
+  { question: 'Où se jettent les veines bronchiques ?', answer: 'Dans le système azygos.' },
+  { question: 'Comment est ventilé chaque segment pulmonaire ?', answer: 'Par une bronche segmentaire.' },
+  { question: 'Comment se fait le drainage veineux du parenchyme ?', answer: 'Par des veines bronchiques intersegmentaires.' },
+  { question: 'Qu’est-ce que la plèvre ?', answer: 'Une double membrane séreuse composée d’un feuillet viscéral et d’un feuillet pariétal.' },
+  { question: 'Comment s’appelle l’espace entre les deux feuillets pleuraux ?', answer: 'La cavité pleurale.' },
+  { question: 'Comment s’appelle l’entrée d’air dans la cavité pleurale lors d’un traumatisme ?', answer: 'Un pneumothorax.' },
+  { question: 'Comment s’appelle la présence de sang dans la cavité pleurale ?', answer: 'Un hémothorax.' },
+  { question: 'Comment s’appelle la présence de liquide infectieux dans la cavité pleurale ?', answer: 'Une pleurésie.' },
+  { question: 'Quels sont les rapports supérieurs des poumons ?', answer: 'L’orifice supérieur du thorax.' },
+  { question: 'Quels sont les rapports inférieurs des poumons ?', answer: 'Le diaphragme.' },
+  { question: 'Quels sont les rapports médiaux des poumons ?', answer: 'Le médiastin.' },
+  { question: 'Quels sont les rapports latéraux des poumons ?', answer: 'La paroi thoracique latérale.' },
+  { question: 'Quelles sont les deux phases de la ventilation ?', answer: 'L’inspiration et l’expiration.' },
+  { question: 'Quel est le principal muscle de l’inspiration ?', answer: 'Le diaphragme.' },
+  { question: 'Quels muscles interviennent lors d’une inspiration forcée ?', answer: 'Les intercostaux externes et les muscles de la ceinture scapulaire et thoracique.' },
+  { question: 'Quel est le mécanisme de l’expiration normale ?', answer: 'Un relâchement passif.' },
+  { question: 'Quels muscles interviennent dans une expiration forcée ?', answer: 'Intercostaux internes et intimes, muscles thoraciques et abdominaux.' },
+  { question: 'Quels sont les six muscles extrinsèques de l’œil ?', answer: 'Droit supérieur, droit latéral, droit inférieur, droit médial, oblique supérieur, oblique inférieur.' },
+  { question: 'Quelle est la fonction du muscle droit supérieur ?', answer: 'Haut-dehors.' },
+  { question: 'Quel nerf innerve le muscle droit supérieur ?', answer: 'Le nerf oculomoteur (III).' },
+  { question: 'Quelle est la fonction du muscle droit latéral ?', answer: 'Dehors.' },
+  { question: 'Quel nerf innerve le muscle droit latéral ?', answer: 'Le nerf abducens (VI).' },
+  { question: 'Quelle est la fonction du muscle droit inférieur ?', answer: 'Bas-dehors.' },
+  { question: 'Quel nerf innerve le muscle droit inférieur ?', answer: 'Le nerf oculomoteur (III).' },
+  { question: 'Quelle est la fonction du muscle droit médial ?', answer: 'Dedans.' },
+  { question: 'Quel nerf innerve le muscle droit médial ?', answer: 'Le nerf oculomoteur (III).' },
+  { question: 'Quelle est la fonction du muscle oblique supérieur ?', answer: 'Bas-dedans.' },
+  { question: 'Quel nerf innerve le muscle oblique supérieur ?', answer: 'Le nerf trochléaire (IV).' },
+  { question: 'Quelle est la fonction du muscle oblique inférieur ?', answer: 'Haut-dedans.' },
+  { question: 'Quel nerf innerve le muscle oblique inférieur ?', answer: 'Le nerf oculomoteur (III).' },
+  { question: 'Où s’insèrent les muscles droits et l’oblique supérieur ?', answer: 'Sur l’anneau tendineux commun.' },
+  { question: 'Où s’insère le muscle oblique inférieur ?', answer: 'Sur le plancher orbitaire.' },
+  { question: 'Quel muscle n’est pas un muscle extrinsèque mais s’insère au fond de l’orbite ?', answer: 'Le muscle élévateur de la paupière.' },
+  { question: 'Combien existe-t-il de muscles de la langue ?', answer: 'Huit muscles pairs et un impair.' },
+  { question: 'Quel nerf innerve 95 % de la musculature linguale ?', answer: 'Le nerf hypoglosse (XII).' },
+  { question: 'Quel nerf innerve les 5 % restants des muscles linguals ?', answer: 'Le nerf glossopharyngien (IX).' },
+  { question: 'Comment étaient classées les papilles selon l’ancienne théorie ?', answer: 'Cinq types : amer, acide, salé, sucré et umami.' },
+  { question: 'Quelle est la théorie actuelle sur les papilles ?', answer: 'Papilles macroscopiques contenant des bourgeons gustatifs sensibles chacun à une modalité.' },
+  { question: 'Où se situent aussi des capteurs gustatifs en dehors de la langue ?', answer: 'Au niveau du palais, des joues et des gencives.' },
+  { question: 'Comment sont disposées les plus grosses papilles ?', answer: 'En “V” formant le sillon terminal.' },
+  { question: 'Comment appelle-t-on l’absence de goût ?', answer: 'L’agueusie.' },
+  { question: 'Quels goûts sont perçus par les 2/3 antérieurs de la langue ?', answer: 'Sucré, salé et acide.' },
+  { question: 'Quel nerf innerve les 2/3 antérieurs pour le goût ?', answer: 'Le nerf VII bis (intermédiaire de Wrisberg).' },
+  { question: 'Quel goût est perçu par le 1/3 postérieur de la langue ?', answer: 'L’amer.' },
+  { question: 'Quel nerf innerve le 1/3 postérieur pour le goût ?', answer: 'Le nerf glossopharyngien (IX).' },
+  { question: 'Quel nerf innerve l’épiglotte pour le goût et le réflexe nauséeux ?', answer: 'Le nerf vague (X).' },
+  { question: 'Quel est le territoire sensitif des 2/3 antérieurs de la langue ?', answer: 'Le nerf trijumeau (V) et VII bis.' },
+  { question: 'Quel est le territoire sensitif du 1/3 postérieur de la langue ?', answer: 'Le nerf IX.' },
+  { question: 'Comment sont organisés les bourgeons gustatifs ?', answer: 'Ils contiennent des cellules sensorielles et se régénèrent en 15 jours.' },
+  { question: 'Où se trouve le corps cellulaire du 1er neurone gustatif des 2/3 antérieurs ?', answer: 'Dans le ganglion géniculé.' },
+  { question: 'Où se trouve le corps cellulaire du 1er neurone gustatif du 1/3 postérieur ?', answer: 'Dans le ganglion pétreux.' },
+  { question: 'Où se situe le 1er relais des voies gustatives ?', answer: 'Dans le noyau gustatif de Nageotte du tronc cérébral.' },
+  { question: 'Où se fait le relais entre le 2ème et le 3ème neurone gustatif ?', answer: 'Dans le thalamus.' },
+  { question: 'Où projette le 3ème neurone gustatif ?', answer: 'Dans le cortex insulaire et le cortex cérébral.' },
+  { question: 'Où se situe le cortex gustatif primaire ?', answer: 'Dans la partie basse de la circonvolution pariétale ascendante (aire 43 de Brodmann).' },
+  { question: 'Où se situe la tache jaune olfactive ?', answer: 'Dans la partie supérieure des fosses nasales.' },
+  { question: 'Quel type de cellules permet l’olfaction ?', answer: 'Les cellules de Schultze.' },
+  { question: 'Comment appelle-t-on la perte d’odorat ?', answer: 'L’anosmie.' },
+  { question: 'Où passent les filets olfactifs ?', answer: 'Par la lame criblée de l’ethmoïde.' },
+  { question: 'Quel type cellulaire contient le bulbe olfactif ?', answer: 'Les cellules mitrales.' },
+  { question: 'Quel est le rapport entre cellules de Schultze et cellules mitrales ?', answer: 'Environ 1000 pour 1.' },
+  { question: 'Quelles sont les deux actions de l’olfaction ?', answer: 'Perception consciente et perception inconsciente.' },
+  { question: 'Où se projette la perception olfactive consciente ?', answer: 'Vers le thalamus et le cortex orbitofrontal.' },
+  { question: 'Où se projette la perception olfactive inconsciente ?', answer: 'Vers l’hypothalamus et le lobe temporal.' },
+  { question: 'Que permet la strie olfactive médiale ?', answer: 'La perception consciente.' },
+  { question: 'Que permet la strie olfactive intermédiaire ?', answer: 'Le traitement émotionnel.' },
+  { question: 'Que permet la strie olfactive latérale ?', answer: 'La connexion à l’amygdale et à l’hippocampe (mémoire).' },
+  { question: 'Quel type de stimulus est un son ?', answer: 'Une onde mécanique vibratoire.' },
+  { question: 'Quels sont les trois segments de l’oreille ?', answer: 'Oreille externe, oreille moyenne, oreille interne.' },
+  { question: 'Quelles sont les trois parties de l’oreille externe ?', answer: 'Pavillon, conduit auditif externe, tympan.' },
+  { question: 'Quel osselet est fixé au tympan ?', answer: 'Le marteau (malléus).' },
+  { question: 'Quels sont les trois osselets ?', answer: 'Marteau, enclume, étrier.' },
+  { question: 'Quelle structure relie l’oreille moyenne au pharynx ?', answer: 'La trompe d’Eustache.' },
+  { question: 'Quelle est la fonction de la trompe d’Eustache ?', answer: 'Équilibrer les pressions de part et d’autre du tympan.' },
+  { question: 'Où se fixe l’étrier ?', answer: 'Sur la fenêtre ovale.' },
+  { question: 'Dans quel os est logée l’oreille interne ?', answer: 'Le rocher de l’os temporal.' },
+  { question: 'Quelles structures assurent l’équilibre dans l’oreille interne ?', answer: 'Les trois canaux semi-circulaires, le saccule et l’utricule.' },
+  { question: 'Quelle structure assure l’audition dans l’oreille interne ?', answer: 'La cochlée.' },
+  { question: 'Comment se nomme le liquide de la rampe vestibulaire ?', answer: 'La périlymphe.' },
+  { question: 'Comment se nomme le liquide du conduit cochléaire ?', answer: 'L’endolymphe.' },
+  { question: 'Comment s’appelle l’organisation fréquentielle de la cochlée ?', answer: 'La tonotopie.' },
+  { question: 'Où sont codées les fréquences aiguës ?', answer: 'À la base de la cochlée.' },
+  { question: 'Où sont codées les graves ?', answer: 'Au sommet.' },
+  { question: 'Où se trouve le 1er neurone auditif ?', answer: 'Dans le ganglion de Corti.' },
+  { question: 'Où se fait le relais auditif du 1er au 2ème neurone ?', answer: 'Dans les noyaux cochléaires dorsal et ventral.' },
+  { question: 'Quelle proportion des fibres auditives décussent ?', answer: 'Environ 50 %.' },
+  { question: 'Quel est le relais thalamique des voies auditives ?', answer: 'Les corps genouillés médiaux.' },
+  { question: 'Quel est le cortex auditif primaire ?', answer: 'Aire 41 de Brodmann, gyrus de Heschl.' },
+  { question: 'Quel est l’organe sensoriel le plus grand du corps ?', answer: 'La peau.' },
+  { question: 'Quels territoires cutanés sont les plus riches en récepteurs tactiles ?', answer: 'La paume des mains, le visage et les organes génitaux.' },
+  { question: 'Quel territoire est modérément riche en récepteurs tactiles ?', answer: 'La plante du pied.' },
+  { question: 'Quels territoires sont pauvres en récepteurs tactiles ?', answer: 'Le torse et l’abdomen.' },
+  { question: 'Quelle est la surface moyenne de la peau ?', answer: '1,7 m².' },
+  { question: 'Comment mesure-t-on l’étendue d’une brûlure ?', answer: 'Par le nombre de paumes de la main du patient.' },
+  { question: 'Quels récepteurs assurent la sensibilité lemniscale ?', answer: 'Les récepteurs du tact fin.' },
+  { question: 'Quels types de stimulations détectent les récepteurs profonds ?', answer: 'La discrimination spatiale.' },
+  { question: 'Où croisent les voies lemniscales ?', answer: 'Dans le tronc cérébral.' },
+  { question: 'Quels récepteurs assurent la sensibilité extra-lemniscale ?', answer: 'Les récepteurs thermo-algésiques.' },
+  { question: 'Où croisent les voies extra-lemniscales ?', answer: 'Dans la moelle épinière.' },
+  { question: 'Comment s’appelle la lésion entraînant une atteinte du croisement extra-lemniscal ?', answer: 'La syringomyélie.' },
+  { question: 'Quel réflexe décrit l’inhibition de la douleur par le tact ?', answer: 'Le Gate Control.' },
+  { question: 'Quel nerf assure la sensibilité tactile du visage ?', answer: 'Le nerf trijumeau (V).' },
+  { question: 'Quels sont les territoires sensitifs de V1, V2 et V3 ?', answer: 'V1 orbite, V2 fosses nasales et lèvre supérieure, V3 lèvre inférieure et menton.' },
+  { question: 'Où se trouve le corps cellulaire du 1er neurone tactile de la face ?', answer: 'Dans le ganglion de Gasser.' },
+  { question: 'Où croisent les voies sensitives du visage ?', answer: 'Dans le tronc cérébral, via le ruban de Reil médian.' },
+  { question: 'Quel est le cortex terminal du tact et de la sensibilité du visage ?', answer: 'La circonvolution pariétale ascendante (aires 1, 2, 3).' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

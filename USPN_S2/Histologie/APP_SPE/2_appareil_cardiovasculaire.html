@@ -1,0 +1,803 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Histologie</h1><h2>APP SPE - Appareil cardiovasculaire (suite)</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+  .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    color: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: 'Quelles sont les deux circulations du système cardio-vasculaire ?', answer: 'Petite circulation entre le cœur et les poumons ; grande circulation entre le cœur et les organes périphériques.', },
+{ question: 'Quels vaisseaux quittent le cœur et lesquels y ramènent le sang ?', answer: 'Artères quittent le cœur ; veines ramènent le sang.', },
+{ question: 'Qu’est-ce qu’un réseau artériel anastomotique ?', answer: 'Un réseau où les branches distales établissent des connexions permettant la suppléance en cas d’occlusion.', },
+{ question: 'Quelles sont les conséquences d’un réseau terminal ?', answer: 'Occlusion d’une branche entraîne nécrose du territoire irrigué sans suppléance.', },
+{ question: 'Quels organes possèdent un réseau terminal ?', answer: 'Myocarde, cerveau, reins, rate, rétine.', },
+{ question: 'Qu’est-ce qu’un système admirable ?', answer: 'Système capillaire entre deux artérioles, exemple : glomérules rénaux.', },
+{ question: 'Qu’est-ce qu’un système porte ?', answer: 'Système capillaire entre deux veinules, exemple : foie et hypothalamo-hypophysaire.', },
+{ question: 'Comment évoluent les artères à mesure qu’elles s’éloignent du cœur ?', answer: 'Elles diminuent de calibre et augmentent en nombre.', },
+{ question: 'Quels sont les types d’artères selon leur calibre ?', answer: 'Artères de gros calibre, artères de calibre moyen, petites artères et artérioles.', },
+{ question: 'Quels sont les types de veines selon le calibre ?', answer: 'Veinules, veines de moyen calibre, veines de gros calibre.', },
+{ question: 'Quels sont les deux cas particuliers de réseaux capillaires ?', answer: 'Systèmes admirables et systèmes portes.', },
+{ question: 'Quelles anastomoses peuvent exister entre vaisseaux ?', answer: 'Artério-veineuses, artérielles, veineuses.', },
+{ question: 'D’où naît l’aorte ?', answer: 'Du ventricule gauche.', },
+{ question: 'D’où part l’artère pulmonaire ?', answer: 'Du ventricule droit.', },
+{ question: 'Où arrivent les veines pulmonaires ?', answer: 'Dans l’oreillette gauche.', },
+{ question: 'Où arrivent les veines caves ?', answer: 'Dans l’oreillette droite.', },
+{ question: 'Quels sont les troncs supra-aortiques ?', answer: 'Tronc brachio-céphalique droit, carotide commune gauche, sous-clavières.', },
+{ question: 'Quelle est la fonction des artères de gros calibre ?', answer: 'Conduction du sang vers les artères distributrices.', },
+{ question: 'Quels sont les calibres et fonctions des artères de moyen calibre ?', answer: 'Artères distributrices, diamètre de 1 cm à 0,3 mm.', },
+{ question: 'Quels sont les trois types d’artères ?', answer: 'Artères élastiques, artères musculaires, artérioles.', },
+{ question: 'Quel est le rôle des artères élastiques ?', answer: 'Vaisseaux de conduction ; amortir le débit pulsatile.', },
+{ question: 'Quel est le rôle des artères musculaires ?', answer: 'Distribution sélective du sang aux organes.', },
+{ question: 'Quel est le rôle des artérioles ?', answer: 'Régulation de la pression artérielle et résistance périphérique.', },
+{ question: 'Quelle est l’épaisseur relative de la paroi de l’aorte ?', answer: 'Paroi fine comparée au diamètre très large ; média très épaisse.', },
+{ question: 'De quoi est constituée l’intima des artères élastiques ?', answer: 'Endothélium + couche sous-endothéliale de TC lâche.', },
+{ question: 'Quelles structures caractérisent la média des artères élastiques ?', answer: '50 à 70 lames élastiques fenestrées concentriques.', },
+{ question: 'Quelles cellules sont présentes entre les lames élastiques ?', answer: 'Cellules rameuses (cellules musculaires lisses spécialisées).', },
+{ question: 'Que contient l’adventice des artères élastiques ?', answer: 'Fibres de collagène, vasa vasorum, nervi vasorum.', },
+{ question: 'Les artères élastiques possèdent-elles une limitante élastique interne et externe individualisée ?', answer: 'Non.', },
+{ question: 'Quel est le rôle histophysiologique des artères de conduction ?', answer: 'Transformer un débit discontinu en débit continu (systole/diastole).', },
+{ question: 'Quelle est la particularité de l’artère musculaire ?', answer: 'Média épaisse avec nombreuses couches de léiomyocytes.', },
+{ question: 'Comment évolue l’épaisseur de la couche sous-endothéliale ?', answer: 'Elle augmente avec l’âge.', },
+{ question: 'Quelle structure sépare l’intima de la média dans les artères musculaires ?', answer: 'Limitante élastique interne.', },
+{ question: 'Comment est la limitante élastique externe dans les artères musculaires ?', answer: 'Présente dans les grosses artères musculaires, disparaît dans les petites.', },
+{ question: 'Quels éléments compose l’adventice des artères musculaires ?', answer: 'Fibroblastes, collagène, fibres élastiques, vasa vasorum, nervi vasorum.', },
+{ question: 'Quels critères différencient artérioles et artères musculaires ?', answer: 'Diamètre <100 µm, 1-3 couches musculaires, pas de LEE, adventice peu nette.', },
+{ question: 'Que sont les corps denses des léiomyocytes ?', answer: 'Équivalents des stries Z où s’ancrent les myofilaments.', },
+{ question: 'Quel est le rôle des cavéoles ?', answer: 'Invaginations membranaires jouant le rôle de réservoir de Ca2+ pour la contraction.', },
+{ question: 'Comment se fait la contraction des artérioles ?', answer: 'Entrée de Ca2+ extracellulaire + libération du Ca2+ du REL.', },
+{ question: 'Qu’est-ce que le tonus vasculaire ?', answer: 'Contraction permanente des léiomyocytes maintenant la tension artérielle.', },
+{ question: 'Quels sont les effets de la vasoconstriction ?', answer: 'Réduction de la lumière du vaisseau.', },
+{ question: 'Quels sont les effets de la vasodilatation ?', answer: 'Augmentation de la lumière du vaisseau.', },
+{ question: 'Quelles sont les hormones vaso-actives circulantes ?', answer: 'Adrénaline, angiotensine II, ADH, ANP.', },
+{ question: 'Quelles substances vaso-actives sont produites par l’endothélium ?', answer: 'NO, prostacycline, endothéline I, angiotensine II.', },
+{ question: 'Quels sont les facteurs métaboliques influençant la vasomotricité ?', answer: 'H+, lactates, pCO2.', },
+{ question: 'Quels stimuli physiques influencent la vasomotricité ?', answer: 'Pression transmurale, cisaillement, étirement.', },
+{ question: 'Comment les artères de petit calibre sont-elles nourries ?', answer: 'Par diffusion depuis le sang luminal.', },
+{ question: 'Quels vaisseaux nécessitent une vascularisation via vasa vasorum ?', answer: 'Artères >200 µm : artères musculaires moyennes/grosses et artères élastiques.', },
+{ question: 'Quels éléments caractérisent les veines par rapport aux artères ?', answer: 'Lumière plus large, paroi plus fine, moins de muscle et fibres élastiques, plus de collagène.', },
+{ question: 'Quel pourcentage du sang se trouve dans les veines ?', answer: '70%.', },
+{ question: 'Pourquoi les veines ont-elles une paroi fine ?', answer: 'Pression sanguine faible et fonction de réservoir.', },
+{ question: 'Quels éléments distingue-t-on dans une veine musculaire de jambe ?', answer: 'Intima fine, média épaisse (léiomyocytes), adventice riche en collagène et vasa vasorum.', },
+{ question: 'Quels sont les constituants de l’intima des veines musculaires des jambes ?', answer: 'Endothélium et fine couche sous-endothéliale.', },
+{ question: 'Comment est constituée la média des veines musculaires des jambes ?', answer: 'Épaisse, avec plusieurs couches de léiomyocytes de couleur brique.', },
+{ question: 'Qu’apportent les léiomyocytes aux veines musculaires des jambes ?', answer: 'Un peu de tonicité, contrairement aux veines communes du reste de l’organisme.', },
+{ question: 'Comment est constituée l’adventice des veines musculaires des jambes ?', answer: 'Riche en fibres de collagène, bien développée, avec vasa vasorum ; épaisseur similaire à la média.', },
+{ question: 'Au-delà de quel calibre les veines possèdent-elles des valvules ?', answer: 'Au-delà de 2 mm.', },
+{ question: 'Comment sont disposées les valvules veineuses ?', answer: 'Opposées par paires, concavité dirigée vers le cœur.', },
+{ question: 'Quelle est la structure des valvules veineuses ?', answer: 'Replis endothéliaux entourant un axe conjonctivo-élastique.', },
+{ question: 'Les valvules veineuses contiennent-elles des cellules musculaires ?', answer: 'Non, aucune.', },
+{ question: 'Les valvules veineuses peuvent-elles propulser le sang ?', answer: 'Non, aucune motricité.', },
+{ question: 'Quel est le rôle des valvules veineuses ?', answer: 'Empêcher le reflux veineux lors du relâchement musculaire.', },
+{ question: 'Qu’est-ce qui assure principalement le retour veineux au cœur dans les membres inférieurs ?', answer: 'La contraction des muscles jambiers à la marche.', },
+{ question: 'Les veines musculaires des jambes sont-elles propulsives ?', answer: 'Oui, grâce à leurs léiomyocytes et aux muscles des jambes.', },
+{ question: 'Les valvules suffisent-elles à propulser le sang vers le cœur ?', answer: 'Non, leur rôle est uniquement anti-reflux.', },
+{ question: 'Quelles structures composent la microcirculation ?', answer: 'Méta-artérioles, capillaires, veinules post-capillaires.', },
+{ question: 'Quel est le rôle principal des méta-artérioles ?', answer: 'Assurer les échanges gazeux, liquidiens et cellulaires avec l’interstitium.', },
+{ question: 'Que régulent les sphincters précapillaires ?', answer: 'Le débit d’entrée du sang dans les capillaires.', },
+{ question: 'Que se passe-t-il quand les sphincters précapillaires sont contractés ?', answer: 'Le sang court-circuite le lit capillaire via les anastomoses artério-veineuses.', },
+{ question: 'Où les shunts artério-veineux sont-ils nombreux ?', answer: 'Doigts, orteils, nez.', },
+{ question: 'Qu’explique la présence de shunts artério-veineux au froid ?', answer: 'Le phénomène d’onglet.', },
+{ question: 'Quels éléments sont visibles sur une lame de mésentère ?', answer: 'Artériole, méta-artériole, veinule post-capillaire, veinule, réseau capillaire.', },
+{ question: 'Que montrent les schémas de métartérioles ?', answer: 'Cellules endothéliales en jaune, fibroblastes en bleu, léiomyocytes en rouge formant sphincter précapillaire.', },
+{ question: 'Quel est le diamètre des capillaires ?', answer: '3 à 10 µm.', },
+{ question: 'Quel type d’épithélium forme l’endothélium capillaire ?', answer: 'Épithélium pavimenteux simple.', },
+{ question: 'Quelle coloration mettent en évidence les cellules endothéliales ?', answer: 'CD34 en immunohistochimie.', },
+{ question: 'Quels sont les trois types de capillaires ?', answer: 'Continus, fenêtrés, sinusoïdes.', },
+{ question: 'Quels éléments cytoplasmiques sont présents dans les cellules endothéliales ?', answer: 'Vésicules de pinocytose, corps de Weibel-Palade, filaments intermédiaires de vimentine.', },
+{ question: 'Sur quoi reposent toutes les cellules endothéliales ?', answer: 'Une lame basale.', },
+{ question: 'Quelles différences structurales distinguent les types de capillaires ?', answer: 'Présence de pores, aspect de la lame basale, systèmes de jonction, présence de péricytes.', },
+{ question: 'Qu’est-ce qu’un capillaire continu ?', answer: 'Endothélium sans pores avec nombreuses vésicules de pinocytose et lame basale continue.', },
+{ question: 'Quels échanges traversent les capillaires continus ?', answer: 'Diffusion, transporteurs, pinocytose.', },
+{ question: 'Y a-t-il diapédèse dans les capillaires ?', answer: 'Non, pas au niveau des capillaires.', },
+{ question: 'Qu’est-ce qu’un capillaire fenêtré ?', answer: 'Capillaire avec pores de 70 nm diaphragmés ou non.', },
+{ question: 'Où trouve-t-on des capillaires fenêtrés ?', answer: 'Rein, glandes endocrines, villosités intestinales, plexus choroïdes.', },
+{ question: 'Qu’est-ce qu’un capillaire sinusoïde ?', answer: 'Capillaire avec orifices de 1 à 3 µm, lame basale discontinue ou absente.', },
+{ question: 'Quels organes possèdent des sinusoïdes ?', answer: 'Foie, rate, moelle osseuse.', },
+{ question: 'Quelles propriétés ont les sinusoïdes concernant le passage cellulaire ?', answer: 'Permettent le passage de cellules entières.', },
+{ question: 'Quel est le lieu de la diapédèse ?', answer: 'Veinules post-capillaires.', },
+{ question: 'Quels phénomènes débutent dans les veinules post-capillaires ?', answer: 'Les étapes initiales de l’inflammation.', },
+{ question: 'Quelles molécules d’adhésion sont exprimées lors de l’inflammation ?', answer: 'Sélectines, intégrines, interleukines.', },
+{ question: 'Où trouve-t-on des veinules post-capillaires à endothélium haut ?', answer: 'Paracortex des ganglions lymphatiques.', },
+{ question: 'Quel est le rôle des VEH ?', answer: 'Permettre l’entrée des lymphocytes par diapédèse.', },
+{ question: 'Quel pourcentage des lymphocytes gagnent les ganglions via les VEH ?', answer: '80 à 90%.', },
+{ question: 'Que montrent les images de microscopie électronique des VEH ?', answer: 'Cellules endothéliales hautes, péricytes, lymphocytes traversant la paroi.', },
+{ question: 'Quelles voies permettent les transferts à travers l’endothélium ?', answer: 'Pinocytose, pores, brèches, diapédèse, diffusion, transporteurs.', },
+{ question: 'Quels facteurs vasoactifs sont sécrétés de façon endocrine par l’endothélium ?', answer: 'Angiotensine II (capillaires pulmonaires), ANP (OD).', },
+{ question: 'Quels facteurs vasoactifs sont sécrétés de manière paracrine ?', answer: 'NO, prostacycline (PGI2), endothéline I, angiotensine II.', },
+{ question: 'Quelles sont les propriétés thrombotiques des cellules endothéliales ?', answer: 'À la fois anti-thrombotiques et pro-thrombotiques.', },
+{ question: 'Quel est le rôle des cellules endothéliales dans le métabolisme lipidique ?', answer: 'Dégradation des VLDL par la lipoprotéine lipase.', },
+{ question: 'Quel est le rôle des cellules endothéliales dans l’angiogenèse ?', answer: 'Initiation, prolifération endothéliale, stimulée ou inhibée selon VEGF, angiostatine, etc.', },
+{ question: 'Quels éléments peut-on examiner en échographie vasculaire ?', answer: 'Intima, média, adventice.', },
+{ question: 'Quels diamètres et épaisseurs caractérisent artère musculaire et artériole ?', answer: 'Artère moyenne D=4mm E=1mm ; artériole D=30µm E=20µm.', },
+{ question: 'Que voit-on en échographie des jugulaires ?', answer: 'Valvules veineuses.', },
+{ question: 'Quels sont les modes de passage des molécules dans les capillaires continus ?', answer: 'Pinocytose, transporteurs, diffusion passive, diapédèse pour les cellules.', },
+{ question: 'Qu’est-ce que la transcytose ?', answer: 'Transport par vacuoles cytoplasmiques traversant la cellule endothéliale.', },
+{ question: 'Combien de vésicules de transcytose possède une cellule endothéliale ?', answer: '5 000 à 10 000.', },
+{ question: 'De quoi dépend l’aspect des vésicules de transcytose ?', answer: 'De leur nombre et de leur fusion.', },
+{ question: 'Que caractérisent les capillaires des villosités intestinales ?', answer: 'Pores diaphragmés.', },
+{ question: 'Que caractérisent les capillaires glomérulaires ?', answer: 'Pores non diaphragmés.', },
+{ question: 'Que permettent les sinusoïdes de la rate ?', answer: 'Traversée des GR déformables.', },
+{ question: 'Quelles molécules d’adhésion permettent la diapédèse ?', answer: 'Sélectines, intégrines, interleukines LFA.', },
+{ question: 'Quels facteurs relaxants endothéliaux existent ?', answer: 'NO, PGI2, facteur natriurétique C.', },
+{ question: 'Quels facteurs contractants endothéliaux existent ?', answer: 'Endothéline 1, thromboxane A2, radicaux libres.', },
+{ question: 'Quels sont les rôles anti-thrombotiques de l’endothélium ?', answer: 'Sécrétion de facteurs empêchant la formation de thrombus.', },
+{ question: 'Quels sont les rôles pro-thrombotiques ?', answer: 'Sécrétion de facteurs d’hémostase (facteur de Willebrand, thromboplastine).', },
+{ question: 'Quels sont les principaux facteurs stimulant l’angiogenèse ?', answer: 'VEGF, angiogénine, TGF alpha, FGF beta.', },
+{ question: 'Quels facteurs inhibent l’angiogenèse ?', answer: 'Angiostatine, endostatine, TGF beta.', },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

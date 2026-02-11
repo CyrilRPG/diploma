@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diploma Santé - Plateforme de Flashcards</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../../assets/css/main.css" />
+	<link rel="icon" type="image/jpeg" href="../../../images/diploma.jpeg" />
+	<script src="../../../security.js" defer></script>
+	<script src="../../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+	<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- USPN S2</a>
+	<ul class="icons">
+		<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+		<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+	</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>USPN S2 - Embryologie</h1><h2>APP - 4ème semaine de développement</h2></div><span class="image main"><img src="../../../images/banner.png" alt="" /></span></header>
+
+<style>  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { color: #27ae60; } .cross-icon:hover { stroke: #e74c3c; }
+  .slide-left { animation: slideLeft 0.4s forwards; } .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData =
+[
+{ question: "Quels sont les 2 événements importants de la 4ème semaine ?", answer: "Délimitation (embryon plat → embryon tubulaire incurvé) et organogenèse (évolution des 3 feuillets)." },
+{ question: "Qu'est-ce que la délimitation ?", answer: "Transformation du disque embryonnaire tridermique plat en une structure cylindrique en forme de C." },
+{ question: "Qu'est-ce qui permet la délimitation ?", answer: "Plicature selon un axe transversal et un axe longitudinal (cranio-caudal)." },
+{ question: "Quelle est la conséquence principale de la délimitation ?", answer: "L'individualisation de l'embryon par rapport aux annexes extra-embryonnaires et l'internalisation du mésoblaste et de l'entoblaste." },
+{ question: "Quels sont les 2 mécanismes de délimitation ?", answer: "Inflexion dans le sens longitudinal (céphalo-caudal) et inflexion dans le sens transversal." },
+{ question: "Qu'est-ce qui permet le recouvrement de l'endoderme par l'ectoderme lors de la plicature transversale ?", answer: "Croissance importante de la cavité amniotique, du neurectoblaste et du mésoblaste para-axial." },
+{ question: "Qu'est-ce que le cœlome interne ?", answer: "Partie du cœlome prise au piège lors de la délimitation, qui deviendra la future cavité péritonéale." },
+{ question: "Qu'est-ce que la tubulisation ?", answer: "Processus par lequel le neurectoblaste et l'ectoblaste recouvrent l'ensemble mésoblaste-entoblaste sur la ligne médiane." },
+{ question: "Que devient la cavité amniotique lors de la délimitation ?", answer: "Elle s'enroule autour de l'embryon pour former une vaste cavité entourant l'embryon." },
+{ question: "Qu'est-ce que le cordon ombilical ?", answer: "Structure formée lors de la délimitation contenant le canal vitellin, le reste du cœlome externe, l'allantoïde et le MEE." },
+{ question: "Qu'est-ce qui limite les extrémités de l'embryon lors de la plicature longitudinale ?", answer: "La membrane oropharyngée (crâniale) et la membrane cloacale (caudale)." },
+{ question: "Pourquoi les structures céphaliques et caudales débordent-elles par-dessus les membranes ?", answer: "À cause de la croissance importante des structures axiales (tube neural)." },
+{ question: "De combien de degrés bascule le pôle crânial lors de la plicature longitudinale ?", answer: "Rotation de 180° vers la face ventrale de l'embryon." },
+{ question: "Où rejoint la zone cardiogénique après la délimitation ?", answer: "Sa position définitive thoracique." },
+{ question: "Comment se forme l'intestin primitif ?", answer: "Par tubulisation du toit de la vésicule vitelline (lécithocèle)." },
+{ question: "Qu'est-ce que le canal vitellin ?", answer: "Canal reliant le lécithocèle intra-embryonnaire et extra-embryonnaire après la délimitation." },
+{ question: "Quand disparaît l'allantoïde ?", answer: "Vers la 8ème semaine." },
+{ question: "Comment se forme le canal ombilical ?", answer: "Par l'association de l'allantoïde, du canal vitellin et du MEE, reliant la face ventrale de l'embryon à la plaque choriale." },
+{ question: "Qu'est-ce que l'aire cardiogène ?", answer: "Zone formée par les cellules mésenchymateuses crânialement à la plaque préchordale, donnant le péricarde." },
+{ question: "Qu'est-ce que le septum transversum ?", answer: "Structure à l'origine d'une partie du diaphragme et du cloisonnement du cœlome en cavité thoracique et abdominale." },
+{ question: "Quand apparaissent les premiers battements cardiaques ?", answer: "Vers la 3ème-4ème semaine." },
+{ question: "Qu'est-ce que la neurulation ?", answer: "Transformation de la plaque neurale en tube neural, débutant au début de la 3ème semaine." },
+{ question: "Que sont les neuropores ?", answer: "Ouvertures temporaires aux extrémités du tube neural lors de sa fermeture." },
+{ question: "Quand se ferme le neuropore antérieur ?", answer: "Vers J25." },
+{ question: "Quand se ferme le neuropore postérieur ?", answer: "Vers J28." },
+{ question: "Que devient le tube neural une fois formé ?", answer: "Une portion cylindrique étroite caudale (moelle épinière) et une portion céphalique large avec plusieurs cavités (futur cerveau)." },
+{ question: "Quelles protéines inhibent BMP4 pour permettre la neurulation ?", answer: "Chordin, Noggin et Follistatin, produites par le nœud de Hensen." },
+{ question: "Quelles protéines induisent les structures neurales caudales ?", answer: "WNT3a et FGF." },
+{ question: "Que sont les placodes ?", answer: "Épaississements ectoblastiques apparaissant à la partie céphalique lors de la fermeture du tube neural." },
+{ question: "Que donne la placode otique ?", answer: "La future oreille." },
+{ question: "Que donne la placode optique ?", answer: "Les futurs yeux." },
+{ question: "Comment se forment les crêtes neurales ?", answer: "Par dissociation des cellules situées au bord externe du neurectoderme lors de la surélévation des berges de la gouttière neurale." },
+{ question: "Qu'est-ce que la transition épithélio-mésenchymateuse ?", answer: "Transformation des cellules épithéliales en cellules mésenchymateuses, subie par les cellules des crêtes neurales." },
+{ question: "Que donnent les cellules de la crête neurale dans la région du tronc ?", answer: "Mélanocytes, médullosurrénale, neurones (chaînes sympathiques), ganglions spinaux, cellules de Schwann." },
+{ question: "Que donnent les cellules de la crête neurale dans la région céphalique ?", answer: "Squelette craniofacial, noyaux des nerfs crâniens, cellules gliales." },
+{ question: "Comment s'organise le mésoblaste para-axial ?", answer: "En somitomères puis en somites." },
+{ question: "Quand apparaît la 1ère paire de somites ?", answer: "À J20, dans la région occipitale." },
+{ question: "Combien de paires de somites se forment à la fin de la 5ème semaine ?", answer: "Environ 44 paires (les 5-7 dernières paires coccygiennes disparaîtront)." },
+{ question: "Quand apparaissent les bourgeons des membres supérieurs ?", answer: "À J24, à partir des somites cervicaux et dorsaux." },
+{ question: "Quand apparaissent les bourgeons des membres inférieurs ?", answer: "À J28, à partir des somites lombaires et sacrés." },
+{ question: "En quoi se différencie chaque somite ?", answer: "En sclérotome et dermatomyotome." },
+{ question: "Qu'est-ce que le sclérotome ?", answer: "Population cellulaire ventrale du somite qui migre autour de la notochorde et du tube neural pour former les vertèbres et côtes." },
+{ question: "Qu'est-ce que le myotome ?", answer: "Population cellulaire ventrale du dermatomyotome qui se différencie en cellules myogènes pour former les muscles." },
+{ question: "Qu'est-ce que le dermatome ?", answer: "Partie dorsale du dermatomyotome donnant le derme du cou, du dos et de la partie ventro-latérale du tronc." },
+{ question: "Comment se forment les vertèbres ?", answer: "Par recombinaison des sclérotomes : la moitié crâniale de chaque sclérotome s'unit à la moitié caudale du sclérotome précédent." },
+{ question: "Que donne le mésoblaste intermédiaire ?", answer: "Les futurs néphrotomes (pronéphros, mésonéphros, métanéphros)." },
+{ question: "Que donne la somatopleure du mésoblaste latéral ?", answer: "Derme de la paroi abdominale et des membres, os, tissus conjonctifs des membres, sternum, muscles des membres." },
+{ question: "Que donne la splanchnopleure du mésoblaste latéral ?", answer: "La paroi de l'intestin primitif avec l'entoblaste, les vaisseaux sanguins et cellules sanguines." },
+{ question: "Que forme l'entoblaste au début ?", answer: "Le revêtement épithélial de l'intestin primitif et les portions intra-embryonnaires de l'allantoïde et du canal vitellin." },
+{ question: "Que donne l'entoblaste ensuite ?", answer: "Appareil respiratoire, parenchyme de la thyroïde/parathyroïde/foie/pancréas, épithélium de la vessie/urètre/caisse du tympan/trompe d'Eustache." },
+{ question: "Qu'est-ce que le spina bifida ?", answer: "Anomalie liée à une non-fermeture du neuropore postérieur du tube neural (qui devrait se fermer à J28)." },
+{ question: "Quelles sont les formes de spina bifida ?", answer: "Spina bifida à moelle ouverte (non viable), avec myéloméningocèle (paraplégie, incontinence), occulta (asymptomatique)." },
+{ question: "Quelles sont les étiologies du spina bifida ?", answer: "Multifactorielles : génétique, médicamenteuse (Dépakine)." },
+{ question: "Quels sont les événements caractéristiques de la 4ème semaine ?", answer: "Délimitation, fermeture du tube neural, métamérisation, ébauche des membres, ébauche du système vasculaire, formation des crêtes neurales." },
+{ question: "Qu'est-ce que l'épiblaste secondaire ?", answer: "Ensemble de l'ectoblaste qui ne s'est pas transformé en neurectoblaste." },
+{ question: "Où débute la fermeture du tube neural ?", answer: "Dans la future région cervicale, au niveau de la 5ème paire de somites." },
+{ question: "Comment se fait la fermeture du tube neural ?", answer: "Depuis la région cervicale, elle continue en direction antérieure et postérieure." },
+{ question: "Qu'est-ce que le SNC ?", answer: "Système nerveux central, apparaissant sous forme tubulaire avec une portion caudale (moelle) et une portion céphalique (cerveau)." },
+{ question: "Qu'est-ce qui induit le mésoblaste axial sur l'ectoblaste ?", answer: "La différenciation de l'ectoblaste en neurectoblaste formant la plaque neurale." },
+{ question: "Quel est le rôle de BMP4 ?", answer: "Responsable de la ventralisation de l'ectoblaste et du mésoblaste." },
+{ question: "Quand l'histogenèse du tube neural est-elle complète ?", answer: "Quand le neuropore antérieur se ferme à J25 et le postérieur à J28." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+function updateProgress() { progressBar.style.width = `${Math.min(currentIndex / originalData.length, 1) * 100}%`; }
+function createContent(content) { const div = document.createElement("div"); div.textContent = content; return div; }
+function showCard(index) { container.innerHTML = ""; if (flashcards[index]) { const { question, answer } = flashcards[index]; const card = document.createElement("div"); card.classList.add("flashcard", "show"); const inner = document.createElement("div"); inner.classList.add("flashcard-inner"); const front = document.createElement("div"); front.classList.add("flashcard-front"); front.appendChild(createContent(question)); const back = document.createElement("div"); back.classList.add("flashcard-back"); back.appendChild(createContent(answer)); const btnContainer = document.createElement("div"); btnContainer.classList.add("flashcard-button"); const toggleBtn = document.createElement("button"); toggleBtn.classList.add("button", "large"); toggleBtn.textContent = "Voir la réponse"; const resetBtn = document.createElement("button"); resetBtn.classList.add("button", "large"); resetBtn.textContent = "Réinitialiser"; resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); }); btnContainer.appendChild(toggleBtn); btnContainer.appendChild(resetBtn); const checkIcon = document.createElement("span"); checkIcon.classList.add("check-icon"); checkIcon.innerHTML = '<i class="fas fa-check"></i>'; checkIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-right"); setTimeout(() => { currentIndex++; localStorage.setItem(progressKey, currentIndex); updateProgress(); showCard(currentIndex); }, 400); }); const crossIcon = document.createElement("span"); crossIcon.classList.add("cross-icon"); crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`; crossIcon.addEventListener("click", (e) => { e.stopPropagation(); card.classList.add("slide-left"); setTimeout(() => { const removed = flashcards.splice(currentIndex, 1)[0]; flashcards.splice(currentIndex + 5, 0, removed); showCard(currentIndex); }, 400); }); const favIcon = document.createElement("span"); favIcon.classList.add("favorite-icon"); favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`; function updateFav() { if (isFavorite({question, answer})) favIcon.classList.add("active"); else favIcon.classList.remove("active"); } favIcon.addEventListener("click", (e) => { e.stopPropagation(); toggleFavorite({question, answer}); updateFav(); }); updateFav(); card.addEventListener("click", () => { toggleBtn.textContent = card.classList.toggle("show-answer") ? "Cacher la réponse" : "Voir la réponse"; }); inner.appendChild(front); inner.appendChild(back); inner.appendChild(checkIcon); inner.appendChild(crossIcon); inner.appendChild(favIcon); card.appendChild(inner); card.appendChild(btnContainer); container.appendChild(card); } else { const endCard = document.createElement("div"); endCard.classList.add("flashcard", "show", "show-answer"); const inner = document.createElement("div"); inner.classList.add("flashcard-inner"); const back = document.createElement("div"); back.classList.add("flashcard-back"); back.innerHTML = "<p>Plus de flashcard disponible.</p>"; const btnContainer = document.createElement("div"); btnContainer.classList.add("flashcard-button"); const resetBtn = document.createElement("button"); resetBtn.classList.add("button", "large"); resetBtn.textContent = "Réinitialiser"; resetBtn.addEventListener("click", (e) => { e.stopPropagation(); localStorage.removeItem(progressKey); flashcards = [...originalData]; currentIndex = 0; updateProgress(); showCard(currentIndex); }); btnContainer.appendChild(resetBtn); inner.appendChild(back); endCard.appendChild(inner); endCard.appendChild(btnContainer); container.appendChild(endCard); updateProgress(); } }
+showCard(currentIndex); updateProgress();
+</script>
+
+</section>
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+										<ul>
+											<li><a href="../../index.html">Accueil</a></li>
+											<li><a href="../../favorites.html">Favoris</a></li>
+											<li>
+												<span class="opener">Génétique</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Genetique/SOCLE/caryotype_humain_om.html">Caryotype humain</a></li>
+															<li><a href="../../Genetique/SOCLE/modes_de_transmission.html">Modes de transmission</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Genetique/APP/anomalies_de_caryotype_om.html">Anomalies du caryotype</a></li>
+															<li><a href="../../Genetique/APP/diagnostic_pre_natal_et_diagnostique_pre_implanmatoire.html">Diagnostic prénatal et préimplantatoire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Histologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Histologie/SOCLE/me_thode_d_e_tude.html">Méthodes d'étude</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissu_e_phitelial.html">Tissu épithélial</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_e_phitelial.html">Tissu épithélial (suite)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_conjonctif.html">Tissu conjonctif (cellules)</a></li>
+															<li><a href="../../Histologie/SOCLE/3_tissus_conjonctif.html">Tissu conjonctif (MEC)</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_cartilagineux.html">Tissu cartilagineux</a></li>
+															<li><a href="../../Histologie/SOCLE/2_tissus_osseux.html">Tissu osseux</a></li>
+															<li><a href="../../Histologie/SOCLE/1_tissus_musculaire.html">Tissu musculaire</a></li>
+															<li><a href="../../Histologie/SOCLE/2_leiomyocyte.html">Léiomyocyte</a></li>
+															<li><a href="../../Histologie/SOCLE/tissus_nerveux.html">Tissu nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Histologie/APP/ephitelium_glandulaires.html">Épithéliums glandulaires</a></li>
+															<li><a href="../../Histologie/APP/tissus_conjonctif.html">Tissu conjonctif</a></li>
+															<li><a href="../../Histologie/APP/2_tissus_squelettique.html">Tissu squelettique</a></li>
+															<li><a href="../../Histologie/APP/tissus_musculaire_cardiaque.html">Tissu musculaire cardiaque</a></li>
+															<li><a href="../../Histologie/APP/app_parenchyme_nerveux.html">Parenchyme nerveux</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Histologie/APP_SPE/1_appareil_cardio.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Histologie/APP_SPE/2_appareil_cardiovasculaire.html">Appareil cardiovasculaire (suite)</a></li>
+															<li><a href="../../Histologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Nutrition</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Nutrition/SOCLE/1_introduction.html">Introduction à la nutrition</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_glucides.html">Métabolisme des glucides</a></li>
+															<li><a href="../../Nutrition/SOCLE/me_tabolisme_lipidique.html">Métabolisme lipidique</a></li>
+															<li><a href="../../Nutrition/SOCLE/1_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés</a></li>
+															<li><a href="../../Nutrition/SOCLE/2_e_tabolisme_des_acides_amine_s.html">Métabolisme des acides aminés (suite)</a></li>
+															<li><a href="../../Nutrition/SOCLE/substrats_e_nerge_tique.html">Substrats énergétiques</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Nutrition/APP/app_relations_nutrition_sante.html">Relations nutrition-santé</a></li>
+															<li><a href="../../Nutrition/APP/approfondissement_introduction_au_diabe_te.html">Introduction au diabète</a></li>
+															<li><a href="../../Nutrition/APP/dysle_piudemie.html">Dyslipidémie</a></li>
+															<li><a href="../../Nutrition/APP/obe_site_actu.html">Obésité</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Embryologie</span>
+												<ul>
+													<li>
+														<span class="opener">SOCLE</span>
+														<ul>
+															<li><a href="../../Embryologie/SOCLE/introduction.html">Introduction</a></li>
+															<li><a href="../../Embryologie/SOCLE/gametogenese.html">Gamétogenèse</a></li>
+															<li><a href="../../Embryologie/SOCLE/fecondation.html">Fécondation</a></li>
+															<li><a href="../../Embryologie/SOCLE/premiere_deuxieme_semaine.html">Semaines 1 et 2</a></li>
+															<li><a href="../../Embryologie/SOCLE/troisieme_quatrieme_semaine.html">Semaines 3 et 4</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP</span>
+														<ul>
+															<li><a href="../../Embryologie/APP/1ere_semaine_developpement.html">1ère semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/2eme_semaine_developpement.html">2ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/3eme_semaine_developpement.html">3ème semaine de développement</a></li>
+															<li><a href="../../Embryologie/APP/4eme_semaine_developpement.html">4ème semaine de développement</a></li>
+														</ul>
+													</li>
+													<li>
+														<span class="opener">APP SPE</span>
+														<ul>
+															<li><a href="../../Embryologie/APP_SPE/appareil_cardiovasculaire.html">Appareil cardiovasculaire</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_sup.html">Voies aériennes supérieures</a></li>
+															<li><a href="../../Embryologie/APP_SPE/voies_aeriennes_profondes.html">Voies aériennes profondes</a></li>
+															<li><a href="../../Embryologie/APP_SPE/appareil_urinaire.html">Appareil urinaire</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+						</nav>
+</div>
+</div>
+
+</div>
+
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/browser.min.js"></script>
+<script src="../../../assets/js/breakpoints.min.js"></script>
+<script src="../../../assets/js/util.js"></script>
+<script src="../../../assets/js/main.js"></script>
+<script src="../../../assets/js/darkmode.js"></script>
+</body>
+</html>

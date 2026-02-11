@@ -1,0 +1,1062 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie de la reproduction</h1><h2>Appareil Genital Masculin</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'En fin de 3ème semaine / début de 4ème semaine, combien de couches comporte l’embryon ?', answer: 'Trois couches : ectoblaste, entoblaste et mésoblaste.' },
+  { question: 'Quels sont les trois territoires du mésoblaste à ce stade ?', answer: 'Mésoblaste latéral, mésoblaste intermédiaire et mésoblaste para-axial.' },
+  { question: 'Quelle structure sépare le mésoblaste en deux et donnera le tube neural ?', answer: 'La gouttière neurale.' },
+  { question: 'De quel feuillet embryonnaire provient l’appareil génital masculin ?', answer: 'Du mésoblaste intermédiaire.' },
+  { question: 'Pourquoi dit-on que le développement génital et le développement urinaire sont liés ?', answer: 'Parce qu’ils se développent de façon concomitante à partir du mésoblaste intermédiaire.' },
+  { question: 'À quelle période des cellules du mésoblaste intermédiaire migrent-elles vers la région du rein intermédiaire ?', answer: 'Vers la 4e-5e semaine de développement.' },
+  { question: 'Quelle structure se forme d’abord dans la région du mésonéphros ?', answer: 'La gonade primitive indifférenciée.' },
+  { question: 'La gonade primitive indifférenciée correspond-elle déjà à un testicule ou un ovaire ?', answer: 'Non, elle n’est ni un testicule ni un ovaire.' },
+  { question: 'Que nécessite la gonade primitive pour choisir sa voie sexuelle ?', answer: 'Certains signaux spécifiques.' },
+  { question: 'Comment la gonade primitive commence-t-elle à s’organiser ?', answer: 'En cordons sexuels primaires.' },
+  { question: 'Comment est qualifié le tractus génital primitif ?', answer: 'Il est double, formé de deux systèmes canalaires.' },
+  { question: 'Quels sont les deux canaux du tractus génital primitif ?', answer: 'Le canal de Wolff et le canal de Müller.' },
+  { question: 'Que représente le canal de Wolff ?', answer: 'Le système excréteur du mésonéphros.' },
+  { question: 'Comment se forme le canal de Müller ?', answer: 'Par invagination en gouttière de l’épithélium de surface du cœlome interne.' },
+  { question: 'Que deviennent les canaux de Müller en présence d’une gonade féminine ?', answer: 'Ils se développent.' },
+  { question: 'Que deviennent les canaux de Müller en présence d’une gonade masculine ?', answer: 'Ils régressent.' },
+  { question: 'À quelle semaine apparaît le déterminisme testiculaire ?', answer: 'Vers la 7e semaine.' },
+  { question: 'Quel gène initie le développement testiculaire ?', answer: 'Le gène SRY porté par le chromosome Y.' },
+  { question: 'Quel est le rôle du gène SRY ?', answer: 'Il agit comme interrupteur initial pour orienter la gonade vers la formation d’un testicule.' },
+  { question: 'Que se passe-t-il en absence de SRY ?', answer: 'Le développement se fait vers le sexe féminin par défaut.' },
+  { question: 'Quelles sont les deux hormones majeures produites par le testicule durant l’embryogenèse ?', answer: 'La testostérone et l’AMH.' },
+  { question: 'Quel est le rôle essentiel de la testostérone sur le canal de Wolff ?', answer: 'Elle favorise sa transformation en tractus génital masculin.' },
+  { question: 'Quel dérivé de la testostérone agit sur la formation des organes génitaux externes ?', answer: 'La di-hydroxy-testostérone (DHT).' },
+  { question: 'Quelle enzyme transforme la testostérone en DHT ?', answer: 'La 5α-réductase.' },
+  { question: 'Que se passe-t-il en absence de 5α-réductase ?', answer: 'Les OGE ne se masculinisent pas malgré la présence de testicules.' },
+  { question: 'Quel est le rôle de l’AMH durant l’embryogenèse ?', answer: 'Induire la régression du canal de Müller.' },
+  { question: 'Quels organes ne se développent pas sous l’effet de l’AMH ?', answer: 'Trompes utérines, utérus et partie supérieure du vagin.' },
+  { question: 'Comment agit globalement le gène SRY ?', answer: 'Il déclenche une cascade de transcription favorisant les gènes masculinisants et inhibant ceux du développement féminin.' },
+  { question: 'Quelle est la taille moyenne d’un testicule ?', answer: '4 cm de long.' },
+  { question: 'Quel est le poids moyen d’un testicule ?', answer: '10 à 15 g.' },
+  { question: 'Pourquoi les testicules ont-ils une couleur blanchâtre ?', answer: 'À cause de l’albuginée, enveloppe conjonctive qui les entoure.' },
+  { question: 'Où sont situés les testicules ?', answer: 'Dans les bourses (scrotum).' },
+  { question: 'Quel ligament fixe le pôle inférieur du testicule au scrotum ?', answer: 'Le gubernaculum testis.' },
+  { question: 'Que contient le cordon spermatique ?', answer: 'Des vaisseaux et des nerfs.' },
+  { question: 'Quels sont les trois plans qui entourent les testicules de dedans en dehors ?', answer: 'La tunique vaginale, le tissu sous-cutané, puis la peau.' },
+  { question: 'Qu’est-ce que l’albuginée ?', answer: 'Une capsule conjonctive blanche, épaisse et résistante entourant le testicule.' },
+  { question: 'Quel épaississement de l’albuginée forme une structure interne ?', answer: 'Le corps de Highmore.' },
+  { question: 'Quel est le rôle du corps de Highmore ?', answer: 'Former une charpente interne en éponge.' },
+  { question: 'Combien de lobules un testicule contient-il environ ?', answer: '200 à 300 lobules.' },
+  { question: 'Où se forment initialement les testicules ?', answer: 'Dans la région dorso-lombaire, para-mésonéphrotique.' },
+  { question: 'Quand migrent les testicules dans le scrotum ?', answer: 'Au 5e-6e mois de vie utérine.' },
+  { question: 'Comment s’appelle l’épanchement liquidien dans la vaginale ?', answer: 'L’hydrocèle.' },
+  { question: 'Qu’est-ce que la cryptorchidie ?', answer: 'Une anomalie de la descente testiculaire.' },
+  { question: 'Qu’est-ce qu’une ectopie testiculaire ?', answer: 'Un testicule resté en position intra-abdominale ou inguinale.' },
+  { question: 'Pourquoi faut-il traiter rapidement une cryptorchidie ?', answer: 'Pour éviter l’altération définitive de la production future de spermatozoïdes.' },
+  { question: 'Quel risque tumoral concerne les testicules restés en position abdominale ?', answer: 'Le gonadoblastome.' },
+  { question: 'Quelle artère vascularise principalement le testicule ?', answer: 'L’artère spermatique.' },
+  { question: 'Qu’est-ce que le plexus pampiniforme ?', answer: 'Un réseau veineux au pôle supérieur du testicule.' },
+  { question: 'Comment s’appelle la dilatation pathologique des veines testiculaires ?', answer: 'La varicocèle.' },
+  { question: 'Combien de tubes séminifères contient un lobule ?', answer: '2 à 3 tubes séminifères.' },
+  { question: 'Quelle est la longueur d’un tube séminifère complètement déplié ?', answer: '80 cm à 1 m.' },
+  { question: 'Quel est leur diamètre ?', answer: '150 à 300 μm selon la section.' },
+  { question: 'Quelle double fonction assurent les tubes séminifères ?', answer: 'Fonction exocrine (production des spermatozoïdes) et fonction endocrine (production de testostérone).' },
+  { question: 'Comment se nomment les segments rectilignes reliant les tubes séminifères au rete testis ?', answer: 'Les tubes droits.' },
+  { question: 'Quel réseau forme le rete testis ?', answer: 'Le réseau du testicule.' },
+  { question: 'Quelle pathologie résulte d’une agénésie du canal déférent ?', answer: 'Une infertilité par absence de spermatozoïdes dans l’éjaculat.' },
+  { question: 'Quelles structures sont présentes dans le tissu interstitiel entre les tubes séminifères ?', answer: 'Tissu conjonctif, vaisseaux, lymphatiques, nerfs et cellules de Leydig.' },
+  { question: 'Comment s’appelle la paroi conjonctive entourant les tubes séminifères ?', answer: 'La gaine péritubulaire.' },
+  { question: 'Quels sont les deux types cellulaires constituant l’épithélium séminal ?', answer: 'Les cellules germinales et les cellules de Sertoli.' },
+  { question: 'Les cellules de Sertoli sont-elles germinales ?', answer: 'Non, ce sont des cellules somatiques.' },
+  { question: 'Les cellules de Sertoli se divisent-elles chez l’adulte ?', answer: 'Non.' },
+  { question: 'Quels types de jonctions unissent les cellules de Sertoli entre elles et aux cellules germinales ?', answer: 'Des Gap Junction.' },
+  { question: 'Quel syndrome est caractérisé par la présence exclusive de cellules de Sertoli dans les tubes séminifères ?', answer: 'Le syndrome SCO (Sertoli Cells Only).' },
+  { question: 'Quels sont les rôles généraux des cellules de Sertoli ?', answer: 'Support, cohésion, nutrition, maturation des cellules germinales et spermiation.' },
+  { question: 'Pourquoi les cellules germinales dépendent-elles des Sertoli pour leur nutrition ?', answer: 'Parce que l’épithélium séminal n’est pas vascularisé.' },
+  { question: 'Quel est le rôle de l’ABP synthétisée par les Sertoli ?', answer: 'Transporter les androgènes vers la lumière des tubes séminifères.' },
+  { question: 'Quel est le rôle de l’inhibine et de l’activine ?', answer: 'Participer à la régulation hormonale de la spermatogenèse.' },
+  { question: 'Par quelles cellules l’AMH est-elle synthétisée pendant l’embryogenèse ?', answer: 'Les cellules de Sertoli et pré-sertoliennes.' },
+  { question: 'Quel type de jonctions forme la barrière hématotesticulaire ?', answer: 'Des jonctions serrées continues entre cellules de Sertoli.' },
+  { question: 'Quels sont les deux compartiments séparés par la barrière hématotesticulaire ?', answer: 'Compartiment basal et compartiment adluminal.' },
+  { question: 'Quels éléments du cytosquelette des Sertoli participent à la progression des cellules germinales ?', answer: 'Microtubules, microfilaments d’actine et filaments intermédiaires de vimentine.' },
+  { question: 'Comment les corps résiduels sont-ils éliminés ?', answer: 'Par phagocytose des cellules de Sertoli.' },
+  { question: 'Comment s’appelle la libération des spermatozoïdes dans la lumière ?', answer: 'La spermiation.' },
+  { question: 'Quelle protéase intervient dans la spermiation ?', answer: 'L’activateur du plasminogène.' },
+  { question: 'Que sont les complexes tubulo-bulbaires ?', answer: 'Des structures d’ancrage des cellules germinales dans le cytoplasme des Sertoli.' },
+  { question: 'Où se situe le tissu interstitiel testiculaire ?', answer: 'Dans les espaces compris entre les tubes séminifères.' },
+  { question: 'Quel est le type principal de tissu constituant le tissu interstitiel ?', answer: 'Du tissu conjonctif lâche.' },
+  { question: 'Quels types cellulaires conjonctifs retrouve-t-on dans le tissu interstitiel ?', answer: 'Fibroblastes, lymphocytes et macrophages.' },
+  { question: 'Quel rôle joue le tissu interstitiel dans la régulation intragonadique ?', answer: 'Une fonction de régulation paracrine.' },
+  { question: 'Quels vaisseaux sont présents dans le tissu interstitiel ?', answer: 'Des vaisseaux sanguins et lymphatiques.' },
+  { question: 'Quel réseau cellulaire entoure les vaisseaux sanguins proches de la gaine péritubulaire ?', answer: 'Les Co-cells (fibroblastes).' },
+  { question: 'Quel est le rôle des Co-cells ?', answer: 'Pousser les vaisseaux à se rapprocher de la gaine péritubulaire.' },
+  { question: 'Quelles cellules endocrines sont présentes dans le tissu interstitiel ?', answer: 'Les cellules de Leydig.' },
+  { question: 'Que sécrètent les cellules de Leydig ?', answer: 'Les androgènes testiculaires, principalement la testostérone.' },
+  { question: 'Quel type de cellule sont les cellules de Leydig ?', answer: 'Des cellules endocrines.' },
+  { question: 'Où les cellules de Leydig libèrent-elles la testostérone ?', answer: 'Dans la circulation sanguine.' },
+  { question: 'Quelle est la taille des cellules de Leydig ?', answer: 'Entre 15 μm et 20 μm de diamètre.' },
+  { question: 'Sous quelle forme les cellules de Leydig peuvent-elles se présenter ?', answer: 'Isolées ou groupées en amas autour des capillaires sanguins et lymphatiques.' },
+  { question: 'Quelles sont les caractéristiques cytologiques des cellules élaborant des stéroïdes ?', answer: 'Noyau rond excentré avec nucléole volumineux, REL très développé, nombreuses mitochondries à crêtes tubulaires.' },
+  { question: 'Quelles inclusions peut contenir le cytoplasme des cellules de Leydig ?', answer: 'Des inclusions lipidiques, pigmentaires ou protidiques comme le cristalloïde de Reinke.' },
+  { question: 'Quel est le rôle du cristalloïde de Reinke ?', answer: 'La sécrétion de testostérone.' },
+  { question: 'Quel est le rôle des voies génitales excrétrices ?', answer: 'Transporter les spermatozoïdes des tubes séminifères jusqu’à l’urètre et au méat urinaire lors de l’éjaculation.' },
+  { question: 'Quelles structures comprennent les voies génitales excrétrices ?', answer: 'Les voies spermatiques intra-testiculaires, les canaux efférents, le canal épididymaire et le canal déférent.' },
+  { question: 'Que sont les tubes droits ?', answer: 'De courts segments faisant suite aux tubes séminifères, d’environ 25 µm de diamètre.' },
+  { question: 'À quoi correspondent les tubes droits dans chaque lobule ?', answer: 'À la confluence des 2 ou 3 tubes séminifères.' },
+  { question: 'Quel type d’épithélium tapisse les tubes droits ?', answer: 'Une seule assise de cellules cubiques (cellules de Sertoli transformées).' },
+  { question: 'Quel est le rôle des tubes droits ?', answer: 'Assurer la jonction entre les tubes séminifères et le rete testis.' },
+  { question: 'Qu’est-ce que le rete testis ?', answer: 'Un réseau de canalicules anastomosés dans le corps de Highmore.' },
+  { question: 'Quel type de cellules tapisse le rete testis ?', answer: 'Des cellules épithéliales aplaties reposant sur une membrane basale.' },
+  { question: 'Que sont les canaux efférents ?', answer: 'Des canaux émergeant de la partie supérieure du rete testis, traversant l’albuginée.' },
+  { question: 'Comment est la morphologie d’un canal efférent ?', answer: 'Un canal enroulé en spirale, formant un cône.' },
+  { question: 'Que forme la confluence des canaux efférents ?', answer: 'Le segment initial du canal épididymaire.' },
+  { question: 'Quel épithélium borde les canaux efférents ?', answer: 'Un épithélium prismatique simple.' },
+  { question: 'Quels sont les types de cellules des canaux efférents ?', answer: 'Cellules ciliées, cellules glandulaires et cellules basales sporadiques.' },
+  { question: 'Comment les spermatozoïdes sont-ils transportés dans les canaux efférents ?', answer: 'Par la pression intra-testiculaire, le mouvement des cils et le péristaltisme des cellules musculaires lisses.' },
+  { question: 'Quel rôle chimique jouent les cellules glandulaires des canaux efférents ?', answer: 'Modifier la composition biochimique du liquide séminal par sécrétion et réabsorption.' },
+  { question: 'Quelle est la longueur du canal épididymaire ?', answer: '3 à 6 mètres.' },
+  { question: 'Quels sont les trois segments du canal épididymaire ?', answer: 'La tête, le corps et la queue.' },
+  { question: 'Quel type d’épithélium borde le canal épididymaire ?', answer: 'Un épithélium prismatique pseudostratifié.' },
+  { question: 'Quels sont les deux types cellulaires de l’épithélium épididymaire ?', answer: 'Les cellules principales à stéréocils et les cellules basales.' },
+  { question: 'Quel est le rôle des stéréocils ?', answer: 'Permettre les échanges avec les spermatozoïdes (pinocytose/endocytose).' },
+  { question: 'Comment évolue la couche musculaire lisse du canal épididymaire ?', answer: 'Elle s’épaissit de la tête vers la queue.' },
+  { question: 'Quelle est la durée du transit épididymaire ?', answer: '1 jour dans la tête et 5 jours dans le corps et la queue.' },
+  { question: 'Qu’est-ce que la maturation épididymaire des spermatozoïdes ?', answer: 'L’acquisition du pouvoir fécondant par modifications biochimiques.' },
+  { question: 'Quels paramètres membranaires sont modifiés durant la maturation ?', answer: 'Mobilité, reconnaissance, fixation à la pellucide et protection de la chromatine.' },
+  { question: 'Quels ions diminuent dans la lumière épididymaire ?', answer: 'Na+ et Cl−.' },
+  { question: 'Quels ions augmentent dans la lumière épididymaire ?', answer: 'K+ et phosphate.' },
+  { question: 'Comment évolue le pH dans l’épididyme ?', answer: 'Il diminue de 7,3 à 6,5 (acidification).' },
+  { question: 'Quel pourcentage du fluide testiculaire est réabsorbé dans la tête de l’épididyme ?', answer: '90%.' },
+  { question: 'Quels éléments sont réabsorbés dans la tête ?', answer: 'H2O, protéines spécifiques, ABP-androgènes, 5α-réductase, transferrine.' },
+  { question: 'Quels éléments sont synthétisés dans la tête et le corps ?', answer: 'Protéines et glycoprotéines impliquées dans la fixation à la pellucide, prévention de la réaction acrosomique et mobilité.' },
+  { question: 'Que concentre le corps de l’épididyme ?', answer: 'Carnitine et acétyl-carnitine.' },
+  { question: 'Que synthétise la queue de l’épididyme ?', answer: 'Des lipides provenant des acides gras sanguins.' },
+  { question: 'Quel est le rôle principal des protéines du fluide épididymaire ?', answer: 'Protection et maturation des spermatozoïdes.' },
+  { question: 'Quels antioxydants protègeant les spermatozoïdes trouvent-on dans le fluide épididymaire ?', answer: 'GPX5, SOD1, beta-défensine.' },
+  { question: 'Quels transporteurs hydrophobes figurent dans le fluide épididymaire ?', answer: 'SHBG et VitD binding protein.' },
+  { question: 'Quels changements lipidiques assurent la stabilité membranaire ?', answer: 'Augmentation des stérols et diminution des phospholipides.' },
+  { question: 'Quel mécanisme nucléaire se produit durant la maturation ?', answer: 'Condensation de la chromatine par ponts disulfures.' },
+  { question: 'Quel est le rôle des enzymes acrosomiques ?', answer: 'Elles maturent de proacrosine en acrosine.' },
+  { question: 'Quels mécanismes assurent l’acquisition de la mobilité ?', answer: 'Maturation de la machinerie du flagelle, augmentation d’AMPc, activation de la PKA et spiralisation des mitochondries.' },
+  { question: 'Quel épithélium borde la lumière du canal déférent ?', answer: 'Un épithélium prismatique pseudostratifié à stéréocils.' },
+  { question: 'Combien de couches comporte la tunique musculaire du canal déférent ?', answer: 'Trois couches : longitudinale interne, circulaire moyenne et longitudinale externe.' },
+  { question: 'Qu’est-ce que l’ampoule déférentielle ?', answer: 'Une dilatation terminale du canal déférent recevant les vésicules séminales.' },
+  { question: 'Qu’est-ce que la vasectomie ?', answer: 'La section et la ligature des deux canaux déférents.' },
+  { question: 'Où sont stockés les spermatozoïdes entre deux éjaculations ?', answer: 'Dans les ampoules déférentielles.' },
+  { question: 'Quelle est la fonction du canal déférent ?', answer: 'Le transport et le stockage des spermatozoïdes.' },
+  { question: 'Quel est le rôle de l’urètre dans la reproduction ?', answer: 'Expulser l’urine et le sperme.' },
+  { question: 'Quels sont les trois segments de l’urètre masculin ?', answer: 'Urètre prostatique, urètre membraneux et urètre spongieux.' },
+  { question: 'Comment évolue l’épithélium urétral ?', answer: 'Urinaire en haut, cubique stratifié, puis pavimenteux stratifié non kératinisé.' },
+  { question: 'Quelles glandes sont présentes dans le chorion urétral ?', answer: 'Les glandes de Littré.' },
+  { question: 'Quelle est la composition du pénis ?', answer: 'Un corps spongieux médian et deux corps caverneux.' },
+  { question: 'Quels sont les renflements du corps spongieux ?', answer: 'Le bulbe et le gland.' },
+  { question: 'Quel tissu entoure les corps érectiles ?', answer: 'L’albuginée.' },
+  { question: 'Quels phénomènes permettent l’érection ?', answer: 'Un phénomène vasculaire et un phénomène musculaire.' },
+  { question: 'Où se branchent les vésicules séminales ?', answer: 'Sur la partie terminale du canal déférent au niveau du canal éjaculateur.' },
+  { question: 'Quel est le rôle principal des vésicules séminales ?', answer: 'Élaborer une grande partie du plasma séminal.' },
+  { question: 'Quel nutriment essentiel du sperme est sécrété par les vésicules séminales ?', answer: 'Le fructose.' },
+  { question: 'Quelles protéines importantes sont sécrétées par les vésicules séminales ?', answer: 'Lactoferrine et prostaglandines.' },
+  { question: 'Où est située la prostate ?', answer: 'Sous la vessie, autour de l’urètre prostatique.' },
+  { question: 'Quelle est la masse approximative de la prostate ?', answer: 'Environ 20 g.' },
+  { question: 'Combien de glandes tubulo-alvéolaires comprend la prostate ?', answer: 'Environ 50.' },
+  { question: 'Quels sont les trois groupes concentriques de glandes prostatiques ?', answer: 'Glandes de la muqueuse, de la sous-muqueuse et glandes principales.' },
+  { question: 'Quelles formations peuvent apparaître dans la lumière des glandes prostatiques ?', answer: 'Les concrétions prostatiques ou sympexions de Robin.' },
+  { question: 'Quelle enzyme est un marqueur de la fonction prostatique ?', answer: 'La phosphatase acide.' },
+  { question: 'Quel est le rôle de la sécrétion prostatique ?', answer: 'Assurer des éléments nécessaires à la survie des spermatozoïdes.' },
+  { question: 'Quelle proportion de l’éjaculat représente la sécrétion prostatique ?', answer: 'Environ 1/6e.' },
+  { question: 'Quels ions importants sont sécrétés par la prostate ?', answer: 'Zn, Mg et Ca.' },
+  { question: 'Quelles sont les glandes de Cowper ?', answer: 'Des glandes tubulo-alvéolaires situées sur le trajet de l’urètre.' },
+  { question: 'Quelle est la fonction des glandes de Cowper ?', answer: 'La lubrification de l’urètre et la protection des spermatozoïdes contre l’urine acide.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

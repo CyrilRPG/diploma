@@ -1,0 +1,1160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biologie cellulaire</h1><h2>Molécules de surface et d'adhérence</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+   const flashcardsData = [
+{ question: "Quels sont les trois grands types de communication intercellulaire ?", answer: "Communication directe par jonctions, communication indirecte par signaux chimiques, communication directe par liaisons ligands/récepteurs" },
+{ question: "Quel est l'autre nom des jonctions de communication ?", answer: "Jonctions Gap ou communicantes" },
+{ question: "Comment se fait la communication indirecte entre les cellules ?", answer: "Par diffusion de molécules après sécrétion par exocytose" },
+{ question: "Quels sont les trois types de communication indirecte par signaux chimiques selon la distance parcourue ?", answer: "Autocrine, paracrine, endocrine" },
+{ question: "Quelle est la particularité de la communication endocrine ?", answer: "C'est une communication à distance par voie sanguine" },
+{ question: "Quelles sont les 5 caractéristiques générales des molécules d'adhérence ?", answer: "Très conservées, présentes chez animaux et végétaux primitifs, exprimées à certains stades embryonnaires, spécifiques, dépendent de glycoprotéines membranaires" },
+{ question: "Quelles sont les trois fonctions principales des molécules d'adhérence ?", answer: "Cohésion, communication, embryogenèse" },
+{ question: "À quel stade embryonnaire les molécules d’adhérence interviennent-elles pour la compaction ?", answer: "Au stade 8 cellules, au stade morula" },
+{ question: "À quels autres stades de développement participent les molécules d’adhérence ?", answer: "Gastrulation et neurulation" },
+{ question: "Quelles 3 fonctions assurent les molécules d’adhérence à l’âge adulte ?", answer: "Cohésion des cellules dans les tissus et organes, liaison cellule-cellule, liaison cellule-MEC" },
+{ question: "Quel rôle mécanique ont les molécules d’adhérence ?", answer: "Maintien des tissus contenant environ 30 mille milliards de cellules" },
+{ question: "Comment les molécules d’adhérence participent-elles à la transduction de signaux ?", answer: "En entrant dans la constitution des systèmes jonctionnels" },
+{ question: "Quel est le rôle des mécanismes de reconnaissance cellulaire associés aux molécules d’adhérence ?", answer: "Engendrer des signaux à l’intérieur des cellules" },
+{ question: "Quels sont les deux critères de classification des types de liaisons d’adhérence ?", answer: "Nature des cellules, nature des molécules d’adhésion" },
+{ question: "Que signifie liaison homophilique ?", answer: "Liaison entre molécules de la même famille" },
+{ question: "Que signifie liaison hétérophilique ?", answer: "Liaison entre molécules de familles différentes" },
+{ question: "Que signifie liaison homotypique ?", answer: "Liaison entre cellules de même type cellulaire" },
+{ question: "Que signifie liaison hétérotypique ?", answer: "Liaison entre cellules de types cellulaires différents" },
+{ question: "Que signifie CAM ?", answer: "Cell Adhesion Molecule, molécule d’adhésion cellulaire et de reconnaissance" },
+{ question: "Quel est le rôle principal des CAM ?", answer: "Transduction de signaux" },
+{ question: "Quelles sont les grandes familles de CAM ?", answer: "Intégrines, cadhérines, sélectines, superfamille des immunoglobulines (IgSF)" },
+{ question: "Quelle est la nature commune des CAM ?", answer: "Glycoprotéines transmembranaires d’adhérence" },
+{ question: "Quel est l’état structural des CAM ?", answer: "Monomères sauf les intégrines qui sont actives sous forme de dimères" },
+{ question: "Quelle est la localisation intracellulaire fréquente des CAM ?", answer: "Elles possèdent une extrémité intracellulaire en interactions avec le cytosquelette" },
+{ question: "Quelles CAM sont calcium-dépendantes ?", answer: "Intégrines, cadhérines, sélectines" },
+{ question: "Quelle famille de CAM est calcium-indépendante ?", answer: "Immunoglobulines (IgSF)" },
+{ question: "Certaines CAM sont dépendantes de quel autre ion ?", answer: "Magnésium (Mg²⁺)" },
+{ question: "Qu’est-ce que les SAM ?", answer: "Substrate Adhesion Molecule, molécules d’adhésion pour le substrat avec la MEC" },
+{ question: "Quelles sont les principales SAM ?", answer: "Protéines de la MEC : collagène, fibronectine, laminine, facteur von Willebrand" },
+{ question: "Quel était l’objectif de l’expérience de reconnaissance intercellulaire chez l’embryon de poulet ?", answer: "Étudier la reconnaissance spécifique de surface entre deux types cellulaires" },
+{ question: "Quels tissus ont été isolés pour l’expérience chez le poulet ?", answer: "Neurorétine et ébauche hépatique" },
+{ question: "Quel agent est utilisé pour enlever le calcium dans l’expérience ?", answer: "EDTA" },
+{ question: "Qu’observe-t-on en présence de calcium lors de la culture mixte ?", answer: "Association spécifique des cellules d’un même type" },
+{ question: "Qu’observe-t-on en absence de calcium lors de la culture mixte ?", answer: "Association des cellules de la neurorétine uniquement, grâce aux IgSF indépendants du calcium" },
+{ question: "Quels sont les 6 types de jonctions étudiés dans la localisation/morphologie ?", answer: "Jonctions serrées, ceinture d’adhérence, desmosomes, jonctions gap, hémidesmosomes, points de contact focaux" },
+{ question: "Quelles structures sont présentes dans les jonctions serrées et ceintures d’adhérence ?", answer: "Microfilaments d’actine" },
+{ question: "Quel type de filament est présent dans les desmosomes ?", answer: "Filaments intermédiaires" },
+{ question: "Quelles sont les morphologies des jonctions selon leur taille ?", answer: "Zonula : grande ceinture ; Fascia : petite taille ; Macula : ponctiforme" },
+{ question: "Où sont localisés les desmosomes ?", answer: "Face latérale des cellules" },
+{ question: "Où sont localisés les hémidesmosomes ?", answer: "Face basolatérale des cellules" },
+{ question: "Quel est l’équivalent des jonctions gap chez les végétaux ?", answer: "Plasmodesmes" },
+{ question: "Quel type de molécules peut passer par les jonctions communicantes ?", answer: "Petites molécules hydrophiles de moins de 1 à 1,5 kDa" },
+{ question: "Quelle est la taille maximale de passage des jonctions gap ?", answer: "1,5 nm" },
+{ question: "Quelles molécules peuvent passer dans les jonctions gap ?", answer: "Ions, sucres, nucléotides, acides aminés" },
+{ question: "Quels types de signaux transitent par les jonctions gap ?", answer: "Chimiques (ex: acétylcholine) ou électriques (ex: synapses électriques)" },
+{ question: "Quelle distance maximale une molécule peut-elle parcourir via une jonction gap ?", answer: "500 µm" },
+{ question: "Les jonctions gap dépendent-elles du cytosquelette ?", answer: "Non, elles en sont indépendantes" },
+{ question: "Quel est le rôle mécanique des jonctions gap ?", answer: "Rôle mécanique négligeable" },
+{ question: "De quoi dépend l’activité des jonctions gap ?", answer: "De l’activité cellulaire et de la régulation hormonale" },
+{ question: "Comment est structurée une jonction communicante (jonction GAP) ?", answer: "Canal fermé, sans fusion des membranes, avec rapprochement des membranes et formation de disques de 0,2 à 0,3 μm de diamètre entre deux cellules." },
+{ question: "Quelles cellules apportent chacune une moitié de connexon ?", answer: "Les deux cellules adjacentes." },
+{ question: "De quoi dépend la formation du canal GAP ?", answer: "Elle est calcium-dépendante." },
+{ question: "Quel est le rôle du canal GAP ?", answer: "C’est un canal transmembranaire hydrophile." },
+{ question: "Quelle est la taille de l’espace intercellulaire au niveau d’une jonction GAP ?", answer: "2 à 3 nm." },
+{ question: "Combien de connexines forment un connexon ?", answer: "6 connexines." },
+{ question: "Comment peut-on assembler les connexines dans un connexon ?", answer: "Sous forme homodimérique ou hétérodimérique." },
+{ question: "Combien de types de connexines une cellule peut-elle synthétiser ?", answer: "Plusieurs types." },
+{ question: "Combien existe-t-il de connexines différentes chez l’homme ?", answer: "26." },
+{ question: "Combien de combinaisons de connexines sont connues ?", answer: "90" },
+{ question: "Quelle est la masse des connexines ?", answer: "De 23 à 60 kDa." },
+{ question: "Que présentent les deux boucles extracellulaires des connexines ?", answer: "Trois cystéines." },
+{ question: "À quoi servent les ponts disulfures intramoléculaires des connexines ?", answer: "À donner une structure serrée et rigide permettant les interactions entre connexines de cellules adjacentes." },
+{ question: "Quelles sont les 8 pathologies liées à une altération de l’expression des connexines ?", answer: "Neuropathies périphériques (Charcot-Marie-Tooth), surdité héréditaire, cataractes congénitales, épilepsie, maladies cardiaques, athérosclérose, maladies dermatologiques (hyperkératose), cancers (hépatocarcinomes)." },
+{ question: "Quelle mutation est responsable de la maladie de Charcot-Marie-Tooth ?", answer: "Mutation du gène codant la connexine 32 sur le chromosome X." },
+{ question: "Quelle mutation est responsable de la surdité héréditaire ?", answer: "Mutation de la connexine 26." },
+{ question: "Quelle est la structure des intégrines ?", answer: "Hétérodimère constitué de deux sous-unités α et β." },
+{ question: "Quel ion est lié par la sous-unité α des intégrines ?", answer: "Calcium (Ca²⁺)." },
+{ question: "Quels ions sont liés par la sous-unité β des intégrines ?", answer: "Calcium (Ca²⁺) et Magnésium (Mg²⁺)." },
+{ question: "Quel motif est reconnu par les intégrines ?", answer: "Motif RGD (Arginine-Glycine-Acide Aspartique)." },
+{ question: "Quels composants de la MEC possèdent le motif RGD reconnu par les intégrines ?", answer: "Fibronectines, collagènes, laminines." },
+{ question: "Quels types de liaisons forment les intégrines avec les CAM ?", answer: "Des liaisons hétérophiliques." },
+{ question: "À quoi se lient les intégrines sur leur extrémité intracellulaire ?", answer: "Aux microfilaments d’actine dans les points de contact focaux et aux filaments intermédiaires dans les hémidesmosomes." },
+{ question: "Combien existe-t-il de chaînes α et β des intégrines ?", answer: "15 chaînes α et 9 chaînes β." },
+{ question: "Combien de combinaisons d’intégrines sont connues ?", answer: "Une vingtaine." },
+{ question: "Quelle sous-unité permet la liaison aux composants de la MEC comme les collagènes et fibronectine ?", answer: "β1." },
+{ question: "Quelle sous-unité permet la liaison aux fibrinogènes et l’agrégation des plaquettes ?", answer: "β3" },
+{ question: "Quelle sous-unité permet la liaison à la laminine ?", answer: "β4." },
+{ question: "Quelle sous-unité est exprimée sur les leucocytes et permet leur adhésion aux cellules endothéliales ?", answer: "β2." },
+{ question: "Quel est le rôle des intégrines dans la diapédèse ?", answer: "Adhésion des leucocytes lors de leur migration vers le site inflammatoire." },
+{ question: "Quels sont les rôles principaux des intégrines ?", answer: "Adhérence, organisation de la MEC, transduction de signaux, migration cellulaire." },
+{ question: "Que provoque une mutation d’un des acides aminés du motif RGD ?", answer: "Perte de liaison entre intégrine et MEC, donc perte d’adhérence." },
+{ question: "Quelle expérience illustre la perte d’adhérence due aux intégrines ?", answer: "Fibroblastes + fibronectine + cytochalasine entraînant un arrondissent des cellules et une désorganisation/détachement de la MEC." },
+{ question: "Comment les intégrines participent-elles à la transduction des signaux ?", answer: "Par activation des voies de signalisation intracellulaire." },
+{ question: "Quels sont les 4 rôles des cadhérines ?", answer: "Adhérence, formation de jonctions stables, différenciation cellulaire, embryogenèse." },
+{ question: "Quelle est la structure des cadhérines ?", answer: "Glycoprotéines transmembranaires monomériques de 120 à 140 kDa avec 4 a 5 domaines." },
+{ question: "De quoi dépendent les liaisons des cadhérines ?", answer: "De la concentration en calcium." },
+{ question: "À quelle concentration de Ca²⁺ la conformation des cadhérines est-elle adéquate avec formation de dimères possible ?", answer: "Supérieure à 1 mM." },
+{ question: "Quels sont les trois types de cadhérines ?", answer: "Classiques, protocadhérines, desmosomales." },
+{ question: "Quels types de liaisons forment les cadhérines classiques et les protocadhérines ?", answer: "Liaisons homophiliques." },
+{ question: "Quel type de liaison est formé par les cadhérines desmosomales ?", answer: "Liaisons hétérophiliques." },
+{ question: "Quels sont les 3 exemples de cadhérines classiques ?", answer: "E-cadhérine, N-cadhérine, P-cadhérine." },
+{ question: "Quel est le rôle de la séquence HAV du domaine EC1 des cadhérines ?", answer: "Permet la reconnaissance et l’adhésion entre cadhérines." },
+{ question: "Comment les cadhérines sont-elles reliées au cytosquelette d’actine ?", answer: "Par les caténines α, β ou γ." },
+{ question: "Quel est le rôle de la α-caténine ?", answer: "Liaison à l’actine et la β-caténine, homologue de la vinculine." },
+{ question: "Quel est le rôle de la β-caténine ?", answer: "Elle est liée à l’extrémité COOH de la cadhérine et l'α-caténine." },
+{ question: "Quel est le rôle de la γ-caténine ?", answer: "Homologue de la plakoglobine." },
+{ question: "Quels types de jonctions sont formées par les cadhérines ?", answer: "Jonctions adherens et desmosomes." },
+{ question: "Quel est le rôle de la E-cadhérine dans les cancers ?", answer: "Elle agit comme suppresseur de tumeur, son expression est inversement proportionnelle au pouvoir métastasique." },
+{ question: "Quelles mutations de cadhérines sont retrouvées dans certains cancers ?", answer: "Mutations inactivatrices de E-cadhérine dans les cancers du poumon et de l’estomac." },
+{ question: "Que montre l’expérience de transfection de fibroblastes avec des gènes de cadhérines ?", answer: "Formation d’amas distincts selon le type de cadhérine, illustrant la différenciation cellulaire." },
+{ question: "Quelle cadhérine est impliquée dans la compaction embryonnaire ?", answer: "E-cadhérine." },
+{ question: "Quel est l’effet d’anticorps anti E-cadhérine sur la compaction embryonnaire ?", answer: "Inhibition de la compaction et arrêt du développement embryonnaire." },
+{ question: "Quelles cadhérines sont impliquées dans la neurulation et comment ?", answer: "Perte de E-cadhérine et expression de N-cadhérine." },
+{ question: "Comment se fait la migration des cellules des crêtes neurales ?", answer: "Par perte des cadhérines N." },
+{ question: "Quel est le rôle principal des protocadhérines dans le système nerveux central ?", answer: "Maintien de la structure des synapses", },
+{ question: "Dans quel type de reconnaissance les protocadhérines sont-elles impliquées ?", answer: "Spécificité de reconnaissance", },
+{ question: "Quelles voies intracellulaires peuvent être activées par les protocadhérines ?", answer: "Différentes voies de transduction à l'intérieur de la cellule", },
+{ question: "Quelle serait l'origine évolutive des protocadhérines ?", answer: "Forme ancestrale de la E-cadhérine", },
+{ question: "Où trouve-t-on principalement les protocadhérines ?", answer: "Dans le système nerveux central", },
+{ question: "Les protocadhérines sont-elles retrouvées chez d'autres espèces que l'homme ?", answer: "Oui, retrouvées chez les invertébrés", },
+{ question: "Donner un exemple d'invertébré exprimant des protocadhérines.", answer: "La drosophile", },
+{ question: "Combien de membres des protocadhérines sont actuellement connus ?", answer: "Environ 50 membres", },
+{ question: "Combien de domaines extracellulaires possèdent les protocadhérines ?", answer: "Plus de 5 domaines extracellulaires", },
+{ question: "Que peut-on dire du domaine intracytoplasmique C-term des protocadhérines ?", answer: "Très variable selon les espèces ou absent", },
+{ question: "De quoi est constituée la partie extracellulaire des molécules IgSF ?", answer: "De domaines retrouvés dans les immunoglobulines", },
+{ question: "Quelle est la taille des domaines C2 des molécules IgSF ?", answer: "110 acides aminés", },
+{ question: "Comment les domaines C2 sont-ils structurés ?", answer: "En boucles grâce à un pont disulfure intrachaîne", },
+{ question: "Quel est l’origine évolutive des molécules de la superfamille des immunoglobulines ?", answer: "Gène ancestral commun", },
+{ question: "Les IgSF sont-elles calcium-dépendantes ?", answer: "Non, elles sont calcium-indépendantes", },
+{ question: "Toutes les molécules IgSF ont-elles un rôle adhésif ?", answer: "Non, pas toutes", },
+{ question: "Donner deux exemples d'immunoglobulines circulantes n’ayant pas de rôle adhésif.", answer: "IgG, IgM", },
+{ question: "Combien de chaînes polypeptidiques composent les immunoglobulines circulantes ?", answer: "Deux chaînes polypeptidiques", },
+{ question: "Quel type de molécules du CMH reconnaît les CD4 et CD8 ? Sont-elles des IgSF adhésives ?", answer: "Les molécules du CMH I et II. Ce sont des IgSF mais non adhésives", },
+{ question: "Les IgSF sont-elles impliquées dans la reconnaissance virale ?", answer: "Oui, implication dans la liaison à des virus comme le VIH", },
+{ question: "Combien de chaînes polypeptidiques composent les molécules d’adhérence cellulaire IgSF ?", answer: "Une seule chaîne polypeptidique", },
+{ question: "Quelles 3 cellules utilisent les molécules IgSF pour l’adhérence ?", answer: "Neurones, cellules gliales, cellules musculaires", },
+{ question: "Quels types de cellules immunitaires utilisent les IgSF ?", answer: "Lymphocytes", },
+{ question: "Combien de membres de la super-famille IgSF ont une capacité adhésive ?", answer: "Plus d'une trentaine", },
+{ question: "Quels sont les deux types de liaisons réalisées par les IgSF ?", answer: "Homophiliques et hétérophiliques (avec les intégrines)", },
+{ question: "Citer 4 exemples d'IgSF adhésives.", answer: "N-CAM, ICAM, MAG, Ng-CAM", },
+{ question: "Qui a découvert la molécule N-CAM ?", answer: "Jean Paul Tiret", },
+{ question: "Quel type de liaison est effectué par N-CAM ?", answer: "Liaisons homophiliques", },
+{ question: "Dans quels 4 types de cellules trouve-t-on la N-CAM ?", answer: "Neurones, cellules gliales, cellules épithéliales pulmonaires, gonades", },
+{ question: "Quel est le rôle principal de la N-CAM dans le système nerveux ?", answer: "Permet l’adhésion neurone-neurone et neurone-glie", },
+{ question: "Combien de domaines C2 contient la N-CAM ?", answer: "5 domaines C2", },
+{ question: "Quelles sont les trois formes de N-CAM selon leur poids moléculaire ?", answer: "120 kDa, 140 kDa, 180 kDa", },
+{ question: "Quelle forme de N-CAM est retrouvée dans les astrocytes ?", answer: "120 kDa (ancrage GPI)", },
+{ question: "Quelle forme de N-CAM est moins adhérente et présente dans les neurones et muscles ?", answer: "140 kDa", },
+{ question: "Quelle forme de N-CAM est spécifique des neurones ?", answer: "180 kDa", },
+{ question: "Quel est le rôle de la forme 180 kDa de la N-CAM ?", answer: "Maintien des contacts intercellulaires, en particulier aux synapses", },
+{ question: "Quel est le rôle de la forme 140 kDa de la N-CAM ?", answer: "Croissance des neurites, activation des MAP kinases", },
+{ question: "Quels sont les trois types d’ICAM ?", answer: "ICAM-1, ICAM-2, ICAM-3", },
+{ question: "L’expression des ICAM est-elle constitutive ou inductible ?", answer: "Les deux", },
+{ question: "Quelles cellules expriment les ICAM de manière inductible ?", answer: "Certaines cellules sanguines et endothéliales", },
+{ question: "Quels sont les ligands des ICAM ?", answer: "Les intégrines", },
+{ question: "Quel est le rôle de la glycoprotéine MAG ?", answer: "Stabilise la gaine de myéline sur les axones", },
+{ question: "Quel est le rôle de la Ng-CAM ?", answer: "Permet la liaison des neurones à la microglie", },
+{ question: "Quel est le type d'adhésion assurée par les sélectines ?", answer: "Adhésion de courte durée mais très spécifique", },
+{ question: "Les sélectines sont-elles toujours exprimées ?", answer: "Non, elles sont inductibles", },
+{ question: "Quelles sont les trois types de sélectines et où sont-elles exprimées ?", answer: "E-sélectine (endothélium), P-sélectine (plaquettes), L-sélectine (lymphocytes)", },
+{ question: "Quel phénomène est contrôlé par les sélectines dans les tissus en confluence ?", answer: "Inhibition de contact", },
+{ question: "Quel est le rôle de l’inhibition de contact ?", answer: "Arrêt de la division cellulaire à confluence", },
+{ question: "Quel type de cellules perdent l’inhibition de contact ?", answer: "Les cellules cancéreuses", },
+{ question: "Quel est le type de motif reconnu par les sélectines ?", answer: "Structures oligosaccharidiques (sialyl Lewis X, sialyl Lewis A, Lewis X)", },
+{ question: "Quel est le domaine de reconnaissance des sélectines ?", answer: "Domaine de type lectine, calcium-dépendant", },
+{ question: "Quel autre domaine possèdent les sélectines ?", answer: "Domaine de type EGF-like", },
+{ question: "Les sélectines sont-elles mono- ou multimériques ?", answer: "Monomériques", },
+{ question: "Les sélectines reconnaissent-elles des ligands en absence de calcium ?", answer: "Non, elles sont calcium-dépendantes", },
+{question: "Qu'est-ce que la diapédèse ?", answer: "Migration des éléments du sang en dehors des capillaires, vers les tissus périphériques.", },
+{ question: "Quelle est la première étape de la diapédèse ?", answer: "Activation des cellules endothéliales par cytokines, expression de PAF et E-sélectines", },
+{ question: "Que reconnaissent les sélectines pendant la diapédèse ?", answer: "Des résidus glucidiques sur les leucocytes", },
+{ question: "Que provoque la liaison sélectine-glucide ?", answer: "Ralentissement des leucocytes", },
+{ question: "Qu'active la liaison du PAF à son récepteur ?", answer: "Une B2-intégrine leucocytaire", },
+{ question: "Qu'induit l'activation de l'intégrine leucocytaire ?", answer: "Transduction de signal, réorganisation du cytosquelette", },
+{ question: "Quelle molécule est liée par les intégrines activées ?", answer: "I-CAM-1", },
+{ question: "Quel est le résultat de la liaison intégrine/I-CAM-1 ?", answer: "Adhésion plus forte des leucocytes", },
+{ question: "Que permet cette forte adhésion des leucocytes ?", answer: "La diapédèse", },
+{ question: "Quel changement intracellulaire facilite la diapédèse ?", answer: "Modification du cytosquelette d’actine", },
+{ question: "Qu’est-ce qu’un CJM ?", answer: "Un regroupement de molécules d’adhérence dans des régions différenciées de la membrane", },
+{ question: "Quels sont les deux types principaux de CJM ?", answer: "Jonctions serrées et jonctions d’ancrage", },
+{ question: "Donner deux exemples de modifications physiopathologiques des CJM.", answer: "Cicatrisation, cancérisation", },
+{ question: "Quels sont les autres noms des jonctions serrées ?", answer: "Jonctions étanches, jonctions occludens", },
+{ question: "Y a-t-il fusion des membranes dans les jonctions serrées ?", answer: "Non, persistance d’un espace intercellulaire", },
+{ question: "Où sont localisées les jonctions serrées ?", answer: "Au pôle apical des cellules épithéliales", },
+{ question: "Quel est le rôle des jonctions serrées dans la polarité cellulaire ?", answer: "Maintien de la polarité apical/basolatéral", },
+{ question: "Quel est l'effet des jonctions serrées sur la diffusion latérale des molécules ?", answer: "Limitation de la diffusion latérale et paracellulaire", },
+{ question: "Quelles sont les protéines transmembranaires des jonctions serrées ?", answer: "Occludines, Claudines, JAM", },
+{ question: "À quel cytosquelette sont reliées les jonctions serrées ?", answer: "Microfilaments d’actine", },
+{ question: "Par quelles protéines intracytoplasmiques sont-elles reliées au cytosquelette ?", answer: "Z01, Z02, ZO3, Cingulines, famille Maguk", },
+{ question: "Où se trouvent les desmosomes ?", answer: "Sur la face latérale des cellules en dessous des ceintures d'adhérences," },
+{ question: "Les desmosomes sont-ils uniquement présents dans les cellules épithéliales ?", answer: "Non, mais ils sont présents dans les cellules épithéliales," },
+{ question: "Quel type d’adhérence est formé par les desmosomes ?", answer: "Adhérence ponctuelle, ponctiforme," },
+{ question: "Quel est le diamètre d’un desmosome ?", answer: "400-500 nm," },
+{ question: "Quelle est la largeur de l’espace intermembranaire des desmosomes ?", answer: "20 nm," },
+{ question: "Par quoi est occupé l’espace intermembranaire des desmosomes ?", answer: "Par la partie extracellulaire des cadhérines," },
+{ question: "Quel type de liaison ont les cadhérines desmosomales entre elles ?", answer: "Liaisons homophiliques," },
+{ question: "Quelle quantité de desmosome apporte chaque cellule ?", answer: "La moitié du desmosome," },
+{ question: "Cite les types de cadhérines impliquées dans les desmosomes.", answer: "Desmogléines, Desmocollines," },
+{ question: "Quelles sont les protéines de la plaque dense dans les desmosomes ?", answer: "Desmoyokine, Desmoplakine, Plakoglobine, Plakophiline," },
+{ question: "Quels types de filaments sont associés aux desmosomes ?", answer: "Filaments intermédiaires," },
+{ question: "Quel type de filament intermédiaire est présent dans les cellules épithéliales ?", answer: "Cytokératine," },
+{ question: "Quel type de filament intermédiaire est présent dans les cellules musculaires ?", answer: "Desmine," },
+{ question: "Quelle est la pathologies associée aux desmosomes ?", answer: "Pemphigus vulgaris," },
+{ question: "Quelle est la cause du pemphigus vulgaris ?", answer: "Production d’anticorps anti-desmogléine," },
+{ question: "Quelle est la conséquence du pemphigus vulgaris ?", answer: "Perte d’adhérence des desmosomes au niveau de la muqueuse intestinale et de l’épiderme," },
+{ question: "Quelles lésions sont observées dans le pemphigus vulgaris ?", answer: "Bulles intra-épithéliales au niveau de l’épiderme et des muqueuses," },
+{ question: "Où se situe la ceinture d’adhérence ?", answer: "Au niveau apical des cellules polarisées des épithéliums," },
+{ question: "Dans quel contexte la ceinture d’adhérence peut-elle disparaître ?", answer: "Dans certains processus de cancérisation," },
+{ question: "Quel est le rôle structural de la ceinture d’adhérence ?", answer: "Forme une zonula adherens sous les jonctions serrées assurant la stabilité des épithéliums," },
+{ question: "Quand se mettent en place les jonctions serrées par rapport aux ceintures d’adhérence ?", answer: "Secondairement aux ceintures d’adhérence," },
+{ question: "Quels événements de l’embryogenèse impliquent les ceintures d’adhérence ?", answer: "Mise en place des feuillets embryonnaires, différenciation du tube neural," },
+{ question: "Quelle molécule agit comme molécule informative dans les ceintures d’adhérence ?", answer: "La B caténine sous forme soluble," },
+{ question: "Quelles protéines transmembranaires sont regroupées dans les ceintures d’adhérence ?", answer: "Cadhérines E," },
+{ question: "À quoi sont reliés les microfilaments d’actine dans la ceinture d’adhérence ?", answer: "À la plaque dense," },
+{ question: "Quelles molécules intracellulaires relient la ceinture d’adhérence à l’actine ?", answer: "a et ß caténines," },
+{ question: "Quelle molécule stabilise la structure de la ceinture d’adhérence ?", answer: "La caténine γ, homologue à la plakoglobine," },
+{ question: "Quelle intégrine est impliquée dans les hémidesmosomes ?", answer: "a6ß4-intégrine," },
+{ question: "À quoi se lie l’intégrine a6ß4 dans les hémidesmosomes ?", answer: "À la laminine de la lame basale," },
+{ question: "Quel type de liaison assurent les intégrines dans les hémidesmosomes ?", answer: "Liaison hétérophilique," },
+{ question: "Quel est le diamètre d’un hémidesmosome ?", answer: "0,1 à 0,5 µm," },
+{ question: "Quelle est la forme d’un hémidesmosome ?", answer: "Ponctiforme," },
+{ question: "Quelle protéine stabilise le complexe dans les hémidesmosomes ?", answer: "BPAG2," },
+{ question: "Quels filaments sont associés aux hémidesmosomes ?", answer: "Filaments intermédiaires," },
+{ question: "Quelles protéines intracytosoliques composent la plaque dense des hémidesmosomes ?", answer: "Plectine, BPAG1," },
+{ question: "À quoi les points de contact focaux assurent-ils une adhérence ?", answer: "À la matrice extracellulaire" },
+{ question: "Quelles 2 fonctions sont assurées par les points de contact focaux ?", answer: "Locomotion ou migration cellulaire," },
+{ question: "Quelle est la forme des points de contact focaux ?", answer: "Ponctiforme," },
+{ question: "Les points de contact focaux sont-ils restreints aux épithéliums ?", answer: "Non," },
+{ question: "Que déclenche un stimulus au niveau des points de contact focaux ?", answer: "Une réponse cytoplasmique aux facteurs de croissance," },
+{ question: "Par quoi s’effectue l’adhérence aux composants de la matrice dans les points de contact focaux ?", answer: "Par des clusters d’intégrines liés à la fibronectine," },
+{ question: "Quels filaments sont présents dans les points de contact focaux ?", answer: "Microfilaments d’actine," },
+{ question: "Comment les microfilaments d’actine sont-ils organisés dans les points de contact focaux ?", answer: "En fibres de stress," },
+{ question: "Avec quelle protéine les microfilaments d’actine s’associent-ils pour former des faisceaux ?", answer: "Avec l’a-actinine," },
+{ question: "Par quelles protéines les intégrines se lient-elles à la fibronectine dans les points de contact focaux ?", answer: "Par la taline et la vinculine," },
+];
+
+   
+	const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Biochimie Socle</span>
+                      <ul>
+                         <li><a href="../Biochimie_Socle/bioch1.html">Structure et propriétés des acides aminés</a></li>
+                        <li><a href="../Biochimie_Socle/bioch2.html">Structure et propriétés des protéines</a></li>
+                        <li><a href="../Biochimie_Socle/bioch3.html">Glucides: Monosaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch4.html">Glucides: Polysaccharides</a></li>
+                        <li><a href="../Biochimie_Socle/bioch5.html">Structure des lipides I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch6.html">Structure des lipides II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch7.html">Structure des lipides III</a></li>
+                        <li><a href="../Biochimie_Socle/bioch8.html">Cholestérol et acides biliaires</a></li>
+                        <li><a href="../Biochimie_Socle/bioch9.html">Bioénergétique I</a></li>
+                        <li><a href="../Biochimie_Socle/bioch10.html">Bioénergétique II</a></li>
+                        <li><a href="../Biochimie_Socle/bioch11.html">Enzymes et catalyseurs</a></li>
+                        <li><a href="../Biochimie_Socle/bioch12.html">Cinétique enzymatique</a></li>
+                        <li><a href="../Biochimie_Socle/bioch13.html">Structure du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch14.html">Organisation et expression du génome</a></li>
+                        <li><a href="../Biochimie_Socle/bioch15.html">Maturation de l'ARNm et traduction</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie App</span>
+                      <ul>
+                        <li><a href="../Biochimie_App/biochapp1.html">Propriétés physico-chimiques des protéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp2.html">Glycoconjugués - glycoprotéines</a></li>
+                        <li><a href="../Biochimie_App/biochapp3.html">Stéroïdes et digestion des lipides</a></li>
+                        <li><a href="../Biochimie_App/biochapp4.html">Stabilité et évolution du génome</a></li>
+                        <li><a href="../Biochimie_App/biochapp5.html">Réplication, maturation et réparation de l'ADN</a></li>
+                        <li><a href="../Biochimie_App/biochapp6.html">Phosphorylations oxydatives</a></li>
+                        <li><a href="../Biochimie_App/biochapp7.html">Cycle de Krebs</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                       <span class="opener">Biologie cellulaire</span>
+                      <ul>
+                         <li><a href="../Biologie_Cellulaire/biocell1.html">Introduction à la biologie cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell2.html">Techniques utilisées en biologie moléculaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell3.html">Membranes biologiques</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell4.html">Le cytosol</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell5.html">ADN - Cycle cellulaire - Mitose - Méiose</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell6.html">Régulation du cycle cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell7.html">Compartiments membranaires I</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell8.html">Compartiments membranaires II</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell9.html">Problèmes de compartimentation</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell10.html">Différenciation de la membrane plasmique</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell11.html">Chromatine et organisation fonctionnelle du noyau</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell12.html">Le cytosquelette</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell13.html">Molécules de surface et d'adhérence</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell14.html">Production d'énergie dans la cellule</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell15.html">La matrice extracellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell16.html">Communication cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell17.html">Différenciation cellulaire</a></li>
+                        <li><a href="../Biologie_Cellulaire/biocell18.html">L'apoptose</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS socle</span>
+                      <ul>
+                        <li><a href="../SHS_Socle/shs1.html">L'histoire du droit de la santé</a></li>
+                        <li><a href="../SHS_Socle/shs2.html">Science et médecine</a></li>
+                        <li><a href="../SHS_Socle/shs3.html">De la vulnerabilité au métissage</a></li>
+                        <li><a href="../SHS_Socle/shs4.html">Santé, sociologie et anthropologie</a></li>
+                        <li><a href="../SHS_Socle/shs5.html">Qu'est-ce que l'économie ?</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">SHS App</span>
+                      <ul>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie socle</span>
+                      <ul>
+                        <li><a href="../Anatomie_Socle/anat1.html">Organisation générale</a></li>
+                        <li><a href="../Anatomie_Socle/anat2.html">Ostéologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat3.html">Arthrologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat4.html">Myologie</a></li>
+                        <li><a href="../Anatomie_Socle/anat5.html">Le rachis</a></li>
+                        <li><a href="../Anatomie_Socle/anat6.html">Membre supérieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat7.html">Membre inférieur</a></li>
+                        <li><a href="../Anatomie_Socle/anat8.html">Cardiovasculaire et respiratoire</a></li>
+                        <li><a href="../Anatomie_Socle/anat9.html">Appareil digestif</a></li>
+                        <li><a href="../Anatomie_Socle/anat10.html">Région pelvienne</a></li>
+                        <li><a href="../Anatomie_Socle/anat11.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_Socle/anat12.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Anatomie App</span>
+                      <ul>
+                        <li><a href="../Anatomie_App/anatapp1.html">Rachis</a></li>
+                        <li><a href="../Anatomie_App/anatapp2.html">Epaule/Bras</a></li>
+                        <li><a href="../Anatomie_App/anatapp3.html">Avant bras/Main</a></li>
+                        <li><a href="../Anatomie_App/anatapp4.html">Hanche/Cuisse</a></li>
+                        <li><a href="../Anatomie_App/anatapp5.html">Jambe/Pied</a></li>
+                        <li><a href="../Anatomie_App/anatapp6.html">Appareil cardiovasculaire</a></li>
+                        <li><a href="../Anatomie_App/anatapp7.html">Appareil respiratoire</a></li>
+                        <li><a href="../Anatomie_App/anatapp8.html">Appareil digestif I</a></li>
+                        <li><a href="../Anatomie_App/anatapp9.html">Appareil digestif II</a></li>
+                        <li><a href="../Anatomie_App/anatapp10.html">Région pelvienne I (Haut)</a></li>
+                        <li><a href="../Anatomie_App/anatapp11.html">Région pelvienne II (Bas)</a></li>
+                        <li><a href="../Anatomie_App/anatapp12.html">Région cervicale</a></li>
+                        <li><a href="../Anatomie_App/anatapp13.html">Système nerveux</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie socle</span>
+                      <ul>
+                        <li><a href="../Chimie_Socle/chimie1.html">Nomenclature</a></li>
+                        <li><a href="../Chimie_Socle/chimie2.html">Stéréochimie</a></li>
+                        <li><a href="../Chimie_Socle/chimie3.html">Effets inductifs et mésomères</a></li>
+                        <li><a href="../Chimie_Socle/chimie4.html">Mécanismes réactionnels</a></li>
+                        <li><a href="../Chimie_Socle/chimie5.html">Les Alcènes</a></li>
+                        <li><a href="../Chimie_Socle/chimie6.html">Les Alcynes</a></li>
+                        <li><a href="../Chimie_Socle/chimie7.html">Fonctions monovalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie8.html">Fonctions divalentes</a></li>
+                        <li><a href="../Chimie_Socle/chimie9.html">Fonctions trivalentes</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Chimie App</span>
+                      <ul>
+                        <li><a href="../Chimie_App/chimieapp1.html">Thermodynamique</a></li>
+                        <li><a href="../Chimie_App/chimieapp2.html">Oxydoréduction</a></li>
+                        <li><a href="../Chimie_App/chimieapp3.html">Atomistique</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </nav>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

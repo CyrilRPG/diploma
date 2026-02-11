@@ -1,0 +1,1027 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>Biochimie</h1><h2>Mitochondrie</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header {
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Section contenu compacte en 2 colonnes */
+  header.main {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: 0.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    flex: 1;
+    margin: 0 !important;
+  }
+  
+  header.main h1 {
+    font-size: 2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  header.main h2 {
+    font-size: 1.3em !important;
+    color: #7f888f !important;
+  }
+  header.main .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.main .header-left h1,
+  header.main .header-left h2 {
+    margin: 0 !important;
+  }
+
+  
+  .image.main {
+    flex: 1;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image.main img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+  
+  section {
+    padding-top: 0 !important;
+  }
+
+  /* Barre de progression cohérente */
+  .progress-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00aeef;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+
+
+  /* Flashcards plein écran optimisées */
+  .flashcards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100vh - 250px);
+    padding: 1rem 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 1000px;
+    height: calc(100vh - 340px);
+    min-height: 450px;
+    perspective: 1500px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    transition: transform 0.6s;
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.show-answer .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .flashcard-front {
+    background-color: white;
+    color: #333;
+    box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15);
+  }
+
+  .flashcard-back {
+    background-color: #73C3EC;
+    color: white;
+    overflow: visible;
+    overflow: visible;
+    overflow: visible;
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5);
+    font-size: 2.2rem;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .flashcard-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+          /* Boutons repositionnés DANS flashcard-inner */
+  .check-icon,
+  .cross-icon,
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+    color: #888;
+    font-size: 20px;
+  }
+
+  .check-icon i {
+    pointer-events: none;
+  
+    transform: scaleX(-1);
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    color: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .check-icon {
+    top: 30px;
+    left: 30px;
+    left: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+      left: 35px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .cross-icon {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    right: 30px;
+    stroke: #888;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .favorite-icon {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: #888;
+    width: 30px;
+    height: 30px;
+    }
+
+  .favorite-icon.active {
+    fill: #ffd700;
+  }
+
+    .flashcard.show-answer .check-icon,
+  .flashcard.show-answer .cross-icon,
+  .flashcard.show-answer .favorite-icon {
+    display: flex !important;
+  }
+
+  body.dark-mode .check-icon,
+  body.dark-mode .cross-icon {
+    background: rgba(50, 50, 50, 0.95);
+    stroke: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark-mode .check-icon:hover {
+    background: rgba(40, 150, 40, 0.95);
+    stroke: #fff;
+  }
+
+  body.dark-mode .cross-icon:hover {
+    background: rgba(150, 40, 40, 0.95);
+    stroke: #fff;
+  }
+
+  .check-icon:hover {
+    stroke: #27ae60;
+    opacity: 1;
+  }
+
+  .cross-icon:hover {
+    stroke: #e74c3c;
+    opacity: 1;
+  }
+
+  .favorite-icon:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .slide-left {
+    animation: slideLeft 0.4s forwards;
+  }
+
+  .slide-right {
+    animation: slideRight 0.4s forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Dark mode support */
+  body.dark-mode .flashcard-front {
+    background-color: #2d3436;
+    color: #e2e8f0;
+  }
+
+  body.dark-mode .flashcard-inner {
+    background-color: #2d3436;
+  }
+
+  body.dark-mode .progress-container {
+    background-color: #34495e;
+    border-color: #4a5568;
+  }
+
+  @media screen and (max-width: 768px) {
+    .flashcard {
+      width: 95vw;
+      height: calc(100vh - 180px);
+      min-height: 450px;
+    }
+    
+    ul.actions {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+ 
+
+ <script>
+
+const flashcardsData =
+[
+  { question: 'Quel type d’organite est la mitochondrie ?', answer: 'Un organite original intracellulaire cytoplasmique.' },
+  { question: 'La mitochondrie est-elle en contact direct avec les autres organites ?', answer: 'Non, elle est isolée et indépendante.' },
+  { question: 'Quel génome possède la mitochondrie ?', answer: 'Un ADN mitochondrial.' },
+  { question: 'Combien de membranes possède la mitochondrie ?', answer: 'Deux membranes : une externe et une interne.' },
+  { question: 'Comment s’appelle l’intérieur de la mitochondrie ?', answer: 'La matrice mitochondriale.' },
+  { question: 'Quel est le rôle de l’espace intermembranaire ?', answer: 'Il joue un grand rôle dans le métabolisme énergétique.' },
+  { question: 'Quels organites utilisent l’O2 ?', answer: 'Les mitochondries et les peroxysomes.' },
+  { question: 'Quelle est la morphologie générale des mitochondries ?', answer: 'Hétérogène et changeante.' },
+  { question: 'Comment apparaissent les mitochondries en microscopie optique ?', answer: 'Comme des organites filamenteux ou arrondis.' },
+  { question: 'Quel marquage met en évidence l’ADN dans les cellules ?', answer: 'Le DAPI.' },
+  { question: 'Quel est la taille moyenne d’une mitochondrie ?', answer: 'Environ 0,1-0,5 × 1-2 µm.' },
+  { question: 'Quelles protéines caractérisent la membrane externe ?', answer: 'Les porines.' },
+  { question: 'Que laissent passer les porines ?', answer: 'Ions, nucléotides et petites molécules < 5 kDa.' },
+  { question: 'La membrane externe est-elle perméable ?', answer: 'Oui, relativement.' },
+  { question: 'Quelle structure forme la membrane interne ?', answer: 'Les crêtes mitochondriales.' },
+  { question: 'À quoi servent les crêtes mitochondriales ?', answer: 'Elles augmentent la surface membranaire interne.' },
+  { question: 'La membrane interne est-elle perméable aux ions ?', answer: 'Non, elle est imperméable aux ions et nucléotides.' },
+  { question: 'Pourquoi cette imperméabilité est-elle importante ?', answer: 'Pour le gradient ionique permettant la synthèse d’ATP.' },
+  { question: 'Que contient la matrice mitochondriale ?', answer: 'Des enzymes, l’ADNmt, ARNt, mitoribosomes.' },
+  { question: 'Quelles cellules ne possèdent pas de mitochondries ?', answer: 'Les globules rouges.' },
+  { question: 'Combien de mitochondries contient un ovocyte ?', answer: 'Environ 200 000 à 300 000.' },
+  { question: 'Combien de mitochondries contient un spermatozoïde ?', answer: 'Environ 50.' },
+  { question: 'Quel pourcentage du volume des bâtonnets rétiniens est occupé par les mitochondries ?', answer: '80%.' },
+  { question: 'Quel pourcentage du volume du myocyte cardiaque est occupé par les mitochondries ?', answer: '40%.' },
+  { question: 'Comment se déplacent les mitochondries ?', answer: 'Grâce aux microtubules.' },
+  { question: 'Quelles protéines assurent le transport antérograde ?', answer: 'Les kinésines.' },
+  { question: 'Quelles protéines assurent le transport rétrograde ?', answer: 'Les dynéines.' },
+  { question: 'Comment se renouvellent les mitochondries ?', answer: 'Par fission, il n’y a pas de génération de novo.' },
+  { question: 'Quel phénomène combine fission et fusion ?', answer: 'La dynamique mitochondriale.' },
+  { question: 'Quelles protéines G interviennent dans la dynamique mitochondriale ?', answer: 'Les dynamines.' },
+  { question: 'Quelle dynamine est recrutée pour la fission ?', answer: 'Drp1.' },
+  { question: 'Quelle protéine intervient après Drp1 pour la fission ?', answer: 'Dyn-2.' },
+  { question: 'Quelles protéines G interviennent dans la fusion de la membrane externe ?', answer: 'Les mitofusines.' },
+  { question: 'Quelle protéine est nécessaire à la fusion de la membrane interne ?', answer: 'OPA1.' },
+  { question: 'Quelle maladie résulte d’une mutation d’OPA1 ?', answer: 'L’atrophie optique.' },
+  { question: 'Quelle est la forme de l’ADN mitochondrial ?', answer: 'Circulaire, bicaténaire et sans histones.' },
+  { question: 'Quelle est la taille de l’ADN mitochondrial ?', answer: 'Environ 16,5 kb.' },
+  { question: 'Quelle proportion de l’ADN cellulaire total représente l’ADNmt ?', answer: 'Environ 1%.' },
+  { question: 'Combien de copies d’ADNmt par cellule peut-on trouver ?', answer: '1000 à 10 000 copies.' },
+  { question: 'Quel est le taux de mutation de l’ADNmt comparé à l’ADN nucléaire ?', answer: 'Environ 10 fois plus.' },
+  { question: 'L’ADNmt possède-t-il des introns ?', answer: 'Non.' },
+  { question: 'Combien de gènes code l’ADN mitochondrial ?', answer: '13 ARNm, 2 ARNr, 22 ARNt.' },
+  { question: 'Où sont traduits les ARNm mitochondriaux ?', answer: 'Dans la matrice, sur les mitoribosomes.' },
+  { question: 'Comment se transmet l’ADN mitochondrial ?', answer: 'Uniquement par la mère.' },
+  { question: 'Combien de mitochondries contient un ovocyte mature ?', answer: 'Plus de 100 000.' },
+  { question: 'Que deviennent les mitochondries du spermatozoïde après fécondation ?', answer: 'Elles sont dégradées.' },
+  { question: 'Qui transmet une maladie mitochondriale ?', answer: 'Une mère atteinte à tous ses enfants.' },
+  { question: 'Un homme atteint transmet-il la maladie mitochondriale ?', answer: 'Non.' },
+  { question: 'Combien de protéines mitochondriales sont codées par l’ADNmt ?', answer: '13.' },
+  { question: 'Combien sont codées par l’ADN nucléaire ?', answer: 'Plus de 1500.' },
+  { question: 'Quel complexe assure la translocation à travers la membrane externe ?', answer: 'Le complexe TOM.' },
+  { question: 'Quel complexe assure la translocation à travers la membrane interne ?', answer: 'Le complexe TIM.' },
+  { question: 'Quel enzyme clive le peptide signal des protéines importées ?', answer: 'La signal peptidase.' },
+  { question: 'Quelle est la molécule énergétique majeure de la cellule ?', answer: 'L’ATP.' },
+  { question: 'Combien d’ATP fabrique-t-on par jour ?', answer: 'Environ 1 kg par kg de poids corporel.' },
+  { question: 'Où se déroule la glycolyse ?', answer: 'Dans le cytosol.' },
+  { question: 'Quel pourcentage de l’ATP est produit par la mitochondrie ?', answer: 'Environ 90%.' },
+  { question: 'Quel scientifique a décrit la théorie chimio-osmotique ?', answer: 'Peter Mitchell.' },
+  { question: 'Quels coenzymes réduits alimentent la chaîne respiratoire ?', answer: 'NADH et FADH2.' },
+  { question: 'Quel est l’accepteur final des électrons de la chaîne respiratoire ?', answer: 'L’oxygène.' },
+  { question: 'Que forme l’oxygène après acceptation des électrons ?', answer: 'De l’eau.' },
+  { question: 'Quel complexe oxyde le NADH ?', answer: 'Le complexe I.' },
+  { question: 'Quel complexe oxyde le FADH2 ?', answer: 'Le complexe II.' },
+  { question: 'Quel complexe transmet les électrons au cytochrome C ?', answer: 'Le complexe III.' },
+  { question: 'Quel complexe transmet les électrons à l’oxygène ?', answer: 'Le complexe IV.' },
+  { question: 'Quel complexe synthétise l’ATP ?', answer: 'L’ATP synthase.' },
+  { question: 'Quel gradient permet la synthèse d’ATP ?', answer: 'Le gradient électrochimique de protons.' },
+  { question: 'Où les protons s’accumulent-ils lors du fonctionnement de la chaîne ?', answer: 'Dans l’espace intermembranaire.' },
+  { question: 'Qu’impose l’ordre des transporteurs d’électrons dans la chaîne respiratoire ?', answer: 'Le potentiel redox des couples d’oxydoréduction.' },
+  { question: 'Qu’est-ce que le potentiel redox ?', answer: 'Une mesure d’affinité d’un couple d’oxydoréduction pour les électrons.' },
+  { question: 'Que signifie un potentiel redox élevé ?', answer: 'Le couple a une affinité importante pour les électrons et est plus oxydant.' },
+  { question: 'Que signifie un potentiel redox bas ?', answer: 'Le couple est plus réducteur et perd des électrons.' },
+  { question: 'Quels couples ont un potentiel redox plus bas que Q/QH2 ?', answer: 'NAD+/NADH,H+ et FAD/FADH2.' },
+  { question: 'De quoi est constitué le NAD+ ?', answer: 'De deux nucléotides liés par une liaison anhydride phosphorique.' },
+  { question: 'Quel est le site de capture des électrons du NAD+ ?', answer: 'Le cycle de la nicotinamide.' },
+  { question: 'Combien d’électrons le NAD+ peut-il capter ?', answer: 'Deux électrons.' },
+  { question: 'Quelle est la forme réduite du NAD+ ?', answer: 'NADH,H+.' },
+  { question: 'Le NAD+/NADH,H+ traverse-t-il les membranes ?', answer: 'Non.' },
+  { question: 'Quels sont les deux pools de NAD+/NADH ?', answer: 'Le pool cytosolique et le pool mitochondrial.' },
+  { question: 'Quelle est la forme oxydée du FAD ?', answer: 'FAD.' },
+  { question: 'Quelle est sa forme réduite ?', answer: 'FADH2.' },
+  { question: 'De quelle vitamine dérive le FAD ?', answer: 'De la riboflavine (vitamine B2).' },
+  { question: 'À quels complexes le FADH2 est-il lié ?', answer: 'Aux flavoprotéines, notamment la succinate déshydrogénase (complexe II).' },
+  { question: 'Quel est le seul transporteur non protéique de la chaîne respiratoire ?', answer: 'Le coenzyme Q (ubiquinone).' },
+  { question: 'Sous quelle forme réduite se trouve le coenzyme Q ?', answer: 'Sous forme d’ubiquinol (QH2).' },
+  { question: 'Combien d’électrons QH2 peut-il transmettre ?', answer: 'Un seul électron à la fois.' },
+  { question: 'Quel transporteur monovalent intervient après Q ?', answer: 'Le cytochrome C.' },
+  { question: 'Quel élément de l’hème permet le transport d’un électron ?', answer: 'Le fer.' },
+  { question: 'Le cytochrome C est-il hydrosoluble ?', answer: 'Oui.' },
+  { question: 'Où chemine le cytochrome C ?', answer: 'Dans l’espace intermembranaire, du complexe III au complexe IV.' },
+  { question: 'Quel rôle joue le cytochrome C dans l’apoptose ?', answer: 'Il participe aux phénomènes de mort cellulaire programmée.' },
+  { question: 'Quels complexes produisent l’énergie nécessaire au pompage des protons ?', answer: 'Les complexes I, III et IV.' },
+  { question: 'Pourquoi ces complexes peuvent-ils pomper des protons ?', answer: 'Car ils réalisent des réactions d’oxydo-réduction avec un ΔE important.' },
+  { question: 'Quel gradient se forme dans l’espace intermembranaire ?', answer: 'Un gradient de pH et un gradient de voltage.' },
+  { question: 'Qu’est-ce que le gradient de protons permet ?', answer: 'Le fonctionnement de l’ATP synthase.' },
+  { question: 'Quelle est la réaction catalysée par l’ATP synthase ?', answer: 'ADP + Pi → ATP.' },
+  { question: 'Quel domaine de l’ATP synthase forme le canal à protons ?', answer: 'Le domaine F0.' },
+  { question: 'Quels sous-unités composent F1 ?', answer: 'Les sous-unités α, β, γ, ε.' },
+  { question: 'Quel mouvement active la catalyse de F1 ?', answer: 'La rotation du rotor sous l’effet du passage des protons.' },
+  { question: 'Quel transport assure l’ATP translocase ?', answer: 'L’antiport ATP/ADP.' },
+  { question: 'Comment entre le phosphate inorganique dans la matrice ?', answer: 'Par un symport utilisant le gradient de protons (phosphate translocase).' },
+  { question: 'Comment entre le pyruvate dans la mitochondrie ?', answer: 'Grâce à une translocase spécifique.' },
+  { question: 'Combien d’ATP produit l’oxydation d’un NADH ?', answer: '3 ATP.' },
+  { question: 'Combien d’ATP produit l’oxydation d’un FADH2 ?', answer: '2 ATP.' },
+  { question: 'Pourquoi le complexe II ne pompe-t-il pas de protons ?', answer: 'Car son ΔE avec Q est insuffisant.' },
+  { question: 'Quel inhibiteur bloque le complexe I ?', answer: 'La roténone.' },
+  { question: 'Quel inhibiteur bloque le complexe III ?', answer: 'L’antimycine.' },
+  { question: 'Quels inhibiteurs bloquent le complexe IV ?', answer: 'Le cyanure (CN) et le monoxyde de carbone (CO).' },
+  { question: 'Quelles sont les conséquences globales du blocage d’un complexe respiratoire ?', answer: 'Arrêt de la chaîne respiratoire, arrêt de la consommation d’O2, inhibition du cycle de Krebs et absence de production d’ATP.' },
+  { question: 'Quel inhibiteur bloque l’ATP synthase ?', answer: 'L’oligomycine.' },
+  { question: 'Pourquoi l’oligomycine bloque-t-elle le transport des électrons ?', answer: 'Car le gradient de protons n’est plus dissipé.' },
+  { question: 'Qu’est-ce qu’un agent découplant ?', answer: 'Une molécule qui rend la membrane interne perméable aux protons.' },
+  { question: 'Quel est l’exemple d’agent découplant donné ?', answer: 'Le dinitrophénol.' },
+  { question: 'Quelle est la conséquence principale d’un découplant ?', answer: 'Dissipation du gradient de protons.' },
+  { question: 'Pourquoi le dinitrophénol provoque-t-il une fièvre ?', answer: 'Car toute l’énergie oxydative est dissipée sous forme de chaleur.' },
+  { question: 'Qu’utilise la mitochondrie et que rejette-t-elle ?', answer: 'Elle utilise O2 et rejette CO2.' },
+  { question: 'Quel tissu utilise une protéine découplante physiologique ?', answer: 'Le tissu adipeux brun.' },
+  { question: 'Quel est le nom de cette protéine découplante ?', answer: 'UCP1 ou thermogénine.' },
+  { question: 'Que produit UCP1 ?', answer: 'De la chaleur en dissipant le gradient de protons.' },
+  { question: 'Quels autres rôles assurent les mitochondries ?', answer: 'Synthèse de stéroïdes, régulation du calcium, apoptose, production de ROS et vieillissement.' },
+  { question: 'D’où proviennent les mitochondries selon la théorie endosymbiotique ?', answer: 'D’une bactérie ancestrale incorporée par une cellule eucaryote primitive.' },
+  { question: 'Quelle preuve structurelle appuie la théorie endosymbiotique ?', answer: 'La double membrane mitochondriale provenant d’une endocytose.' },
+  { question: 'Quel métabolisme a permis l’avantage sélectif de cette endosymbiose ?', answer: 'Le métabolisme aérobie.' },
+  { question: 'La transmission mitochondriale suit-elle les lois mendéliennes ?', answer: 'Non, elle est strictement maternelle.' }
+]
+;
+    
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/" ).pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    // Texte simple
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    // Contenu image avec option caption
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  // Par défaut : rien
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+
+
+            const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+;
+;
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    `;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        // On fait tourner la carte : on la met 5 cartes plus loin
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+
+        const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+
+    btnContainer.appendChild(resetBtn);
+
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+
+    container.appendChild(endCard);
+
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+
+
+showCard(currentIndex);
+updateProgress();
+
+
+
+</script>
+
+
+
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<!-- Menu -->
+<!-- Menu -->
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="../favorites.html">Favoris</a></li>
+                    <li>
+                      <span class="opener">Anatomie</span>
+                      <ul>
+<li><a href="../Anatomie_Socle/anat1.html">Introduction à Lanatomie Générale</a></li>
+<li><a href="../Anatomie_Socle/anat2.html">Membre Superieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat3.html">Membre Supérieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat4.html">Membre Inferieur (Partie 1)</a></li>
+<li><a href="../Anatomie_Socle/anat5.html">Membre Inferieur (Partie 2)</a></li>
+<li><a href="../Anatomie_Socle/anat6.html">Introduction Au Systeme Nerveux</a></li>
+<li><a href="../Anatomie_Socle/anat7.html">Appareil Cardio-vasuculaire</a></li>
+<li><a href="../Anatomie_Socle/anat8.html">Appareil Respiratoire</a></li>
+<li><a href="../Anatomie_Socle/anat9.html">Organe des Sens</a></li>
+<li><a href="../Anatomie_Socle/anat10.html">Rachis</a></li>
+<li><a href="../Anatomie_Socle/anat11.html">Paroi du Tronc</a></li>
+<li><a href="../Anatomie_Socle/anat12.html">Appareild Digestif</a></li>
+<li><a href="../Anatomie_Socle/anat13.html">Appareil Genito Urinaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie cellulaire</span>
+                      <ul>
+<li><a href="../Biologie_Cellulaire/biocell1.html">Introduction Au Monde Vivant</a></li>
+<li><a href="../Biologie_Cellulaire/biocell2.html">Proprietes et Fonctions des Membranes</a></li>
+<li><a href="../Biologie_Cellulaire/biocell3.html">Cytosquelette</a></li>
+<li><a href="../Biologie_Cellulaire/biocell4.html">Le Noyau</a></li>
+<li><a href="../Biologie_Cellulaire/biocell5.html">Cycle Cellulaire Mitose (Partie 1)</a></li>
+<li><a href="../Biologie_Cellulaire/biocell6.html">Cycle Cellulaire</a></li>
+<li><a href="../Biologie_Cellulaire/biocell7.html">La Meiose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell8.html">Apoptose</a></li>
+<li><a href="../Biologie_Cellulaire/biocell9.html">Senescence</a></li>
+<li><a href="../Biologie_Cellulaire/biocell10.html">Jonctions</a></li>
+<li><a href="../Biologie_Cellulaire/biocell11.html">Systeme Endomembranaire</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biochimie</span>
+                      <ul>
+<li><a href="../Biochimie_Socle/bioch1.html">Biologie Moléculaire</a></li>
+<li><a href="../Biochimie_Socle/bioch2.html">Métabolisme Énergétique</a></li>
+<li><a href="../Biochimie_Socle/bioch3.html">Structure des Protéines</a></li>
+<li><a href="../Biochimie_Socle/bioch4.html">Stratégie D Étude</a></li>
+<li><a href="../Biochimie_Socle/bioch5.html">Transports de L Oxygène</a></li>
+<li><a href="../Biochimie_Socle/bioch6.html">Proteines Motrices</a></li>
+<li><a href="../Biochimie_Socle/bioch7.html">Glycogène Phosphorylase</a></li>
+<li><a href="../Biochimie_Socle/bioch8.html">Les Lipides</a></li>
+<li><a href="../Biochimie_Socle/bioch9.html">Les Glucides</a></li>
+<li><a href="../Biochimie_Socle/bioch10.html">Mitochondrie</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie du développement</span>
+                      <ul>
+<li><a href="../Biologie_Developpement/bdd1.html">Interactions Cellulaires (Partie 1)</a></li>
+<li><a href="../Biologie_Developpement/bdd2.html">Interactions Cellulaires (Partie 2)</a></li>
+<li><a href="../Biologie_Developpement/bdd3.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd4.html">Interactions Cellulaires et Développement</a></li>
+<li><a href="../Biologie_Developpement/bdd5.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd6.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd7.html">Developpement Humains</a></li>
+<li><a href="../Biologie_Developpement/bdd8.html">Cellules Souches</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Biologie de la reproduction</span>
+                      <ul>
+<li><a href="../Biologie_Reproduction/bdr1.html">Appareil Genital Masculin</a></li>
+<li><a href="../Biologie_Reproduction/bdr2.html">La Spermatogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr3.html">Appareil Genital Feminin</a></li>
+<li><a href="../Biologie_Reproduction/bdr4.html">Ovogenèse</a></li>
+<li><a href="../Biologie_Reproduction/bdr5.html">Fecondation</a></li>
+<li><a href="../Biologie_Reproduction/bdr6.html">1ere et 2eme Semaine de Developpement</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="opener">Histologie</span>
+                      <ul>
+<li><a href="../Histologie/hist1.html">Introduction à L Histologie</a></li>
+<li><a href="../Histologie/hist2.html">Ephotelium de Revetement</a></li>
+<li><a href="../Histologie/hist3.html">Ephitelium Glandulaires</a></li>
+<li><a href="../Histologie/hist4.html">Tissu Conjonctif</a></li>
+<li><a href="../Histologie/hist5.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist6.html">Tissu Cartilagineux</a></li>
+<li><a href="../Histologie/hist7.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist8.html">Tissu Musculaire</a></li>
+<li><a href="../Histologie/hist9.html">Sang et Cellules Sanguines</a></li>
+<li><a href="../Histologie/hist10.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist11.html">Tissu Nerveux</a></li>
+<li><a href="../Histologie/hist12.html">Tissu Nerveux</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+<!-- Footer -->
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>
