@@ -68,17 +68,28 @@
 <div class="flashcards-container" id="flashcards"></div>
 
 <script>
-const favs = JSON.parse(localStorage.getItem("flashcard_favorites") || "[]");
-const flashcardsData = favs;
+let flashcardsData = getFavorites();
 
 const container = document.getElementById("flashcards");
 const progressBar = document.getElementById("progressBar");
-const originalData = [...flashcardsData];
+let originalData = [...flashcardsData];
 let flashcards = [...originalData];
 const pageId = "favorites_upec_lsps1_s2";
 const progressKey = "progress_" + pageId;
 let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
 if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function reloadFavorites() {
+  flashcardsData = getFavorites();
+  originalData = [...flashcardsData];
+  flashcards = [...originalData];
+  if (currentIndex >= originalData.length) {
+    currentIndex = Math.max(0, originalData.length - 1);
+    localStorage.setItem(progressKey, currentIndex);
+  }
+  showCard(currentIndex);
+  updateProgress();
+}
 
 function updateProgress() {
   const total = originalData.length;
