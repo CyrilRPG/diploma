@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Introduction à l'éthique médicale</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS - Éthique et droit</h1><h2>Introduction à l'éthique médicale (FC2)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData = [
+  { question: "Quand et où le concept de bioéthique est-il né ?", answer: "Au milieu des années 1970 aux États-Unis, puis étendu aux pays industrialisés et au monde entier." },
+  { question: "Quels sont les 3 facteurs clés d'apparition de la bioéthique dans les années 1960 ?", answer: "1) Innovations biomédicales (dialyse, respirateurs, greffes, FIV)\n2) Développement rapide de la génétique\n3) Inquiétudes de la société face au pouvoir des médecins et revendications des droits des patients" },
+  { question: "Quelle rupture fondamentale marque la bioéthique par rapport à l'éthique médicale ancienne ?", answer: "Rupture avec une relation asymétrique : le patient ignorant devait se plier aux directives paternalistes du médecin." },
+  { question: "Qu'est-ce que le corpus hippocratique ?", answer: "Groupe hétérogène d'environ 60 traités (Ve-IVe s. av. J.-C.), rédigés par plusieurs médecins ; base de l'éthique médicale traditionnelle occidentale." },
+  { question: "Quel est le statut du Serment d'Hippocrate ?", answer: "Engagement rituel et professionnel ; ce n'est pas un texte juridique, politique ou philosophique. Prononcé devant ses pairs et les dieux." },
+  { question: "Quelles sont les 4 exigences majeures du Serment d'Hippocrate ?", answer: "1) Bienfaisance thérapeutique\n2) Non-malfaisance (Primum non nocere)\n3) Contrôle moral du pouvoir médical (pas d'abus de vulnérabilité)\n4) Secret médical" },
+  { question: "Comment est structurée la relation médecin-patient dans l'éthique hippocratique ?", answer: "Asymétrie fondamentale : supériorité épistémique du médecin (savoir), patient ignorant ; asymétrie morale ; paternalisme assumé. Le patient est objet de soin, pas sujet de droit." },
+  { question: "Quelles sont les limites de la médecine hippocratique ?", answer: "Techné à visée exclusivement thérapeutique. Pas d'amélioration de l'espèce, pas de santé publique, pas d'expérimentation sur l'humain. Régulation interne sans contrôle institutionnel externe." },
+  { question: "Pourquoi le modèle hippocratique est-il insuffisant pour la modernité ?", answer: "Manque : autonomie, droits des patients, pluralisme moral, articulation avec le droit. La bioéthique naît quand l'éthique médicale cesse d'être l'affaire exclusive des médecins." },
+  { question: "Quelles objections majeures sur le Serment concernent le paternalisme ?", answer: "En modernité démocratique le patient est un agent moral autonome ; agir contre sa volonté pour son bien n'est plus acceptable." },
+  { question: "Qu'est-ce que le problème de l'absence de consentement dans le Serment ?", answer: "Il ne parle pas de consentement ni d'information due au patient, pas de droit de refus de soins." },
+  { question: "En quoi le Serment est-il inadéquat techniquement ?", answer: "Médecine face-à-face et purement thérapeutique ; ne traite pas de la recherche, essais cliniques, biobanques, IA, génétique." },
+  { question: "Pourquoi le Serment n'aborde-t-il pas la justice distributive ?", answer: "Il est aveugle à la rareté des ressources (ex. dialyse coûteuse) et au fait que le bien médical est aussi institutionnel et politique." },
+  { question: "Qu'apporte le christianisme à l'éthique médicale ?", answer: "Nouveau statut de la vie : don de Dieu ; pas de propriété absolue du corps. Introduction de la médecine grecque dans un paradigme théologique." },
+  { question: "Quels sont les 3 interdits fondamentaux posés par Saint Augustin (354-430) ?", answer: "1) Interdiction du suicide\n2) Interdiction de l'homicide\n3) La fin ne justifie jamais les moyens (actes intrinsèquement mauvais). Condamnation de l'euthanasie et du mensonge." },
+  { question: "Qu'est-ce que la doctrine du double effet (Saint Thomas d'Aquin) ?", answer: "Doctrine évaluant la moralité d'un acte ayant 2 effets : un bon recherché et un mauvais secondaire. Ex. légitime défense : se défendre (bon), tuer l'agresseur (effet secondaire)." },
+  { question: "Quelles sont les 4 conditions cumulatives de validité du double effet ?", answer: "1) Acte principal bon ou moralement indifférent\n2) Effet mauvais non voulu, seulement prévu\n3) Effet bon non produit par l'effet mauvais (qui ne doit pas être un moyen)\n4) Proportionnalité entre effet bon visé et effet mauvais toléré" },
+  { question: "Quel choc fondateur marque la 1ère moitié du XXe siècle pour la bioéthique ?", answer: "Les crimes médicaux nazis : rupture structurelle, profession médicale impliquée dans son ensemble ; expérimentations institutionnalisées, financées par l'État, validées par des universités." },
+  { question: "Quels types d'expérimentations monstrueuses sont citées (Nuremberg) ?", answer: "Hypothermie, décompression, injection de maladies (typhus, malaria), poisons, greffes/amputations sans anesthésie, stérilisations de masse, euthanasie des handicapés, recherches raciales pseudo-scientifiques." },
+  { question: "Qu'est-ce que le Code de Nuremberg (1947) ?", answer: "Texte rédigé après le procès de Nuremberg (23 accusés du corps médical) ; ancêtre de la bioéthique moderne. Passage d'une éthique des vertus à une éthique des droits." },
+  { question: "Quelles sont les innovations majeures du Code de Nuremberg ?", answer: "Consentement volontaire (condition absolue), reconnaissance du sujet comme agent moral, limitation morale de la science, proportionnalité risques/bénéfices, responsabilité personnelle du chercheur, droit d'interrompre l'expérience." },
+  { question: "Pourquoi le Code de Nuremberg a-t-il été peu appliqué dans les démocraties (années 1950) ?", answer: "Argument de l'exception : le code ne s'appliquait qu'aux « barbares nazis » ; les institutions ne se sentaient pas visées. Illusion de supériorité morale." },
+  { question: "Quelles sont les limites intrinsèques du Code de Nuremberg ?", answer: "Condition nécessaire mais non suffisante. Se focalise sur l'expérimentation et la recherche ; ne traite pas de la médecine ordinaire, de la justice distributive ni des inégalités structurelles." },
+  { question: "Résumez le scandale de Tuskegee (1932-1972).", answer: "Étude US (Alabama) : observation de l'évolution de la syphilis non traitée pendant 40 ans sur 600 hommes afro-américains ; pas d'information, pas de pénicilline délibérément. Racisme, instrumentalisation des corps. Révélation années 1970 → Commission Belmont." },
+  { question: "Quel est le cas Willowbrook (1956-1971) ?", answer: "Établissement pour enfants handicapés (Staten Island). Injection volontaire du virus de l'hépatite pour étudier la maladie. Consentement des parents obtenu sous pression (condition d'admission)." },
+  { question: "Quel est le scandale du Jewish Chronic Disease Hospital (1963) ?", answer: "Injection de cellules cancéreuses vivantes à des patients âgés vulnérables ; ils croyaient subir un test cutané. Consentement non éclairé, tromperie." },
+  { question: "Qu'est-ce que la Déclaration d'Helsinki (1964) ?", answer: "Par l'Association Médicale Mondiale. Standard éthique international pour la profession ; meilleure distinction recherche / protection des participants. Zones grises encore présentes." },
+  { question: "Qu'est-ce que le Rapport Belmont (1979) ?", answer: "Par la Commission Belmont (réaction à Tuskegee). Naissance officielle de la bioéthique moderne. 3 principes : Autonomie, Bienfaisance, Justice." },
+  { question: "Quels sont les 3 principes du Rapport Belmont ?", answer: "1) Autonomie : respect des personnes, consentement, protection des vulnérables\n2) Bienfaisance : maximiser bénéfices, minimiser risques\n3) Justice : répartition équitable des risques et bénéfices (réponse à Tuskegee)." },
+  { question: "Qu'est-ce que les IRB (Institutional Review Boards) ?", answer: "Comités d'éthique de la recherche créés après le Rapport Belmont ; évaluer, autoriser, modifier ou refuser les projets avant mise en œuvre. Généralisation après 1979." },
+  { question: "Quel rôle joue l'innovation technologique dans l'émergence de la bioéthique ?", answer: "Révolution biomédicale années 1960-70 : dialyse, respirateurs, greffes, FIV, génétique. Situations inédites forçant des décisions (ex. quand meurt-on ?, à qui appartient le corps ?)." },
+  { question: "Quel est le problème de la rareté initiale (ex. dialyse) ?", answer: "Nouveau dispositif très coûteux et très rare → question de justice distributive : qui va bénéficier de ces traitements vitaux ?" },
+  { question: "Qu'est-ce que le Comité de Seattle (1962) ?", answer: "Comité pour sélectionner les patients ayant accès aux premières machines de dialyse (ressource rare) ; décide qui vit et qui meurt. Médecins + société civile (avocats, pasteurs, infirmiers)." },
+  { question: "Quel problème pose la composition et les critères du Comité de Seattle ?", answer: "Qui est légitime pour décider ? Critères controversés (ex. activité sociale ou religieuse) ; critique sur la valeur sociale des personnes. Surnommé « God Committee »." },
+  { question: "Quand et pourquoi le CCNE a-t-il été créé (France) ?", answer: "1983. Premier comité national d'éthique en Europe. Rôle consultatif, non normatif : donne des avis." },
+  { question: "Quelle est la chronologie institutionnelle française en bioéthique ?", answer: "1983 : CCNE\n1994 : premières lois de bioéthique (corps humain, don d'organes, AMP, DPN)\n2004 : révision majeure (recherche sur l'embryon, Agence de la biomédecine)\nRévisions 2011, 2018, 2021." },
+  { question: "Quel dilemme pose le prélèvement d'organes sur le vivant ?", answer: "Sans consentement : inacceptable. Avec consentement : pression possible (ex. prisonniers, remise de peine contre un rein). Refus du sacrifice total même volontaire." },
+  { question: "Pourquoi prélèver sur le mort pour la greffe ? Contrainte physiologique ?", answer: "Organe greffable doit être irrigué (circulation sanguine oxygénée) jusqu'au prélèvement ; le donneur doit respirer et avoir le cœur qui bat." },
+  { question: "Quelle était la définition de la mort en 1949 (OMS) ?", answer: "Arrêt cardio-respiratoire définitif. Problème pour la greffe : attendre l'arrêt du cœur rend l'organe impropre ; si le cœur bat, le patient est vivant → prélèvement = homicide." },
+  { question: "Qu'est-ce que la mort cérébrale (1968) ?", answer: "Redéfinition utilitariste (USA et France, pression des transplanteurs). Mort = destruction définitive des hémisphères cérébraux supérieurs (plus de conscience, plus de personne). Tronc cérébral peut être fonctionnel, corps maintenu par ventilation." },
+  { question: "Qui a inventé le mot « bioéthique » et en quel sens originel ?", answer: "Van Rensselaer Potter (1971), ouvrage Bioethics: Bridge to the Future. Sens originel : éthique de la vie en général dans la biosphère (écologique, environnementale), pas d'abord éthique médicale." },
+  { question: "Quel détournement sémantique a subi le terme bioéthique ?", answer: "Peu utilisé au sens écologique ; capturé par l'éthique biomédicale (problèmes cliniques et de recherche). Clivage : éthique environnementale vs éthique biomédicale." },
+  { question: "Qu'est-ce que le concept « One Health » ?", answer: "Courant récent (renforcé ces 5 dernières années) : penser la santé humaine avec celle des animaux, des plantes et de l'environnement. Réconciliation entre héritage écologique de Potter et bioéthique médicale." },
+  { question: "Dans quel contexte politique naît la bioéthique moderne ?", answer: "Démocraties libérales occidentales (USA puis monde). Sociétés pluralistes : conceptions du bien divergentes ; nécessité d'un cœur d'accord pour réguler sans nier le pluralisme. Fin de l'illusion du consensus moral absolu." },
+  { question: "Quel est l'ouvrage fondateur du principisme et qui en sont les auteurs ?", answer: "Principles of Biomedical Ethics (Principes d'éthique biomédicale), Beauchamp et Childress (Georgetown), 1979 — même année que le Rapport Belmont. Livre le plus célèbre de la bioéthique." },
+  { question: "Quels sont les 4 principes du principisme (Beauchamp et Childress) ?", answer: "1) Non-malfaisance (Primum non nocere)\n2) Bienfaisance\n3) Autonomie (consentement, directives anticipées)\n4) Justice (distribution équitable des ressources)" },
+  { question: "Quelle est l'ambition du modèle des 4 principes ?", answer: "Proposer des principes universels et consensuels ; indépendants des dogmes (ni catholiques, ni marxistes, ni kantiens) ; acceptables par tous dans une société pluraliste." },
+  { question: "Y a-t-il une hiérarchie entre les 4 principes ?", answer: "Non. Tous au même niveau normatif. En cas de conflit (ex. autonomie vs bienfaisance), le système ne donne pas la solution automatiquement." },
+  { question: "Qu'est-ce que la « Common Morality » et quelle critique lui est adressée ?", answer: "Beauchamp et Childress affirment que les principes dérivent d'une moralité commune. Critique : biais culturel occidental (autonomie typiquement libérale) ; contradiction avec le pluralisme." },
+  { question: "Que signifient « principes prima facie » ?", answer: "Les principes ne sont que des repères à première vue ; pas de réponse automatique. Nécessité de spécification (traduire en règle concrète) et d'équilibrage (gérer les conflits entre principes)." },
+  { question: "Qu'est-ce que le « Mantra de Georgetown » ?", answer: "Critique virulente : le principisme répète les 4 principes mécaniquement comme une formule magique sans réflexion réelle ; utilisation pour justifier a posteriori des décisions prises pour d'autres raisons." },
+  { question: "Quel est le bilan du principisme malgré les critiques ?", answer: "Reste le point de repère central de la bioéthique mondiale (hôpitaux, comités, politiques publiques), malgré 40 ans de critiques." },
+  { question: "Qu'est-ce que la techné en médecine hippocratique ?", answer: "Art rationnel à visée exclusivement thérapeutique. Pas d'expérimentation contrôlée sur l'humain." },
+  { question: "Quelles sanctions existaient dans la médecine hippocratique ?", answer: "Symboliques (déshonneur), religieuses ou sociales ; pas de tribunaux ni comités externes." },
+  { question: "Quelle objection féministe est faite au Serment ?", answer: "Reflète un monde masculin, patriarcal et hiérarchique ; pose l'autorité masculine (contrôle de la reproduction et des corps)." },
+  { question: "En quoi l'éthique de la vertu est-elle jugée « institutionnellement naïve » ?", answer: "Décrit la vertu du médecin sans code précis d'actes permis/interdits ; manque de contrôle externe ; besoin moderne de régulation par le droit et les comités." },
+  { question: "Application médicale du double effet : ablation utérus cancéreux et fœtus ?", answer: "Ablation de l'utérus cancéreux entraînant la mort non voulue du fœtus : acte bon ou indifférent, effet mauvais prévu mais non voulu, proportionnalité." },
+  { question: "Application du double effet en soins palliatifs ?", answer: "Injection d'antalgiques pour soulager la douleur avec risque d'accélérer la mort : effet bon recherché, effet mauvais toléré, proportionnalité." },
+  { question: "Quel chef d'accusation inédit au procès de Nuremberg pour les médecins ?", answer: "Crime contre l'humanité. Première fois que des médecins sont jugés comme criminels de masse." },
+  { question: "Qui a révélé le scandale de Tuskegee et quelles suites ?", answer: "Peter Buxtun (début années 1970). Excuses officielles Bill Clinton 1997 ; Hillary Clinton 2010 pour étude similaire au Guatemala." },
+  { question: "Quel problème pose le consentement par représentation (Willowbrook) ?", answer: "Peut-on consentir à la place d'un enfant vulnérable pour une expérience sans bénéfice thérapeutique direct ?" },
+  { question: "Quelles autres révélations d'abus (USA) sont citées ?", answer: "Années 1990 : expérimentations concernant les radiations sur des populations américaines. La bioéthique naît aussi des abus des démocraties." },
+  { question: "Quelles nouvelles questions éthiques pose la révolution biomédicale ?", answer: "Quand meurt-on ? À qui appartient le corps ? Frontière thérapie / amélioration en génétique ?" },
+  { question: "Pourquoi le Comité de Seattle est-il surnommé « God Committee » ?", answer: "Il décide de la vie et de la mort (qui a accès à la dialyse). Vague de réactions universitaires (philosophie, théologie, médecine)." },
+  { question: "Que prévoient les lois de bioéthique françaises de 1994 ?", answer: "Respect du corps humain, don d'organes, assistance médicale à la procréation, diagnostic prénatal ; révision périodique prévue." },
+  { question: "Quelle conséquence éthique de la redéfinition de la mort (1968) ?", answer: "Patient légalement mort tout en étant biologiquement vivant → prélèvement éthique d'organes possible. Innovation technique forçant la société à changer sa définition et à convoquer une réflexion bioéthique." },
+  { question: "Qu'est-ce que la spécification (principisme) ?", answer: "Traduire un principe général en règle concrète. Ex. : Autonomie → règle du consentement." },
+  { question: "Qu'est-ce que l'équilibrage ou pondération (principisme) ?", answer: "Gérer les conflits entre principes. Ex. : quand la bienfaisance contredit l'autonomie. Difficulté : qui tranche et au nom de quoi ?" },
+  { question: "Quel principe hippocratique est directement hérité dans le principisme ?", answer: "Non-malfaisance (Primum non nocere) : ne pas faire de mal, ne pas causer de torts (ex. euthanasie)." },
+  { question: "En quoi le principe d'autonomie est-il une « grande révolution » par rapport à l'antiquité ?", answer: "Reconnaissance du patient comme agent moral et sujet de droit (consentement libre et éclairé, directives anticipées)." },
+  { question: "Le principe de justice traite-t-il de la médecine individuelle ?", answer: "Non. Il traite de la question sociale et politique : distribution équitable des ressources médicales rares." },
+  { question: "Quel sens originel Potter donnait-il à la bioéthique ?", answer: "Survie de la biosphère, biodiversité ; vision écologique et environnementale, pas d'abord éthique médicale." },
+  { question: "Donnez un exemple de réconciliation One Health.", answer: "Impact des pesticides ou de la perte de biodiversité sur la santé humaine ; penser santé humaine, animale, végétale et environnement ensemble." },
+  { question: "Quelle asymétrie fonde l'éthique hippocratique ?", answer: "Supériorité épistémique (médecin = savoir des causes et remèdes ; patient = ignorant) ; cette inégalité de savoir fonde une inégalité morale." },
+  { question: "Le médecin hippocratique peut-il agir contre la volonté du patient ?", answer: "Oui. Paternalisme assumé : le médecin agit pour le bien du patient même contre sa volonté si nécessaire ; le patient ne choisit pas, ne discute pas, ne donne pas de consentement." },
+  { question: "Quel rôle joue le corps du patient dans l'éthique hippocratique ?", answer: "Corps confié au médecin comme à un artisan compétent ; le patient est objet de soin, pas sujet de droit." },
+  { question: "Quels 3 facteurs économiques/éthiques sont liés aux innovations des années 1960 ?", answer: "Dispositifs coûteux et rares (dialyse, respirateurs, greffes, FIV) ; question : qui va en bénéficier ? (économique et éthique)." },
+  { question: "Quelle frontière floue soulève la génétique (années 1960) ?", answer: "Frontière floue entre thérapie et amélioration ; questionnements sur dépistage et traitements génétiques." },
+  { question: "Quelle revendication des patients émerge dans les années 1960 ?", answer: "Volonté de participer aux décisions les concernant ; droits des patients." },
+  { question: "Quel droit fondamental du sujet le Code de Nuremberg reconnaît-il ?", answer: "Droit d'interrompre l'expérience à tout moment." },
+  { question: "Quelle responsabilité le Code de Nuremberg assigne-t-il au chercheur ?", answer: "Responsabilité personnelle du chercheur." },
+  { question: "Qu'apporte la Déclaration d'Helsinki par rapport à Nuremberg ?", answer: "S'adresse à la communauté médicale mondiale (pas qu'à un tribunal) ; meilleure distinction protocoles de recherche / protection des participants." },
+  { question: "Quel principe du Rapport Belmont répond directement à Tuskegee ?", answer: "Justice : répartition équitable des risques et des bénéfices (réponse à la sélection raciste)." },
+  { question: "Quelle fonction ont les IRB après 1979 ?", answer: "Contrôler la recherche impliquant des sujets humains ; évaluer, autoriser, modifier ou refuser les projets avant mise en œuvre." },
+  { question: "Qui décide de la vie ou de la mort dans le Comité de Seattle ?", answer: "La décision ne dépend plus exclusivement des médecins : médecins + avocats, pasteurs, infirmiers, etc." },
+  { question: "Quel critère de sélection du Comité de Seattle est controversé ?", answer: "L'activité sociale ou religieuse (ex. être actif dans sa paroisse) → critique sur la valeur sociale des personnes." },
+  { question: "Que crée la révision de 2004 des lois de bioéthique (France) ?", answer: "Recherche sur l'embryon ; création de l'Agence de la biomédecine." },
+  { question: "Pourquoi le prélèvement sur cadavre (cœur arrêté) pose-t-il problème pour la greffe ?", answer: "L'organe n'est plus oxygéné → impropre à la greffe. Il faut un donneur dont le cœur bat et qui respire (donc définition de la mort modifiée)." },
+  { question: "Qu'est-ce que la mort « philosophique ou technique » (1968) ?", answer: "Destruction définitive des hémisphères cérébraux supérieurs : plus de conscience, plus de personne. Le tronc cérébral peut être fonctionnel, corps maintenu par ventilation." },
+  { question: "Quel clivage historique existe entre deux champs d'éthique ?", answer: "Éthique environnementale (vie sur Terre) vs éthique biomédicale (santé humaine), pendant des décennies." },
+  { question: "Quel défi pose le pluralisme pour la régulation de la médecine ?", answer: "Conceptions du bien divergentes (religieuses, athées, philosophiques) ; désaccords légitimes ; nécessité de trouver un cœur d'accord sans nier la pluralité." },
+  { question: "Les 4 principes sont-ils hiérarchisés chez Beauchamp et Childress ?", answer: "Non. Aucune hiérarchie ; tous au même niveau normatif." },
+  { question: "Quelle critique sur la transposabilité du principe d'autonomie ?", answer: "Typiquement occidental et libéral ; difficilement transposable dans des cultures où la communauté ou la famille prime sur l'individu (ex. Asie, Afrique)." },
+  { question: "Qu'est-ce que la régulation d'éthique publique ?", answer: "En contexte pluraliste : fin de l'illusion du consensus moral absolu ; il faut une régulation qui trouve un cœur d'accord pour réguler la médecine." },
+  { question: "Quel rôle le CCNE a-t-il (normatif ou consultatif) ?", answer: "Consultatif, non normatif : il donne des avis, ne crée pas de normes juridiques." },
+  { question: "Quelle différence entre éthique des vertus (Hippocrate) et éthique des droits (Nuremberg) ?", answer: "Hippocrate : vertu du médecin, pas de droits du patient. Nuremberg : consentement, sujet comme agent moral, droits fondamentaux." },
+  { question: "Pourquoi les démocraties des années 1950 ne se sentaient-elles pas liées par le Code de Nuremberg ?", answer: "Estimation que le code ne s'appliquait qu'aux « barbares nazis » ; les institutions médicales ne se sentaient pas visées." },
+  { question: "Quel type de consentement à Willowbrook et quel problème ?", answer: "Consentement des parents obtenu sous pression institutionnelle (condition d'admission). Problème du consentement par représentation pour une expérience sans bénéfice direct." },
+  { question: "Quelle tromperie au Jewish Chronic Disease Hospital ?", answer: "Les patients croyaient subir un simple test cutané dermatologique ; en réalité injection de cellules cancéreuses vivantes." },
+  { question: "Quel problème de justice distributive illustre la dialyse (Seattle) ?", answer: "Ressource rare et coûteuse : qui va bénéficier du traitement ? Décision de vie ou de mort ; critères de sélection controversés." },
+  { question: "Quelle évolution de la définition de la mort en 1968 (USA et France) ?", answer: "En quelques mois, sous pression des transplanteurs : passage de la mort cardio-respiratoire à la mort cérébrale (destruction des hémisphères cérébraux supérieurs)." },
+  { question: "Quelle critique sur la « moralité commune » et le pluralisme ?", answer: "Société pluraliste ≠ moralité commune ; affirmer une moralité commune partagée par tous contredit l'idée de pluralisme." },
+  { question: "Qui tranche en cas de conflit entre principes (ex. autonomie vs bienfaisance) ?", answer: "Le système des 4 principes ne donne pas la solution ; il faut spécification et équilibrage. Difficulté : qui tranche et au nom de quoi ?" }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Physiologie</span>
+<ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+</ul>
+</li>
+<li><span class="opener">Anatomie</span>
+<ul>
+<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+</ul>
+</li>
+<li><span class="opener">Biophysique</span>
+<ul>
+<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+<li><a href="../Biophysique/fc6.html">ECG</a></li>
+<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+</ul>
+</li>
+<li><span class="opener">Pharmacologie</span>
+<ul>
+<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+</ul>
+</li>
+<li><span class="opener">Biostatistiques</span>
+<ul>
+<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDS Biologie</span>
+<ul>
+<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDL IGHL</span>
+<ul>
+<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+</ul>
+</li>
+<li><span class="opener">SHS</span>
+<ul>
+<li><span class="opener">Santé numérique</span>
+<ul>
+<li><a href="definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+<li><a href="outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+<li><a href="traitement_donnees_sante.html">Traitement des données de santé</a></li>
+</ul>
+</li>
+<li><span class="opener">Éthique et droit</span>
+<ul>
+<li><a href="introduction_droit_sante.html">Introduction au droit de la santé</a></li>
+<li><a href="introduction_ethique_medicale.html">Introduction à l'éthique médicale (FC2)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<footer id="footer"><p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p></footer>
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>
