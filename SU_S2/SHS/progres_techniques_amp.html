@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Progrès techniques et AMP</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS - Éthique et droit</h1><h2>Progrès techniques et AMP (FC4)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData = [
+  { question: "Qu'est-ce que la procr\u00e9ation au sens biologique ?", answer: "La fusion de deux gam\u00e8tes (ovocyte + spermatozo\u00efde) aboutissant \u00e0 un zygote contenant deux pronucl\u00e9i (maternel et paternel)." },
+  { question: "Quels sont les organes de l'appareil reproducteur f\u00e9minin impliqu\u00e9s dans la reproduction ?", answer: "Col de l'ut\u00e9rus (glaire cervicale), ut\u00e9rus (endom\u00e8tre), trompes de Fallope et ovaires (contenant les follicules)." },
+  { question: "Quelle est la dur\u00e9e du cycle menstruel normal et quelles en sont les phases ?", answer: "28 jours.\n1) Phase folliculaire (FSH, recrutement du follicule dominant)\n2) Ovulation\n3) Phase lut\u00e9ale (corps jaune, progest\u00e9rone)\n4) Si pas de grossesse : r\u00e8gles + remont\u00e9e de la FSH." },
+  { question: "Quel est le r\u00f4le de la FSH dans le cycle menstruel ?", answer: "La FSH (hormone folliculo-stimulante) permet le recrutement et la maturation du follicule dominant pendant la phase folliculaire." },
+  { question: "Quel est le r\u00f4le du corps jaune apr\u00e8s l'ovulation ?", answer: "Le corps jaune s\u00e9cr\u00e8te de la progest\u00e9rone pendant la phase lut\u00e9ale pour pr\u00e9parer l'endom\u00e8tre \u00e0 l'implantation de l'embryon." },
+  { question: "Combien d'ovocytes une femme poss\u00e8de-t-elle \u00e0 diff\u00e9rents stades de sa vie ?", answer: "6 millions \u00e0 6 mois in utero\n1 million \u00e0 la naissance\n400 000 \u00e0 la pubert\u00e9\n0 \u00e0 la m\u00e9nopause (~51 ans)" },
+  { question: "Le stock ovocytaire est-il renouvelable ?", answer: "Non, le stock ovocytaire est non renouvelable. Il diminue continuellement de la vie intra-ut\u00e9rine jusqu'\u00e0 la m\u00e9nopause." },
+  { question: "Comment \u00e9volue la qualit\u00e9 des ovocytes avec l'\u00e2ge ?", answer: "D\u00e9clin qualitatif progressif : 70% d'ovocytes normaux \u00e0 30 ans, seulement 30% \u00e0 40 ans." },
+  { question: "Quels risques sont associ\u00e9s \u00e0 l'\u00e2ge paternel avanc\u00e9 (>50 ans) ?", answer: "Baisse significative de la fertilit\u00e9 + risques accrus de :\n- Fausse couche\n- Trisomie 21\n- Schizophr\u00e9nie\n- Autisme" },
+  { question: "O\u00f9 a lieu la f\u00e9condation naturelle ?", answer: "Dans le tiers externe (ampoule) de la trompe de Fallope." },
+  { question: "Quelles sont les \u00e9tapes du d\u00e9veloppement embryonnaire pr\u00e9coce apr\u00e8s f\u00e9condation ?", answer: "F\u00e9condation \u2192 morula \u2192 blastocyste \u2192 implantation dans l'endom\u00e8tre \u00e0 J7." },
+  { question: "Quels sont les pr\u00e9requis pour une f\u00e9condation naturelle ?", answer: "1) Ovulation de qualit\u00e9\n2) Trompes saines et perm\u00e9ables\n3) Sperme de qualit\u00e9 suffisante" },
+  { question: "Quels facteurs peuvent endommager les trompes de Fallope ?", answer: "IST (notamment Chlamydia), endom\u00e9triose, p\u00e9ritonite et chirurgie pelvienne." },
+  { question: "Quelle est la d\u00e9finition de la fertilit\u00e9 ?", answer: "Aptitude \u00e0 obtenir une grossesse." },
+  { question: "Quelle est la d\u00e9finition de l'infertilit\u00e9 selon l'OMS ?", answer: "Absence de grossesse apr\u00e8s 12 mois de rapports sexuels r\u00e9guliers sans contraception, chez une femme de 18 \u00e0 45 ans." },
+  { question: "Quelle est la diff\u00e9rence entre infertilit\u00e9 et st\u00e9rilit\u00e9 ?", answer: "Infertilit\u00e9 : difficult\u00e9 \u00e0 concevoir (potentiellement r\u00e9versible).\nSt\u00e9rilit\u00e9 : incapacit\u00e9 totale et irr\u00e9versible de concevoir (ex. azoospermie totale, absence d'ut\u00e9rus, \u00e9chec de toutes les techniques)." },
+  { question: "Quelle est la f\u00e9condabilit\u00e9 \u00e0 25 ans et \u00e0 37 ans ?", answer: "25% par cycle \u00e0 25 ans.\n12% par cycle \u00e0 37 ans." },
+  { question: "Quelle est la r\u00e9partition des causes d'infertilit\u00e9 dans un couple ?", answer: "30% cause masculine\n30% cause f\u00e9minine\n30% cause mixte\n10% idiopathique (inexpliq\u00e9e)" },
+  { question: "Quel est le facteur majeur d'infertilit\u00e9 f\u00e9minine ?", answer: "L'\u00e2ge : diminution rapide de la fertilit\u00e9 apr\u00e8s 35 ans, avec seulement 8% de chance par cycle apr\u00e8s 40 ans." },
+  { question: "Quelle est la premi\u00e8re cause de trouble de l'ovulation ?", answer: "Le SOPK (syndrome des ovaires polykystiques), qui touche 10 \u00e0 15% des femmes." },
+  { question: "Quelle est l'autre origine possible des troubles de l'ovulation ?", answer: "L'origine centrale hypothalamo-hypophysaire (d\u00e9faut de s\u00e9cr\u00e9tion de FSH/LH)." },
+  { question: "Quelle est la proportion du facteur tubo-p\u00e9riton\u00e9al dans l'infertilit\u00e9 f\u00e9minine ?", answer: "10 \u00e0 25% des cas. Causes principales : IST \u00e0 Chlamydia et endom\u00e9triose." },
+  { question: "Quel pourcentage des femmes inferiles pr\u00e9sentent une endom\u00e9triose ?", answer: "Environ 50% des femmes infertiles pr\u00e9sentent une endom\u00e9triose." },
+  { question: "Quels facteurs ut\u00e9rins peuvent causer l'infertilit\u00e9 ?", answer: "Fibromes ut\u00e9rins, ad\u00e9nomyose (diminution de 30% de l'implantation) et syn\u00e9chies (adh\u00e9rences intra-ut\u00e9rines)." },
+  { question: "Quelles sont les causes obstructives d'infertilit\u00e9 masculine ?", answer: "Trajet des spermatozo\u00efdes bloqu\u00e9 par : infections, ag\u00e9n\u00e9sie des canaux d\u00e9f\u00e9rents (li\u00e9e \u00e0 la mucoviscidose)." },
+  { question: "Quelles sont les causes non obstructives d'infertilit\u00e9 masculine ?", answer: "Microd\u00e9l\u00e9tions du chromosome Y, cryptorchidie, varicocele, cancer du testicule." },
+  { question: "Quel est l'effet du cannabis, tabac et alcool sur la fertilit\u00e9 masculine ?", answer: "Effet toxique sur la spermatogen\u00e8se. Exemple : 2 verres de vin par jour peuvent entra\u00eener une azoospermie r\u00e9versible en 3 \u00e0 6 mois apr\u00e8s arr\u00eat." },
+  { question: "Quel effet a la chaleur sur la fertilit\u00e9 masculine ?", answer: "La chaleur est un facteur toxique pour la spermatogen\u00e8se (les testicules n\u00e9cessitent une temp\u00e9rature inf\u00e9rieure \u00e0 celle du corps)." },
+  { question: "Quand ont eu lieu les premi\u00e8res FIV chez le lapin ?", answer: "Entre 1954 et 1959." },
+  { question: "Quand la cong\u00e9lation de spermatozo\u00efdes a-t-elle \u00e9t\u00e9 r\u00e9alis\u00e9e pour la premi\u00e8re fois ?", answer: "En 1960." },
+  { question: "Quand et o\u00f9 les premi\u00e8res banques de sperme ont-elles \u00e9t\u00e9 cr\u00e9\u00e9es ?", answer: "En 1963 aux \u00c9tats-Unis et au Japon." },
+  { question: "Qui a r\u00e9alis\u00e9 les premiers essais de FIV humaine et quand ?", answer: "Robert Edwards en 1970. Il a re\u00e7u le prix Nobel de m\u00e9decine en 2010." },
+  { question: "Quand a eu lieu la premi\u00e8re cong\u00e9lation d'embryons de souris ?", answer: "En 1972." },
+  { question: "Qu'est-ce que le CECOS et quand le premier a-t-il \u00e9t\u00e9 cr\u00e9\u00e9 ?", answer: "Centre d'\u00c9tude et de Conservation des \u0152ufs et du Sperme humains. Premier CECOS cr\u00e9\u00e9 en 1973 \u00e0 Bic\u00eatre par le Pr Georges David. Banque de sperme de Necker par le Pr Albert Netter la m\u00eame ann\u00e9e." },
+  { question: "Qui est Louise Brown et quelle est sa date de naissance ?", answer: "Premier b\u00e9b\u00e9 n\u00e9 par FIV, le 25 juillet 1978, \u00e0 Oldham (Royaume-Uni), par Edwards et Steptoe." },
+  { question: "Qui est Amandine et quelle est sa date de naissance ?", answer: "Premier b\u00e9b\u00e9 FIV fran\u00e7ais, n\u00e9e le 24 f\u00e9vrier 1982 \u00e0 l'h\u00f4pital Antoine-B\u00e9cl\u00e8re de Clamart, par Testart et Frydman." },
+  { question: "Quand a eu lieu la premi\u00e8re grossesse par don d'ovocytes et o\u00f9 ?", answer: "En 1983 en Australie." },
+  { question: "Qui est Zo\u00e9 dans l'histoire de l'AMP ?", answer: "Premier b\u00e9b\u00e9 n\u00e9 d'un embryon congel\u00e9, en 1984 en Australie." },
+  { question: "O\u00f9 et quand l'ICSI a-t-elle \u00e9t\u00e9 d\u00e9velopp\u00e9e ?", answer: "D\u00e9but en 1986 \u00e0 Bruxelles par Palermo, Devroey et Van Steirteghem. Premier enfant n\u00e9 par ICSI en 1992 en Belgique." },
+  { question: "Quand est n\u00e9 le premier b\u00e9b\u00e9 ICSI en France ?", answer: "Le 22 avril 1994." },
+  { question: "Quand ont \u00e9t\u00e9 adopt\u00e9es les premi\u00e8res lois de bio\u00e9thique en France ?", answer: "En 1994." },
+  { question: "Quelles sont les dates des lois de bio\u00e9thique fran\u00e7aises ?", answer: "1994 (premi\u00e8res lois)\n2004 (1\u00e8re r\u00e9vision)\n2011 (2\u00e8me r\u00e9vision)\n2021 (3\u00e8me r\u00e9vision)\nProchaine pr\u00e9vue ~2028" },
+  { question: "Quels \u00e9taient les crit\u00e8res d'acc\u00e8s \u00e0 l'AMP selon la loi de 1994 ?", answer: "Exclusivement r\u00e9serv\u00e9e aux couples h\u00e9t\u00e9rosexuels, vivants, mari\u00e9s ou avec 2 ans de vie commune minimum." },
+  { question: "Qu'est-ce que la loi de 1994 interdisait en mati\u00e8re d'AMP ?", answer: "Acc\u00e8s aux couples homosexuels, femmes seules, femmes m\u00e9nopaus\u00e9es.\nAMP post-mortem, GPA, clonage." },
+  { question: "Quels principes fondamentaux la loi de 1994 posait-elle ?", answer: "1) Indisponibilit\u00e9 du corps humain\n2) Protection de l'embryon\n3) Anonymat du don\n4) Gratuit\u00e9 du don" },
+  { question: "Qu'est-ce qu'Adam Nash et pourquoi est-il c\u00e9l\u00e8bre ?", answer: "Premier b\u00e9b\u00e9-m\u00e9dicament, n\u00e9 le 5 octobre 2000 aux USA. S\u00e9lectionn\u00e9 par DPI pour \u00eatre compatible HLA avec sa s\u0153ur atteinte d'an\u00e9mie de Fanconi." },
+  { question: "Qui est Valentin dans l'histoire du DPI en France ?", answer: "Premier b\u00e9b\u00e9 n\u00e9 par DPI en France, le 13 novembre 2000, par les \u00e9quipes de Frydman, Munnich et Vekemans." },
+  { question: "Quand le DPI a-t-il \u00e9t\u00e9 autoris\u00e9 en France ?", answer: "Le 20 juillet 1999." },
+  { question: "Quels sont les apports de la loi de bio\u00e9thique de 2004 ?", answer: "1) L'AMP vise \u00e0 pallier une infertilit\u00e9 pathologique\n2) \u00c9viter la transmission d'une maladie grave\n3) Confirmation du DPI\n4) Introduction de la pr\u00e9servation de fertilit\u00e9 pour motif m\u00e9dical" },
+  { question: "Quels sont les apports majeurs de la loi de bio\u00e9thique de 2011 ?", answer: "1) Autorisation de la vitrification ovocytaire et embryonnaire\n2) Suppression du d\u00e9lai de 2 ans de vie commune\n3) Interdiction des doubles dons" },
+  { question: "Qu'est-ce que la vitrification et quel est son avantage ?", answer: "Technique de cong\u00e9lation ultra-rapide \u00e0 -196\u00b0C (azote liquide). Am\u00e9liore le taux de survie des ovocytes/embryons de 60% \u00e0 90%." },
+  { question: "Pourquoi la loi de 2021 est-elle consid\u00e9r\u00e9e comme une rupture majeure ?", answer: "Elle ouvre l'AMP aux couples de femmes et aux femmes seules, fond\u00e9e sur le projet parental et non plus seulement l'infertilit\u00e9 m\u00e9dicale." },
+  { question: "Quelles sont toutes les nouveaut\u00e9s de la loi de bio\u00e9thique de 2021 ?", answer: "1) Ouverture couples femmes + femmes seules\n2) Projet parental (plus seulement infertilit\u00e9)\n3) Autoconservation soci\u00e9tale des gam\u00e8tes\n4) Fin de l'anonymat irr\u00e9versible (acc\u00e8s \u00e0 majorit\u00e9)\n5) Double don autoris\u00e9\n6) RCA obligatoire pour couples femmes" },
+  { question: "Que signifie la fin de l'anonymat irr\u00e9versible (loi 2021) ?", answer: "Les enfants n\u00e9s d'un don peuvent acc\u00e9der \u00e0 l'identit\u00e9 du donneur \u00e0 leur majorit\u00e9." },
+  { question: "Qu'est-ce que la RCA et pour qui est-elle obligatoire ?", answer: "La Reconnaissance Conjointe Anticip\u00e9e. Elle est obligatoire pour les couples de femmes ayant recours \u00e0 l'AMP (loi 2021)." },
+  { question: "Quelles sont les limites d'\u00e2ge pour l'AMP selon le d\u00e9cret du 29/09/2021 ?", answer: "Femme : ponction ovocytaire <43 ans, ins\u00e9mination/transfert <45 ans.\nHomme : recueil de sperme <60 ans." },
+  { question: "En quoi consiste l'ins\u00e9mination artificielle ?", answer: "Technique la plus l\u00e9g\u00e8re d'AMP : optimiser la rencontre des gam\u00e8tes dans la trompe apr\u00e8s stimulation ovarienne l\u00e9g\u00e8re et pr\u00e9paration du sperme." },
+  { question: "Quel est le pr\u00e9requis en spermatozo\u00efdes pour l'ins\u00e9mination artificielle ?", answer: "Au minimum 1 million de spermatozo\u00efdes mobiles (NSMI \u22651M)." },
+  { question: "Quel est le taux de succ\u00e8s de l'ins\u00e9mination artificielle ?", answer: "15% de grossesse par cycle et 10% d'accouchement par cycle." },
+  { question: "Quelles sont les indications de l'IAD (ins\u00e9mination avec donneur) ?", answer: "St\u00e9rilit\u00e9 masculine ou risque de transmission d'une maladie g\u00e9n\u00e9tique. Don gratuit et anonyme." },
+  { question: "Quelles sont les conditions pour \u00eatre donneur de sperme ?", answer: "\u00c2ge entre 18 et 44 ans. Don gratuit et anonyme. Maximum 10 naissances par donneur." },
+  { question: "Quelle est la diff\u00e9rence entre FIV classique et ICSI ?", answer: "FIV classique : 10 000 \u00e0 60 000 spermatozo\u00efdes mis autour de l'ovocyte (NSMI >1M).\nICSI : injection d'un seul spermatozo\u00efde directement dans l'ovocyte (si NSMI <1M)." },
+  { question: "Quel est le taux de f\u00e9condation en FIV classique ?", answer: "Environ 60% des ovocytes sont f\u00e9cond\u00e9s." },
+  { question: "Quelle est l'indication principale de l'ICSI ?", answer: "Les infertilit\u00e9s masculines s\u00e9v\u00e8res, lorsque le NSMI (nombre de spermatozo\u00efdes mobiles ins\u00e9min\u00e9s) est inf\u00e9rieur \u00e0 1 million." },
+  { question: "D\u00e9crivez les stades de d\u00e9veloppement embryonnaire en culture.", answer: "J1 : zygote (2 pronucl\u00e9i)\nJ2 : 4 cellules\nJ3 : 8 cellules\nJ5 : blastocyste (masse cellulaire interne + trophectoderme)" },
+  { question: "Quel est le taux de tests de grossesse positifs apr\u00e8s transfert \u00e0 J5 (blastocyste) ?", answer: "Environ 46%." },
+  { question: "Comment se d\u00e9roule le transfert embryonnaire ?", answer: "Single embryo transfer (un seul embryon), sans anesth\u00e9sie, \u00e0 l'aide d'un cath\u00e9ter ins\u00e9r\u00e9 dans l'ut\u00e9rus." },
+  { question: "Quelles sont les 3 options pour les embryons surnuméraires en fin de projet parental ?", answer: "1) Don \u00e0 un autre couple\n2) Don \u00e0 la recherche scientifique\n3) Arr\u00eat de la conservation (destruction)\nNote : le TEC post-mortem est interdit en France." },
+  { question: "Quelles sont les conditions pour le don d'ovocytes ?", answer: "Gratuit, anonyme et volontaire. Donneuse \u00e2g\u00e9e de 18 \u00e0 37 ans. Maximum 2 cycles de stimulation." },
+  { question: "Comment sont conserv\u00e9s les ovocytes/embryons vitrifi\u00e9s ?", answer: "Par vitrification (autoris\u00e9e depuis 2011) dans des paillettes plong\u00e9es dans de l'azote liquide \u00e0 -196\u00b0C." },
+  { question: "L'AMP est-elle rembours\u00e9e par la S\u00e9curit\u00e9 sociale en France ?", answer: "Oui, couverture \u00e0 100% par la S\u00e9curit\u00e9 sociale." },
+  { question: "Quelles sont les limites de prise en charge par la S\u00e9curit\u00e9 sociale ?", answer: "Femme <43 ans.\nMaximum 6 ins\u00e9minations.\nMaximum 4 FIV/ICSI.\nRemise \u00e0 z\u00e9ro si un enfant na\u00eet vivant." },
+  { question: "Quel est le co\u00fbt moyen d'une ins\u00e9mination artificielle et d'une FIV/ICSI ?", answer: "Ins\u00e9mination : ~1 500\u20ac\nFIV/ICSI : ~5 500\u20ac" },
+  { question: "Combien de naissances par an en France et quelle proportion par AMP ?", answer: "~700 000 naissances/an en France.\n~25 000 enfants (3%) naissent par AMP.\n~70 000 ponctions ovocytaires/an." },
+  { question: "Quel pourcentage de couples est concern\u00e9 par l'hypof\u00e9rtilit\u00e9 en France ?", answer: "15% des couples sont concern\u00e9s par l'hypof\u00e9rtilit\u00e9." },
+  { question: "Quelle est la r\u00e9partition des naissances AMP par technique ?", answer: "TEC (transfert d'embryon congel\u00e9) : 48%\nIns\u00e9mination : 21%\nICSI : 21%\nFIV classique : 10%" },
+  { question: "Quel est le taux moyen d'accouchement par transfert en FIV/ICSI ?", answer: "25% en moyenne. Varie selon l'\u00e2ge : 13-18% chez les <30 ans, 4% \u00e0 40 ans." },
+  { question: "Quelle particularit\u00e9 de la France concernant la cong\u00e9lation ovocytaire soci\u00e9tale ?", answer: "La France est le seul pays \u00e0 rembourser int\u00e9gralement la cong\u00e9lation d'ovocytes pour motif soci\u00e9tal (autoconservation). Moins de 10% des femmes r\u00e9utilisent leurs ovocytes congel\u00e9s." },
+  { question: "Qu'est-ce que le DPI (Diagnostic Pr\u00e9-Implantatoire) ?", answer: "Analyse g\u00e9n\u00e9tique d'une cellule (blastom\u00e8re) pr\u00e9lev\u00e9e sur l'embryon avant transfert, pour d\u00e9tecter une anomalie g\u00e9n\u00e9tique pr\u00e9cise. Autoris\u00e9 en France depuis 1999, dans 6 centres." },
+  { question: "Combien de centres pratiquent le DPI en France ?", answer: "6 centres." },
+  { question: "Combien d'anomalies g\u00e9n\u00e9tiques peut-on rechercher par DPI en France ?", answer: "Une seule anomalie \u00e0 la fois (celle connue dans la famille)." },
+  { question: "Qu'est-ce que le DPI-A et pourquoi fait-il d\u00e9bat ?", answer: "DPI-A = criblage chromosomique (an\u00e9uplo\u00efdies) sans maladie parentale connue. D\u00e9bat pr\u00e9vu pour la r\u00e9vision ~2028. Chez les femmes >38 ans, 70-80% des embryons sont chromosomiquement anormaux." },
+  { question: "Le clonage est-il autoris\u00e9 en France ?", answer: "Non. Le clonage reproductif ET le clonage th\u00e9rapeutique sont tous deux interdits depuis la loi de 2004." },
+  { question: "Qu'est-ce que la m\u00e9thode ROPA ?", answer: "R\u00e9ception d'Ovocytes de la PArtenaire. Dans un couple de femmes, l'une donne ses ovocytes et l'autre porte la grossesse. Revendiqu\u00e9e par des associations mais interdite en France (consid\u00e9r\u00e9e comme un don dirig\u00e9)." },
+  { question: "Pourquoi la m\u00e9thode ROPA est-elle interdite en France ?", answer: "Car elle est assimil\u00e9e \u00e0 un don dirig\u00e9 (don d'ovocytes \u00e0 une personne d\u00e9sign\u00e9e), ce qui est contraire au principe d'anonymat du don." },
+  { question: "La GPA est-elle autoris\u00e9e en France ?", answer: "Non. La gestation pour autrui (GPA) est interdite en France depuis la loi de 1994." },
+  { question: "L'AMP post-mortem est-elle autoris\u00e9e en France ?", answer: "Non. L'AMP post-mortem (utilisation des gam\u00e8tes ou embryons d'un conjoint d\u00e9c\u00e9d\u00e9) est interdite en France." },
+  { question: "Qu'est-ce que le Plan Fertilit\u00e9 en France ?", answer: "Plan national comprenant :\n1) \u00c9ducation des jeunes sur la fertilit\u00e9\n2) Lutte contre les facteurs de risque d'infertilit\u00e9\n3) Pr\u00e9vention" },
+  { question: "Apr\u00e8s combien de temps de rapports sans grossesse faut-il consulter ?", answer: "Apr\u00e8s 12 mois de rapports r\u00e9guliers sans contraception.\nApr\u00e8s 6 mois si la femme a plus de 35 ans." },
+  { question: "Quel est le message cl\u00e9 sur le facteur n\u00b01 d'infertilit\u00e9 ?", answer: "L'\u00e2ge est le facteur num\u00e9ro 1 d'infertilit\u00e9, tant chez la femme (d\u00e9clin quantitatif et qualitatif du stock ovocytaire) que chez l'homme (d\u00e9clin apr\u00e8s 40-50 ans)." },
+  { question: "Combien de temps avant la conception faut-il arr\u00eater les toxiques ?", answer: "Au moins 3 mois avant la conception (cannabis, tabac, alcool)." },
+  { question: "Quelle est la structure du blastocyste \u00e0 J5 ?", answer: "Le blastocyste est compos\u00e9 de :\n1) La masse cellulaire interne (futur embryon)\n2) Le trophectoderme (futur placenta)" },
+  { question: "Qu'est-ce que le « single embryo transfer » ?", answer: "Politique de transfert d'un seul embryon \u00e0 la fois pour \u00e9viter les grossesses multiples (r\u00e9duit les risques obst\u00e9tricaux)." },
+  { question: "Quels questionnements \u00e9thiques majeurs soul\u00e8ve l'AMP ?", answer: "GPA, m\u00e9thode ROPA, AMP post-mortem, don d'ovocytes/sperme, anonymat des donneurs, b\u00e9b\u00e9-m\u00e9dicament, DPI-A, autoconservation soci\u00e9tale, acc\u00e8s aux origines." },
+  { question: "Qu'est-ce que l'autoconservation soci\u00e9tale des gam\u00e8tes ?", answer: "Possibilit\u00e9 offerte depuis la loi de 2021 de cong\u00e9ler ses ovocytes ou spermatozo\u00efdes sans motif m\u00e9dical, pour pr\u00e9server sa fertilit\u00e9 future." },
+  { question: "Quelle diff\u00e9rence entre pr\u00e9servation de fertilit\u00e9 m\u00e9dicale et soci\u00e9tale ?", answer: "M\u00e9dicale (depuis 2004) : avant un traitement gonadotoxique (chimio, radio).\nSoci\u00e9tale (depuis 2021) : choix personnel sans motif m\u00e9dical, pour diff\u00e9rer la maternit\u00e9/paternit\u00e9." },
+  { question: "Qu'est-ce que l'an\u00e9mie de Fanconi dans le contexte du DPI ?", answer: "Maladie g\u00e9n\u00e9tique rare pour laquelle Adam Nash (2000) a \u00e9t\u00e9 le premier b\u00e9b\u00e9-m\u00e9dicament s\u00e9lectionn\u00e9 par DPI pour \u00eatre compatible HLA et donner des cellules souches \u00e0 sa s\u0153ur malade." },
+  { question: "Qu'est-ce que l'ag\u00e9n\u00e9sie bilat\u00e9rale des canaux d\u00e9f\u00e9rents et \u00e0 quelle maladie est-elle li\u00e9e ?", answer: "Absence cong\u00e9nitale des canaux d\u00e9f\u00e9rents, entra\u00eenant une infertilit\u00e9 obstructive. Li\u00e9e \u00e0 la mucoviscidose (mutation du g\u00e8ne CFTR)." },
+  { question: "Quelle IST est la principale cause d'atteinte tubaire ?", answer: "Chlamydia trachomatis. C'est la principale cause infectieuse d'infertilit\u00e9 tubaire (obstruction des trompes)." },
+  { question: "Quel pourcentage de chance par cycle une femme de 40 ans a-t-elle naturellement et combien d'embryons sont anormaux apr\u00e8s 38 ans ?", answer: "~8% de chance de grossesse par cycle \u00e0 40 ans (vs 25% \u00e0 25 ans).\n70 \u00e0 80% des embryons sont chromosomiquement anormaux (aneuplo\u00efdes) apr\u00e8s 38 ans." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Physiologie</span>
+<ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+</ul>
+</li>
+<li><span class="opener">Anatomie</span>
+<ul>
+<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+</ul>
+</li>
+<li><span class="opener">Biophysique</span>
+<ul>
+<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+<li><a href="../Biophysique/fc6.html">ECG</a></li>
+<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+</ul>
+</li>
+<li><span class="opener">Pharmacologie</span>
+<ul>
+<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+</ul>
+</li>
+<li><span class="opener">Biostatistiques</span>
+<ul>
+<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDS Biologie</span>
+<ul>
+<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDL IGHL</span>
+<ul>
+<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+</ul>
+</li>
+<li><span class="opener">SHS</span>
+<ul>
+<li><span class="opener">Santé numérique</span>
+<ul>
+<li><a href="definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+<li><a href="outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+<li><a href="traitement_donnees_sante.html">Traitement des données de santé</a></li>
+</ul>
+</li>
+<li><span class="opener">Éthique et droit</span>
+<ul>
+<li><a href="introduction_droit_sante.html">Introduction au droit de la santé</a></li>
+<li><a href="introduction_ethique_medicale.html">Introduction à l'éthique médicale (FC2)</a></li>
+<li><a href="principisme_fin_de_vie.html">Principisme et fin de vie (FC3)</a></li>
+<li><a href="progres_techniques_amp.html">Progrès techniques et AMP (FC4)</a></li>
+</ul>
+</li>
+<li><span class="opener">Psychologie médicale</span>
+<ul>
+<li><a href="emotion_comportement.html">Émotion et comportement (FC8)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<footer id="footer"><p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p></footer>
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

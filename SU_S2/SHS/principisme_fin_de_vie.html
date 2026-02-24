@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Principisme et fin de vie</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS - Éthique et droit</h1><h2>Principisme et fin de vie (FC3)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData = [
+  { question: "Quand le principisme est-il apparu ?", answer: "Au milieu des ann\u00e9es 1970, en rupture avec l\u2019\u00e9thique m\u00e9dicale traditionnelle (hippocratique et paternaliste)." },
+  { question: "Quel est l\u2019ouvrage fondateur du principisme et qui en sont les auteurs ?", answer: "Principles of Biomedical Ethics (Principes d\u2019\u00e9thique biom\u00e9dicale), par Tom Beauchamp et James Childress, publi\u00e9 en 1979 \u00e0 Georgetown." },
+  { question: "Quels sont les 4 principes du principisme ?", answer: "1) Non-malfaisance\n2) Bienfaisance\n3) Autonomie\n4) Justice" },
+  { question: "Existe-t-il une hi\u00e9rarchie entre les 4 principes du principisme ?", answer: "Non. Les 4 principes sont au m\u00eame niveau normatif ; aucun ne prime sur les autres." },
+  { question: "Qu\u2019est-ce que la sp\u00e9cification dans le principisme ?", answer: "C\u2019est le travail de traduire un principe g\u00e9n\u00e9ral en r\u00e8gle pratique concr\u00e8te. Ex : autonomie \u2192 r\u00e8gle du consentement \u00e9clair\u00e9." },
+  { question: "Qu\u2019est-ce que l\u2019\u00e9quilibrage (ponderation) dans le principisme ?", answer: "C\u2019est le travail de d\u00e9terminer la force respective de chaque principe selon le cas concret, quand les principes entrent en conflit." },
+  { question: "Qui d\u00e9cide de l\u2019\u00e9quilibrage entre principes en cas de conflit ?", answer: "Le d\u00e9cisionnaire n\u2019est pas d\u00e9fini par le principisme : cela peut \u00eatre un comit\u00e9 d\u2019\u00e9thique, le m\u00e9decin, la famille, etc." },
+  { question: "Depuis quand le principisme est-il le courant dominant de la bio\u00e9thique ?", answer: "Depuis 1979, c\u2019est le courant le plus c\u00e9l\u00e8bre et le plus impactant de la bio\u00e9thique mondiale." },
+  { question: "Quand les critiques majeures du principisme ont-elles commenc\u00e9 ?", answer: "D\u00e8s les ann\u00e9es 1980, avec des critiques consid\u00e9rables sur plusieurs fronts." },
+  { question: "Quelle est la critique de la moralit\u00e9 commune / pluralisme adress\u00e9e au principisme ?", answer: "Les principes refletent les id\u00e9es des d\u00e9mocraties lib\u00e9rales ; il n\u2019existe pas de communaut\u00e9s partageant r\u00e9ellement les m\u00eames valeurs morales." },
+  { question: "Quelle est la critique d\u2019universalisme / biais culturel du principisme ?", answer: "Le principe d\u2019autonomie est une valeur occidentale. Dans des cultures non occidentales (Asie, Afrique), la famille ou la communaut\u00e9 prime sur l\u2019individu. Des bio\u00e9thiciens chinois et japonais contestent cette universalit\u00e9." },
+  { question: "Quelle est la critique f\u00e9ministe / \u00e9thique du Care du principisme ?", answer: "Les principes sont trop abstraits et oublient la sollicitude (care), les \u00e9motions (compassion, empathie) et la r\u00e9ponse aux personnes vuln\u00e9rables." },
+  { question: "Qu\u2019est-ce que le \u00ab Mantra de Georgetown \u00bb ?", answer: "Critique m\u00e9thodologique / d\u00e9cisionniste : les 4 principes sont r\u00e9p\u00e9t\u00e9s comme une incantation magique, et la d\u00e9cision est prise arbitrairement puis justifi\u00e9e a posteriori (rationalisation)." },
+  { question: "Que reproche la critique m\u00e9thodologique au principisme concernant la prise de d\u00e9cision ?", answer: "Le d\u00e9cisionnisme : la d\u00e9cision est prise d\u2019abord de mani\u00e8re arbitraire, puis les principes sont utilis\u00e9s pour la justifier a posteriori = rationalisation." },
+  { question: "Qui \u00e9tait Vincent Humbert ?", answer: "Pompier volontaire de 19 ans, victim d\u2019un accident de la route le 24/09/2000. Apr\u00e8s 9 mois de coma au CHU de Rouen puis \u00e0 Berck : t\u00e9trapl\u00e9gique, muet, aveugle, mais facult\u00e9s intellectuelles conserv\u00e9es." },
+  { question: "Quel \u00e9tait le seul mouvement conserv\u00e9 par Vincent Humbert ?", answer: "Le pouce droit, avec lequel il communiquait." },
+  { question: "Quelle d\u00e9marche Vincent Humbert a-t-il entreprise en novembre 2002 ?", answer: "Il a \u00e9crit une lettre au pr\u00e9sident Jacques Chirac pour demander le droit de mourir." },
+  { question: "Quelle a \u00e9t\u00e9 la r\u00e9ponse de Jacques Chirac \u00e0 la lettre de Vincent Humbert ?", answer: "Chirac a r\u00e9pondu qu\u2019il ne pouvait pas enfreindre la loi." },
+  { question: "Que s\u2019est-il pass\u00e9 le 24 septembre 2003 dans l\u2019affaire Humbert ?", answer: "Marie Humbert (la m\u00e8re) a inject\u00e9 des barbituriques \u00e0 son fils (date anniversaire de l\u2019accident), mais la dose \u00e9tait insuffisante et Vincent est tomb\u00e9 dans un coma profond." },
+  { question: "Quel m\u00e9decin est intervenu apr\u00e8s l\u2019injection de Marie Humbert, et qu\u2019a-t-il fait ?", answer: "Le Dr Fr\u00e9d\u00e9ric Chaussoy a pris une d\u00e9cision coll\u00e9giale le 26/09/2003 : arr\u00eat de la r\u00e9animation et injection de chlorure de potassium, entra\u00eenant le d\u00e9c\u00e8s de Vincent." },
+  { question: "Quelle d\u00e9cision judiciaire a \u00e9t\u00e9 rendue en f\u00e9vrier 2006 dans l\u2019affaire Humbert ?", answer: "Une ordonnance de non-lieu pour Marie Humbert et le Dr Chaussoy." },
+  { question: "Quelle cons\u00e9quence l\u00e9gislative directe a eu l\u2019affaire Humbert ?", answer: "\u00c0 l\u2019automne 2003, Jacques Chirac a demand\u00e9 \u00e0 Jean Leonetti de travailler sur une loi, aboutissant \u00e0 la loi Leonetti du 22 avril 2005." },
+  { question: "Qui \u00e9tait Vincent Lambert ?", answer: "Infirmier en psychiatrie, victime d\u2019un accident de la route le 29/09/2008, ayant subi un traumatisme cr\u00e2nien majeur." },
+  { question: "Quel \u00e9tait l\u2019\u00e9tat m\u00e9dical de Vincent Lambert ?", answer: "\u00c9tat v\u00e9g\u00e9tatif chronique / syndrome d\u2019\u00e9veil non-r\u00e9pondant, t\u00e9trapl\u00e9gique, nourri par sonde, mais respirant seul (tronc c\u00e9r\u00e9bral fonctionnel)." },
+  { question: "Vincent Lambert avait-il r\u00e9dig\u00e9 des directives anticip\u00e9es ?", answer: "Non, il n\u2019avait pas de directives anticip\u00e9es, ce qui a compliqu\u00e9 la prise de d\u00e9cision." },
+  { question: "Quelles expertises m\u00e9dicales majeures ont \u00e9t\u00e9 r\u00e9alis\u00e9es pour Vincent Lambert ?", answer: "2011 (Li\u00e8ge) : perception de la douleur\n2014 (Conseil d\u2019\u00c9tat) : l\u00e9sions irr\u00e9versibles\n2018 : \u00e9tat v\u00e9g\u00e9tatif chronique irr\u00e9versible" },
+  { question: "Comment la famille de Vincent Lambert \u00e9tait-elle divis\u00e9e ?", answer: "Pour l\u2019arr\u00eat : \u00e9pouse Rachel, neveu Fran\u00e7ois, 6 fr\u00e8res et s\u0153urs.\nContre l\u2019arr\u00eat : parents Viviane et Pierre (catholiques fervents), associations pro-life." },
+  { question: "Combien de temps a dur\u00e9 la bataille judiciaire dans l\u2019affaire Lambert ?", answer: "11 ans (2008-2019), allant jusqu\u2019au Conseil d\u2019\u00c9tat et \u00e0 la CEDH (2015)." },
+  { question: "Comment s\u2019est termin\u00e9e l\u2019affaire Vincent Lambert ?", answer: "En 2019, fin du soutien artificiel (nutrition et hydratation), entra\u00eenant son d\u00e9c\u00e8s." },
+  { question: "Quelle loi l\u2019affaire Lambert a-t-elle contribu\u00e9 \u00e0 influencer ?", answer: "La loi Claeys-Leonetti de 2016." },
+  { question: "Quels sont les grands principes de la loi Leonetti du 22 avril 2005 ?", answer: "1) Interdiction de l\u2019euthanasie active\n2) Interdiction de l\u2019obstination d\u00e9raisonnable\n3) Droit au refus de traitement\n4) Directives anticip\u00e9es (validit\u00e9 3 ans, consultatives)\n5) Personne de confiance\n6) Soins palliatifs" },
+  { question: "Quelle \u00e9tait la dur\u00e9e de validit\u00e9 des directives anticip\u00e9es dans la loi Leonetti de 2005 ?", answer: "3 ans, et elles \u00e9taient seulement consultatives (le m\u00e9decin n\u2019\u00e9tait pas oblig\u00e9 de les suivre)." },
+  { question: "Quels changements la loi Claeys-Leonetti de 2016 apporte-t-elle aux directives anticip\u00e9es ?", answer: "1) Dur\u00e9e illimit\u00e9e (plus de renouvellement tous les 3 ans)\n2) Le m\u00e9decin est oblig\u00e9 de les suivre (sauf urgence vitale ou caract\u00e8re manifestement inappropri\u00e9)\n3) Elles l\u2019emportent sur l\u2019avis de la famille" },
+  { question: "Qu\u2019est-ce que la SPCJD ?", answer: "S\u00e9dation Profonde et Continue jusqu\u2019au D\u00e9c\u00e8s : mise en inconscience totale du patient, innovation majeure de la loi Claeys-Leonetti 2016." },
+  { question: "Quelles sont les conditions strictes pour b\u00e9n\u00e9ficier de la SPCJD ?", answer: "1) Affection grave et incurable\n2) Pronostic vital engag\u00e9 \u00e0 court terme\n3) Demande du patient" },
+  { question: "Pourquoi la SPCJD n\u2019est-elle pas consid\u00e9r\u00e9e comme une euthanasie active ?", answer: "Le but est de soulager la souffrance, pas de tuer. De plus, la s\u00e9dation est techniquement r\u00e9versible." },
+  { question: "Quel avis le CCNE a-t-il rendu en 2022 sur l\u2019aide active \u00e0 mourir ?", answer: "Le CCNE a rendu un avis favorable \u00e0 l\u2019aide active \u00e0 mourir." },
+  { question: "Quel r\u00e9sultat la convention citoyenne a-t-elle donn\u00e9 sur la fin de vie ?", answer: "75% des citoyens se sont prononc\u00e9s en faveur de l\u2019aide active \u00e0 mourir." },
+  { question: "Quel a \u00e9t\u00e9 le parcours l\u00e9gislatif de la proposition Falorni sur l\u2019aide active \u00e0 mourir ?", answer: "Adopt\u00e9e par l\u2019Assembl\u00e9e nationale le 27/05/2025, puis rejet\u00e9e par le S\u00e9nat le 28/01/2026." },
+  { question: "Que pr\u00e9voyait la version Assembl\u00e9e de l\u2019aide active \u00e0 mourir ?", answer: "Suicide assist\u00e9 + euthanasie (si incapacit\u00e9 physique d\u2019accomplir le geste soi-m\u00eame)." },
+  { question: "Quelles sont les conditions d\u2019acc\u00e8s \u00e0 l\u2019aide active \u00e0 mourir (version Assembl\u00e9e) ?", answer: "1) \u00catre majeur\n2) R\u00e9sider en France\n3) \u00catre en pleine conscience\n4) Affection grave et incurable engageant le pronostic vital\n5) Souffrance r\u00e9fractaire aux traitements" },
+  { question: "Quelles protections la version Assembl\u00e9e pr\u00e9voyait-elle pour l\u2019aide active \u00e0 mourir ?", answer: "1) Proc\u00e9dure coll\u00e9giale\n2) D\u00e9lai de 48 heures\n3) Clause de conscience pour les m\u00e9decins\n4) Commission de contr\u00f4le" },
+  { question: "Comment le S\u00e9nat a-t-il modifi\u00e9 le texte sur l\u2019aide active \u00e0 mourir ?", answer: "Transformation en \u00ab assistance \u00e0 mourir \u00bb, limitation au pronostic vital \u00e0 court terme, et exclusion des maladies neurod\u00e9g\u00e9n\u00e9ratives lentes." },
+  { question: "Quelle est l\u2019\u00e9tymologie du mot \u00ab euthanasie \u00bb ?", answer: "Du grec eu (bonne) + thanatos (mort) = la bonne mort." },
+  { question: "Quels sont les 3 cas d\u2019euthanasie identifi\u00e9s ?", answer: "1) Euthanasie n\u00e9onatale (consentement impossible, 3 cat\u00e9gories cliniques)\n2) Perte d\u2019autonomie (coma/\u00e9tat v\u00e9g\u00e9tatif, directives anticip\u00e9es)\n3) Suicide assist\u00e9 (personnes conscientes mais souffrance insupportable)" },
+  { question: "Pourquoi l\u2019euthanasie n\u00e9onatale pose-t-elle un probl\u00e8me \u00e9thique sp\u00e9cifique ?", answer: "Le consentement du nouveau-n\u00e9 est impossible ; la d\u00e9cision revient aux parents et \u00e0 l\u2019\u00e9quipe m\u00e9dicale." },
+  { question: "Quel est le premier pays \u00e0 avoir l\u00e9galis\u00e9 l\u2019euthanasie active et le suicide assist\u00e9 ?", answer: "Les Pays-Bas, par la loi du 12 avril 2001 (entr\u00e9e en vigueur en 2002)." },
+  { question: "Quel m\u00e9canisme juridique les Pays-Bas utilisent-ils pour l\u2019euthanasie ?", answer: "L\u2019excuse exon\u00e9ratoire : l\u2019acte reste une infraction, mais le m\u00e9decin est exon\u00e9r\u00e9 de poursuites s\u2019il respecte les conditions." },
+  { question: "Quelles sont les 6 conditions de l\u2019euthanasie aux Pays-Bas ?", answer: "1) Souffrances insupportables\n2) Demande volontaire, r\u00e9fl\u00e9chie et r\u00e9p\u00e9t\u00e9e\n3) Information compl\u00e8te du patient\n4) Absence d\u2019autre solution raisonnable\n5) Consultation d\u2019un 2nd m\u00e9decin ind\u00e9pendant\n6) Ex\u00e9cution m\u00e9dicalement appropri\u00e9e" },
+  { question: "L\u2019euthanasie active est-elle l\u00e9gale en Suisse ?", answer: "Non. L\u2019euthanasie active est interdite en Suisse." },
+  { question: "Comment le suicide assist\u00e9 est-il encadr\u00e9 en Suisse ?", answer: "Il est tol\u00e9r\u00e9 en vertu du code p\u00e9nal de 1942 : le suicide assist\u00e9 n\u2019est puni que si le mobile est \u00e9go\u00efste." },
+  { question: "Quelles associations suisses pratiquent le suicide assist\u00e9 ?", answer: "Exit (r\u00e9serv\u00e9e aux r\u00e9sidents suisses) et Dignitas (ouverte aussi aux \u00e9trangers)." },
+  { question: "Qui est \u00e0 l\u2019origine de la doctrine du double effet ?", answer: "Thomas d\u2019Aquin au XIIIe si\u00e8cle, initialement pour justifier la l\u00e9gitime d\u00e9fense." },
+  { question: "Quelles sont les 4 conditions cumulatives de la doctrine du double effet ?", answer: "1) Nature de l\u2019acte : bonne ou moralement neutre\n2) Causalit\u00e9 : le bon effet vient directement de l\u2019acte, pas du mauvais effet\n3) Intention : le mauvais effet est pr\u00e9vu mais non voulu\n4) Proportionnalit\u00e9 : le bon effet est au moins \u00e9gal au mauvais" },
+  { question: "Donnez un exemple d\u2019application du double effet en obst\u00e9trique.", answer: "Hyst\u00e9rectomie chez une femme enceinte atteinte d\u2019un cancer ut\u00e9rin : l\u2019acte (retirer l\u2019ut\u00e9rus canc\u00e9reux) est bon, la mort du f\u0153tus est un effet secondaire pr\u00e9vu mais non voulu." },
+  { question: "Donnez un exemple d\u2019application du double effet en soins palliatifs.", answer: "Administration de morphine pour soulager la douleur (effet bon recherch\u00e9), avec risque d\u2019acc\u00e9l\u00e9rer le d\u00e9c\u00e8s (effet mauvais tol\u00e9r\u00e9, pr\u00e9vu mais non voulu)." },
+  { question: "Quelles sont les critiques de la doctrine du double effet ?", answer: "1) Repose sur l\u2019intention, qui est inv\u00e9rifiable\n2) Risque d\u2019hypocrisie et de rationalisation\n3) Critique cons\u00e9quentialiste : c\u2019est le r\u00e9sultat qui compte, pas l\u2019intention" },
+  { question: "Quelle est la position cons\u00e9quentialiste sur la distinction faire vs laisser-faire ?", answer: "Pour les cons\u00e9quentialistes, il n\u2019y a aucune diff\u00e9rence morale entre faire mourir et laisser mourir : seul le r\u00e9sultat compte." },
+  { question: "Quelle est la position d\u00e9ontologique (Leonetti) sur la distinction faire vs laisser-faire ?", answer: "Pour les d\u00e9ontologues et la loi Leonetti, il y a une diff\u00e9rence fondamentale entre faire mourir (euthanasie active, interdite) et laisser mourir (arr\u00eat de l\u2019obstination d\u00e9raisonnable, autoris\u00e9)." },
+  { question: "Qu\u2019interdit la loi Leonetti de 2005 ?", answer: "L\u2019euthanasie active (donner la mort) et l\u2019obstination d\u00e9raisonnable (acharnement th\u00e9rapeutique)." },
+  { question: "Qu\u2019est-ce que l\u2019obstination d\u00e9raisonnable ?", answer: "L\u2019acharnement th\u00e9rapeutique : poursuite de traitements qui n\u2019apportent plus de b\u00e9n\u00e9fice au patient et prolongent inutilement la souffrance ou l\u2019agonie." },
+  { question: "Qu\u2019est-ce qu\u2019une personne de confiance selon la loi Leonetti ?", answer: "Une personne d\u00e9sign\u00e9e par le patient pour \u00eatre consult\u00e9e lorsque celui-ci est hors d\u2019\u00e9tat d\u2019exprimer sa volont\u00e9. Elle t\u00e9moigne de la volont\u00e9 du patient." },
+  { question: "Qu\u2019est-ce que les directives anticip\u00e9es ?", answer: "Un document \u00e9crit dans lequel une personne majeure exprime \u00e0 l\u2019avance ses volont\u00e9s concernant sa fin de vie, pour le cas o\u00f9 elle ne pourrait plus les exprimer." },
+  { question: "Quelles sont les 2 exceptions o\u00f9 le m\u00e9decin peut ne pas suivre les directives anticip\u00e9es (loi 2016) ?", answer: "1) Urgence vitale (le temps de les \u00e9valuer)\n2) Caract\u00e8re manifestement inappropri\u00e9 des directives par rapport \u00e0 la situation m\u00e9dicale" },
+  { question: "Dans l\u2019affaire Humbert, \u00e0 quelle date et dans quel h\u00f4pital l\u2019accident a-t-il eu lieu ?", answer: "Le 24 septembre 2000. Vincent a \u00e9t\u00e9 hospitalis\u00e9 au CHU de Rouen (coma 9 mois) puis transf\u00e9r\u00e9 \u00e0 Berck." },
+  { question: "Quelle substance Marie Humbert a-t-elle inject\u00e9e \u00e0 son fils ?", answer: "Des barbituriques, mais la dose \u00e9tait insuffisante pour provoquer le d\u00e9c\u00e8s." },
+  { question: "Quelle substance le Dr Chaussoy a-t-il utilis\u00e9e pour provoquer le d\u00e9c\u00e8s de Vincent Humbert ?", answer: "Du chlorure de potassium, apr\u00e8s arr\u00eat de la r\u00e9animation, suite \u00e0 une d\u00e9cision coll\u00e9giale le 26/09/2003." },
+  { question: "Dans l\u2019affaire Lambert, quel tribunal international a \u00e9t\u00e9 saisi ?", answer: "La Cour europ\u00e9enne des droits de l\u2019homme (CEDH), qui s\u2019est prononc\u00e9e en 2015." },
+  { question: "Pourquoi Vincent Lambert respirait-il seul malgr\u00e9 son \u00e9tat v\u00e9g\u00e9tatif ?", answer: "Parce que son tronc c\u00e9r\u00e9bral \u00e9tait encore fonctionnel (il contr\u00f4le la respiration autonome), m\u00eame si les h\u00e9misph\u00e8res c\u00e9r\u00e9braux \u00e9taient d\u00e9truits." },
+  { question: "Qu\u2019est-ce que le syndrome d\u2019\u00e9veil non-r\u00e9pondant ?", answer: "Autre nom de l\u2019\u00e9tat v\u00e9g\u00e9tatif chronique : le patient a des cycles veille-sommeil (yeux ouverts) mais aucune conscience ni r\u00e9ponse \u00e0 l\u2019environnement." },
+  { question: "Quelles associations ont soutenu les parents de Vincent Lambert ?", answer: "Des associations pro-life (pro-vie), oppos\u00e9es \u00e0 l\u2019arr\u00eat de l\u2019alimentation et de l\u2019hydratation." },
+  { question: "Que signifie \u00ab prima facie \u00bb appliqu\u00e9 aux principes du principisme ?", answer: "Les principes ne sont que des rep\u00e8res \u00ab \u00e0 premi\u00e8re vue \u00bb ; ils ne donnent pas de r\u00e9ponse automatique et n\u00e9cessitent sp\u00e9cification et \u00e9quilibrage." },
+  { question: "Selon la critique culturelle, pourquoi l\u2019autonomie est-elle probl\u00e9matique dans certaines cultures ?", answer: "Dans des cultures non occidentales (Chine, Japon, Afrique), la communaut\u00e9 ou la famille prime sur l\u2019individu ; l\u2019autonomie individuelle n\u2019est pas une valeur centrale." },
+  { question: "Qu\u2019est-ce que l\u2019\u00e9thique du Care reproche au principisme ?", answer: "D\u2019\u00eatre trop abstrait et rationaliste, en n\u00e9gligeant la sollicitude, la compassion, l\u2019empathie et l\u2019attention concr\u00e8te aux personnes vuln\u00e9rables." },
+  { question: "Quelle diff\u00e9rence fondamentale existe entre les directives anticip\u00e9es de 2005 et celles de 2016 ?", answer: "2005 : validit\u00e9 3 ans, consultatives.\n2016 : dur\u00e9e illimit\u00e9e, contraignantes (le m\u00e9decin doit les suivre), sup\u00e9rieures \u00e0 l\u2019avis de la famille." },
+  { question: "Quel est le r\u00f4le du CCNE dans le d\u00e9bat sur la fin de vie ?", answer: "R\u00f4le consultatif : il rend des avis (comme l\u2019avis favorable \u00e0 l\u2019aide active \u00e0 mourir en 2022) mais ne cr\u00e9e pas de normes juridiques." },
+  { question: "Qu\u2019est-ce que la clause de conscience pr\u00e9vue pour l\u2019aide active \u00e0 mourir ?", answer: "Le droit pour un m\u00e9decin de refuser de pratiquer l\u2019aide active \u00e0 mourir si cela va \u00e0 l\u2019encontre de ses convictions morales ou \u00e9thiques." },
+  { question: "Quelle est la diff\u00e9rence entre suicide assist\u00e9 et euthanasie ?", answer: "Suicide assist\u00e9 : le patient prend lui-m\u00eame le produit l\u00e9tal (le m\u00e9decin fournit les moyens).\nEuthanasie : le m\u00e9decin administre directement le produit l\u00e9tal au patient." },
+  { question: "Pourquoi la version Assembl\u00e9e incluait-elle l\u2019euthanasie en plus du suicide assist\u00e9 ?", answer: "Pour les patients en incapacit\u00e9 physique d\u2019accomplir le geste eux-m\u00eames (ex : t\u00e9trapl\u00e9gie)." },
+  { question: "Quel d\u00e9lai de r\u00e9flexion \u00e9tait pr\u00e9vu dans la proposition Falorni ?", answer: "Un d\u00e9lai de 48 heures entre la demande et l\u2019acte." },
+  { question: "Quelle condition le S\u00e9nat a-t-il ajout\u00e9e par rapport \u00e0 l\u2019Assembl\u00e9e concernant le pronostic vital ?", answer: "Le S\u00e9nat a limit\u00e9 l\u2019acc\u00e8s aux patients dont le pronostic vital est engag\u00e9 \u00e0 court terme (excluant les maladies neurod\u00e9g\u00e9n\u00e9ratives lentes)." },
+  { question: "Quel est le contexte historique de l\u2019apparition de la bio\u00e9thique li\u00e9 au principisme ?", answer: "Ann\u00e9es 1970 : remise en cause du paternalisme m\u00e9dical, revendication des droits des patients, innovations technologiques majeures, scandales \u00e9thiques (Tuskegee, etc.)." },
+  { question: "Qu\u2019est-ce que le Rapport Belmont (1979) ?", answer: "Rapport fondateur de la bio\u00e9thique moderne, r\u00e9dig\u00e9 apr\u00e8s le scandale de Tuskegee. Il pose 3 principes : autonomie, bienfaisance, justice." },
+  { question: "Comment le principisme se distingue-t-il du Rapport Belmont ?", answer: "Le Rapport Belmont pose 3 principes (autonomie, bienfaisance, justice). Beauchamp et Childress ajoutent la non-malfaisance comme 4e principe distinct." },
+  { question: "Pourquoi les conditions de la SPCJD exigent-elles un pronostic vital engag\u00e9 \u00e0 court terme ?", answer: "Pour distinguer la SPCJD de l\u2019euthanasie : elle accompagne une fin de vie d\u00e9j\u00e0 imminente, plut\u00f4t que de provoquer la mort d\u2019un patient ayant encore une esp\u00e9rance de vie longue." },
+  { question: "Quelle est la diff\u00e9rence entre \u00ab aide active \u00e0 mourir \u00bb (Assembl\u00e9e) et \u00ab assistance \u00e0 mourir \u00bb (S\u00e9nat) ?", answer: "L\u2019aide active \u00e0 mourir inclut euthanasie + suicide assist\u00e9 avec des crit\u00e8res larges. L\u2019assistance \u00e0 mourir (S\u00e9nat) est plus restrictive : pronostic vital \u00e0 court terme, exclusion des maladies neurod\u00e9g\u00e9n\u00e9ratives lentes." },
+  { question: "En quelle ann\u00e9e la loi n\u00e9erlandaise sur l\u2019euthanasie a-t-elle \u00e9t\u00e9 adopt\u00e9e et quand est-elle entr\u00e9e en vigueur ?", answer: "Adopt\u00e9e le 12 avril 2001, entr\u00e9e en vigueur en 2002." },
+  { question: "En quelle ann\u00e9e le code p\u00e9nal suisse a-t-il \u00e9t\u00e9 \u00e9tabli concernant le suicide assist\u00e9 ?", answer: "En 1942. Le suicide assist\u00e9 n\u2019est puni que si le mobile est \u00e9go\u00efste." },
+  { question: "Quelle diff\u00e9rence entre Exit et Dignitas en Suisse ?", answer: "Exit : r\u00e9serv\u00e9e aux r\u00e9sidents suisses.\nDignitas : ouverte \u00e9galement aux \u00e9trangers." },
+  { question: "Quelles sont les 3 cat\u00e9gories cliniques de l\u2019euthanasie n\u00e9onatale ?", answer: "3 cat\u00e9gories cliniques distinctes de nouveau-n\u00e9s pour lesquels la question se pose (d\u00e9taill\u00e9es dans les protocoles, li\u00e9es \u00e0 la gravit\u00e9 du pronostic et aux malformations)." },
+  { question: "Comment Thomas d\u2019Aquin a-t-il initialement justifi\u00e9 la doctrine du double effet ?", answer: "Par la l\u00e9gitime d\u00e9fense : se d\u00e9fendre (effet bon) peut entra\u00eener la mort de l\u2019agresseur (effet mauvais pr\u00e9vu mais non voulu)." },
+  { question: "Que signifie la condition de causalit\u00e9 dans le double effet ?", answer: "Le bon effet doit provenir directement de l\u2019acte lui-m\u00eame, et non du mauvais effet. Le mauvais effet ne doit pas \u00eatre un moyen pour atteindre le bon." },
+  { question: "Que signifie la condition de proportionnalit\u00e9 dans le double effet ?", answer: "Le bon effet vis\u00e9 doit \u00eatre au moins \u00e9gal (en importance) au mauvais effet tol\u00e9r\u00e9. On ne peut pas accepter un mal disproportionn\u00e9 par rapport au bien recherch\u00e9." },
+  { question: "Pourquoi la critique cons\u00e9quentialiste rejette-t-elle la doctrine du double effet ?", answer: "Pour les cons\u00e9quentialistes, seul le r\u00e9sultat compte, pas l\u2019intention. Que l\u2019on veuille ou non le mauvais effet, le r\u00e9sultat est le m\u00eame." },
+  { question: "Pourquoi dit-on que l\u2019intention est inv\u00e9rifiable dans le double effet ?", answer: "Parce qu\u2019il est impossible de prouver objectivement l\u2019intention r\u00e9elle d\u2019une personne ; on ne peut acc\u00e9der qu\u2019\u00e0 ce qu\u2019elle d\u00e9clare, cr\u00e9ant un risque d\u2019hypocrisie." },
+  { question: "Comment la loi Leonetti se positionne-t-elle par rapport au d\u00e9bat faire vs laisser-faire ?", answer: "Elle adopte la position d\u00e9ontologique : diff\u00e9rence fondamentale entre tuer activement (interdit) et laisser mourir en arr\u00eatant l\u2019acharnement th\u00e9rapeutique (autoris\u00e9)." },
+  { question: "Quelles sont les dates cl\u00e9s du cadre l\u00e9gislatif fran\u00e7ais sur la fin de vie ?", answer: "2005 : Loi Leonetti\n2016 : Loi Claeys-Leonetti\n2022 : Avis CCNE favorable\n2025 : Vote Assembl\u00e9e nationale\n2026 : Rejet S\u00e9nat" },
+  { question: "Quelle est la diff\u00e9rence entre soins palliatifs et SPCJD ?", answer: "Soins palliatifs : accompagnement global de fin de vie (douleur, confort, soutien psychologique), le patient peut rester conscient.\nSPCJD : mise en inconscience totale et continue jusqu\u2019au d\u00e9c\u00e8s." },
+  { question: "Comment Beauchamp et Childress justifient-ils l\u2019universalit\u00e9 de leurs principes ?", answer: "Par le concept de \u00ab Common Morality \u00bb (moralit\u00e9 commune) : des valeurs morales partag\u00e9es par toutes les soci\u00e9t\u00e9s humaines." },
+  { question: "Pourquoi la Common Morality est-elle critiqu\u00e9e ?", answer: "Parce qu\u2019affirmer une moralit\u00e9 commune partag\u00e9e par tous contredit le constat de pluralisme moral des soci\u00e9t\u00e9s d\u00e9mocratiques." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Physiologie</span>
+<ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+</ul>
+</li>
+<li><span class="opener">Anatomie</span>
+<ul>
+<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+</ul>
+</li>
+<li><span class="opener">Biophysique</span>
+<ul>
+<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+<li><a href="../Biophysique/fc6.html">ECG</a></li>
+<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+</ul>
+</li>
+<li><span class="opener">Pharmacologie</span>
+<ul>
+<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+</ul>
+</li>
+<li><span class="opener">Biostatistiques</span>
+<ul>
+<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDS Biologie</span>
+<ul>
+<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDL IGHL</span>
+<ul>
+<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+</ul>
+</li>
+<li><span class="opener">SHS</span>
+<ul>
+<li><span class="opener">Santé numérique</span>
+<ul>
+<li><a href="definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+<li><a href="outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+<li><a href="traitement_donnees_sante.html">Traitement des données de santé</a></li>
+</ul>
+</li>
+<li><span class="opener">Éthique et droit</span>
+<ul>
+<li><a href="introduction_droit_sante.html">Introduction au droit de la santé</a></li>
+<li><a href="introduction_ethique_medicale.html">Introduction à l'éthique médicale (FC2)</a></li>
+<li><a href="principisme_fin_de_vie.html">Principisme et fin de vie (FC3)</a></li>
+<li><a href="progres_techniques_amp.html">Progrès techniques et AMP (FC4)</a></li>
+</ul>
+</li>
+<li><span class="opener">Psychologie médicale</span>
+<ul>
+<li><a href="emotion_comportement.html">Émotion et comportement (FC8)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<footer id="footer"><p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p></footer>
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Émotion et comportement</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../security.js" defer></script>
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS - Psychologie médicale</h1><h2>Émotion et comportement (FC8)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData = [
+  { question: "Quelles disciplines scientifiques etudient les emotions ?", answer: "Psychologie, biologie, neurosciences, medecine et philosophie. Les emotions sont un sujet pluridisciplinaire." },
+  { question: "Quelles sont les 3 composantes classiques des emotions ?", answer: "1) Composante subjective (ressenti)\n2) Composante physiologique (reactions neurovegatives)\n3) Composante comportementale (actes emotionnels)" },
+  { question: "Que designe-t-on par 'reponse emotionnelle' ?", answer: "Les composantes physiologique et comportementale ensemble constituent la reponse emotionnelle (observable et mesurable de l'exterieur)." },
+  { question: "Que designe-t-on par 'experience emotionnelle' ?", answer: "La composante subjective, c'est-a-dire le ressenti personnel et conscient de l'emotion." },
+  { question: "Quelles reactions physiologiques sont associees a la composante physiologique des emotions ?", answer: "Reactions du systeme nerveux vegetatif (sympathique et parasympathique), reactions observables (paleurs, mains moites) et reactions hormonales (axe hypothalamo-hypophysaire, glucocorticoides)." },
+  { question: "Quel systeme nerveux est implique dans la composante physiologique des emotions ?", answer: "Le systeme nerveux vegetatif (autonome), avec ses deux branches : sympathique et parasympathique." },
+  { question: "Quel axe hormonal est active lors d'une emotion ?", answer: "L'axe hypothalamo-hypophysaire, qui entraine la liberation de glucocorticoides." },
+  { question: "Quelle est la fonction adaptative des emotions selon la theorie de l'evolution ?", answer: "Les emotions ont une fonction adaptative issue de la selection naturelle : elles permettent de s'adapter aux changements de l'environnement." },
+  { question: "Quels instruments permettent de mesurer objectivement la composante physiologique des emotions ?", answer: "L'ECG (electrocardiogramme), la conductance electrodermale et le plethysmographe (detecteur de mensonge)." },
+  { question: "Pourquoi le plethysmographe est-il inefficace avec certains individus ?", answer: "Le plethysmographe (detecteur de mensonge) est inefficace avec les personnalites psychopathiques, car elles ne presentent pas les reactions physiologiques emotionnelles habituelles." },
+  { question: "Comment peut-on controler la composante physiologique des emotions ?", answer: "Par des techniques de relaxation, qui permettent de moduler les reactions du systeme nerveux vegetatif." },
+  { question: "Quels sont les exemples de comportements lies a la composante comportementale des emotions ?", answer: "Fuite, rejet, repli, stupeur, approche et reactions faciales." },
+  { question: "Quelle est l'etymologie du mot 'emotion' ?", answer: "Le mot emotion derive du latin 'movere' qui signifie mouvement, soulignant le lien entre emotion et action/comportement." },
+  { question: "Quelle decouverte de Darwin concerne les expressions faciales ?", answer: "Darwin a montre que les expressions faciales sont universelles (communes a toutes les cultures) et qu'elles servent d'outil de communication et de regulation sociale." },
+  { question: "Selon Davidson, quelles emotions sont associees a l'hemisphere prefrontal gauche ?", answer: "Les emotions d'approche : la colere et la joie sont associees a l'hemisphere prefrontal gauche." },
+  { question: "Selon Davidson, quelles emotions sont associees au cortex prefrontal droit ?", answer: "Les emotions de retrait : la peur et le degout sont associees au cortex prefrontal droit." },
+  { question: "Qu'est-ce que le modele approche vs retrait de Davidson ?", answer: "Davidson distingue les emotions d'approche (colere, joie → cortex prefrontal gauche) des emotions de retrait (peur, degout → cortex prefrontal droit)." },
+  { question: "Qu'est-ce que la retroaction faciale ?", answer: "Le fait qu'amplifier ou diminuer ses expressions faciales influence l'emotion ressentie : forcer un sourire peut augmenter la joie, inhiber une grimace peut reduire le degout." },
+  { question: "Quel lien existe entre la maladie de Parkinson et les expressions faciales ?", answer: "La maladie de Parkinson provoque une hypomimie : absence d'expressions faciales malgre des emotions effectivement ressenties par le patient." },
+  { question: "Qu'est-ce que l'hypomimie ?", answer: "L'absence ou la reduction des expressions faciales, typiquement observee dans la maladie de Parkinson, alors que le patient ressent bien les emotions." },
+  { question: "Comment les personnes deprimees interpretent-elles les situations ambigues ?", answer: "Les personnes deprimees attribuent des caracteristiques negatives aux situations ambigues (biais de negativite interpretatif)." },
+  { question: "Quelles sont les caracteristiques de la composante subjective des emotions ?", answer: "Le ressenti emotionnel, accessible par le rapport verbal, implique la conscience reflexive. Elle est invariable chez un meme individu (sauf pathologie) et fonde le sentiment d'identite." },
+  { question: "Pourquoi la composante subjective fonde-t-elle le sentiment d'identite ?", answer: "Parce qu'elle est invariable chez un meme individu (sauf en cas de pathologie), elle assure une continuite emotionnelle qui constitue la base du sentiment d'identite (self)." },
+  { question: "Quel est le lien entre depression et continuite emotionnelle ?", answer: "La depression represente une rupture de la continuite emotionnelle, ce qui perturbe le sentiment d'identite du patient." },
+  { question: "Quelles techniques d'imagerie permettent d'etudier les emotions ?", answer: "La TEP (tomographie par emission de positons) et l'IRMf (imagerie par resonance magnetique fonctionnelle)." },
+  { question: "Ou est situee l'amygdale dans le cerveau ?", answer: "L'amygdale est situee sur la face interne du lobe temporal." },
+  { question: "Quelles sont les fonctions principales de l'amygdale dans les emotions ?", answer: "L'amygdale permet l'identification rapide des emotions, la detection des signaux sociaux, et joue un role predominant dans la peur." },
+  { question: "Quelles sont les consequences d'une lesion de l'amygdale ?", answer: "Deficit de reconnaissance des emotions, perte progressive de la capacite a ressentir la peur, tandis que les autres emotions sont relativement preservees." },
+  { question: "Quelle emotion est particulierement affectee par une lesion de l'amygdale ?", answer: "La peur. Une lesion de l'amygdale entraine une perte progressive de la capacite a ressentir la peur, avec les autres emotions relativement preservees." },
+  { question: "Quelles structures cerebrales sont impliquees dans la conscience des emotions ?", answer: "Les structures prefrontales internes (cortex medial prefrontal) et les regions cingulaires anterieures." },
+  { question: "Qu'est-ce que l'experience emotionnelle et quelles sont ses proprietes ?", answer: "L'eprouve personnel de l'emotion. Elle met en jeu la conscience, est invariable chez un meme individu, et fonde le sentiment d'identite (self)." },
+  { question: "Quelles sont les 6 emotions de base ?", answer: "Joie, surprise, colere, degout, tristesse et peur." },
+  { question: "Quelles sont les proprietes des emotions de base ?", answer: "Elles sont universelles, ont des reponses physiologiques specifiques, sont spontanees, de duree limitee, et leur perception est automatique." },
+  { question: "Les emotions de base peuvent-elles etre declenchees de maniere subliminale ?", answer: "Oui, les emotions de base peuvent etre declenchees de maniere subliminale, ce qui signifie qu'il n'y a pas de reportabilite (le sujet n'en a pas conscience)." },
+  { question: "Quelles emotions sont debattues comme possibles emotions de base ?", answer: "Le mepris, la culpabilite et la honte sont debattues comme potentielles emotions de base supplementaires." },
+  { question: "Qu'est-ce qu'une emotion mixte ?", answer: "Un melange de plusieurs emotions de base. Il existe plus de 150 mots en francais pour decrire les emotions mixtes." },
+  { question: "Comment classe-t-on les emotions par valence ?", answer: "Emotions positives (joie), emotions negatives (peur, tristesse, degout). La colere presente une ambiguite de classification." },
+  { question: "Pourquoi la colere est-elle ambigue dans la classification par valence ?", answer: "Parce que la colere est une emotion negative par son ressenti mais elle est associee a un comportement d'approche (comme la joie), ce qui rend sa classification ambigue." },
+  { question: "Qu'est-ce que l'asymetrie des affects ?", answer: "Le fait que les emotions negatives sont percues comme plus intenses que les emotions positives de meme niveau d'activation (arousal)." },
+  { question: "Qu'est-ce que la classification par intensite (arousal) des emotions ?", answer: "Les emotions varient en niveau d'activation physiologique (arousal). L'asymetrie des affects montre que les emotions negatives sont percues comme plus intenses." },
+  { question: "Quelle classification oppose les emotions d'approche et de retrait ?", answer: "Classification comportementale : approche (joie, colere → aller vers le stimulus) vs retrait (peur, degout → s'eloigner du stimulus)." },
+  { question: "Quelles sont les 4 methodes d'etude des emotions en neurosciences ?", answer: "1) Lesions provoquees chez l'animal\n2) Lesions spontanees chez l'homme\n3) Neurochirurgie\n4) Imagerie fonctionnelle" },
+  { question: "Qu'est-ce que l'Experience Sampling Method (ESM) ?", answer: "Une methode qui etudie les emotions dans leurs conditions ecologiques (vie quotidienne reelle), par des mesures repetees en temps reel." },
+  { question: "Quelles structures composent le reseau limbique de perception des emotions (perception network) ?", answer: "L'amygdale, l'hippocampe, les noyaux de la base et l'hypothalamus. Ces structures sont impliquees dans la detection et l'evaluation des emotions." },
+  { question: "Quelles structures composent le reseau cortical de regulation des emotions (regulation network) ?", answer: "Le cortex prefrontal lateral et le cortex prefrontal medial. Ces regions sont impliquees dans l'experience et la regulation des emotions." },
+  { question: "Pourquoi dit-on que les emotions fonctionnent en reseau et non dans une seule region ?", answer: "Les emotions impliquent un reseau de regions cerebrales interconnectees. Cela constitue une protection contre les lesions localisees : si une region est lesee, le reseau peut compenser partiellement." },
+  { question: "Comment est determinee une emotion specifique au niveau cerebral ?", answer: "Par l'etat specifique du reseau cerebral, c'est-a-dire le degre de connectivite entre les differentes regions impliquees dans le traitement emotionnel." },
+  { question: "Quelle structure cerebrale est principalement associee au degout ?", answer: "L'insula est principalement associee au degout, bien qu'elle ne soit pas exclusive." },
+  { question: "Quelle structure cerebrale est principalement associee a la peur ?", answer: "L'amygdale est predominante dans le circuit de la peur, bien que son role ne soit pas exclusif." },
+  { question: "Quels sont les multiples roles de l'amygdale au-dela de la peur ?", answer: "L'amygdale intervient aussi dans le traitement des emotions positives, la detection des signaux sociaux, et sa reponse est modulee par l'intensite de l'emotion." },
+  { question: "L'amygdale detecte-t-elle les stimuli de maniere implicite ou explicite ?", answer: "L'amygdale detecte les signaux de danger de maniere a la fois implicite (automatique, non consciente) et explicite (consciente)." },
+  { question: "Qu'est-ce que la theorie peripherique des emotions (James-Lange) ?", answer: "Stimulus → reponses physiologiques (differentes selon l'emotion) → experience emotionnelle. La composante physiologique est la composante principale. 'On a peur parce qu'on fuit.'" },
+  { question: "Quel est le postulat central de la theorie de James-Lange ?", answer: "La composante physiologique est la composante principale de l'emotion. Les reponses physiques precedent et determinent le ressenti emotionnel." },
+  { question: "Quelle formule resume la theorie peripherique de James-Lange ?", answer: "'On a peur parce qu'on fuit' : c'est la reaction physiologique (fuite) qui genere l'emotion (peur), et non l'inverse." },
+  { question: "Quelles critiques Cannon-Bard adressent-ils a la theorie de James-Lange ?", answer: "1) Pauvrete des reponses physiologiques vs richesse des experiences emotionnelles\n2) Les cerebro/medulloleses ont autant d'emotions\n3) On peut declencher des emotions sans modification physiologique" },
+  { question: "Qu'est-ce que la theorie centrale des emotions (Cannon-Bard) ?", answer: "Stimulus percu au thalamus → experience emotionnelle ET reponses physiologiques en parallele (simultanement). 'On fuit parce qu'on a peur.'" },
+  { question: "Quelle formule resume la theorie centrale de Cannon-Bard ?", answer: "'On fuit parce qu'on a peur' : l'experience emotionnelle et les reponses physiologiques sont declenchees en parallele par le thalamus." },
+  { question: "Quel argument clinique soutient la theorie de Cannon-Bard ?", answer: "Les patients cerebroleses ou medulloleses (atteinte de la moelle) ressentent autant d'emotions que les individus sains, malgre une reduction de leurs reponses physiologiques peripheriques." },
+  { question: "Qu'est-ce que la theorie cognitive des emotions (Schachter) ?", answer: "L'emotion resulte de l'interaction entre l'individu et le stimulus, impliquant une evaluation cognitive. L'absence d'interpretation d'une activation physiologique genere de l'emotion." },
+  { question: "Decrivez l'experience de Schachter sur les emotions.", answer: "Injection de placebo vs epinephrine a 3 groupes : informes, mal informes et non informes des effets. Resultat : les sujets sans explication (non informes/mal informes) ressentent plus d'emotions, car ils attribuent leur activation a la situation." },
+  { question: "Pourquoi les sujets non informes dans l'experience de Schachter ressentent-ils plus d'emotions ?", answer: "N'ayant pas d'explication pour leur activation physiologique (due a l'epinephrine), ils attribuent cette activation au contexte social, ce qui genere davantage d'emotions." },
+  { question: "Quel exemple illustre que le contexte est plus puissant que le concept pour les emotions ?", answer: "L'exemple du zoo : le contexte (environnement, situation) influence davantage l'emotion que le concept abstrait (l'idee de l'animal)." },
+  { question: "Qu'est-ce que le modele des processus composants de Scherer ?", answer: "Un modele qui considere que l'emotion resulte de l'evaluation de l'evenement, des buts de l'individu, de la memoire et de la motivation." },
+  { question: "Quelle est la definition moderne des emotions selon Scherer (2009) ?", answer: "Les emotions sont des 'variations episodiques dans plusieurs composantes en reponse a des evenements evalues comme importants' pour l'organisme." },
+  { question: "Quels sont les 4 facteurs d'evaluation dans le modele de Scherer ?", answer: "1) L'evaluation de l'evenement\n2) Les buts de l'individu\n3) La memoire\n4) La motivation" },
+  { question: "Qu'est-ce que le mythe de la cocotte-minute en psychologie des emotions ?", answer: "L'idee fausse que parler d'une emotion forte permet de 'relacher la pression'. En realite, en parler reactive l'emotion et ne reduit pas la pression. La regulation passe par une ecoute professionnelle structuree." },
+  { question: "Pourquoi parler d'une emotion forte ne 'relache' pas la pression ?", answer: "Parce que parler d'une emotion forte la reactive au lieu de la reduire. C'est le mythe de la cocotte-minute. La regulation efficace necessite une ecoute professionnelle adaptee." },
+  { question: "Qu'est-ce que la chronometrie des emotions ?", answer: "Les emotions ne suivent pas un pic simple. Elles comprennent des composantes d'explosivite, d'accumulation et de reactivation, avec des dynamiques temporelles complexes." },
+  { question: "Quelles sont les 3 composantes temporelles des emotions selon la chronometrie ?", answer: "1) Explosivite (montee rapide)\n2) Accumulation (intensification progressive)\n3) Reactivation (retour de l'emotion apres une periode)" },
+  { question: "Qu'est-ce que les neurones miroirs ?", answer: "Des neurones qui s'activent aussi bien lorsqu'on effectue une action que lorsqu'on observe cette meme action realisee par autrui." },
+  { question: "Pourquoi les neurones miroirs sont-ils importants pour la cognition sociale ?", answer: "Ils sont cruciaux pour decoder les intentions d'autrui, comprendre leurs actions et developper l'empathie." },
+  { question: "Que montre l'experience d'IRM realisee a Marseille sur les neurones miroirs ?", answer: "Les memes regions cerebrales (insula) s'activent lorsqu'on observe le degout chez autrui et lorsqu'on eprouve soi-meme du degout. C'est la resonance emotionnelle." },
+  { question: "Qu'est-ce que la resonance emotionnelle ?", answer: "Le fait que les memes regions cerebrales s'activent lorsqu'on observe une emotion chez autrui et lorsqu'on la ressent soi-meme (demontree pour le degout via l'insula)." },
+  { question: "Quelle est la difference entre sympathie/compassion et empathie ?", answer: "Sympathie/compassion = souffrir avec l'autre (contagion emotionnelle).\nEmpathie = comprendre le ressenti de l'autre tout en le differenciant de son propre ressenti." },
+  { question: "Quel risque emotionnel menace les professionnels de sante ?", answer: "Le risque de contagion emotionnelle (sympathie) : ressentir la meme souffrance que le patient, ce qui peut mener a l'epuisement professionnel." },
+  { question: "Comment les professionnels de sante doivent-ils gerer la contagion emotionnelle ?", answer: "Ils doivent passer de la sympathie (souffrir avec l'autre) a l'empathie (comprendre le ressenti de l'autre en differenciant son propre ressenti), pour se proteger tout en restant a l'ecoute." },
+  { question: "Quelle difference fondamentale existe entre la reponse emotionnelle et l'experience emotionnelle ?", answer: "La reponse emotionnelle (physiologique + comportementale) est observable de l'exterieur, tandis que l'experience emotionnelle (subjective) n'est accessible que par le rapport verbal du sujet." },
+  { question: "Quelles reactions observables font partie de la composante physiologique ?", answer: "Les paleurs, les mains moites, la transpiration, les modifications du rythme cardiaque et respiratoire." },
+  { question: "Quel role joue le systeme nerveux sympathique dans les emotions ?", answer: "Il active les reactions de stress et d'alerte (augmentation du rythme cardiaque, dilatation pupillaire, liberation d'adrenaline) = preparation a l'action." },
+  { question: "Quel role joue le systeme nerveux parasympathique dans les emotions ?", answer: "Il ramene l'organisme au calme apres une activation emotionnelle (ralentissement du rythme cardiaque, relaxation) = recuperation." },
+  { question: "Comment les glucocorticoides sont-ils liberes lors d'une emotion ?", answer: "Via l'activation de l'axe hypothalamo-hypophysaire : l'hypothalamus stimule l'hypophyse qui libere l'ACTH, laquelle stimule les surrenales pour produire des glucocorticoides (cortisol)." },
+  { question: "Quel est le role de la conductance electrodermale dans l'etude des emotions ?", answer: "Elle mesure les variations de sudation dues a l'activation du systeme nerveux sympathique, permettant d'objectiver la reponse emotionnelle physiologique." },
+  { question: "Pourquoi Darwin considere-t-il les expressions faciales comme un outil de communication ?", answer: "Parce qu'elles sont universelles (presentes dans toutes les cultures) et permettent de transmettre des informations emotionnelles, assurant ainsi la regulation sociale des interactions." },
+  { question: "Qu'est-ce que le comportement d'approche dans le contexte emotionnel ?", answer: "Un comportement oriente vers le stimulus (aller vers), associe a la joie et a la colere, impliquant le cortex prefrontal gauche selon Davidson." },
+  { question: "Qu'est-ce que le comportement de retrait dans le contexte emotionnel ?", answer: "Un comportement oriente loin du stimulus (s'eloigner), associe a la peur et au degout, impliquant le cortex prefrontal droit selon Davidson." },
+  { question: "Quel est le role de l'hippocampe dans le reseau emotionnel ?", answer: "L'hippocampe fait partie du reseau limbique (perception network) et contribue a la detection et a l'evaluation des emotions, notamment via la memoire contextuelle." },
+  { question: "Quel est le role de l'hypothalamus dans le reseau emotionnel ?", answer: "L'hypothalamus fait partie du reseau limbique (perception network). Il coordonne les reponses physiologiques aux emotions via l'axe hypothalamo-hypophysaire et le systeme nerveux autonome." },
+  { question: "Quel est le role des noyaux de la base dans le reseau emotionnel ?", answer: "Les noyaux de la base font partie du reseau limbique (perception network) et participent a la detection et a l'evaluation des emotions." },
+  { question: "Quel est le role du cortex prefrontal lateral dans la regulation emotionnelle ?", answer: "Il fait partie du reseau de regulation (regulation network) et intervient dans la regulation volontaire des emotions et le controle cognitif." },
+  { question: "Quel est le role du cortex prefrontal medial dans les emotions ?", answer: "Il fait partie du reseau de regulation et est implique dans la conscience des emotions et l'experience emotionnelle subjective." },
+  { question: "Pourquoi dit-on que l'insula n'est pas exclusivement liee au degout ?", answer: "Bien que l'insula soit principalement associee au degout, les emotions fonctionnent en reseau : d'autres regions contribuent au degout et l'insula participe a d'autres processus (conscience corporelle, empathie)." },
+  { question: "Selon James-Lange, les reponses physiologiques sont-elles les memes pour toutes les emotions ?", answer: "Non. Selon James-Lange, chaque emotion a des reponses physiologiques differentes et specifiques, ce qui permet de distinguer les emotions entre elles." },
+  { question: "Quel est le role du thalamus dans la theorie de Cannon-Bard ?", answer: "Le thalamus est le point central qui recoit le stimulus et declenche simultanement l'experience emotionnelle (vers le cortex) et les reponses physiologiques (vers le corps)." },
+  { question: "Qu'est-ce que l'evaluation cognitive dans la theorie de Schachter ?", answer: "Le processus par lequel l'individu interprete et attribue une cause a son activation physiologique, ce qui determine l'emotion ressentie." },
+  { question: "Que se passe-t-il quand un sujet ne peut pas expliquer son activation physiologique (Schachter) ?", answer: "Il attribue cette activation au contexte environnant et ressent davantage d'emotion. C'est l'absence d'interpretation qui genere l'attribution emotionnelle." },
+  { question: "Quels etaient les 3 groupes dans l'experience de Schachter ?", answer: "1) Informes : on leur dit les vrais effets de l'epinephrine\n2) Mal informes : on leur donne de fausses informations\n3) Non informes : on ne leur dit rien sur les effets" },
+  { question: "Quelle region cerebrale est activee dans l'experience de Marseille sur la resonance emotionnelle au degout ?", answer: "L'insula s'active a la fois lors de la vision du degout chez autrui et lorsque le degout est provoque chez le sujet lui-meme." },
+  { question: "Qu'est-ce qui distingue une emotion de base d'une emotion mixte ?", answer: "Une emotion de base est universelle, spontanee, de duree limitee et a des reponses physiologiques specifiques. Une emotion mixte est un melange de plusieurs emotions de base." },
+  { question: "Pourquoi les emotions negatives sont-elles percues plus intensement ?", answer: "C'est l'asymetrie des affects : un biais evolutif favorise la detection et l'intensite des emotions negatives (danger) par rapport aux emotions positives, ce qui a une valeur adaptative de survie." },
+  { question: "Quelle est la fonction d'alarme de l'amygdale ?", answer: "L'amygdale agit comme un systeme d'alarme cerebral : elle detecte rapidement (de maniere implicite et explicite) les signaux de danger dans l'environnement." }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+
+</script>
+
+</section>
+
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Physiologie</span>
+<ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+<li><a href="../Physiologie/fc2.html">Adaptation de l'apport d'oxygène</a></li>
+<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+<li><a href="../Physiologie/fc4.html">Adaptations à l'effort</a></li>
+<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+<li><a href="../Physiologie/fc7.html">Bilan de l'eau</a></li>
+<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+</ul>
+</li>
+<li><span class="opener">Anatomie</span>
+<ul>
+<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+</ul>
+</li>
+<li><span class="opener">Biophysique</span>
+<ul>
+<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+<li><a href="../Biophysique/fc6.html">ECG</a></li>
+<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+</ul>
+</li>
+<li><span class="opener">Pharmacologie</span>
+<ul>
+<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d'actions</a></li>
+<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+</ul>
+</li>
+<li><span class="opener">Biostatistiques</span>
+<ul>
+<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+<li><a href="../Biostatistiques/fc9.html">Principaux types d'études</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDS Biologie</span>
+<ul>
+<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+</ul>
+</li>
+<li><span class="opener">UEDL IGHL</span>
+<ul>
+<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+<li><a href="../UEDL_IGHL/fc3.html">Introduction à l'histoire de la langue</a></li>
+<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+</ul>
+</li>
+<li><span class="opener">SHS</span>
+<ul>
+<li><span class="opener">Santé numérique</span>
+<ul>
+<li><a href="definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+<li><a href="outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+<li><a href="traitement_donnees_sante.html">Traitement des données de santé</a></li>
+</ul>
+</li>
+<li><span class="opener">Éthique et droit</span>
+<ul>
+<li><a href="introduction_droit_sante.html">Introduction au droit de la santé</a></li>
+<li><a href="introduction_ethique_medicale.html">Introduction à l'éthique médicale (FC2)</a></li>
+<li><a href="principisme_fin_de_vie.html">Principisme et fin de vie (FC3)</a></li>
+<li><a href="progres_techniques_amp.html">Progrès techniques et AMP (FC4)</a></li>
+</ul>
+</li>
+<li><span class="opener">Psychologie médicale</span>
+<ul>
+<li><a href="emotion_comportement.html">Émotion et comportement (FC8)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<footer id="footer"><p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p></footer>
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>
