@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Bases moléculaires en oncologie</h1><h2>Oncogenèse digestive</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quel est le cancer digestif le plus fréquent ?', answer: 'Le cancer colorectal est le cancer digestif le plus fréquent.', },
+{ question: 'Que signifie l’acronyme EGFR ?', answer: 'EGFR signifie « Epidermal Growth Factor receptor ».', },
+{ question: 'Où se situe le récepteur EGFR ?', answer: 'Il s’agit d’un récepteur transmembranaire présent à la surface des cellules tumorales.', },
+{ question: 'Quelles sont les trois parties structurelles de la protéine EGFR ?', answer: 'Elle comporte un domaine extracellulaire (fixation du ligand), un domaine transmembranaire et un domaine intracellulaire.', },
+{ question: 'Quelle activité enzymatique possède le récepteur EGFR ?', answer: 'L’EGFR possède une activité tyrosine kinase.', },
+{ question: 'Quelles sont les deux formes de dimérisation de l’EGFR ?', answer: 'L’homodimérisation (avec exactement le même EGFR) et l’hétérodimérisation (avec un autre type d’EGFR).', },
+{ question: 'Qu’est-ce que l’autophosphorylation de l’EGFR ?', answer: 'C’est la phosphorylation du domaine intracellulaire du récepteur suite à son activation et sa dimérisation.', },
+{ question: 'Quelles sont les deux grandes voies de signalisation activées par l’EGFR ?', answer: 'La voie MAP-kinase (RAS-RAF-MEK-ERK) et la voie PI3-kinase-AKT.', },
+{ question: 'Quel est le rôle normal de la protéine codée par le gène KRAS ?', answer: 'Elle est impliquée dans la transduction des signaux de croissance cellulaire et régule temporairement la voie MAPK.', },
+{ question: 'À quelle famille de protéines appartient KRAS ?', answer: 'Il appartient à la famille des Ras (HRAS, NRAS, KRAS…).', },
+{ question: 'Quel est le type oncogénique du gène KRAS ?', answer: 'KRAS est un oncogène.', },
+{ question: 'Quelles voies de signalisation sont favorisées par une mutation KRAS ?', answer: 'Les voies RAF/MEK/ERK et PI3K/AKT/mTOR.', },
+{ question: 'Quelles sont les conséquences cellulaires de l’activation des voies RAF/MEK/ERK et PI3K/AKT/mTOR ?', answer: 'Elles favorisent la prolifération cellulaire excessive, la survie anormale des cellules et l’invasion tissulaire.', },
+{ question: 'Dans quel pourcentage de cancers en général retrouve-t-on des mutations RAS ?', answer: 'Les mutations RAS sont retrouvées dans 30 % des cancers en général.', },
+{ question: 'Quelle est la part de KRAS parmi les mutations RAS ?', answer: 'KRAS représente 85 % des cas de mutations RAS.', },
+{ question: 'Quelle est la prévalence des mutations KRAS dans les cancers colorectaux ?', answer: 'Elle est de 35 % à 40 %.', },
+{ question: 'Quels exons de KRAS sont majoritairement touchés dans le cancer colorectal ?', answer: 'La majorité des mutations concernent les exons 12 et 13.', },
+{ question: 'Citez quatre variants fréquents de mutations KRAS au niveau de l’exon 12.', answer: 'Les variants G12A, G12S, G12C et G12D.', },
+{ question: 'Quelle mutation spécifique de KRAS fait l’objet de thérapies ciblées prometteuses (révolution thérapeutique) ?', answer: 'La mutation KRAS G12C.', },
+{ question: 'Définition de la translation thérapeutique en oncologie.', answer: 'Cela signifie qu’une mutation d’un gène peut directement influencer le choix du traitement du patient.', },
+{ question: 'Quelle transformation moléculaire subit KRAS sous la membrane suite à l’autophosphorylation de l’EGFR ?', answer: 'KRAS subit une transformation GDP-GTP (phosphorylation).', },
+{ question: 'Quel anticorps monoclonal anti-EGFR est utilisé dans le cancer colorectal ?', answer: 'Le Cetuximab.', },
+{ question: 'Quel est le mécanisme d’action du Cetuximab ?', answer: 'C’est un anticorps monoclonal qui se fixe à l’EGFR à la place de l’EGF, empêchant la dimérisation, l’autophosphorylation et l’activation des voies de prolifération.', },
+{ question: 'Que signifie l’activation constitutive de KRAS en cas de mutation ?', answer: 'La protéine est toujours activée, indépendamment de la fixation du ligand EGF sur le récepteur.', },
+{ question: 'Comment la mutation KRAS influence-t-elle la réponse au Cetuximab ?', answer: 'La mutation KRAS prédit l’absence de réponse aux anti-EGFR (résistance primaire).', },
+{ question: 'Quelle est la médiane de survie sous Cetuximab pour les patients KRAS sauvages ?', answer: 'La médiane de survie est d’environ 15 mois.', },
+{ question: 'Quelle est la médiane de survie sous Cetuximab pour les patients KRAS mutés ?', answer: 'Elle est réduite à environ 7 mois.', },
+{ question: 'Quelle vérification est systématique en anatomopathologie avant de traiter un CRC métastatique par anti-EGFR ?', answer: 'On vérifie systématiquement la présence d’une mutation du gène KRAS car elle est prédictive d’une faible réponse.', },
+{ question: 'Quel type de gène est le gène APC ?', answer: 'APC est un gène suppresseur de tumeur.', },
+{ question: 'Quelles sont les deux fonctions principales du gène APC fonctionnel ?', answer: 'Il assure la régulation du cycle cellulaire et le maintien de l’apoptose.', },
+{ question: 'Sur quelle voie de signalisation clé agit le gène APC ?', answer: 'Il agit sur la voie Wnt/β-caténine.', },
+{ question: 'Quel est le récepteur transmembranaire de la voie Wnt ?', answer: 'Le récepteur Frizzled (FZD).', },
+{ question: 'Que devient la β-caténine en l’absence de ligand Wnt ?', answer: 'Elle est liée par un complexe (Axine et GSK-3β) et détruite via le protéasome.', },
+{ question: 'Que se passe-t-il pour la β-caténine en présence de Wnt ?', answer: 'La destruction est empêchée ; elle s’accumule et migre vers le noyau.', },
+{ question: 'Quels sont les facteurs de transcription nucléaires auxquels se lie la β-caténine ?', answer: 'Les facteurs TCF/LEF.', },
+{ question: 'Citez deux gènes oncogéniques activés par l’accumulation nucléaire de la β-caténine.', answer: 'Les gènes c-Myc et Cyclin D1.', },
+{ question: 'Quelle est la conséquence d’une mutation germinale d’APC sur la β-caténine ?', answer: 'Elle n’est plus détruite, migre dans le noyau et entraîne la transcription de facteurs pro-tumoraux.', },
+{ question: 'À quel âge le risque de cancer colorectal augmente-t-il dans la population générale ?', answer: 'Le risque commence à augmenter après l’âge de 50 ans.', },
+{ question: 'À quel âge le risque de cancer colorectal peut-il apparaître chez les porteurs d’une mutation APC ?', answer: 'Il peut apparaître dès l’âge de 20 à 30 ans.', },
+{ question: 'Quel pourcentage des cancers colorectaux est d’origine héréditaire ?', answer: 'Environ 30 % des cancers colorectaux sont d’origine héréditaire.', },
+{ question: 'Quelle pathologie est causée par la mutation germinale d’APC ?', answer: 'La polypose adénomateuse familiale (PAF).', },
+{ question: 'Qu’est-ce que le syndrome de Lynch ?', answer: 'C’est un syndrome de prédisposition héréditaire au CRC lié à des mutations des gènes de réparation de l’ADN (système MMR).', },
+{ question: 'Quelle est la différence entre une mutation germinale et une mutation somatique ?', answer: 'La mutation germinale est présente dans toutes les cellules (héréditaire), tandis que la somatique est acquise localement dans la tumeur.', },
+{ question: 'Expliquez la théorie du « second hit » pour le gène APC.', answer: 'Pour un gène suppresseur, après un premier hit germinal (hérédité), un second hit local (somatique) doit survenir pour induire le cancer.', },
+{ question: 'Quelles sont les étapes de progression du cancer colorectal selon le modèle des deux coups ?', answer: 'Muqueuse normale → accumulation d’anomalies (hits APC) → adénome de bas grade → adénome de haut grade → cancer invasif.', },
+{ question: 'Définition d’un polype.', answer: 'C’est une lésion macroscopique visible en endoscopie (excroissance sur la muqueuse).', },
+{ question: 'Définition d’un adénome.', answer: 'C’est un polype adénomateux, considéré comme une tumeur bénigne mais précancéreuse.', },
+{ question: 'Quel critère numérique oriente vers une polypose adénomateuse familiale (PAF) ?', answer: 'La présence de plus de 100 polypes dans le côlon.', },
+{ question: 'Quels sont les symptômes d’un cancer colorectal invasif ?', answer: 'Troubles du transit, rectorragies (sang dans les selles) et douleurs abdominales.', },
+{ question: 'Quelle intervention préventive est proposée à l’adolescence pour les porteurs de la mutation APC ?', answer: 'Une colectomie totale (chirurgie prophylactique).', },
+{ question: 'Quelles sont les caractéristiques de la PAF classique ?', answer: 'Plus de 200 polypes, apparition entre 15 et 35 ans, évolution vers le cancer vers 35-40 ans.', },
+{ question: 'Quelles sont les caractéristiques de la PAF atténuée ?', answer: 'Moins de polypes, apparition plus tardive (30-40 ans) et cancer également plus tardif.', },
+{ question: 'Comment peut-on tester la présence d’une mutation germinale d’APC ?', answer: 'Par une simple prise de sang (recherche de mutation dans toutes les cellules).', },
+{ question: 'Citez deux exemples de panels de tests génétiques pour les CRC héréditaires.', answer: 'Oncoguide NCC-Onco Panel System et FoundationOne CDx Cancer Genome Profile.', },
+{ question: 'Quelles sont les 5 catégories de la classification du potentiel pathogénique d’une mutation ?', answer: 'Bénin, Vraisemblablement Bénin, Incertain, Vraisemblablement pathogénique, Pathogénique.', },
+{ question: 'Quelle anomalie génétique du gène HER2 est emblématique du cancer gastrique ?', answer: 'L’amplification du gène HER2.', },
+{ question: 'À quelle famille appartient le récepteur HER2 ?', answer: 'Il appartient à la famille des EGFR (autre isoforme).', },
+{ question: 'Quel pourcentage d’adénocarcinomes gastriques présente une surexpression de HER2 ?', answer: 'Environ 20 %.', },
+{ question: 'Comment définit-on moléculairement l’amplification de HER2 ?', answer: 'Par un ratio trop élevé entre le nombre de copies du gène et le nombre de centromères du chromosome 17.', },
+{ question: 'Quelles sont les deux méthodes de détection des amplifications d’HER2 ?', answer: 'L’immunohistochimie (IHC) et l’hybridation in situ (ISH).', },
+{ question: 'Quel est le principe de l’immunohistochimie (IHC) pour HER2 ?', answer: 'Utilisation d’un anticorps dirigé contre la protéine HER2 membranaire, visible par un précipité marron en microscopie.', },
+{ question: 'Détaillez le scoring IHC de HER2 et sa signification.', answer: '0/1+ : négatif ; 2+ : équivoque (nécessite ISH) ; 3+ : positif (surexpression).', },
+{ question: 'Quel est le principe de l’hybridation in situ (ISH) ?', answer: 'Utilisation de sondes marquées ciblant l’ADN (gène HER2 et centromère 17) pour compter les copies au microscope.', },
+{ question: 'Quelle valeur du ratio HER2/Centromère confirme une amplification ?', answer: 'Un ratio ≥ 2.', },
+{ question: 'Quelle est la différence entre FISH et CISH ?', answer: 'FISH utilise la fluorescence (Gold Standard), CISH utilise la lumière blanche.', },
+{ question: 'Quel anticorps anti-HER2 est utilisé dans le cancer gastrique ?', answer: 'Le Trastuzumab.', },
+{ question: 'Quels patients sont considérés « bons répondeurs » au Trastuzumab ?', answer: 'Les patients avec un score IHC 3+ ou IHC 2+ avec FISH positif.', },
+{ question: 'Qu’est-ce qu’un cholangiocarcinome ?', answer: 'C’est un cancer épithélial (carcinome) développé à partir des voies biliaires intra ou extra-hépatiques.', },
+{ question: 'Quelle altération moléculaire de FGFR2 cause le cholangiocarcinome ?', answer: 'La fusion et le réarrangement de FGFR2.', },
+{ question: 'Quel pourcentage de cholangiocarcinomes intra-hépatiques présente des réarrangements de FGFR2 ?', answer: 'De 10 % à 15 %.', },
+{ question: 'Quelle est la différence entre une mutation ponctuelle et un réarrangement chromosomique ?', answer: 'La mutation affecte une base isolée ; le réarrangement est une fusion anormale entre deux segments chromosomiques non adjacents.', },
+{ question: 'Qu’est-ce qu’une protéine chimérique (ou de fusion) ?', answer: 'C’est une protéine issue de la traduction d’un gène de fusion qui acquiert un potentiel oncogénique.', },
+{ question: 'Quel est l’effet fonctionnel des fusions FGFR2 ?', answer: 'Elles entraînent une activation constitutive (permanente) du récepteur, indépendante de la fixation du ligand.', },
+{ question: 'Quelle méthode est utilisée pour détecter les transcrits de fusion FGFR2 ?', answer: 'L’amplification par RT-PCR.', },
+{ question: 'En quoi consiste le « balance assay » en RT-PCR pour FGFR2 ?', answer: 'Il met en évidence un déséquilibre d’expression entre l’extrémité 5\' (surexprimée) et l’extrémité 3\' (absente/remplacée) du transcrit.', },
+{ question: 'Quels sont les avantages de la RT-PCR pour FGFR2 ?', answer: 'Très sensible, utilisable sur tissus FFPE, et ne nécessite pas de connaître le partenaire de fusion.', },
+{ question: 'Quels sont les inconvénients de l’immunohistochimie pour les fusions FGFR2 ?', answer: 'Elle ne distingue pas la protéine sauvage de la protéine de fusion et n’est pas validée en pratique clinique.', },
+{ question: 'Comment le NGS permet-il d’identifier les fusions FGFR2 ?', answer: 'En analysant l’ARN tumoral pour détecter des séquences de fusions connues ou nouvelles.', },
+{ question: 'Que signifie une méthode NGS « partenaire-agnostique » ?', answer: 'C’est une méthode (ex: Hybrid Capture) qui détecte la fusion sans avoir besoin de connaître à l’avance le segment fusionné avec FGFR2.', },
+{ question: 'Quels sont les inconvénients du NGS ?', answer: 'Technique longue (jours/semaines), expertise bioinformatique nécessaire et sensibilité variable si peu de cellules tumorales.', },
+{ question: 'Quel type de matériel est principalement utilisé pour les analyses KRAS, APC, HER2 et FGFR2 ?', answer: 'Les tissus fixés en formol et inclus en paraffine (FFPE).', },
+{ question: 'Quelle lésion est qualifiée d\'« adénome de Belgrade » dans le cadre de la PAF ?', answer: 'Le document mentionne des adénomes de Belgrade de haut grade comme lésions précancéreuses.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Bases_moleculaire_Oncologie_fc6";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

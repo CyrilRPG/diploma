@@ -1,0 +1,565 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Appareil respiratoire</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Appareil respiratoire</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la trachée', answer: 'Un conduit fibreux et cartilagineux transportant l’air, faisant suite au larynx et se terminant en deux bronches principales' },
+  { question: 'Où se situe la trachée dans le thorax', answer: 'Dans le médiastin moyen' },
+  { question: 'Quelle est la relation de la trachée avec l’appareil digestif', answer: 'Elle est située en avant du pharynx et de l’œsophage' },
+  { question: 'En combien de parties se divise la trachée', answer: 'En deux parties, cervicale et thoracique' },
+  { question: 'Où débute la partie cervicale de la trachée', answer: 'Au niveau de C6/C7' },
+  { question: 'Où se termine la partie cervicale de la trachée', answer: 'Au niveau de T2' },
+  { question: 'Combien d’anneaux trachéaux comporte la partie cervicale', answer: 'Entre 16 et 20 anneaux trachéaux' },
+  { question: 'Quelle veine est latérale à la trachée cervicale', answer: 'La veine jugulaire' },
+  { question: 'Où débute la partie thoracique de la trachée', answer: 'Au niveau de T2, bord supérieur du manubrium sternal' },
+  { question: 'Où se termine la partie thoracique de la trachée', answer: 'Au niveau de T4/T5' },
+  { question: 'Quelle est la longueur et le diamètre de la trachée thoracique', answer: 'Environ 6 cm de long et 12 mm de large' },
+  { question: 'Comment s’appelle la zone de division de la trachée', answer: 'La carène' },
+  { question: 'Quel est l’angle de bifurcation trachéale', answer: 'Environ 70°' },
+  { question: 'Quelle est l’orientation de la trachée dans le thorax', answer: 'Légèrement déviée vers la droite, oblique en bas et en arrière' },
+  { question: 'Comment est la morphologie de la trachée', answer: 'Hémicylindrique, fibreuse et cartilagineuse' },
+  { question: 'Comment sont les anneaux cartilagineux trachéaux', answer: 'Incomplets, superposés, au nombre de 16 à 20' },
+  { question: 'Qu’est-ce qui ferme la gouttière trachéale à l’arrière', answer: 'La membrane trachéale' },
+  { question: 'Quelle est la constitution de la tunique interne de la trachée', answer: 'Une muqueuse épithéliale' },
+  { question: 'Quelle est la composition de la membrane trachéale', answer: 'Des fibres musculaires lisses' },
+  { question: 'Quelle est la composition des bronches principales', answer: 'Identique à celle des anneaux trachéaux' },
+  { question: 'Quelle est la longueur de la bronche principale droite', answer: 'Environ 3 cm' },
+  { question: 'Quelle est l’orientation de la bronche principale droite', answer: 'Oblique, rectiligne, dans l’axe de la trachée' },
+  { question: 'Quel est l’angle de la bronche principale droite avec la verticale', answer: 'Entre 20 et 25°' },
+  { question: 'Quels sont les rameaux de la bronche principale droite', answer: 'Une bronche lobaire supérieure droite, une bronche lobaire intermédiaire donnant les bronches lobaires moyenne et inférieure' },
+  { question: 'Quelle est la longueur de la bronche principale gauche', answer: '5 à 6 cm' },
+  { question: 'Quelle est l’orientation de la bronche principale gauche', answer: 'Plus horizontale, avec un angle de 45° avec la verticale' },
+  { question: 'Quels sont les rameaux de la bronche principale gauche', answer: 'Une bronche lobaire supérieure et une bronche lobaire inférieure' },
+  { question: 'Quel organe est situé en arrière de la trachée au niveau de T2', answer: 'L’œsophage' },
+  { question: 'Quel nerf passe en arrière de la trachée', answer: 'Le nerf laryngé récurrent gauche' },
+  { question: 'Quel est le rôle du nerf laryngé récurrent gauche', answer: 'Il permet la mobilité des cordes vocales et donc la parole' },
+  { question: 'Quelle artère se trouve en arrière et à gauche de la trachée', answer: 'L’artère subclavière gauche' },
+  { question: 'Quel conduit lymphatique passe près de la trachée', answer: 'Le conduit thoracique' },
+  { question: 'Quels éléments se trouvent en avant de la trachée', answer: 'Le tronc artériel brachio-céphalique, l’artère carotide commune gauche, le nerf vague droit' },
+  { question: 'Quels éléments sont latéraux à la trachée', answer: 'La plèvre et les dômes pleuraux' },
+  { question: 'Combien de poumons possède l’être humain', answer: 'Deux, droit et gauche' },
+  { question: 'Où sont situés les poumons', answer: 'De part et d’autre du médiastin, dans la cage thoracique latéralement' },
+  { question: 'Les poumons appartiennent-ils au médiastin', answer: 'Non' },
+  { question: 'Que constitue la partie supérieure des poumons', answer: 'Le dôme pleural, qui dépasse l’orifice supérieur du thorax' },
+  { question: 'Quelle est la forme générale d’un poumon', answer: 'Un demi-cône irrégulier' },
+  { question: 'Quelles sont les dimensions approximatives d’un poumon', answer: '20 cm de hauteur, 20 cm d’épaisseur antéro-postérieure, 10 cm transversalement' },
+  { question: 'Quel poumon est le plus volumineux', answer: 'Le poumon droit (700 g contre 600 g pour le gauche)' },
+  { question: 'Quelle est la capacité totale des poumons', answer: 'Environ 5 litres d’air' },
+  { question: 'Quelle partie du poumon repose sur le diaphragme', answer: 'La base' },
+  { question: 'Comment est la face latérale du poumon', answer: 'Convexe et en contact avec le grill costal' },
+  { question: 'Comment est la face médiale du poumon', answer: 'Médiastinale, avec présence du hile pulmonaire' },
+  { question: 'Qu’est-ce que le hile pulmonaire', answer: 'La zone d’entrée et de sortie des vaisseaux et bronches entourée par la plèvre' },
+  { question: 'De combien de feuillets est composée la plèvre', answer: 'De deux feuillets, viscéral et pariétal' },
+  { question: 'Que sépare la plèvre', answer: 'Elle sépare le poumon de la cage thoracique' },
+  { question: 'Quelle est la cavité entre les deux feuillets de la plèvre', answer: 'La cavité pleurale, virtuelle en condition normale' },
+  { question: 'Quelles pathologies peuvent remplir la cavité pleurale', answer: 'Un pneumothorax, un hémothorax, ou une pleurésie' },
+  { question: 'Quelles sont les fonctions principales de la plèvre', answer: 'Protection et glissement des poumons' },
+  { question: 'Jusqu’à quel niveau descend la plèvre viscérale en inspiration profonde', answer: 'Pas en dessous de la dixième côte' },
+  { question: 'Jusqu’à quel niveau descend la plèvre pariétale en inspiration profonde', answer: 'Jusqu’à la douzième côte' },
+  { question: 'Comment s’appelle le cul-de-sac formé entre les deux plèvres au niveau costo-diaphragmatique', answer: 'Le récessus costo-diaphragmatique' },
+  { question: 'Qu’est-ce que le ligament pulmonaire', answer: 'Un prolongement distal du hile en forme de manche de raquette, formé par la réflexion des deux feuillets de la plèvre' },
+  { question: 'Quelle structure occupe l’espace de l’incisure cardiaque au niveau du poumon gauche', answer: 'Le cœur' },
+  { question: 'Quel élément est situé en avant du hile pulmonaire', answer: 'La veine pulmonaire supérieure' },
+  { question: 'Quel élément est situé en bas du hile pulmonaire', answer: 'La veine pulmonaire inférieure' },
+  { question: 'Quel élément est situé en arrière du hile pulmonaire', answer: 'La bronche principale qui se divise' },
+  { question: 'Où se situe l’artère pulmonaire dans le hile du poumon droit', answer: 'En avant de la bronche principale droite' },
+  { question: 'Où se situe l’artère pulmonaire dans le hile du poumon gauche', answer: 'Au-dessus de la bronche principale gauche' },
+  { question: 'Combien de veines pulmonaires y a-t-il au total', answer: 'Deux, une supérieure et une inférieure par poumon' },
+  { question: 'Où se jettent les veines pulmonaires', answer: 'Dans l’atrium gauche du cœur' },
+  { question: 'Que transportent les veines pulmonaires', answer: 'Du sang oxygéné vers le cœur' },
+  { question: 'Quel est l’élément le plus postérieur du hile pulmonaire', answer: 'Toujours la bronche' },
+  { question: 'Combien de scissures possède le poumon droit', answer: 'Deux, une grande oblique et une petite horizontale' },
+  { question: 'Combien de lobes possède le poumon droit', answer: 'Trois, supérieur, moyen et inférieur' },
+  { question: 'Qu’est-ce que le culmen', answer: 'La partie du lobe supérieur droit située au-dessus des scissures' },
+  { question: 'Où se situe le lobe moyen du poumon droit', answer: 'Entre les deux scissures' },
+  { question: 'Où se situe le lobe inférieur du poumon droit', answer: 'Sous la scissure oblique' },
+  { question: 'Combien de scissures possède le poumon gauche', answer: 'Une seule, oblique' },
+  { question: 'Combien de lobes possède le poumon gauche', answer: 'Deux, supérieur et inférieur' },
+  { question: 'Quelle particularité présente le lobe supérieur gauche', answer: 'Il comporte le culmen et la lingula' },
+  { question: 'Quelle est la structure fonctionnelle des poumons', answer: 'Le parenchyme alvéolaire' },
+  { question: 'Qu’est-ce que le parenchyme alvéolaire', answer: 'L’ensemble des alvéoles et sacs alvéolaires entourés de capillaires' },
+  { question: 'Où s’effectuent les échanges gazeux dans le poumon', answer: 'Dans les alvéoles pulmonaires' },
+  { question: 'Qu’est-ce qu’un pédicule pulmonaire', answer: 'Un ensemble vasculo-nerveux et bronchique pénétrant la face médiale du poumon' },
+  { question: 'À quel niveau pénètrent les pédicules pulmonaires', answer: 'En T4/T5' },
+  { question: 'Quels sont les deux types de pédicules pulmonaires', answer: 'Le pédicule fonctionnel et le pédicule nourricier' },
+  { question: 'De quoi est composé le pédicule fonctionnel', answer: 'Des bronches principales, artères et veines pulmonaires' },
+  { question: 'De quoi est composé le pédicule nourricier', answer: 'D’artères bronchiques, veines bronchiques et éléments nerveux' },
+  { question: 'D’où naissent les artères bronchiques', answer: 'De l’aorte descendante ou des artères intercostales' },
+  { question: 'Où se drainent les veines bronchiques', answer: 'Dans la veine cave supérieure via le système azygos' },
+  { question: 'Quels systèmes nerveux innervent les poumons', answer: 'Le système sympathique et le système parasympathique' },
+  { question: 'Quelle couleur apparaît un poumon normal en radiologie', answer: 'Noir, car il contient de l’air' },
+  { question: 'Que représentent les reliefs visibles autour des poumons en radiologie', answer: 'Les côtes' },
+  { question: 'Qu’est-ce que l’ombre cardiaque en radiologie', answer: 'La silhouette du cœur au centre du thorax' },
+  { question: 'Que représentent les coupoles diaphragmatiques en radiologie', answer: 'Les limites entre la cage thoracique et la cavité abdominale' },
+  { question: 'Comment apparaît la plèvre en radiologie', answer: 'Comme une enveloppe fine délimitant les poumons' },
+  { question: 'Quelle portion de l’aorte se trouve visible en coupe au niveau de T5', answer: 'La première portion de l’aorte thoracique ascendante' },
+  { question: 'Vers quelle direction se dirige initialement l’aorte ascendante', answer: 'Vers le haut et la droite' },
+  { question: 'Que se divise en deux branches au niveau de T5', answer: 'Le tronc pulmonaire en artère pulmonaire droite et gauche' },
+  { question: 'Quelles sont les deux branches issues du tronc pulmonaire', answer: 'L’artère pulmonaire droite et l’artère pulmonaire gauche' },
+  { question: 'Où localise-t-on l’aorte thoracique descendante en T5', answer: 'En arrière et légèrement à gauche du médiastin' },
+  { question: 'Quelles structures bronchiques sont visibles juste sous la carène en T5', answer: 'Les deux bronches principales' },
+  { question: 'Quelle est la fonction des artères pulmonaires', answer: 'Transporter le sang désoxygéné du cœur vers les poumons' },
+  { question: 'Quelle est la fonction des veines pulmonaires', answer: 'Transporter le sang oxygéné des poumons vers le cœur' },
+  { question: 'Quelle est la fonction des artères bronchiques', answer: 'Nourrir les tissus bronchiques et non le parenchyme pulmonaire' },
+  { question: 'Quelle est la fonction des veines bronchiques', answer: 'D’assurer le drainage veineux des bronches vers la veine cave supérieure' },
+  { question: 'Quelle est la fonction du système nerveux sympathique sur le poumon', answer: 'Bronchodilatation et vasoconstriction' },
+  { question: 'Quelle est la fonction du système parasympathique sur le poumon', answer: 'Bronchoconstriction et vasodilatation' },
+  { question: 'Quel est le rôle principal du pédicule fonctionnel', answer: 'Assurer les échanges gazeux entre les bronches, artères et veines pulmonaires' },
+  { question: 'Quel est le rôle principal du pédicule nourricier', answer: 'Fournir un apport sanguin et nerveux aux structures bronchiques' },
+  { question: 'Par où passent les artères bronchiques pour rejoindre les poumons', answer: 'Par la face postérieure du médiastin' },
+  { question: 'Quelle est la relation entre le système azygos et les veines bronchiques', answer: 'Les veines bronchiques se drainent dans le système azygos qui rejoint la veine cave supérieure' },
+  { question: 'Quelle est la conséquence clinique d’une obstruction des bronches nourries par les artères bronchiques', answer: 'Une ischémie des tissus bronchiques' },
+  { question: 'Quels sont les principaux nerfs parasympathiques innervant les poumons', answer: 'Les nerfs vagues' },
+  { question: 'Quels sont les principaux nerfs sympathiques innervant les poumons', answer: 'Les nerfs issus de la chaîne sympathique thoracique' },
+  { question: 'Quelle est la particularité du trajet du nerf laryngé récurrent gauche', answer: 'Il descend dans le thorax, fait une crosse autour de l’aorte puis remonte vers le larynx' },
+  { question: 'Quelle est la conséquence d’une atteinte du nerf laryngé récurrent', answer: 'Une paralysie des cordes vocales' },
+  { question: 'Quel est l’aspect radiologique normal des poumons', answer: 'Ils apparaissent noirs en raison de l’air qu’ils contiennent' },
+  { question: 'Pourquoi les poumons apparaissent noirs en radiographie', answer: 'Parce que l’air absorbe peu les rayons X' },
+  { question: 'Que représente l’ombre blanche au centre d’une radiographie thoracique', answer: 'L’ombre cardiaque' },
+  { question: 'Que marque la limite inférieure des poumons en radiologie', answer: 'Les coupoles diaphragmatiques' },
+  { question: 'Qu’indiquent les reliefs blancs en arc au-dessus des poumons en radiologie', answer: 'Les côtes' },
+  { question: 'Qu’est-ce que la carène en imagerie', answer: 'Le point de bifurcation de la trachée en deux bronches principales' },
+  { question: 'Que peut indiquer un déplacement de la carène en radiologie', answer: 'Une masse médiastinale ou un processus pathologique' },
+  { question: 'Quels éléments vasculaires sont visibles au niveau de T5', answer: 'L’aorte ascendante, l’aorte descendante et le tronc pulmonaire avec ses branches' },
+  { question: 'Quelle est la topographie générale de l’aorte ascendante en T5', answer: 'Verticale, dirigée vers le haut et la droite' },
+  { question: 'Où se situe le tronc pulmonaire en T5', answer: 'En avant et légèrement à gauche de l’aorte ascendante' },
+  { question: 'Quelles sont les deux branches issues du tronc pulmonaire', answer: 'L’artère pulmonaire droite et l’artère pulmonaire gauche' },
+  { question: 'Où se situe l’artère pulmonaire droite par rapport à la bronche principale droite', answer: 'En avant de la bronche' },
+  { question: 'Où se situe l’artère pulmonaire gauche par rapport à la bronche principale gauche', answer: 'Au-dessus de la bronche' },
+  { question: 'Quelle est la fonction de l’artère pulmonaire droite', answer: 'Transporter le sang désoxygéné du ventricule droit vers le poumon droit' },
+  { question: 'Quelle est la fonction de l’artère pulmonaire gauche', answer: 'Transporter le sang désoxygéné du ventricule droit vers le poumon gauche' },
+  { question: 'Que deviennent les artères pulmonaires dans le poumon', answer: 'Elles se divisent en branches lobaires puis segmentaires jusqu’aux capillaires alvéolaires' },
+  { question: 'Que deviennent les veines pulmonaires dans le poumon', answer: 'Elles recueillent le sang oxygéné des capillaires alvéolaires vers l’atrium gauche' },
+  { question: 'Quel est le rôle fonctionnel des capillaires alvéolaires', answer: 'Assurer les échanges gazeux entre l’air alvéolaire et le sang' },
+  { question: 'Comment se répartissent les artères bronchiques dans le poumon', answer: 'Elles suivent le trajet des bronches principales et lobaires pour nourrir les parois' },
+  { question: 'Comment se répartissent les veines bronchiques dans le poumon', answer: 'Elles drainent les territoires nourris par les artères bronchiques vers le système azygos' },
+  { question: 'Quelle est la conséquence d’un pneumothorax en radiologie', answer: 'Disparition de la trame pulmonaire et hyperclarté pleurale' },
+  { question: 'Quelle est la conséquence d’un hémothorax en radiologie', answer: 'Opacité pleurale avec niveau liquidien' },
+  { question: 'Quelle est la conséquence d’une pleurésie en radiologie', answer: 'Opacité homogène avec effacement du cul-de-sac costo-diaphragmatique' },
+  { question: 'Qu’indique une déviation de la trachée en radiographie', answer: 'Une masse ou une dépression pulmonaire' },
+  { question: 'Quel est le signe radiologique d’une atélectasie', answer: 'Un déplacement des structures médiastinales vers le côté atteint' },
+  { question: 'Quelles sont les limites supérieures visibles des poumons en radiographie', answer: 'Les dômes pleuraux au-dessus des clavicules' },
+  { question: 'Quelles sont les limites inférieures visibles des poumons en radiographie', answer: 'Les coupoles diaphragmatiques' },
+  { question: 'Que marque la limite entre cage thoracique et abdomen en radiographie', answer: 'Le diaphragme' },
+  { question: 'Que montre une coupe en T5 du médiastin supérieur', answer: 'L’aorte ascendante, l’aorte descendante, le tronc pulmonaire et les bronches principales' },
+  { question: 'Quels éléments broncho-vasculaires sont visibles sous la carène', answer: 'Les bronches principales droite et gauche' },
+  { question: 'Quelle est la fonction du tronc pulmonaire', answer: 'Transporter le sang désoxygéné du cœur vers les deux poumons' },
+  { question: 'Quelles structures veineuses sont visibles au niveau du hile pulmonaire en T5', answer: 'Les veines pulmonaires supérieure et inférieure' },
+  { question: 'Quelle est la relation entre la bronche et la veine pulmonaire dans le hile', answer: 'La veine pulmonaire est située en avant de la bronche' },
+  { question: 'Quelle est la relation entre la bronche et l’artère pulmonaire dans le hile gauche', answer: 'L’artère est au-dessus de la bronche' },
+  { question: 'Quelle est la relation entre la bronche et l’artère pulmonaire dans le hile droit', answer: 'L’artère est en avant de la bronche' },
+  { question: 'Quelles structures délimitent le médiastin moyen en T5', answer: 'Le cœur, les bronches principales, les artères et veines pulmonaires' },
+  { question: 'Quelles structures appartiennent au médiastin supérieur visibles en T5', answer: 'L’aorte ascendante, la crosse aortique, le tronc pulmonaire' },
+  { question: 'Quelle est la particularité de l’artère pulmonaire droite par rapport à la gauche', answer: 'Elle est plus longue et passe en arrière de l’aorte ascendante et de la veine cave supérieure' },
+  { question: 'Quelle est la particularité de l’artère pulmonaire gauche par rapport à la droite', answer: 'Elle est plus courte et se dirige directement vers le hile gauche' },
+  { question: 'Quelle est la fonction principale des poumons', answer: 'Assurer les échanges gazeux entre l’air inspiré et le sang' },
+  { question: 'Quelles sont les principales structures qui entrent et sortent par le hile pulmonaire', answer: 'Les bronches principales, les artères pulmonaires et les veines pulmonaires' },
+  { question: 'Quel élément du hile pulmonaire est toujours le plus postérieur', answer: 'La bronche principale' },
+  { question: 'Que provoque une atteinte de la plèvre viscérale', answer: 'Un frottement pleural et une douleur thoracique' },
+  { question: 'Que provoque une atteinte de la plèvre pariétale', answer: 'Une douleur vive augmentée par la respiration' },
+  { question: 'Qu’est-ce qu’un pneumothorax', answer: 'Une entrée d’air dans la cavité pleurale provoquant un collapsus pulmonaire' },
+  { question: 'Qu’est-ce qu’un hémothorax', answer: 'Une accumulation de sang dans la cavité pleurale' },
+  { question: 'Qu’est-ce qu’une pleurésie', answer: 'Une accumulation de liquide infectieux dans la cavité pleurale' },
+  { question: 'Quelle est la conséquence d’un remplissage de la cavité pleurale', answer: 'Une compression pulmonaire et une dyspnée' },
+  { question: 'Que se passe-t-il au niveau du récessus costo-diaphragmatique en inspiration profonde', answer: 'Il devient plus profond pour permettre l’expansion pulmonaire' },
+  { question: 'Quelle est la différence de volume entre les poumons droit et gauche', answer: 'Le poumon droit est plus volumineux que le gauche' },
+  { question: 'Quelle est la différence de lobation entre poumon droit et poumon gauche', answer: 'Le droit a trois lobes et deux scissures, le gauche deux lobes et une scissure' },
+  { question: 'Quel est le rôle de la lingula dans le poumon gauche', answer: 'Elle correspond à un équivalent du lobe moyen droit' },
+  { question: 'Où se situe le culmen du poumon droit', answer: 'Dans le lobe supérieur, au-dessus des scissures' },
+  { question: 'Que recouvre la plèvre viscérale', answer: 'Toute la surface externe du poumon' },
+  { question: 'Que recouvre la plèvre pariétale', answer: 'La cage thoracique interne, le diaphragme et le médiastin' },
+  { question: 'Qu’est-ce qui sépare la cavité pleurale des organes voisins', answer: 'Les feuillets pleuraux viscéral et pariétal' },
+  { question: 'Quel est l’effet de la dépression intrapleurale normale', answer: 'Maintenir les poumons accolés à la cage thoracique' },
+  { question: 'Quel est l’effet d’un pneumothorax sur la dépression intrapleurale', answer: 'Elle disparaît, entraînant un collapsus pulmonaire' },
+  { question: 'Quelle est la pression normale dans la cavité pleurale', answer: 'Une pression négative par rapport à l’atmosphère' },
+  { question: 'Quelle est la conséquence de la coupole diaphragmatique gauche plus basse en radiologie', answer: 'Elle est abaissée par la présence de la masse gastrique en dessous' },
+  { question: 'Qu’indique une opacité hilaire en radiographie', answer: 'Une pathologie vasculaire ou tumorale' },
+  { question: 'Qu’indique une hyperclarté unilatérale du thorax en radiographie', answer: 'Un pneumothorax ou un emphysème localisé' },
+  { question: 'Qu’indique une opacité basale avec niveau hydro-aérique', answer: 'Un épanchement pleural liquidien' },
+  { question: 'Quelle est la conséquence d’une atélectasie lobaire en radiographie', answer: 'Une opacité triangulaire avec attraction des structures voisines' },
+  { question: 'Qu’indique une cardiomégalie en radiographie thoracique', answer: 'Une ombre cardiaque élargie dépassant la moitié du thorax' },
+  { question: 'Quels éléments délimitent la médiastinographie en T5', answer: 'L’aorte, le tronc pulmonaire, les bronches principales et les cavités cardiaques supérieures' },
+  { question: 'Quelles structures broncho-vasculaires sont visibles dans une coupe scanner en T5', answer: 'Les bronches principales et les artères pulmonaires' },
+  { question: 'Quelle est la particularité radiologique des poumons par rapport aux autres organes', answer: 'Ils apparaissent plus clairs en raison de leur contenu aérien' },
+  { question: 'Que se passe-t-il lors de l’inspiration au niveau des plèvres', answer: 'Le feuillet pariétal suit le diaphragme et le feuillet viscéral entraîne le poumon' },
+  { question: 'Qu’est-ce qui limite l’expansion pulmonaire inférieure en inspiration profonde', answer: 'La dixième côte pour la plèvre viscérale et la douzième côte pour la plèvre pariétale' },
+  { question: 'Quelle structure relie les deux feuillets pleuraux au niveau du hile', answer: 'Le ligament pulmonaire' },
+  { question: 'Quel est le rôle du ligament pulmonaire', answer: 'Stabiliser le poumon et permettre le glissement des feuillets pleuraux' },
+  { question: 'Quelles structures passent dans le ligament pulmonaire', answer: 'Des petits vaisseaux et des lymphatiques' },
+  { question: 'Quel est l’apport sanguin principal des alvéoles pulmonaires', answer: 'Les artères pulmonaires' },
+  { question: 'Quel est l’apport sanguin principal des bronches', answer: 'Les artères bronchiques' },
+  { question: 'Où se drainent les veines pulmonaires', answer: 'Dans l’atrium gauche' },
+  { question: 'Où se drainent les veines bronchiques', answer: 'Dans le système azygos et la veine cave supérieure' },
+  { question: 'Quelle est la relation entre bronches et artères pulmonaires dans les segments pulmonaires', answer: 'Chaque bronche segmentaire est accompagnée d’une artère pulmonaire segmentaire' },
+  { question: 'Quelle est la relation entre bronches et veines pulmonaires dans les segments pulmonaires', answer: 'Les veines pulmonaires se situent entre les segments, dans les plans intersegmentaires' },
+  { question: 'Qu’est-ce qu’un segment pulmonaire', answer: 'Une unité anatomique et fonctionnelle ventilée par une bronche segmentaire et vascularisée par une artère pulmonaire segmentaire' },
+  { question: 'Combien de segments possède le poumon droit', answer: 'Dix segments pulmonaires' },
+  { question: 'Combien de segments possède le poumon gauche', answer: 'Huit à dix selon les classifications' },
+  { question: 'Quelle est la conséquence chirurgicale de l’organisation segmentaire du poumon', answer: 'On peut réaliser des résections segmentaires sans altérer les autres segments' },
+  { question: 'Quel est l’élément anatomique qui sépare les segments pulmonaires', answer: 'Les veines pulmonaires intersegmentaires' },
+  { question: 'Quelle est la conséquence physiologique d’un remplissage liquidien du récessus costo-diaphragmatique', answer: 'Une diminution de la capacité inspiratoire' },
+  { question: 'Quelle est la conséquence d’une fibrose pleurale', answer: 'Une perte de la souplesse pleurale et une limitation de l’expansion pulmonaire' },
+  { question: 'Quelle est la conséquence d’un épaississement pleural en radiologie', answer: 'Une opacité périphérique linéaire' },
+  { question: 'Quelles sont les principales fonctions de l’appareil respiratoire', answer: 'Ventilation, échanges gazeux, protection et phonation' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

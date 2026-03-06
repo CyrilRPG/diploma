@@ -1,0 +1,567 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Appareil digestif</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Appareil digestif</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la limite supérieure de la cavité abdominale', answer: 'Le diaphragme thoraco-abdominal' },
+  { question: 'Quelle est la limite inférieure de la cavité abdominale', answer: 'Le diaphragme pelvien' },
+  { question: 'Quelle est la limite arrière de la cavité abdominale', answer: 'Le rachis thoraco-lombaire' },
+  { question: 'Quelle est la limite antérieure de la cavité abdominale', answer: 'La paroi abdominale musculaire' },
+  { question: 'Quels sont les trois cadrans impairs et médians de la cavité abdominale', answer: 'Épigastre, ombilic, hypogastre' },
+  { question: 'Où se situe l’épigastre', answer: 'Sous l’appendice xiphoïde' },
+  { question: 'Où se situe le cadran ombilical', answer: 'Autour du nombril' },
+  { question: 'Où se situe l’hypogastre', answer: 'Sous l’ombilic et au-dessus de la symphyse pubienne' },
+  { question: 'Quels sont les cadrans pairs et latéraux supérieurs', answer: 'Hypochondres droit et gauche' },
+  { question: 'Quels sont les cadrans pairs et latéraux moyens', answer: 'Flancs droit et gauche' },
+  { question: 'Quels sont les cadrans pairs et latéraux inférieurs', answer: 'Fosses iliaques droite et gauche' },
+  { question: 'Quelle est la définition du péritoine', answer: 'Une membrane séreuse recouvrant le contenu digestif' },
+  { question: 'Comment s’appelle le péritoine qui tapisse les parois abdominales', answer: 'Le péritoine pariétal' },
+  { question: 'Comment s’appelle le péritoine qui tapisse les viscères', answer: 'Le péritoine viscéral' },
+  { question: 'Comment se forme le méso', answer: 'Par l’accolement des deux feuillets du péritoine viscéral' },
+  { question: 'Qu’est-ce que le méso permet', answer: 'La circulation des vaisseaux sanguins vers chaque organe' },
+  { question: 'Quels sont les trois espaces liés au péritoine', answer: 'Rétro-péritonéal, intra-péritonéal, sous-péritonéal' },
+  { question: 'Que contient l’espace rétro-péritonéal', answer: 'L’aorte, la veine cave inférieure, les reins et les uretères' },
+  { question: 'Quels organes sont intra-péritonéaux', answer: 'Les organes digestifs principaux' },
+  { question: 'Quels organes sont sous-péritonéaux', answer: 'Le rectum terminal, le canal anal, l’utérus, le vagin et la vessie' },
+  { question: 'Quel est le rôle de l’œsophage', answer: 'C’est un conduit musculaire souple reliant le pharynx à l’estomac' },
+  { question: 'Comment s’appelle la jonction entre l’œsophage et l’estomac', answer: 'Le cardia' },
+  { question: 'Quelle est la longueur du segment cervical de l’œsophage', answer: '6 cm' },
+  { question: 'Où commence l’œsophage cervical', answer: 'À 15 cm de l’arcade dentaire supérieure, de C6 à T1/T2' },
+  { question: 'Quelle est la longueur du segment thoracique de l’œsophage', answer: '16 à 18 cm' },
+  { question: 'Où se situe le segment thoracique de l’œsophage', answer: 'Dans le médiastin postérieur, de T2 à T10' },
+  { question: 'Quelle est la longueur du segment abdominal de l’œsophage', answer: '3 cm' },
+  { question: 'Où traverse l’œsophage le diaphragme', answer: 'Au niveau de T10' },
+  { question: 'Quels sont les rapports arrière de l’œsophage', answer: 'Aorte thoracique, canal thoracique, nerf vague droit' },
+  { question: 'Quels sont les rapports avant de l’œsophage', answer: 'Trachée, nerf vague gauche, nerf laryngé inférieur gauche' },
+  { question: 'Quels sont les rapports droits de l’œsophage', answer: 'Crosse de la veine azygos' },
+  { question: 'Quels sont les rapports gauches de l’œsophage', answer: 'Crosse de l’aorte et nerfs laryngés inférieurs' },
+  { question: 'Où se situe l’estomac', answer: 'Dans la région épigastrique, débordant dans l’hypochondre gauche' },
+  { question: 'Quelle est la hauteur et largeur approximative de l’estomac', answer: '25 cm de hauteur et 12 cm de largeur' },
+  { question: 'Quels sont les éléments de la partie verticale de l’estomac', answer: 'Cardia, fundus, corps' },
+  { question: 'Quels sont les éléments de la partie horizontale de l’estomac', answer: 'Antre et pylore' },
+  { question: 'Quelles sont les quatre couches de la paroi interne de l’estomac', answer: 'Muqueuse, sous-muqueuse, musculeuse, séreuse' },
+  { question: 'Quelle est la particularité de la musculeuse de l’estomac', answer: 'Elle est très épaisse et permet le broyage des aliments' },
+  { question: 'Quelle est la particularité de la séreuse gastrique', answer: 'Elle correspond au péritoine viscéral' },
+  { question: 'Quelle est la première artère issue de l’aorte abdominale au niveau de T12', answer: 'Le tronc cœliaque' },
+  { question: 'Quelles sont les trois branches du tronc cœliaque', answer: 'Artère hépatique commune, artère splénique, artère gastrique gauche' },
+  { question: 'Quelle artère vascularise la petite courbure de l’estomac', answer: 'Les artères gastriques droite et gauche' },
+  { question: 'Quelle artère vascularise la grande courbure de l’estomac', answer: 'Les artères gastro-omentales droite et gauche' },
+  { question: 'Quelles veines assurent le drainage veineux de l’estomac', answer: 'Veines gastriques, gastro-omentales et veines cardiales' },
+  { question: 'Dans quel système se draine la veine gastrique gauche', answer: 'Dans le système porte' },
+  { question: 'Comment se forme le tronc porte', answer: 'Par l’union de la veine mésentérique supérieure et du tronc spléno-mésaraïque' },
+  { question: 'Quelles veines composent le tronc spléno-mésaraïque', answer: 'La veine splénique et la veine mésentérique inférieure' },
+  { question: 'Quels organes sont en rapport arrière avec l’estomac', answer: 'Le pancréas et le rein à distance' },
+  { question: 'Quels organes sont en rapport avant avec l’estomac', answer: 'Le foie' },
+  { question: 'Quels organes sont en rapport gauche avec l’estomac', answer: 'La rate et l’angle colique gauche' },
+  { question: 'Quelle est la suite immédiate de l’estomac', answer: 'Le duodénum' },
+  { question: 'À quel niveau commence le duodénum', answer: 'Après le pylore en L1' },
+  { question: 'Quelle est la forme générale du duodénum', answer: 'Un cadre autour de la tête du pancréas' },
+  { question: 'Quelle est la longueur approximative du duodénum', answer: '25 cm' },
+  { question: 'Combien de portions possède le duodénum', answer: 'Quatre portions' },
+  { question: 'Quelle est la portion D1 du duodénum', answer: 'Segment horizontal en L1' },
+  { question: 'Quelle est la portion D2 du duodénum', answer: 'Portion verticale de L1 à L3 ou L4, à droite' },
+  { question: 'Quelle est la portion D3 du duodénum', answer: 'Portion horizontale croisant le rachis en avant en L3 ou L4' },
+  { question: 'Quelle est la portion D4 du duodénum', answer: 'Portion ascendante oblique vers l’angle duodénojéjunal en L2' },
+  { question: 'Quel est le nom de l’angle séparant D1 et D2', answer: 'Angle genu superius' },
+  { question: 'Quel est le nom de l’angle séparant D2 et D3', answer: 'Angle genu inferius' },
+  { question: 'Quelles structures s’abouchent dans D2', answer: 'Le canal cholédoque et le canal de Wirsung au niveau de l’ampoule de Vater' },
+  { question: 'Pourquoi parle-t-on de bloc duodéno-pancréatique', answer: 'Car duodénum et pancréas sont intimement liés et partagent vascularisation et drainage lymphatique' },
+  { question: 'Quelle est la forme générale du pancréas', answer: 'Un organe allongé en forme de feuille de chêne' },
+  { question: 'Où se situe le pancréas', answer: 'Transversalement sur le rachis à hauteur de T12-L1' },
+  { question: 'Quelle est l’orientation du grand axe du pancréas', answer: 'Oblique en haut et à gauche' },
+  { question: 'Quelles sont les quatre parties du pancréas', answer: 'Tête, isthme, corps, queue' },
+  { question: 'Quelle partie du pancréas est encastrée dans le duodénum', answer: 'La tête' },
+  { question: 'Quelle partie du pancréas se trouve en continuité entre tête et corps', answer: 'L’isthme' },
+  { question: 'Quelle partie du pancréas repose sur L1 au niveau médian', answer: 'Le corps' },
+  { question: 'Où se termine la queue du pancréas', answer: 'Dans le hile de la rate' },
+  { question: 'Quelle est la fonction exocrine du pancréas', answer: 'Sécréter des enzymes pancréatiques libérées dans le duodénum' },
+  { question: 'Quelle est la fonction endocrine du pancréas', answer: 'Sécréter de l’insuline par les îlots de Langerhans' },
+  { question: 'Quel canal pancréatique s’abouche dans D2', answer: 'Le canal de Wirsung' },
+  { question: 'Où se fait l’abouchement du canal de Wirsung et du cholédoque', answer: 'Au niveau de l’ampoule de Vater en D2' },
+  { question: 'Quelle artère vascularise la tête du pancréas et le duodénum', answer: 'L’artère gastro-duodénale' },
+  { question: 'Quelle artère vascularise le bloc duodéno-pancréatique et l’intestin grêle', answer: 'L’artère mésentérique supérieure' },
+  { question: 'Quelle artère vascularise le corps et la queue du pancréas', answer: 'L’artère splénique' },
+  { question: 'Quel est le drainage veineux du corps et de la queue du pancréas', answer: 'La veine splénique' },
+  { question: 'Quel est le drainage veineux de la tête du pancréas et du duodénum', answer: 'La veine mésentérique supérieure ou directement le tronc porte' },
+  { question: 'Quels sont les rapports supérieurs du pancréas', answer: 'Le foie et le système porte' },
+  { question: 'Quels organes sont en arrière du pancréas', answer: 'Le rachis et les vaisseaux rétro-péritonéaux' },
+  { question: 'Quelle est la couleur habituelle du foie', answer: 'Rouge-brun' },
+  { question: 'Quelle est la masse approximative du foie', answer: '1,5 kg' },
+  { question: 'Où se situe le foie', answer: 'Dans l’épigastre et l’hypochondre droit, débordant dans l’hypochondre gauche' },
+  { question: 'Quelles sont les trois principales fonctions métaboliques du foie', answer: 'Métabolisme glucido-lipidique, synthèse de protéines, détoxification' },
+  { question: 'Quel est le rôle biliaire du foie', answer: 'Produire la bile' },
+  { question: 'Quelles sont les trois faces du foie', answer: 'Supérieure, postérieure, inférieure' },
+  { question: 'Quelle est la face diaphragmatique du foie', answer: 'La face supérieure moulée sous la coupole diaphragmatique droite' },
+  { question: 'Quelle est la face postérieure du foie', answer: 'Celle en rapport avec la veine cave inférieure' },
+  { question: 'Quelle est la face inférieure du foie', answer: 'Celle où pénètre le pédicule hépatique' },
+  { question: 'Quels sont les trois ligaments principaux du foie', answer: 'Ligament coronaire, ligament falciforme, ligament rond' },
+  { question: 'Quel est le rôle du ligament coronaire', answer: 'Relier le foie au diaphragme et se prolonger en ligaments triangulaires' },
+  { question: 'Quel est le rôle du ligament falciforme', answer: 'Relier la face antérieure du foie au péritoine pariétal antérieur' },
+  { question: 'Quel est le rôle du ligament rond', answer: 'Relier le foie à l’ombilic et représenter un reliquat de la veine ombilicale' },
+  { question: 'Quels sont les trois éléments du pédicule hépatique', answer: 'Veine porte, artère hépatique propre, voies biliaires' },
+  { question: 'Quel est l’élément postérieur du pédicule hépatique', answer: 'La veine porte' },
+  { question: 'Quel est l’élément médian du pédicule hépatique', answer: 'L’artère hépatique propre' },
+  { question: 'Quel est l’élément le plus antérieur du pédicule hépatique', answer: 'Le canal cholédoque' },
+  { question: 'Comment se forme le canal cholédoque', answer: 'Par réunion du canal cystique et du canal hépatique commun' },
+  { question: 'Où s’abouche le canal cholédoque', answer: 'Dans D2 au niveau de l’ampoule de Vater' },
+  { question: 'Par quelles branches se divise la veine porte dans le foie', answer: 'En branches portes droite et gauche' },
+  { question: 'Quelle est l’origine de l’artère hépatique propre', answer: 'Elle naît du tronc cœliaque après avoir donné l’artère gastro-duodénale' },
+  { question: 'Quel est le rôle principal de l’artère hépatique propre', answer: 'Apporter le sang artériel au foie' },
+  { question: 'De quels canaux provient le canal hépatique commun', answer: 'Des canaux hépatiques droit et gauche' },
+  { question: 'Quelle est la fonction de la vésicule biliaire', answer: 'Servir de réservoir à la bile produite par le foie' },
+  { question: 'Quelles sont les trois veines formant le pédicule sus-hépatique', answer: 'La veine hépatique droite, la veine hépatique sagittale ou médiane et la veine hépatique gauche' },
+  { question: 'Où se terminent les veines hépatiques', answer: 'Dans la veine cave inférieure' },
+  { question: 'À quel niveau la veine cave inférieure traverse-t-elle le diaphragme', answer: 'En T9' },
+  { question: 'Quels sont les rapports antérieurs du foie', answer: 'La coupole diaphragmatique, l’estomac et le duodénum à distance' },
+  { question: 'Quels sont les rapports postérieurs du foie', answer: 'Le rein droit' },
+  { question: 'À quel niveau commence l’intestin grêle', answer: 'Au niveau de l’angle duodéno-jéjunal' },
+  { question: 'À quel niveau se termine l’intestin grêle', answer: 'À la valvule iléo-caecale dans la fosse iliaque droite' },
+  { question: 'Quelle est la longueur de l’intestin grêle', answer: '5 à 6 mètres' },
+  { question: 'Quel est le calibre de l’intestin grêle', answer: '3 cm' },
+  { question: 'Quelles sont les deux parties de l’intestin grêle', answer: 'Le jéjunum et l’iléon' },
+  { question: 'Où commence le jéjunum', answer: 'Après le duodénum' },
+  { question: 'Où se termine l’iléon', answer: 'Au niveau du caecum dans la fosse iliaque droite' },
+  { question: 'Quel est le nom du méso de l’intestin grêle', answer: 'Le mésentère' },
+  { question: 'Quelle est la longueur de la racine du mésentère', answer: '16 cm' },
+  { question: 'Quelle est la fonction du mésentère', answer: 'Porter les vaisseaux sanguins destinés à l’intestin grêle' },
+  { question: 'Quelle artère vascularise l’intestin grêle', answer: 'L’artère mésentérique supérieure' },
+  { question: 'Combien d’artères jéjuno-iléales naissent de l’artère mésentérique supérieure', answer: 'Une quinzaine environ' },
+  { question: 'Par quelle veine est drainé l’intestin grêle', answer: 'La veine mésentérique supérieure' },
+  { question: 'Dans quel système veineux s’intègre la veine mésentérique supérieure', answer: 'Dans le système porte' },
+  { question: 'Quels organes entourent l’intestin grêle', answer: 'Le cadre colique' },
+  { question: 'Quels organes pelviens sont en rapport avec l’intestin grêle chez la femme', answer: 'Les organes génitaux' },
+  { question: 'Quel est l’autre nom du gros intestin', answer: 'Le cadre colique' },
+  { question: 'Quelle est la longueur du gros intestin', answer: 'Environ 1,35 mètre' },
+  { question: 'Quel est le calibre du caecum', answer: '7 cm' },
+  { question: 'Quel est le calibre du reste du côlon', answer: '5 cm' },
+  { question: 'Quelles sont les cinq parties du gros intestin', answer: 'Caecum, côlon ascendant, côlon transverse, côlon descendant, côlon sigmoïde' },
+  { question: 'Quelle est la disposition générale du côlon', answer: 'En cadre en U inversé autour de l’intestin grêle' },
+  { question: 'Quelles sont les quatre tuniques de la paroi colique', answer: 'Séreuse, musculeuse, sous-muqueuse et muqueuse' },
+  { question: 'Où se situe l’appendice vermiforme', answer: 'Sur le caecum dans la fosse iliaque droite' },
+  { question: 'Quelle ligne permet de projeter la localisation de l’appendice', answer: 'La ligne de Mac Burney entre l’ombilic et l’EIAS droite' },
+  { question: 'Quelle artère vascularise le côlon droit et le tiers droit du transverse', answer: 'L’artère mésentérique supérieure' },
+  { question: 'Quelles branches de l’artère mésentérique supérieure irriguent le côlon droit', answer: 'L’artère iléo-caeco-colo-appendiculaire, l’artère colique supérieure droite et parfois l’artère colique moyenne' },
+  { question: 'Par quelle veine se draine le côlon droit', answer: 'La veine mésentérique supérieure' },
+  { question: 'Quelle artère vascularise le côlon gauche et le côlon sigmoïde', answer: 'L’artère mésentérique inférieure' },
+  { question: 'Quelles branches de l’artère mésentérique inférieure irriguent le côlon gauche', answer: 'L’artère colique gauche, le tronc des artères sigmoïdiennes et les artères rectales supérieures' },
+  { question: 'Quelle veine draine le côlon gauche', answer: 'La veine mésentérique inférieure' },
+  { question: 'Où se jette la veine mésentérique inférieure', answer: 'Dans la veine splénique' },
+  { question: 'Comment se forme le tronc spléno-mésaraïque', answer: 'Par l’union de la veine splénique et de la veine mésentérique inférieure' },
+  { question: 'Quels organes sont en rapport au centre du cadre colique', answer: 'L’intestin grêle' },
+  { question: 'Quels organes sont en rapport postérieur avec le cadre colique', answer: 'Les reins' },
+  { question: 'Quels sont les rapports droits du cadre colique', answer: 'Face inférieure du foie, duodénum, rein et uretère droits' },
+  { question: 'Quel organe est en arrière du côlon transverse droit', answer: 'Le bloc duodéno-pancréatique' },
+  { question: 'Quel organe est en arrière du côlon transverse gauche', answer: 'Le rein gauche' },
+  { question: 'Quels sont les rapports gauches du cadre colique', answer: 'La rate et l’uretère gauche' },
+  { question: 'Quelle structure sépare la cavité abdominale de la cavité thoracique', answer: 'Le diaphragme thoraco-abdominal' },
+  { question: 'Quelle structure sépare la cavité abdominale de la cavité pelvienne', answer: 'Le diaphragme pelvien' },
+  { question: 'Quels organes appartiennent à l’espace sous-péritonéal', answer: 'Rectum terminal, canal anal, utérus, vagin et vessie' },
+  { question: 'Quelle est la fonction du canal thoracique en rapport avec l’œsophage', answer: 'Draine la lymphe de l’abdomen vers la veine subclavière gauche' },
+  { question: 'Comment s’appelle le ganglion lymphatique sus-claviculaire gauche hypertrophié en cas de cancer œsophagien', answer: 'Le ganglion de Troizier' },
+  { question: 'Quel est le rôle des nerfs laryngés inférieurs', answer: 'Faire bouger les cordes vocales' },
+  { question: 'D’où naît le nerf laryngé inférieur gauche', answer: 'Du nerf vague gauche en contournant la crosse de l’aorte' },
+  { question: 'D’où naît le nerf récurrent droit', answer: 'Du nerf vague droit en contournant l’artère subclavière droite' },
+  { question: 'Quelle est la pathologie infantile fréquente du pylore', answer: 'La sténose hypertrophique du pylore' },
+  { question: 'Quel système nerveux innerve l’estomac', answer: 'Le système nerveux végétatif avec branches sympathiques et parasympathiques' },
+  { question: 'Quel est le rôle de la musculeuse gastrique', answer: 'Broyer les aliments et propulser le bol alimentaire vers le duodénum' },
+  { question: 'Quel est le rôle du fundus gastrique', answer: 'Constituer un réservoir supérieur de l’estomac' },
+  { question: 'Où se situe le cardia', answer: 'À la jonction de l’œsophage et de l’estomac en T11' },
+  { question: 'Quelle structure sépare le fundus de l’œsophage', answer: 'L’incisure cardiale' },
+  { question: 'Quelle est la principale artère du fundus gastrique', answer: 'L’artère gastrique gauche' },
+  { question: 'Quelle est la principale artère du pylore', answer: 'L’artère gastro-duodénale' },
+  { question: 'Quel est le cercle artériel de la grande courbure gastrique', answer: 'Les artères gastro-omentales droite et gauche' },
+  { question: 'Dans quelle veine se draine la veine gastrique gauche', answer: 'Dans le tronc porte' },
+  { question: 'Quelle est l’origine de la veine gastrique droite', answer: 'La veine porte' },
+  { question: 'Quelle est la principale veine du fundus', answer: 'La veine gastrique gauche' },
+  { question: 'Quelle est la principale artère du corps pancréatique', answer: 'L’artère splénique' },
+  { question: 'Quel est le rôle endocrinien du pancréas dans la glycémie', answer: 'Sécréter l’insuline qui diminue la glycémie' },
+  { question: 'Quel est l’autre nom du canal cholédoque', answer: 'Canal biliaire principal' },
+  { question: 'Quel est le rôle principal du cholédoque', answer: 'Acheminer la bile vers le duodénum' },
+  { question: 'Quel est le rôle de la bile', answer: 'Participer à la digestion des lipides' },
+  { question: 'Quel est l’élément le plus antérieur du pédicule hépatique', answer: 'Le canal cholédoque' },
+  { question: 'Quel est l’élément le plus postérieur du pédicule hépatique', answer: 'La veine porte' },
+  { question: 'Où se situe le pédicule hépatique', answer: 'À la face inférieure du foie' },
+  { question: 'Quels sont les moyens d’attache du foie au diaphragme', answer: 'Ligament coronaire et ligaments triangulaires' },
+  { question: 'Quel ligament du foie est un reliquat embryonnaire', answer: 'Le ligament rond' },
+  { question: 'Quel est le rôle du ligament falciforme', answer: 'Relier le foie à la paroi abdominale antérieure' },
+  { question: 'Quels sont les rapports supérieurs du foie', answer: 'La coupole diaphragmatique droite et gauche' },
+  { question: 'Quelle est la surface de contact du foie avec le diaphragme appelée', answer: 'La face diaphragmatique' },
+  { question: 'Quels sont les rapports inférieurs du foie', answer: 'L’estomac, le duodénum et la vésicule biliaire' },
+  { question: 'Quel est le rôle des veines hépatiques', answer: 'Draine le sang veineux du foie vers la veine cave inférieure' },
+  { question: 'Quel est le rôle métabolique du foie sur les protéines', answer: 'Synthétiser l’albumine, l’hémoglobine et les facteurs de coagulation' },
+  { question: 'Quelle est la fonction de l’intestin grêle dans la digestion', answer: 'L’absorption des nutriments' },
+  { question: 'Quelle est la principale différence morphologique entre le jéjunum et l’iléon', answer: 'Le jéjunum est plus épais et plus vascularisé, l’iléon est plus long et plus fin' },
+  { question: 'Quelle artère vascularise principalement le jéjunum', answer: 'Les artères jéjunales issues de l’artère mésentérique supérieure' },
+  { question: 'Quelle artère vascularise principalement l’iléon', answer: 'Les artères iléales issues de l’artère mésentérique supérieure' },
+  { question: 'Quelle est la fonction de la valvule iléo-caecale', answer: 'Réguler le passage du chyme vers le caecum et éviter le reflux' },
+  { question: 'Quel est le rôle du caecum', answer: 'Début du gros intestin et lieu d’implantation de l’appendice' },
+  { question: 'Quelle est la position habituelle de l’appendice', answer: 'Dans la fosse iliaque droite' },
+  { question: 'Quelle est la longueur moyenne du côlon sigmoïde', answer: '40 cm environ' },
+  { question: 'Quelle est la fonction principale du côlon', answer: 'Réabsorber l’eau et former les selles' },
+  { question: 'Quelle artère vascularise le rectum supérieur', answer: 'Les artères rectales supérieures issues de l’artère mésentérique inférieure' },
+  { question: 'Quelles sont les principales veines de drainage du rectum supérieur', answer: 'Les veines rectales supérieures vers la veine mésentérique inférieure' },
+  { question: 'Quels organes sont en rapport avec l’angle colique droit', answer: 'Foie, duodénum, rein et uretère droits' },
+  { question: 'Quels organes sont en rapport avec l’angle colique gauche', answer: 'La rate et l’uretère gauche' },
+  { question: 'Quel est le rôle global de l’appareil digestif', answer: 'Transformer les aliments en nutriments et évacuer les déchets' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

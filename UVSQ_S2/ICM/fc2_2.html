@@ -1,0 +1,567 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Régulation du médicament</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Régulation du médicament</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la durée de validité initiale d’une AMM européenne ou nationale ?', answer: 'L’AMM est délivrée pour une durée de 5 ans avant d’être renouvelée.' },
+  { question: 'Que devient une AMM après son premier renouvellement ?', answer: 'Après le renouvellement de 5 ans, l’AMM devient valable sans limitation de durée.' },
+  { question: 'Dans quelles conditions une AMM peut-elle être retirée ou suspendue ?', answer: 'L’AMM peut être retirée ou suspendue si le médicament est nocif, inefficace, mal composé, fourni sur base de renseignements erronés ou non conformes aux exigences.' },
+  { question: 'Quelle autorité française participe au remboursement des médicaments ?', answer: 'La Haute Autorité de Santé (HAS) via la Commission de Transparence.' },
+  { question: 'Quelle institution fixe le taux de remboursement des médicaments ?', answer: 'L’Union Nationale des Caisses d’Assurance Maladie (UNCAM).' },
+  { question: 'Quelle institution fixe le prix de vente des médicaments remboursables ?', answer: 'Le Comité Économique des Produits de Santé (CEPS).' },
+  { question: 'De quoi se compose le prix de vente d’un médicament remboursable ?', answer: 'Du prix fabricant hors taxe, de la TVA, des marges du grossiste et du pharmacien, et des honoraires du pharmacien.' },
+  { question: 'Combien de temps faut-il pour fixer le SMR, l’ASMR et le prix d’un médicament ?', answer: 'Le délai réglementaire est de 180 jours.' },
+  { question: 'Quel est le rôle principal de la Commission de Transparence ?', answer: 'Évaluer le service médical rendu et l’amélioration du service médical rendu pour décider de la prise en charge des médicaments.' },
+  { question: 'Que signifie SMR ?', answer: 'Service Médical Rendu.' },
+  { question: 'Que signifie ASMR ?', answer: 'Amélioration du Service Médical Rendu.' },
+  { question: 'Combien existe-t-il de niveaux de SMR ?', answer: 'Il existe quatre niveaux de SMR : majeur, modéré, faible et insuffisant.' },
+  { question: 'Que se passe-t-il lorsqu’un médicament a un SMR insuffisant ?', answer: 'Il n’est pas remboursé par la Sécurité Sociale.' },
+  { question: 'Quel critère est pris en compte pour déterminer le SMR ?', answer: 'La gravité de la maladie, l’efficacité, les effets indésirables, la place dans la stratégie thérapeutique et l’intérêt de santé publique.' },
+  { question: 'Que représente le niveau d’ASMR I ?', answer: 'Il correspond à un progrès thérapeutique majeur.' },
+  { question: 'Qu’est-ce que l’observance médicamenteuse ?', answer: 'C’est le respect par le patient des prescriptions médicales en termes de nombre et d’horaire des prises.' },
+  { question: 'Quelle est l’observance moyenne dans les pathologies chroniques en France ?', answer: 'Elle est inférieure à 50 %.' },
+  { question: 'Que signifie CEPS ?', answer: 'Comité Économique des Produits de Santé.' },
+  { question: 'Quels sont les critères utilisés par le CEPS pour fixer le prix d’un médicament ?', answer: 'L’ASMR, la population cible, le prix des comparateurs et le ratio coût-résultat.' },
+  { question: 'Que signifie RDCR ?', answer: 'Ratio Différentiel Coût Résultat.' },
+  { question: 'Quel organisme est responsable du calcul du RDCR ?', answer: 'La Commission d’Évaluation Économique et de Santé Publique (CEESP).' },
+  { question: 'Quelle est la durée du processus d’évaluation du RDCR ?', answer: '90 jours.' },
+  { question: 'Que représente un QALY ?', answer: 'Une année de vie vécue en parfaite santé.' },
+  { question: 'Quel est le seuil OMS pour considérer un produit rentable ?', answer: 'Si le RDCR est inférieur à trois fois le PIB par habitant.' },
+  { question: 'Quel organisme regroupe les trois régimes d’assurance maladie ?', answer: 'L’UNCAM.' },
+  { question: 'Quel taux de remboursement correspond à un SMR important ?', answer: '65 %.' },
+  { question: 'Quel taux de remboursement correspond à un SMR modéré ?', answer: '30 %.' },
+  { question: 'Quel taux de remboursement correspond à un SMR faible ?', answer: '15 %.' },
+  { question: 'Quel taux de remboursement correspond à un SMR insuffisant ?', answer: '0 %.' },
+  { question: 'Quelle est la durée d’inscription d’un médicament sur la liste de remboursement ?', answer: '5 ans avant réévaluation.' },
+  { question: 'Qui prend la décision de dérembourser un médicament ?', answer: 'Le ministre de la Santé sur recommandation de la HAS.' },
+  { question: 'Comment sont fixés les prix des médicaments non remboursables ?', answer: 'Libre négociation entre les fabricants et les groupements d’achat des pharmaciens.' },
+  { question: 'Que signifie la “liste en sus” ?', answer: 'Liste des médicaments innovants et coûteux pris en charge à 100 % par l’assurance maladie.' },
+  { question: 'Combien de critères cumulatifs faut-il pour l’inscription à la liste en sus ?', answer: 'Quatre critères cumulatifs.' },
+  { question: 'Quels sont les critères d’inscription à la liste en sus ?', answer: 'Usage hospitalier, SMR important, ASMR I à III, coût incompatible avec les tarifs de séjour.' },
+  { question: 'Quelle autorité délivre une autorisation d’accès précoce ?', answer: 'La Haute Autorité de Santé (HAS).' },
+  { question: 'Quelle est la durée d’une autorisation d’accès précoce ?', answer: 'Un an renouvelable.' },
+  { question: 'Quelle autorité délivre une autorisation d’accès compassionnel ?', answer: 'L’Agence Nationale de Sécurité du Médicament (ANSM).' },
+  { question: 'Quelle est la particularité d’une autorisation d’accès compassionnel ?', answer: 'Elle concerne un médicament sans AMM et sans demande d’AMM prévue.' },
+  { question: 'Qui peut demander une autorisation d’accès compassionnel ?', answer: 'Un médecin pour un patient nommément désigné.' },
+  { question: 'Quelle est la durée d’une autorisation d’accès compassionnel ?', answer: 'Un an renouvelable.' },
+  { question: 'Qu’est-ce qu’un cadre de prescription compassionnel ?', answer: 'C’est l’encadrement d’une prescription hors AMM pour un médicament ayant déjà une AMM dans d’autres indications.' },
+  { question: 'Quelle est la durée d’un cadre de prescription compassionnel ?', answer: 'Trois ans renouvelables.' },
+  { question: 'Quelles sont les obligations de l’ANSM dans les procédures d’accès précoce et compassionnel ?', answer: 'Définir les conditions de prescription, valider le protocole d’utilisation thérapeutique et de recueil de données.' },
+  { question: 'Quelle est la principale obligation des prescripteurs dans ces procédures ?', answer: 'Informer le patient et transmettre les données recueillies.' },
+  { question: 'Quelle est la principale obligation du laboratoire dans ces procédures ?', answer: 'Fournir un protocole d’utilisation thérapeutique et transmettre un rapport à l’ANSM et à la HAS.' },
+  { question: 'Quelle est la mission principale de l’ANSM concernant la publicité des médicaments ?', answer: 'Contrôler la publicité pour les médicaments avant leur diffusion, selon un contrôle toujours a priori.' },
+  { question: 'Quelles sont les conditions obligatoires pour qu’une publicité soit acceptée par l’ANSM ?', answer: 'Respect de l’AMM, conformité avec les stratégies thérapeutiques de la HAS, présentation objective, non-trompeuse et respect de la santé publique.' },
+  { question: 'Quelle publicité nécessite un visa PM ?', answer: 'La publicité destinée aux professionnels de santé.' },
+  { question: 'Quelle publicité nécessite un visa GP ?', answer: 'La publicité destinée au grand public.' },
+  { question: 'Quelle est la durée de validité d’un visa PM ou GP ?', answer: 'Deux ans.' },
+  { question: 'Quelle est la durée maximale de réponse de l’ANSM pour un visa publicitaire ?', answer: 'Deux mois.' },
+  { question: 'Quelle est la conséquence d’une absence de réponse de l’ANSM dans les délais ?', answer: 'L’autorisation est tacitement accordée.' },
+  { question: 'Quels médicaments peuvent faire l’objet de publicité auprès du grand public ?', answer: 'Uniquement les médicaments non soumis à prescription médicale obligatoire et non remboursables.' },
+  { question: 'Quelles exceptions permettent la publicité grand public de médicaments remboursables ?', answer: 'Les vaccins et les produits de sevrage tabagique pour des motifs de santé publique.' },
+  { question: 'Quelles sanctions peuvent être infligées en cas de publicité non conforme ?', answer: 'Suspension ou retrait du visa, rectificatif obligatoire, pénalité jusqu’à 30 % du chiffre d’affaires et jusqu’à deux ans d’emprisonnement pour le pharmacien responsable.' },
+  { question: 'Quels médicaments ne peuvent pas être exposés en vitrine de pharmacie ?', answer: 'Les médicaments soumis à prescription obligatoire ou remboursables.' },
+  { question: 'Qu’est-ce que le marquage CE pour un dispositif médical ?', answer: 'Une certification attestant la conformité du dispositif aux exigences européennes de sécurité et de santé.' },
+  { question: 'Quelle autorité française supervise le marquage CE des dispositifs médicaux ?', answer: 'L’ANSM via l’organisme notifié LNE-G.Med.' },
+  { question: 'Quelle est la durée de validité d’un certificat de conformité CE ?', answer: 'Cinq ans.' },
+  { question: 'Quels dispositifs médicaux peuvent être auto-certifiés par le fabricant ?', answer: 'Les dispositifs de classe I non stériles ou sans fonction de mesure.' },
+  { question: 'Quels dispositifs nécessitent l’intervention d’un organisme notifié ?', answer: 'Les dispositifs de classe I stériles et ceux des classes II et III.' },
+  { question: 'Quand une évaluation clinique est-elle obligatoire pour un dispositif médical ?', answer: 'Pour tous les dispositifs médicaux.' },
+  { question: 'Dans quel cas un essai clinique n’est-il pas nécessaire pour un dispositif médical ?', answer: 'Lorsqu’une équivalence avec un dispositif déjà évalué et commercialisé peut être démontrée.' },
+  { question: 'Quels dispositifs médicaux nécessitent obligatoirement des essais cliniques ?', answer: 'Les dispositifs implantables, implantables actifs et de classes IIb et III.' },
+  { question: 'Quel est le rôle de l’ANSM dans les essais cliniques de dispositifs médicaux ?', answer: 'Autoriser les essais avant marquage CE ou pour de nouvelles indications.' },
+  { question: 'Qu’est-ce que la matériovigilance ?', answer: 'La surveillance des incidents liés à l’utilisation des dispositifs médicaux.' },
+  { question: 'Qu’est-ce que la réactovigilance ?', answer: 'La surveillance des incidents liés aux dispositifs médicaux de diagnostic in vitro.' },
+  { question: 'Quelle commission de la HAS évalue les dispositifs médicaux ?', answer: 'La CNEDiMTS (Commission Nationale d’Évaluation des Dispositifs Médicaux et des Technologies de Santé).' },
+  { question: 'Quelle est la mission de la CNEDiMTS ?', answer: 'Évaluer les dispositifs médicaux et rendre un avis sur leur remboursement.' },
+  { question: 'Quel est l’équivalent de la CNEDiMTS pour les médicaments ?', answer: 'La Commission de Transparence.' },
+  { question: 'Quels types de services la CNEDiMTS évalue-t-elle ?', answer: 'Le Service Attendu (SA) et le Service Rendu (SR).' },
+  { question: 'À quelle étape évalue-t-on le SA ?', answer: 'Lors de la première inscription du dispositif sur la liste de remboursement.' },
+  { question: 'À quelle étape évalue-t-on le SR ?', answer: 'Lors du renouvellement, généralement tous les cinq ans.' },
+  { question: 'Quels critères servent à évaluer le SA d’un dispositif médical ?', answer: 'Le besoin médical, le rapport bénéfice/risque et l’intérêt de santé publique.' },
+  { question: 'Quelles sont les conséquences d’un SA jugé suffisant ?', answer: 'Le dispositif est remboursé par l’assurance maladie.' },
+  { question: 'Qu’est-ce que l’ASA ou l’ASR pour un dispositif médical ?', answer: 'L’Amélioration du Service Attendu ou Rendu par rapport au dispositif de référence.' },
+  { question: 'Combien existe-t-il de niveaux d’ASA ou d’ASR ?', answer: 'Cinq niveaux, de I (majeure) à V (absence d’amélioration).' },
+  { question: 'Quelle proportion d’ASA ou ASR est de niveau V ?', answer: 'Environ 80 %.' },
+  { question: 'Quelle est la durée de validité d’une inscription d’un dispositif sur la LPPR ?', answer: 'Dix ans pour une description générique, cinq ans pour un nom de marque.' },
+  { question: 'Qu’est-ce que la LPPR ?', answer: 'La Liste des Produits et Prestations Remboursables.' },
+  { question: 'Que signifie une inscription sous description générique sur la LPPR ?', answer: 'Le dispositif est inscrit dans une catégorie sans mention de marque et remboursé à tarif unique.' },
+  { question: 'Que signifie une inscription sous nom de marque sur la LPPR ?', answer: 'Le dispositif bénéficie d’un prix individualisé, négocié avec le CEPS.' },
+  { question: 'Quels dispositifs médicaux nécessitent une évaluation par la CNEDiMTS pour inscription sur la LPPR ?', answer: 'Ceux inscrits sous nom de marque.' },
+  { question: 'Quelle est la durée de validité d’une inscription sous nom de marque ?', answer: 'Cinq ans, avec réévaluation.' },
+  { question: 'Qu’est-ce qu’un acte professionnel en lien avec un dispositif médical ?', answer: 'Un geste médical impliquant un dispositif, dont le remboursement est intégré à l’acte et non au dispositif.' },
+  { question: 'Quel organisme fixe le prix des dispositifs médicaux remboursables ?', answer: 'Le Comité Économique des Produits de Santé (CEPS).' },
+  { question: 'Quels éléments sont pris en compte par le CEPS pour fixer le prix d’un dispositif médical ?', answer: 'Le SA, l’ASA, les prix comparables, les volumes prévus et les conditions d’utilisation.' },
+  { question: 'Quel est le délai maximal théorique pour la fixation du prix d’un dispositif médical ?', answer: 'Cent quatre-vingts jours.' },
+  { question: 'Quel est le délai moyen réel de fixation du prix d’un dispositif médical ?', answer: 'Environ cinq cents jours.' },
+  { question: 'Qu’est-ce que la liste « en sus » pour les dispositifs médicaux ?', answer: 'Liste de dispositifs innovants et coûteux utilisés à l’hôpital, financés à 100 % par l’assurance maladie.' },
+  { question: 'Qui fixe le prix des dispositifs médicaux inscrits sur la liste en sus ?', answer: 'Le CEPS.' },
+  { question: 'Qui établit la liste des dispositifs médicaux utilisés dans chaque hôpital ?', answer: 'Les Commissions Médicales d’Établissement (CME).' },
+  { question: 'Comment sont négociés les prix des dispositifs médicaux à l’hôpital ?', answer: 'Directement entre les établissements ou groupements d’achats et les fabricants.' },
+  { question: 'Quel organisme contrôle la publicité pour les dispositifs médicaux ?', answer: 'L’Agence Nationale de Sécurité du Médicament et des Produits de Santé (ANSM).' },
+  { question: 'Quelles sont les deux catégories de public pour la publicité des dispositifs médicaux ?', answer: 'Les professionnels de santé et le grand public.' },
+  { question: 'Quel est le type de contrôle pour la publicité des dispositifs médicaux à risque important ?', answer: 'Un contrôle a priori avec dépôt de demande à l’ANSM.' },
+  { question: 'Quelle classe de dispositifs médicaux est principalement soumise à un contrôle a priori ?', answer: 'Les dispositifs médicaux de classe IIb et III.' },
+  { question: 'Quel est le type de contrôle pour les autres dispositifs médicaux ne présentant pas de risque important ?', answer: 'Un contrôle a posteriori.' },
+  { question: 'La publicité auprès du grand public est-elle possible pour tous les dispositifs médicaux ?', answer: 'Non, elle est limitée aux dispositifs de classe I et IIa.' },
+  { question: 'La publicité auprès du grand public pour les dispositifs médicaux de classe IIb et III est-elle autorisée ?', answer: 'Non, elle est interdite.' },
+  { question: 'Quel est le mode de contrôle de la publicité des dispositifs médicaux de classe I et IIa ?', answer: 'Un contrôle a posteriori.' },
+  { question: 'À quoi correspond la publicité a posteriori ?', answer: 'Elle est diffusée sans demande préalable à l’ANSM, mais peut être vérifiée après diffusion.' },
+  { question: 'Quelles catégories de dispositifs médicaux de l’optique sont considérées comme dispositifs médicaux ?', answer: 'Les lunettes correctrices et les lentilles de contact.' },
+  { question: 'Quelle classe correspond aux lunettes correctrices ?', answer: 'Classe I.' },
+  { question: 'Quelle classe correspond aux lentilles de contact ?', answer: 'Classe IIa.' },
+  { question: 'Quel est le type de contrôle de la publicité pour les lunettes et lentilles ?', answer: 'Un contrôle a posteriori.' },
+  { question: 'Quel est l’objectif du marquage CE pour les dispositifs médicaux ?', answer: 'Garantir la conformité du dispositif aux exigences de sécurité et de santé européennes.' },
+  { question: 'Quelle institution désigne et surveille les organismes notifiés pour le marquage CE ?', answer: 'L’ANSM.' },
+  { question: 'Quelle est la mission de l’ANSM après la mise sur le marché des dispositifs médicaux ?', answer: 'Assurer la surveillance du marché et la matériovigilance.' },
+  { question: 'Que signifie la matériovigilance ?', answer: 'Le suivi et la gestion des incidents liés aux dispositifs médicaux.' },
+  { question: 'Que signifie la réactovigilance ?', answer: 'La surveillance des dispositifs médicaux de diagnostic in vitro.' },
+  { question: 'Quelle est la durée de validité du certificat de marquage CE ?', answer: 'Cinq ans.' },
+  { question: 'Quel est le rôle du CEPS dans la régulation du médicament ?', answer: 'Fixer le prix des médicaments et dispositifs médicaux remboursables.' },
+  { question: 'Quelle est la composition du CEPS ?', answer: 'Des représentants de l’État, de l’UNCAM et de l’UNOCAM.' },
+  { question: 'Quelle commission évalue l’efficience médico-économique d’un médicament ?', answer: 'La CEESP (Commission d’Évaluation Économique et de Santé Publique).' },
+  { question: 'Dans quels cas l’avis du CEESP est-il obligatoire ?', answer: 'Pour les médicaments avec ASMR I à III, ou ASMR IV avec coût supérieur au comparateur.' },
+  { question: 'Quelle est la durée du processus d’évaluation par la CEESP ?', answer: 'Quatre-vingt-dix jours.' },
+  { question: 'Quelle est la formule du ratio différentiel coût-résultat (RDCR) ?', answer: '(Coût action A – Coût action B) / (Résultat action A – Résultat action B).' },
+  { question: 'Que mesure un QALY ?', answer: 'Le nombre d’années de vie gagnées ajustées sur la qualité de vie.' },
+  { question: 'Quelles sont les deux échelles validées en France pour mesurer les QALY ?', answer: 'L’EQ-5D et le Health Utilities Index Mark 3.' },
+  { question: 'Quelle est la valeur de référence de coût par QALY selon l’OMS ?', answer: 'Inférieure à trois fois le PIB par habitant.' },
+  { question: 'Cette valeur de référence de coût par QALY est-elle utilisée en France ?', answer: 'Non, elle n’est pas prise en compte officiellement.' },
+  { question: 'Quel organisme fixe le taux de remboursement des médicaments ?', answer: 'L’UNCAM.' },
+  { question: 'Quels sont les taux de remboursement selon le niveau de SMR ?', answer: '65 % pour un SMR important, 30 % pour un SMR modéré, 15 % pour un SMR faible et 0 % pour un SMR insuffisant.' },
+  { question: 'Quelle est la durée d’inscription d’un médicament sur la liste de remboursement ?', answer: 'Cinq ans avant réévaluation.' },
+  { question: 'Quelle autorité peut décider d’un déremboursement ?', answer: 'Le ministre de la santé sur avis de la HAS.' },
+  { question: 'Quelle est la durée moyenne entre la demande d’AMM et la commercialisation d’un médicament ?', answer: 'Environ cinq cents jours.' },
+  { question: 'Quelle procédure permet de réduire ce délai pour les maladies graves ?', answer: 'L’autorisation d’accès précoce.' },
+  { question: 'Quelle est la durée d’une autorisation d’accès précoce ?', answer: 'Un an renouvelable.' },
+  { question: 'Quelle est la durée d’une autorisation d’accès compassionnel ?', answer: 'Un an renouvelable.' },
+  { question: 'Quelle est la durée d’un cadre de prescription compassionnel ?', answer: 'Trois ans renouvelables.' },
+  { question: 'Qui peut initier une demande de cadre de prescription compassionnel ?', answer: 'L’ANSM, le corps médical ou une association de patients.' },
+  { question: 'Quels sont les critères d’éligibilité à une autorisation d’accès compassionnel ?', answer: 'Maladie grave, absence de traitement, absence d’AMM, efficacité et sécurité présumées.' },
+  { question: 'Quelle institution valide les protocoles d’utilisation thérapeutique (PUT-RD) ?', answer: 'L’ANSM.' },
+  { question: 'Quelle est la responsabilité de l’assurance maladie dans les procédures d’accès précoce ?', answer: 'Assurer la prise en charge du médicament à un prix négocié avec le laboratoire.' },
+  { question: 'Quelle est l’obligation du prescripteur dans les procédures d’accès précoce et compassionnel ?', answer: 'Informer le patient et recueillir les données d’utilisation pour transmission au laboratoire.' },
+  { question: 'Quelle est l’obligation du laboratoire dans ces procédures ?', answer: 'Soumettre un protocole d’utilisation et transmettre un rapport d’analyse à l’ANSM et à la HAS.' },
+  { question: 'Quel type de contrôle s’applique à la publicité pour les dispositifs médicaux de diagnostic in vitro ?', answer: 'Contrôle a priori pour les dispositifs à risque grave et a posteriori pour les autres.' },
+  { question: 'La publicité des dispositifs d’autodiagnostic est-elle soumise à autorisation préalable ?', answer: 'Oui, elle est soumise à un contrôle a priori avec dépôt à l’ANSM.' },
+  { question: 'Quelle est la durée de validité de l’évaluation d’un dispositif médical par la CNEDiMTS ?', answer: 'Cinq ans avant réévaluation.' },
+  { question: 'Quels niveaux d’ASA permettent une fixation de prix avantageux ?', answer: 'Les niveaux I à III.' },
+  { question: 'Quels sont les critères d’évaluation du Service Attendu par la CNEDiMTS ?', answer: 'Le besoin médical, le rapport bénéfice/risque et l’intérêt de santé publique.' },
+  { question: 'Quelle est la proportion de SA jugés suffisants pour le remboursement ?', answer: 'Environ 85 %.' },
+  { question: 'Quelle est la mission principale de la Haute Autorité de Santé (HAS) ?', answer: 'Évaluer les médicaments, dispositifs médicaux et technologies de santé en vue de leur remboursement.' },
+  { question: 'Quelle est la durée maximale légale pour la fixation du prix d’un médicament après l’AMM ?', answer: 'Cent quatre-vingts jours.' },
+  { question: 'Quelle est la conséquence d’un SMR insuffisant ?', answer: 'Le médicament n’est pas remboursé.' },
+  { question: 'Que garantit l’accord-cadre entre l’industrie pharmaceutique et le CEPS ?', answer: 'Un prix non inférieur au plus bas des quatre principaux marchés européens pour les médicaments avec ASMR I à III.' },
+  { question: 'Quelle est la durée de cet accord-cadre ?', answer: 'Cinq ans.' },
+  { question: 'Que signifie l’acronyme CEESP ?', answer: 'Commission d’Évaluation Économique et de Santé Publique.' },
+  { question: 'Quelle est la durée d’analyse d’un dossier par le CEESP ?', answer: 'Quatre-vingt-dix jours.' },
+  { question: 'Quelle est la finalité du ratio différentiel coût-résultat (RDCR) ?', answer: 'Évaluer le coût d’obtention d’un gain de santé supplémentaire.' },
+  { question: 'Quelle institution fixe le taux de remboursement en fonction du SMR ?', answer: 'L’UNCAM.' },
+  { question: 'Qu’est-ce que l’ASMR ?', answer: 'L’amélioration du service médical rendu par rapport aux comparateurs existants.' },
+  { question: 'Quelle est la différence entre SMR et ASMR ?', answer: 'Le SMR évalue l’utilité médicale absolue, l’ASMR évalue le progrès relatif.' },
+  { question: 'Quelle est la durée de réévaluation du SMR et de l’ASMR ?', answer: 'Tous les cinq ans.' },
+  { question: 'Quelle est la fonction du CEPS dans la politique du médicament ?', answer: 'Négocier et fixer le prix des produits de santé remboursables.' },
+  { question: 'Quels facteurs influencent le prix négocié d’un médicament ?', answer: 'L’ASMR, la population cible, les prix comparables et les analyses médico-économiques.' },
+  { question: 'Quel est l’objectif de la fixation des prix dans l’Union Européenne ?', answer: 'Éviter les disparités excessives et le commerce parallèle.' },
+  { question: 'Quels pays servent de référence pour le prix français des médicaments ?', answer: 'L’Allemagne, l’Espagne, l’Italie et le Royaume-Uni.' },
+  { question: 'Qu’est-ce que le réseau PPRI ?', answer: 'Le Pharmaceutical Pricing & Reimbursement Information, réseau européen d’harmonisation des prix.' },
+  { question: 'Que garantit la procédure d’accès précoce ?', answer: 'Un accès rapide aux médicaments innovants avant la fixation définitive du prix.' },
+  { question: 'Qui évalue les données d’efficacité et de sécurité dans l’accès précoce ?', answer: 'L’ANSM.' },
+  { question: 'Quelle est la durée moyenne d’accès à un médicament innovant avec cette procédure ?', answer: 'Environ deux cents jours.' },
+  { question: 'Quel est le rôle du laboratoire dans une autorisation d’accès compassionnel ?', answer: 'Accepter la fourniture du médicament et la fixation d’un prix négocié.' },
+  { question: 'Qui dépose la demande d’accès compassionnel ?', answer: 'Le médecin pour un patient déterminé.' },
+  { question: 'Quelle est la durée de validité d’une autorisation d’accès compassionnel ?', answer: 'Un an renouvelable.' },
+  { question: 'Quelle est la différence entre accès compassionnel et cadre de prescription compassionnel ?', answer: 'L’accès compassionnel concerne un médicament sans AMM, le cadre de prescription compassionnel un médicament avec AMM dans d’autres indications.' },
+  { question: 'Quelle est la durée du cadre de prescription compassionnel ?', answer: 'Trois ans renouvelables.' },
+  { question: 'Qui ne peut pas demander un cadre de prescription compassionnel ?', answer: 'Le laboratoire fabricant.' },
+  { question: 'Quelles sont les obligations des prescripteurs dans les dispositifs d’accès précoce ?', answer: 'Informer le patient et transmettre les données d’utilisation.' },
+  { question: 'Quelle est la principale obligation du laboratoire dans les dispositifs d’accès précoce ?', answer: 'Fournir un protocole d’utilisation et transmettre les résultats d’évaluation à l’ANSM et à la HAS.' },
+  { question: 'Quel type de contrôle s’applique à la publicité pour les dispositifs médicaux de diagnostic in vitro ?', answer: 'Contrôle a priori pour ceux présentant un risque grave, et contrôle a posteriori pour les autres.' },
+  { question: 'Quelle publicité pour les DMDIV doit faire l’objet d’un dépôt préalable à l’ANSM ?', answer: 'Celle portant sur les dispositifs d’autodiagnostic.' },
+  { question: 'Quelle est la mission de la CNEDiMTS concernant les dispositifs médicaux ?', answer: 'Donner un avis sur leur remboursement et évaluer leur intérêt thérapeutique.' },
+  { question: 'Quelle proportion d’ASA ou ASR est jugée insuffisante (niveau V) ?', answer: 'Environ 80 %.' },
+  { question: 'Quelle est la proportion d’ASA ou ASR de niveau IV ?', answer: 'Environ 12 %.' },
+  { question: 'Quelle est la proportion d’ASA ou ASR de niveau I à III ?', answer: 'Environ 8 %.' },
+  { question: 'Quelle est la durée d’inscription d’un dispositif médical sur la LPPR sous description générique ?', answer: 'Dix ans.' },
+  { question: 'Quelle est la durée d’inscription sous nom de marque ?', answer: 'Cinq ans.' },
+  { question: 'Quelles sont les conditions pour inscrire un dispositif médical sous nom de marque ?', answer: 'Produit innovant, impact économique particulier ou absence d’équivalent générique.' },
+  { question: 'Qui négocie le prix d’un dispositif médical inscrit sous nom de marque ?', answer: 'Le CEPS.' },
+  { question: 'Quelle est la conséquence d’un avis ASA de niveau I à III sur le prix ?', answer: 'Possibilité d’un prix plus élevé.' },
+  { question: 'Qu’est-ce qu’un acte professionnel dans la prise en charge d’un dispositif médical ?', answer: 'Un geste remboursé incluant le coût du dispositif utilisé.' },
+  { question: 'Quel organisme détermine le prix des dispositifs médicaux hospitaliers ?', answer: 'Les commissions médicales d’établissement (CME) en concertation avec les acheteurs publics.' },
+  { question: 'Que signifie « en sus » dans le financement hospitalier ?', answer: 'Remboursement intégral par l’assurance maladie des dispositifs innovants et coûteux.' },
+  { question: 'Quel organisme fixe le prix des dispositifs médicaux inscrits sur la liste en sus ?', answer: 'Le CEPS.' },
+  { question: 'Quelle est la mission de la publicité selon le code de la santé publique ?', answer: 'Favoriser le bon usage du médicament sans être trompeuse ni dangereuse pour la santé publique.' },
+  { question: 'Quelle est la sanction maximale pour publicité mensongère d’un médicament ?', answer: 'Deux ans d’emprisonnement et 30 % du chiffre d’affaires du produit concerné.' },
+  { question: 'Quelle est la durée de validité d’un visa publicitaire délivré par l’ANSM ?', answer: 'Deux ans.' },
+  { question: 'Quelles sont les exceptions de publicité autorisées pour le grand public ?', answer: 'Les vaccins et les produits de sevrage tabagique.' },
+  { question: 'Quels produits peuvent être exposés en vitrine de pharmacie ?', answer: 'Les médicaments de conseil non soumis à prescription.' },
+  { question: 'Quelle sanction disciplinaire peut être infligée à un pharmacien pour publicité agressive ?', answer: 'Un avertissement ou un blâme.' },
+  { question: 'Quel est le rôle de la HAS dans la publicité pour les médicaments ?', answer: 'Recommander les stratégies thérapeutiques à respecter dans les publicités.' },
+  { question: 'Quelles sont les missions principales de la régulation du médicament ?', answer: 'Garantir la sécurité, l’efficacité, l’accès équitable et la maîtrise des dépenses de santé.' },
+  { question: 'Quelle autorité peut retirer ou suspendre une AMM à tout moment ?', answer: 'L’ANSM.' },
+  { question: 'Quelles sont les principales causes de retrait d’AMM ?', answer: 'Nocivité, absence d’efficacité, non-conformité de composition, informations erronées ou conditions non respectées.' },
+  { question: 'Quelle est la durée de validité d’une AMM européenne après renouvellement ?', answer: 'Illimitée.' },
+  { question: 'Qui contrôle la publicité pour les dispositifs médicaux de diagnostic in vitro ?', answer: 'L’ANSM.' },
+  { question: 'Quelle est la finalité du contrôle de la publicité pour les produits de santé ?', answer: 'Protéger la santé publique et garantir une information loyale.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

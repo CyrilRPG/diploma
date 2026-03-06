@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Médicaments et autres produits de santé</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Médicaments et autres produits de santé</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la définition d’une spécialité pharmaceutique selon le Code de la Santé Publique ?', answer: 'Tout médicament préparé à l’avance, présenté sous un conditionnement particulier et caractérisé par une dénomination spéciale.' },
+  { question: 'Qui contrôle les spécialités pharmaceutiques avant leur mise sur le marché ?', answer: 'L’Agence Nationale de Sécurité du Médicament (ANSM).' },
+  { question: 'Quelle autorisation est obligatoire pour la commercialisation d’une spécialité pharmaceutique ?', answer: 'L’Autorisation de Mise sur le Marché (AMM).' },
+  { question: 'Tous les médicaments sont-ils des spécialités pharmaceutiques ?', answer: 'Non, seuls ceux répondant à la définition de spécialité pharmaceutique le sont.' },
+  { question: 'Quelles sont les principales catégories de spécialités pharmaceutiques ?', answer: 'Les génériques, les biomédicaments, les bio-similaires, les médicaments d’automédication, les dérivés du sang et les médicaments de thérapie génique.' },
+  { question: 'Qu’est-ce qu’un médicament princeps ?', answer: 'C’est le médicament original qui incorpore pour la première fois un principe actif isolé ou synthétisé par un laboratoire.' },
+  { question: 'Quelle est la durée de protection du brevet d’un médicament princeps ?', answer: '20 ans à compter du dépôt du brevet.' },
+  { question: 'Qu’est-ce qu’un certificat complémentaire de protection (CCP) ?', answer: 'C’est une prolongation de 5 ans maximum de la protection commerciale du médicament.' },
+  { question: 'Quelle est la durée effective d’exploitation commerciale sous brevet d’un médicament ?', answer: 'Environ 10 à 15 ans.' },
+  { question: 'Qu’est-ce qu’un médicament générique ?', answer: 'C’est une copie d’un médicament princeps ayant la même composition en principes actifs, la même forme pharmaceutique et une bioéquivalence démontrée.' },
+  { question: 'Quand peut-on déposer une demande d’AMM pour un générique ?', answer: 'Au terme d’un délai de 8 ans après l’octroi de la première AMM européenne du princeps.' },
+  { question: 'Quelle autorité publie le répertoire officiel des spécialités génériques ?', answer: 'L’ANSM.' },
+  { question: 'Quelle mention peut figurer sur un médicament générique de marque ?', answer: 'Le suffixe « Gé ».' },
+  { question: 'Que signifie la bioéquivalence ?', answer: 'Une équivalence de la quantité et de la vitesse de passage du principe actif dans le sang entre le générique et le princeps.' },
+  { question: 'Quels paramètres pharmacocinétiques sont comparés pour la bioéquivalence ?', answer: 'L’AUC, la Cmax et le Tmax.' },
+  { question: 'Quelle est la plage d’acceptation de la bioéquivalence ?', answer: 'Entre 80 % et 125 %.' },
+  { question: 'Quelle est la plage de bioéquivalence pour les médicaments à marge thérapeutique étroite ?', answer: 'Entre 90 % et 111 %.' },
+  { question: 'Qu’est-ce qu’un auto-générique ?', answer: 'Une copie identique d’un princeps produite par le même laboratoire titulaire de l’AMM.' },
+  { question: 'Que doit faire le pharmacien lorsqu’un générique existe ?', answer: 'Il doit proposer la substitution au patient.' },
+  { question: 'Dans quel cas le médecin peut-il refuser la substitution ?', answer: 'En inscrivant la mention manuscrite « non substituable » pour raisons médicales.' },
+  { question: 'Que se passe-t-il si un patient refuse un générique sans motif valable ?', answer: 'Il doit payer le médicament princeps sans tiers payant et sera remboursé sur la base du générique.' },
+  { question: 'Qu’est-ce qu’un médicament bio-similaire ?', answer: 'Un médicament biologique similaire, mais non identique, à un médicament biologique de référence.' },
+  { question: 'Pourquoi un bio-similaire n’est-il pas identique au médicament de référence ?', answer: 'Parce que la reproduction exacte d’un produit biologique vivant est techniquement impossible.' },
+  { question: 'Quelle autorisation est nécessaire pour un bio-similaire ?', answer: 'Une AMM basée sur la démonstration de similarité clinique et non uniquement de bioéquivalence.' },
+  { question: 'Quelle réduction de coût moyenne présentent les bio-similaires ?', answer: 'Environ 30 % moins chers que les biomédicaments de référence.' },
+  { question: 'Combien de bio-similaires sont commercialisés en France fin 2024 ?', answer: '104 bio-similaires correspondant à 26 biomédicaments de référence.' },
+  { question: 'Comment les vaccins sont-ils classés ?', answer: 'Comme biomédicaments.' },
+  { question: 'Quel est l’objectif d’un vaccin ?', answer: 'Induire une réponse immunitaire protectrice sans provoquer la maladie.' },
+  { question: 'Qu’est-ce qu’une maladie rare ?', answer: 'Une maladie touchant au plus une personne sur 2000 dans l’Union Européenne.' },
+  { question: 'Qu’est-ce qu’une maladie orpheline ?', answer: 'Une maladie rare pour laquelle il n’existe pas de traitement.' },
+  { question: 'Qu’est-ce qu’un médicament orphelin ?', answer: 'Un médicament destiné à traiter, prévenir ou diagnostiquer une maladie rare grave menaçant la vie.' },
+  { question: 'Quelle incitation européenne existe pour les médicaments orphelins ?', answer: 'Une exclusivité commerciale de 10 ans à partir de l’AMM.' },
+  { question: 'Quelle est la proportion de maladies rares d’origine génétique ?', answer: 'Environ 80 %.' },
+  { question: 'Qu’est-ce qu’un médicament d’automédication ?', answer: 'Un médicament utilisé sans prescription médicale mais avec conseil possible du pharmacien.' },
+  { question: 'Quelle est la condition de vente d’un médicament d’automédication ?', answer: 'Vente exclusive en officine.' },
+  { question: 'Les médicaments d’automédication sont-ils remboursés ?', answer: 'Non, sauf s’ils sont prescrits par un médecin.' },
+  { question: 'Combien de médicaments à prescription médicale facultative existent environ ?', answer: 'Environ 3500, dont 450 en libre accès.' },
+  { question: 'Quels sont les critères des médicaments d’automédication ?', answer: 'Faible toxicité, efficacité connue, faible interaction, et traitement d’affections bénignes.' },
+  { question: 'Que signifie PMF ?', answer: 'Prescription Médicale Facultative.' },
+  { question: 'Quel est le prix moyen d’un médicament d’automédication ?', answer: 'Environ 2,5 euros.' },
+  { question: 'Qu’est-ce que l’e-pharmacie ?', answer: 'La vente en ligne de médicaments à prescription médicale facultative, encadrée par la loi.' },
+  { question: 'Qui peut créer un site de vente de médicaments en ligne ?', answer: 'Un pharmacien titulaire d’une officine physique.' },
+  { question: 'Quels médicaments peuvent être vendus en ligne ?', answer: 'Seuls les médicaments à prescription médicale facultative.' },
+  { question: 'Quelle autorisation est nécessaire pour créer un site d’e-pharmacie ?', answer: 'Une autorisation du directeur général de l’Agence Régionale de Santé (ARS).' },
+  { question: 'Quelle est la moyenne des frais de port pour les e-pharmacies ?', answer: 'Environ 6 euros.' },
+  { question: 'Comment vérifier qu’un site d’e-pharmacie est légal ?', answer: 'En vérifiant la présence du logo européen renvoyant vers la liste officielle tenue par l’Ordre des Pharmaciens.' },
+  { question: 'Quelle est la mission de l’ANSM concernant les spécialités pharmaceutiques ?', answer: 'Garantir la sécurité, la qualité et l’efficacité des médicaments mis sur le marché.' },
+  { question: 'Qu’est-ce qu’un médicament dérivé du sang ?', answer: 'C’est un médicament fabriqué industriellement à partir du sang ou de composants du sang, comme l’albumine, les immunoglobulines ou les facteurs de coagulation.' },
+  { question: 'Quelle est la différence entre un médicament dérivé du sang et un produit sanguin labile ?', answer: 'Le premier est préparé industriellement, tandis que le second provient d’un seul donneur sans processus industriel.' },
+  { question: 'Quelle vigilance s’applique aux médicaments dérivés du sang ?', answer: 'La pharmacovigilance.' },
+  { question: 'Que signifie « produit cellulaire à finalité thérapeutique » ?', answer: 'Ce sont des cellules humaines utilisées à des fins thérapeutiques autologues ou allogéniques.' },
+  { question: 'Quels sont les trois statuts possibles des produits cellulaires à finalité thérapeutique ?', answer: 'Médicament de thérapie innovante (MTI), préparation de thérapie cellulaire, et MTI préparé ponctuellement (MTI-PP).' },
+  { question: 'Qu’est-ce qu’un médicament de thérapie innovante ?', answer: 'C’est un médicament de thérapie cellulaire ou génique fabriqué industriellement, nécessitant une AMM européenne.' },
+  { question: 'Quelle autorisation est requise pour un MTI fabriqué industriellement ?', answer: 'Une AMM européenne délivrée selon la procédure centralisée.' },
+  { question: 'Qu’est-ce qu’un MTI-PP ?', answer: 'Un médicament de thérapie innovante préparé ponctuellement pour un patient déterminé, sans AMM.' },
+  { question: 'Qu’est-ce qu’une préparation de thérapie cellulaire ?', answer: 'Une préparation non industrielle destinée à un patient déterminé, sans modification substantielle des cellules.' },
+  { question: 'Quelle vigilance s’applique aux produits de thérapie cellulaire ?', answer: 'La biovigilance.' },
+  { question: 'Qu’est-ce qu’un médicament de thérapie génique ?', answer: 'Un produit visant le transfert d’un gène à des fins prophylactiques, diagnostiques ou thérapeutiques chez l’homme.' },
+  { question: 'Quel est le vecteur dans les médicaments de thérapie génique ?', answer: 'C’est le système d’expression, souvent viral ou non viral, qui permet le transfert du gène.' },
+  { question: 'Quelle est la différence entre un MTI et un MTI-PP dans la thérapie génique ?', answer: 'Le MTI est industriel avec AMM européenne, le MTI-PP est non industriel sans AMM.' },
+  { question: 'Combien de médicaments de thérapie génique ont une AMM européenne ?', answer: 'Onze.' },
+  { question: 'Les MTI sont-ils souvent des médicaments orphelins ?', answer: 'Oui, la plupart ont le statut de médicaments orphelins.' },
+  { question: 'Quelle autorité délivre les autorisations d’usage des MTI-PP ?', answer: 'L’ANSM.' },
+  { question: 'Quelle vigilance s’applique aux MTI-PP ?', answer: 'La pharmacovigilance.' },
+  { question: 'Qu’est-ce qu’un stupéfiant dans le cadre médicamenteux ?', answer: 'Une substance psychoactive pouvant entraîner pharmacodépendance ou abus.' },
+  { question: 'Quels sont des exemples de stupéfiants utilisés en médecine ?', answer: 'Les morphiniques, utilisés en anesthésie ou contre la douleur.' },
+  { question: 'Quelle est la finalité de la réglementation sur les stupéfiants et psychotropes ?', answer: 'Limiter leur usage aux fins médicales et scientifiques et prévenir le trafic illicite.' },
+  { question: 'Qu’est-ce que l’addictovigilance ?', answer: 'La surveillance des cas d’abus et de dépendance liés aux substances psychoactives médicamenteuses ou non.' },
+  { question: 'Quelle vigilance complète la pharmacovigilance pour les psychotropes ?', answer: 'L’addictovigilance.' },
+  { question: 'Qu’est-ce qu’une préparation hospitalière ?', answer: 'Un médicament préparé par une pharmacie hospitalière en l’absence de spécialité disponible.' },
+  { question: 'Les préparations hospitalières nécessitent-elles une AMM ?', answer: 'Non, mais elles sont surveillées par la pharmacovigilance.' },
+  { question: 'Qu’est-ce qu’une préparation officinale ?', answer: 'Un médicament préparé à l’avance par le pharmacien d’officine selon la pharmacopée, destiné à ses patients.' },
+  { question: 'Qu’est-ce qu’une préparation magistrale ?', answer: 'Un médicament préparé extemporanément pour un malade déterminé selon une prescription.' },
+  { question: 'Quelle est la principale différence entre une préparation magistrale et officinale ?', answer: 'La magistrale est préparée à l’unité pour un patient, l’officinale peut être préparée à l’avance.' },
+  { question: 'Quelle vigilance s’applique aux préparations magistrales et officinales ?', answer: 'La pharmacovigilance.' },
+  { question: 'Quelles conditions doivent être remplies pour qu’une préparation soit remboursée ?', answer: 'Objectif thérapeutique, efficacité prouvée, absence de spécialité équivalente, et matières premières de la pharmacopée.' },
+  { question: 'Qu’est-ce qu’un dispositif médical ?', answer: 'Un instrument ou logiciel destiné à des fins de diagnostic, prévention, contrôle ou traitement, agissant par une action physique.' },
+  { question: 'Quelle est la principale différence entre un dispositif médical et un médicament ?', answer: 'Le dispositif agit par un effet physique et non pharmacologique ou métabolique.' },
+  { question: 'Comment les dispositifs médicaux sont-ils classés ?', answer: 'En quatre classes selon le risque : I, IIa, IIb et III.' },
+  { question: 'Quelle est la classe I des dispositifs médicaux ?', answer: 'Celle à risque faible, comme les fauteuils roulants ou lunettes.' },
+  { question: 'Quelle est la classe IIa des dispositifs médicaux ?', answer: 'Risque moyen, comme les lentilles de contact ou tensiomètres.' },
+  { question: 'Quelle est la classe IIb des dispositifs médicaux ?', answer: 'Risque élevé, comme les préservatifs ou générateurs de dialyse.' },
+  { question: 'Quelle est la classe III des dispositifs médicaux ?', answer: 'Risque critique, comme les pacemakers ou les valves cardiaques.' },
+  { question: 'Quelle vigilance s’applique aux dispositifs médicaux ?', answer: 'La matériovigilance.' },
+  { question: 'Quelle est la particularité des stents actifs ?', answer: 'Ils sont recouverts d’une substance médicamenteuse réduisant la resténose.' },
+  { question: 'Qu’est-ce qu’un dispositif médical de diagnostic in vitro ?', answer: 'Un instrument destiné à examiner des échantillons humains pour fournir une information physiologique ou pathologique.' },
+  { question: 'Donne un exemple de dispositif médical de diagnostic in vitro.', answer: 'Les tests de grossesse ou les TROD.' },
+  { question: 'Quel marquage est obligatoire pour la mise sur le marché d’un dispositif médical de diagnostic in vitro ?', answer: 'Le marquage CE.' },
+  { question: 'Quelle autorité surveille les dispositifs médicaux de diagnostic in vitro ?', answer: 'L’ANSM.' },
+  { question: 'Quelle vigilance s’applique aux réactifs de diagnostic in vitro ?', answer: 'La réactovigilance.' },
+  { question: 'Qu’est-ce qu’un produit sanguin labile ?', answer: 'Un produit issu du sang d’un donneur destiné à la transfusion.' },
+  { question: 'Quels sont les deux types de produits sanguins labiles ?', answer: 'Les produits autologues et les produits homologues.' },
+  { question: 'Quelle autorité fixe la liste des produits sanguins labiles ?', answer: 'L’ANSM, après avis de l’Établissement Français du Sang (EFS).' },
+  { question: 'Quelle vigilance s’applique aux produits sanguins labiles ?', answer: 'L’hémovigilance.' },
+  { question: 'Quelle est la mission de l’hémovigilance ?', answer: 'Surveiller et évaluer les incidents graves ou effets indésirables liés aux dons ou transfusions.' },
+  { question: 'Quelle est la définition d’un tissu d’origine humaine ou animale ?', answer: 'Un groupe de cellules de structure similaire ayant une même fonction, utilisé à des fins thérapeutiques.' },
+  { question: 'Quelle est la différence entre un tissu et un organe ?', answer: 'L’organe est un élément anatomique complet, le tissu est un ensemble de cellules spécialisées.' },
+  { question: 'Quelle vigilance concerne les tissus d’origine humaine ou animale ?', answer: 'La biovigilance.' },
+  { question: 'Qu’est-ce qu’un produit cosmétique ?', answer: 'C’est une substance ou préparation destinée à être appliquée sur les parties superficielles du corps humain pour les nettoyer, les parfumer, en modifier l’aspect, les protéger ou les maintenir en bon état.' },
+  { question: 'Les produits cosmétiques nécessitent-ils une autorisation de mise sur le marché ?', answer: 'Non, il n’existe pas d’autorisation préalable de mise sur le marché pour les cosmétiques.' },
+  { question: 'Qui est responsable de la sécurité des produits cosmétiques ?', answer: 'Le fabricant doit garantir que les produits sont sûrs et conformes aux exigences légales.' },
+  { question: 'Quelle vigilance s’applique aux produits cosmétiques ?', answer: 'La cosmétovigilance.' },
+  { question: 'Depuis quelle date la cosmétovigilance est-elle assurée par l’ANSES ?', answer: 'Depuis le 1er janvier 2024.' },
+  { question: 'Quelle agence était responsable de la cosmétovigilance avant l’ANSES ?', answer: 'L’ANSM.' },
+  { question: 'Qu’est-ce qu’un produit de tatouage ?', answer: 'C’est une substance ou préparation colorante destinée, par effraction cutanée, à créer une marque sur la peau.' },
+  { question: 'La réglementation des produits de tatouage est-elle similaire à celle des cosmétiques ?', answer: 'Oui, elle s’en rapproche.' },
+  { question: 'Existe-t-il une autorisation préalable de mise sur le marché pour les produits de tatouage ?', answer: 'Non, il n’existe pas d’autorisation préalable.' },
+  { question: 'Quelle vigilance s’applique aux produits de tatouage ?', answer: 'La tatouvigilance.' },
+  { question: 'Quel est l’objectif de la tatouvigilance ?', answer: 'Surveiller les effets indésirables liés à l’utilisation de produits de tatouage.' },
+  { question: 'Qu’est-ce que la classification des médicaments ?', answer: 'C’est la distinction entre les médicaments listés (non exonérés) et non listés (exonérés), selon leur mode de délivrance et de prescription.' },
+  { question: 'Qu’est-ce qu’un médicament non listé ?', answer: 'Un médicament hors liste, à prescription non obligatoire, appelé médicament exonéré.' },
+  { question: 'Qu’est-ce qu’un médicament listé ?', answer: 'Un médicament soumis à prescription médicale obligatoire.' },
+  { question: 'Quelles sont les trois grandes listes de médicaments à prescription obligatoire ?', answer: 'La Liste I, la Liste II et la Liste des stupéfiants.' },
+  { question: 'Que regroupe la Liste I ?', answer: 'Des substances potentiellement dangereuses nécessitant une surveillance médicale stricte.' },
+  { question: 'Que regroupe la Liste II ?', answer: 'Des substances moins dangereuses, à risques moindres, mais nécessitant tout de même une prescription.' },
+  { question: 'Que regroupe la Liste des stupéfiants ?', answer: 'Des substances entraînant une dépendance et nécessitant une réglementation très stricte.' },
+  { question: 'Qu’est-ce qu’une prescription médicale restreinte ?', answer: 'Une prescription limitée à certains médecins ou établissements spécialisés.' },
+  { question: 'Qu’est-ce qu’une substance vénéneuse exonérée ?', answer: 'Une substance habituellement listée mais rendue accessible sans prescription en raison de sa faible dose ou de sa forme galénique.' },
+  { question: 'Comment l’OMS définit-elle un médicament contrefait ?', answer: 'Comme un produit étiqueté frauduleusement de manière délibérée pour en dissimuler la nature ou la source.' },
+  { question: 'Qu’est-ce qu’un faux médicament ?', answer: 'Un médicament ne respectant pas les exigences de sécurité, de qualité ou d’efficacité.' },
+  { question: 'Quels sont les trois types principaux de contrefaçons médicamenteuses ?', answer: 'Ceux sous-dosés, ceux sans principe actif, et ceux contenant des impuretés ou substances toxiques.' },
+  { question: 'Quelle est la proportion estimée de médicaments contrefaits dans le monde ?', answer: 'Environ 10 % du marché mondial.' },
+  { question: 'Quelle est la proportion de médicaments contrefaits dans certains pays africains ?', answer: 'Jusqu’à 50 % selon l’OMS.' },
+  { question: 'Combien de morts par an sont attribués à la contrefaçon de médicaments contre le paludisme et la tuberculose ?', answer: 'Environ 700 000 morts par an.' },
+  { question: 'Pourquoi le trafic de faux médicaments est-il attractif pour les criminels ?', answer: 'Il rapporte jusqu’à vingt fois plus que le trafic de stupéfiants, avec des peines beaucoup plus faibles.' },
+  { question: 'Quelles sont les conséquences sanitaires de la contrefaçon médicamenteuse ?', answer: 'Des risques graves pour la santé publique, incluant des intoxications et des échecs thérapeutiques.' },
+  { question: 'Quelle est la mission de l’ANSM concernant les contrefaçons ?', answer: 'Surveiller, signaler et retirer du marché les produits falsifiés dangereux pour la santé.' },
+  { question: 'Qu’est-ce qu’un médicament homéopathique ?', answer: 'Un médicament préparé selon des procédés de dilution et dynamisation à partir de souches homéopathiques.' },
+  { question: 'Quel est le principe fondamental de l’homéopathie ?', answer: 'Le principe de similitude, c’est-à-dire soigner par ce qui provoque des symptômes similaires à la maladie.' },
+  { question: 'Que signifient les dilutions notées DH et CH en homéopathie ?', answer: 'DH correspond à une dilution au dixième, CH à une dilution au centième.' },
+  { question: 'Quelles sont les deux grandes catégories de médicaments homéopathiques ?', answer: 'Ceux à nom commun et ceux à nom de marque (spécialités homéopathiques).' },
+  { question: 'Les médicaments homéopathiques à nom commun sont-ils des spécialités pharmaceutiques ?', answer: 'Non, ils ne le sont pas.' },
+  { question: 'Quelle est la langue utilisée pour nommer les médicaments homéopathiques à nom commun ?', answer: 'Le latin scientifique.' },
+  { question: 'Les médicaments homéopathiques comportent-ils une indication thérapeutique ?', answer: 'Non, ils n’en comportent pas, car une même souche peut traiter plusieurs pathologies.' },
+  { question: 'Quelle est la différence entre un médicament homéopathique à nom commun et un à nom de marque ?', answer: 'Le premier n’a pas d’indication ni de notice, le second a une posologie et une indication précises.' },
+  { question: 'Quand les médicaments homéopathiques ont-ils été déremboursés en France ?', answer: 'Le 1er janvier 2021.' },
+  { question: 'Les spécialités homéopathiques sont-elles remboursées ?', answer: 'Non, ce sont des PMF non remboursables.' },
+  { question: 'Quelles formes galéniques peuvent avoir les spécialités homéopathiques ?', answer: 'Comprimés, pommades, sirops, granules.' },
+  { question: 'Quelle autorité garantit la sécurité des médicaments homéopathiques ?', answer: 'L’ANSM.' },
+  { question: 'Quelle est la mission de la pharmacovigilance ?', answer: 'Surveiller les effets indésirables des médicaments après leur mise sur le marché.' },
+  { question: 'Quelle est la mission de la matériovigilance ?', answer: 'Surveiller les incidents liés aux dispositifs médicaux.' },
+  { question: 'Quelle est la mission de la biovigilance ?', answer: 'Surveiller les incidents liés à l’utilisation thérapeutique de cellules, tissus ou organes.' },
+  { question: 'Quelle est la mission de la réactovigilance ?', answer: 'Surveiller les risques liés aux réactifs de diagnostic in vitro.' },
+  { question: 'Quelle est la mission de la cosmétovigilance ?', answer: 'Surveiller les effets indésirables liés aux produits cosmétiques.' },
+  { question: 'Quelle est la mission de la tatouvigilance ?', answer: 'Surveiller les effets indésirables dus aux produits de tatouage.' },
+  { question: 'Quelle vigilance est spécifique aux produits sanguins labiles ?', answer: 'L’hémovigilance.' },
+  { question: 'Quelle vigilance est spécifique aux médicaments psychoactifs ?', answer: 'L’addictovigilance.' },
+  { question: 'Quelle est la particularité commune à toutes les vigilances ?', answer: 'Elles visent la sécurité du patient en détectant, analysant et prévenant les incidents liés aux produits de santé.' },
+  { question: 'Quelle est la mission principale de l’ANSM ?', answer: 'Garantir la sécurité, la qualité et le bon usage des produits de santé en France.' },
+  { question: 'Quels produits sont placés sous la responsabilité de l’ANSM ?', answer: 'Les médicaments, dispositifs médicaux, produits biologiques, cosmétiques et produits de tatouage.' },
+  { question: 'Que signifie AMM ?', answer: 'Autorisation de Mise sur le Marché.' },
+  { question: 'Quelle est la finalité de l’AMM ?', answer: 'Attester que le médicament est efficace, sûr et de qualité avant sa commercialisation.' },
+  { question: 'Quelle est la différence entre l’AMM nationale et l’AMM européenne ?', answer: 'L’AMM nationale est délivrée par l’ANSM, l’AMM européenne par l’Agence Européenne du Médicament via la procédure centralisée.' },
+  { question: 'Qu’est-ce qu’une procédure centralisée d’AMM ?', answer: 'Une procédure unique autorisant la commercialisation dans tous les pays de l’Union Européenne.' },
+  { question: 'Qu’est-ce qu’un médicament à marge thérapeutique étroite ?', answer: 'Un médicament dont la différence entre la dose efficace et la dose toxique est faible.' },
+  { question: 'Quels médicaments ne peuvent pas être substitués sans précaution ?', answer: 'Ceux à marge thérapeutique étroite.' },
+  { question: 'Que signifie DCI ?', answer: 'Dénomination Commune Internationale.' },
+  { question: 'Pourquoi la DCI est-elle importante ?', answer: 'Elle permet d’identifier un médicament sans ambiguïté quelle que soit la marque commerciale.' },
+  { question: 'Quelle mention doit être portée par le médecin pour interdire la substitution ?', answer: 'Non substituable.' },
+  { question: 'Quelle est la durée de protection d’un brevet pharmaceutique ?', answer: '20 ans à compter de son dépôt.' },
+  { question: 'Qu’est-ce que le Certificat Complémentaire de Protection (CCP) permet d’obtenir ?', answer: 'Une prolongation de 5 ans maximum de la protection du brevet.' },
+  { question: 'Quelle est la finalité du CCP ?', answer: 'Compenser la durée perdue pendant la procédure d’obtention de l’AMM.' },
+  { question: 'Quels paramètres pharmacocinétiques servent à prouver la bioéquivalence ?', answer: 'L’AUC, la Cmax et le Tmax.' },
+  { question: 'Que signifie AUC dans les études de bioéquivalence ?', answer: 'Aire sous la courbe des concentrations plasmatiques, représentant la quantité totale absorbée.' },
+  { question: 'Que signifie Cmax ?', answer: 'Concentration plasmatique maximale atteinte après administration.' },
+  { question: 'Que signifie Tmax ?', answer: 'Temps nécessaire pour atteindre la concentration maximale dans le sang.' },
+  { question: 'Quelle est la valeur de l’intervalle de confiance pour juger la bioéquivalence ?', answer: 'Entre 80 % et 125 %.' },
+  { question: 'Quelle est la limite de bioéquivalence pour un médicament à marge thérapeutique étroite ?', answer: 'Entre 90 % et 111 %.' },
+  { question: 'Qu’est-ce qu’un excipient à effet notoire ?', answer: 'Un excipient pouvant provoquer des effets indésirables chez certains patients.' },
+  { question: 'Que doit faire le pharmacien avant de substituer un médicament contenant un excipient à effet notoire ?', answer: 'S’assurer que le patient ne présente pas de contre-indication.' },
+  { question: 'Qu’est-ce que la pharmacovigilance ?', answer: 'Le système de surveillance des effets indésirables des médicaments après leur mise sur le marché.' },
+  { question: 'Qu’est-ce que la biovigilance ?', answer: 'La surveillance des incidents liés à l’utilisation thérapeutique de cellules, tissus et organes.' },
+  { question: 'Qu’est-ce que la matériovigilance ?', answer: 'La surveillance des incidents liés aux dispositifs médicaux.' },
+  { question: 'Qu’est-ce que la réactovigilance ?', answer: 'La surveillance des incidents liés aux dispositifs médicaux de diagnostic in vitro.' },
+  { question: 'Qu’est-ce que l’hémovigilance ?', answer: 'La surveillance des effets indésirables survenant chez les donneurs ou receveurs de produits sanguins labiles.' },
+  { question: 'Qu’est-ce que l’addictovigilance ?', answer: 'La surveillance des cas d’abus ou de dépendance liés à des substances psychoactives.' },
+  { question: 'Qu’est-ce que la cosmétovigilance ?', answer: 'La surveillance des effets indésirables provoqués par les produits cosmétiques.' },
+  { question: 'Qu’est-ce que la tatouvigilance ?', answer: 'La surveillance des effets indésirables liés aux produits de tatouage.' },
+  { question: 'Que signifie EFS ?', answer: 'Établissement Français du Sang.' },
+  { question: 'Quel est le rôle de l’EFS ?', answer: 'Assurer la collecte, la préparation, la distribution et la sécurité du sang et de ses dérivés.' },
+  { question: 'Quelle autorité supervise l’EFS et les produits sanguins labiles ?', answer: 'L’ANSM.' },
+  { question: 'Qu’est-ce qu’un produit autologue ?', answer: 'Un produit destiné à être réutilisé par le donneur lui-même.' },
+  { question: 'Qu’est-ce qu’un produit homologue ?', answer: 'Un produit destiné à être transfusé à une autre personne.' },
+  { question: 'Quelle différence existe entre une préparation hospitalière et une magistrale ?', answer: 'L’hospitalière est préparée à l’avance en série limitée, la magistrale est faite extemporanément pour un patient unique.' },
+  { question: 'Quel est l’objectif d’une préparation officinale ?', answer: 'Fournir un médicament en l’absence de spécialité équivalente, selon les normes de la pharmacopée.' },
+  { question: 'Que signifie le terme « pharmacopée » ?', answer: 'C’est la collection officielle des normes de qualité applicables aux substances pharmaceutiques.' },
+  { question: 'Qu’est-ce qu’un médicament à prescription médicale obligatoire ?', answer: 'Un médicament nécessitant une ordonnance pour être délivré.' },
+  { question: 'Qu’est-ce qu’un médicament à prescription médicale facultative ?', answer: 'Un médicament que le patient peut acheter sans ordonnance, souvent pour des affections bénignes.' },
+  { question: 'Quels médicaments peuvent être vendus sur internet légalement ?', answer: 'Seuls les médicaments à prescription médicale facultative.' },
+  { question: 'Qui est autorisé à vendre des médicaments sur internet ?', answer: 'Les pharmaciens titulaires d’une officine physique.' },
+  { question: 'Quelle autorité délivre l’autorisation d’ouverture d’un site d’e-pharmacie ?', answer: 'Le directeur général de l’Agence Régionale de Santé (ARS).' },
+  { question: 'Quel symbole permet d’identifier un site d’e-pharmacie agréé ?', answer: 'Le logo européen renvoyant à la liste officielle de l’Ordre des Pharmaciens.' },
+  { question: 'Quels produits ne peuvent pas être vendus sur internet ?', answer: 'Les médicaments à prescription médicale obligatoire.' },
+  { question: 'Que signifie la mention PMO ?', answer: 'Prescription Médicale Obligatoire.' },
+  { question: 'Que signifie la mention PMF ?', answer: 'Prescription Médicale Facultative.' },
+  { question: 'Qu’est-ce qu’un biomédicament ?', answer: 'Un médicament produit à partir de substances biologiques, comme des protéines ou des cellules vivantes.' },
+  { question: 'Quelle est la différence entre un bio-similaire et un générique ?', answer: 'Le générique est identique au princeps, le bio-similaire est seulement similaire car issu du vivant.' },
+  { question: 'Qu’est-ce qu’un médicament orphelin ?', answer: 'Un médicament destiné à traiter une maladie rare touchant moins d’une personne sur 2000.' },
+  { question: 'Quelles incitations l’Union Européenne offre-t-elle pour les médicaments orphelins ?', answer: 'Une exclusivité commerciale de 10 ans et des aides à la recherche.' },
+  { question: 'Quelle proportion de la population européenne est concernée par les maladies rares ?', answer: 'Environ 6 %, soit 30 millions de personnes.' },
+  { question: 'Qu’est-ce qu’un médicament immunologique ?', answer: 'Un médicament destiné à modifier ou stimuler la réponse immunitaire, comme un vaccin.' },
+  { question: 'Quel est l’objectif des vaccins ?', answer: 'Induire une protection immunitaire sans provoquer la maladie.' },
+  { question: 'Quelle vigilance concerne les vaccins ?', answer: 'La pharmacovigilance.' },
+  { question: 'Que signifie ANSES ?', answer: 'Agence Nationale de Sécurité Sanitaire de l’Alimentation, de l’Environnement et du Travail.' },
+  { question: 'Quelle mission l’ANSES assure-t-elle depuis 2024 ?', answer: 'La cosmétovigilance.' },
+  { question: 'Que signifie CSP ?', answer: 'Code de la Santé Publique.' },
+  { question: 'Quel article du CSP définit la spécialité pharmaceutique ?', answer: 'L’article L.5111-2.' },
+  { question: 'Que signifie « non substituable » sur une ordonnance ?', answer: 'Le prescripteur refuse la substitution générique pour raison médicale justifiée.' },
+  { question: 'Que signifie le sigle ANSM ?', answer: 'Agence Nationale de Sécurité du Médicament et des produits de santé.' },
+  { question: 'Quel est l’objectif final de toutes les vigilances sanitaires ?', answer: 'Garantir la sécurité sanitaire des patients et la qualité des produits de santé.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

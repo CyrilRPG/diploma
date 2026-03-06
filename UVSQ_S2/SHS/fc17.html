@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Prévention des infections transmises par l’air ou les  gouttelettes</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Prévention des infections transmises par l’air ou les  gouttelettes</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quels sont les trois éléments nécessaires à une maladie infectieuse transmissible', answer: 'Un agent infectieux, un réservoir et un hôte susceptible' },
+  { question: 'Quels sont les principaux types d’agents infectieux', answer: 'Bactéries, virus, champignons, prions et parasites' },
+  { question: 'Quels agents infectieux ne sont pas transmissibles entre individus', answer: 'La légionellose, le tétanos et le botulisme' },
+  { question: 'Qu’est-ce qu’un réservoir humain', answer: 'Un sujet infecté ou colonisé qui transmet l’agent à son entourage' },
+  { question: 'Citer trois exemples de réservoirs animaux', answer: 'Rage (animaux infectés), peste (rats), brucellose (lait de chèvre)' },
+  { question: 'Citer trois exemples de réservoirs environnementaux', answer: 'Sol (tétanos), air (aspergillose), eau (légionellose)' },
+  { question: 'Quels sont les deux grands types de transmission infectieuse', answer: 'Transmission directe et transmission indirecte' },
+  { question: 'Quelles sont les principales voies de transmission directe', answer: 'Respiratoire, manuportée, sexuelle, sanguine, verticale de la mère à l’enfant' },
+  { question: 'Donner trois exemples de transmission indirecte par vecteurs vivants', answer: 'Paludisme par moustique, maladie de Lyme par tique, dengue par moustique' },
+  { question: 'Donner trois exemples de transmission indirecte par vecteurs inertes', answer: 'Eau contaminée (légionellose), sol (tétanos), aliments (gastroentérites)' },
+  { question: 'Qu’est-ce qu’une particule respiratoire', answer: 'Une goutte de salive ou mucus émise lors de la respiration, parole, toux ou éternuement' },
+  { question: 'Combien de particules respiratoires sont émises par litre d’air expiré', answer: 'Entre 10 et 10 puissance 4 particules par litre' },
+  { question: 'Quelle est la taille des particules respiratoires', answer: 'Entre 100 nanomètres et plus d’un millimètre' },
+  { question: 'Que deviennent les petites particules respiratoires', answer: 'Elles restent en suspension dans l’air et se déplacent avec les courants' },
+  { question: 'Que deviennent les grosses particules respiratoires', answer: 'Elles tombent rapidement au sol dans un rayon de 1 à 2 mètres' },
+  { question: 'Quelle était l’ancienne classification des particules avant 2024', answer: 'Gouttelettes pour les grosses particules et aérosols pour les petites' },
+  { question: 'Pourquoi cette distinction gouttelettes et aérosols a-t-elle été remise en cause', answer: 'Car la pandémie de Covid-19 a montré des contaminations à distance impossibles à expliquer par les seules gouttelettes' },
+  { question: 'Exemple de contamination remettant en cause le modèle gouttelettes', answer: 'Le cas d’un restaurant chinois où des convives situés à plus de 3,5 mètres ont été contaminés par la climatisation' },
+  { question: 'Quelles sont les portes d’entrée des infections respiratoires', answer: 'Muqueuses buccales, nasales et conjonctives' },
+  { question: 'Quels facteurs environnementaux influencent la transmission respiratoire', answer: 'Ventilation, densité de population, taille de la pièce, type d’espace (fermé ou ouvert)' },
+  { question: 'Quels sont les modes de contamination respiratoire', answer: 'Inhalation de particules infectantes et exposition aux grosses gouttelettes sur les muqueuses' },
+  { question: 'Quels sont les facteurs influençant la transmission respiratoire', answer: 'Dilution par ventilation, dépôt sur surfaces, humidité, température, courants d’air' },
+  { question: 'Où se fixent les récepteurs du SARS-CoV-2 et de la grippe', answer: 'Sur les muqueuses du nez, de la bouche et des yeux' },
+  { question: 'Où se fixent les récepteurs du Mycobacterium tuberculosis', answer: 'Dans les bronchioles terminales' },
+  { question: 'Qu’est-ce que la dose infectante', answer: 'La quantité minimale d’agent pathogène nécessaire pour provoquer une infection' },
+  { question: 'Quel est l’impact de la survie de l’agent pathogène dans l’environnement', answer: 'Elle conditionne la persistance du risque de transmission' },
+  { question: 'Combien de temps SARS-CoV-2 reste-t-il virulent sur un masque', answer: 'Au moins 7 jours' },
+  { question: 'Combien de temps Streptococcus pyogenes survit-il sur une tomate', answer: 'Entre 2 et 24 heures' },
+  { question: 'Combien de temps Streptococcus pyogenes survit-il sur du bois', answer: 'Plus de 90 heures' },
+  { question: 'Quels sont les trois paramètres épidémiologiques principaux', answer: 'Transmissibilité, taux de reproduction, taux d’attaque secondaire' },
+  { question: 'Quelle est la définition de la contagiosité', answer: 'Capacité d’un micro-organisme à se transmettre d’un individu infecté à un individu réceptif' },
+  { question: 'Quelle est la définition de l’infectiosité', answer: 'Capacité du micro-organisme à provoquer une infection après transmission' },
+  { question: 'Quelle est la définition de la pathogénicité', answer: 'Capacité à provoquer une maladie après infection' },
+  { question: 'Qu’est-ce que le R0', answer: 'Nombre moyen de cas secondaires générés par un cas dans une population naïve' },
+  { question: 'Donner des exemples de maladies avec un R0 élevé', answer: 'Rougeole (12 à 18), coqueluche (12 à 17)' },
+  { question: 'Quel est le R0 de la grippe', answer: 'Entre 2 et 3' },
+  { question: 'Qu’est-ce que le R effectif', answer: 'Variante du R0 tenant compte des mesures de prévention et de l’immunité collective' },
+  { question: 'Qu’est-ce que le taux d’attaque secondaire', answer: 'Proportion de personnes infectées après exposition à un cas index' },
+  { question: 'Quel est le risque d’attraper une méningite à méningocoque après contact', answer: '500 à 800 fois plus élevé que sans contact' },
+  { question: 'Quelles sont les quatre catégories de classification des micro-organismes respiratoires', answer: 'Catégorie A pathogènes courants, catégorie B pathogènes complexes, catégorie C pathogènes résistants, catégorie REB à risque épidémique et biologique' },
+  { question: 'Donner trois exemples de pathogènes de catégorie A', answer: 'Streptococcus pneumoniae, Bordetella pertussis, SARS-CoV-2' },
+  { question: 'Donner deux exemples de pathogènes de catégorie B', answer: 'Mycobacterium tuberculosis, Varicella-Zoster virus' },
+  { question: 'Que signifie catégorie C', answer: 'Pathogènes résistants aux antibiotiques habituels, comme la tuberculose multirésistante' },
+  { question: 'Donner deux exemples de pathogènes de catégorie REB', answer: 'Yersinia pestis et MERS-Co' },
+  { question: 'Quelle est la durée moyenne d’incubation du SARS-CoV-2', answer: '4 à 7 jours' },
+  { question: 'Quand commence l’excrétion virale du SARS-CoV-2', answer: 'Deux jours avant l’apparition des symptômes' },
+  { question: 'Quelle proportion des transmissions de Covid-19 a lieu en phase présymptomatique', answer: 'Environ 50 %' },
+  { question: 'Combien de jours après le début des symptômes persiste la contagiosité du Covid-19', answer: '5 à 7 jours' },
+  { question: 'Quels sont les facteurs liés à l’hôte influençant la transmission', answer: 'État immunitaire, immunité préexistante, vaccination, immunité collective, mesures de protection individuelles' },
+  { question: 'Quel est le seuil d’immunité collective nécessaire pour la rougeole', answer: 'Au moins 98 % de la population immunisée' },
+  { question: 'Quels comportements favorisent la transmission', answer: 'Toux, chant, absence de masque, procédures médicales générant des aérosols' },
+  { question: 'Donner trois exemples de Procédures Générant des Aérosols à risque élevé', answer: 'Intubation, ventilation manuelle, aspiration des voies aériennes' },
+  { question: 'Donner trois exemples de Procédures Générant des Aérosols à risque modéré', answer: 'Bronchoscopie, nébulisation, chirurgie dentaire' },
+  { question: 'Quelle est la différence entre ventilation et aération', answer: 'Ventilation mécanique contrôlée, aération simple par ouverture de fenêtres' },
+  { question: 'Quel est le taux maximal recommandé de CO2 dans une pièce', answer: '1300 ppm' },
+  { question: 'Quel est le seuil idéal de CO2', answer: '800 ppm' },
+  { question: 'Combien de temps faut-il pour éliminer 99 % des particules infectieuses avec 10 renouvellements d’air par heure', answer: '14 minutes' },
+  { question: 'Pourquoi renforcer les précautions respiratoires en milieu hospitalier', answer: 'Parce que l’hygiène de base ne suffit pas à protéger contre certaines infections' },
+  { question: 'Quels sont les trois niveaux de précautions respiratoires définis en 2024', answer: 'Précautions simples, précautions renforcées, précautions maximales' },
+  { question: 'Quelle est la règle d’isolement pour un patient infecté', answer: 'Chambre individuelle avec porte fermée' },
+  { question: 'Quand le patient doit-il porter un masque médical', answer: 'Dès qu’une personne entre dans sa chambre et lors de ses déplacements' },
+  { question: 'Quelle est la règle pour les déplacements d’un patient sous précautions maximales', answer: 'Déplacements strictement limités au nécessaire' },
+  { question: 'Quel masque est recommandé pour les visiteurs en précautions simples', answer: 'Masque à usage médical' },
+  { question: 'Quel masque est obligatoire pour les visiteurs en précautions renforcées ou maximales', answer: 'FFP2' },
+  { question: 'Quelle est la norme de ventilation en milieu hospitalier', answer: 'Six renouvellements d’air par heure sans recyclage' },
+  { question: 'Quelle est la différence de CO2 acceptable entre précautions classiques et maximales', answer: '< 2300 ppm pour les classiques, < 800 ppm pour les maximales' },
+  { question: 'Quelle protection est requise pour une exposition faible', answer: 'Masque médical' },
+  { question: 'Quelle protection est requise pour une exposition modérée', answer: 'FFP2 recommandé' },
+  { question: 'Quelle protection est requise pour une exposition forte', answer: 'FFP2 obligatoire et lunettes de protection' },
+  { question: 'Quelle est la durée de précaution pour une méningite à méningocoque', answer: 'Levée après 24 heures de traitement antibiotique efficace' },
+  { question: 'Quelle est la durée de précaution pour une coqueluche sous azithromycine', answer: '3 jours' },
+  { question: 'Quelle est la durée de précaution pour une coqueluche sous clarithromycine', answer: '5 jours' },
+  { question: 'Quelle est la durée de précaution pour une grippe', answer: '7 jours après le début des symptômes' },
+  { question: 'Quelle est la durée de précaution pour un Covid-19 symptomatique', answer: '10 jours' },
+  { question: 'Quelle est la durée de précaution pour un Covid-19 asymptomatique', answer: '14 jours' },
+  { question: 'Quelle est la durée de précaution pour un Covid-19 immunodéprimé', answer: '24 jours' },
+  { question: 'Quelle est la durée de précaution pour une varicelle', answer: 'Jusqu’à la chute des croûtes' },
+  { question: 'Quelle est la durée de précaution pour une rougeole', answer: '5 jours après le début de l’éruption' },
+  { question: 'Quelle institution publie un bulletin épidémiologique hebdomadaire en France', answer: 'Santé publique France' },
+  { question: 'Quels sont les trois niveaux de cartographie épidémique', answer: 'Vert situation normale, jaune phase pré-épidémique, rouge phase épidémique' },
+  { question: 'Quel est l’intérêt de comparer les saisons épidémiques d’une année à l’autre', answer: 'Anticiper les pics et adapter les mesures de prévention' },
+  { question: 'Quelle était la particularité de l’épidémie de grippe 2023-2024 par rapport à 2022-2023', answer: 'Elle a commencé plus tôt et était déjà en déclin alors que l’autre était plus tardive et moins intense' },
+  { question: 'Pourquoi la surveillance épidémiologique est-elle essentielle', answer: 'Pour adapter en permanence les stratégies de protection et limiter la propagation des infections respiratoires' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

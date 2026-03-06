@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>One Health</h1><h2>Polluants de l'environnement professionnel</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Comment se comparent les concentrations de polluants en milieu professionnel par rapport à l’environnement général ?', answer: 'Les concentrations de polluants dans les lieux professionnels sont bien supérieures comparées à celles de l’environnement général [1].', },
+{ question: 'Quelles sont les trois voies principales de pénétration des polluants dans l’organisme en milieu professionnel ?', answer: 'Les polluants pénètrent majoritairement par inhalation, mais aussi par voie cutanée et par voie digestive [1].', },
+{ question: 'Pourquoi l’onychophagie est-elle un facteur de risque pour les travailleurs exposés au plomb ?', answer: 'Se ronger les ongles (onychophagie) augmente le risque d’ingestion accidentelle car des particules de plomb peuvent se retrouver sous les ongles [1, 2].', },
+{ question: 'Quelle est la différence entre l’effet local et l’effet à distance d’un toxique inhalé ?', answer: 'L’effet local affecte l’appareil respiratoire, tandis que l’effet à distance (ou systémique) agit sur d’autres organes, comme le système nerveux [2].', },
+{ question: 'Citez des exemples de polluants exerçant un effet différé plusieurs années après l’exposition.', answer: 'Le plomb (neurotoxique) et les agents cancérogènes exercent leurs effets de manière différée [2].', },
+{ question: 'De quoi dépend généralement l’effet d’un polluant ?', answer: 'L’effet dépend en règle générale du niveau d’exposition (sur une courte durée pour l’aigu, ou cumulée pour le long terme) [3].', },
+{ question: 'Définissez la métrologie dans le contexte des polluants.', answer: 'C’est la science de la mesure de la dose externe à l’organisme, c’est-à-dire la mesure d’un toxique dans un milieu non biologique comme l’air, l’eau ou le sol [3].', },
+{ question: 'Définissez la biométrologie.', answer: 'C’est la mesure de la dose interne à l’organisme en analysant la substance ou ses métabolites dans un milieu biologique (sang, urine, cheveux, etc.) [3, 4].', },
+{ question: 'Quel est l’avantage de la biométrologie par rapport à la métrologie environnementale ?', answer: 'Elle intègre l’ensemble des substances ayant pénétré dans l’organisme par toutes les voies de pénétration et tient compte de l’effort physique et des différences individuelles [4, 5].', },
+{ question: 'Quelles sont les trois familles de facteurs de risque pour l’appareil respiratoire ?', answer: 'Les facteurs de risque chimiques (particules, irritants), physiques (radiations) et biologiques (tuberculose, Covid-19) [5-7].', },
+{ question: 'Qu’est-ce que la granulométrie des particules ?', answer: 'C’est l’étude de la taille des particules solides en suspension dans l’air, paramètre déterminant de leur toxicité [7, 8].', },
+{ question: 'Comment distingue-t-on les vapeurs des fumées ?', answer: 'Les vapeurs résultent du passage d’une phase liquide à une phase gazeuse, alors que les fumées résultent du passage de la phase solide à la phase vapeur [8].', },
+{ question: 'Quelle forme géométrique est utilisée pour modéliser les particules en physique des aérosols ?', answer: 'Toutes les particules solides en suspension sont assimilables à des sphères pour la modélisation [8].', },
+{ question: 'Quelle est la définition d’une fibre en hygiène du travail ?', answer: 'C’est une particule allongée aux bords approximativement parallèles, au moins trois fois plus longue que large [8-10].', },
+{ question: 'Qu’est-ce que le diamètre aérodynamique ?', answer: 'C’est le diamètre d’une sphère équivalente qui permet de définir le comportement d’une particule (même allongée) dans l’appareil respiratoire [9].', },
+{ question: 'Comment se comporte une fibre d’amiante dans les voies respiratoires selon son diamètre physique ?', answer: 'Elle se comporte comme une bille dont le diamètre (diamètre aérodynamique) est environ trois fois supérieur à son diamètre physique [11].', },
+{ question: 'Quel est le seuil de taille au-delà duquel les particules ne pénètrent pas dans les voies aériennes ?', answer: 'Les particules de diamètre supérieur à 100 μm ne pénètrent pas car elles sédimentent trop facilement [12].', },
+{ question: 'Quelle taille de particule est nécessaire pour atteindre les alvéoles (poumon profond) ?', answer: 'Seules les particules de diamètre inférieur à 4-5 μm parviennent jusqu’au poumon profond [13, 14].', },
+{ question: 'Que sont les nanoparticules (ou particules ultrafines) ?', answer: 'Ce sont des particules dont le diamètre est inférieur à 100 nanomètres [5, 13].', },
+{ question: 'Quelles zones composent l’appareil respiratoire selon le profil de dépôt des particules ?', answer: 'Les voies aériennes supérieures (bleu), la zone de conduction ou trachéo-bronchique (vert) et le poumon profond ou zone respiratoire (rouge) [13, 14].', },
+{ question: 'Décrivez le mécanisme de l’épuration mucociliaire.', answer: 'Le mucus piège les particules et les cellules ciliées le font remonter vers la gorge comme un escalator pour être évacué par déglutition ou expectoration [15-17].', },
+{ question: 'Quelle est la plage de taille des particules éliminées par l’épuration mucociliaire en 24h ?', answer: 'Les particules comprises entre 4-5 μm et 100 μm sont épurées par ce mécanisme rapide [15, 16].', },
+{ question: 'Comment sont éliminées les particules qui atteignent les alvéoles ?', answer: 'Elles sont épurées très lentement (mois ou années) par les macrophages alvéolaires via la phagocytose [17].', },
+{ question: 'Qu’arrive-t-il aux particules fibrogènes (silice, amiante) lors de la phagocytose ?', answer: 'Elles sont cytotoxiques : leur phagocytose entraîne souvent la mort du macrophage, créant un cycle de phagocytose-relibération permanent [18, 19].', },
+{ question: 'Qu’est-ce qu’une particule fibrogène ?', answer: 'C’est une particule capable de provoquer une fibrose (cicatrice rigide) du tissu pulmonaire ou pleural, comme la silice cristalline ou l’amiante [18, 20].', },
+{ question: 'Que sont les HAP et où les trouve-t-on ?', answer: 'Les hydrocarbures aromatiques polycycliques sont des composés cancérogènes présents dans les suies (sidérurgie) et la fumée de tabac [19].', },
+{ question: 'Quelle est la structure chimique de la silice cristalline ?', answer: 'C’est un atome de silicium lié à de l’oxygène, organisés de façon extrêmement régulière [21].', },
+{ question: 'Citez les trois principales formes de silice cristalline.', answer: 'Le quartz (le plus répandu), la tridymite et la cristobalite [21, 22].', },
+{ question: 'Pourquoi le sable ordinaire n’est-il pas dangereux pour les poumons ?', answer: 'Parce que les grains de sable sont trop gros pour pénétrer dans les voies respiratoires profondes [22].', },
+{ question: 'Où trouve-t-on de la cristobalite en milieu industriel ?', answer: 'Dans les terres de diatomées calcinées, utilisées comme charges ou dans les sachets dessicants des équipements électroniques [22, 23].', },
+{ question: 'Quels secteurs d’activité exposent à la silice cristalline ?', answer: 'Les mines, les carrières (granit), les fonderies, le BTP (béton, tuiles), l’agriculture et les prothésistes dentaires [23-25].', },
+{ question: 'Quand le granit ou les briques deviennent-ils dangereux pour la santé ?', answer: 'Le danger survient lors des opérations de taille, sciage, polissage ou tronçonnage qui émettent des particules fines inhalables [24, 25].', },
+{ question: 'Qu’est-ce que le corindon ?', answer: 'Un abrasif moderne à base d’oxyde d’aluminium réputé moins toxique que la silice [25].', },
+{ question: 'Quel est le risque lié aux pierres artificielles (ex: César Stone) ?', answer: 'Composées à plus de 90 % de silice pure, leur usinage sans protection peut provoquer des silicoses massives et rapides [26, 27].', },
+{ question: 'Définissez la silicose chronique.', answer: 'C’est une pneumoconiose (maladie non maligne) due à l’inhalation de silice, apparaissant après 20 à 40 ans d’exposition [26, 28].', },
+{ question: 'Quelle est la particularité de l’évolution d’une silicose ?', answer: 'Il n’y a jamais d’amélioration ; la maladie se stabilise ou s’aggrave lentement, même après l’arrêt de l’exposition [28, 29].', },
+{ question: 'Citez les complications majeures de la silicose.', answer: 'La tuberculose (surinfection mycobactérienne), le cancer broncho-pulmonaire et des maladies auto-immunes comme la sclérodermie [27, 29, 30].', },
+{ question: 'Comment dépiste-t-on la silicose ?', answer: 'Par imagerie thoracique (radiographie ou scanner) et explorations fonctionnelles respiratoires, car elle reste longtemps silencieuse [10, 28, 31].', },
+{ question: 'Depuis quelle date la poussière de silice est-elle classée cancérogène en France ?', answer: 'Depuis le 1er janvier 2021 [28].', },
+{ question: 'Quelles sont les méthodes de prévention collective contre la silice ?', answer: 'Le travail en atmosphère humide (tronçonnage à l’humide) pour agglomérer les particules et l’usage de systèmes d’aspiration intégrée [31].', },
+{ question: 'Quelle est la valeur limite d’exposition (VME) pour le quartz en France ?', answer: '0,10 mg/m3 [31].', },
+{ question: 'Quelle est la définition minéralogique de l’amiante ?', answer: 'C’est un silicate fibreux naturel présent dans le sol [10].', },
+{ question: 'Quelles sont les deux grandes familles d’amiante ?', answer: 'Les serpentines (dont le chrysotile) et les amphiboles (crocidolite, amosite, etc.) [32].', },
+{ question: 'Quelle famille d’amiante est jugée la plus dangereuse ?', answer: 'Les amphiboles [33].', },
+{ question: 'Quand l’amiante a-t-il été officiellement interdit en France ?', answer: 'L’interdiction a été prononcée en 1996 et appliquée en 1997 [34, 35].', },
+{ question: 'Pourquoi l’amiante était-il surnommé le « Magic Mineral » ?', answer: 'Pour ses propriétés exceptionnelles : résistance à la chaleur (>1000°C), incombustibilité, résistance chimique et faible coût [36].', },
+{ question: 'Qu’est-ce que le fibrociment (ou amiante-ciment) ?', answer: 'C’est un ciment renforcé par des fibres d’amiante (>80 % des matériaux contenant de l’amiante), utilisé pour les toitures, canalisations et conduits [37, 38].', },
+{ question: 'Qu’est-ce qu’un flocage amianté ?', answer: 'Un mélange de fibres et d’un liant projeté sur des structures (métalliques, plafonds) pour l’isolation thermique, la protection incendie ou l’anti-bruit [37].', },
+{ question: 'Pourquoi les travailleurs de l’isolation des années 70 ont-ils contaminé leurs familles ?', answer: 'Ils rapportaient leurs vêtements de travail contaminés à la maison, exposant leurs proches [39].', },
+{ question: 'Citez des exemples de produits contenant de l’amiante outre le bâtiment.', answer: 'Produits de friction (freins, embrayages), textiles (gants, tresses), dalles de sol vinyles et joints en caoutchouc [39, 40].', },
+{ question: 'Quand une dalle de sol en vinyle-amiante devient-elle dangereuse ?', answer: 'Lors de son arrachage, de sa dégradation ou d’un polissage à sec (monobrosse) qui remet les fibres en suspension [38, 40, 41].', },
+{ question: 'Quel document est obligatoire lors d’une transaction immobilière concernant l’amiante ?', answer: 'Un diagnostic amiante [42].', },
+{ question: 'Quelle proportion de retraités hommes a été exposée à l’amiante ?', answer: 'Environ 20 à 30 % des retraités (soit 1 homme sur 4 à l’âge de 60 ans) [43].', },
+{ question: 'Quelle est l’unité de mesure pour l’exposition professionnelle à l’amiante ?', answer: 'Fibres par millilitre d’air (f/ml) ou fibres par centimètre cube (f/cm3), analysées par microscopie optique à contraste de phase (MOCP) [44, 45].', },
+{ question: 'Quelle est l’unité de mesure pour l’exposition environnementale à l’amiante ?', answer: 'Fibres par litre d’air (f/l), analysées par microscopie électronique (MET) [45].', },
+{ question: 'Quelles sont les modalités d’un prélèvement individuel d’amiante pour un travailleur ?', answer: 'Le travailleur porte une pompe avec un débit de 3 l/mn sur une durée minimale de 15 minutes [46, 47].', },
+{ question: 'Quelle est la Valeur Limite d’Exposition Professionnelle (VLEP) pour l’amiante ?', answer: '10 fibres par litre (10 F/L) sur 8 heures dans l’air inhalé [47].', },
+{ question: 'Quels sont les trois niveaux d’empoussièrement définis par la réglementation ?', answer: 'Niveau 1 (<100 F/L), Niveau 2 (100-6000 F/L) et Niveau 3 (6000-25000 F/L) [48, 49].', },
+{ question: 'Quelle est la durée d’un prélèvement d’ambiance pour un diagnostic initial dans un immeuble ?', answer: 'Le prélèvement est réalisé sur 24 heures durant l’occupation (ou simulation d’occupation) des locaux [49, 50].', },
+{ question: 'Pourquoi utilise-t-on des ventilateurs lors de prélèvements dans des locaux inoccupés ?', answer: 'Pour simuler l’activité humaine et éviter les faux négatifs dus à la sédimentation des fibres en l’absence de mouvement d’air [50-52].', },
+{ question: 'Quelle est la valeur limite environnementale de l’amiante dans les immeubles bâtis ?', answer: '5 fibres par litre (5 F/L) [53].', },
+{ question: 'Que sont les plaques pleurales ?', answer: 'Ce sont des fibroses bénignes de la plèvre causées par la migration des fibres d’amiante vers l’enveloppe du poumon [54, 55].', },
+{ question: 'Comment détecte-t-on les plaques pleurales ?', answer: 'Elles sont généralement invisibles à la radiographie et nécessitent un scanner thoracique [55, 56].', },
+{ question: 'Qu’est-ce que le mésothéliome ?', answer: 'C’est une tumeur rare et grave, localisée à 85 % au niveau de la plèvre, quasi exclusivement causée par l’amiante [57, 58].', },
+{ question: 'Quel est l’effet du tabac sur les pathologies liées à l’amiante ?', answer: 'Il agit en synergie pour augmenter considérablement le risque de cancer bronchopulmonaire, mais n’a aucun rôle dans le mésothéliome [33, 58].', },
+{ question: 'Quel est le principal facteur de risque lié aux fibres d’amiante ?', answer: 'La dose cumulée (fibres/ml x années) [59, 60].', },
+{ question: 'Qu’est-ce que la biopersistance des fibres ?', answer: 'C’est la capacité des fibres à rester indéfiniment dans l’organisme car elles sont peu éliminables par les macrophages [59].', },
+{ question: 'Quels sont les points communs des affections liées à l’amiante ?', answer: 'Un temps de latence élevé (souvent >10-30 ans), une persistance du risque toute la vie et une relation dose-effet [56, 60].', },
+{ question: 'Quelles inquiétudes soulèvent les nanotubes de carbone ?', answer: 'Leur forme et leur durabilité suggèrent un potentiel toxique similaire à l’amiante, avec des cas de mésothéliomes observés chez l’animal [61, 62].', },
+{ question: 'Qu’étudie la prévention secondaire des pneumoconioses ?', answer: 'Le dépistage précoce des effets sur la santé, notamment par scanner thoracique (TDM) et surveillance médicale [63].', },
+{ question: 'Quels paramètres physiques influent sur la toxicité des métaux ?', answer: 'La nature chimique, la forme (métal, organique, inorganique), l’état physique (solide, liquide, gaz), la lipophilie et la taille [64].', },
+{ question: 'Quelle est la demi-vie du plomb dans le tissu osseux ?', answer: 'Plus de 10 ans (souvent entre 10 et 15 ans) [65, 66].', },
+{ question: 'Où le plomb se stocke-t-il majoritairement dans l’organisme ?', answer: '90 % de la charge totale de plomb chez l’adulte est stockée dans les os [67, 68].', },
+{ question: 'Pourquoi la plombémie ne reflète-t-elle pas la charge corporelle totale ?', answer: 'Parce qu’elle ne représente qu’environ 1 à 2 % du plomb présent dans l’organisme, le reste étant dans les os et tissus mous [68].', },
+{ question: 'Qu’est-ce que la plomburie provoquée ?', answer: 'C’est l’évaluation de la charge osseuse en administrant un chélateur pour relarguer le plomb dans les urines [69].', },
+{ question: 'Quelle est la toxicité hématologique du plomb ?', answer: 'Il inhibe la synthèse de l’hème (via l’inhibition de l’ALAD), provoquant une anémie et la formation de PPZ [70].', },
+{ question: 'Quel est l’effet du plomb sur le développement de l’enfant ?', answer: 'Il est neurotoxique et peut entraîner une baisse irréversible du quotient intellectuel (QI) [71, 72].', },
+{ question: 'À partir de quel seuil la plombémie chez l’enfant fait-elle l’objet d’une déclaration obligatoire ?', answer: 'À partir de 100 μg/L [72].', },
+{ question: 'Quelle est la Valeur Limite d’Exposition (VLEP) biologique du plomb pour les travailleurs ?', answer: '300 μg/L pour les femmes et 400 μg/L pour les hommes [73].', },
+{ question: 'Définissez un solvant.', answer: 'Substance liquide capable de dissoudre, diluer ou extraire d’autres substances sans les modifier chimiquement [74].', },
+{ question: 'Qu’est-ce qu’un solvant organique ?', answer: 'Un solvant comportant au moins un atome de carbone dans sa composition [75].', },
+{ question: 'Citez des exemples de solvants organiques chlorés.', answer: 'Le trichloroéthylène, le perchloroéthylène (nettoyage à sec) et le dichlorométhane [76].', },
+{ question: 'Quelle est la manifestation neurologique aiguë commune aux solvants organiques ?', answer: 'Une dépression du système nerveux central entraînant ébriété, vertiges, voire coma [77, 78].', },
+{ question: 'Qu’est-ce que le syndrome psycho-organique ?', answer: 'Un effet chronique des solvants incluant des troubles de l’attention, de la mémoire, de la libido et de l’équilibre [79].', },
+{ question: 'Quel solvant est spécifiquement associé aux hémopathies (maladies du sang) ?', answer: 'Le benzène [80].', },
+{ question: 'Quelle est la définition d’un produit biocide ?', answer: 'Produit destiné à détruire ou repousser les organismes nuisibles pour la santé humaine/animale ou les matériaux (ex: désinfectants, insecticides) [81, 82].', },
+{ question: 'Quelle est la définition d’un produit phytopharmaceutique ?', answer: 'Produit destiné à protéger les végétaux en détruisant les organismes nuisibles ou végétaux indésirables (ex: herbicides, fongicides) [82].', },
+{ question: 'Avec quelles pathologies l’exposition professionnelle aux pesticides a-t-elle un lien fort ?', answer: 'Les lymphomes non hodgkiniens (LNH), le myélome multiple, le cancer de la prostate et la maladie de Parkinson [83].', },
+{ question: 'Quel pesticide est associé à un risque accru de cancer de la prostate aux Antilles ?', answer: 'Le chlordécone [84].', },
+{ question: 'Comment agissent les fongicides SDHi ?', answer: 'Ils perturbent le fonctionnement mitochondrial en inhibant le complexe enzymatique SDH impliqué dans la respiration cellulaire [84, 85].', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_One_Health_fc6";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

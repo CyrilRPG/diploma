@@ -1,0 +1,485 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Human nutrition</h1><h2>Les vitamines hydrosolubles</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition principale des vitamines hydrosolubles ?', answer: 'Ce sont des substances **solubles dans l’eau** qui ne sont pas stockées dans l’organisme (à l’exception de la B12) et doivent être apportées régulièrement par l’alimentation.', },
+{ question: 'Quelles vitamines composent le groupe des vitamines hydrosolubles ?', answer: 'La **vitamine C** et l’ensemble des **vitamines du groupe B** (B1, B2, B3, B5, B6, B8, B9, B12).', },
+{ question: 'Pourquoi le risque de surdosage est-il plus faible pour les vitamines hydrosolubles ?', answer: 'Parce qu’elles sont **éliminées par les urines** en cas d’excès, contrairement aux vitamines liposolubles.', },
+{ question: 'Quel est le nom scientifique de la vitamine B1 ?', answer: 'La **Thiamine**.', },
+{ question: 'De quels cycles est composée la structure chimique de la thiamine ?', answer: 'Un cycle **pyrimidine** relié à un cycle **thiazole**.', },
+{ question: 'Quel est le dérivé coenzymatique direct de la thiamine ?', answer: 'Le **pyrophosphate de thiamine (TPP)** ou diphosphate de thiamine.', },
+{ question: 'Dans quel métabolisme majeur la vitamine B1 intervient-elle principalement ?', answer: 'Le métabolisme des **glucides**.', },
+{ question: 'Pourquoi les besoins en thiamine s’expriment-ils en mg/MJ d’énergie consommée ?', answer: 'Parce que ses besoins sont **directement proportionnels à l’apport en glucides** ; plus on consomme de glucides, plus on a besoin de thiamine.', },
+{ question: 'Quel complexe enzymatique utilise la thiamine pour transformer le pyruvate en acétyl-CoA ?', answer: 'Le complexe **pyruvate déshydrogénase**, situé dans la mitochondrie.', },
+{ question: 'Quel rôle la thiamine joue-t-elle dans le cycle de Krebs (étape 4) ?', answer: 'Elle est le coenzyme du complexe **α-cétoglutarate déshydrogénase** qui transforme l\'α-cétoglutarate en succinyl-CoA.', },
+{ question: 'Quels acides aminés ramifiés nécessitent la thiamine pour leur métabolisme ?', answer: 'La **leucine**, l\'**isoleucine** et la **valine**.', },
+{ question: 'Quel est le rôle de la thiamine dans la voie des pentoses phosphates ?', answer: 'Elle sert de coenzyme pour produire du **NADPH**, essentiel à la synthèse des acides gras et des bases nucléotidiques.', },
+{ question: 'Quelle conséquence métabolique grave entraîne une carence en thiamine lors d’un repas riche en glucides ?', answer: 'Une accumulation de pyruvate et de lactate, pouvant mener à une **acidose potentiellement mortelle**.', },
+{ question: 'Quelle est la durée de vie biologique de la thiamine dans l’organisme ?', answer: 'Elle est très courte : de **10 à 20 jours**.', },
+{ question: 'Comment s’appelle la maladie classique liée à la carence en vitamine B1 ?', answer: 'Le **Béri-béri**.', },
+{ question: 'Quels sont les principaux symptômes du Béri-béri ?', answer: 'Lésions nerveuses, faiblesse musculaire, **insuffisance cardiaque** avec dilatation du cœur et vasodilatation.', },
+{ question: 'Qu’est-ce que le syndrome de Wernicke-Korsakoff ?', answer: 'Une forme grave de carence en thiamine typiquement associée à l\'**alcoolisme chronique**, car l’alcool inhibe son absorption.', },
+{ question: 'Quels sont les signes cliniques du syndrome de Wernicke-Korsakoff ?', answer: 'Confusion, désorientation, paralysie des muscles oculaires, perte de mémoire et démarche instable.', },
+{ question: 'Quelles anomalies cérébrales observe-t-on à l’IRM dans le syndrome de Wernicke-Korsakoff ?', answer: 'Une diminution du volume cérébral et un élargissement des **ventricules** (cavités en forme de papillon).', },
+{ question: 'Quel est le nom scientifique de la vitamine B2 ?', answer: 'La **Riboflavine**.', },
+{ question: 'Quelle est la sensibilité environnementale majeure de la riboflavine ?', answer: 'Elle est stable à la chaleur mais très **sensible à la lumière**, ce qui cause sa dégradation.', },
+{ question: 'Quelles sont les deux formes coenzymatiques de la riboflavine ?', answer: 'Le **FMN** (flavine mononucléotide) et le **FAD** (flavine adénine dinucléotide).', },
+{ question: 'Dans quel complexe de la chaîne respiratoire trouve-t-on le FMN ?', answer: 'Dans le **complexe I** (NADH déshydrogénase).', },
+{ question: 'Dans quel complexe de la chaîne respiratoire trouve-t-on le FAD ?', answer: 'Dans le **complexe II** (Succinate-CoQ réductase).', },
+{ question: 'Quel est le rôle de la riboflavine dans le cycle de Krebs ?', answer: 'Elle est nécessaire à l’activité de la **succinate déshydrogénase** pour produire du FADH2.', },
+{ question: 'Quel minéral voit son métabolisme perturbé par une carence en riboflavine ?', answer: 'Le **fer** (problèmes d’absorption, mobilisation et stockage), pouvant entraîner une anémie.', },
+{ question: 'Quelle substance est responsable de la teinte jaune de la crème du lait entier ?', answer: 'La **riboflavine**.', },
+{ question: 'Définissez la chéilite et la glossite (symptômes de carence en B2).', answer: '**Chéilite** : inflammation des coins de la bouche. **Glossite** : inflammation de la langue (langue magenta).', },
+{ question: 'Qu’est-ce que l’hyperémie ?', answer: 'Une augmentation de la quantité de sang dans les vaisseaux, observée lors de carences en B2.', },
+{ question: 'Quel est le nom générique de la vitamine B3 ?', answer: 'La **Niacine**.', },
+{ question: 'Quels sont les deux composés chimiques ayant l’activité biologique de la niacine ?', answer: 'Le **nicotinamide** et l\'**acide nicotinique**.', },
+{ question: 'Quelles coenzymes majeures sont produites à partir de la niacine ?', answer: 'Le **NAD** et le **NADP**.', },
+{ question: 'Quel acide aminé alimentaire peut être converti en niacine dans l’organisme ?', answer: 'Le **tryptophane**.', },
+{ question: 'Quel est l’effet de la niacine sur le profil lipidique sanguin ?', answer: 'Elle augmente le **HDL** (bon cholestérol) et diminue le LDL et les triglycérides.', },
+{ question: 'Quelle maladie résulte d’une carence prolongée en niacine ?', answer: 'La **Pellagre**.', },
+{ question: 'Quels sont les symptômes classiques de la pellagre ?', answer: 'Dermatite photosensible, lésions cutanées, diarrhées, dépression et **démence**.', },
+{ question: 'Pourquoi les populations consommant exclusivement du maïs risquent-elles la pellagre ?', answer: 'Car la niacine du maïs est **biologiquement indisponible** et le maïs est pauvre en tryptophane.', },
+{ question: 'Quel est le nom scientifique de la vitamine B5 ?', answer: 'L\'**Acide pantothénique**.', },
+{ question: 'Quelle molécule vitale contient l’acide pantothénique dans sa structure ?', answer: 'Le **Coenzyme A (CoA)**.', },
+{ question: 'Quel groupement chimique est le site actif \'critique\' de la Coenzyme A ?', answer: 'Le groupement **sulfhydryle (SH)**.', },
+{ question: 'Dans quelles étapes du cycle de Krebs le CoA intervient-il ?', answer: 'Lors de la formation de l\'**acétyl-CoA** (entrée) et du **succinyl-CoA** (étape 4).', },
+{ question: 'Pourquoi les carences en vitamine B5 sont-elles extrêmement rares ?', answer: 'Parce qu’elle est présente dans **presque tous les aliments** (origine du nom \'pantos\' signifiant partout).', },
+{ question: 'Quel est le nom scientifique de la vitamine B6 ?', answer: 'La **Pyridoxine**.', },
+{ question: 'Combien de vitamères possède la pyridoxine ?', answer: '**Six** vitamères (dont le Pyridoxal 5\'-phosphate ou PLP).', },
+{ question: 'De quelle enzyme clé du métabolisme du glycogène la B6 est-elle le cofacteur ?', answer: 'La **glycogène phosphorylase** (dégradation du glycogène en glucose-1-phosphate).', },
+{ question: 'Quels neurotransmetteurs nécessitent la vitamine B6 pour leur synthèse ?', answer: 'La **sérotonine**, la **dopamine** et le **GABA**.', },
+{ question: 'Comment la carence en B6 a-t-elle été découverte accidentellement dans les années 1950 ?', answer: 'Par la **surchauffe du lait** pour nourrissons, qui a détruit la vitamine et provoqué des crises d’épilepsie chez les bébés.', },
+{ question: 'Quel médicament anti-inflammatoire agit comme un antagoniste de la vitamine B6 ?', answer: 'La **pénicillamine** (utilisée pour la polyarthrite rhumatoïde).', },
+{ question: 'Quel est le nom scientifique de la vitamine B8 ?', answer: 'La **Biotine**.', },
+{ question: 'Quel type de réactions biochimiques la biotine catalyse-t-elle en tant que coenzyme ?', answer: 'Les réactions de **carboxylation** (ajout de -COOH).', },
+{ question: 'Distinguez lipogenèse et gluconéogenèse (rôles de la B8).', answer: '**Lipogenèse** : synthèse des lipides. **Gluconéogenèse** : synthèse de glucose à partir de précurseurs non glucidiques.', },
+{ question: 'Quelle protéine du blanc d\'œuf cru empêche l’absorption de la biotine ?', answer: 'L\'**avidine**.', },
+{ question: 'Comment peut-on neutraliser l’effet de l’avidine sur la biotine ?', answer: 'Par la **cuisson**, qui dénature l’avidine et libère la biotine.', },
+{ question: 'Quel est l’apport adéquat (AI) en biotine pour un adulte ?', answer: '**40 μg/jour**.', },
+{ question: 'Quel est le nom scientifique de la vitamine B9 ?', answer: 'Le **Folate** (ou acide folique sous sa forme synthétique).', },
+{ question: 'Quelle est la fonction centrale des folates au niveau moléculaire ?', answer: 'Le transfert de groupements **monocarbonés** (groupes **méthyle -CH3**).', },
+{ question: 'Qu’est-ce que la méthylation ?', answer: 'Un processus modifiant l’ADN, les protéines et les lipides, régulant ainsi l\'**expression des gènes** et la structure cellulaire.', },
+{ question: 'Quelle est la différence d’absorption entre l’acide folique et les folates alimentaires ?', answer: 'L’acide folique (synthétique) est **presque entièrement absorbé**, tandis que les folates naturels ne le sont qu’à environ **50 %**.', },
+{ question: 'Quelle forme d’anémie est causée par une carence en folates ?', answer: 'L\'**anémie mégaloblastique** (globules rouges immatures et anormalement grands).', },
+{ question: 'Quelle malformation congénitale est liée à un manque de folates en début de grossesse ?', answer: 'Les **anomalies du tube neural**, comme le **spina bifida** ou l’anencéphalie.', },
+{ question: 'À quel moment de la grossesse la fermeture du tube neural se produit-elle ?', answer: 'Entre le **21e et le 24e jour** après la conception.', },
+{ question: 'Pourquoi recommande-t-on l’enrichissement de la farine en acide folique ?', answer: 'Pour réduire l’incidence des malformations du tube neural, car la supplémentation doit idéalement commencer **avant même que la femme sache qu’elle est enceinte**.', },
+{ question: 'Quel est le nom scientifique de la vitamine B12 ?', answer: 'La **Cobalamine**.', },
+{ question: 'Quel atome métallique se trouve au centre de la structure de la vitamine B12 ?', answer: 'Un atome de **cobalt** (Co).', },
+{ question: 'Quelles sont les deux enzymes qui utilisent la B12 comme cofacteur ?', answer: 'La **méthionine synthase** et la **méthylmalonyl CoA mutase**.', },
+{ question: 'Quelle est la source alimentaire exclusive de la vitamine B12 ?', answer: 'L’origine **animale** (viande, poisson, œufs, lait) ; il n’y a aucune source végétale naturelle.', },
+{ question: 'Quelle est la durée de stockage de la vitamine B12 dans le foie ?', answer: '**3 à 5 ans**.', },
+{ question: 'Quelles protéines sont nécessaires à l’absorption de la vitamine B12 ?', answer: 'Le **facteur R** (haptocorrine) et le **facteur intrinsèque (FI)**.', },
+{ question: 'Où s’effectue l’absorption active du complexe FI-B12 ?', answer: 'Dans l\'**iléon terminal** (intestin grêle).', },
+{ question: 'Qu’est-ce que l’anémie pernicieuse ?', answer: 'Une forme grave d’anémie causée par un **défaut de sécrétion du facteur intrinsèque** par l’estomac.', },
+{ question: 'Pourquoi un apport élevé en folates peut-il être dangereux en cas de carence en B12 ?', answer: 'Il peut corriger l’anémie mais **masquer la carence en B12**, laissant les dommages neurologiques progresser de manière irréversible.', },
+{ question: 'Quel est le nom scientifique de la vitamine C ?', answer: 'L\'**acide L-ascorbique**.', },
+{ question: 'Chez quelles espèces l’acide ascorbique est-il considéré comme une vitamine ?', answer: 'Les **primates** (dont l’homme), certains oiseaux et les cobayes.', },
+{ question: 'Quel est le rôle de la vitamine C dans la synthèse du collagène ?', answer: 'Elle soutient les **hydroxylases** (prolyl et lysyl) en maintenant leur fer sous forme réduite (**Fe2+**).', },
+{ question: 'Quelles sont les trois synthèses majeures dépendantes de la vitamine C ?', answer: 'Le **collagène**, la **carnitine** (transport des graisses) et la **noradrénaline**.', },
+{ question: 'Quel est l’effet de la vitamine C sur l’absorption du fer ?', answer: 'Elle favorise l’absorption du **fer non hémique** (origine végétale).', },
+{ question: 'Comment s’appelle la maladie historique liée à la carence en vitamine C ?', answer: 'Le **scorbut**.', },
+{ question: 'Quels sont les symptômes du scorbut ?', answer: 'Saignement des gencives, perte de dents, ecchymoses, mauvaise cicatrisation et jambes enflées.', },
+{ question: 'Quel médecin a prouvé en 1747 que les agrumes soignaient le scorbut ?', answer: '**James Lind**.', },
+{ question: 'Quel impact le tabagisme a-t-il sur les taux de vitamine C ?', answer: 'Le tabagisme **épuise les réserves d’ascorbate** en raison du stress oxydatif élevé, nécessitant un apport supérieur chez les fumeurs.', },
+{ question: 'Pourquoi les mégadoses de vitamine C sont-elles controversées ?', answer: 'À forte concentration, elle peut agir comme un **pro-oxydant** au lieu d’un antioxydant, induisant un stress cellulaire.', },
+{ question: 'Quelles vitamines coopèrent spécifiquement pour protéger les membranes cellulaires ?', answer: 'La **vitamine C** et la **vitamine E**.', },
+{ question: 'Quelle substance toxique est recyclée par la vitamine B9 pour protéger les artères ?', answer: 'L\'**homocystéine**.', },
+{ question: 'Qu’est-ce que l’équivalent folate diététique (DFE) ?', answer: 'Une unité de mesure qui ajuste la différence de biodisponibilité entre les folates naturels et l’acide folique ajouté.', },
+{ question: 'Quelle vitamine contribue à la synthèse de la myéline pour les fibres nerveuses ?', answer: 'La **vitamine B12**.', },
+{ question: 'Quelle vitamine est essentielle pour le bon fonctionnement des glandes surrénales ?', answer: 'La **vitamine B2** (Riboflavine).', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Human_Nutrition_fc5_2";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

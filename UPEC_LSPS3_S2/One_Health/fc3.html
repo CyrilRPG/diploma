@@ -1,0 +1,479 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>One Health</h1><h2>Émergence et diffusion de la résistance aux antibiotiques</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition de la résistance naturelle chez les bactéries ?', answer: 'La résistance naturelle signifie qu’une espèce bactérienne donnée est intrinsèquement résistante à un antibiotique spécifique.', },
+{ question: 'Citez trois facteurs pouvant expliquer une résistance naturelle.', answer: 'Une perméabilité réduite de la membrane, l’absence de cible moléculaire ou une structure cellulaire spécifique empêchant l’action du médicament.', },
+{ question: 'Quel est l’impact de la résistance naturelle sur l’utilisation des antibiotiques ?', answer: 'Elle définit le spectre d’activité des antibiotiques.', },
+{ question: 'Sur quel élément génétique la résistance naturelle est-elle généralement codée ?', answer: 'Elle est généralement codée sur le chromosome bactérien.', },
+{ question: 'Qu’est-ce que la résistance acquise ?', answer: 'Il s’agit d’un comportement « anormal » de certaines souches d’une espèce qui développent une résistance vis-à-vis d’un antibiotique spécifique auquel l’espèce est habituellement sensible.', },
+{ question: 'Quels sont les deux mécanismes principaux à l’origine de la résistance acquise ?', answer: 'Des mutations génétiques modifiant la cible ou l’acquisition de gènes exogènes via des éléments génétiques mobiles.', },
+{ question: 'Quelle est la fréquence de l’apparition d’une résistance acquise par mutation chromosomique ?', answer: 'C’est un phénomène spontané, rare et stable.', },
+{ question: 'Comment se transmet la résistance chromosomique ?', answer: 'Elle est transmise aux bactéries descendantes par transmission verticale.', },
+{ question: 'Quel est le rôle des plasmides dans la résistance acquise ?', answer: 'Ce sont des fragments d’ADN circulaires capables de transporter et transmettre des gènes de résistance horizontalement entre bactéries (même d’espèces différentes).', },
+{ question: 'Pourquoi la résistance plasmidique est-elle considérée comme moins stable que la chromosomique ?', answer: 'Car elle dépend du maintien des éléments génétiques mobiles (plasmides, transposons) dans la bactérie hôte.', },
+{ question: 'Citez les trois grands mécanismes de résistance aux antibiotiques.', answer: 'L’inactivation enzymatique de l’antibiotique, la modification de la cible et le défaut d’accumulation (imperméabilité ou efflux).', },
+{ question: 'De quoi est constituée la paroi bactérienne ?', answer: 'Elle est constituée de peptidoglycane.', },
+{ question: 'Quel est le rôle structural de la paroi bactérienne ?', answer: 'Elle protège la cellule et maintient sa forme.', },
+{ question: 'Quelle est la principale différence structurelle entre une bactérie et une cellule eucaryote concernant le matériel génétique ?', answer: 'Les bactéries n’ont pas de noyau ; leur chromosome unique est libre dans le cytoplasme.', },
+{ question: 'Quelle est la fonction des ribosomes dans la bactérie ?', answer: 'Ils sont responsables de la synthèse des protéines.', },
+{ question: 'Quelle est la cible biologique des antibiotiques de la famille des bêta-lactamines ?', answer: 'Ils ciblent la paroi bactérienne en se fixant aux protéines de liaison à la pénicilline (PBP/PLP).', },
+{ question: 'Comment agissent les enzymes nommées bêta-lactamases ?', answer: 'Elles hydrolysent le noyau bêta-lactame de l’antibiotique, le rendant inactif.', },
+{ question: 'Quelles classifications sont utilisées pour organiser les bêta-lactamases ?', answer: 'Les classifications d’Ambler et de Bush-Jacoby-Medeiros.', },
+{ question: 'Qu’est-ce qu’un gène mosaïque dans le contexte de la résistance du pneumocoque ?', answer: 'C’est un gène contenant des séquences issues à la fois du pneumocoque et d’une espèce résistante (comme Streptococcus oralis) après recombinaison homologue.', },
+{ question: 'Comment Streptococcus pneumoniae acquiert-il une sensibilité diminuée aux bêta-lactamines ?', answer: 'En échangeant du matériel génétique (fragments de gènes codant les PBP) avec des streptocoques commensaux résistants.', },
+{ question: 'Quel gène confère la résistance à la méticilline chez Staphylococcus aureus ?', answer: 'Le gène mecA.', },
+{ question: 'Quelle protéine est codée par le gène mecA et quelle est sa particularité ?', answer: 'Elle code pour la PBP2a (ou PLP2a), qui possède une affinité quasi nulle pour les bêta-lactamines.', },
+{ question: 'D’où proviendrait initialement le gène mecA selon les sources ?', answer: 'Il serait très proche d’une des PBP de l’espèce Staphylococcus sciuri.', },
+{ question: 'Définissez le mécanisme d’efflux actif.', answer: 'L’antibiotique pénètre dans la cellule mais est immédiatement expulsé à l’extérieur par des pompes d’efflux avant d’atteindre sa cible.', },
+{ question: 'Quel est le rôle des porines dans la membrane externe des bactéries ?', answer: 'Elles forment des canaux permettant le passage de nutriments essentiels et de certaines molécules comme les antibiotiques.', },
+{ question: 'Comment la modification des porines entraîne-t-elle une résistance ?', answer: 'Une altération qualitative ou quantitative (réduction du nombre) des porines empêche l’antibiotique de pénétrer dans la cellule (imperméabilité).', },
+{ question: 'Donnez un exemple de bactérie utilisant la perte de porines pour résister à l’imipénème.', answer: 'Pseudomonas aeruginosa.', },
+{ question: 'Quelle étude publiée dans Nature en 2011 prouve l’origine ancienne des gènes de résistance ?', answer: 'Une étude ayant identifié des gènes de résistance dans le permafrost de l’Alaska datant de milliers d’années (avant l’ère des antibiotiques).', },
+{ question: 'Qu’est-ce qu’une bactérie progénitrice dans l’évolution de la résistance ?', answer: 'C’est une bactérie environnementale qui porte initialement des gènes de résistance sur son chromosome avant leur mobilisation vers des pathogènes.', },
+{ question: 'Comment un gène de résistance passe-t-il du chromosome d’une bactérie environnementale à un plasmide ?', answer: 'Grâce à une séquence d’insertion (élément génétique mobile) qui permet l’excision du gène et son intégration sur un plasmide.', },
+{ question: 'Quel progéniteur a été identifié pour les bêta-lactamases de type CTX-M ?', answer: 'L’espèce environnementale Kluyvera sp. (notamment Kluyvera ascorbata).', },
+{ question: 'Quels progéniteurs correspondent aux enzymes SHV et AmpC ?', answer: 'Klebsiella pneumoniae pour SHV et Citrobacter freundii pour AmpC.', },
+{ question: 'Citez les trois éléments de la « logique des poupées russes » expliquant le succès d’une résistance épidémique.', answer: 'Le bon gène de résistance, dans le bon plasmide, dans la bonne souche bactérienne (adaptée à l’Homme).', },
+{ question: 'Quelle souche d’Escherichia coli est devenue dominante au niveau mondial depuis 2002 ?', answer: 'Le clone ST131, producteur de BLSE.', },
+{ question: 'Quel est le principe d’un antibiogramme ?', answer: 'Tester la sensibilité d’une bactérie en mesurant les zones d’inhibition de croissance autour de disques imprégnés d’antibiotiques.', },
+{ question: 'Que signifie l’acronyme BLSE ?', answer: 'Bêta-Lactamase à Spectre Élargi.', },
+{ question: 'Quels antibiotiques les BLSE peuvent-elles hydrolyser ?', answer: 'Toutes les bêta-lactamines, y compris les céphalosporines de 3ème génération, sauf les céphamycines et les carbapénèmes.', },
+{ question: 'Pourquoi les carbapénèmes sont-ils considérés comme des antibiotiques de « dernière ligne » ?', answer: 'Car ils restent souvent la seule option efficace contre les bactéries productrices de BLSE.', },
+{ question: 'Quelle est la conséquence de l’usage massif des carbapénèmes dans certains pays ?', answer: 'L’émergence de bactéries productrices de carbapénémases, rendant même ces derniers antibiotiques inefficaces.', },
+{ question: 'Quel gradient géographique observe-t-on pour la résistance d’E. coli en Europe ?', answer: 'Un gradient Nord-Sud : les pays du Sud (consommant plus d’antibiotiques) affichent une prévalence de résistance plus élevée.', },
+{ question: 'Pourquoi l’Allemagne a-t-elle semblé détecter précocement des souches résistantes ?', answer: 'En raison de la mise en place d’un réseau de surveillance épidémiologique structuré, et non d’une émergence spécifique.', },
+{ question: 'Quelle corrélation existe-t-il entre infrastructures sanitaires et résistance ?', answer: 'Une corrélation inverse : plus l’accès aux infrastructures sanitaires (eau potable, traitement des eaux) est faible, plus la prévalence des souches résistantes est élevée.', },
+{ question: 'Qu’est-ce que le portage digestif silencieux ?', answer: 'La présence de bactéries résistantes (comme E. coli BLSE) dans le microbiote intestinal d’individus sains, constituant un réservoir de résistance.', },
+{ question: 'Comment les voyages internationaux influencent-ils l’antibiorésistance ?', answer: 'Ils facilitent l’importation et la dissémination rapide de souches résistantes entre les continents.', },
+{ question: 'Quelle est la quantité de bactéries estimée par gramme de selles dans le microbiote humain ?', answer: 'Environ 10¹¹ à 10¹² UFC/g.', },
+{ question: 'Quels sont les principaux phylums bactériens du microbiote intestinal ?', answer: 'Firmicutes, Bacteroidetes, Actinobacteria et Proteobacteria.', },
+{ question: 'Comment évolue la diversité du microbiote avec l’âge ?', answer: 'On observe une augmentation de la diversité du microbiote au fur et à mesure que l’individu grandit.', },
+{ question: 'Qu’est-ce que la « résistance à la colonisation » (RC) ?', answer: 'C’est la capacité du microbiote intestinal normal à agir comme une barrière empêchant l’implantation de bactéries exogènes ou résistantes.', },
+{ question: 'Quel est l’impact d’une antibiothérapie sur la résistance à la colonisation ?', answer: 'Elle réduit la diversité bactérienne et crée un vide écologique, facilitant l’implantation de bactéries résistantes.', },
+{ question: 'Qu’est-ce que la phagothérapie ?', answer: 'L’utilisation de bactériophages (virus infectant les bactéries) comme alternative expérimentale aux antibiotiques.', },
+{ question: 'Existe-t-il une résistance croisée entre antibiotiques et antifongiques ?', answer: 'Généralement non, sauf pour des mécanismes non spécifiques comme les pompes d’efflux capables d’expulser plusieurs classes de molécules.', },
+{ question: 'Citez trois piliers de l’approche One Health pour contrôler la résistance.', answer: 'L’Homme, l’Animal et l’Environnement.', },
+{ question: 'Comment l’environnement peut-il devenir un réservoir d’antibiorésistance ?', answer: 'Par la présence de résidus d’antibiotiques et de bactéries résistantes issus des déchets agricoles, hospitaliers et urbains.', },
+{ question: 'Citez deux mesures de prévention pour limiter la diffusion des bactéries résistantes.', answer: 'Une hygiène stricte (lavage des mains) et le bon usage des antibiotiques pour réduire la pression de sélection.', },
+{ question: 'Quel est le risque de traiter une infection récidivante avec un antibiotique inefficace ?', answer: 'La sélection de bactéries résistantes, rendant l’infection encore plus difficile à traiter.', },
+{ question: 'Quelle est l’origine évolutive des gènes de résistance selon les découvertes récentes ?', answer: 'Ils existent depuis des millions d’années dans la nature comme mécanismes d’adaptation et de compétition bactérienne.', },
+{ question: 'Pourquoi E. coli est-elle la bactérie centrale des études sur l’antibiorésistance ?', answer: 'Car c’est la première cause d’infections bactériennes (urinaires, sanguines) et elle est omniprésente dans le microbiote digestif.', },
+{ question: 'Que permet d’analyser l’environnement génétique d’un gène de résistance (synténie) ?', answer: 'Elle permet de reconstituer son parcours évolutif et de confirmer s’il a été mobilisé récemment depuis une espèce environnementale.', },
+{ question: 'Qu’est-ce que la transmission horizontale des gènes ?', answer: 'L’échange de matériel génétique entre deux bactéries contemporaines, indépendamment de la reproduction.', },
+{ question: 'Pourquoi l’utilisation d’antibiotiques à spectre large est-elle problématique ?', answer: 'Elle exerce une pression de sélection plus forte, favorisant la survie des souches capables de contourner de multiples traitements.', },
+{ question: 'Quelle séquence d’insertion est majoritairement associée aux gènes blaCTX-M ?', answer: 'La séquence ISEcp1 (70-90% des cas).', },
+{ question: 'Quel est le rôle du peptidoglycane dans la cellule bactérienne ?', answer: 'Il assure la rigidité et la protection structurelle de la paroi.', },
+{ question: 'Qu’est-ce qu’une mutation spontanée de l’ADN polymérase ?', answer: 'Une erreur de réplication rare qui peut modifier la cible d’un antibiotique et conférer une résistance stable.', },
+{ question: 'Comment la biomasse bactérienne influence-t-elle l’apparition de mutations ?', answer: 'Plus la biomasse est importante, plus la probabilité statistique qu’une mutation de résistance apparaisse est élevée.', },
+{ question: 'Quelle proportion des souches d’E. coli résistantes aux céphalosporines reste sensible aux carbapénèmes en Europe (vers 2014) ?', answer: 'Environ 90% (le taux de résistance aux carbapénèmes étant d’environ 10%).', },
+{ question: 'Qu’illustre l’exemple des chinchillas de Bennett et Wood (1956) ?', answer: 'Qu’une nourriture additionnée d’antibiotiques peut induire une chute de la résistance à la colonisation et provoquer des épidémies mortelles de bactéries opportunistes.', },
+{ question: 'Quel groupe bactérien est le plus représenté dans le microbiote intestinal humain ?', answer: 'Les Firmicutes.', },
+{ question: 'Les gènes de résistance préexistants dans les grottes isolées sont-ils le résultat de l’activité humaine ?', answer: 'Non, ils datent de plusieurs millions d’années et sont d’origine naturelle.', },
+{ question: 'Comment définit-on une résistance à « bas niveau » ou « haut niveau » ?', answer: 'Cela dépend de la nature du mécanisme (ex: une modification de cible peut être plus radicale qu’un défaut de perméabilité).', },
+{ question: 'Qu’est-ce que l’hydrolyse enzymatique ?', answer: 'La décomposition chimique d’une molécule (ici l’antibiotique) par une enzyme en présence d’eau.', },
+{ question: 'Quelle partie de la structure des pénicillines est brisée par les bêta-lactamases ?', answer: 'Le noyau bêta-lactame.', },
+{ question: 'Pourquoi la surveillance des animaux de compagnie est-elle intégrée au One Health ?', answer: 'Parce qu’ils partagent le même environnement et les mêmes bactéries que les humains, pouvant servir de relais de transmission.', },
+{ question: 'Quelle est la particularité des bactéries anaérobies strictes du microbiote ?', answer: 'Elles sont majoritairement non cultivables et mal connues, bien qu’essentielles à l’équilibre intestinal.', },
+{ question: 'Quel est l’intérêt de classer les plasmides par groupes d’incompatibilité ?', answer: 'Cela permet de suivre la diversité et la parenté des supports génétiques qui diffusent les résistances.', },
+{ question: 'Pourquoi le traitement des eaux usées est-il crucial contre l’antibiorésistance ?', answer: 'Pour éviter que les effluents hospitaliers chargés de bactéries résistantes ne contaminent les niches environnementales.', },
+{ question: 'Quel mécanisme de résistance est illustré par l’interaction « clé-serrure » ?', answer: 'La modification de la cible (PBP) qui empêche l’emboîtement de l’antibiotique.', },
+{ question: 'Qu’est-ce qu’une bêta-lactamase de classe A selon Ambler ?', answer: 'Une enzyme souvent portée par un plasmide, sensible aux inhibiteurs de bêta-lactamases (ex: TEM, SHV, CTX-M).', },
+{ question: 'Comment le microbiote des Amérindiens a-t-il été utilisé en recherche ?', answer: 'Pour démontrer la variabilité géographique et l’influence du mode de vie sur la diversité bactérienne intestinale.', },
+{ question: 'Quel est l’effet d’une pompe d’efflux hyperactivée ?', answer: 'Elle expulse activement l’antibiotique vers l’extérieur dès son entrée, avant qu’il n’agisse.', },
+{ question: 'Pourquoi la découverte de gènes de résistance dans des zones isolées est-elle un « enjeu de santé publique » ?', answer: 'Car cela montre que le réservoir de résistance est immense, naturel et peut être mobilisé vers les pathogènes humains.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_One_Health_fc3";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

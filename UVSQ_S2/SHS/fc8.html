@@ -1,0 +1,486 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Éthique et société</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Éthique et société</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce qui distingue la médecine des autres sciences appliquées comme l’architecture ?', answer: 'La médecine intègre intrinsèquement une dimension éthique qui fait partie de la pratique quotidienne du médecin, contrairement à l’architecture où l’éthique est externe et secondaire.' },
+  { question: 'Quels sont les trois éléments clés de la décision médicale ?', answer: 'Les données scientifiques, la pratique clinique et la dimension éthique.' },
+  { question: 'Quel est l’objectif principal de la médecine dans sa pratique clinique ?', answer: 'Restaurer la santé du patient, ce qui suppose une réflexion sur son bien-être global.' },
+  { question: 'Quelle est la question fondamentale que pose la dimension éthique en médecine ?', answer: 'Que faire pour qu’un patient aille mieux ?' },
+  { question: 'Quelle est l’origine du lien entre médecine et éthique ?', answer: 'L’existence d’un code éthique depuis l’Antiquité, le serment d’Hippocrate, devenu aujourd’hui le Code de déontologie médicale.' },
+  { question: 'Quelles interdictions figurent dans le serment d’Hippocrate ?', answer: 'Le refus de donner du poison, de remettre des ovules abortifs, l’interdiction des abus, des comportements inappropriés et la protection du secret médical.' },
+  { question: 'Quel est le danger principal lié au pouvoir détenu par le médecin selon le serment d’Hippocrate ?', answer: 'Abuser de ce pouvoir, profiter des personnes vulnérables ou divulguer des informations confidentielles.' },
+  { question: 'Quels principes modernes ont été ajoutés au serment médical actuel ?', answer: 'Respect de l’autonomie des patients, protection des personnes vulnérables, devoir d’information et de transparence, non-discrimination, indépendance face à l’argent et à la gloire.' },
+  { question: 'Pourquoi dit-on que l’éthique médicale évolue avec la société ?', answer: 'Parce qu’elle intègre progressivement des principes issus des évolutions sociales comme la non-discrimination, le consentement et le respect de l’autonomie.' },
+  { question: 'Que permet la clause de conscience en médecine ?', answer: 'Elle permet aux praticiens de refuser certains actes médicaux pour des raisons éthiques ou personnelles, comme l’objection de conscience à l’IVG.' },
+  { question: 'Quel dilemme éthique est apparu avec la réanimation moderne ?', answer: 'La question de savoir s’il faut maintenir artificiellement en vie un patient sans possibilité de récupération, ce qui pose la limite de l’acharnement thérapeutique.' },
+  { question: 'Quelle loi a renforcé le consentement et l’autonomie du patient en 2002 ?', answer: 'La loi Kouchner, qui impose d’informer le patient sur son état de santé et son pronostic.' },
+  { question: 'Pourquoi la médecine est-elle considérée comme une science humaine ?', answer: 'Parce qu’elle combine des connaissances scientifiques rigoureuses avec une dimension relationnelle et éthique dans le soin.' },
+  { question: 'Quelle différence existe entre cure et care en médecine ?', answer: 'Cure désigne le traitement de la maladie, care correspond aux soins de confort et à l’accompagnement global du patient et de ses proches.' },
+  { question: 'Pourquoi l’éthique est-elle incontournable dans la relation de soin ?', answer: 'Parce que la médecine implique une relation humaine forte, qui engage la relation au patient, à soi-même et aux proches.' },
+  { question: 'Pourquoi les choix médicaux étaient-ils plus simples autrefois ?', answer: 'Car il y avait peu de traitements disponibles, donc peu d’alternatives thérapeutiques.' },
+  { question: 'Qu’est-ce qui rend les décisions médicales plus complexes aujourd’hui ?', answer: 'La multiplication des traitements et des techniques, qui oblige à arbitrer entre bénéfices, risques et qualité de vie du patient.' },
+  { question: 'Qu’est-ce qu’une procédure collégiale en réanimation ?', answer: 'Une discussion collective entre médecins pour décider de l’arrêt ou de la poursuite d’un traitement dans le respect de la loi.' },
+  { question: 'Que signifie l’incertitude médicale ?', answer: 'Qu’il existe parfois plusieurs choix médicalement valides, nécessitant une discussion et une argumentation pour décider.' },
+  { question: 'Qu’est-ce que l’argument de la pente glissante ?', answer: 'C’est un raisonnement éthique qui met en garde contre une innovation apparemment acceptable qui pourrait conduire à des pratiques jugées inacceptables à long terme.' },
+  { question: 'Pourquoi le clonage thérapeutique est-il interdit en France ?', answer: 'Parce qu’il repose sur la même technique que le clonage reproductif, jugé inacceptable, et donc considéré comme une pente glissante.' },
+  { question: 'Quelle dérive conceptuelle certains associent à la sédation profonde et continue ?', answer: 'Ils y voient une étape vers l’acceptation de l’euthanasie, car elle entraîne la mort même si ce n’est pas son objectif direct.' },
+  { question: 'Qu’est-ce qu’une pétition de principe en éthique ?', answer: 'C’est un raisonnement circulaire qui suppose dès le départ ce qu’il cherche à démontrer, sans preuve réelle.' },
+  { question: 'Quel est le débat éthique autour des embryons surnuméraires en PMA ?', answer: 'La question de savoir que faire des embryons en attente, ce qui soulève des dilemmes sur leur statut et leur respect.' },
+  { question: 'Quel principe éthique fondamental est mobilisé contre la gestation pour autrui (GPA) ?', answer: 'Le principe de dignité humaine et de non-instrumentalisation des individus.' },
+  { question: 'Quelle question éthique soulève le diagnostic préimplantatoire (DPI) ?', answer: 'Savoir si concevoir un enfant pour soigner un autre constitue une instrumentalisation ou un acte légitime.' },
+  { question: 'Quelle évolution récente concerne l’anonymat des donneurs de gamètes ?', answer: 'Les enfants issus d’un don peuvent, à 18 ans, connaître l’identité de leur donneur, ce qui crée des formes de « parenté élargie ».' },
+  { question: 'Qu’est-ce que l’heuristique de la peur selon Hans Jonas ?', answer: 'C’est le principe de prendre en compte les risques potentiels, mais sans laisser la peur seule guider les décisions éthiques.' },
+  { question: 'Quelles sont les trois grandes orientations médicales actuelles ?', answer: 'La prévention des maladies, le traitement des pathologies et l’amélioration du bien-être.' },
+  { question: 'Quelle est la définition de la santé donnée par l’OMS en 1946 ?', answer: 'Un état de complet bien-être physique, mental et social, et pas seulement l’absence de maladie.' },
+  { question: 'Quelles sont les trois notions distinctes de maladie en médecine ?', answer: 'Disease (maladie physiologique), Illness (maladie vécue par le patient), Sickness (maladie perçue socialement).' },
+  { question: 'Quelle est la différence entre maladie et infirmité ?', answer: 'La maladie implique un processus pathologique, tandis que l’infirmité désigne une incapacité fonctionnelle en lien avec l’environnement, sans pathologie active.' },
+  { question: 'Quelle est la fonction principale de l’éthique en médecine ?', answer: 'L’éthique n’est pas une procédure automatique, mais une ressource qui aide à structurer la réflexion et à orienter les décisions.' },
+  { question: 'Pourquoi dit-on que l’éthique ne tranche pas mais oriente ?', answer: 'Parce qu’elle ne fournit pas une réponse unique mais permet d’analyser, d’argumenter et de peser les valeurs en jeu pour décider.' },
+  { question: 'Quelle est la différence entre l’éthique et une science comme la chimie ?', answer: 'L’éthique fait partie de l’expérience morale quotidienne de chacun, alors que la chimie doit être étudiée pour être connue.' },
+  { question: 'Qu’est-ce qu’une expérience morale ?', answer: 'C’est le décalage ressenti entre la réalité et l’idéal, par exemple quand on pense « ce n’est pas juste » ou « cela pourrait être mieux ».' },
+  { question: 'Quel rôle joue l’éducation dans la formation de l’intuition morale ?', answer: 'L’éducation inculque des règles simples dès l’enfance, comme ne pas voler ou ne pas faire de mal, ce qui structure la sensibilité morale.' },
+  { question: 'Qu’est-ce qu’un résidu moral ?', answer: 'C’est le malaise persistant après une décision éthique, car aucun choix n’est parfait et quelque chose est toujours perdu.' },
+  { question: 'Pourquoi l’éthique n’est-elle pas seulement une question d’interdits ?', answer: 'Parce qu’elle sert aussi à justifier ce qui est permis ou souhaitable, et pas seulement à fixer des limites.' },
+  { question: 'Quels sont les trois niveaux de réflexion en éthique médicale ?', answer: 'L’éthique clinique (quoi faire dans un cas particulier), l’éthique relationnelle (comment accompagner et communiquer), et la bioéthique (cadre légal et sociétal des pratiques).' },
+  { question: 'Quelles sont les trois sources principales de l’éthique ?', answer: 'La nature humaine (empathie, compassion), la raison (capacité rationnelle à juger), et les normes sociales et culturelles.' },
+  { question: 'Qu’est-ce que le principe kantien de non-instrumentalisation ?', answer: 'Ne jamais traiter autrui seulement comme un moyen, mais toujours aussi comme une fin en soi.' },
+  { question: 'Existe-t-il un socle universel de l’éthique selon les chercheurs ?', answer: 'Oui, certains principes semblent universels comme ne pas faire de mal à un innocent et être juste, présents dès l’enfance.' },
+  { question: 'En quoi l’éthique est-elle un processus dynamique ?', answer: 'Parce qu’elle évolue avec le temps, la société, les progrès scientifiques et les débats de valeurs.' },
+  { question: 'Pourquoi les dilemmes éthiques n’ont-ils pas de solution parfaite ?', answer: 'Parce qu’ils mettent en conflit des valeurs légitimes et qu’il n’existe pas de règle absolue qui garantisse une solution idéale.' },
+  { question: 'Qu’est-ce que le conflit de valeurs apporte à l’éthique ?', answer: 'Il permet d’alimenter la réflexion morale, de questionner les pratiques et d’éviter les automatismes ou les consensus trop rapides.' },
+  { question: 'Pourquoi dit-on que l’éthique est une réflexion jamais terminée ?', answer: 'Parce qu’elle exige de toujours remettre en question nos décisions, nos pratiques et nos valeurs à la lumière de nouveaux contextes.' },
+  { question: 'Quels sont les deux axes qui influencent les décisions éthiques en médecine ?', answer: 'L’axe horizontal (les données scientifiques et le consensus social) et l’axe vertical (le cadre légal et les références officielles).' },
+  { question: 'Qu’est-ce qui compose l’axe horizontal de la décision éthique ?', answer: 'Le pronostic, le diagnostic, le degré de souffrance, les traitements possibles et l’évolution des consensus sociaux et culturels.' },
+  { question: 'Qu’est-ce qui compose l’axe vertical de la décision éthique ?', answer: 'Le Code de déontologie médicale, les lois nationales, les décisions de justice et les conventions internationales.' },
+  { question: 'Quel a été l’enjeu principal de l’affaire Vincent Lambert ?', answer: 'Décider si les traitements de maintien en vie devaient être arrêtés, avec un désaccord entre sa femme, ses parents et les médecins.' },
+  { question: 'Quelle a été la décision finale dans l’affaire Vincent Lambert ?', answer: 'La justice a autorisé l’arrêt des traitements en invoquant le respect de l’autonomie du patient.' },
+  { question: 'Quelle est la relation entre le droit et l’éthique en médecine ?', answer: 'Le droit et l’éthique ne se confondent pas : les lois évoluent sous l’influence des débats éthiques, mais elles fixent seulement un cadre général.' },
+  { question: 'Pourquoi la réanimation des grands prématurés illustre-t-elle un dilemme éthique ?', answer: 'Parce que réanimer permet le progrès médical mais augmente le risque de séquelles, tandis que ne pas réanimer empêche d’améliorer les techniques.' },
+  { question: 'En quoi l’éthique influence-t-elle la pratique scientifique ?', answer: 'Les choix éthiques déterminent quelles pratiques sont mises en œuvre et donc quelles données scientifiques seront produites.' },
+  { question: 'Comment les pratiques médicales peuvent-elles influencer le consensus social ?', answer: 'Certaines pratiques d’abord clandestines, comme l’IVG ou l’aide active à mourir, ont fini par faire évoluer la loi et les mentalités.' },
+  { question: 'Qu’est-ce que la loi dit concernant l’arrêt des traitements ?', answer: 'Elle autorise un médecin à arrêter un traitement dans certaines conditions, mais la décision reste collégiale et éthique, pas automatique.' },
+  { question: 'Pourquoi dit-on que le droit reflète le consensus social ?', answer: 'Parce que les lois sont votées en fonction des débats de société et évoluent au rythme des valeurs collectives.' },
+  { question: 'Quel exemple illustre l’évolution du consensus social avec l’AMP ?', answer: 'La loi britannique exigeait un père et une mère, puis a été modifiée pour admettre toute forme de foyer si l’environnement familial est jugé favorable.' },
+  { question: 'Quel est le rôle des professionnels de santé dans l’évolution du cadre légal ?', answer: 'Par leur engagement, leurs prises de position et leurs pratiques, ils participent aux débats et influencent l’évolution des lois médicales.' },
+  { question: 'Pourquoi le droit est-il nécessaire mais insuffisant pour résoudre une question éthique ?', answer: 'Parce qu’il fixe un cadre général mais ne tranche pas les décisions individuelles, qui doivent être discutées au cas par cas.' },
+  { question: 'Quelles sont les quatre grandes approches éthiques étudiées en médecine ?', answer: 'L’éthique déontologique (Kant), l’éthique utilitariste (Mill), l’éthique des vertus (Aristote) et l’éthique des droits.' },
+  { question: 'Selon Kant, qu’est-ce qui rend une action morale ?', answer: 'Une action est morale si elle est accomplie par devoir et non par intérêt ou par instinct.' },
+  { question: 'Pourquoi l’intention est-elle essentielle dans l’éthique kantienne ?', answer: 'Parce qu’une même action peut être moralement bonne ou mauvaise selon l’intention qui la motive.' },
+  { question: 'Quel est le principe de non-instrumentalisation chez Kant ?', answer: 'Ne jamais traiter autrui seulement comme un moyen, mais toujours aussi comme une fin en soi.' },
+  { question: 'Quel principe justifie en France l’interdiction de la vente d’organes ou de produits du corps humain ?', answer: 'Le principe kantien de dignité humaine, qui refuse de traiter le corps comme une marchandise.' },
+  { question: 'Qu’est-ce que la loi universelle chez Kant ?', answer: 'Une règle morale est valable si elle peut être adoptée comme une loi universelle, applicable à tous sans contradiction.' },
+  { question: 'Quelle est la principale force de l’éthique déontologique ?', answer: 'Elle met l’accent sur les obligations, le respect des principes et la dignité humaine.' },
+  { question: 'Quelle est la principale limite de l’éthique déontologique ?', answer: 'Elle est rigide et ne prend pas en compte les circonstances particulières, pouvant mener à des décisions dogmatiques.' },
+  { question: 'Que signifie la théorie des droits en éthique ?', answer: 'Les droits correspondent aux devoirs d’autrui et définissent les libertés et créances des individus dans le cadre médical.' },
+  { question: 'Quelle est la différence entre droits négatifs et droits positifs ?', answer: 'Les droits négatifs protègent contre une ingérence extérieure    (ex : droit au refus de traitement), tandis que les droits positifs permettent d’exiger une prestation (ex : droit à la santé).' },
+  { question: 'Quelle est la maxime centrale de l’utilitarisme de Mill ?', answer: 'Une action est bonne si elle maximise le bonheur pour le plus grand nombre et réduit la souffrance.' },
+  { question: 'Quelle est la différence entre Kant et Mill sur l’intention ?', answer: 'Pour Kant, l’intention compte plus que le résultat ; pour Mill, seul le résultat compte.' },
+  { question: 'Quels domaines médicaux se prêtent particulièrement à l’utilitarisme ?', answer: 'La santé publique et la prévention, par exemple les politiques de vaccination.' },
+  { question: 'Quelle est la limite majeure de l’utilitarisme ?', answer: 'Il peut justifier des sacrifices individuels pour le bien collectif et ignore l’importance de l’intention morale.' },
+  { question: 'Quelle est la définition de l’éthique des vertus selon Aristote ?', answer: 'Une action est bonne si elle est accomplie par une personne vertueuse, c’est-à-dire ayant acquis des qualités morales comme la justice, la bienveillance ou le courage.' },
+  { question: 'Pourquoi dit-on que les vertus s’acquièrent selon Aristote ?', answer: 'Parce qu’on ne naît pas vertueux mais on le devient par l’éducation, l’expérience et l’habitude.' },
+  { question: 'Quelle est la force de l’éthique des vertus en médecine ?', answer: 'Elle valorise la sagesse pratique et l’humanisme du médecin dans sa relation avec le patient.' },
+  { question: 'Quelle est la limite de l’éthique des vertus ?', answer: 'Elle dépend trop du caractère individuel et ne peux pas être  systématisé en règles générales.' },
+  { question: 'Selon Kant, qu’est-ce qui rend une action morale ?', answer: 'Une action est morale si elle est accomplie par devoir, indépendamment de l’intérêt ou des conséquences.' },
+  { question: 'Quel est le principe de non-instrumentalisation de Kant ?', answer: 'Ne jamais traiter autrui seulement comme un moyen, mais toujours aussi comme une fin en soi.' },
+  { question: 'Quelle est la principale limite de l’éthique kantienne ?', answer: 'Elle est trop rigide et ne prend pas en compte les circonstances particulières.' },
+  { question: 'Quelle est la différence entre droits négatifs et droits positifs ?', answer: 'Les droits négatifs protègent un individu contre une action extérieure (ex : refus de traitement), tandis que les droits positifs permettent d’exiger une prestation (ex : droit à la santé).' },
+  { question: 'Quel est le critère central de l’utilitarisme de Mill ?', answer: 'La maximisation du bonheur collectif, c’est-à-dire le plus grand bien pour le plus grand nombre.' },
+  { question: 'Pourquoi l’utilitarisme est-il adapté à la santé publique ?', answer: 'Parce qu’il permet d’évaluer les conséquences collectives des décisions médicales, par exemple dans la vaccination ou la prévention.' },
+  { question: 'Quelle est la limite majeure de l’utilitarisme ?', answer: 'Il ignore l’intention morale et ne considère que le résultat.' },
+  { question: 'Quelle est la définition de l’éthique des vertus selon Aristote ?', answer: 'Une action est bonne si elle est accomplie par une personne vertueuse, dotée de qualités morales comme la justice, la bienveillance et le courage.' },
+  { question: 'Comment devient-on vertueux selon Aristote ?', answer: 'On devient vertueux par l’éducation, l’expérience et l’habitude, car on ne naît pas vertueux.' },
+  { question: 'Quelle est la principale limite de l’éthique des vertus ?', answer: 'Elle dépend trop du caractère individuel et n’est pas systématique en règles générales.' },
+  { question: 'Qu’est-ce que le pluralisme moral en éthique médicale ?', answer: 'C’est la combinaison de plusieurs approches éthiques pour guider la décision médicale.' },
+  { question: 'Pourquoi le pluralisme moral est-il nécessaire ?', answer: 'Parce qu’aucune théorie éthique n’est parfaite et que chacune a ses limites.' },
+  { question: 'Quels sont les quatre principes de l’éthique biomédicale de Beauchamp et Childress ?', answer: 'L’autonomie, la bienfaisance, la non-malfaisance et la justice.' },
+  { question: 'Que signifie le principe d’autonomie ?', answer: 'Respecter la liberté et la capacité du patient à consentir de manière éclairée.' },
+  { question: 'Que signifie le principe de bienfaisance ?', answer: 'Agir dans l’intérêt du patient en cherchant à promouvoir son bien.' },
+  { question: 'Que signifie le principe de non-malfaisance ?', answer: 'Ne pas nuire au patient, principe exprimé par « primum non nocere ».' },
+  { question: 'Que signifie le principe de justice en santé ?', answer: 'Répartir équitablement les ressources et garantir l’accès égal aux soins.' },
+  { question: 'Pourquoi le modèle des quatre principes est-il critiqué ?', answer: 'Parce qu’il est jugé trop simple et parfois trop utilitariste.' },
+  { question: 'Quelle est la force du modèle des quatre principes ?', answer: 'Sa simplicité et sa praticité, qui en font un outil largement utilisé en éthique médicale.' },
+  { question: 'Comment les dilemmes sont-ils résolus dans le pluralisme moral ?', answer: 'Par une hiérarchisation contextuelle des principes en fonction du cas clinique.' },
+  { question: 'Quel est l’intérêt des principes en éthique clinique ?', answer: 'Ils fournissent une grille d’analyse souple, mais ne sont pas des recettes automatiques.' },
+  { question: 'Qu’est-ce qu’un conflit de principes en médecine ?', answer: 'C’est une situation où deux principes éthiques s’opposent, comme l’autonomie contre la bienfaisance.' },
+  { question: 'Quel principe est invoqué quand un patient refuse un traitement vital ?', answer: 'Le principe d’autonomie.' },
+  { question: 'Quel principe est invoqué pour limiter l’acharnement thérapeutique ?', answer: 'Le principe de non-malfaisance.' },
+  { question: 'Quel principe est mobilisé pour défendre la vaccination obligatoire ?', answer: 'Le principe de bienfaisance, car il protège le patient et la collectivité.' },
+  { question: 'Que faire lorsqu’il y a un conflit de principes ?', answer: 'Hiérarchiser les principes en fonction du contexte clinique.' },
+  { question: 'Pourquoi les principes ne suffisent-ils pas toujours ?', answer: 'Parce qu’ils doivent être complétés par l’expérience clinique et la discussion.' },
+  { question: 'Qu’apporte la délibération éthique ?', answer: 'Un débat contradictoire et argumenté permettant d’éclairer la décision.' },
+  { question: 'Quels acteurs peuvent participer à une délibération éthique clinique ?', answer: 'Les médecins, les soignants, le patient et ses proches.' },
+  { question: 'Quel est l’objectif final de l’éthique appliquée en clinique ?', answer: 'Prendre la meilleure décision possible pour le patient dans son contexte singulier.' },
+  { question: 'Quel est le rôle d’un comité d’éthique ?', answer: 'Fournir un avis consultatif argumenté, mais sans se substituer au médecin.' },
+  { question: 'Pourquoi les comités d’éthique sont-ils importants ?', answer: 'Parce qu’ils éclairent les dilemmes complexes et aident à la réflexion.' },
+  { question: 'Quelles questions posent les recherches biomédicales sur l’humain ?', answer: 'Des enjeux éthiques et sociétaux concernant la dignité et la sécurité des personnes.' },
+  { question: 'Quelles sont les missions d’un comité de protection des personnes (CPP) ?', answer: 'Évaluer la pertinence scientifique et la sécurité éthique des recherches.' },
+  { question: 'Quel rôle joue l’Agence de la biomédecine ?', answer: 'Contrôler et encadrer certaines pratiques sensibles comme les greffes, l’AMP et la recherche sur l’embryon.' },
+  { question: 'Quelle est la fonction du CCNE (Comité consultatif national d’éthique) ?', answer: 'Rendre des avis publics sur les grandes questions éthiques et éclairer le débat social.' },
+  { question: 'Pourquoi l’éthique médicale est-elle en constante évolution ?', answer: 'Parce qu’elle s’adapte aux avancées scientifiques et aux évolutions sociales.' },
+  { question: 'Quel est le but de l’éthique médicale pour le soignant ?', answer: 'Réfléchir à ses pratiques et décider de manière responsable dans l’intérêt du patient.' },
+  { question: 'Pourquoi l’éthique doit-elle rester distincte du droit ?', answer: 'Parce qu’elle doit éclairer la pratique sans se réduire à une norme légale.' },
+  { question: 'Quelle est la finalité ultime de l’éthique médicale ?', answer: 'Protéger la dignité humaine et améliorer la qualité du soin.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

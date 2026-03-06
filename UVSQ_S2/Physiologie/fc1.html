@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Introduction a la physiologie</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Introduction a la physiologie</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la physiologie', answer: 'C’est l’étude du fonctionnement de l’organisme normal' },
+  { question: 'Pourquoi est-il important de connaître la physiologie', answer: 'Pour reconnaître ce qui n’est plus normal et comprendre la physiopathologie, préalable au traitement' },
+  { question: 'Qu’est-ce que la physiologie cellulaire', answer: 'C’est l’étude des fonctions des cellules, unités de base de l’organisme' },
+  { question: 'Qu’est-ce qu’un tissu en physiologie', answer: 'C’est un ensemble de cellules ayant la même structure et fonction' },
+  { question: 'Qu’est-ce que la physiologie d’organe', answer: 'Étude du fonctionnement d’organes formés de plusieurs tissus' },
+  { question: 'Donne un exemple de physiologie d’organe', answer: 'L’étude du poumon' },
+  { question: 'Qu’est-ce que la physiologie d’appareil', answer: 'Étude des organes intégrés dans des systèmes physiologiques' },
+  { question: 'Donne un exemple de physiologie d’appareil', answer: 'L’appareil respiratoire' },
+  { question: 'Qu’est-ce que la physiologie intégrée', answer: 'Étude des interactions entre systèmes pour la régulation de l’organisme' },
+  { question: 'Cite deux exemples de physiologie intégrée', answer: 'L’adaptation de la pression artérielle et l’adaptation à l’exercice physique' },
+  { question: 'Qu’est-ce que la bioénergétique', answer: 'C’est l’étude des transformations d’énergie dans les organismes vivants' },
+  { question: 'Quelles sont les principales substances organiques des êtres vivants', answer: 'Glucides, lipides, protéines et acides nucléiques' },
+  { question: 'Quelles sont les deux grandes catégories de composés non organiques des êtres vivants', answer: 'L’eau et les sels minéraux' },
+  { question: 'Les animaux sont hétérotrophes, qu’est-ce que cela signifie', answer: 'Ils se nourrissent de composés organiques produits par les photoautotrophes' },
+  { question: 'Que signifie chimiotrophe', answer: 'Capable d’oxyder les composés organiques grâce à l’oxygène pour produire de l’énergie' },
+  { question: 'Les végétaux sont phototrophes, que signifie ce terme', answer: 'Ils transforment l’énergie lumineuse en énergie chimique (glucides)' },
+  { question: 'Que signifie autotrophe', answer: 'Capable de synthétiser des composés organiques à partir de composés minéraux' },
+  { question: 'Qu’est-ce qu’un biosystème', answer: 'Ensemble d’un hétérotrophe et d’un chimiotrophe transformant la matière organique' },
+  { question: 'Quel est le premier principe de la thermodynamique appliqué à la physiologie', answer: 'L’énergie se conserve lors de ses transformations' },
+  { question: 'Quelle est l’égalité du premier principe chez l’humain', answer: 'Énergie reçue = Énergie dissipée' },
+  { question: 'Quel est le deuxième principe de la thermodynamique appliqué à la physiologie', answer: 'L’énergie se dégrade en chaleur non utilisable par les cellules' },
+  { question: 'Comment appelle-t-on la valeur énergétique d’un substrat organique', answer: 'L’enthalpie' },
+  { question: 'Donne un exemple de réaction libérant de l’énergie', answer: 'Glucose + O2 → CO2 + H2O + 2813 kJ/mol' },
+  { question: 'Quelle est la valeur énergétique d’un litre d’oxygène consommé en moyenne', answer: '20 kJ/L' },
+  { question: 'Quel est le rôle de l’ATP', answer: 'C’est la monnaie énergétique universelle des cellules' },
+  { question: 'Quelle est la valeur énergétique d’une mole d’ATP', answer: '29,4 kJ' },
+  { question: 'L’ATP est-il un réservoir d’énergie', answer: 'Non, il assure seulement un transfert énergétique rapide' },
+  { question: 'Quelles sont les trois grandes voies de production d’ATP', answer: 'Glycolyse, cycle de Krebs, phosphorylation oxydative' },
+  { question: 'Où a lieu la glycolyse', answer: 'Dans le cytosol' },
+  { question: 'La glycolyse nécessite-t-elle de l’oxygène', answer: 'Non, c’est une voie anaérobie' },
+  { question: 'Quels sont les produits finaux de la glycolyse', answer: '2 ATP et 2 NADH' },
+  { question: 'Où se déroule le cycle de Krebs', answer: 'Dans la mitochondrie' },
+  { question: 'La phosphorylation oxydative nécessite-t-elle de l’oxygène', answer: 'Oui, c’est une voie aérobie' },
+  { question: 'Combien de moles d’ATP sont produites par l’oxydation d’une mole de glucose', answer: '38 moles d’ATP' },
+  { question: 'Quel est le rendement énergétique de l’oxydation du glucose', answer: 'Environ 40 % en énergie chimique et 60 % dissipés en chaleur' },
+  { question: 'Quels sont les quatre grands types de travaux cellulaires', answer: 'Travail externe musculaire, travail osmotique, travail mécanique interne, synthèse chimique' },
+  { question: 'Donne un exemple de travail externe musculaire', answer: 'Le déplacement d’un objet par une cellule musculaire' },
+  { question: 'Donne un exemple de travail osmotique', answer: 'Le maintien de la différence de concentration par la pompe Na+/K+' },
+  { question: 'Donne un exemple de travail mécanique interne', answer: 'La contraction du cœur' },
+  { question: 'Quel est l’objectif du travail de synthèse chimique', answer: 'Le renouvellement des constituants cellulaires' },
+  { question: 'Pourquoi l’organisme a-t-il besoin de constituer des réserves énergétiques', answer: 'Parce que l’apport énergétique est discontinu alors que les dépenses sont permanentes' },
+  { question: 'Quelles sont les quatre grandes formes de réserves énergétiques', answer: 'Graisse, glycogène, protéines, créatine phosphate' },
+  { question: 'Quelle est la principale réserve énergétique de l’organisme', answer: 'La graisse de réserve' },
+  { question: 'Quelle proportion de la masse corporelle totale représentent les réserves énergétiques', answer: 'Environ 25 %' },
+  { question: 'Combien de temps l’organisme peut-il survivre grâce à ses réserves', answer: 'Plusieurs dizaines de jours, à condition d’un apport en eau, oxygène et oligo-éléments' },
+  { question: 'Donne l’exemple d’un cas célèbre de grève de la faim', answer: 'Bobby Sands, décédé après 66 jours de grève de la faim' },
+  { question: 'Quelle est la réserve énergétique totale approximative d’un individu', answer: 'Environ 500 000 kJ' },
+  { question: 'Quelle est la valeur énergétique du glycogène', answer: 'Environ 5000 kJ' },
+  { question: 'Quelle est la valeur énergétique des protéines', answer: 'Environ 160 000 kJ' },
+  { question: 'Quelle est la valeur énergétique de la créatine phosphate', answer: 'Environ 15 kJ' },
+  { question: 'Où se stockent principalement les triglycérides', answer: 'Dans le tissu adipeux' },
+  { question: 'Quelle est la particularité de la teneur en eau des graisses', answer: 'Elle est faible, environ 15 % contre 85 % pour les muscles' },
+  { question: 'Pourquoi est-il plus rentable de stocker l’énergie sous forme de graisses', answer: 'Car elles forment plus d’ATP que le glucose et ont une faible teneur en eau' },
+  { question: 'Combien d’ATP environ produit l’oxydation d’un gramme de lipides', answer: 'Environ 0,5 mole d’ATP' },
+  { question: 'Quand les protéines sont-elles utilisées comme source d’énergie', answer: 'En cas d’extrême nécessité, après épuisement des réserves lipidiques' },
+  { question: 'Quel est le risque lié à l’utilisation des protéines comme réserve énergétique', answer: 'Fonte musculaire et dénutrition' },
+  { question: 'Peut-on mesurer directement l’énergie interne totale de l’organisme', answer: 'Non, elle dépend de trop de paramètres (masse, composition, température, pression)' },
+  { question: 'Qu’est-ce que la calorimétrie directe', answer: 'Mesure de la chaleur dégagée par un individu au repos ou en activité' },
+  { question: 'Quel appareil a été utilisé pour la calorimétrie directe historique', answer: 'Le calorimètre à glace de Lavoisier' },
+  { question: 'Quelle quantité de chaleur est nécessaire pour faire fondre 1 kg de glace', answer: '334 kJ' },
+  { question: 'Pourquoi la calorimétrie directe n’est-elle plus utilisée', answer: 'Car l’appareillage est trop encombrant' },
+  { question: 'Qu’est-ce que la calorimétrie indirecte alimentaire', answer: 'Mesure des entrées d’énergie via l’enthalpie des substrats alimentaires' },
+  { question: 'Quelle est la durée d’observation possible avec cette méthode', answer: 'Plusieurs semaines à plusieurs mois' },
+  { question: 'Quels sont les trois substrats alimentaires principaux et leur valeur énergétique par gramme', answer: 'Glucides 17 kJ/g (4 kcal), protides 17 kJ/g (4 kcal), lipides 38 kJ/g (9 kcal)' },
+  { question: 'Quelle quantité d’ATP produit 1 g de glucides', answer: '0,2 mole d’ATP' },
+  { question: 'Quelle quantité d’ATP produit 1 g de protides', answer: '0,2 mole d’ATP' },
+  { question: 'Quelle quantité d’ATP produit 1 g de lipides', answer: '0,5 mole d’ATP' },
+  { question: 'Qu’est-ce que la calorimétrie indirecte respiratoire', answer: 'Mesure de la dépense énergétique à partir de la consommation d’oxygène' },
+  { question: 'Quelle est l’équivalence énergétique moyenne de l’oxygène', answer: '20 kJ par litre d’O2' },
+  { question: 'Quelles sont les conditions de mesure ATPS', answer: 'Température ambiante, pression barométrique et vapeur d’eau' },
+  { question: 'Quelles sont les conditions de mesure STPD', answer: '0 °C, 760 mmHg, air sec' },
+  { question: 'Quelles sont les conditions de mesure BTPS', answer: 'Température corporelle 37 °C, pression barométrique du jour, saturation en vapeur d’eau' },
+  { question: 'Quelle loi permet de convertir entre ATPS, STPD et BTPS', answer: 'La loi des gaz parfaits, PV = RT' },
+  { question: 'Quelle est la formule du débit de consommation d’O2', answer: 'V’O2 = V’I × FI O2 – V’E × FE O2' },
+  { question: 'Quelle est la formule du débit de CO2 produit', answer: 'V’CO2 = V’E × FE CO2' },
+  { question: 'Qu’est-ce que le quotient respiratoire métabolique (R)', answer: 'Le rapport entre le débit de CO2 produit et le débit d’O2 consommé' },
+  { question: 'Quelle est la valeur du quotient respiratoire pour les glucides', answer: 'R = 1' },
+  { question: 'Quelle est la valeur du quotient respiratoire pour les protides', answer: 'R = 0,8' },
+  { question: 'Quelle est la valeur du quotient respiratoire pour les lipides', answer: 'R = 0,7' },
+  { question: 'Quelles sont les trois causes principales de variation à court terme de la dépense énergétique', answer: 'Température ambiante, thermogenèse alimentaire, activité musculaire' },
+  { question: 'Qu’est-ce que la température de neutralité thermique chez un homme légèrement vêtu', answer: 'Environ 25 °C' },
+  { question: 'Qu’est-ce que la thermogenèse alimentaire', answer: 'L’augmentation de dépense liée à la digestion, l’absorption et la mise en réserve des substrats' },
+  { question: 'Comment varie la consommation d’O2 avec la puissance de l’exercice', answer: 'Elle augmente proportionnellement à la puissance (en L/min)' },
+  { question: 'Qu’est-ce que le V’O2 max', answer: 'Le débit maximal de consommation d’O2 atteignable lors d’un effort intense' },
+  { question: 'De quoi dépend le V’O2 max', answer: 'Des conditions d’entraînement et de l’état de santé du sujet' },
+  { question: 'Quel est l’équivalent métabolique de repos (MET)', answer: '1 MET = consommation d’O2 au repos = 3,5 mL/min/kg' },
+  { question: 'Qu’est-ce que la dépense énergétique de repos (DER)', answer: 'La dépense énergétique minimale au repos strict, à jeun et en neutralité thermique' },
+  { question: 'Par quelle méthode calcule-t-on la DER', answer: 'Par calorimétrie respiratoire indirecte' },
+  { question: 'Quelle est la formule de Ben Porat', answer: 'M’ = 3,913 × V’O2 + 1,093 × V’CO2 – 3,341 × N’2 (non à retenir)' },
+  { question: 'Quelles sont les trois principales causes de variation de la DER', answer: 'Dimension de l’individu, âge, masse maigre' },
+  { question: 'Quel est le métabolisme de base moyen', answer: '1000 kcal/24h/m² de surface corporelle' },
+  { question: 'Quelle est la dépense de fond d’un enfant', answer: 'Environ 120 kcal/kg' },
+  { question: 'Quelle est la dépense de fond d’un adulte', answer: 'Environ 45 kcal/kg' },
+  { question: 'À quoi est proportionnelle la dépense de fond', answer: 'À la masse maigre' },
+  { question: 'Quelle est la formule de la dépense de fond en fonction de la masse maigre', answer: 'DER = 21 × masse maigre + 500' },
+  { question: 'Comment maintenir une masse corporelle constante', answer: 'En équilibrant apport énergétique alimentaire et dépense énergétique' },
+  { question: 'Quels sont les trois principaux facteurs de dépense énergétique', answer: 'Dépense de fond, thermogenèse alimentaire, activité physique' },
+  { question: 'Quelle est la formule de l’IMC', answer: 'IMC = masse (kg) / taille² (m²)' },
+  { question: 'Quelle est la valeur normale de l’IMC', answer: '20 < IMC < 25' },
+  { question: 'Quelle valeur d’IMC correspond à une surcharge pondérale', answer: '25 < IMC < 30' },
+  { question: 'Quelle valeur d’IMC correspond à l’obésité', answer: 'IMC > 30' },
+  { question: 'Qu’est-ce que l’obésité', answer: 'Une accumulation excessive de tissu adipeux due à un déséquilibre apports/dépenses' },
+  { question: 'L’obésité touche-t-elle uniquement l’adulte', answer: 'Non, elle touche aussi l’enfant et l’adolescent' },
+  { question: 'Changer seulement la composition du régime alimentaire suffit-il à perdre du poids', answer: 'Non, il faut diminuer l’apport énergétique total' },
+  { question: 'Quel est le rôle du tissu adipeux sous-cutané', answer: 'Réserve énergétique majeure, environ 25 % de la masse corporelle' },
+  { question: 'Quelle est la teneur en lipides d’un kg de tissu adipeux', answer: 'Environ 850 g de lipides' },
+  { question: 'Quelle énergie fournit l’oxydation de 1 kg de tissu adipeux', answer: 'Environ 32 300 kJ' },
+  { question: 'Le tissu adipeux est-il inerte', answer: 'Non, il sécrète des adipocytokines qui modulent satiété, dépense énergétique, métabolisme' },
+  { question: 'Quelles sont les principales localisations de l’accumulation graisseuse en cas d’obésité', answer: 'Sous-cutané, viscères, foie (stéatose), pancréas' },
+  { question: 'Quels sont les seuils de périmètre abdominal pathologique', answer: 'Supérieur à 94 cm chez l’homme et 80 cm chez la femme' },
+  { question: 'Quelles sont les conséquences physiologiques de l’obésité', answer: 'Augmentation du risque de morbidité et de mortalité cardiovasculaire' },
+  { question: 'Que se passe-t-il si un sujet augmente sa masse corporelle de 10 %', answer: 'Sa dépense énergétique quotidienne augmente d’environ 500 kcal' },
+  { question: 'Que se passe-t-il si un sujet diminue sa masse corporelle de 10 %', answer: 'Sa dépense énergétique diminue d’environ 300 kcal' },
+  { question: 'Pourquoi la dépense énergétique augmente-t-elle chez un obèse', answer: 'Coût énergétique accru des déplacements et augmentation de la thermogenèse alimentaire' },
+  { question: 'Pourquoi un ancien obèse doit-il consommer moins de calories qu’un sujet jamais obèse', answer: 'Car sa dépense énergétique reste diminuée après perte de poids' },
+  { question: 'De combien de calories en moins doit se contenter un ancien obèse', answer: 'Environ 15 % de moins qu’un sujet de même poids n’ayant jamais été obèse' },
+  { question: 'Quels sont les deux grands principes du traitement de l’obésité', answer: 'Diminution des apports et augmentation des dépenses' },
+  { question: 'Quels sont les moyens de diminuer les apports', answer: 'Régimes, médicaments, chirurgie' },
+  { question: 'Quels sont les moyens d’augmenter les dépenses', answer: 'Exercice physique, médicaments' },
+  { question: 'Qu’est-ce que la leptine', answer: 'Une hormone protéique de 146 acides aminés sécrétée par les adipocytes' },
+  { question: 'Quelle est la relation entre leptine plasmatique et réserves adipeuses', answer: 'Plus les réserves adipeuses sont importantes, plus la concentration plasmatique de leptine est élevée' },
+  { question: 'Quel est le rôle principal de la leptine', answer: 'Informer l’hypothalamus sur l’état des réserves adipeuses' },
+  { question: 'Comment la leptine agit-elle sur la prise alimentaire', answer: 'Elle diminue la prise alimentaire et augmente la dépense énergétique' },
+  { question: 'Quels rôles secondaires la leptine permet-elle', answer: 'Reproduction, lactation, fonctionnement de la thyroïde' },
+  { question: 'Que provoque une absence congénitale de leptine', answer: 'Obésité monstrueuse, petite taille, absence de puberté, hypothyroïdie' },
+  { question: 'Que suggère une forte présence de leptine chez l’obèse', answer: 'Une résistance à la leptine proportionnelle à l’IMC' },
+  { question: 'Qu’est-ce que l’insuline', answer: 'Une hormone protéique sécrétée par les cellules bêta du pancréas' },
+  { question: 'Quelle est la stimulation principale de la sécrétion d’insuline', answer: 'L’augmentation du glucose plasmatique' },
+  { question: 'Quel est le rôle métabolique majeur de l’insuline', answer: 'Diminuer la glycémie en favorisant l’utilisation et le stockage du glucose' },
+  { question: 'Dans quels tissus l’insuline stimule-t-elle le stockage du glucose', answer: 'Muscle squelettique, foie, tissu adipeux' },
+  { question: 'Quelle est l’action de l’insuline dans le muscle squelettique', answer: 'Augmentation de l’utilisation et de l’oxydation du glucose' },
+  { question: 'Quelle est l’action de l’insuline dans le foie', answer: 'Augmentation de la glycolyse et mise en réserve sous forme de glycogène' },
+  { question: 'Quelle est l’action de l’insuline dans le tissu adipeux', answer: 'Stockage des triglycérides' },
+  { question: 'Que se passe-t-il en cas d’obésité vis-à-vis de l’insuline', answer: 'Diminution de la sensibilité à l’insuline' },
+  { question: 'Quelles en sont les conséquences à long terme', answer: 'Hyperinsulinisme, épuisement des cellules bêta, diabète type 2' },
+  { question: 'Quels sont les deux principaux types d’hormones qui augmentent la prise alimentaire', answer: 'Les glucocorticoïdes et certaines hormones digestives' },
+  { question: 'Quelle est l’origine des glucocorticoïdes', answer: 'Ils sont sécrétés par les glandes surrénales' },
+  { question: 'Quel est l’effet des glucocorticoïdes sur la masse corporelle', answer: 'Augmentation de la prise alimentaire et diminution de la dépense énergétique' },
+  { question: 'Quelle est l’origine de la cholécystokinine', answer: 'Hormone produite par le tube digestif' },
+  { question: 'Quand la cholécystokinine est-elle sécrétée', answer: 'Lors du remplissage et de la distension de l’estomac' },
+  { question: 'Quel est l’effet de la cholécystokinine', answer: 'Activation des centres de satiété et diminution de la prise alimentaire' },
+  { question: 'Qu’est-ce que la graisse brune', answer: 'Un tissu adipeux particulier présent chez le nourrisson et l’adulte' },
+  { question: 'Où trouve-t-on de la graisse brune chez l’adulte', answer: 'Dans les régions cervicales' },
+  { question: 'Dans quelles conditions la graisse brune s’active', answer: 'Lors d’une exposition au froid' },
+  { question: 'Quel substrat la graisse brune consomme massivement', answer: 'Le glucose' },
+  { question: 'Comment se mesure l’activité de la graisse brune', answer: 'Par TEP au 18F-fluorodésoxyglucose' },
+  { question: 'Quelle est la relation entre activité de la graisse brune et IMC', answer: 'Elle est inversement proportionnelle' },
+  { question: 'La graisse brune a-t-elle un rôle de réserve énergétique', answer: 'Non, elle ne stocke pas d’énergie' },
+  { question: 'Quel est le rôle principal de la graisse brune', answer: 'Production de chaleur sans production d’ATP (thermogenèse adaptative)' },
+  { question: 'Par quel mécanisme moléculaire la graisse brune produit-elle de la chaleur', answer: 'Par la protéine UCP1 qui découple la phosphorylation oxydative' },
+  { question: 'Les mutations génétiques sont-elles une cause fréquente d’obésité', answer: 'Non, elles sont exceptionnelles' },
+  { question: 'Quels facteurs interagissent avec la génétique dans l’obésité', answer: 'L’environnement et le développement' },
+  { question: 'Qu’a permis la capacité de l’espèce humaine à constituer des réserves', answer: 'La survie face aux famines dans l’évolution' },
+  { question: 'Quelle a été la conséquence de cette sélection génétique', answer: 'Favoriser l’apport alimentaire et diminuer la dépense énergétique' },
+  { question: 'Pourquoi ces gènes sont-ils mal adaptés aux sociétés occidentales', answer: 'À cause de la sédentarité et de l’accès facile à des aliments hypercaloriques' },
+  { question: 'Quelles hormones diminuent la prise alimentaire et augmentent la dépense énergétique', answer: 'La leptine et l’insuline' },
+  { question: 'Quelles hormones augmentent la prise alimentaire et diminuent la dépense énergétique', answer: 'Les glucocorticoïdes' },
+  { question: 'Quelle hormone digestive favorise la satiété', answer: 'La cholécystokinine' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

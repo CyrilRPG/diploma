@@ -1,0 +1,559 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Prévention risque sexuel et sanguin</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Prévention risque sexuel et sanguin</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'qu’est-ce qu’une infection sexuellement transmissible', answer: 'une infection transmise lors de rapports sexuels ou par contact cutanéo-muqueux contaminé' },
+  { question: 'quels germes peuvent être responsables d’IST', answer: 'des virus comme VIH, VHB, VHC, papillomavirus, herpès, m-pox et des bactéries comme gonocoques, chlamydiae, mycoplasmes, syphilis' },
+  { question: 'quels sont les principaux modes de transmission sexuelle', answer: 'rapports vaginaux, oraux, anaux et contacts cutanéo-muqueux des zones génitales' },
+  { question: 'quel type de rapport sexuel présente le risque le plus élevé de transmission', answer: 'le rapport anal réceptif' },
+  { question: 'pourquoi le rapport anal réceptif est à risque élevé', answer: 'car les plages lymphocytaires sont proches de l’anus et la muqueuse est fragile' },
+  { question: 'quels facteurs augmentent le risque de transmission d’ist', answer: 'présence de sang, absence de préservatif, partenaires multiples ou inconnus, consommation d’alcool ou drogues, communautés spécifiques à risque' },
+  { question: 'qu’est-ce que le vih', answer: 'virus de l’immunodéficience humaine' },
+  { question: 'quelle est la différence entre vih et sida', answer: 'le vih est l’infection, le sida est le stade terminal avec immunodéficience sévère' },
+  { question: 'quelles sont les voies de transmission du vih', answer: 'sexuelle, sanguine, materno-fœtale' },
+  { question: 'quel type de virus est le vih', answer: 'un rétrovirus à ARN utilisant la transcriptase inverse pour s’intégrer dans l’ADN de la cellule hôte' },
+  { question: 'quelles cellules sont détruites par le vih', answer: 'les lymphocytes t cd4' },
+  { question: 'quelles sont les conséquences de la destruction des lymphocytes cd4', answer: 'affaiblissement des défenses immunitaires et survenue d’infections opportunistes' },
+  { question: 'par quoi meurt un patient infecté par le vih', answer: 'des infections opportunistes et non du virus lui-même' },
+  { question: 'en quoi consiste la trithérapie du vih', answer: 'traitement associant trois molécules antivirales différentes' },
+  { question: 'quelle est la posologie habituelle de la trithérapie vih', answer: 'généralement un comprimé par jour' },
+  { question: 'existe-t-il une forme injectable du traitement vih', answer: 'oui, injection tous les deux mois disponible, injection tous les six mois en développement' },
+  { question: 'combien de temps dure le traitement du vih', answer: 'toute la vie car le virus ne se guérit pas' },
+  { question: 'existe-t-il un vaccin contre le vih', answer: 'non, aucun vaccin n’est disponible' },
+  { question: 'quelles sont les méthodes de diagnostic du vih', answer: 'recherche d’anticorps par prise de sang ou tests rapides' },
+  { question: 'en combien de temps doit être débuté un traitement post-exposition vih', answer: 'dans les 48 heures suivant l’exposition' },
+  { question: 'combien de temps dure le traitement post-exposition vih', answer: '28 jours' },
+  { question: 'quel est le suivi après un traitement post-exposition vih', answer: 'surveillance médicale pendant 6 semaines à 3 mois' },
+  { question: 'où peut-on se faire dépister gratuitement et anonymement pour le vih', answer: 'dans les CBGA et CEGI' },
+  { question: 'quelle est la prophylaxie pré-exposition vih', answer: 'un traitement préventif destiné aux personnes séronégatives exposées à un risque' },
+  { question: 'quel est l’objectif du traitement chez une personne séropositive', answer: 'réduire la charge virale pour la rendre non contaminante' },
+  { question: 'quelle était la stratégie thérapeutique vih il y a 5 ans', answer: 'attendre les signes de faiblesse immunitaire avant de débuter le traitement' },
+  { question: 'quelle est la stratégie actuelle de traitement vih', answer: 'traiter immédiatement dès la découverte de l’infection' },
+  { question: 'quel est le délai pour avoir un résultat de test standard vih', answer: '24 à 48 heures' },
+  { question: 'qu’est-ce qu’un test rapide d’orientation diagnostique vih', answer: 'un test utilisant une goutte de sang au doigt avec résultat en moins de 10 minutes' },
+  { question: 'quelle est la limite du test rapide vih', answer: 'il n’est pas fiable si la prise de risque date de moins de 3 mois à cause de la période fenêtre' },
+  { question: 'contre quelles autres infections existe-t-il des tests rapides en plus du vih', answer: 'hépatite b et hépatite c' },
+  { question: 'combien de types d’hépatite existe-t-il', answer: 'cinq, a b c d et e' },
+  { question: 'quelles hépatites sont sexuellement transmissibles', answer: 'hépatites b et c' },
+  { question: 'quelle est la définition d’une hépatite', answer: 'une inflammation du foie' },
+  { question: 'quelles sont les complications possibles d’une hépatite chronique', answer: 'cirrhose et cancer du foie' },
+  { question: 'quelles sont les principales voies de transmission des hépatites b et c', answer: 'sanguine, sexuelle, materno-fœtale' },
+  { question: 'existe-t-il un vaccin contre l’hépatite b', answer: 'oui, il est obligatoire et intégré au calendrier vaccinal' },
+  { question: 'existe-t-il un vaccin contre l’hépatite c', answer: 'non' },
+  { question: 'quelle suspicion entourait le vaccin contre l’hépatite b il y a 20 ans', answer: 'un possible lien avec le syndrome de guillain-barré' },
+  { question: 'ce lien a-t-il été confirmé', answer: 'non, toutes les études montrent qu’il n’existe pas' },
+  { question: 'quel est l’effet d’une guérison de l’hépatite b', answer: 'elle confère une immunité définitive contre une nouvelle infection' },
+  { question: 'peut-on être réinfecté par l’hépatite c après guérison', answer: 'oui car il n’y a pas d’immunité acquise' },
+  { question: 'quel est le traitement actuel de l’hépatite c', answer: 'un comprimé par jour pendant 2 à 3 mois par voie orale' },
+  { question: 'quelle était la difficulté du traitement de l’hépatite c il y a 10 ans', answer: 'traitements lourds avec injections et efficacité limitée' },
+  { question: 'combien de personnes vivent avec le vih en France en 2022', answer: 'environ 180 000 dont 14 pour cent ignorent leur statut' },
+  { question: 'combien de nouvelles contaminations vih par an en France', answer: 'entre 5 000 et 5 500' },
+  { question: 'combien de personnes étaient infectées par l’hépatite c en France en 2019', answer: 'environ 100 000' },
+  { question: 'quels fluides sont contaminants pour le vih', answer: 'sang, sperme, sécrétions vaginales et liquides biologiques souillés de sang' },
+  { question: 'qu’est-ce que le papillomavirus', answer: 'un virus ubiquitaire présent sur la peau et les muqueuses' },
+  { question: 'où se localise le papillomavirus dans l’organisme', answer: 'peau, muqueuses orales et muqueuses vaginales' },
+  { question: 'quelle est l’apparence des lésions cutanées liées au papillomavirus', answer: 'elles ressemblent à de petites feuilles ou verrues' },
+  { question: 'quelle IST est la plus transmissible', answer: 'le papillomavirus' },
+  { question: 'à quel moment de la vie sexuelle survient souvent l’infection par papillomavirus', answer: 'lors des premiers rapports sexuels' },
+  { question: 'combien de types de papillomavirus existent', answer: '42' },
+  { question: 'combien de types de papillomavirus sont cancérigènes', answer: '12' },
+  { question: 'quelles sont les complications cancéreuses liées au papillomavirus', answer: 'cancer du col de l’utérus, du pénis et de l’anus' },
+  { question: 'quelle proportion d’infections à papillomavirus disparaissent naturellement en 2 ans', answer: '90 pour cent' },
+  { question: 'quel est le principal dépistage du papillomavirus chez la femme', answer: 'frottis vaginal avec recherche de papillomavirus' },
+  { question: 'quelle complication majeure est causée par le papillomavirus chez la femme', answer: 'cancer du col de l’utérus' },
+  { question: 'quel vaccin protège contre le papillomavirus', answer: 'Gardasil' },
+  { question: 'depuis quand la vaccination anti-papillomavirus est-elle étendue aux hommes ayant des rapports sexuels avec des hommes jusqu’à 26 ans', answer: 'depuis décembre 2019' },
+  { question: 'comment dépister le papillomavirus chez les personnes ayant des rapports anaux', answer: 'surveillance anale annuelle sans lésion, tous les 6 mois si lésions présentes' },
+  { question: 'comment se manifestent les condylomes liés au papillomavirus', answer: 'petites lésions sur le col de l’utérus, condylomes visibles sur la verge, lésions florides autour de l’anus' },
+  { question: 'qu’est-ce que le hsv-1', answer: 'virus herpès simplex de type 1 transmis par contact bucco-salivaire' },
+  { question: 'quelle manifestation typique cause le hsv-1', answer: 'bouton de fièvre' },
+  { question: 'qu’est-ce que le hsv-2', answer: 'virus herpès simplex de type 2 transmis par contact génital' },
+  { question: 'quelles zones sont touchées par l’herpès', answer: 'lèvres, yeux, organes génitaux' },
+  { question: 'quels types d’infections graves peuvent être causées par l’herpès', answer: 'encéphalite herpétique, méningite, herpès néonatal' },
+  { question: 'qu’est-ce que l’encéphalite herpétique', answer: 'infection cérébrale causant des séquelles cognitives permanentes' },
+  { question: 'qu’est-ce que l’herpès néonatal', answer: 'forme grave multiviscérale touchant le nouveau-né avec risque vital engagé' },
+  { question: 'où le virus herpès reste-t-il latent', answer: 'dans les ganglions nerveux sensitifs' },
+  { question: 'quels facteurs peuvent réactiver l’herpès', answer: 'stress, immunodépression' },
+  { question: 'quel est le traitement principal de l’herpès', answer: 'aciclovir' },
+  { question: 'comment prévenir la transmission de l’herpès', answer: 'éviter les contacts pendant les poussées et utiliser des préservatifs' },
+  { question: 'quand a été identifié pour la première fois le m-pox ou variole du singe', answer: 'en 1958 au Danemark' },
+  { question: 'quels sont les réservoirs naturels du m-pox', answer: 'rongeurs et animaux forestiers d’Afrique centrale et de l’ouest' },
+  { question: 'quel type de maladie est le m-pox', answer: 'une zoonose transmise de l’animal à l’homme' },
+  { question: 'quelle épidémie mondiale a révélé le m-pox en 2022', answer: 'l’épidémie mondiale de mai 2022' },
+  { question: 'à quelle maladie humaine est apparenté le m-pox', answer: 'à la variole humaine' },
+  { question: 'quel est l’avantage immunologique lié à la variole et au m-pox', answer: 'une immunité croisée qui a permis de développer un vaccin efficace rapidement' },
+  { question: 'quelles populations sont particulièrement à risque de m-pox', answer: 'hommes ayant des relations sexuelles avec des hommes et personnes ayant de multiples partenaires' },
+  { question: 'comment se transmet le m-pox', answer: 'contact direct avec lésions, contact indirect avec objets contaminés et gouttelettes respiratoires' },
+  { question: 'quelle est la période d’incubation du m-pox', answer: '5 à 21 jours' },
+  { question: 'quel est le signe clinique principal du m-pox', answer: 'une éruption cutanée douloureuse sur les muqueuses' },
+  { question: 'quelles sont les étapes d’évolution des lésions cutanées du m-pox', answer: 'vésicule, pustule, ulcération, croûte' },
+  { question: 'comment diagnostiquer le m-pox', answer: 'prélèvement sur une pustule ou lésion et analyse virologique' },
+  { question: 'quelles populations sont à risque de formes graves de m-pox', answer: 'immunodéprimés, femmes enceintes, jeunes enfants' },
+  { question: 'combien de temps dure généralement la guérison du m-pox', answer: 'environ trois semaines' },
+  { question: 'faut-il isoler les patients atteints de m-pox', answer: 'oui, jusqu’à disparition complète des croûtes' },
+  { question: 'quel équipement de protection individuelle est recommandé pour les soignants en contact avec le m-pox', answer: 'masque ffp2, blouse, gants, protection oculaire' },
+  { question: 'quelle vaccination est recommandée après une exposition au m-pox', answer: 'vaccination post-exposition dans les 4 jours après le contact, jusqu’à 14 jours possible' },
+  { question: 'quel type de vaccin est utilisé contre le m-pox', answer: 'un vaccin vivant atténué non réplicatif' },
+  { question: 'quelles sont les cibles prioritaires de la vaccination m-pox', answer: 'contacts étroits des patients et populations à risque' },
+  { question: 'le m-pox est-il une maladie à déclaration obligatoire', answer: 'oui' },
+  { question: 'quelles sont les principales IST bactériennes étudiées dans ce cours', answer: 'gonocoque, chlamydia et syphilis' },
+  { question: 'quelle tendance épidémiologique est observée en France pour les IST bactériennes entre 2020 et 2022', answer: 'augmentation du nombre de cas' },
+  { question: 'pourquoi observe-t-on une augmentation des cas d’ist bactériennes', answer: 'amélioration du dépistage et augmentation réelle des contaminations' },
+  { question: 'quelles sont les localisations naturelles des infections bactériennes', answer: 'pharynx, anus, système urinaire, organes génitaux' },
+  { question: 'quelle complication peut provoquer la chlamydia chez la femme', answer: 'la stérilité' },
+  { question: 'quels sont les symptômes typiques d’une infection à gonocoque ou chlamydia', answer: 'douleurs urinaires, douleurs génitales ou rectales, écoulements urétraux ou vaginaux' },
+  { question: 'quel est le traitement des infections gonocoque et chlamydia', answer: 'antibiothérapie' },
+  { question: 'quel est le problème majeur du traitement antibiotique des IST bactériennes', answer: 'résistance bactérienne croissante' },
+  { question: 'quelle est la prévention la plus efficace contre les IST bactériennes', answer: 'rapports protégés avec préservatif' },
+  { question: 'pourquoi faut-il traiter les partenaires sexuels lors d’une IST bactérienne', answer: 'pour éviter la réinfection et la transmission' },
+  { question: 'quelle difficulté existe pour le traitement des partenaires dans les couples hétérosexuels', answer: 'communication souvent délicate' },
+  { question: 'quel est le point positif de la communication chez les HSH concernant le traitement des partenaires', answer: 'discussion plus ouverte et meilleure coopération' },
+  { question: 'quel est l’agent responsable de la syphilis', answer: 'treponema pallidum' },
+  { question: 'quelle est la tendance épidémiologique actuelle de la syphilis', answer: 'augmentation grâce au dépistage accru' },
+  { question: 'quel est le signe caractéristique de la syphilis primaire', answer: 'chancre indolore souvent sur les organes génitaux ou la bouche' },
+  { question: 'la syphilis est-elle contagieuse au stade primaire', answer: 'oui, le patient est contagieux pendant cette phase' },
+  { question: 'que se passe-t-il lors de la syphilis secondaire', answer: 'propagation aux organes et symptômes variés non spécifiques' },
+  { question: 'que se passe-t-il lors de la syphilis tertiaire', answer: 'complications tardives avec atteinte d’organes divers' },
+  { question: 'quel signe dermatologique peut révéler une syphilis évolutive', answer: 'pelade' },
+  { question: 'quels sont les deux types de marqueurs sanguins de la syphilis', answer: 'marqueurs de cicatrice et marqueurs d’infection évolutive' },
+  { question: 'quel est le traitement standard de la syphilis au stade primaire', answer: 'une injection intramusculaire dans chaque fesse en une seule fois' },
+  { question: 'quel est le traitement de la syphilis aux stades secondaire ou tertiaire', answer: 'une injection intramusculaire dans chaque fesse une fois par semaine pendant trois semaines' },
+  { question: 'existe-t-il un traitement oral de la syphilis', answer: 'oui, une cure d’antibiotiques de 15 jours mais moins utilisée' },
+  { question: 'pourquoi est-il important de traiter les partenaires d’un patient atteint de syphilis', answer: 'pour interrompre la chaîne de transmission et éviter une réinfection' },
+  { question: 'quels symptômes atypiques peuvent être liés à une syphilis', answer: 'troubles cognitifs, pelade, lésions variées' },
+  { question: 'la syphilis peut-elle toucher des personnes âgées', answer: 'oui, elle peut se révéler chez des patients de 70 ans' },
+  { question: 'comment se fait le diagnostic clinique de la syphilis', answer: 'par observation de chancre ou lésions cutanées' },
+  { question: 'quel examen confirme le diagnostic de syphilis', answer: 'sérologie avec recherche d’anticorps' },
+  { question: 'quelle est la règle de précaution concernant les partenaires d’un patient atteint de syphilis', answer: 'les traiter même si leur sérologie est négative' },
+  { question: 'quelles sont les règles générales de prévention des IST', answer: 'rapports protégés et dépistage ciblé des personnes à risque' },
+  { question: 'quels signes cliniques doivent faire penser à une IST lors d’un dépistage ciblé', answer: 'herpès avec lésions, papillomavirus avec condylomes, m-pox avec éruptions atypiques' },
+  { question: 'quelles sérologies doivent être systématiquement proposées lors d’un dépistage IST', answer: 'vih, hépatite b, hépatite c, syphilis' },
+  { question: 'quel prélèvement urinaire est recommandé pour rechercher gonocoque, chlamydia et mycoplasmes', answer: 'le premier jet des urines du matin' },
+  { question: 'pourquoi le premier jet d’urine est-il recommandé pour les dépistages bactériens', answer: 'car les bactéries sont concentrées dans l’urètre' },
+  { question: 'pourquoi les prélèvements sont-ils parfois réalisés directement en consultation', answer: 'pour s’assurer qu’ils soient faits, même si la sensibilité est légèrement réduite' },
+  { question: 'qu’est-ce que la prep dans le cadre de la prévention des IST', answer: 'prophylaxie pré-exposition, bi-thérapie prise avant et après un rapport à risque' },
+  { question: 'quels sont les deux modes d’utilisation de la prep', answer: 'prise anticipée occasionnelle ou prise continue quotidienne' },
+  { question: 'comment se prend la prep en anticipation', answer: 'un comprimé le matin du rapport et un autre le lendemain' },
+  { question: 'à qui est proposée la prep', answer: 'aux personnes à risque ayant des rapports non protégés fréquents' },
+  { question: 'qu’est-ce que la prophylaxie post-exposition', answer: 'trithérapie de 28 jours en cas de rapport à risque non protégé vu dans les 48 heures' },
+  { question: 'quelles vaccinations sont obligatoires ou recommandées contre les IST', answer: 'hépatite b obligatoire, papillomavirus recommandé, variole du singe en post-exposition' },
+  { question: 'quelle prévention spécifique est proposée aux usagers de drogue', answer: 'matériel d’injection à usage unique' },
+  { question: 'que doit faire un patient traité pour une IST concernant ses rapports sexuels', answer: 'avoir uniquement des rapports protégés jusqu’à la guérison complète' },
+  { question: 'pourquoi faut-il informer les partenaires récents d’un patient atteint d’ist', answer: 'pour les sensibiliser et les traiter afin de casser la chaîne de transmission' },
+  { question: 'quel accompagnement peut être proposé au patient pour informer son partenaire', answer: 'venir en consultation avec son partenaire pour explication et rassurance' },
+  { question: 'quel est le risque en cas d’absence d’information du partenaire', answer: 'peur, agressivité, retrait et poursuite de la transmission' },
+  { question: 'quelle journée est consacrée à la lutte contre le sida', answer: 'le 1er décembre, journée mondiale du sida' },
+  { question: 'quel est le moyen universel de protection contre toutes les IST', answer: 'le préservatif' },
+  { question: 'que signifie AES', answer: 'accident d’exposition au sang' },
+  { question: 'quelles sont les principales situations d’AES', answer: 'piqûres, coupures, projections sur muqueuses ou peau abîmée' },
+  { question: 'quels liquides biologiques sont à risque lors d’un AES', answer: 'sang et liquides visiblement souillés de sang' },
+  { question: 'quels professionnels sont concernés par le risque AES', answer: 'tous les soignants, étudiants, infirmiers, médecins, chirurgiens' },
+  { question: 'pourquoi la peau intacte protège contre les AES', answer: 'elle constitue une barrière naturelle contre les micro-organismes' },
+  { question: 'quels virus sont principalement transmis par AES', answer: 'VIH, VHB, VHC' },
+  { question: 'quels autres agents infectieux peuvent être transmis par AES', answer: 'syphilis et paludisme dans certaines conditions' },
+  { question: 'quel type d’aiguille est le plus à risque lors d’un AES', answer: 'aiguille creuse de prélèvement sanguin' },
+  { question: 'pourquoi une aiguille pleine est moins à risque', answer: 'elle contient peu ou pas de sang résiduel' },
+  { question: 'quels facteurs augmentent le risque de transmission par AES', answer: 'profondeur de la blessure, calibre de l’aiguille, sang visible, charge virale élevée du patient source' },
+  { question: 'le risque de transmission par AES est-il plus élevé que par voie sexuelle', answer: 'oui, l’exposition directe au sang est plus risquée' },
+  { question: 'que faire immédiatement après une piqûre accidentelle', answer: 'arrêter le soin et nettoyer la plaie avec antiseptique pendant 5 minutes' },
+  { question: 'que faire immédiatement après projection de sang dans l’œil', answer: 'rincer au sérum physiologique pendant 5 minutes' },
+  { question: 'dans quel délai doit-on consulter un médecin après un AES', answer: 'immédiatement, idéalement dans les 4 heures et au maximum 48 heures' },
+  { question: 'quel spécialiste doit être consulté après un AES', answer: 'infectiologue ou médecin des urgences' },
+  { question: 'quel est le délai optimal pour débuter un traitement post-exposition', answer: 'dans les 4 à 6 heures après l’exposition' },
+  { question: 'quelle est la durée d’un traitement post-exposition', answer: '28 jours' },
+  { question: 'que contient un traitement post-exposition', answer: 'une trithérapie antirétrovirale' },
+  { question: 'que doit-on faire concernant la déclaration d’un AES', answer: 'le déclarer comme accident de travail' },
+  { question: 'quel est l’intérêt de déclarer un AES comme accident de travail', answer: 'couverture totale des frais médicaux et protection juridique' },
+  { question: 'quelle est la durée habituelle du suivi médical après un AES', answer: '6 à 12 semaines selon le cas' },
+  { question: 'quelle vaccination est obligatoire pour les soignants contre les risques AES', answer: 'vaccination contre l’hépatite b' },
+  { question: 'quelle vaccination est recommandée mais non obligatoire pour les soignants', answer: 'vaccination contre l’hépatite a' },
+  { question: 'pourquoi utilise-t-on des aiguilles sécurisées dans les hôpitaux', answer: 'pour réduire les risques de piqûres accidentelles' },
+  { question: 'quel est l’effet des mesures préventives sur le nombre d’AES entre 2008 et 2015', answer: 'diminution significative' },
+  { question: 'pourquoi de nombreux AES ne sont-ils pas déclarés', answer: 'sous-déclaration par habitude ou minimisation des risques, surtout chez les chirurgiens' },
+  { question: 'quel est le risque de ne pas déclarer un AES', answer: 'absence de prise en charge et non reconnaissance en accident de travail' },
+  { question: 'quel exemple clinique illustre la gravité de la non-déclaration d’AES', answer: 'un chirurgien contaminé par VHC après opération d’une patiente non dépistée' },
+  { question: 'que faut-il vérifier chez le patient source après un AES', answer: 'statut sérologique VIH, VHB, VHC avec son consentement' },
+  { question: 'pourquoi le dépistage du patient source est-il important', answer: 'pour rassurer le soignant et décider de poursuivre ou non le traitement' },
+  { question: 'combien de temps faut-il attendre pour qu’une sérologie détecte une infection après AES', answer: 'environ 3 semaines, période fenêtre' },
+  { question: 'pourquoi fait-on un prélèvement sanguin immédiat chez le soignant après un AES', answer: 'pour documenter l’état sérologique de départ' },
+  { question: 'à quel intervalle fait-on les sérologies de suivi après un AES', answer: 'à 3 semaines, 6 semaines et parfois 3 mois' },
+  { question: 'depuis quand n’a-t-on plus de cas documenté de transmission vih aux soignants après AES en France', answer: 'depuis 2013' },
+  { question: 'quel fut le premier médicament utilisé contre le vih en 1987', answer: 'AZT ou zidovudine' },
+  { question: 'en quelle année ont été introduits les premiers traitements post-exposition vih', answer: 'en 1997' },
+  { question: 'comment a évolué la tolérance des traitements post-exposition vih', answer: 'meilleure tolérance avec moins d’effets secondaires aujourd’hui' },
+  { question: 'quel est le schéma actuel du traitement post-exposition vih', answer: 'un comprimé par jour' },
+  { question: 'quels sont les facteurs de fragilité augmentant le risque pour un soignant après AES', answer: 'âge avancé, grossesse, immunodépression, traitement immunosuppresseur' },
+  { question: 'quels sont les équipements de protection recommandés pour limiter le risque AES', answer: 'gants, masque, lunettes, matériel sécurisé à usage unique' },
+  { question: 'que doit faire l’employeur concernant le risque AES', answer: 'identifier les risques, mettre en place des mesures de prévention et fournir du matériel sécurisé' },
+  { question: 'depuis quand l’introduction d’aiguilles sécurisées est-elle obligatoire en France', answer: 'depuis 1998' },
+  { question: 'quel est le but d’un protocole affiché dans les services hospitaliers concernant AES', answer: 'guider les soignants sur la conduite à tenir immédiatement' },
+  { question: 'quel est le rôle de la médecine du travail après un AES', answer: 'assurer le suivi médical et administratif du soignant exposé' },
+  { question: 'quelle est la prise en charge initiale d’urgence après un AES pour tout patient', answer: 'une trithérapie de 3 à 5 jours donnée immédiatement' },
+  { question: 'qui réévalue le traitement post-exposition dans les 3 jours après un AES', answer: 'un infectiologue' },
+  { question: 'quel est l’objectif principal des mesures de prévention AES', answer: 'réduire le taux d’AES et sécuriser les soignants' },
+  { question: 'quel est le principal avantage pour un soignant de déclarer un AES', answer: 'protection médicale et juridique en cas de contamination ultérieure' },
+  { question: 'quelles sérologies préopératoires sont recommandées pour protéger les chirurgiens', answer: 'VIH, VHB, VHC' },
+  { question: 'pourquoi faut-il sensibiliser les équipes médicales au dépistage préopératoire', answer: 'pour protéger les soignants et identifier les patients porteurs' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

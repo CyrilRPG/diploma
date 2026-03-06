@@ -1,0 +1,560 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Aspects économiques et sociétaux</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Aspects économiques et sociétaux</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la particularité du médicament en tant que produit de consommation ?', answer: 'C’est un produit de santé publique réglementé, non soumis aux lois classiques de l’offre et de la demande.' },
+  { question: 'Pourquoi le médicament a-t-il une vocation de santé publique ?', answer: 'Parce qu’il est destiné à traiter ou prévenir les maladies et sa distribution est strictement encadrée pour garantir la sécurité sanitaire.' },
+  { question: 'Qui est autorisé à dispenser les médicaments ?', answer: 'Seuls les pharmaciens sont habilités à dispenser les médicaments.' },
+  { question: 'Quel est le mode de financement spécifique des médicaments ?', answer: 'Une partie ou la totalité de la dépense pharmaceutique peut être prise en charge par les organismes de protection sociale.' },
+  { question: 'Pourquoi le médicament est-il aussi un bien industriel ?', answer: 'Parce qu’il est fabriqué par des entreprises dont la rentabilité dépend d’une recherche coûteuse et d’une production encadrée.' },
+  { question: 'Quelle est la taille du marché mondial du médicament en 2024 ?', answer: 'Environ 1650 milliards de dollars, soit 1500 milliards d’euros.' },
+  { question: 'Quelle part du marché mondial du médicament est détenue par les pays développés ?', answer: '72 % du marché mondial.' },
+  { question: 'Quelle est la part des États-Unis dans le marché mondial du médicament ?', answer: '40 % à eux seuls, 45 % avec le Canada.' },
+  { question: 'Quelle est la part de l’Europe dans le marché mondial du médicament ?', answer: '15 % pour les grands pays européens et 23 % pour l’ensemble de l’Europe.' },
+  { question: 'Quelle est la part des pays « pharmergents » dans le marché mondial du médicament ?', answer: '26 %, dont 12 % pour la Chine.' },
+  { question: 'Quelle est la croissance annuelle moyenne du marché mondial du médicament ?', answer: 'Environ 5 % par an.' },
+  { question: 'Quelle est la croissance du marché dans les pays développés ?', answer: '4 % par an.' },
+  { question: 'Quelle est la croissance du marché dans les pays pharmergents ?', answer: '8 % par an.' },
+  { question: 'Quelle est la taille du marché mondial des médicaments génériques ?', answer: '600 milliards de dollars.' },
+  { question: 'Quelle est la croissance annuelle du marché des génériques ?', answer: '+15 % par an.' },
+  { question: 'Dans les pays développés, à quoi est principalement lié le marché en valeur ?', answer: 'À la vente de médicaments princeps.' },
+  { question: 'Dans les pays pharmergents, à quoi est principalement lié le marché en valeur ?', answer: 'À la vente de génériques, représentant 60 % du marché.' },
+  { question: 'Quelle est la valeur du marché mondial des dispositifs médicaux ?', answer: '530 milliards de dollars.' },
+  { question: 'Quelle est la croissance annuelle du marché mondial des dispositifs médicaux ?', answer: '6 % par an.' },
+  { question: 'Quelle est la valeur du marché mondial des cosmétiques ?', answer: '480 milliards de dollars.' },
+  { question: 'Quelle est la croissance annuelle du marché des cosmétiques ?', answer: '6 % par an.' },
+  { question: 'Quelle proportion du marché mondial les cinq premiers groupes pharmaceutiques représentent-ils ?', answer: 'Environ 20 % du marché mondial.' },
+  { question: 'Comment se compare la concentration du marché pharmaceutique à d’autres secteurs ?', answer: 'Moins concentré que l’informatique (40 %), l’automobile (50 %) ou l’aérospatiale (80 %).' },
+  { question: 'Quelle proportion des dix médicaments les plus vendus dans le monde sont des biomédicaments ?', answer: 'Huit sur dix.' },
+  { question: 'Quelle part du chiffre d’affaires mondial des médicaments représentent les biomédicaments ?', answer: '33 %.' },
+  { question: 'Quelle place occupe la France dans le marché mondial du médicament ?', answer: 'Deuxième marché européen et cinquième mondial.' },
+  { question: 'Quel est le chiffre d’affaires du marché français du médicament ?', answer: 'Environ 70 milliards d’euros.' },
+  { question: 'Quelle est la valeur des exportations françaises de médicaments ?', answer: '34 milliards d’euros.' },
+  { question: 'Quelle est la valeur des ventes à l’officine en France ?', answer: '26 milliards d’euros.' },
+  { question: 'Quelle est la valeur des ventes hospitalières de médicaments en France ?', answer: '10 milliards d’euros.' },
+  { question: 'Combien de principes actifs et de spécialités existe-t-il environ en France ?', answer: 'Environ 2800 principes actifs sous 16000 spécialités.' },
+  { question: 'Quelle proportion du chiffre d’affaires officinal représentent les 500 premiers médicaments ?', answer: '70 %.' },
+  { question: 'Quelle est la marge moyenne du grossiste répartiteur ?', answer: 'Environ 7 %, avec un minimum de 0,30 euro et un plafond de 32,50 euros.' },
+  { question: 'Quelle est la marge moyenne du pharmacien selon le prix fabricant hors taxes ?', answer: 'Variable selon 5 tranches, entre 10 % et 0 %.' },
+  { question: 'Quel est le taux de TVA sur les médicaments remboursables ?', answer: '2,1 %.' },
+  { question: 'Quel est le taux de TVA sur les médicaments non remboursables ?', answer: '10 %.' },
+  { question: 'Quel est le montant de l’honoraire de dispensation par boîte pour les médicaments remboursés ?', answer: '1,02 euro par boîte.' },
+  { question: 'Quels honoraires spécifiques peuvent s’ajouter à l’honoraire de dispensation ?', answer: '0,61 € par ordonnance, 1,58 € pour les moins de 3 ans ou plus de 70 ans, 0,31 € pour les ordonnances complexes, 3,57 € pour les stupéfiants.' },
+  { question: 'À quel taux sont remboursés les honoraires de dispensation par la Sécurité sociale ?', answer: 'À 65 %, sauf cas particuliers.' },
+  { question: 'Quelle est la principale obligation d’une officine envers ses clients ?', answer: 'Assurer la délivrance rapide des traitements.' },
+  { question: 'Quel est le rôle du grossiste répartiteur ?', answer: 'Livrer toutes les pharmacies de son secteur et disposer d’un stock couvrant 90 % des médicaments pour deux semaines d’activité.' },
+  { question: 'Dans quel délai un grossiste doit-il pouvoir livrer un médicament manquant ?', answer: 'Moins de 24 heures.' },
+  { question: 'Quelle part des ventes des laboratoires représente la vente directe aux hôpitaux ?', answer: '30 % du chiffre d’affaires hors taxes.' },
+  { question: 'Quelle part des ventes des laboratoires représente la vente directe aux officines ?', answer: '15 % du chiffre d’affaires hors taxes.' },
+  { question: 'Quel est le plafond des remises pour les médicaments non génériques ?', answer: '2,5 %.' },
+  { question: 'Quel est le plafond des remises pour les génériques, biosimilaires et médicaments sous TFR ?', answer: '50 %.' },
+  { question: 'Quelle économie annuelle le marché des génériques permet-il de réaliser en France ?', answer: 'Environ 3 milliards d’euros d’économie par an.' },
+  { question: 'Quelle proportion du marché des médicaments remboursables représente le répertoire des génériques en volume ?', answer: '48 % du marché remboursable.' },
+  { question: 'Quelle part des médicaments remboursables correspond aux princeps dans le répertoire des génériques ?', answer: '10 %.' },
+  { question: 'Quelle part des médicaments remboursables correspond aux génériques dans le répertoire ?', answer: '38 %.' },
+  { question: 'Quel est le taux moyen de substitution des génériques en France ?', answer: '80 % au niveau national.' },
+  { question: 'Quelle part du marché remboursable les génériques représentent-ils en valeur ?', answer: 'Environ 20 %, car leur prix est inférieur.' },
+  { question: 'Quelle baisse du prix du princeps intervient lors de la commercialisation du premier générique ?', answer: 'Baisse de 20 % du prix fabricant hors taxes du princeps.' },
+  { question: 'Quelle baisse supplémentaire du prix du princeps a lieu après 18 mois ?', answer: 'Une baisse de 12,5 % supplémentaire.' },
+  { question: 'Quelle différence de prix existe entre un princeps et son premier générique à la commercialisation ?', answer: 'Le prix du générique est environ 50 % inférieur à celui du princeps initial.' },
+  { question: 'Quelle baisse du prix du générique a lieu après 18 mois ?', answer: 'Une baisse de 7 %, sauf si le générique est sous TFR.' },
+  { question: 'Que signifie le sigle TFR ?', answer: 'Tarif Forfaitaire de Responsabilité.' },
+  { question: 'Depuis quelle année le TFR est-il appliqué en France ?', answer: 'Depuis 2003.' },
+  { question: 'Combien de spécialités environ sont concernées par le TFR ?', answer: 'Environ 4000 spécialités.' },
+  { question: 'Comment est calculé le TFR ?', answer: 'À partir du prix des médicaments génériques les moins chers.' },
+  { question: 'Quelle est la conséquence pour un patient qui refuse un générique sous TFR ?', answer: 'Il est remboursé sur la base du TFR et doit payer la différence de prix avec le princeps.' },
+  { question: 'Quelle est la base de remboursement du patient s’il accepte le générique sous TFR ?', answer: 'Le remboursement est fait sur la base du TFR sans reste à charge.' },
+  { question: 'Le pharmacien peut-il appliquer le tiers payant pour un princeps refusant la substitution ?', answer: 'Non, le tiers payant n’est pas applicable dans ce cas.' },
+  { question: 'Que se passe-t-il généralement pour le prix du princeps après fixation du TFR ?', answer: 'Le laboratoire aligne souvent le prix du princeps sur le TFR.' },
+  { question: 'Quel est l’objectif national de substitution pour les génériques en France ?', answer: 'Un objectif de 90 % pour la majorité des molécules.' },
+  { question: 'Qu’est-ce que le répertoire conventionnel des génériques ?', answer: 'Une liste de génériques sur lesquels s’applique un objectif de substitution de 90 %.' },
+  { question: 'Pourquoi la mise sur le marché des génériques réduit-elle la marge des pharmaciens ?', answer: 'Parce que le prix fabricant hors taxes des génériques et des princeps diminue.' },
+  { question: 'Quelles sont les compensations prévues pour les pharmaciens face à cette baisse de marge ?', answer: 'Maintien de la marge en valeur absolue, remises commerciales, rémunération sur objectifs de santé publique (ROSP).' },
+  { question: 'Quelle est la limite légale de remise pour les princeps ?', answer: '2,5 %.' },
+  { question: 'Quelle est la limite légale de remise pour les génériques et biosimilaires ?', answer: '50 %.' },
+  { question: 'Qu’est-ce que la ROSP du pharmacien ?', answer: 'Une rémunération complémentaire basée sur les objectifs de santé publique et les pratiques de substitution.' },
+  { question: 'Quel est le montant d’un entretien pharmaceutique pour un traitement anticoagulant oral ?', answer: '50 euros.' },
+  { question: 'Quel est le montant d’un bilan partagé de médication pour les sujets âgés polymédicamentés ?', answer: '65 euros la première année, puis 30 euros l’année suivante.' },
+  { question: 'Depuis quand le droit à la substitution du princeps par un générique existe-t-il en France ?', answer: 'Depuis plus de 20 ans.' },
+  { question: 'Depuis quand la prescription en DCI est-elle obligatoire ?', answer: 'Depuis décembre 2011 (loi Bertrand), généralisée en 2015.' },
+  { question: 'Quelle proportion de généralistes rédigent leurs prescriptions en DCI ?', answer: 'Environ 75 %.' },
+  { question: 'Quelle baisse du prix du médicament biologique de référence intervient à l’hôpital lors de l’arrivée d’un biosimilaire ?', answer: 'Baisse de 30 %.' },
+  { question: 'Quelle est la baisse du prix du médicament biologique de référence en ville lors de l’arrivée d’un biosimilaire ?', answer: 'Baisse de 20 %.' },
+  { question: 'Quel est le prix du biosimilaire par rapport au médicament biologique de référence initial ?', answer: 'Environ 60 % du prix du médicament biologique initial.' },
+  { question: 'Quelle est la valeur du marché des PMF (médicaments de prescription médicale facultative) ?', answer: 'Environ 6 milliards d’euros.' },
+  { question: 'Quelle part du marché des PMF correspond à l’automédication ?', answer: 'Environ 2,3 milliards d’euros.' },
+  { question: 'Quelle part du marché des PMF correspond aux PMF remboursables prescrits ?', answer: '3,6 milliards d’euros.' },
+  { question: 'Quelle part du marché des PMF correspond aux PMF remboursables mais non prescrits ?', answer: '0,3 milliard d’euros.' },
+  { question: 'Quelle part du marché des PMF correspond aux PMF non remboursables ?', answer: '2 milliards d’euros.' },
+  { question: 'Quelle est la différence entre le marché des PMF et celui de l’automédication ?', answer: 'Le marché des PMF inclut tous les médicaments à prescription facultative, tandis que l’automédication ne comprend que ceux utilisés sans prescription.' },
+  { question: 'Comment sont fixés les prix des médicaments non remboursables ?', answer: 'Ils sont fixés librement par les fabricants.' },
+  { question: 'Quel taux de TVA s’applique aux médicaments non remboursables ?', answer: '10 %.' },
+  { question: 'Quelle est la marge moyenne du pharmacien sur les médicaments non remboursables ?', answer: 'Entre 20 et 50 % du prix fabricant.' },
+  { question: 'Quelle est la part du PIB consacrée aux dépenses de santé en France ?', answer: '12 % du PIB.' },
+  { question: 'À combien s’élèvent les dépenses totales de santé en France ?', answer: 'Environ 325 milliards d’euros, soit 4800 euros par habitant.' },
+  { question: 'Qu’est-ce que la CSBM ?', answer: 'La Consommation de Soins et de Biens Médicaux, représentant les biens et services consommés pour traiter une altération de santé.' },
+  { question: 'Quelle est la valeur de la CSBM en France ?', answer: '249 milliards d’euros, soit 9 % du PIB.' },
+  { question: 'Quelle part de la CSBM est prise en charge par la Sécurité sociale ?', answer: '80 %.' },
+  { question: 'Quelle part de la CSBM est prise en charge par les complémentaires santé ?', answer: '13 %.' },
+  { question: 'Quelle part de la CSBM reste à la charge des ménages ?', answer: 'Environ 7 %, soit 280 euros par habitant.' },
+  { question: 'Quelle est la part du médicament consommé en ville dans la CSBM ?', answer: '14 %, soit 33 milliards d’euros TTC.' },
+  { question: 'Quelle est la dépense moyenne par habitant en France pour les médicaments ?', answer: 'Environ 490 euros par habitant.' },
+  { question: 'Quelle part du médicament est prise en charge par la Sécurité sociale ?', answer: '73 %, et 80 % en incluant les médicaments hospitaliers.' },
+  { question: 'Quelle part du médicament est prise en charge par les complémentaires santé ?', answer: '13 %.' },
+  { question: 'Quelle part du médicament est financée directement par les ménages ?', answer: '13 % également.' },
+  { question: 'Quelle part de la CSBM correspond aux dispositifs médicaux, y compris l’optique ?', answer: '8 % de la CSBM.' },
+  { question: 'Quelle part des dépenses de dispositifs médicaux concerne l’optique ?', answer: '36 %.' },
+  { question: 'Quelle part des dispositifs médicaux concerne le hors optique ?', answer: '74 %.' },
+  { question: 'Quel est le mode de financement de l’optique médicale ?', answer: 'Principalement financée par les complémentaires santé (2/3), le reste à charge des ménages étant d’un quart.' },
+  { question: 'Quelle part de la CSBM correspond aux soins hospitaliers ?', answer: '49 %.' },
+  { question: 'Quelle part de la CSBM correspond aux soins de ville ?', answer: '26 %.' },
+  { question: 'Quel est le montant de la participation forfaitaire pour une consultation médicale, un examen radiologique ou biologique ?', answer: '2 euros par acte pour les plus de 18 ans.' },
+  { question: 'Quel est le montant de la franchise médicale par boîte de médicament ?', answer: '1 euro par boîte ou flacon.' },
+  { question: 'Quel est le montant de la franchise par acte paramédical ?', answer: '1 euro par acte.' },
+  { question: 'Quel est le montant de la franchise par transport sanitaire ?', answer: '4 euros par transport.' },
+  { question: 'Quel est le plafond annuel total pour les franchises et participations ?', answer: '50 euros par an.' },
+  { question: 'Qu’est-ce que le forfait hospitalier ?', answer: 'C’est la participation du patient aux frais d’hébergement hospitalier : 20 € à l’hôpital et 15 € en psychiatrie.' },
+  { question: 'Qu’est-ce que le forfait 24 euros ?', answer: 'C’est la part non remboursable pour les actes supérieurs à 120 €, même en hospitalisation.' },
+  { question: 'Qu’est-ce que la PUMa ?', answer: 'La Protection Universelle Maladie, dispositif assurant une couverture santé de base aux résidents stables en France.' },
+  { question: 'Depuis quand la PUMa a-t-elle remplacé la CMU de base ?', answer: 'Depuis 2016.' },
+  { question: 'Qui peut bénéficier de la PUMa ?', answer: 'Toute personne travaillant ou résidant en France de manière stable et régulière (au moins 6 mois par an).' },
+  { question: 'La PUMa est-elle gratuite pour tous ?', answer: 'Oui pour les personnes sous un certain seuil de ressources, sinon une cotisation de 6,5 % des revenus s’applique.' },
+  { question: 'Combien de personnes environ sont affiliées à la PUMa ?', answer: 'Environ 2 millions de personnes.' },
+  { question: 'Qu’est-ce que la CSS ?', answer: 'La Complémentaire Santé Solidaire, équivalent d’une sécurité sociale + mutuelle, financée par une taxe sur les mutuelles.' },
+  { question: 'Que couvre la CSS ?', answer: 'Elle prend en charge à 100 % les soins au tarif de la sécurité sociale, sans franchises ni forfaits hospitaliers.' },
+  { question: 'Quels soins supplémentaires la CSS couvre-t-elle ?', answer: 'Les soins dentaires, lunettes, prothèses auditives, etc.' },
+  { question: 'Le patient avance-t-il les frais de soins avec la CSS ?', answer: 'Non, il bénéficie d’une dispense d’avance de frais.' },
+  { question: 'Quelles sont les conditions de résidence pour obtenir la CSS ?', answer: 'Résider en France depuis plus de 3 mois en situation régulière.' },
+  { question: 'Combien de personnes environ bénéficient de la CSS ?', answer: 'Environ 5,5 millions, dont la moitié ont moins de 20 ans.' },
+  { question: 'Que se passe-t-il si les revenus dépassent légèrement le plafond pour la CSS ?', answer: 'L’accès reste possible avec une participation de 1 € par jour.' },
+  { question: 'Qu’est-ce que l’AME ?', answer: 'L’Aide Médicale d’État, qui permet la prise en charge gratuite et sans avance de frais pour les étrangers en situation irrégulière.' },
+  { question: 'Quelles sont les conditions pour bénéficier de l’AME ?', answer: 'Résider en France depuis plus de trois mois et avoir des ressources inférieures au plafond de la CSS.' },
+  { question: 'Combien de bénéficiaires environ compte l’AME ?', answer: 'Environ 300 000 personnes.' },
+  { question: 'Depuis quand existe le parcours de soins coordonnés ?', answer: 'Depuis 2004.' },
+  { question: 'Sur quoi repose le parcours de soins coordonnés ?', answer: 'Sur le choix d’un médecin traitant par tout assuré de plus de 16 ans.' },
+  { question: 'Quel est l’objectif du parcours de soins coordonnés ?', answer: 'Éviter les consultations inutiles, les examens redondants et les ordonnances multiples.' },
+  { question: 'Quelle est la sanction pour un patient qui consulte un spécialiste hors parcours ?', answer: 'Son remboursement est réduit à 30 % au lieu de 70 %.' },
+  { question: 'Quel est le montant remboursé pour une consultation hors parcours ?', answer: '5,95 euros au lieu de 16,55 euros (après déduction de la participation forfaitaire).' },
+  { question: 'Quelles spécialités médicales sont exemptées du parcours de soins coordonnés ?', answer: 'Gynécologie, ophtalmologie, psychiatrie, stomatologie et dentisterie.' },
+  { question: 'Qu’est-ce qu’une ALD ?', answer: 'Une Affection de Longue Durée ouvrant droit à une prise en charge à 100 % des soins liés à la maladie.' },
+  { question: 'Quel est l’âge moyen des bénéficiaires d’une ALD ?', answer: '63 ans.' },
+  { question: 'Combien d’affections figurent sur la liste officielle des ALD ?', answer: '30 affections.' },
+  { question: 'Quelles sont les ALD les plus fréquentes ?', answer: 'Le diabète, les cancers et les pathologies cardiovasculaires sévères.' },
+  { question: 'Quelles sont les affections appelées « 31e » et « 32e » maladies ?', answer: 'Les maladies orphelines et les poly-pathologies graves.' },
+  { question: 'Combien de bénéficiaires du régime général sont en ALD ?', answer: 'Plus de 11 millions.' },
+  { question: 'Quelle part des remboursements de l’Assurance maladie représente les ALD ?', answer: 'Environ 70 % des remboursements (hors indemnités journalières).' },
+  { question: 'Quelle proportion de la croissance des dépenses est due aux ALD ?', answer: 'Environ 90 %, liée au vieillissement de la population.' },
+  { question: 'Quels frais ne sont pas couverts par la prise en charge à 100 % des ALD ?', answer: 'Les dépassements d’honoraires, franchises, participations forfaitaires et forfaits hospitaliers.' },
+  { question: 'Quelle réforme est envisagée pour les ALD ?', answer: 'Une réforme pour mieux contrôler les dépenses et mettre en place des référentiels de soins.' },
+  { question: 'Que signifie le sigle ONDAM ?', answer: 'Objectif National de Dépenses de l’Assurance Maladie.' },
+  { question: 'Quelle est la fonction principale de l’ONDAM ?', answer: 'C’est un outil de pilotage permettant de fixer un objectif annuel de dépenses de l’Assurance maladie.' },
+  { question: 'À combien s’élève environ le montant de l’ONDAM pour 2025 ?', answer: 'Environ 257 milliards d’euros.' },
+  { question: 'Quelles dépenses sont comptabilisées dans l’ONDAM ?', answer: 'Les dépenses remboursées par les régimes d’assurance maladie : soins de ville, hospitalisation, établissements médico-sociaux.' },
+  { question: 'Quelles dépenses ne sont pas incluses dans l’ONDAM ?', answer: 'Les forfaits, dépassements d’honoraires et autres dépenses non remboursées.' },
+  { question: 'Quelle est la différence principale entre l’ONDAM et la CSBM ?', answer: 'L’ONDAM correspond à la part financée par la Sécurité sociale, tandis que la CSBM représente la consommation totale de soins financée par tous les acteurs.' },
+  { question: 'Quelle proportion de la CSBM est financée par la Sécurité sociale ?', answer: 'Environ 80 %.' },
+  { question: 'Quelle part de la CSBM correspond à la partie comptabilisée dans l’ONDAM ?', answer: 'La quasi-totalité de la part financée par la Sécurité sociale, soit environ 80 %.' },
+  { question: 'Quels sont les principaux objectifs de l’ONDAM ?', answer: 'Maîtriser la croissance des dépenses, assurer la soutenabilité financière et optimiser la répartition des ressources.' },
+  { question: 'Quels grands postes de dépenses sont inclus dans l’ONDAM ?', answer: 'Les soins hospitaliers, les soins de ville, les médicaments et les établissements médico-sociaux.' },
+  { question: 'Pourquoi l’ONDAM est-il un instrument politique ?', answer: 'Parce qu’il est voté chaque année par le Parlement dans la loi de financement de la Sécurité sociale.' },
+  { question: 'Que signifie CSBM en détail ?', answer: 'Consommation de Soins et de Biens Médicaux, indicateur de la dépense totale en soins en France.' },
+  { question: 'Quelle est la part du PIB représentée par la CSBM ?', answer: 'Environ 9 % du PIB.' },
+  { question: 'Quelle est la dépense moyenne par habitant incluse dans la CSBM ?', answer: 'Environ 3700 euros par habitant.' },
+  { question: 'Quelle part de la CSBM correspond aux soins hospitaliers ?', answer: '49 %.' },
+  { question: 'Quelle part de la CSBM correspond aux soins de ville ?', answer: '26 %.' },
+  { question: 'Quelle part de la CSBM correspond aux médicaments ?', answer: '14 %.' },
+  { question: 'Quelle part de la CSBM correspond aux dispositifs médicaux ?', answer: '8 %.' },
+  { question: 'Quelle part des dispositifs médicaux est représentée par l’optique ?', answer: '36 %.' },
+  { question: 'Quelle part des dispositifs médicaux est représentée par le hors optique ?', answer: '74 %.' },
+  { question: 'Quelle est la part de financement de l’optique par les complémentaires santé ?', answer: 'Environ deux tiers.' },
+  { question: 'Quel est le reste à charge moyen des ménages pour l’optique ?', answer: 'Environ un quart du coût total.' },
+  { question: 'Quelle est la part du médicament dans la CSBM en valeur absolue ?', answer: '33 milliards d’euros TTC.' },
+  { question: 'Quelle est la consommation moyenne de médicaments par habitant ?', answer: 'Environ 490 euros par an.' },
+  { question: 'Quelle proportion des dépenses de médicaments est couverte par la Sécurité sociale ?', answer: '73 %.' },
+  { question: 'Quelle proportion des dépenses de médicaments est couverte par les complémentaires ?', answer: '13 %.' },
+  { question: 'Quelle proportion est à la charge directe des ménages pour les médicaments ?', answer: '13 %.' },
+  { question: 'Pourquoi la maîtrise médicalisée des dépenses a-t-elle été instaurée ?', answer: 'Pour limiter les dépenses inutiles et encourager les pratiques de soins responsables.' },
+  { question: 'Quel dispositif de coordination a été instauré pour contrôler les dépenses de santé ?', answer: 'Le parcours de soins coordonnés avec médecin traitant.' },
+  { question: 'Quelle sanction financière s’applique si un patient ne respecte pas le parcours de soins ?', answer: 'Remboursement réduit à 30 % au lieu de 70 %.' },
+  { question: 'Quels patients sont exclus de cette sanction ?', answer: 'Ceux qui consultent un gynécologue, un ophtalmologiste, un psychiatre, un stomatologue ou un dentiste.' },
+  { question: 'Quels sont les trois grands types de financement des dépenses de santé en France ?', answer: 'La Sécurité sociale, les complémentaires santé et les ménages.' },
+  { question: 'Quelle est la part totale des dépenses de santé financée par la Sécurité sociale ?', answer: 'Environ 80 %.' },
+  { question: 'Quelle part des dépenses de santé est financée par les complémentaires ?', answer: 'Environ 13 %.' },
+  { question: 'Quelle part reste à la charge directe des ménages ?', answer: 'Environ 7 %.' },
+  { question: 'Quelles sont les trois grandes catégories d’assurés bénéficiant d’une aide spécifique ?', answer: 'Les bénéficiaires de la PUMa, de la CSS et de l’AME.' },
+  { question: 'Quelles sont les principales causes d’augmentation des dépenses de santé ?', answer: 'Le vieillissement de la population, l’innovation médicale et l’augmentation des maladies chroniques.' },
+  { question: 'Quelles politiques sont mises en place pour maîtriser les dépenses de santé ?', answer: 'Révision des tarifs, promotion des génériques et pilotage par l’ONDAM.' },
+  { question: 'Quelle est la part des médicaments génériques dans les ventes remboursables en volume ?', answer: '38 %.' },
+  { question: 'Quelle est la part des génériques dans la valeur du marché remboursable ?', answer: '20 %.' },
+  { question: 'Quelle est la différence moyenne de prix entre un générique et un princeps ?', answer: 'Environ 50 %.' },
+  { question: 'Quel est le principal avantage économique du développement des génériques ?', answer: 'La réduction significative du coût des traitements pour l’assurance maladie.' },
+  { question: 'Quels sont les principaux acteurs intervenant dans la fixation du prix des médicaments remboursables ?', answer: 'Le Comité Économique des Produits de Santé (CEPS) et le ministère de la Santé.' },
+  { question: 'Quelle est la mission principale du CEPS ?', answer: 'Fixer les prix des médicaments remboursables en ville et des dispositifs médicaux.' },
+  { question: 'Quels critères le CEPS prend-il en compte pour fixer les prix ?', answer: 'L’efficacité thérapeutique, l’amélioration du service médical rendu et les comparaisons internationales.' },
+  { question: 'Quelles sont les trois dimensions principales étudiées dans ce cours ?', answer: 'Le médicament comme enjeu économique et industriel, le marché français du médicament, et les dépenses de santé en France.' },
+  { question: 'Quelle est la part du PIB consacrée à la santé en moyenne dans les pays européens ?', answer: 'Environ 11 %.' },
+  { question: 'Quelle part du PIB la France consacre-t-elle à la santé ?', answer: '12 %, soit un point au-dessus de la moyenne européenne.' },
+  { question: 'Quelle est la finalité globale du système de santé français selon ce cours ?', answer: 'Garantir un accès équitable aux soins tout en assurant la soutenabilité économique du système.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

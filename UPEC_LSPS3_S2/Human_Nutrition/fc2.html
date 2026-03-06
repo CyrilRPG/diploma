@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Human nutrition</h1><h2>Anthropométrie, bilan énergétique, valeurs de référence en diététique</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la proportion d’eau dans la masse corporelle d’un homme adulte de 70 kg ?', answer: 'L’eau représente approximativement **60 %** de la masse corporelle, soit environ **42 kg** pour un individu de 70 kg [1, 2].', },
+{ question: 'Quelles sont les proportions respectives de graisses et de protéines chez un homme adulte sain ?', answer: 'Les graisses et les protéines représentent chacune environ **17 %** de la masse totale, soit approximativement **12 kg** chacune pour un homme de 70 kg [2].', },
+{ question: 'Où se situe la majeure partie des protéines dans le corps humain ?', answer: 'Bien que présentes dans toutes les cellules, elles se concentrent principalement dans les **muscles squelettiques**, situés dans les bras et les jambes [2].', },
+{ question: 'Quels sont les sites de stockage et la fonction du glycogène ?', answer: 'Il est stocké dans le **foie** et les **muscles squelettiques** ; il sert de **réserve d’énergie rapide** sous forme de chaînes de glucose [2].', },
+{ question: 'Quels minéraux sont fondamentaux pour la structure du squelette ?', answer: 'Le **phosphore** et le **calcium**, présents en grande quantité dans les os [3].', },
+{ question: 'Quels ions sont essentiels au fonctionnement des canaux ioniques et à l’homéostasie cellulaire ?', answer: 'Le **sodium** et le **potassium** [3].', },
+{ question: 'Citez les quatre oligo-éléments mentionnés intervenant dans les réactions enzymatiques.', answer: 'Le **magnésium**, le **fer**, le **zinc** et le **cuivre** [3].', },
+{ question: 'Quels sont les trois types de tissus adipeux selon leur localisation ?', answer: 'Le tissu adipeux **sous-cutané** (sous la peau), **viscéral** (autour des organes internes) et **inguinal** (régions spécifiques) [3].', },
+{ question: 'Quelle est la principale différence de composition corporelle entre les femmes et les hommes ?', answer: 'Les femmes possèdent normalement **plus de graisses** et **moins de muscles et d’eau** que les hommes, en raison de besoins physiologiques comme la **reproduction** [4].', },
+{ question: 'Quelle est la formule de calcul de la masse sans graisse (masse maigre) ?', answer: '**Masse sans graisse = Muscles + Eau + Os** [4].', },
+{ question: 'Quelle est la définition scientifique de l’anthropométrie ?', answer: 'Il s’agit de la **mesure des variations des dimensions physiques** (poids, taille, circonférence) et de la **composition corporelle** du corps humain [5].', },
+{ question: 'Quelles sont les trois grandes utilisations de l’anthropométrie ?', answer: '1. Mesurer la **croissance** (détection d’anomalies chez l’enfant). 2. Servir d\'**indicateur de l’état nutritionnel** (malnutrition, obésité). 3. **Normaliser la taille corporelle** via des courbes standards [5].', },
+{ question: 'Citez trois avantages des méthodes anthropométriques.', answer: 'Elles sont **simples, sûres, non invasives**, peu coûteuses, utilisent un équipement portable et permettent d’évaluer les changements dans le temps [6].', },
+{ question: 'Quelles sont les limites (inconvénients) de l’anthropométrie ?', answer: 'Les méthodes sont **peu sensibles**, ne détectent pas les changements à court terme, ne mesurent pas directement l’hydratation et ne peuvent identifier de **déficiences spécifiques** en vitamines ou minéraux [6, 7].', },
+{ question: 'Pourquoi la taille diminue-t-elle chez les personnes âgées ?', answer: 'Cette diminution est due à la **compression des disques intervertébraux** et à la **perte de masse osseuse** [8, 9].', },
+{ question: 'Comment évolue la répartition des graisses à l’âge adulte ?', answer: 'On observe une redistribution avec une **accumulation fréquente autour de la taille** ; chez les seniors, cela s’accompagne d’une réduction de la masse musculaire [9, 10].', },
+{ question: 'Qu’est-ce qu’un changement séculaire en anthropométrie ?', answer: 'C’est l’évolution des dimensions corporelles sur de longues périodes ; par exemple, la taille moyenne des adultes a augmenté de **6,5 à 9 cm** dans les pays développés depuis le début du XXe siècle [11].', },
+{ question: 'Pourquoi l’augmentation séculaire de la taille s’est-elle arrêtée dans certaines classes sociales ?', answer: 'Cela reflète une **saturation des bénéfices** apportés par une nutrition optimale, des soins médicaux de qualité, la vaccination et des conditions de vie idéales [12].', },
+{ question: 'Quels paramètres mesure une balance impédancemètre ?', answer: 'La **masse maigre** (muscle, eau, os), la **masse grasse**, le **niveau d’hydratation** et l\'**âge biologique** [13].', },
+{ question: 'Quelle mesure anthropométrique est utilisée pour extrapoler la taille des personnes à mobilité réduite ?', answer: 'La **hauteur des genoux** [13].', },
+{ question: 'Qu’est-ce que la mesure du \'Demi pan\' ?', answer: 'Il s’agit de la mesure de la longueur allant du **sternum jusqu’au bout du doigt** de la main [14].', },
+{ question: 'Comment mesure-t-on les plis cutanés et quel est l’outil utilisé ?', answer: 'On utilise un **calliper** (compas de mesure) sur des sites comme le triceps ou le biceps pour calculer la quantité de graisse [14].', },
+{ question: 'Quelles sont les quatre circonférences corporelles couramment mesurées ?', answer: 'La **tête** (développement cérébral chez l’enfant), le **bras**, la **taille** et la **hanche** [14].', },
+{ question: 'Définissez l’Indice de Masse Corporelle (IMC/BMI).', answer: 'C’est le rapport du **poids (en kg) sur la taille au carré (en m²)**. Il permet de quantifier la maigreur ou l’obésité [15].', },
+{ question: 'Quelle est la limite majeure de l’IMC ?', answer: 'Il ne fait pas la **distinction entre la masse musculaire et la masse grasse** (ex: un bodybuilder peut avoir un IMC élevé sans être obèse) [15].', },
+{ question: 'Quels sont les seuils d’IMC pour la maigreur et le poids normal ?', answer: '**Maigreur : < 18,5**. **Normale : 18,5 - 24,9** [14].', },
+{ question: 'Donnez les seuils d’IMC pour les trois classes d’obésité.', answer: '**Obésité I : 30,0 - 34,9**. **Obésité II : 35,0 - 39,0**. **Obésité III : > 40** [14].', },
+{ question: 'Quel risque est associé à un dépôt de graisse important autour de la taille ?', answer: 'Un haut risque de **complications métaboliques** : diabète de type 2, hypertension et maladies cardiovasculaires [16].', },
+{ question: 'À quoi correspond le rapport taille/hanche ?', answer: 'C’est un ratio utilisé pour mesurer l\'**accumulation de graisse abdominale**. Un risque accru existe si le ratio est **> 1 chez l’homme** et **> 0,8 chez la femme** [16].', },
+{ question: 'Distinguez l’obésité \'pomme\' de l’obésité \'poire\'.', answer: '**Pomme** : graisse abdominale (centrale), plus risquée car proche des organes internes. **Poire** : graisse dans les membres inférieurs et l’arrière-train [17].', },
+{ question: 'Comment sont structurées les courbes de croissance pour enfants (2-20 ans) ?', answer: 'Elles placent l\'**âge** en abscisse et le **poids/hauteur** en ordonnée, divisées en **percentiles** (5e au 95e) [17].', },
+{ question: 'Que signifie le 50e percentile sur une courbe de croissance ?', answer: 'Il représente la **médiane** ou la **valeur moyenne** de la population pour un âge donné [17].', },
+{ question: 'Quand un changement de percentile devient-il préoccupant chez l’enfant ?', answer: 'Lorsqu’il y a une **forte déviation** (ex: passage du 90e au 50e percentile), pouvant signaler une maladie, une alimentation insuffisante ou un trouble métabolique [18, 19].', },
+{ question: 'Quelle est la source unique d’énergie pour l’organisme humain ?', answer: 'La **nourriture** [20].', },
+{ question: 'Énoncez la première loi de la thermodynamique appliquée au corps humain.', answer: 'L’énergie ne peut être ni créée ni détruite, mais seulement **transformée**. L’énergie chimique des aliments devient mécanique, thermique ou électrique [20, 21].', },
+{ question: 'Définissez le Joule (J).', answer: 'C’est l’énergie utilisée lorsqu’une force de **1 Newton** déplace **1 kg sur 1 mètre** [21].', },
+{ question: 'Définissez la Kilocalorie (kcal).', answer: 'C’est la **quantité de chaleur** nécessaire pour chauffer **1 g d’eau de 1 °C** [21].', },
+{ question: 'Quel est le facteur de conversion entre kcal et kJ ?', answer: '**1 kcal = 4,184 kJ** (ou 1 kJ = 0,239 kcal) [22].', },
+{ question: 'Quelle proportion de l’énergie alimentaire est transformée en chaleur ?', answer: 'Environ **75 %**, principalement pour réguler la température corporelle à **37 °C** [22].', },
+{ question: 'Quel est le rôle métabolique des fibres alimentaires ?', answer: 'Elles ne sont pas dégradées par l’organisme mais sont **fermentées par le microbiote intestinal**, produisant des acides gras à chaîne courte absorbables [22].', },
+{ question: 'Quels sont les facteurs de chaleur (Atwater) pour les protéines et les glucides ?', answer: '**4 kcal/gramme** pour les protéines et les glucides (CHO) [23].', },
+{ question: 'Quel est le facteur de chaleur pour les lipides ?', answer: '**9 kcal/gramme** [23].', },
+{ question: 'Quel est le facteur de chaleur pour l’alcool ?', answer: '**7 kcal/gramme** [23].', },
+{ question: 'Citez trois facteurs exogènes favorisant la suralimentation dans les sociétés développées.', answer: 'La haute **palatabilité**, la grande **disponibilité** des aliments, la publicité et la **sédentarité** liée au développement technologique [24].', },
+{ question: 'Qu’est-ce que le métabolisme basal (BMR) ?', answer: 'C’est l’énergie nécessaire au **fonctionnement vital de l’organisme au repos** (maintien de la température, taille corporelle, masse maigre) [25].', },
+{ question: 'Quelle proportion de la dépense énergétique totale le BMR représente-t-il ?', answer: 'Il représente entre **60 % et 75 %** (ou 65 % selon les sources) de l’énergie quotidienne [25, 26].', },
+{ question: 'Quels facteurs influencent le niveau du métabolisme basal ?', answer: 'La **taille** (surface corporelle), la **masse sans graisse**, le sexe, l’âge, la **génétique** (jusqu’à 10%) et le cycle menstruel [27].', },
+{ question: 'Quelle part de l’énergie est consacrée à l’activité physique ?', answer: 'Entre **20 % et 40 %** de la dépense totale [28].', },
+{ question: 'Qu’est-ce que la thermogenèse alimentaire ?', answer: 'C’est l’énergie utilisée pour la **digestion, le transport et le stockage** des nutriments, soit environ **10 %** de l’énergie totale [26, 28].', },
+{ question: 'Comment le stress et la maladie modifient-ils la dépense énergétique ?', answer: 'Les **processus inflammatoires** (fièvre, infections) et l\'**anxiété** augmentent les besoins énergétiques [28, 29].', },
+{ question: 'Quels agents pharmacologiques agissent comme stimulants de la dépense ?', answer: 'La **caféine** et la **nicotine** [29].', },
+{ question: 'Définissez les Valeurs Diététiques de Référence (VDR/DRV).', answer: 'Ensemble de valeurs d’apport en nutriments qui varient selon l’âge, le sexe, l’activité physique, l’état physiologique et les habitudes alimentaires [30].', },
+{ question: 'Pour quel type de population les VDR sont-elles conçues ?', answer: 'Elles sont destinées aux **individus en bonne santé** et ne sont pas appropriées en cas de maladies ou d’anomalies métaboliques [30, 31].', },
+{ question: 'Définissez le Besoin Moyen (AR).', answer: 'Quantité d’un nutriment nécessaire pour couvrir les besoins de **50 % des individus** d’une population donnée [32].', },
+{ question: 'Qu’est-ce que l’Apport de Référence de la Population (PRI) ?', answer: 'L’apport qui couvre théoriquement les besoins de **97,5 %** de la population. Il correspondait anciennement à l\'**ANC** [33, 34].', },
+{ question: 'Comment calcule-t-on le PRI à partir de l’AR ?', answer: '**PRI = AR + 2 écarts-types**. L’écart-type étant estimé à 15 %, le PRI est souvent égal à **1,3 x AR** [33, 34].', },
+{ question: 'Définissez l’Apport Adéquat (AI/AS).', answer: 'Valeur de référence utilisée lorsque l’AR et le PRI ne peuvent être estimés par **manque de données** ; elle se base sur l’apport moyen d’un groupe sain [34].', },
+{ question: 'Qu’est-ce que l’Apport Maximal (UL) ?', answer: 'L’apport journalier **maximal chronique** d’une vitamine ou d’un minéral peu susceptible de présenter un risque d\'**effets néfastes** [35].', },
+{ question: 'Quel risque présente un excès de vitamine A ?', answer: 'Elle peut devenir toxique et causer des **problèmes hépatiques** ou des **malformations congénitales** [36].', },
+{ question: 'Comment définit-on l’homéostasie nutritionnelle sur une courbe d’apport ?', answer: 'C’est l’état où l’individu se situe au **milieu de la courbe**, évitant les zones de risque de déficience (basse) et de toxicité (haute) [37, 38].', },
+{ question: 'Quelle est la particularité des recommandations pour l’énergie par rapport aux autres nutriments ?', answer: 'Contrairement aux vitamines/minéraux fixés au PRI (97,5%), les besoins énergétiques sont fixés au **Besoin Moyen (AR)** pour éviter le surpoids [39].', },
+{ question: 'Quelles sont les trois composantes de la Dépense Énergétique Totale (DET) ?', answer: 'Le **métabolisme de base (BMR)**, la **thermogenèse** et l\'**activité physique** [40].', },
+{ question: 'Qu’est-ce que la Dépense Énergétique au Repos (DER) dans le calcul factoriel ?', answer: 'C’est la base à laquelle on multiplie le niveau d’activité physique (PAL) pour déterminer la DET [39].', },
+{ question: 'Quelles sont les quatre valeurs de PAL (Niveau d’activité physique) selon Henry (2005) ?', answer: '**1,4** (sédentaire), **1,6** (modérément actif), **1,8** (actif) et **2,0** (très actif) [40].', },
+{ question: 'Quels sont les critères modernes pour définir un apport nutritionnel adéquat ?', answer: 'Le maintien du **niveau circulant**, la **saturation enzymatique**, la concentration tissulaire et l’absence de signes de carence [41].', },
+{ question: 'Pourquoi les besoins en fer sont-ils plus élevés chez les femmes ?', answer: 'En raison des pertes liées au **cycle menstruel**, surtout s’il est intense [42, 43].', },
+{ question: 'Quels sont les PRI du fer pour les hommes et les femmes avec règles abondantes ?', answer: 'Hommes : **11 mg/j**. Femmes (règles intenses) : **16 mg/j** [43].', },
+{ question: 'Quels sont les PRI et UL du calcium pour les adultes de 18-24 ans ?', answer: 'PRI : **1000 mg/j**. UL : **2500 mg/j** [44, 45].', },
+{ question: 'Quel pourcentage du calcium alimentaire est absorbé en moyenne ?', answer: '**25 % à 35 %** ; ce taux augmente pendant la croissance ou la grossesse [45].', },
+{ question: 'Quelle proportion du fer alimentaire est absorbée en moyenne par l’organisme ?', answer: 'Seulement environ **10 %** en général, bien que cela monte à 25 % pour la viande (fer héminique) [43].', },
+{ question: 'Que signifie un apport inférieur à la référence inférieure ?', answer: 'Il est **peu probable** que l’individu consomme suffisamment de nutriments pour maintenir ses fonctions biologiques [46].', },
+{ question: 'Que peut-on conclure si l’apport d’un individu est supérieur au PRI ?', answer: 'Il est **pratiquement certain** que ses besoins nutritionnels sont satisfaits [46].', },
+{ question: 'Quel est le risque d’un apport situé entre la référence inférieure et le PRI ?', answer: 'On ne peut pas déterminer si l’apport est adéquat sans mesures du **statut biologique** [46].', },
+{ question: 'Comment l’étiquetage alimentaire simplifie-t-il les VDR pour le public ?', answer: 'Il utilise une **valeur unique** exprimée en **pourcentage des besoins quotidiens**, bien que cela ne soit pas adapté à tous les âges et sexes [47].', },
+{ question: 'À quel moment doit-on mesurer le BMR pour obtenir un résultat fiable ?', answer: 'Le **matin**, entre **12 et 14 heures après le dernier repas** [26].', },
+{ question: 'Quelles équations mathématiques sont utilisées pour calculer le BMR ?', answer: 'Les équations de **Schofield** ou de **Henry**, qui intègrent le sexe, l’âge et le poids [26, 39].', },
+{ question: 'Quelle pathologie entraîne fréquemment une perte de poids massive (amaigrissement) ?', answer: 'Le **cancer**, les infections chroniques ou l’hyperthyroïdie [11, 15, 48].', },
+{ question: 'Pourquoi la taille des nouveau-nés garçons est-elle généralement supérieure à celle des filles ?', answer: 'Cela est dû aux **variations hormonales et génétiques** influençant la croissance intra-utérine [8].', },
+{ question: 'Quel outil numérique de l’Anses permet de consulter la teneur en nutriments des aliments ?', answer: 'Le tableau **Ciqual** [45].', },
+{ question: 'Quelle est la teneur en calcium du lait et du yaourt pour 100 g ?', answer: 'Lait : **117 mg**. Yaourt : **127 mg** [45].', },
+{ question: 'Donnez un exemple d’aliment riche en fer selon les sources.', answer: 'Le **bœuf bourguignon** (1,75 mg/100g) ou l\'œuf poché (1,75 mg/100g) [43].', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Human_Nutrition_fc2";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

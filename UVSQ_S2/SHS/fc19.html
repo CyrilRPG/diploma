@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Épistémologie de la médecine et raisonnement clinique</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Épistémologie de la médecine et raisonnement clinique</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la science cherche à atteindre ?', answer: 'La science vise à comprendre comment les choses fonctionnent réellement, en poursuivant la vérité comme un idéal.' },
+  { question: 'Quelle est la différence entre certitude et connaissance scientifique ?', answer: 'La certitude est l’absence de doute et une perception subjective, tandis que la connaissance scientifique doit être justifiée par des preuves et reste révisable.' },
+  { question: 'Pourquoi les connaissances scientifiques sont-elles toujours révisables ?', answer: 'Parce que l’histoire des sciences montre une évolution constante, et de nouvelles découvertes peuvent compléter ou corriger les connaissances actuelles.' },
+  { question: 'Pourquoi l’esprit critique est-il essentiel en science ?', answer: 'Parce que rien n’est définitif, même les essais cliniques doivent être interprétés avec prudence et peuvent être remis en cause par de nouvelles études.' },
+  { question: 'Quel philosophe affirmait que la science naît de l’étonnement ?', answer: 'Aristote, qui parlait de l’émerveillement intellectuel.' },
+  { question: 'Pourquoi la médecine est-elle dite « opposée à la nature » ?', answer: 'Parce que les maladies sont des processus naturels, mais la médecine intervient pour lutter contre eux.' },
+  { question: 'Pourquoi le raisonnement « ce n’est pas naturel » n’a-t-il pas de sens en médecine ?', answer: 'Car si on voulait être totalement « naturel », il n’y aurait plus de médecine.' },
+  { question: 'Qu’est-ce que la médecine de précision ?', answer: 'Une approche qui adapte les traitements aux caractéristiques spécifiques des patients pour améliorer l’efficacité.' },
+  { question: 'Quelle est la différence entre objectivité et intersubjectivité en science ?', answer: 'L’objectivité suppose une vérité absolue difficilement atteignable, tandis que l’intersubjectivité désigne des résultats reconnus par des personnes de points de vue différents.' },
+  { question: 'Quand la science moderne est-elle née ?', answer: 'Au XVIIᵉ siècle, avec des figures clés comme Newton, Galilée et Kepler.' },
+  { question: 'Pourquoi l’observation seule ne suffit-elle pas en science ?', answer: 'Parce qu’elle peut être trompeuse, comme le montre l’exemple de la rotation de la Terre que l’on ne perçoit pas à l’œil nu.' },
+  { question: 'Que signifie le mot grec « méthodos » ?', answer: 'Il signifie « cheminement », désignant la nécessité d’une méthode rigoureuse pour accéder à la connaissance.' },
+  { question: 'Quels étaient les principes scientifiques de Galilée ?', answer: 'L’utilisation de la logique et des mathématiques pour démontrer, et l’observation expérimentale rigoureuse pour tester des hypothèses.' },
+  { question: 'Quelle est la différence entre expérience et observation ?', answer: 'L’expérience est une démarche construite pour tester une hypothèse, l’observation est passive.' },
+  { question: 'Qu’est-ce que l’éthos scientifique ?', answer: 'Une attitude rigoureuse reposant sur la discipline, l’esprit critique et la probité.' },
+  { question: 'Pourquoi la probité est-elle cruciale en science ?', answer: 'Parce qu’un conflit d’intérêt peut biaiser l’interprétation des faits et des hypothèses.' },
+  { question: 'Qu’est-ce qu’un raisonnement fallacieux ?', answer: 'Un raisonnement qui semble logique mais qui est trompeur et conduit à des conclusions erronées.' },
+  { question: 'Qui est Francis Bacon et quel est son ouvrage majeur ?', answer: 'Un philosophe et savant du XVIIᵉ siècle, auteur du Novum Organum (1609).' },
+  { question: 'Selon Francis Bacon, pourquoi faut-il une méthode scientifique ?', answer: 'Parce que nos sens sont trompeurs et que la complexité du monde nécessite un fil conducteur méthodologique.' },
+  { question: 'Quelle est la thèse de Karl Popper sur la démarcation entre science et pseudo-science ?', answer: 'Une théorie est scientifique si elle est falsifiable, c’est-à-dire testable et réfutable.' },
+  { question: 'Quelle pseudo-science Karl Popper critiquait-il particulièrement ?', answer: 'L’astrologie, qu’il considérait comme un exemple typique de pseudo-science.' },
+  { question: 'Pourquoi la psychanalyse freudienne est-elle critiquée par Popper ?', answer: 'Parce qu’elle n’est pas testable de manière rigoureuse et échappe à la falsifiabilité scientifique.' },
+  { question: 'Pourquoi la distinction entre science et pseudo-science est-elle complexe ?', answer: 'Parce que la science peut se tromper et évoluer, tandis qu’une pseudo-science peut parfois, par hasard, toucher une vérité.' },
+  { question: 'Quelle est la base d’une théorie scientifique ?', answer: 'Un ensemble structuré d’hypothèses testées et confirmées par l’expérience.' },
+  { question: 'Pourquoi la quantification est-elle importante en science ?', answer: 'Parce qu’elle permet une vérification plus précise et un meilleur contrôle des phénomènes.' },
+  { question: 'Quelle est la différence entre une hypothèse et une théorie scientifique ?', answer: 'L’hypothèse est une supposition isolée, la théorie est un ensemble structuré d’hypothèses testées et validées.' },
+  { question: 'Pourquoi les astrologues semblent-ils parfois prédire juste ?', answer: 'Parce qu’ils formulent des prédictions vagues et générales que chacun peut interpréter comme vraies.' },
+  { question: 'Pourquoi l’astronomie est-elle une science alors que l’astrologie ne l’est pas ?', answer: 'Parce que l’astronomie repose sur des hypothèses testables et vérifiables, contrairement à l’astrologie.' },
+  { question: 'Quelle est la place des mathématiques dans la science selon Galilée ?', answer: 'Elles permettent de quantifier les phénomènes et de donner une rigueur aux démonstrations.' },
+  { question: 'Quel est le rôle du dialogue scientifique ?', answer: 'Permettre un échange clair et apaisé entre chercheurs afin de confronter et enrichir les points de vue.' },
+  { question: 'Quelle était la situation de la médecine avant le XIXᵉ siècle ?', answer: 'Elle reposait sur l’essai-erreur, l’utilisation de plantes, et l’absence de systématisation des connaissances.' },
+  { question: 'Pourquoi la science est-elle féconde ?', answer: 'Parce qu’elle génère sans cesse de nouvelles questions qui ouvrent la voie à de nouvelles découvertes.' },
+  { question: 'Pourquoi la science médicale illustre-t-elle bien l’évolution des sciences ?', answer: 'Parce qu’elle a progressé d’une médecine empirique à une médecine scientifique basée sur la recherche et les preuves.' },
+  { question: 'Quelle est la différence entre science figée et science en train de se faire ?', answer: 'La science figée est celle des manuels scolaires, la science en train de se faire est marquée par les débats et controverses.' },
+  { question: 'Pourquoi la médecine de précision marque-t-elle un progrès scientifique ?', answer: 'Parce qu’elle permet une meilleure prise en charge en adaptant les traitements aux patients, notamment dans certains cancers.' },
+  { question: 'Que signifie que la science est révisable ?', answer: 'Qu’aucune connaissance scientifique n’est définitive, toutes peuvent être complétées ou corrigées par de nouvelles découvertes.' },
+  { question: 'Quel est le rôle des controverses scientifiques ?', answer: 'Elles permettent d’affiner les théories et de faire progresser les sciences.' },
+  { question: 'Qu’est-ce qu’un paradigme scientifique selon Thomas Kuhn ?', answer: 'Un ensemble de théories, hypothèses et méthodes partagées par une communauté scientifique.' },
+  { question: 'Quelle est la différence entre la vision de Popper et celle de Kuhn ?', answer: 'Popper insiste sur la falsifiabilité des théories, Kuhn met en avant l’importance des paradigmes et des révolutions scientifiques.' },
+  { question: 'Quel exemple historique illustre un changement de paradigme scientifique ?', answer: 'La découverte du prion, qui remet en cause l’idée que toute maladie infectieuse est causée par un micro-organisme.' },
+  { question: 'Pourquoi l’épigénétique remet-elle en question le paradigme génétique classique ?', answer: 'Parce qu’elle montre que des facteurs environnementaux influencent l’expression des gènes.' },
+  { question: 'Qu’est-ce que l’ADN non codant et pourquoi est-il important ?', answer: 'Longtemps considéré comme inutile, il joue en réalité un rôle clé dans la régulation des gènes.' },
+  { question: 'Pourquoi les financements influencent-ils la science ?', answer: 'Parce que la recherche coûte cher et dépend des décisions politiques et économiques.' },
+  { question: 'Qu’est-ce qu’une anomalie dans un paradigme scientifique ?', answer: 'Un fait que le paradigme dominant ne peut pas expliquer et qui peut mener à une crise scientifique.' },
+  { question: 'Comment Kuhn décrit-il une révolution scientifique ?', answer: 'Comme un changement de paradigme provoqué par l’accumulation d’anomalies.' },
+  { question: 'Qu’est-ce que le « noyau dur » d’une théorie selon Lakatos ?', answer: 'Le cœur d’une théorie qui reste protégé et fécond tant qu’il permet de nouvelles découvertes.' },
+  { question: 'Quelle est la différence entre corroboration et vérification selon Popper ?', answer: 'Une hypothèse peut être corroborée par des tests, mais jamais définitivement vérifiée.' },
+  { question: 'Qui est Thomas Kuhn et quel est son ouvrage majeur ?', answer: 'Thomas Kuhn est un historien et philosophe des sciences, auteur de La structure des révolutions scientifiques.' },
+  { question: 'Quelle est la différence entre la vision de Kuhn et celle de Popper ?', answer: 'Popper met l’accent sur la falsifiabilité des théories, Kuhn insiste sur le rôle des paradigmes et des révolutions scientifiques.' },
+  { question: 'Comment Kuhn définit-il un paradigme ?', answer: 'Comme un ensemble d’hypothèses, théories, méthodes et présupposés partagés par une communauté scientifique.' },
+  { question: 'Quel est un exemple de paradigme en physique ?', answer: 'Le paradigme de la physique newtonienne.' },
+  { question: 'Pourquoi les scientifiques travaillent-ils généralement à l’intérieur d’un paradigme ?', answer: 'Parce qu’ils partagent les mêmes outils et méthodes et cherchent à résoudre des problèmes limités sans remettre en cause le cadre global.' },
+  { question: 'Qu’est-ce qu’une anomalie dans un paradigme ?', answer: 'Un phénomène que le paradigme dominant ne peut pas expliquer.' },
+  { question: 'Que se passe-t-il quand un paradigme accumule trop d’anomalies ?', answer: 'Il entre en crise et peut être remplacé par un nouveau paradigme.' },
+  { question: 'Qu’est-ce qu’une révolution scientifique selon Kuhn ?', answer: 'Le passage d’un paradigme à un autre suite à l’accumulation d’anomalies.' },
+  { question: 'Quel exemple illustre une anomalie scientifique ?', answer: 'La découverte du prion, qui contredit l’idée que toute maladie infectieuse est causée par un micro-organisme.' },
+  { question: 'Qu’est-ce qu’un prion ?', answer: 'Une protéine mal repliée transmissible, responsable de maladies comme la vache folle ou Creutzfeldt-Jakob.' },
+  { question: 'Pourquoi le prion remet-il en cause un paradigme ancien ?', answer: 'Parce qu’il contredit la vision pasteurienne selon laquelle les maladies infectieuses sont dues à des bactéries ou virus.' },
+  { question: 'Quelle hypothèse fondait la génétique moléculaire initiale ?', answer: 'L’hypothèse « un gène, un enzyme, un caractère ».' },
+  { question: 'Pourquoi l’épigénétique remet-elle en cause le paradigme génétique ?', answer: 'Parce qu’elle montre que l’environnement peut moduler l’expression des gènes.' },
+  { question: 'Qu’est-ce que l’ADN non codant ?', answer: 'Une partie de l’ADN autrefois jugée inutile mais qui régule en réalité l’expression des gènes.' },
+  { question: 'Quelle est la critique de Kuhn sur la progression des sciences ?', answer: 'Elle n’est pas linéaire mais marquée par des crises et révolutions.' },
+  { question: 'Pourquoi les financements influencent-ils les paradigmes scientifiques ?', answer: 'Parce que la recherche dépend des investissements publics et privés, ce qui oriente les thématiques étudiées.' },
+  { question: 'Quelle est la thèse de Lakatos sur les théories scientifiques ?', answer: 'Les théories reposent sur un « noyau dur » protégé tant qu’il reste fécond et productif.' },
+  { question: 'Que signifie falsifiabilité selon Popper ?', answer: 'Une théorie est scientifique si elle peut être testée et potentiellement réfutée.' },
+  { question: 'Pourquoi l’astrologie n’est-elle pas scientifique ?', answer: 'Parce que ses prédictions sont vagues et non falsifiables.' },
+  { question: 'Quelle est la différence entre corroboration et vérification d’une hypothèse ?', answer: 'Une hypothèse peut être corroborée par des tests, mais jamais définitivement vérifiée.' },
+  { question: 'Pourquoi la publication des résultats négatifs est-elle importante ?', answer: 'Parce qu’elle permet de corriger et réajuster les hypothèses scientifiques.' },
+  { question: 'Que montrent les controverses scientifiques ?', answer: 'Qu’elles sont essentielles au progrès, car elles affinent les théories et permettent l’évolution des paradigmes.' },
+  { question: 'Quelle controverse oppose Pasteur et Pouchet ?', answer: 'La question de la génération spontanée.' },
+  { question: 'Comment Pasteur a-t-il réfuté la génération spontanée ?', answer: 'En montrant que la fermentation dépend de micro-organismes vivants et que le vivant naît du vivant.' },
+  { question: 'Pourquoi l’expérience de Pasteur illustre-t-elle la démarche scientifique ?', answer: 'Parce qu’elle était rigoureuse, contrôlée et testait clairement une hypothèse.' },
+  { question: 'Pourquoi certaines expériences de Pasteur semblaient contredire son hypothèse ?', answer: 'Parce que des ampoules trop hermétiques empêchaient la fermentation.' },
+  { question: 'Quelle controverse récente illustre les débats scientifiques ?', answer: 'Le médicament anti-Alzheimer ciblant les plaques amyloïdes.' },
+  { question: 'Quelle est la critique de ce médicament contre Alzheimer ?', answer: 'Son efficacité clinique est jugée trop faible pour justifier sa commercialisation.' },
+  { question: 'Pourquoi ce médicament a-t-il été approuvé aux États-Unis mais pas en Europe ?', answer: 'Parce que l’Europe considère les résultats trop minimes et surévalués.' },
+  { question: 'Quelle controverse éthique concerne la technologie CRISPR-Cas9 ?', answer: 'La modification des cellules germinales transmissibles aux générations futures.' },
+  { question: 'Pourquoi les expériences de gain de fonction sur les virus sont-elles controversées ?', answer: 'Parce qu’elles comportent un risque de fuite accidentelle ou d’utilisation malveillante.' },
+  { question: 'Quelle est la différence entre science et pseudo-science en termes de précision ?', answer: 'La science formule des hypothèses précises et testables, la pseudo-science utilise des concepts vagues et irréfutables.' },
+  { question: 'Pourquoi la convergence des résultats est-elle importante en science ?', answer: 'Parce que si plusieurs approches mènent aux mêmes conclusions, la validité scientifique est renforcée.' },
+  { question: 'Quel est le rôle des contre-exemples en science ?', answer: 'Ils obligent à remettre en question une hypothèse ou une théorie.' },
+  { question: 'Pourquoi la prédiction est-elle un critère fort de scientificité ?', answer: 'Parce qu’une théorie capable de prévoir des phénomènes renforce sa validité.' },
+  { question: 'Pourquoi certaines sciences ne peuvent-elles pas toujours prédire précisément ?', answer: 'Parce que leurs phénomènes sont trop complexes ou aléatoires, comme les tremblements de terre en géologie.' },
+  { question: 'Quelle est la différence entre expliquer et prédire en science ?', answer: 'Expliquer cherche à répondre au « pourquoi », prédire anticipe un phénomène futur.' },
+  { question: 'Quels sont les deux types d’explication scientifique ?', answer: 'L’explication par régularité et l’explication par cas particulier.' },
+  { question: 'Quelle est la différence entre corrélation et causalité ?', answer: 'La corrélation est une simple association statistique, la causalité établit un lien de cause à effet.' },
+  { question: 'Quel est le sophisme « post hoc, ergo propter hoc » ?', answer: 'C’est l’erreur de croire qu’un événement est causé par un autre simplement parce qu’il le précède.' },
+  { question: 'Quel exemple illustre la confusion entre cause et effet ?', answer: 'L’idée fausse que l’autisme est causé par des « mères froides ».' },
+  { question: 'Quelle est l’erreur de raisonnement par cause commune ?', answer: 'Attribuer une causalité directe à deux phénomènes alors qu’ils dépendent d’un facteur commun.' },
+  { question: 'Quel exemple illustre l’erreur de cause commune pendant la Covid-19 ?', answer: 'Croire que l’hôpital cause la mortalité alors que c’est la gravité de la maladie qui entraîne à la fois hospitalisation et décès.' },
+  { question: 'Pourquoi est-il essentiel de distinguer corrélation et causalité en médecine ?', answer: 'Parce qu’une mauvaise interprétation peut conduire à des traitements inefficaces ou dangereux.' },
+  { question: 'Pourquoi l’exemple du café et de l’espérance de vie illustre-t-il une corrélation trompeuse ?', answer: 'Parce que d’autres facteurs de mode de vie peuvent expliquer la longévité et non le café lui-même.' },
+  { question: 'Quels sont les trois critères pour établir une corrélation valide ?', answer: 'Conjonction régulière, succession temporelle, et intériorité de la cause.' },
+  { question: 'Pourquoi éliminer les variables cachées est-il essentiel en science ?', answer: 'Parce que des facteurs cachés peuvent fausser l’interprétation des corrélations observées.' },
+  { question: 'Quel exemple absurde illustre une corrélation trompeuse ?', answer: 'Le nombre de films de Nicolas Cage corrélé aux noyades dans les piscines.' },
+  { question: 'Pourquoi les erreurs de raisonnement ont-elles des conséquences graves en médecine ?', answer: 'Parce qu’elles peuvent détourner des patients de traitements efficaces et ralentir la recherche.' },
+  { question: 'Qu’est-ce qu’expliquer en science ?', answer: 'C’est répondre à la question « pourquoi » en révélant des relations de cause à effet.' },
+  { question: 'Quels sont les deux types d’explications scientifiques ?', answer: 'Les régularités générales et les cas particuliers.' },
+  { question: 'Quelle est l’utilité de l’explication scientifique ?', answer: 'Donner du sens au monde et permettre d’agir sur certains phénomènes.' },
+  { question: 'Quel exemple d’explication sociale illustre une régularité ?', answer: 'L’étude de la radicalisation pour mettre en place des politiques de prévention.' },
+  { question: 'Qu’est-ce que la compréhension en science ?', answer: 'C’est l’intégration d’une information dans un réseau de connaissances et son interprétation adaptée à un auditoire.' },
+  { question: 'Quels sont les trois éléments de la compréhension ?', answer: 'Intégrer dans un réseau de connaissances, adapter au public, utiliser des analogies.' },
+  { question: 'Pourquoi les analogies sont-elles importantes pour comprendre ?', answer: 'Parce qu’elles rendent un concept abstrait plus accessible en le comparant à une réalité familière.' },
+  { question: 'Pourquoi une explication satisfaisante peut-elle être fausse ?', answer: 'Parce qu’elle peut donner du sens subjectivement sans correspondre à la réalité scientifique.' },
+  { question: 'Quel exemple illustre une explication trompeuse chez les patients ?', answer: 'Certains attribuent leur cancer à des croyances personnelles comme le stress ou le célibat.' },
+  { question: 'Pourquoi la familiarité ne garantit-elle pas la compréhension scientifique ?', answer: 'Parce que la science peut rendre un phénomène plus complexe ou étrange, comme l’explication du ciel bleu.' },
+  { question: 'Qu’est-ce qu’une cause en science ?', answer: 'Un événement antérieur qui contribue à l’occurrence d’un phénomène ultérieur.' },
+  { question: 'Pourquoi un phénomène n’a-t-il jamais une seule cause ?', answer: 'Parce qu’il résulte toujours de l’interaction de plusieurs facteurs écologiques, biologiques, sociaux ou humains.' },
+  { question: 'Quelle est la différence entre corrélation et causalité ?', answer: 'La corrélation est une régularité statistique, la causalité explique pourquoi le lien existe.' },
+  { question: 'Quel exemple illustre une corrélation trompeuse en médecine ?', answer: 'La consommation de lait et le risque de Parkinson, sans mécanisme causal clair identifié.' },
+  { question: 'Quels sont les trois critères pour établir une corrélation valide ?', answer: 'Conjonction régulière, succession temporelle, intériorité de la cause.' },
+  { question: 'Pourquoi la distinction entre corrélation et causalité est-elle essentielle en médecine ?', answer: 'Parce qu’elle permet d’éviter des erreurs diagnostiques et thérapeutiques.' },
+  { question: 'Quel est le sophisme « post hoc, ergo propter hoc » ?', answer: 'Croire qu’un événement est la cause d’un autre simplement parce qu’il le précède.' },
+  { question: 'Quel exemple illustre le sophisme « post hoc, ergo propter hoc » ?', answer: 'Croire qu’on attrape la grippe à cause d’un coup de froid subi la veille.' },
+  { question: 'Quelle est l’erreur de raisonnement par inversion cause-effet ?', answer: 'Croire que l’autisme est causé par une mauvaise relation maternelle alors qu’il modifie dès la naissance les interactions sociales.' },
+  { question: 'Qu’est-ce que l’erreur de cause commune ?', answer: 'Attribuer un lien direct entre deux phénomènes alors qu’ils sont causés par un facteur sous-jacent.' },
+  { question: 'Quel exemple illustre l’erreur de cause commune pendant la Covid-19 ?', answer: 'Croire que l’hôpital cause la mortalité alors que c’est la gravité de la maladie.' },
+  { question: 'Pourquoi ces erreurs de raisonnement sont-elles graves en médecine ?', answer: 'Parce qu’elles retardent la recherche, détournent des patients de traitements efficaces et culpabilisent à tort.' },
+  { question: 'Quel exemple illustre une corrélation trompeuse en éducation ?', answer: 'Les élèves étudiant le latin réussissent mieux en mathématiques, alors que la cause commune est leur motivation.' },
+  { question: 'Qu’est-ce qu’un mécanisme en science ?', answer: 'Un lien direct et continu entre deux phénomènes expliquant comment et pourquoi l’un influence l’autre.' },
+  { question: 'Quel est l’effet des anesthésiants généraux ?', answer: 'Ils provoquent une perte de conscience rapide.' },
+  { question: 'Quels sont les mécanismes biologiques des anesthésiants ?', answer: 'Inhibition des récepteurs GABA et stimulation de neurones spécifiques bloquant la communication corticale.' },
+  { question: 'Pourquoi rechercher un mécanisme est-il fondamental en science ?', answer: 'Parce qu’une corrélation seule ne suffit pas pour établir une causalité.' },
+  { question: 'Quelle est la différence entre une loi scientifique et une généralisation ?', answer: 'Une loi est universellement vraie dans ses conditions, une généralisation est probabiliste avec exceptions possibles.' },
+  { question: 'Quel exemple illustre une loi scientifique en médecine ?', answer: 'Une exposition de 25 % de la peau au soleil pendant 8 minutes produit assez de vitamine D.' },
+  { question: 'Quelle est la thèse de Karl Popper sur les découvertes scientifiques ?', answer: 'Toute découverte commence par une conjecture qui doit être testée rigoureusement.' },
+  { question: 'Pourquoi l’imagination est-elle importante en science selon Popper ?', answer: 'Parce qu’elle permet de formuler des hypothèses nouvelles, même audacieuses.' },
+  { question: 'Quel exemple illustre une hypothèse d’abord rejetée mais confirmée plus tard ?', answer: 'La théorie de la tectonique des plaques.' },
+  { question: 'Quel exemple illustre le rôle de l’observation en science ?', answer: 'La découverte du VIH grâce à l’observation de symptômes communs inhabituels.' },
+  { question: 'Quel exemple illustre une découverte par hasard en médecine ?', answer: 'La découverte de la pénicilline par Alexander Fleming.' },
+  { question: 'Quelles sont les limites de l’observation seule ?', answer: 'Elle est subjective, dépend d’instruments et ne permet pas de généraliser.' },
+  { question: 'Quel est le danger des généralisations hâtives ?', answer: 'Tirer une règle générale à partir d’un cas isolé sans preuve suffisante.' },
+  { question: 'Quel exemple illustre une généralisation hâtive en médecine ?', answer: 'Croire que les anticorps monoclonaux efficaces sur le lymphome B le seront sur tous les lymphomes.' },
+  { question: 'Qu’est-ce qu’un raisonnement par analogie ?', answer: 'Étendre une hypothèse d’un phénomène connu à un phénomène similaire.' },
+  { question: 'Pourquoi le raisonnement par analogie est-il utile ?', answer: 'Parce qu’il justifie des explorations scientifiques mais ne prouve pas une hypothèse.' },
+  { question: 'Quel est le risque d’une fausse analogie en médecine ?', answer: 'Appliquer un traitement inefficace à une maladie différente.' },
+  { question: 'Quel exemple illustre une analogie en astronomie ?', answer: 'La comparaison des structures d’Europa avec les sources hydrothermales terrestres pour supposer la présence d’eau.' },
+  { question: 'Pourquoi une analogie doit-elle être testée ?', answer: 'Parce qu’elle rend une hypothèse plausible mais non démontrée.' },
+  { question: 'Qu’est-ce qu’une expérimentation scientifique ?', answer: 'Une investigation contrôlée, basée sur une hypothèse préalable, permettant de tester rigoureusement un phénomène.' },
+  { question: 'Quelle est la différence entre observation et expérimentation ?', answer: 'L’observation est passive, l’expérimentation contrôle les variables et teste directement une hypothèse.' },
+  { question: 'Qu’est-ce qu’un essai clinique randomisé en double aveugle ?', answer: 'Une expérimentation médicale où ni les patients ni les chercheurs ne savent quel traitement est administré pour éviter les biais.' },
+  { question: 'Quels sont les principes fondamentaux de l’expérimentation scientifique ?', answer: 'Réplicabilité, contrôle des variables, transparence et méthodologie rigoureuse.' },
+  { question: 'Pourquoi une expérience peut-elle ne pas convaincre toute la communauté ?', answer: 'Parce que l’interprétation des résultats peut varier et être sujette à controverse.' },
+  { question: 'Quelle est l’importance de la significativité statistique ?', answer: 'Elle permet de distinguer un effet réel d’un simple hasard.' },
+  { question: 'Quel exemple illustre une hypothèse réfutée par expérimentation ?', answer: 'L’étude de 26 000 adultes montrant que la vitamine D ne réduit pas la dépression.' },
+  { question: 'Qu’est-ce qu’un modèle scientifique ?', answer: 'Une représentation simplifiée d’un phénomène réel, utilisée pour tester des hypothèses.' },
+  { question: 'Pourquoi les modèles scientifiques sont-ils utiles ?', answer: 'Parce qu’ils permettent de simuler des phénomènes et d’expérimenter de façon indirecte.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

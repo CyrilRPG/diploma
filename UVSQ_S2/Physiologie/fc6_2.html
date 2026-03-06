@@ -1,0 +1,562 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Transmission synaptique Partie 2</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Transmission synaptique Partie 2</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quels sont les deux grands types de récepteurs post-synaptiques', answer: 'Les récepteurs couplés aux protéines G dits métabotropes et les récepteurs canaux dits ionotropes' },
+  { question: 'De quoi sont constitués les récepteurs post-synaptiques des neurotransmetteurs', answer: 'Ce sont généralement des protéines transmembranaires' },
+  { question: 'Quel est le rôle commun des récepteurs métabotropes', answer: 'En réponse à la fixation d’un neuromédiateur, ils changent de conformation et activent une cascade d’événements intracellulaires' },
+  { question: 'Quelle est la structure commune des récepteurs métabotropes', answer: 'Ils possèdent un polypeptide constitué de sept hélices transmembranaires' },
+  { question: 'Qu’apportent les boucles extracellulaires des récepteurs métabotropes', answer: 'Elles confèrent la spécificité du récepteur' },
+  { question: 'Quels neurotransmetteurs utilisent les récepteurs métabotropes', answer: 'L’acétylcholine, le glutamate, le GABA, les catécholamines, la sérotonine, les neuropeptides et les purines' },
+  { question: 'Donner un exemple de récepteur métabotrope à l’acétylcholine', answer: 'Le récepteur muscarinique' },
+  { question: 'Quels sont les trois types d’action possibles d’une protéine G activée', answer: 'Activation d’un canal ionique, activation d’un second messager, activation simultanée de plusieurs canaux ioniques' },
+  { question: 'Quelles sont les trois phases principales d’activation des récepteurs métabotropes', answer: 'Fixation du neurotransmetteur, activation de la protéine G, activation des effecteurs intracellulaires' },
+  { question: 'De quoi sont composés les récepteurs ionotropes', answer: 'De cinq sous-unités protéiques transmembranaires formant un pore' },
+  { question: 'Qu’est-ce qui contrôle l’ouverture d’un récepteur ionotrope', answer: 'La fixation d’un ligand' },
+  { question: 'Quelle est la différence principale entre canaux ionotropes et canaux sensibles au voltage', answer: 'Les canaux ionotropes ont un degré de sélectivité ionique moins strict' },
+  { question: 'Donner un exemple de récepteur ionotrope de l’acétylcholine', answer: 'Le récepteur nicotinique' },
+  { question: 'Quelles sont les catégories d’agonistes pouvant agir sur un récepteur post-synaptique', answer: 'Agonistes compétitifs et agonistes non compétitifs' },
+  { question: 'Quelle est la différence entre agoniste compétitif et agoniste non compétitif', answer: 'L’agoniste compétitif se fixe au même site que le neuromédiateur tandis que l’agoniste non compétitif se fixe ailleurs' },
+  { question: 'Quels sont les deux grands types d’antagonistes de récepteurs post-synaptiques', answer: 'Les antagonistes compétitifs et les antagonistes non compétitifs' },
+  { question: 'Quel type d’antagoniste bloque le récepteur de manière irréversible', answer: 'L’antagoniste compétitif irréversible' },
+  { question: 'Que se passe-t-il lorsque la protéine G échange le GDP contre du GTP', answer: 'La sous-unité alpha se dissocie des sous-unités bêta et gamma et active un effecteur' },
+  { question: 'Quelle enzyme est activée par une protéine Gs au niveau du muscle lisse vasculaire', answer: 'L’adénylcyclase' },
+  { question: 'Quelle est la conséquence de l’activation de l’adénylcyclase', answer: 'Transformation de l’ATP en AMPc qui active la protéine kinase A' },
+  { question: 'Quel est l’effet de la protéine Gs sur le muscle cardiaque via un récepteur β1', answer: 'Elle favorise l’entrée de calcium et la contraction musculaire cardiaque' },
+  { question: 'Quel est l’effet de la protéine Gi sur le muscle lisse vasculaire via un récepteur α2', answer: 'Inhibition de l’adénylcyclase entraînant une contraction musculaire' },
+  { question: 'Quelle est la voie activée par la protéine G associée au récepteur α1 adrénergique', answer: 'La voie IP3/DAG' },
+  { question: 'Quelles sont les conséquences de l’activation du système IP3/DAG', answer: 'Libération de calcium du réticulum et contraction musculaire' },
+  { question: 'Qu’entraîne l’activation du récepteur muscarinique M2 cardiaque', answer: 'Ouverture des canaux K+, hyperpolarisation et diminution de la fréquence cardiaque' },
+  { question: 'Quel est l’effet du récepteur GABAB', answer: 'Hyperpolarisation membranaire et relâchement musculaire' },
+  { question: 'Quel agoniste est utilisé pour activer le récepteur GABAB à visée thérapeutique', answer: 'Le baclofène' },
+  { question: 'Quelle voie produit de l’acide arachidonique à partir de la phospholipase A2', answer: 'La voie des seconds messagers des protéines G' },
+  { question: 'Quels métabolites sont issus des voies de l’acide arachidonique', answer: 'Les leucotriènes et les prostaglandines' },
+  { question: 'Quel est le rôle des cyclooxygénases de type 1', answer: 'Elles participent à de nombreux mécanismes physiologiques et sont constitutives' },
+  { question: 'Quel est le rôle des cyclooxygénases de type 2', answer: 'Elles sont impliquées dans la voie de l’inflammation' },
+  { question: 'Quels médicaments bloquent les cyclooxygénases', answer: 'L’aspirine et les anti-inflammatoires non stéroïdiens' },
+  { question: 'Quels sont les deux types de canaux ionotropes', answer: 'Les canaux cationiques et les canaux chlore' },
+  { question: 'Donner deux exemples de récepteurs cationiques ionotropes', answer: 'Les récepteurs nicotiniques et les récepteurs 5HT3' },
+  { question: 'Donner un exemple de récepteur chlore ionotrope', answer: 'Le récepteur GABAA' },
+  { question: 'Quel ion entre via le récepteur GABAA', answer: 'L’ion chlore Cl-' },
+  { question: 'Quelle est la conséquence de l’entrée de Cl- par le GABAA', answer: 'Hyperpolarisation et inhibition post-synaptique' },
+  { question: 'Où se trouvent les récepteurs nicotiniques à l’acétylcholine dans la plaque motrice', answer: 'Sur les crêtes des replis de la plaque motrice des muscles striés' },
+  { question: 'Quelle est la fonction de l’acétylcholinestérase dans la fente synaptique', answer: 'Hydrolyser l’acétylcholine en choline et acétate pour permettre le relâchement musculaire' },
+  { question: 'Quel toxine provoque une libération massive d’Ach en fixant la syntaxine', answer: 'L’alpha-latrotoxine' },
+  { question: 'Quelle toxine bloque la libération d’Ach en inhibant la synaptobrévine', answer: 'La toxine botulique' },
+  { question: 'Quelle toxine est antagoniste du récepteur nicotinique et provoque une paralysie respiratoire rapide', answer: 'La bêta-bungarotoxine' },
+  { question: 'Quelle est la pathologie auto-immune qui produit des anticorps contre les récepteurs nicotiniques', answer: 'La myasthénie' },
+  { question: 'Quelle substance antagoniste irréversible bloque le récepteur nicotinique', answer: 'L’alpha-bungarotoxine' },
+  { question: 'Quelle molécule antagoniste réversible est utilisée comme curare en anesthésie', answer: 'La D-tubocurarine' },
+  { question: 'Quel médicament est un anticholinestérase utilisé dans la myasthénie', answer: 'La néostigmine' },
+  { question: 'Quelle substance est un anticholinestérase irréversible présente dans les pesticides', answer: 'Les organophosphorés' },
+  { question: 'Quel médicament anticholinestérase a été utilisé dans Alzheimer mais n’est plus remboursé', answer: 'Le donépézil' },
+  { question: 'Quel type de récepteurs glutamatergiques sont perméables aux cations monovalents Na+ et K+', answer: 'Les récepteurs AMPA' },
+  { question: 'Quelle condition est nécessaire à l’ouverture du récepteur NMDA', answer: 'La dépolarisation suffisante pour expulser le Mg2+ bloquant le canal' },
+  { question: 'Quel neurotransmetteur est indispensable pour activer les récepteurs GABAA', answer: 'Le GABA' },
+  { question: 'Quelle est la structure du récepteur GABAA', answer: 'Structure pentamérique semblable au récepteur nicotinique, sélectivement perméable aux ions chlore' },
+  { question: 'Quel est le potentiel d’équilibre du chlore dans les récepteurs GABAA', answer: 'Environ -58 mV' },
+  { question: 'Que provoque l’entrée de Cl- par le récepteur GABAA lorsque le potentiel est supérieur à -58 mV', answer: 'Une dépolarisation limitée qui reste en dessous du seuil du potentiel d’action' },
+  { question: 'Que provoque l’entrée de Cl- par le récepteur GABAA lorsque le potentiel est inférieur à -58 mV', answer: 'Une hyperpolarisation de la membrane' },
+  { question: 'Quelle est la durée moyenne d’ouverture du canal GABAA', answer: 'De l’ordre de 2,5 à 20 millisecondes' },
+  { question: 'Pourquoi l’activité des récepteurs GABAA doit-elle être finement régulée', answer: 'Une activité trop forte entraîne des troubles de la conscience et trop faible entraîne des crises d’épilepsie' },
+  { question: 'Que se passe-t-il si les récepteurs GABAA sont exposés à de fortes concentrations de GABA', answer: 'On observe une désensibilisation avec diminution progressive du courant chlore' },
+  { question: 'Combien de molécules de GABA doivent se fixer pour ouvrir un récepteur GABAA', answer: 'Deux molécules' },
+  { question: 'Quel est l’antagoniste non compétitif du récepteur GABAA', answer: 'La picrotoxine' },
+  { question: 'Quel est l’antagoniste compétitif du récepteur GABAA', answer: 'La bicuculline' },
+  { question: 'Quels sont les principaux potentialisateurs des récepteurs GABAA', answer: 'Les benzodiazépines et les barbituriques' },
+  { question: 'Quelle est la fonction clinique des benzodiazépines', answer: 'Ce sont des somnifères et des antiépileptiques' },
+  { question: 'Quelle est la fonction clinique des barbituriques', answer: 'Ce sont des antiépileptiques et de puissants dépresseurs du système nerveux central' },
+  { question: 'Quels sont les autres sous-types de récepteurs GABA', answer: 'Les récepteurs GABAC et GABAB' },
+  { question: 'Quel est le type de récepteur des GABAC', answer: 'Ce sont des récepteurs ionotropes moins ubiquitaires' },
+  { question: 'Quel est le type de récepteur des GABAB', answer: 'Ce sont des récepteurs métabotropes' },
+  { question: 'Que signifie psychotrope', answer: 'Substance qui agit sur le système nerveux central en modifiant des processus biochimiques et physiologiques' },
+  { question: 'Quel est l’effet principal de la cocaïne sur la neurotransmission', answer: 'Elle bloque la recapture de la dopamine' },
+  { question: 'Quel est l’effet principal des amphétamines sur la neurotransmission', answer: 'Elles augmentent la libération de dopamine et noradrénaline et bloquent leur recapture' },
+  { question: 'Quelle est la conséquence commune de la cocaïne et des amphétamines', answer: 'Présence prolongée de neurotransmetteurs dans la fente synaptique avec stimulation post-synaptique' },
+  { question: 'Quels sont les effets ressentis avec cocaïne et amphétamines', answer: 'Euphorie, excitation puis dépendance psychique et épuisement' },
+  { question: 'Quelle est la caractéristique de la dépendance psychique induite par les stimulants', answer: 'Besoin compulsif de la drogue pour ressentir du plaisir et éviter le malaise' },
+  { question: 'Sur quel système reposent principalement les effets addictifs de la cocaïne et des amphétamines', answer: 'Les systèmes dopaminergiques' },
+  { question: 'Où la nicotine se fixe-t-elle principalement', answer: 'Sur les récepteurs nicotiniques présynaptiques des terminaisons nerveuses' },
+  { question: 'Quels neurones sont activés par la nicotine au niveau médullaire', answer: 'Les motoneurones innervant les muscles striés et les neurones préganglionnaires du système nerveux autonome' },
+  { question: 'Quel est l’effet de la nicotine au niveau du cortex préfrontal', answer: 'Elle stimule la libération de dopamine en activant des récepteurs nicotiniques présynaptiques' },
+  { question: 'Quels effets subjectifs entraîne la nicotine', answer: 'À la fois des effets stimulants et relaxants' },
+  { question: 'Quel est le rôle des IMAO dans la dépression', answer: 'Ce sont des inhibiteurs de la monoamine oxydase qui bloquent la dégradation des catécholamines et de la sérotonine' },
+  { question: 'Pourquoi les IMAO ne sont-ils plus utilisés', answer: 'Parce qu’ils étaient néfastes pour les patients cardiaques' },
+  { question: 'Quel est le mécanisme d’action des antidépresseurs tricycliques', answer: 'Inhibition de la recapture de la dopamine et de la sérotonine' },
+  { question: 'Donner deux exemples d’antidépresseurs tricycliques', answer: 'Anafranil et Tofranil' },
+  { question: 'Quel est le mécanisme des antidépresseurs actuels comme le Prozac', answer: 'Inhibition sélective de la recapture de la sérotonine' },
+  { question: 'Quel est le principal récepteur dopaminergique ciblé par les neuroleptiques classiques', answer: 'Le récepteur D2' },
+  { question: 'Donner un exemple de neuroleptique antagoniste dopaminergique', answer: 'L’halopéridol' },
+  { question: 'Dans quelles pathologies sont utilisés les neuroleptiques', answer: 'Essentiellement dans les psychoses pour leurs effets anti-hallucinatoires et sédatifs' },
+  { question: 'Quels sont les effets secondaires fréquents des neuroleptiques classiques', answer: 'Les syndromes extrapyramidaux' },
+  { question: 'Que permettent les nouveaux neuroleptiques plus sélectifs des récepteurs D2', answer: 'De réduire les complications secondaires motrices' },
+  { question: 'Quel est le mécanisme d’action principal des opiacés sur les neurones catécholaminergiques', answer: 'Ils provoquent une hyperpolarisation par activation d’une protéine Gi' },
+  { question: 'Comment la protéine Gi agit-elle avec les opiacés', answer: 'Elle inhibe l’adénylcyclase et modifie plusieurs conductances membranaires' },
+  { question: 'Quelle est la conséquence finale de l’action des opiacés sur la transmission synaptique', answer: 'Une diminution de la transmission catécholaminergique' },
+  { question: 'Quelle est la différence entre dépendance psychique et dépendance physique', answer: 'La dépendance psychique est un besoin compulsif, la dépendance physique entraîne un syndrome de sevrage en cas d’arrêt' },
+  { question: 'Quel est le délai d’action de la nicotine après inhalation', answer: 'Quelques secondes, car elle traverse rapidement la barrière hémato-encéphalique' },
+  { question: 'Pourquoi les amphétamines provoquent un épuisement après euphorie', answer: 'Parce qu’elles vident les réserves de dopamine et de noradrénaline' },
+  { question: 'Qu’est-ce qui explique l’effet de dépendance de la cocaïne', answer: 'Le blocage de la recapture de la dopamine qui stimule durablement les circuits de la récompense' },
+  { question: 'Que se passe-t-il lors d’une consommation chronique d’opiacés sur les neurones', answer: 'Une tolérance avec besoin de doses croissantes pour obtenir le même effet' },
+  { question: 'Quel est le mécanisme commun entre benzodiazépines et barbituriques', answer: 'Ce sont des potentialisateurs allostériques du récepteur GABAA' },
+  { question: 'Quel est le rôle du GABA dans le système nerveux central', answer: 'C’est le principal neurotransmetteur inhibiteur' },
+  { question: 'Quelle est la particularité des antidépresseurs actuels de type ISRS', answer: 'Ils ciblent spécifiquement la recapture de la sérotonine, ce qui diminue les effets indésirables' },
+  { question: 'Qui ont décrit pour la première fois la potentialisation à long terme', answer: 'Bliss et Lomo dans les années 1970' },
+  { question: 'Quel est le but de la potentialisation à long terme', answer: 'Augmenter la fonctionnalité des synapses' },
+  { question: 'Quels récepteurs glutamatergiques sont impliqués dans la PLT', answer: 'Les récepteurs AMPA et NMDA' },
+  { question: 'Quelle condition est nécessaire pour déclencher la PLT', answer: 'Une dépolarisation préalable suffisante de la membrane post-synaptique' },
+  { question: 'Quel ion doit sortir du canal NMDA pour permettre son ouverture', answer: 'L’ion magnésium Mg2+' },
+  { question: 'Que permet l’ouverture du récepteur NMDA', answer: 'L’entrée de calcium Ca2+ dans la cellule post-synaptique' },
+  { question: 'Que provoque l’entrée de calcium via les récepteurs NMDA', answer: 'L’activation de kinases intracellulaires' },
+  { question: 'Quel est l’effet des kinases activées sur les récepteurs AMPA', answer: 'Elles phosphorylent les récepteurs AMPA et les rendent plus fonctionnels' },
+  { question: 'Que permettent les kinases en plus de la phosphorylation des récepteurs AMPA', answer: 'La synthèse de rétro-messagers comme le monoxyde d’azote' },
+  { question: 'Quel est le rôle du monoxyde d’azote dans la PLT', answer: 'C’est un messager rétrograde qui augmente la libération présynaptique de glutamate' },
+  { question: 'Quelle est la conséquence de l’augmentation de glutamate présynaptique', answer: 'Une augmentation de l’efficacité synaptique' },
+  { question: 'Dans quelle structure cérébrale la PLT a-t-elle été observée initialement', answer: 'Dans l’hippocampe' },
+  { question: 'Pourquoi l’hippocampe est-il central pour la PLT', answer: 'Parce qu’il est fortement impliqué dans les processus de mémorisation' },
+  { question: 'Comment Bliss et Lomo ont-ils mis en évidence la PLT', answer: 'En stimulant à haute fréquence des synapses de l’hippocampe et en enregistrant les réponses post-synaptiques' },
+  { question: 'Quelle était l’observation de Bliss et Lomo après une stimulation à haute fréquence', answer: 'L’amplitude du PPSE augmentait et persistait longtemps sans augmentation de la stimulation présynaptique' },
+  { question: 'Combien de temps la PLT peut-elle durer in vitro', answer: 'Plusieurs heures' },
+  { question: 'Combien de temps la PLT peut-elle durer in vivo', answer: 'Plusieurs semaines' },
+  { question: 'Quel est l’intérêt de la PLT pour le système nerveux', answer: 'Elle constitue un mécanisme cellulaire de la mémoire et de l’apprentissage' },
+  { question: 'Quelle est la condition moléculaire pour ouvrir le récepteur NMDA', answer: 'Présence de glutamate en grande quantité et activation préalable des récepteurs AMPA' },
+  { question: 'Pourquoi les récepteurs AMPA doivent-ils être activés pour la PLT', answer: 'Pour provoquer une dépolarisation suffisante qui expulse le Mg2+ du canal NMDA' },
+  { question: 'Quel est le rôle du calcium intracellulaire dans la PLT', answer: 'Activer des kinases et initier une cascade de signalisation durable' },
+  { question: 'Quelle enzyme produit le monoxyde d’azote lors de la PLT', answer: 'La NO synthase' },
+  { question: 'À partir de quel substrat la NO synthase fabrique-t-elle le NO', answer: 'À partir de la L-arginine' },
+  { question: 'Quelle est la propriété physique du NO qui facilite son action', answer: 'C’est un gaz diffusible qui traverse facilement les membranes' },
+  { question: 'Quelle est la fonction du NO produit pendant la PLT', answer: 'Il agit comme messager rétrograde en renforçant la libération présynaptique de glutamate' },
+  { question: 'Quel facteur neurotrophique est impliqué dans la PLT', answer: 'Le BDNF, Brain Derived Neurotrophic Factor' },
+  { question: 'Quel est le rôle principal du BDNF', answer: 'Assurer la survie des neurones et la formation des circuits neuronaux' },
+  { question: 'Quel est le rôle du BDNF à l’âge adulte', answer: 'Il participe à la plasticité synaptique, notamment à la PLT' },
+  { question: 'Qu’a montré l’étude de souris dépourvues de BDNF', answer: 'La PLT était entravée, confirmant le rôle du BDNF' },
+  { question: 'Quelle technique expérimentale a permis d’étudier la PLT', answer: 'La stimulation électrique à haute fréquence et l’enregistrement électrophysiologique des PPS' },
+  { question: 'Qu’est-ce qu’un PPSE', answer: 'Un potentiel post-synaptique excitateur' },
+  { question: 'Quelle est la différence entre sommation temporelle et sommation spatiale des PPS', answer: 'La sommation temporelle additionne des PPS successifs, la sommation spatiale additionne ceux provenant de plusieurs synapses' },
+  { question: 'Quelle expérience illustre la PLT dans le conditionnement de la peur', answer: 'L’association de stimuli conditionnels sensoriels avec un stimulus inconditionnel comme un choc électrique' },
+  { question: 'Quelle région cérébrale est impliquée dans le conditionnement de la peur', answer: 'L’amygdale' },
+  { question: 'Quels effets comportementaux sont observés lors du conditionnement de peur', answer: 'Hypervigilance, tremblements, frayeur' },
+  { question: 'Quels effets sur le système nerveux autonome accompagne le conditionnement de peur', answer: 'Tachycardie, tachypnée et augmentation de la pression artérielle' },
+  { question: 'Quel axe endocrinien est activé lors du conditionnement de peur', answer: 'L’axe hypothalamo-hypophysaire avec activation surrénalienne' },
+  { question: 'Que signifie plasticité synaptique', answer: 'Capacité des synapses à modifier leur efficacité en fonction de l’activité' },
+  { question: 'Quel est l’intérêt évolutif de la PLT', answer: 'Elle permet l’adaptation cognitive par l’apprentissage et la mémorisation' },
+  { question: 'Quels sont les seconds messagers impliqués dans la PLT', answer: 'Le calcium intracellulaire, l’AMPc et le NO' },
+  { question: 'Quelles enzymes kinases sont activées lors de la PLT', answer: 'La protéine kinase A et la protéine kinase C' },
+  { question: 'Quelle est la fonction des kinases sur les récepteurs AMPA', answer: 'Augmenter leur perméabilité au sodium en les phosphorylant' },
+  { question: 'Quelle molécule joue un rôle de rétro-messager en plus du NO', answer: 'Le monoxyde de carbone peut aussi jouer un rôle secondaire' },
+  { question: 'Quelle propriété du système nerveux illustre la PLT', answer: 'La capacité d’augmenter l’efficacité synaptique à long terme' },
+  { question: 'Dans quelle région la PLT est-elle la plus étudiée pour la mémoire', answer: 'Dans l’hippocampe, siège de la mémoire déclarative' },
+  { question: 'Quelles stimulations sont nécessaires pour induire une PLT expérimentale', answer: 'Des trains d’ondes électriques à haute fréquence' },
+  { question: 'Quelle est la différence entre potentialisation à court terme et à long terme', answer: 'La potentialisation à court terme est transitoire, la PLT dure plusieurs heures à semaines' },
+  { question: 'Pourquoi la PLT est-elle considérée comme un support de la mémoire', answer: 'Parce qu’elle améliore durablement la transmission synaptique, comme dans l’apprentissage' },
+  { question: 'Quelle est la principale différence de délai entre récepteurs métabotropes et ionotropes', answer: 'Les récepteurs métabotropes ont un délai d’action long alors que les ionotropes ont un effet immédiat' },
+  { question: 'Quels récepteurs post-synaptiques sont dits ubiquitaires dans le système nerveux central', answer: 'Les récepteurs couplés aux protéines G' },
+  { question: 'Quel est l’effet principal de l’activation d’un récepteur ionotrope cationique', answer: 'Une entrée de sodium et une dépolarisation excitatrice' },
+  { question: 'Quel est l’effet principal de l’activation d’un récepteur ionotrope chlore', answer: 'Une entrée de chlore et une hyperpolarisation inhibitrice' },
+  { question: 'Quelle enzyme hydrolyse l’acétylcholine dans la fente synaptique', answer: 'L’acétylcholinestérase' },
+  { question: 'Quels sont les trois types de substances pouvant agir sur les récepteurs post-synaptiques', answer: 'Les agonistes, les antagonistes et les potentialisateurs' },
+  { question: 'Que signifie antagoniste compétitif réversible', answer: 'Molécule qui se fixe sur le même site que le neurotransmetteur et peut être déplacée par lui' },
+  { question: 'Quel est l’effet des agonistes non compétitifs', answer: 'Ils imitent l’effet du neuromédiateur en se fixant sur un site différent' },
+  { question: 'Quelle sous-unité de la protéine G contrôle la spécificité d’interaction avec le récepteur', answer: 'La sous-unité alpha' },
+  { question: 'Quelle est la fonction GTPasique de la sous-unité alpha', answer: 'Hydrolyser le GTP en GDP et réinitialiser la protéine G' },
+  { question: 'Pourquoi les protéines G amplifient-elles le signal', answer: 'Parce qu’un récepteur activé peut stimuler plusieurs protéines G successives' },
+  { question: 'Quelle est la conséquence clinique d’une hyperactivation des récepteurs GABAA', answer: 'Une dépression excessive du système nerveux central' },
+  { question: 'Quelle est la conséquence clinique d’une hypoactivation des récepteurs GABAA', answer: 'Des crises d’épilepsie' },
+  { question: 'Quelle toxine entraîne une dépolarisation durable et mortelle en libérant massivement de l’Ach', answer: 'L’alpha-latrotoxine' },
+  { question: 'Quelle toxine entraîne une paralysie flasque par blocage de la libération d’Ach', answer: 'La toxine botulique' },
+  { question: 'Quelle toxine empêche la fixation de l’Ach au récepteur en le bloquant de façon stable', answer: 'La bêta-bungarotoxine' },
+  { question: 'Quelle maladie auto-immune affecte la jonction neuromusculaire en détruisant les récepteurs Ach', answer: 'La myasthénie' },
+  { question: 'Quel médicament anticholinestérase est utilisé en anesthésie pour prolonger l’action de l’Ach', answer: 'La succinylcholine' },
+  { question: 'Quelle est la différence entre curare dépolarisant et non dépolarisant', answer: 'Le curare dépolarisant maintient le canal ouvert, le non dépolarisant maintient le canal fermé' },
+  { question: 'Quel type de substance est le donépézil utilisé dans Alzheimer', answer: 'Un anticholinestérase' },
+  { question: 'Quelle est la particularité pharmacologique du récepteur NMDA', answer: 'Il est bloqué par Mg2+ et nécessite une dépolarisation préalable pour s’ouvrir' },
+  { question: 'Quel acide aminé est indispensable pour activer le récepteur NMDA en plus du glutamate', answer: 'La glycine' },
+  { question: 'Quels sont les récepteurs glutamatergiques non-NMDA', answer: 'Les récepteurs AMPA et kainate' },
+  { question: 'Quel est le rôle principal du récepteur AMPA', answer: 'Permettre une entrée rapide de sodium et initier la dépolarisation post-synaptique' },
+  { question: 'Quel est le rôle du récepteur NMDA dans la PLT', answer: 'Permettre une entrée de calcium nécessaire à l’activation de kinases' },
+  { question: 'Quels médicaments bloquent la voie de l’acide arachidonique et diminuent l’inflammation', answer: 'Les anti-inflammatoires non stéroïdiens comme l’aspirine' },
+  { question: 'Quelle est la différence entre COX1 et COX2', answer: 'COX1 est constitutive et physiologique, COX2 est induite dans l’inflammation' },
+  { question: 'Quelles drogues bloquent la recapture de la dopamine', answer: 'La cocaïne et les amphétamines' },
+  { question: 'Quelle drogue bloque spécifiquement la recapture de la dopamine sans augmenter sa libération', answer: 'La cocaïne' },
+  { question: 'Quelle drogue augmente la libération de dopamine et noradrénaline et bloque leur recapture', answer: 'L’amphétamine' },
+  { question: 'Quel est l’effet immédiat de la cocaïne sur le SNC', answer: 'Une stimulation post-synaptique entraînant euphorie et excitation' },
+  { question: 'Quel est l’effet à long terme des amphétamines', answer: 'Un état de dépression après épuisement des réserves dopaminergiques' },
+  { question: 'Quel est le principal mécanisme d’action des antidépresseurs ISRS', answer: 'L’inhibition sélective de la recapture de la sérotonine' },
+  { question: 'Donner deux exemples d’antidépresseurs ISRS', answer: 'Le Prozac et le Deroxat' },
+  { question: 'Quel est le rôle des neuroleptiques dans les psychoses', answer: 'Bloquer les récepteurs dopaminergiques et réduire les hallucinations' },
+  { question: 'Quelle molécule est un neuroleptique typique antagoniste D2', answer: 'L’halopéridol' },
+  { question: 'Quels sont les principaux effets secondaires moteurs des neuroleptiques classiques', answer: 'Les syndromes extrapyramidaux' },
+  { question: 'Quelle protéine G est inhibitrice et réduit l’activité de l’adénylcyclase', answer: 'La protéine Gi' },
+  { question: 'Quelle protéine G est stimulatrice et active l’adénylcyclase', answer: 'La protéine Gs' },
+  { question: 'Quel second messager est produit par l’adénylcyclase', answer: 'L’AMPc' },
+  { question: 'Quelle enzyme est activée par l’AMPc', answer: 'La protéine kinase A' },
+  { question: 'Quelle voie active la protéine G couplée au récepteur α1 adrénergique', answer: 'La voie IP3/DAG' },
+  { question: 'Quelle enzyme est activée par la protéine G couplée au récepteur α1', answer: 'La phospholipase C' },
+  { question: 'Que libère l’IP3 après activation', answer: 'Du calcium à partir du réticulum endoplasmique' },
+  { question: 'Que fait le DAG dans la voie IP3/DAG', answer: 'Il active la protéine kinase C' },
+  { question: 'Quelle est la conséquence de l’activation de la protéine kinase C', answer: 'La phosphorylation de protéines impliquées dans la contraction musculaire' },
+  { question: 'Quelle est la conséquence clinique de la PLT dans l’apprentissage', answer: 'Une meilleure mémorisation et une plasticité synaptique accrue' },
+  { question: 'Quelle enzyme est responsable de la production du monoxyde d’azote dans la PLT', answer: 'La NO synthase' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

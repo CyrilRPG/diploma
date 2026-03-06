@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Bases moléculaires en oncologie</h1><h2>Bases de données</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Comment est décrit le processus de développement d’un cancer sur le plan évolutif ?', answer: 'Le cancer est un processus multi-étapes résultant d’une évolution Darwinienne caractérisée par une sélection des cellules porteuses de mutations avantageuses.', },
+{ question: 'Quelle est la durée moyenne estimée pour passer d’une cellule normale à un cancer résistant au traitement ?', answer: 'Le processus d’évolution tumorale s’étend généralement sur une période de 10 à 20 ans.', },
+{ question: 'Qu’est-ce qu’une mutation « driver » (conductrice) ?', answer: 'C’est une mutation fonctionnelle qui donne un avantage sélectif aux cellules (prolifération autonome, progression tumorale, métastase) et joue un rôle direct dans l’oncogenèse.', },
+{ question: 'Qu’est-ce qu’une mutation « passagère » (ou passenger) ?', answer: 'C’est une mutation stochastique (aléatoire) sans conséquence fonctionnelle et sans rôle direct dans le processus de cancérogenèse.', },
+{ question: 'Combien de mutations « drivers » dénombre-t-on généralement par tumeur ?', answer: 'On identifie en moyenne entre 1 et 10 mutations drivers par tumeur.', },
+{ question: 'Quel est l’ordre de grandeur du nombre de mutations « passagères » par tumeur ?', answer: 'Une tumeur peut contenir entre 10 et 100 000 mutations passagères, voire davantage.', },
+{ question: 'Quels sont les principaux facteurs influençant l’accumulation de mutations somatiques tumorales ?', answer: 'L’accumulation est influencée par l’âge (vieillissement), l’exposition à des carcinogènes (inflammation chronique, stress oxydatif) et la réponse aux traitements.', },
+{ question: 'Qu’est-ce qu’une mutation germinale ?', answer: 'C’est une mutation présente dès la naissance dans l’ensemble des cellules de l’organisme, responsable de prédispositions héréditaires aux cancers.', },
+{ question: 'Qu’est-ce qu’une mutation somatique ?', answer: 'C’est une mutation acquise au cours de la vie, présente uniquement dans les cellules tumorales et absente des cellules normales.', },
+{ question: 'Quel gène est l’exemple type d’un variant germinal augmentant le risque de cancer du sein ?', answer: 'Le gène BRCA (ou BRC-A), notamment les variants BRCA1 et BRCA2.', },
+{ question: 'Quel est le rôle du système de réparation des mésappariements (mismatch repair) dans l’oncogenèse ?', answer: 'Ce système assure la stabilité du génome ; s’il est altéré (par exemple par des gènes comme BRCA), il influence la prédisposition au cancer.', },
+{ question: 'Qu’est-ce qu’une mutation de résistance ?', answer: 'C’est une mutation qui apparaît en réponse à un traitement médical, permettant aux cellules cancéreuses de survivre à la thérapie.', },
+{ question: 'Quelle méthode historique a permis le premier séquençage complet du génome humain ?', answer: 'Il s’agit de la méthode de Sanger.', },
+{ question: 'Quels étaient le coût et la durée du premier séquençage d’un génome humain entier ?', answer: 'Cela a nécessité 10 ans de travail pour un coût total de 2,7 milliards de dollars.', },
+{ question: 'Quelles sont les performances actuelles du séquençage de nouvelle génération (NGS) ?', answer: 'Le NGS permet de séquencer un génome complet en 48 heures pour un coût d’environ 1500 dollars.', },
+{ question: 'Qu’est-ce que le séquençage du génome entier (Whole Genome Sequencing - WGS) ?', answer: 'Une technique analysant l’intégralité de l’ADN (environ 3 milliards de bases), incluant les séquences codantes et non codantes.', },
+{ question: 'Qu’est-ce que le séquençage de l’exome (Whole Exome Sequencing - WES) ?', answer: 'C’est le séquençage limité aux régions codantes de l’ADN, représentant environ 1 % du génome (50 Mb).', },
+{ question: 'Pourquoi pratique-t-on un double séquençage tissus tumoraux (T) / tissus non tumoraux (N) ?', answer: 'Pour identifier les mutations somatiques (propres à la tumeur) et les distinguer des variants germinaux (présents partout).', },
+{ question: 'Qu’est-ce que l’analyse du transcriptome (RNA-seq) ?', answer: 'C’est l’analyse de l’ensemble des ARN d’un échantillon pour étudier l’expression des gènes, les fusions de gènes ou les variants d’épissage.', },
+{ question: 'À quel rythme la quantité de données biologiques de séquençage double-t-elle ?', answer: 'La quantité de données accumulées double environ tous les 18 mois.', },
+{ question: 'Quels sont les deux rôles fondamentaux des bases de données biologiques ?', answer: 'Elles permettent de stocker des volumes massifs de données et de les organiser pour une meilleure utilisation scientifique.', },
+{ question: 'Qu’est-ce que le projet TCGA (The Cancer Genome Atlas) ?', answer: 'Un programme lancé en 2006 (NIH/NHGRI) ayant séquencé 20 000 tumeurs de 33 types de cancers pour améliorer le diagnostic et le traitement.', },
+{ question: 'Quelle quantité de données le TCGA a-t-il récoltée ?', answer: 'Plus de 2,5 pétabytes de données, soit l’équivalent de 212 000 DVD.', },
+{ question: 'Qu’est-ce que l’unité de mesure « pétabyte » ?', answer: 'Un pétabyte équivaut à 1 000 000 de gigaoctets (gigas).', },
+{ question: 'Qu’est-ce que la technique RPPA (Reverse Phase Protein Array) ?', answer: 'Une méthode de biologie moléculaire analysant l’expression et l’activation des protéines via des anticorps spécifiques sur de petits échantillons.', },
+{ question: 'Quelle découverte majeure le TCGA a-t-il faite sur la proximité moléculaire des cancers ?', answer: 'Il a montré qu’un sous-type de cancer du sein est moléculairement proche d’un sous-type de cancer de l’ovaire, suggérant des traitements communs.', },
+{ question: 'Qu’est-ce que le portail GDC (Genomic Data Commons) ?', answer: 'Un système de données unifié lancé en 2016 par le NCI pour centraliser et donner accès aux données génomiques (TCGA, etc.).', },
+{ question: 'Quelle est la différence entre l’accès de Niveau 1 et de Niveau 3 sur le portail GDC ?', answer: 'Le Niveau 1 est un format riche à accès contrôlé (demande requise), tandis que le Niveau 3 propose des résumés d’analyses en accès libre.', },
+{ question: 'Qu’est-ce que l’ICGC (International Cancer Genome Consortium) ?', answer: 'Un consortium international lancé en 2008 coordonnant des études à grande échelle (plus de 24 000 tumeurs) sur le génome du cancer.', },
+{ question: 'Quelle est la contribution spécifique de la France au consortium ICGC ?', answer: 'La France est le principal contributeur mondial pour l’étude génomique des tumeurs du foie.', },
+{ question: 'Qu’est-ce que l’étude PCAWG (Pan-Cancer Analysis of Whole Genomes) ?', answer: 'Une initiative de l’ICGC (2013) visant à identifier des schémas de mutations communs dans plus de 2600 génomes entiers de cancers.', },
+{ question: 'Quelle est la différence méthodologique majeure entre PCAWG et TCGA ?', answer: 'PCAWG réalise une cartographie du génome entier (WGS), alors que le TCGA ciblait principalement l’exome (WES).', },
+{ question: 'Qu’est-ce que le programme CIT (Carte d’Identité des Tumeurs) ?', answer: 'Un programme français lancé en 2000 par la Ligue contre le cancer pour caractériser les altérations génomiques par approches multi-omiques.', },
+{ question: 'Définition d’une approche multi-omique.', answer: 'C’est une approche intégrant plusieurs niveaux d’analyse (génomique, transcriptomique, protéomique, épigénomique, métabolomique) pour une vision globale.', },
+{ question: 'À partir de quel seuil une tumeur est-elle considérée comme génétiquement instable ?', answer: 'Lorsqu’elle présente plus de 500 mutations, ce qui révèle souvent des défauts du système de réparation de l’ADN.', },
+{ question: 'Quel est l’impact des mutagènes puissants (tabac, UV) sur le nombre de mutations ?', answer: 'Ils induisent une accumulation importante, avec environ 200 mutations en moyenne par tumeur.', },
+{ question: 'Quelle est la caractéristique mutationnelle des cancers pédiatriques ?', answer: 'Ils se distinguent par un très faible nombre de mutations par rapport aux cancers de l’adulte.', },
+{ question: 'Qu’est-ce que l’instabilité des microsatellites (MSI) ?', answer: 'Un phénomène observé notamment dans le cancer colorectal, entraînant un nombre très élevé de mutations par tumeur.', },
+{ question: 'Pourquoi est-il nécessaire d’adopter une approche de médecine personnalisée en oncologie ?', answer: 'À cause de la grande variabilité inter-individuelle et intra-tumorale : deux tumeurs identiques à l’examen peuvent avoir des profils moléculaires différents.', },
+{ question: 'Qu’est-ce que la co-occurrence (interaction épistatique positive) ?', answer: 'C’est le fait que deux mutations spécifiques soient retrouvées conjointement et fréquemment dans une même tumeur (ex: TERT et CTNNB1).', },
+{ question: 'Qu’est-ce que l’exclusivité mutuelle (interaction épistatique négative) ?', answer: 'Le fait que deux mutations ne soient jamais présentes ensemble, suggérant une redondance fonctionnelle ou un effet délétère pour la cellule.', },
+{ question: 'Quelle est la première étape pour identifier un nouveau gène driver ?', answer: 'Compter le nombre de mutations récurrentes dans chaque gène à travers de nombreux échantillons tumoraux.', },
+{ question: 'Pourquoi faut-il normaliser le comptage des mutations par la taille du gène ?', answer: 'Parce qu’un gène long a statistiquement plus de risques de subir des mutations aléatoires (passagères) qu’un gène court.', },
+{ question: 'Qu’est-ce que le BMR (Background Mutation Rate) ?', answer: 'C’est le taux de mutation de fond global d’un échantillon, utilisé pour corriger l’analyse de récurrence des mutations.', },
+{ question: 'Quel est le rôle de l’algorithme MutSigCV ?', answer: 'Il évalue le taux de mutations par gène et patient pour calculer une p-value identifiant les drivers potentiels au-delà du hasard.', },
+{ question: 'À quoi sert l’outil MuSiC-SMG ?', answer: 'Il permet de détecter les gènes mutés plus fréquemment que le taux de mutation de fond.', },
+{ question: 'Quelle est la spécificité de l’outil OncodriveFM ?', answer: 'Il identifie les gènes présentant un biais vers des mutations ayant un fort impact fonctionnel (FM bias).', },
+{ question: 'Quel est le rôle de l’outil OncodriveCLUST ?', answer: 'Il repère les gènes présentant un regroupement significatif (clustering) de mutations dans des régions spécifiques de la séquence.', },
+{ question: 'À quoi sert l’outil ActiveDriver ?', answer: 'Il cible les gènes enrichis en mutations touchant spécifiquement des sites associés à la phosphorylation.', },
+{ question: 'Qu’est-ce que COSMIC (Catalogue of Somatic Mutations in Cancer) ?', answer: 'La plus grande base de données mondiale répertoriant toutes les mutations somatiques identifiées dans les cancers humains.', },
+{ question: 'Comment les données sont-elles traitées dans COSMIC ?', answer: 'Elles sont extraites de publications et consortiums, puis traitées manuellement par des experts pour garantir leur précision.', },
+{ question: 'Qu’est-ce qu’un « hotspot » de mutation ?', answer: 'Une région spécifique d’un gène ou d’une protéine où les mutations sont observées de manière très récurrente.', },
+{ question: 'Qu’est-ce que le « Cancer Gene Census » de COSMIC ?', answer: 'Un catalogue (actuellement 723 gènes) décrivant les gènes causalement impliqués dans l’oncogenèse humaine.', },
+{ question: 'Que sont les « Hallmarks of Cancer » dans COSMIC ?', answer: 'Des descriptions fonctionnelles résumant comment chaque gène influence les 10 caractéristiques fondamentales du cancer.', },
+{ question: 'Qu’est-ce que l’outil IntOGen ?', answer: 'Une plateforme d’extraction automatique de données mutationales visant à identifier les gènes drivers.', },
+{ question: 'À quoi sert la fonctionnalité « Know Driver » dans IntOGen ?', answer: 'Elle permet de confirmer si un gène a déjà été formellement identifié comme driver dans les cohortes étudiées.', },
+{ question: 'Quel est le spectre mutationnel typique d’un gène suppresseur de tumeur (GST) ?', answer: 'Une majorité de mutations tronquantes (perte de fonction) réparties uniformément sur toute la séquence du gène (ex: APC).', },
+{ question: 'Quel est le spectre mutationnel typique d’un oncogène ?', answer: 'Une majorité de mutations faux-sens (gain de fonction) concentrées sur des hotspots précis (ex: CTNNB1).', },
+{ question: 'Qu’est-ce qu’une mutation tronquante ?', answer: 'Une mutation qui provoque l’interruption prématurée de la traduction, créant une protéine plus courte et non fonctionnelle.', },
+{ question: 'Qu’est-ce qu’une mutation faux-sens (missense) ?', answer: 'Une mutation remplaçant un acide aminé par un autre, ce qui peut activer la protéine (dans le cas des oncogènes).', },
+{ question: 'À quoi servent les outils de prédiction « in silico » comme PolyPhen-2 ou SIFT ?', answer: 'À prédire si une substitution d’acide aminé a un impact délétère (pathogène) sur la structure ou la fonction de la protéine.', },
+{ question: 'Comment interprète-t-on le score de PolyPhen-2 ?', answer: 'Le score va de 0 à 1 ; plus il est proche de 1, plus la mutation est susceptible d’être dommageable pour la protéine.', },
+{ question: 'Qu’est-ce qu’OncoKB ?', answer: 'Une base de données d’oncologie de précision (développée par le MSKCC) fournissant des annotations biologiques et cliniques sur les altérations.', },
+{ question: 'À quoi correspond le niveau Px1 dans OncoKB ?', answer: 'C’est un biomarqueur pronostique validé par la FDA ou des recommandations professionnelles basé sur des études robustes.', },
+{ question: 'À quoi correspond le niveau 3A dans OncoKB ?', answer: 'Une preuve clinique forte suggérant qu’un biomarqueur est prédictif d’une réponse thérapeutique, sans approbation officielle préalable.', },
+{ question: 'Qu’est-ce que cBioPortal ?', answer: 'Un outil en ligne interactif permettant d’explorer et de visualiser des données multidimensionnelles de génomique du cancer déjà publiées.', },
+{ question: 'Définition d’un SNP (Single Nucleotide Polymorphism).', answer: 'Une variation d’un seul nucléotide dans la séquence d’ADN, fréquente dans la population générale.', },
+{ question: 'Qu’est-ce que la base de données dbSNP ?', answer: 'Une base de données consacrée aux variants germinaux (SNPs) identifiés chez des individus sains.', },
+{ question: 'Pourquoi un variant retrouvé chez 40 % de la population est-il considéré comme neutre ?', answer: 'Parce que s’il était associé à un risque élevé de cancer, la prévalence de la maladie dans la population serait massivement plus élevée.', },
+{ question: 'Combien de mutations mononucléotidiques contient en moyenne un génome humain ?', answer: 'Il en contient environ 4 millions, dont 99,9 % sont des SNP fréquents.', },
+{ question: 'Qu’est-ce que gnomAD (Genome Aggregation Database) ?', answer: 'Une coalition agrégeant les données de séquençage d’exomes et de génomes pour fournir un catalogue des variantes humaines.', },
+{ question: 'Quelle proportion des variants de la base ExAC a une fréquence inférieure à 1 % ?', answer: '99 % des variants répertoriés ont une fréquence très faible (inférieure à 1 %).', },
+{ question: 'Quel biais majeur limite les bases de données génomiques actuelles ?', answer: 'Un biais ethnique important : la majorité des échantillons provient de populations d’origine européenne.', },
+{ question: 'Quel est l’impact de la sous-représentation de certaines populations (ex: africaines) ?', answer: 'Cela peut fausser l’interprétation clinique, car certains variants spécifiques à ces populations ne sont pas référencés.', },
+{ question: 'Qu’est-ce qu’un variant à forte pénétrance ?', answer: 'Un variant rare associé à un risque relatif élevé de cancer (ex: TP53, BRCA1/2, MLH1/2).', },
+{ question: 'Citez des gènes à pénétrance modérée selon les sources.', answer: 'Les gènes ATM, CHEK2, BRIP1 et PALB2.', },
+{ question: 'Quel pourcentage des cancers est considéré comme héréditaire ?', answer: 'Les cancers héréditaires représentent environ 5 à 10 % des cas.', },
+{ question: 'Quelle est la proportion des cancers dits sporadiques ?', answer: 'Ils représentent environ 80 % des cancers.', },
+{ question: 'Qu’est-ce que l’étude GWAS (Genome-Wide Association Study) ?', answer: 'Une méthode d’identification des allèles à risque fréquent mais à faible pénétrance.', },
+{ question: 'Qu’est-ce qu’une interaction épistatique positive ?', answer: 'Une relation où la présence d’une mutation favorise ou accompagne systématiquement la présence d’une autre (co-occurrence).', },
+{ question: 'Quelle information fournit la section « Drug resistance » de COSMIC ?', answer: 'Elle recense les mutations spécifiques impliquées dans la résistance aux traitements médicamenteux.', },
+{ question: 'Que permet d’analyser l’histogramme des mutations dans la vue « Gene view » ?', answer: 'Il montre la répartition des mutations le long de la séquence d’acides aminés de la protéine.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Bases_moleculaire_Oncologie_fc10";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

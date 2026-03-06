@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Bases moléculaires en oncologie</h1><h2>Bases cellulaires et moléculaires pour comprendre l'oncologie</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Définition du cancer selon les bases cellulaires.', answer: 'Maladie provoquée par la transformation de cellules qui deviennent anormales avec une multiplication anarchique au sein d’un organe ou d’un tissu.', },
+{ question: 'Quelle est la différence fondamentale entre une tumeur bénigne et une tumeur maligne concernant la limitation ?', answer: 'La tumeur bénigne est bien limitée et souvent encapsulée, alors que la tumeur maligne est mal limitée.', },
+{ question: 'Comment se comportent les tumeurs bénignes vis-à-vis des tissus voisins ?', answer: 'Elles refoulent les tissus voisins sans les détruire.', },
+{ question: 'Comment se comportent les tumeurs malignes vis-à-vis des tissus voisins ?', answer: 'Elles envahissent les tissus voisins.', },
+{ question: 'Quelle est la capacité de récidive d’une tumeur bénigne après exérèse totale ?', answer: 'La récidive est absente après une exérèse totale.', },
+{ question: 'Définition d’une métastase.', answer: 'Tumeur secondaire formée à partir de cellules cancéreuses qui se sont détachées d’une tumeur primitive et ont migré par les vaisseaux lymphatiques ou sanguins.', },
+{ question: 'Qu’est-ce que la carcinogenèse ?', answer: 'Le processus par lequel une cellule normale se transforme en cellule tumorale.', },
+{ question: 'De quoi est composé le microenvironnement tumoral (TME) ?', answer: 'Il est composé de cellules tumorales, de cellules stromales (fibroblastes, adipocytes), de cellules immunitaires, de réseaux de collagène, de vaisseaux sanguins et de cytokines.', },
+{ question: 'Quelles sont les cellules stromales présentes dans le TME ?', answer: 'Les fibroblastes, les cellules immunitaires, les cellules endothéliales et les adipocytes.', },
+{ question: 'Quel est l’impact de l’hypoxie au centre d’une tumeur ?', answer: 'Elle diminue l’apport en oxygène et en nutriments, ce qui est essentiel pour déclencher la néo-angiogenèse.', },
+{ question: 'Comment évolue le gradient de pH au sein d’une tumeur ?', answer: 'Le milieu devient plus acide au centre de la tumeur en raison de l’hypoxie et du métabolisme tumoral.', },
+{ question: 'Quel est le principe du modèle stochastique de la carcinogenèse ?', answer: 'Toutes les cellules cancéreuses ont la même capacité à former des tumeurs via des mutations aléatoires et leur évolution dépend d’influences stochastiques.', },
+{ question: 'Quel est le principe du modèle hiérarchique de la carcinogenèse ?', answer: 'Seules les cellules souches cancéreuses (CSC) sont capables d’initier, de maintenir et de propager de nouvelles tumeurs.', },
+{ question: 'Quelles sont les deux propriétés majeures des cellules souches cancéreuses (CSC) ?', answer: 'L’auto-renouvellement et la capacité de différenciation pour générer tous les types de cellules de la tumeur.', },
+{ question: 'Qu’est-ce que l’hétérogénéité intra-tumorale ?', answer: 'La présence de différentes sous-populations de cellules tumorales au sein d’une même tumeur, possédant des caractéristiques génétiques et phénotypiques distinctes.', },
+{ question: 'Définition de la résistance intrinsèque aux traitements.', answer: 'Présence de mutations préexistantes dans les cellules tumorales avant tout traitement, leur conférant une résistance naturelle.', },
+{ question: 'Définition de la résistance acquise aux traitements.', answer: 'Apparition de mutations induites par le traitement lui-même, permettant aux cellules de survivre et de proliférer malgré la thérapie.', },
+{ question: 'Quelle est la différence entre une mutation clonale et sous-clonale ?', answer: 'Une mutation clonale est présente dans toutes les cellules tumorales, tandis qu’une mutation sous-clonale n’est présente que dans une sous-population.', },
+{ question: 'Qu’est-ce qu’un adénome ?', answer: 'Une tumeur épithéliale initialement bénigne se développant dans un organe primitif.', },
+{ question: 'Qu’est-ce que le stade régional du développement tumoral ?', answer: 'L’étape caractérisée par l’envahissement progressif des ganglions lymphatiques et des organes voisins de proche en proche.', },
+{ question: 'Quelles sont les trois principales voies de dissémination métastatique ?', answer: 'La voie sanguine, la voie lymphatique et la voie intracavitaire (abdomen, plèvre).', },
+{ question: 'En quoi consiste la phase d’intravasation du processus métastatique ?', answer: 'Le passage des cellules cancéreuses à travers la paroi des vaisseaux sanguins, impliquant la traversée des cellules endothéliales.', },
+{ question: 'En quoi consiste la phase d’extravasation du processus métastatique ?', answer: 'La sortie des cellules cancéreuses des vaisseaux sanguins pour pénétrer dans les tissus environnants d’un nouveau site.', },
+{ question: 'Qu’est-ce que la transition épithélio-mésenchymateuse (TEM/EMT) ?', answer: 'Processus par lequel une cellule épithéliale perd ses caractéristiques pour adopter un phénotype mésenchymateux, devenant plus mobile et moins différenciée.', },
+{ question: 'Quels sont les trois principaux avantages conférés par l’EMT aux cellules cancéreuses ?', answer: 'Une augmentation de la mobilité cellulaire, une capacité accrue à envahir les tissus et une meilleure résistance au stress.', },
+{ question: 'Citez les 6 premières caractéristiques (« hallmarks ») du cancer identifiées en 2000.', answer: 'Autosuffisance en signaux de prolifération, insensibilité aux signaux d’inhibition, résistance à la mort cellulaire, immortalité réplicative, induction de l’angiogenèse et activation de l’invasion/métastase.', },
+{ question: 'Quels sont les nouveaux « hallmarks » ajoutés plus récemment à la liste ?', answer: 'Instabilité génomique, dérèglement du métabolisme énergétique, échappement immunitaire, inflammation pro-tumorale, plasticité phénotypique et sénescence cellulaire.', },
+{ question: 'Quelles sont les trois phases de l’interphase du cycle cellulaire ?', answer: 'La phase G1 (croissance), la phase S (synthèse/réplication) et la phase G2 (préparation à la division).', },
+{ question: 'Que se passe-t-il spécifiquement lors de la phase S ?', answer: 'La réplication du matériel génétique, c’est-à-dire la duplication de l’ADN.', },
+{ question: 'Qu’est-ce que la mitose ?', answer: 'Le processus par lequel une cellule somatique se divise pour produire deux cellules filles génétiquement identiques.', },
+{ question: 'Quelles sont les quatre étapes de la mitose ?', answer: 'La prophase, la métaphase, l’anaphase et la télophase.', },
+{ question: 'En quoi consiste la cytokinèse ?', answer: 'La ségrégation du contenu cellulaire (organites et cytoplasme) pour finaliser la formation de deux cellules filles distinctes.', },
+{ question: 'Quel rôle joue l’activité de la kinase Cycline D-CDK4/6 ?', answer: 'Elle permet l’entrée dans le cycle cellulaire et le passage du point de restriction.', },
+{ question: 'Quel est le rôle de la boucle de rétroaction positive impliquant E2F et la Cycline E-CDK2 ?', answer: 'Elle amplifie l’activité des CDK pour faciliter l’initiation de la réplication de l’ADN et l’entrée en phase S.', },
+{ question: 'Quelle kinase est essentielle pour l’entrée en mitose ?', answer: 'La kinase Cycline A/B-CDK1.', },
+{ question: 'Quel est l’objectif du point de contrôle G1/S ?', answer: 'Vérifier que le nombre d’organelles est suffisant et que les facteurs de croissance sont activés avant la synthèse d’ADN.', },
+{ question: 'Quel est l’objectif du point de contrôle G2/M ?', answer: 'Vérifier que le génome est entièrement répliqué et qu’il n’y a pas de dommages à l’ADN avant la mitose.', },
+{ question: 'Quel est l’objectif du point de contrôle M/G1 ?', answer: 'Contrôler le nombre de chromosomes lors de la sortie de mitose.', },
+{ question: 'Quel est le rôle de la protéine p21 dans la régulation du cycle ?', answer: 'Elle est stimulée par p53 et inhibe CDK2, ce qui provoque l’arrêt du cycle cellulaire.', },
+{ question: 'Quelles sont les caractéristiques de la réplication de l’ADN chez les eucaryotes ?', answer: 'Elle est bidirectionnelle, complémentaire, antiparallèle (sens 5\' vers 3\') et semi-discontinue.', },
+{ question: 'Qu’est-ce que le « proofreading » lors de la réplication ?', answer: 'L’activité de correction d’épreuves qui élimine les erreurs d’appariement de bases par l’ADN polymérase.', },
+{ question: 'Quel est le rôle de l’hélicase ?', answer: 'Ouvrir la double hélice d’ADN en séparant les deux brins parentaux.', },
+{ question: 'Quel est le rôle de la topoisomérase lors de la réplication ?', answer: 'Détendre la sur-torsion (tension de l’ADN) en amont de la fourche de réplication.', },
+{ question: 'Quel est le rôle des protéines SSB (Single-Strand Binding Proteins) ?', answer: 'Stabiliser les brins d’ADN séparés pour empêcher qu’ils ne se réapparient.', },
+{ question: 'Qu’est-ce qu’un fragment d’Okazaki ?', answer: 'Un segment discontinu d’ADN formé sur le brin retardé lors de la réplication.', },
+{ question: 'Quelle enzyme lie les fragments d’Okazaki entre eux ?', answer: 'L’ADN ligase.', },
+{ question: 'Définition du surenroulement négatif de l’ADN.', answer: 'Torsion de la molécule dans le sens contraire des aiguilles d’une montre par rapport à la double hélice classique.', },
+{ question: 'Qu’est-ce qu’une caténane ?', answer: 'Une structure où deux ou plusieurs molécules d’ADN circulaires sont enchevêtrées comme les maillons d’une chaîne.', },
+{ question: 'Quel est le rôle général des topoisomérases I et II ?', answer: 'Gérer la topologie de l’ADN en induisant des cassures transitoires et réversibles des liaisons phosphodiester pour modifier le surenroulement.', },
+{ question: 'Quel est le mécanisme spécifique de la topoisomérase I ?', answer: 'Elle coupe un seul des deux brins d’ADN, permettant au brin non coupé de pivoter pour relâcher la tension.', },
+{ question: 'Quel est le mécanisme spécifique de la topoisomérase II ?', answer: 'Elle coupe les deux brins de l’ADN simultanément pour permettre le passage d’un autre segment d’ADN à travers la cassure.', },
+{ question: 'Quelle topoisomérase nécessite l’hydrolyse de l’ATP pour fonctionner ?', answer: 'La topoisomérase II.', },
+{ question: 'Citez un exemple de médicament anti-cancéreux inhibiteur de la topoisomérase I.', answer: 'L’Irinotécan (utilisé notamment dans le cancer colorectal et du poumon).', },
+{ question: 'Citez un exemple de médicament anti-cancéreux inhibiteur de la topoisomérase II.', answer: 'L’Étoposide ou la Doxorubicine.', },
+{ question: 'De quoi est constitué le fuseau mitotique ?', answer: 'De deux réseaux symétriques et antiparallèles de microtubules.', },
+{ question: 'Quelle est la structure de base des microtubules ?', answer: 'Des dimères de tubuline α et β liés par des liaisons non covalentes.', },
+{ question: 'Qu’est-ce qu’un centrosome ?', answer: 'Structure située aux pôles de la cellule, constituée de deux centrioles, d’où rayonnent les microtubules du fuseau.', },
+{ question: 'En quoi consiste la « catastrophe » d’un microtubule ?', answer: 'La dépolymérisation brutale et l’instabilité du microtubule suite à l’hydrolyse du GTP en GDP.', },
+{ question: 'Comment agissent les alcaloïdes de la Pervenche (ex: Vincristine) ?', answer: 'Ils empêchent la polymérisation des microtubules, ce qui les déstabilise.', },
+{ question: 'Comment agissent les Taxanes (ex: Paclitaxel) ?', answer: 'Ce sont des stabilisateurs du fuseau qui empêchent la dépolymérisation des microtubules.', },
+{ question: 'Qu’est-ce que l’autosuffisance en signaux de prolifération ?', answer: 'La capacité des cellules cancéreuses à se diviser sans avoir besoin de stimuli de croissance provenant de l’extérieur.', },
+{ question: 'Qu’est-ce qu’une boucle de signalisation autocrine ?', answer: 'Le mécanisme par lequel une cellule produit elle-même ses propres facteurs de croissance.', },
+{ question: 'Quel impact a la surexpression de HER2 dans le cancer du sein ?', answer: 'Elle multiplie les récepteurs à la surface, rendant les cellules excessivement stimulées par les signaux de croissance.', },
+{ question: 'Définition d’un oncogène.', answer: 'Gène favorisant le processus oncogénique en participant à la régulation anormale de la croissance et de la division cellulaire.', },
+{ question: 'Qu’est-ce qu’un proto-oncogène ?', answer: 'Un gène normal qui, après mutation ou changement d’expression, peut devenir un oncogène.', },
+{ question: 'Citez trois mécanismes de passage d’un proto-oncogène à un oncogène.', answer: 'La translocation, l’amplification génique et la mutation ponctuelle.', },
+{ question: 'Citez un virus oncogénique responsable du cancer du col de l’utérus.', answer: 'Le virus HPV (types 16 et 18).', },
+{ question: 'Quel est le rôle des gènes suppresseurs de tumeur (GST) ?', answer: 'Ils agissent normalement pour inhiber la prolifération cellulaire et contrôler les mutations de l’ADN.', },
+{ question: 'Quelle est la règle génétique pour l’inactivation d’un GST ?', answer: 'Il s’agit d’un mécanisme récessif au niveau cellulaire : les deux allèles doivent être mutés ou perdus pour supprimer la fonction.', },
+{ question: 'Pourquoi p53 est-elle appelée le « gardien du génome » ?', answer: 'Parce qu’elle joue un rôle crucial dans la stabilité génomique en régulant l’arrêt du cycle, la réparation de l’ADN ou l’apoptose en cas de dommage.', },
+{ question: 'Quel pourcentage de cancers humains présentent une mutation de p53 ?', answer: 'Plus de 50 % des cancers humains.', },
+{ question: 'Qu’est-ce que le syndrome de Li-Fraumeni ?', answer: 'Une forme héréditaire de mutation germinale du gène TP53 entraînant une prédisposition très élevée aux cancers.', },
+{ question: 'Comment la protéine MDM2 régule-t-elle p53 ?', answer: 'Elle est l’inhibiteur physiologique de p53, provoquant sa dégradation pour éviter une activation excessive.', },
+{ question: 'Quels gènes pro-apoptotiques sont stimulés par p53 ?', answer: 'NOXA, PUMA et BAX.', },
+{ question: 'Quel est le rôle de la protéine du rétinoblastome (pRb) non phosphorylée ?', answer: 'Elle est active, liée au facteur de transcription E2F, et bloque le cycle cellulaire en phase G1.', },
+{ question: 'Comment la phosphorylation de pRb influence-t-elle le cycle cellulaire ?', answer: 'Elle désactive pRb, ce qui libère E2F et permet la transcription des gènes nécessaires au passage en phase S.', },
+{ question: 'Quelle est la différence de dominance entre mutations d’oncogènes et de GST ?', answer: 'L’oncogène est dominant (un seul allèle muté suffit), alors que le GST est récessif (deux copies mutées nécessaires).', },
+{ question: 'Définition de l’apoptose.', answer: 'Mort cellulaire programmée agissant comme une barrière naturelle contre le développement tumoral.', },
+{ question: 'Quelle est la caractéristique majeure de la voie intrinsèque de l’apoptose ?', answer: 'Elle débute par la mitochondrie et implique le relargage du cytochrome c.', },
+{ question: 'Quel est le mécanisme d’action du Vénétoclax ?', answer: 'C’est un inhibiteur spécifique de la protéine anti-apoptotique BCL-2, utilisé pour restaurer l’apoptose dans les cellules cancéreuses.', },
+{ question: 'Qu’est-ce qu’un télomère ?', answer: 'Structure coiffant l’extrémité des chromosomes, constituée de répétitions de la séquence TTAGGG.', },
+{ question: 'Qu’est-ce que la sénescence réplicative ?', answer: 'Un arrêt irréversible du cycle cellulaire provoqué par le raccourcissement progressif des télomères au fil des divisions.', },
+{ question: 'Quel est le rôle de la télomérase ?', answer: 'Une ribonucléoprotéine qui rallonge les télomères en ajoutant des séquences TTAGGG, conférant une immortalité réplicative aux cellules.', },
+{ question: 'Quelles sont les deux sous-unités de la télomérase ?', answer: 'hTERT (la sous-unité catalytique reverse transcriptase) et hTR (la molécule d’ARN matrice).', },
+{ question: 'Qu’est-ce que la voie ALT (Alternative Lengthening of Telomeres) ?', answer: 'Un mécanisme de secours basé sur la recombinaison interchromosomique permettant de maintenir les télomères sans télomérase.', },
+{ question: 'Définition de l’angiogenèse.', answer: 'La croissance de nouveaux vaisseaux sanguins à partir de vaisseaux préexistants.', },
+{ question: 'Qu’est-ce que le « switch angiogénique » ?', answer: 'Le basculement obligatoire lors de la carcinogenèse vers une production accrue de facteurs pro-angiogéniques par la tumeur.', },
+{ question: 'Quel est le principal facteur induisant l’angiogenèse tumorale ?', answer: 'Le VEGF (Vascular Endothelial Growth Factor).', },
+{ question: 'Comment agit le Bévacizumab (Avastin) ?', answer: 'C’est un anticorps monoclonal qui neutralise le VEGF, empêchant sa liaison à son récepteur et bloquant ainsi la formation de nouveaux vaisseaux.', },
+{ question: 'Qu’est-ce que l’effet Warburg ?', answer: 'Le fait que les cellules tumorales se limitent à la glycolyse pour produire de l’énergie, même en présence d’oxygène suffisant.', },
+{ question: 'Quelle est la conséquence biologique mesurable de l’effet Warburg ?', answer: 'Une augmentation du lactate et de la LDH (Lactate Déshydrogénase) dans le sang.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Bases_moleculaire_Oncologie_fc2";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

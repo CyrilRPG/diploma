@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Cibles et mécanismes d_action des médicaments (2)</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Cibles et mécanismes d_action des médicaments (2)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’étudie la pharmacodynamie', answer: 'Elle étudie l’effet du médicament, comment il s’exerce et comment il se mesure' },
+  { question: 'Sur quoi repose l’effet d’un médicament dans 99 % des cas', answer: 'Sur une ou plusieurs cibles moléculaires' },
+  { question: 'Que sont les médicaments sans cible moléculaire', answer: 'Des médicaments ayant un effet physique ou chimique direct' },
+  { question: 'Donner un exemple de médicament à effet physique', answer: 'L’huile de paraffine, lubrifiant ayant un effet laxatif par voie orale' },
+  { question: 'Donner un exemple de médicament à effet hémodynamique', answer: 'Le NaCl en soluté de remplissage agissant sur le volume liquidien vasculaire' },
+  { question: 'Donner un exemple de médicament ayant une réaction acido-basique', answer: 'L’hydroxyde d’aluminium réagit avec l’acide chlorhydrique gastrique, effet antiacide' },
+  { question: 'Donner un exemple de médicament à effet hypocholestérolémiant sans cible moléculaire', answer: 'La cholestyramine, résine échangeuse d’ions fixant les acides biliaires' },
+  { question: 'À quel principe se rattache la notion de médicament à cible moléculaire', answer: 'Au principe de Paul Ehrlich « Corpora non agunt nisi fixata »' },
+  { question: 'Que signifie « Corpora non agunt nisi fixata »', answer: 'Les substances n’agissent que si elles sont fixées à leurs cibles moléculaires' },
+  { question: 'Quelle est la conséquence de la fixation d’un médicament à sa cible', answer: 'Une cascade de réactions biologiques entraînant une réponse cellulaire ou organique' },
+  { question: 'Quelle est la nature d’une réponse cellulaire', answer: 'Une réponse transduite par un effecteur intracellulaire' },
+  { question: 'Citer un exemple de réponse cellulaire dans une cellule nerveuse', answer: 'La génération d’un potentiel d’action' },
+  { question: 'Citer un exemple de réponse cellulaire dans les lymphocytes', answer: 'La prolifération cellulaire ou l’apoptose' },
+  { question: 'Citer un exemple de réponse cellulaire dans les cellules de l’inflammation', answer: 'La production de cytokines et de médiateurs' },
+  { question: 'Que peut entraîner la réponse d’un ensemble de cellules', answer: 'Une réponse à l’échelle de l’organe' },
+  { question: 'Donner un exemple de réponse d’organe', answer: 'La contraction ou la relaxation musculaire' },
+  { question: 'Quelle est la conséquence d’une réponse d’organe', answer: 'Une réponse physiologique de l’organisme entier' },
+  { question: 'Citer trois régulations physiologiques obtenues par des médicaments', answer: 'Régulation de la glycémie, de la tension artérielle, et de la fréquence respiratoire' },
+  { question: 'Quelles sont les principales cibles moléculaires', answer: 'Protéines, acides nucléiques, transporteurs et récepteurs' },
+  { question: 'Qu’est-ce que la spécificité d’un médicament', answer: 'La capacité théorique d’agir uniquement sur une cible donnée' },
+  { question: 'Qu’est-ce que la sélectivité d’un médicament', answer: 'La capacité de se fixer préférentiellement sur une cible principale, mais aussi sur d’autres à moindre degré' },
+  { question: 'Qu’est-ce que la stéréosélectivité', answer: 'La différence d’activité biologique entre deux énantiomères d’une même molécule' },
+  { question: 'Donner un exemple d’énantiomères à effet différent', answer: 'Quinine antipaludéenne et quinidine antiarythmique' },
+  { question: 'Qu’implique la relation entre cible, effet, dose et sélectivité', answer: 'Qu’une même molécule peut agir sur plusieurs cibles selon la dose' },
+  { question: 'Que se passe-t-il quand la dose d’un médicament augmente', answer: 'La sélectivité diminue et de nouvelles cibles sont atteintes' },
+  { question: 'Que provoque un manque de sélectivité', answer: 'Des effets indésirables en plus de l’effet thérapeutique' },
+  { question: 'Donner un exemple de médicament non sélectif', answer: 'Les antidépresseurs tricycliques imipraminiques' },
+  { question: 'Quelle est la cible thérapeutique des imipraminiques', answer: 'Les transporteurs de sérotonine et de noradrénaline' },
+  { question: 'Donner deux cibles secondaires des antidépresseurs tricycliques', answer: 'Les récepteurs H1 de l’histamine et les récepteurs cholinergiques' },
+  { question: 'Quels effets indésirables entraînent les antidépresseurs tricycliques', answer: 'Sédation, prise de poids, sécheresse buccale, constipation' },
+  { question: 'Quelle est la différence entre un médicament non sélectif et un sélectif multi-tissulaire', answer: 'Le premier agit sur plusieurs cibles, le second sur une même cible exprimée dans différents tissus' },
+  { question: 'Donner un exemple de cible commune à effets multiples', answer: 'Le récepteur H1 de l’histamine' },
+  { question: 'Quel est l’effet thérapeutique du blocage des récepteurs H1', answer: 'Un effet antiallergique' },
+  { question: 'Quel est l’effet indésirable du blocage des récepteurs H1 cérébraux', answer: 'Sédation et prise de poids' },
+  { question: 'Que se passe-t-il quand on augmente la dose d’un médicament sélectif', answer: 'Il perd sa sélectivité et agit sur d’autres cibles' },
+  { question: 'Donner un exemple illustrant la perte de sélectivité', answer: 'Les β-bloquants sélectifs β1 qui bloquent aussi les β2 à forte dose' },
+  { question: 'Quel effet thérapeutique est recherché avec les β1-bloquants', answer: 'La diminution de la fréquence cardiaque' },
+  { question: 'Quel effet indésirable apparaît à forte dose avec les β1-bloquants', answer: 'Une bronchoconstriction par blocage des récepteurs β2' },
+  { question: 'Qu’est-ce que la marge thérapeutique', answer: 'L’écart entre la dose efficace et la dose toxique d’un médicament' },
+  { question: 'Que signifie une large marge thérapeutique', answer: 'Le médicament est facile à manier, peu de risque toxique' },
+  { question: 'Que signifie une marge thérapeutique étroite', answer: 'Une faible différence entre dose efficace et dose toxique' },
+  { question: 'Que nécessite un médicament à marge thérapeutique étroite', answer: 'Un suivi thérapeutique régulier par dosage sanguin' },
+  { question: 'Donner des exemples de médicaments à marge thérapeutique étroite', answer: 'Digoxine, immunosuppresseurs, aminosides' },
+  { question: 'Quelle est la plage thérapeutique de la digoxine', answer: 'Entre 0,9 et 2 ng/mL' },
+  { question: 'À partir de quelle concentration la digoxine devient toxique', answer: 'Au-dessus de 2 ng/mL' },
+  { question: 'Quelle est la conséquence d’une faible augmentation de dose pour un médicament à marge étroite', answer: 'L’apparition rapide d’effets indésirables' },
+  { question: 'Quel est le rôle principal du suivi thérapeutique', answer: 'Adapter les posologies pour éviter la toxicité' },
+  { question: 'Quelle est la principale diversité d’action des cibles moléculaires', answer: 'Elles peuvent avoir des activités enzymatiques, de transport, ou de signalisation intracellulaire' },
+  { question: 'Quels types de molécules peuvent constituer des cibles médicamenteuses', answer: 'Protéines circulantes ou membranaires, acides nucléiques, enzymes, récepteurs' },
+  { question: 'Quelle proportion des médicaments agit sur des cibles membranaires', answer: 'Environ 50 %' },
+  { question: 'Qu’est-ce qu’un anticorps monoclonal', answer: 'Une protéine ciblant spécifiquement une séquence antigénique d’une protéine à bloquer' },
+  { question: 'Quelle est la fonction principale des anticorps monoclonaux', answer: 'Bloquer ou neutraliser des récepteurs ou ligands spécifiques' },
+  { question: 'Quelles sont les quatre générations d’anticorps monoclonaux', answer: 'Murins, chimériques, humanisés, humains' },
+  { question: 'Quelle est la caractéristique d’un anticorps murin', answer: 'Il est 100 % d’origine de souris' },
+  { question: 'Quelle est la caractéristique d’un anticorps chimérique', answer: 'Il est composé à environ 70 % de séquence humaine' },
+  { question: 'Quelle est la caractéristique d’un anticorps humanisé', answer: 'Il contient entre 90 et 95 % de séquences humaines' },
+  { question: 'Quelle est la caractéristique d’un anticorps humain', answer: 'Il est composé à 100 % de séquence humaine' },
+  { question: 'Comment évoluent efficacité et tolérance selon l’humanisation des anticorps', answer: 'Elles augmentent avec le degré d’humanisation' },
+  { question: 'Quelle est la relation entre immunogénicité et humanisation', answer: 'L’immunogénicité diminue quand l’anticorps devient plus humain' },
+  { question: 'Citer un anticorps monoclonal utilisé contre un récepteur surexprimé dans les cancers du sein', answer: 'Le trastuzumab, anticorps humanisé anti-HER2' },
+  { question: 'Quelle est la cible du trastuzumab', answer: 'Le récepteur HER2 de la famille des EGF' },
+  { question: 'Quel est l’effet du blocage d’un récepteur HER2 surexprimé', answer: 'Ralentissement de la prolifération cancéreuse et amélioration du pronostic' },
+  { question: 'Quelle est la fonction des anticorps anti-TNF', answer: 'Neutraliser le TNF-alpha dans les maladies inflammatoires sévères' },
+  { question: 'Quelle est la fonction des anticorps anti-CD45', answer: 'Provoquer une lyse cellulaire dans certaines leucémies' },
+  { question: 'Quelle est la fonction des anticorps anti-récepteurs VEGF', answer: 'Inhiber la croissance vasculaire tumorale' },
+  { question: 'Quelle est la fonction des anticorps anti-récepteurs EGF', answer: 'Inhiber la croissance tumorale' },
+  { question: 'Quel est le rôle thérapeutique des oligonucléotides', answer: 'Modifier l’expression des gènes mutés' },
+  { question: 'Sur quoi se fixent les oligonucléotides thérapeutiques', answer: 'Sur les gènes cibles responsables de mutations pathologiques' },
+  { question: 'Que provoque la fixation d’un oligonucléotide thérapeutique sur un gène', answer: 'Le blocage de la transcription du gène muté' },
+  { question: 'Quel est le rôle des transporteurs ATPases', answer: 'Assurer un transport actif contre le gradient de concentration avec consommation d’ATP' },
+  { question: 'Citer trois exemples d’ATPases', answer: 'Na+/K+ ATPase, Ca2+ ATPase, H+/K+ ATPase' },
+  { question: 'Où se situe la pompe H+/K+ ATPase', answer: 'Dans les cellules pariétales gastriques' },
+  { question: 'Quel est le rôle physiologique de la pompe H+/K+ ATPase', answer: 'Produire les protons H+ pour former l’acide chlorhydrique gastrique' },
+  { question: 'Quel est l’effet de son inhibition', answer: 'Diminution de l’acidité gastrique et traitement des ulcères' },
+  { question: 'Donner un exemple d’inhibiteur de pompe à protons', answer: 'L’oméprazole' },
+  { question: 'Que signifie SLC', answer: 'Solute Carrier Family, grande famille de transporteurs membranaires' },
+  { question: 'Quels types de substances sont transportées par les SLC', answer: 'Ions, acides aminés, sucres, neurotransmetteurs, acides gras, vitamines' },
+  { question: 'Quel est le rôle du transporteur SERT', answer: 'Recapturer la sérotonine au niveau des synapses du système nerveux central' },
+  { question: 'Que provoque l’inhibition du transporteur SERT', answer: 'Une augmentation de la sérotonine synaptique' },
+  { question: 'Donner un exemple d’inhibiteur du transporteur SERT', answer: 'La fluoxétine' },
+  { question: 'Quel est le rôle du système de recapture des neuromédiateurs', answer: 'Récupérer les neurotransmetteurs dans la fente synaptique' },
+  { question: 'Quel est l’effet de la cocaïne sur la recapture de la noradrénaline', answer: 'Elle l’inhibe, augmentant la stimulation synaptique' },
+  { question: 'Quelle proportion des médicaments agit sur les enzymes', answer: 'Environ 25 %' },
+  { question: 'Quelle est la majorité des effets des médicaments sur les enzymes', answer: 'L’inhibition enzymatique' },
+  { question: 'Que provoque une inhibition enzymatique', answer: 'L’augmentation du substrat et la diminution du métabolite' },
+  { question: 'Citer un exemple de médicament activateur d’enzyme', answer: 'Les dérivés nitrés, activateurs de la guanylate cyclase' },
+  { question: 'Quel est l’effet de la guanylate cyclase activée', answer: 'La formation de GMPc et la relaxation du muscle lisse vasculaire' },
+  { question: 'Citer deux origines possibles des enzymes cibles', answer: 'Humaines et microbiennes' },
+  { question: 'Citer trois types d’enzymes humaines ciblées', answer: 'Kinases, hydrolases, transférases' },
+  { question: 'Citer trois types d’enzymes microbiennes ciblées', answer: 'Transcriptases, polymérases, protéases' },
+  { question: 'Quel est l’objectif du blocage d’une enzyme microbienne', answer: 'Inhiber le métabolisme des agents pathogènes' },
+  { question: 'Citer trois familles de médicaments agissant sur des enzymes métaboliques', answer: 'Hypocholestérolémiants, anticancéreux, anti-inflammatoires' },
+  { question: 'Que provoque l’inhibition de la cyclo-oxygénase', answer: 'Une diminution des prostaglandines et des thromboxanes' },
+  { question: 'Quel est le mécanisme d’action de l’aspirine', answer: 'Inhibition irréversible des cyclo-oxygénases par acétylation du site actif' },
+  { question: 'Quelle est la différence d’action entre aspirine et ibuprofène', answer: 'L’aspirine agit de façon irréversible, l’ibuprofène de façon réversible' },
+  { question: 'Quels sont les effets selon la dose des AINS', answer: 'Antalgique, antipyrétique, puis anti-inflammatoire' },
+  { question: 'Quelle est la cible des antirétroviraux contre le VIH', answer: 'Les enzymes virales comme la transcriptase inverse, l’intégrase et la protéase' },
+  { question: 'Donner un exemple d’inhibiteur de transcriptase inverse', answer: 'La zidovudine (AZT)' },
+  { question: 'Donner un exemple d’inhibiteur d’intégrase', answer: 'Le raltegravir' },
+  { question: 'Donner un exemple d’inhibiteur de protéase', answer: 'Le ritonavir' },
+  { question: 'Qu’est-ce qu’un inhibiteur enzymatique réversible', answer: 'Un inhibiteur se liant de façon non covalente et réversible à l’enzyme' },
+  { question: 'Qu’est-ce qu’un inhibiteur enzymatique irréversible', answer: 'Un inhibiteur formant une liaison covalente entraînant l’inactivation complète de l’enzyme' },
+  { question: 'Qu’est-ce qu’un inhibiteur compétitif', answer: 'Un inhibiteur se liant au même site que le substrat' },
+  { question: 'Qu’est-ce qu’un inhibiteur non compétitif', answer: 'Un inhibiteur se liant sur un site différent du substrat' },
+  { question: 'Qu’est-ce qu’un inhibiteur incompétitif', answer: 'Un inhibiteur se liant uniquement au complexe enzyme-substrat' },
+  { question: 'Donner un exemple de liaison covalente irréversible', answer: 'L’aspirine sur la cyclooxygénase' },
+  { question: 'Donner un exemple d’inhibiteur covalent non enzymatique', answer: 'L’oméprazole se liant à la pompe à protons gastrique' },
+  { question: 'Citer un médicament activateur enzymatique naturel', answer: 'La trinitrine' },
+  { question: 'Quel est le mécanisme d’action de la trinitrine', answer: 'Libération de NO qui active la guanylate cyclase et produit du GMPc' },
+  { question: 'Quelle est la conséquence cellulaire de la formation de GMPc', answer: 'La relaxation du muscle lisse vasculaire' },
+  { question: 'Quel est l’effet clinique recherché avec les dérivés nitrés', answer: 'Le soulagement de l’angine de poitrine' },
+  { question: 'Citer un activateur direct de la guanylate cyclase soluble', answer: 'Le riociguat' },
+  { question: 'Quelle est l’indication du riociguat', answer: 'L’hypertension artérielle pulmonaire' },
+  { question: 'Qu’est-ce qu’un récepteur à activité catalytique', answer: 'Un récepteur dont la liaison du ligand déclenche une activité enzymatique' },
+  { question: 'Quelle est la principale catégorie de récepteurs à activité catalytique', answer: 'Les récepteurs à activité tyrosine kinase' },
+  { question: 'Citer trois types de ligands des récepteurs à activité tyrosine kinase', answer: 'Les facteurs de croissance, les hormones et les cytokines' },
+  { question: 'Quelle est la structure d’un récepteur à activité tyrosine kinase', answer: 'Un domaine extracellulaire de liaison et un domaine intracellulaire enzymatique' },
+  { question: 'Quelle est la conséquence de l’association ligand-récepteur pour les récepteurs TK', answer: 'Une dimérisation suivie d’une autophosphorylation' },
+  { question: 'Que provoque la dimérisation des récepteurs TK', answer: 'L’activation d’une cascade biochimique intracellulaire' },
+  { question: 'Quelle est la durée typique de l’effet d’un récepteur à activité TK', answer: 'De quelques secondes à quelques heures' },
+  { question: 'Citer d’autres types de récepteurs catalytiques', answer: 'Les récepteurs à activité sérine/thréonine kinase et tyrosine phosphatase' },
+  { question: 'Qu’est-ce qu’un récepteur ionotrope', answer: 'Un canal ionique dont l’ouverture est régulée par un signal' },
+  { question: 'Quels sont les deux types de récepteurs ionotropes', answer: 'Les canaux voltage-dépendants et les canaux ligand-dépendants' },
+  { question: 'Que permet un canal voltage-dépendant', answer: 'L’ouverture déclenchée par une variation du potentiel de membrane' },
+  { question: 'Citer un exemple de canal calcique voltage-dépendant', answer: 'Les canaux de type L' },
+  { question: 'Quelle est la cible des bloqueurs calciques', answer: 'Les canaux calciques de type L des cellules musculaires' },
+  { question: 'Donner trois exemples de bloqueurs calciques', answer: 'Vérapamil, diltiazem, et les dihydropyridines' },
+  { question: 'Quelle est la conséquence physiologique du blocage des canaux calciques', answer: 'Une vasodilatation et une baisse de la tension artérielle' },
+  { question: 'Quelle est l’indication principale des bloqueurs calciques', answer: 'Le traitement de l’hypertension artérielle' },
+  { question: 'Que régulent les canaux ligand-dépendants', answer: 'Le passage des ions après fixation d’un médiateur chimique' },
+  { question: 'Donner deux exemples de récepteurs ligand-dépendants', answer: 'Le récepteur nicotinique et le récepteur GABAA' },
+  { question: 'Quels ions traversent les récepteurs nicotiniques', answer: 'Les ions sodium' },
+  { question: 'Quels ions traversent les récepteurs GABAA', answer: 'Les ions chlorure' },
+  { question: 'Quelle est la durée d’action typique d’un canal ionotrope après fixation du médiateur', answer: 'Quelques millisecondes' },
+  { question: 'Que sont les sites allostériques sur un récepteur ionotrope', answer: 'Des sites de modulation distincts du site de liaison principal' },
+  { question: 'Citer trois médicaments modulant le récepteur GABAA', answer: 'Les benzodiazépines, le phénobarbital et le zolpidem' },
+  { question: 'Quel est le rôle physiologique du GABA', answer: 'Il inhibe le système nerveux central en favorisant l’ouverture des canaux Cl–' },
+  { question: 'Quelle est la conséquence d’une activation du GABAA', answer: 'Une hyperpolarisation neuronale et un effet calmant' },
+  { question: 'Qu’est-ce qu’un canal potassique KATP', answer: 'Un canal régulé par le niveau d’ATP intracellulaire' },
+  { question: 'Où se trouvent les canaux KATP', answer: 'Dans les cellules bêta du pancréas' },
+  { question: 'Que se passe-t-il quand le glucose intracellulaire augmente', answer: 'Fermeture des canaux KATP, dépolarisation et sécrétion d’insuline' },
+  { question: 'Citer un médicament fermant les canaux KATP', answer: 'Le glibenclamide' },
+  { question: 'Quel est le mécanisme d’action des sulfamides hypoglycémiants', answer: 'Stimulation de la sécrétion d’insuline par fermeture des canaux KATP' },
+  { question: 'Citer un médicament ouvrant les canaux KATP', answer: 'Le nicorandil' },
+  { question: 'Quelle est la conséquence de l’ouverture des canaux KATP', answer: 'Hyperpolarisation cellulaire et vasodilatation' },
+  { question: 'Quelle est la principale cible des récepteurs couplés aux protéines G', answer: 'Les protéines effectrices intracellulaires régulant les seconds messagers' },
+  { question: 'Quelle proportion des médicaments agit sur des récepteurs couplés aux protéines G', answer: 'Environ 25 %' },
+  { question: 'Quelle est la structure d’un récepteur couplé à une protéine G', answer: 'Une protéine à sept domaines transmembranaires' },
+  { question: 'Où se trouve le site de liaison du ligand sur un récepteur couplé aux protéines G', answer: 'Sur l’extrémité extracellulaire' },
+  { question: 'Où se trouve la zone de couplage avec la protéine G', answer: 'Sur l’extrémité intracellulaire du récepteur' },
+  { question: 'Quelles sont les principales familles de récepteurs couplés aux protéines G', answer: 'Muscariniques, adrénergiques, dopaminergiques, opioïdes, prostaglandines' },
+  { question: 'Quelle est la structure d’une protéine G', answer: 'Un hétérotrimère composé de trois sous-unités α, β et γ' },
+  { question: 'Quel est le rôle de la sous-unité α de la protéine G', answer: 'Activer une protéine effectrice via son activité GTPase' },
+  { question: 'Citer deux types de protéines effectrices', answer: 'Les enzymes et les canaux ioniques' },
+  { question: 'Quelle est la conséquence de l’activation d’une protéine effectrice', answer: 'La production d’un second messager intracellulaire' },
+  { question: 'Donner un exemple d’enzyme effectrice activée par une protéine G', answer: 'L’adénylate cyclase' },
+  { question: 'Quel est le rôle de l’adénylate cyclase', answer: 'Transformer l’ATP en AMPc' },
+  { question: 'Que permet l’AMPc', answer: 'La régulation de nombreuses fonctions cellulaires via la protéine kinase A' },
+  { question: 'Quelles sont les principales familles de protéines G', answer: 'Gs, Gi, Gq et Go' },
+  { question: 'Quel est l’effet de la protéine Gs', answer: 'Activation de l’adénylate cyclase et augmentation de l’AMPc' },
+  { question: 'Quel est l’effet de la protéine Gi', answer: 'Inhibition de l’adénylate cyclase' },
+  { question: 'Quel est l’effet de la protéine Gq', answer: 'Activation de la phospholipase C et libération de calcium intracellulaire' },
+  { question: 'Citer un médicament agoniste des récepteurs β2 adrénergiques', answer: 'Le salbutamol' },
+  { question: 'Quel est l’effet du salbutamol sur les bronches', answer: 'Une relaxation du muscle lisse bronchique, effet bronchodilatateur' },
+  { question: 'Quelle est la conséquence intracellulaire de l’activation des récepteurs β2', answer: 'Une augmentation de l’AMPc et une baisse du calcium intracellulaire' },
+  { question: 'Quelle est l’indication clinique du salbutamol', answer: 'Le traitement de la crise d’asthme' },
+  { question: 'Qu’est-ce qu’un récepteur nucléaire', answer: 'Un récepteur intracellulaire régulant la transcription des gènes' },
+  { question: 'Où se trouve le récepteur nucléaire à l’état inactif', answer: 'Dans le cytoplasme, lié à une protéine chaperon' },
+  { question: 'Quelle est la première étape d’activation d’un récepteur nucléaire', answer: 'La diffusion intracellulaire du ligand' },
+  { question: 'Que se passe-t-il après la libération de la protéine chaperon', answer: 'Le récepteur devient actif et forme un complexe ligand-récepteur' },
+  { question: 'Où migre le complexe ligand-récepteur', answer: 'Dans le noyau cellulaire' },
+  { question: 'Quelle est l’action du complexe ligand-récepteur dans le noyau', answer: 'Il régule la transcription des gènes cibles' },
+  { question: 'Quel est le délai d’action typique des récepteurs nucléaires', answer: 'De 30 minutes à quelques heures' },
+  { question: 'Quelle est la durée de l’effet des récepteurs nucléaires', answer: 'De quelques heures à plusieurs jours' },
+  { question: 'Citer trois types de récepteurs nucléaires', answer: 'Récepteurs des glucocorticoïdes, des hormones thyroïdiennes et de la vitamine D' },
+  { question: 'Donner un exemple de médicament agissant sur un récepteur nucléaire', answer: 'Les glucocorticoïdes anti-inflammatoires' },
+  { question: 'Quelle est la conséquence génétique de l’activation des récepteurs nucléaires', answer: 'Une diminution de la synthèse des protéines de l’inflammation' },
+  { question: 'Quelle est la définition pharmacologique d’un récepteur', answer: 'Une protéine à laquelle se fixe un ligand capable de provoquer un effet biologique' },
+  { question: 'Qu’est-ce qu’un agoniste', answer: 'Un ligand qui se lie à un récepteur et induit une réponse biologique' },
+  { question: 'Qu’est-ce qu’un antagoniste', answer: 'Un ligand qui bloque l’effet d’un agoniste sur un récepteur' },
+  { question: 'Qu’est-ce qu’un agoniste inverse', answer: 'Un ligand diminuant l’activité constitutive d’un récepteur' },
+  { question: 'Qu’est-ce qu’un agoniste allostérique', answer: 'Un ligand se fixant sur un site différent de celui de l’agoniste endogène' },
+  { question: 'Qu’est-ce qu’un antagoniste neutre', answer: 'Un ligand empêchant la liaison de l’agoniste sans effet propre' },
+  { question: 'Qu’est-ce qu’un antagoniste chimique', answer: 'Un ligand se liant directement à l’agoniste pour le neutraliser' },
+  { question: 'Qu’est-ce qu’un antagoniste fonctionnel', answer: 'Un ligand exerçant un effet opposé à l’agoniste sur un autre site cellulaire' },
+  { question: 'Quelles sont les deux phases de l’interaction ligand-récepteur', answer: 'La reconnaissance et l’activation' },
+  { question: 'Qu’est-ce que la loi d’action de masse', answer: 'Une loi physique décrivant l’équilibre entre ligand libre, récepteur libre et complexe ligand-récepteur' },
+  { question: 'Que représente la constante KD', answer: 'La concentration de ligand nécessaire pour occuper 50 % des récepteurs' },
+  { question: 'Que signifie un KD faible', answer: 'Une forte affinité du ligand pour le récepteur' },
+  { question: 'Quelle est la méthode expérimentale pour mesurer la saturation d’un ligand', answer: 'La méthode de saturation avec un ligand radiomarqué' },
+  { question: 'Que représente Bmax', answer: 'Le nombre total de récepteurs dans une préparation' },
+  { question: 'Quelle méthode permet d’évaluer la compétition entre deux ligands', answer: 'La méthode de déplacement' },
+  { question: 'Que représente la CI50', answer: 'La concentration de ligand déplaçant 50 % du ligand radiomarqué d’un récepteur' },
+  { question: 'Quelle équation permet de calculer le Ki', answer: 'L’équation de Cheng et Prusoff' },
+  { question: 'Quelle est la différence entre KD et Ki', answer: 'KD mesure l’affinité d’un ligand, Ki mesure la puissance d’inhibition d’un ligand compétitif' },
+  { question: 'Que signifie la notion de sélectivité dans les études de liaison', answer: 'La préférence d’un ligand pour un récepteur par rapport à d’autres' },
+  { question: 'Quelle condition permet de dire qu’un ligand est sélectif', answer: 'Lorsque son Ki pour un récepteur est au moins 100 fois inférieur à celui pour un autre' },
+  { question: 'Quelles sont les caractéristiques principales de la liaison ligand-récepteur', answer: 'Elle est réversible, saturable, spécifique et définie par une affinité mesurable' },
+  { question: 'Que détermine le nombre de récepteurs dans un tissu', answer: 'Le développement, les pathologies et la stimulation par des ligands' },
+  { question: 'Quelle est la conséquence pharmacologique du nombre fini de récepteurs', answer: 'La relation dose-effet est limitée par la saturation des récepteurs' },
+  { question: 'Que signifie la stéréospécificité d’une liaison ligand-récepteur', answer: 'Que seuls certains énantiomères se fixent au récepteur' },
+  { question: 'Quelle est la conséquence clinique de la perte de sélectivité d’un médicament', answer: 'L’apparition d’effets indésirables non désirés' },
+  { question: 'Qu’est-ce que la pharmacométrie', answer: 'L’étude quantitative des effets des ligands sur leurs récepteurs' },
+  { question: 'Que permet la caractérisation d’un ligand par KD et Ki', answer: 'De comparer les affinités de différents ligands pour un même récepteur' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

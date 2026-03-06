@@ -1,0 +1,567 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Conception et développement d’un médicament</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Conception et développement d’un médicament</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Combien de temps peut s’écouler entre la découverte d’une molécule et la mise à disposition du médicament ?', answer: 'Environ 12 à 15 années.' },
+  { question: 'Quel est le coût moyen de la recherche et du développement d’un médicament ?', answer: 'Environ 1 milliard d’euros.' },
+  { question: 'Quelles sont les principales questions à se poser avant de développer un médicament ?', answer: 'L’existence d’un marché potentiel, la présence de traitements efficaces, la place du nouveau médicament, les moyens techniques et le niveau de compétence des acteurs.' },
+  { question: 'Quelle est la première étape du processus de développement d’un médicament ?', answer: 'L’identification de la molécule.' },
+  { question: 'Que comprend l’identification de la molécule ?', answer: 'L’identification d’une cible pertinente, la recherche de molécules actives sur cette cible et le dépôt d’un brevet.' },
+  { question: 'Quelle est la durée de protection d’un brevet pour un médicament ?', answer: '20 ans.' },
+  { question: 'Combien de temps reste-t-il à l’industriel pour rentabiliser la recherche après mise sur le marché ?', answer: 'Environ 10 ans.' },
+  { question: 'Quelle est la première approche d’identification d’un principe actif ?', answer: 'Répondre à un besoin thérapeutique dans une pathologie donnée.' },
+  { question: 'Quelle est la deuxième approche d’identification d’un principe actif ?', answer: 'Identification d’une cible nouvelle à partir des mécanismes physiopathologiques.' },
+  { question: 'Quelle est la troisième approche d’identification d’un principe actif ?', answer: 'Recherche d’une molécule nouvelle sur une cible d’intérêt thérapeutique connue.' },
+  { question: 'Quelle est la quatrième approche d’identification d’un principe actif ?', answer: 'Observation d’un effet pharmacologique d’une substance naturelle ou synthétique.' },
+  { question: 'Quelle est la cinquième approche d’identification d’un principe actif ?', answer: 'Découverte par hasard, appelée sérendipité.' },
+  { question: 'Donne un exemple de découverte par sérendipité.', answer: 'La ticlopidine, développée initialement comme anti-inflammatoire mais devenue antiagrégant plaquettaire.' },
+  { question: 'Quel autre exemple célèbre illustre la sérendipité ?', answer: 'Le sildénafil, initialement développé comme antihypertenseur puis commercialisé pour les troubles de l’érection.' },
+  { question: 'Qu’est-ce que le screening dans le développement d’un médicament ?', answer: 'Le criblage de milliers de molécules pour sélectionner celles ayant des propriétés optimales.' },
+  { question: 'Que signifie « hit » dans le screening ?', answer: 'Molécule identifiée comme active lors des tests de criblage.' },
+  { question: 'Que signifie « lead » dans le screening ?', answer: 'Molécule candidate optimisée issue d’un hit, destinée à être évaluée en préclinique.' },
+  { question: 'Qu’est-ce que la chimie combinatoire ?', answer: 'Technique permettant de générer simultanément des milliers de nouvelles molécules à partir de réactions combinées.' },
+  { question: 'Quelle est la particularité du screening haut débit ?', answer: 'Il utilise des techniques robotisées rapides et reproductibles pour tester une molécule par seconde.' },
+  { question: 'Qu’est-ce qu’un biomarqueur ?', answer: 'Une caractéristique mesurable indiquant un processus biologique normal ou pathologique ou une réponse à un traitement.' },
+  { question: 'Donne un exemple historique de biomarqueur.', answer: 'La glycémie, identifiée dès 1848 comme indicateur du diabète.' },
+  { question: 'Qu’est-ce qu’un biomarqueur compagnon ?', answer: 'Un biomarqueur utilisé pour évaluer la réponse ou la tolérance à un traitement.' },
+  { question: 'Quelle est la finalité des biomarqueurs en médecine personnalisée ?', answer: 'Identifier les patients répondeurs et éviter les traitements inefficaces ou toxiques.' },
+  { question: 'Quelle est la première étape des études précliniques ?', answer: 'La sélection du candidat médicament.' },
+  { question: 'Quel est le but principal des études précliniques ?', answer: 'Identifier les effets bénéfiques et toxiques du candidat médicament et déterminer la dose initiale chez l’homme.' },
+  { question: 'Quelles sont les trois grandes catégories d’études précliniques ?', answer: 'Pharmacologiques, pharmacocinétiques et toxicologiques.' },
+  { question: 'Que signifie ADME ?', answer: 'Absorption, Distribution, Métabolisme, Élimination.' },
+  { question: 'Quelle est la fonction des études pharmacologiques ?', answer: 'Valider le mécanisme d’action et mesurer l’activité du candidat médicament.' },
+  { question: 'À quoi servent les études de pharmacocinétique ?', answer: 'À décrire le devenir du composé dans l’organisme et identifier les espèces animales les plus prédictives.' },
+  { question: 'Quel est l’objectif des études de toxicologie ?', answer: 'Déterminer les organes cibles, les doses toxiques et la dose sans risque.' },
+  { question: 'Que signifie NOEL ?', answer: 'No Observed Effect Level, dose sans effet pharmacologique.' },
+  { question: 'Que signifie NOAEL ?', answer: 'No Observed Adverse Effect Level, dose sans effet secondaire.' },
+  { question: 'Que signifie la règle des 3R dans l’expérimentation animale ?', answer: 'Replace, Reduce, Refine.' },
+  { question: 'Quelle autorisation est nécessaire pour une expérimentation animale ?', answer: 'Une autorisation préalable du Ministère de la Recherche fondée sur un avis d’un comité d’éthique.' },
+  { question: 'Combien d’espèces animales sont utilisées au minimum pour les tests ?', answer: 'Au moins deux, un rongeur et un non-rongeur.' },
+  { question: 'Quelle est la concordance entre effets indésirables humains et résultats animaux ?', answer: 'Environ 70 % quand on utilise rongeurs et non-rongeurs.' },
+  { question: 'Quels sont les objectifs des études pharmacocinétiques animales ?', answer: 'Décrire les étapes ADME et étudier les transferts, notamment transplacentaires.' },
+  { question: 'Que vise la pharmacologie de sécurité ?', answer: 'L’étude des effets pharmacodynamiques secondaires sur les fonctions vitales.' },
+  { question: 'Quelles sont les trois fonctions vitales étudiées par la pharmacologie de sécurité ?', answer: 'Les systèmes cardiovasculaire, respiratoire et nerveux central.' },
+  { question: 'Que vérifie la pharmacologie de sécurité pour le système cardiovasculaire ?', answer: 'Les effets tensionnels et les modifications de l’ECG, notamment la repolarisation ventriculaire.' },
+  { question: 'Que vérifie la pharmacologie de sécurité pour le système nerveux central ?', answer: 'Le comportement, les réflexes, la motricité et le potentiel de dépendance.' },
+  { question: 'Que vérifie la pharmacologie de sécurité pour le système respiratoire ?', answer: 'Le rythme ventilatoire et la présence de troubles obstructifs bronchiques.' },
+  { question: 'Quel est l’objectif principal de la toxicologie réglementaire ?', answer: 'Déterminer le risque lié à l’administration du candidat médicament.' },
+  { question: 'Que définit la toxicocinétique ?', answer: 'La relation entre la concentration du médicament et la toxicité observée.' },
+  { question: 'Que vise la toxicologie d’organes ?', answer: 'Identifier les organes cibles et la réversibilité des effets observés.' },
+  { question: 'Quelle est la différence entre toxicité aiguë et chronique ?', answer: 'La toxicité aiguë suit une dose unique, la chronique suit une administration répétée.' },
+  { question: 'Qu’est-ce que la DL50 ?', answer: 'La dose entraînant 50 % de mortalité chez les animaux traités.' },
+  { question: 'Comment détermine-t-on la première dose administrable chez l’homme ?', answer: 'En divisant la NOAEL par un facteur de sécurité (10 ou 100).' },
+  { question: 'Quelle est la durée de surveillance des animaux lors des études de toxicité aiguë ?', answer: 'Au moins 15 jours après l’administration du produit.' },
+  { question: 'Quelles sont les deux espèces de mammifères utilisées pour les études de toxicité aiguë ?', answer: 'Le rat et la souris.' },
+  { question: 'Quelles sont les deux voies d’administration utilisées pour les études de toxicité aiguë ?', answer: 'Une voie systémique et la voie prévue chez l’homme.' },
+  { question: 'Quelle dose maximale est testée dans les études de toxicité aiguë ?', answer: 'Une dose induisant 50 fois l’exposition prévue chez l’homme, avec une limite à 1000 mg/kg/jour.' },
+  { question: 'Quelle est la définition d’une étude de toxicité subaiguë ?', answer: 'Étude qualitative et quantitative des phénomènes toxiques après administration répétée sur 28 jours.' },
+  { question: 'Quelle est la différence entre toxicité subaiguë, subchronique et chronique ?', answer: 'Subaiguë : 0 à 1 mois, subchronique : 1 à 3 mois, chronique : plus de 3 mois.' },
+  { question: 'Combien d’espèces animales sont utilisées dans les études de toxicité subaiguë ?', answer: 'Au moins deux espèces, dont une non rongeur.' },
+  { question: 'Quels animaux sont généralement utilisés pour la toxicité subaiguë ?', answer: 'Rats ou souris et chiens.' },
+  { question: 'Combien d’animaux sont utilisés pour les études de toxicité subaiguë ?', answer: 'Environ 80 rongeurs et 48 chiens.' },
+  { question: 'Quelles sont les observations réalisées lors des études de toxicité chronique ?', answer: 'Suivi clinique, biologique, autopsie et examen histologique des organes.' },
+  { question: 'Quelles sont les trois grandes catégories de toxicologie de reproduction ?', answer: 'Les segments I, II et III.' },
+  { question: 'Qu’a révélé le scandale de la thalidomide ?', answer: 'Son effet tératogène provoquant des malformations congénitales.' },
+  { question: 'Quel autre médicament a entraîné une reprotoxicité notable ?', answer: 'Le diéthylstilbestrol (Distilbène).' },
+  { question: 'Que vise le segment I des études de reproduction ?', answer: 'L’étude de la fertilité et de la reprotoxicité chez le rat.' },
+  { question: 'Quelle est la durée de traitement des mâles pour le segment I ?', answer: 'De 4 à 10 jours avant l’accouplement.' },
+  { question: 'Quelle est la durée de traitement des femelles pour le segment I ?', answer: 'Deux semaines avant l’accouplement jusqu’au sixième jour de la gestation.' },
+  { question: 'Combien de fœtus sont généralement examinés par groupe de traitement dans le segment I ?', answer: 'Environ 400 fœtus, soit 25 portées.' },
+  { question: 'Que vise le segment II des études de reproduction ?', answer: 'La toxicité embryo-fœtale chez le rat et le lapin.' },
+  { question: 'Quelle est la durée de traitement des femelles dans le segment II ?', answer: 'Pendant toute la gestation jusqu’à la césarienne au jour 21 (rat) ou 28 (lapin).' },
+  { question: 'Que vise le segment III des études de reproduction ?', answer: 'Les effets pré- et post-natals chez le rat.' },
+  { question: 'Quelle est la durée du traitement pour le segment III ?', answer: 'Du sixième jour de gestation au vingt-et-unième jour de lactation.' },
+  { question: 'Quels paramètres sont évalués dans le segment III ?', answer: 'Toxicité maternelle, gestation, comportement, développement post-natal et reproduction de la deuxième génération.' },
+  { question: 'Quel est l’objectif des études de cancérogenèse ?', answer: 'Détecter l’apparition de tumeurs après exposition prolongée au médicament.' },
+  { question: 'Quelle est la durée d’une étude de cancérogenèse ?', answer: 'De 24 à 30 mois, soit la quasi-totalité de la vie des rats.' },
+  { question: 'Combien de doses sont testées lors d’une étude de cancérogenèse ?', answer: 'Trois doses et un groupe témoin.' },
+  { question: 'Qu’est-ce qu’une mutation ?', answer: 'Une modification permanente et transmissible de l’ADN.' },
+  { question: 'Qu’est-ce qu’une mutagenèse ?', answer: 'Ensemble des mutations affectant les gènes.' },
+  { question: 'Qu’est-ce qu’une clastogenèse ?', answer: 'Anomalie du nombre ou de la structure des chromosomes.' },
+  { question: 'Quelles sont les conséquences d’une mutation sur cellules germinales ?', answer: 'Un risque héréditaire pour la descendance.' },
+  { question: 'Quelles sont les conséquences d’une mutation sur cellules somatiques ?', answer: 'Risque cancérogène si la réparation est erronée ou si un oncogène est activé.' },
+  { question: 'Quel est le but de la toxicologie génétique ?', answer: 'Détecter les modifications du matériel génétique induites par un médicament.' },
+  { question: 'Quel test in vitro permet de rechercher une mutagenèse génique ?', answer: 'Le test d’Ames sur des bactéries (souches de salmonelles).' },
+  { question: 'Quel est le principe du test d’Ames ?', answer: 'Les bactéries mutées peuvent pousser sur un milieu pauvre en histidine.' },
+  { question: 'Quels tests in vitro complètent le test d’Ames ?', answer: 'Les tests d’aberrations chromosomiques sur cellules.' },
+  { question: 'Quel test in vivo évalue la mutagenèse ?', answer: 'Le test des micronoyaux chez les rongeurs.' },
+  { question: 'Qu’est-ce qu’un micronoyau ?', answer: 'Un fragment de chromosome ou un chromosome entier isolé dans un érythrocyte.' },
+  { question: 'Pourquoi les érythrocytes sont-ils utilisés pour le test des micronoyaux ?', answer: 'Parce qu’ils sont nombreux et se renouvellent rapidement.' },
+  { question: 'Que signifie une augmentation de la fréquence des micronoyaux ?', answer: 'Des lésions chromosomiques induites par le médicament.' },
+  { question: 'Que permet d’évaluer le test des micronoyaux ?', answer: 'Le risque mutagène en prenant en compte le métabolisme et la réparation de l’ADN.' },
+  { question: 'Quelles sont les caractéristiques d’une solution injectable ?', answer: 'Limpidité, isotonie, neutralité, indolence, stérilité et apyrogénicité.' },
+  { question: 'Quelle est l’osmolarité d’une solution intraveineuse isotonique au plasma ?', answer: 'Environ 279 milliosmoles par kilogramme.' },
+  { question: 'Qu’est-ce qu’une solution apyrogène ?', answer: 'Une solution ne provoquant pas de fièvre après injection.' },
+  { question: 'Qu’est-ce que la stabilité d’un médicament ?', answer: 'Son aptitude à conserver ses propriétés physiques, chimiques et biologiques dans des limites spécifiées.' },
+  { question: 'Quels produits sont concernés par les études de stabilité ?', answer: 'Le principe actif et le produit fini (principe actif plus excipients).' },
+  { question: 'Quels sont les objectifs des essais de stabilité ?', answer: 'Étudier les variations de qualité en fonction du temps et des conditions environnementales.' },
+  { question: 'Quels facteurs influencent la stabilité d’un médicament ?', answer: 'La température, l’humidité et la lumière.' },
+  { question: 'Qu’est-ce que la péremption d’un médicament ?', answer: 'Diminution maximale de 10 % de la quantité de principe actif par rapport à la teneur initiale.' },
+  { question: 'Pourquoi les études environnementales sont-elles obligatoires ?', answer: 'Pour évaluer l’impact des rejets du médicament et de ses métabolites sur l’environnement.' },
+  { question: 'Quels sont les critères de qualité pharmaceutique étudiés ?', answer: 'La stabilité du principe actif, la stabilité galénique, la stérilité et la recherche d’impuretés.' },
+  { question: 'Quelle est la finalité principale des études de recherche et développement dans le médicament ?', answer: 'Découvrir et mettre au point des molécules actives et sûres pour traiter une pathologie humaine.' },
+  { question: 'Combien de molécules issues du screening atteignent la phase clinique en moyenne ?', answer: 'Environ une à trois molécules sur plusieurs milliers testées.' },
+  { question: 'À quoi sert la modélisation moléculaire dans le développement d’un médicament ?', answer: 'À optimiser les interactions entre le récepteur et la molécule candidate.' },
+  { question: 'Qu’est-ce qu’une chimiothèque ?', answer: 'Une collection de molécules utilisées pour le criblage et la recherche de nouvelles entités chimiques.' },
+  { question: 'Qu’est-ce qu’une ciblothèque ?', answer: 'Une collection de cibles biologiques sur lesquelles les molécules sont testées.' },
+  { question: 'Que signifie le terme de criblage tout azimut ?', answer: 'Recherche simultanée de l’activité d’une molécule sur un grand nombre de cibles.' },
+  { question: 'Pourquoi la date de dépôt du brevet est-elle cruciale pour l’industriel ?', answer: 'Parce qu’elle détermine la durée de protection et le temps restant pour rentabiliser la recherche.' },
+  { question: 'Combien de temps dure en moyenne la phase de développement clinique après le dépôt du brevet ?', answer: 'Environ 10 ans.' },
+  { question: 'Quelle est la durée totale de protection du brevet avant expiration ?', answer: '20 ans à compter de la date de dépôt.' },
+  { question: 'Quel est l’objectif global des études précliniques ?', answer: 'Garantir la sécurité et l’efficacité du médicament avant les essais sur l’homme.' },
+  { question: 'Quels sont les objectifs de la pharmacologie de sécurité ?', answer: 'Identifier les effets pharmacodynamiques secondaires indésirables sur les fonctions vitales.' },
+  { question: 'Quelles fonctions vitales doivent obligatoirement être testées avant les études cliniques ?', answer: 'Les systèmes cardiovasculaire, respiratoire et nerveux central.' },
+  { question: 'Que permet la pharmacocinétique animale en relation avec les études de toxicologie ?', answer: 'Établir la relation entre concentration plasmatique et effets toxiques.' },
+  { question: 'Qu’est-ce qu’un effet pharmacodynamique secondaire ?', answer: 'Un effet non désiré d’un médicament sur une fonction physiologique normale.' },
+  { question: 'Que permet d’évaluer la toxicologie réglementaire avant l’administration à l’homme ?', answer: 'La dose sans risque et la nature des effets toxiques potentiels.' },
+  { question: 'Pourquoi les études de toxicologie sont-elles obligatoires pour l’AMM ?', answer: 'Parce qu’elles déterminent le profil de sécurité et les risques du médicament.' },
+  { question: 'Quelles sont les trois grandes classes de tests toxicologiques réglementaires ?', answer: 'Toxicité aiguë et chronique, toxicité génétique, toxicité de la reproduction et cancérogenèse.' },
+  { question: 'Quelle est la dose utilisée pour déterminer la première administration humaine ?', answer: 'La NOAEL divisée par un facteur de sécurité.' },
+  { question: 'Quelles sont les principales études in vitro avant les études animales ?', answer: 'Les tests de liaison, les études d’activité enzymatique et les tests de mutagenèse bactérienne.' },
+  { question: 'Que signifie ICH dans la réglementation internationale ?', answer: 'International Council for Harmonisation.' },
+  { question: 'Quelle est la finalité des directives ICH ?', answer: 'Harmoniser les exigences techniques pour l’enregistrement des médicaments entre les pays.' },
+  { question: 'Qu’est-ce que le bien-être animal selon la règle des 3R ?', answer: 'L’ensemble des mesures visant à réduire la douleur, le nombre et la souffrance des animaux de laboratoire.' },
+  { question: 'Quel organisme en France autorise la recherche animale ?', answer: 'Le Ministère de la Recherche.' },
+  { question: 'Quelle autorisation personnelle est nécessaire pour pratiquer sur les animaux ?', answer: 'Une habilitation délivrée par le Ministère de l’Agriculture.' },
+  { question: 'Quelle autorité contrôle les locaux hébergeant les animaux ?', answer: 'La Direction des Services Vétérinaires départementale.' },
+  { question: 'Quel est le pourcentage d’animaux utilisés en toxicologie par rapport à la recherche globale ?', answer: 'Environ 5 à 10 %.' },
+  { question: 'Quelle est la concordance entre effets indésirables humains et études animales combinées ?', answer: 'Environ 70 %.' },
+  { question: 'Quels types d’effets sont le mieux prédits par les études animales ?', answer: 'Les effets hématologiques, gastro-intestinaux et cardiologiques.' },
+  { question: 'Quel type d’effet est le moins bien prédit ?', answer: 'Les effets cutanés.' },
+  { question: 'Quelle espèce est la plus sensible pour les effets cutanés ?', answer: 'Le lapin.' },
+  { question: 'Que signifie DSV ?', answer: 'Direction des Services Vétérinaires.' },
+  { question: 'Quelle est la durée maximale d’autorisation d’un projet animal ?', answer: 'Cinq ans.' },
+  { question: 'Quels phénomènes étudie la pharmacocinétique ?', answer: 'Absorption, distribution, métabolisme et élimination.' },
+  { question: 'Que permet l’étude de métabolisme in vitro ?', answer: 'Identifier les interactions médicamenteuses par les cytochromes P450.' },
+  { question: 'Qu’est-ce que la toxicocinétique ?', answer: 'L’étude de la relation entre la concentration du médicament et les effets toxiques observés.' },
+  { question: 'Quel est le but des études d’évaluation du risque environnemental ?', answer: 'Mesurer l’impact du médicament et de ses métabolites sur le milieu naturel.' },
+  { question: 'Qu’est-ce qu’une étude de stabilité pharmaceutique ?', answer: 'Une étude mesurant la conservation des propriétés physiques et chimiques du médicament dans le temps.' },
+  { question: 'Quel est le seuil maximal de perte de principe actif pour un médicament stable ?', answer: 'Dix pour cent.' },
+  { question: 'Quels paramètres influencent la péremption d’un médicament ?', answer: 'La température, la lumière et l’humidité.' },
+  { question: 'Quelles propriétés physiques doivent avoir les solutions injectables ?', answer: 'Être limpides, isotoniques, neutres, indolores et stériles.' },
+  { question: 'Qu’est-ce que l’apyrogénicité d’un médicament injectable ?', answer: 'L’absence de substances provoquant de la fièvre après injection.' },
+  { question: 'Quelle pression osmotique doit présenter une solution intraveineuse ?', answer: '279 milliosmoles par kilogramme.' },
+  { question: 'Quelle est la différence entre un principe actif et un produit fini ?', answer: 'Le principe actif est la substance pharmacologiquement efficace, le produit fini comprend le principe actif et les excipients.' },
+  { question: 'Quelle est la conséquence de la découverte tardive d’un effet indésirable grave ?', answer: 'Suspension ou retrait de l’Autorisation de Mise sur le Marché.' },
+  { question: 'À quoi servent les études in vivo sur modèles animaux de maladies ?', answer: 'À vérifier l’efficacité et la tolérance du médicament avant essai clinique.' },
+  { question: 'Que permettent les études de pharmacologie comparée ?', answer: 'Évaluer le rapport bénéfice/risque par rapport aux médicaments existants.' },
+  { question: 'Qu’est-ce qu’une étude de tolérance locale ?', answer: 'L’évaluation des effets d’une voie d’administration locale comme la peau ou la voie respiratoire.' },
+  { question: 'Que mesure l’étude d’immunotoxicité ?', answer: 'L’effet du médicament sur le système immunitaire.' },
+  { question: 'Que mesure l’étude de phototoxicité ?', answer: 'Le potentiel d’une molécule à devenir toxique sous exposition lumineuse.' },
+  { question: 'Qu’est-ce qu’un modèle de pathologie humaine chez l’animal ?', answer: 'Un modèle expérimental reproduisant la maladie humaine pour tester les traitements.' },
+  { question: 'Quelle est la première étape avant toute administration à l’homme d’un nouveau médicament ?', answer: 'La réalisation obligatoire d’expérimentations animales.' },
+  { question: 'Pourquoi les expérimentations animales sont-elles strictement réglementées ?', answer: 'Pour garantir la sécurité, le bien-être animal et la validité scientifique des résultats.' },
+  { question: 'Quel est le rôle du comité d’éthique dans la recherche animale ?', answer: 'Évaluer la pertinence scientifique et éthique du projet avant autorisation.' },
+  { question: 'Quel est le but des études pharmacocinétiques précliniques ?', answer: 'Déterminer les concentrations du médicament dans les tissus et les fluides biologiques.' },
+  { question: 'Pourquoi utilise-t-on des molécules radiomarquées en pharmacocinétique ?', answer: 'Pour suivre le devenir du médicament dans l’organisme.' },
+  { question: 'Qu’est-ce que le métabolisme d’un médicament ?', answer: 'L’ensemble des transformations chimiques du médicament dans l’organisme.' },
+  { question: 'Qu’est-ce que l’élimination d’un médicament ?', answer: 'L’expulsion du médicament et de ses métabolites, principalement par les reins et le foie.' },
+  { question: 'Que signifie le terme biodisponibilité ?', answer: 'Fraction du médicament atteignant la circulation systémique sous forme active.' },
+  { question: 'Quel est l’objectif du transfert transplacentaire étudié en pharmacocinétique ?', answer: 'Déterminer si le médicament peut passer la barrière placentaire.' },
+  { question: 'Quelle est la finalité d’une étude de relation concentration-effet ?', answer: 'Relier les concentrations plasmatiques aux effets pharmacologiques et toxiques observés.' },
+  { question: 'Qu’est-ce que la variabilité inter-espèces ?', answer: 'Les différences de réponse pharmacologique et métabolique entre espèces animales et l’homme.' },
+  { question: 'Quelle est la finalité des études d’interaction médicamenteuse ?', answer: 'Identifier les risques d’induction ou d’inhibition enzymatique entre médicaments.' },
+  { question: 'Qu’est-ce qu’un effet indésirable ?', answer: 'Une réaction nocive et non intentionnelle liée à l’usage d’un médicament.' },
+  { question: 'Quelle est la différence entre effet indésirable et effet secondaire ?', answer: 'L’effet indésirable est nocif, l’effet secondaire peut être attendu et non nécessairement dangereux.' },
+  { question: 'Qu’est-ce que la pharmacovigilance ?', answer: 'La surveillance et l’évaluation des effets indésirables des médicaments après leur mise sur le marché.' },
+  { question: 'Pourquoi la phase préclinique est-elle essentielle avant la phase I ?', answer: 'Parce qu’elle permet de déterminer la première dose sûre à administrer chez l’homme.' },
+  { question: 'Que signifie la phase I des essais cliniques ?', answer: 'Première administration du médicament à l’homme pour évaluer sa tolérance.' },
+  { question: 'Quel est le but de la phase II des essais cliniques ?', answer: 'Évaluer l’efficacité et la sécurité sur un petit groupe de patients.' },
+  { question: 'Quel est le but de la phase III des essais cliniques ?', answer: 'Confirmer l’efficacité et la tolérance sur un grand nombre de patients avant l’AMM.' },
+  { question: 'Que signifie AMM ?', answer: 'Autorisation de Mise sur le Marché.' },
+  { question: 'Quelle est la finalité de l’AMM ?', answer: 'Permettre la commercialisation du médicament sur la base d’un rapport bénéfice/risque favorable.' },
+  { question: 'Quelle est la durée de validité initiale d’une AMM en Europe ?', answer: 'Cinq ans, renouvelable.' },
+  { question: 'Qu’est-ce que la phase IV des essais cliniques ?', answer: 'La phase de surveillance post-commercialisation.' },
+  { question: 'Que représente la notion de rapport bénéfice/risque ?', answer: 'L’évaluation de l’efficacité thérapeutique par rapport aux effets indésirables potentiels.' },
+  { question: 'Quel est le rôle du dossier préclinique dans la demande d’AMM ?', answer: 'Il fournit les preuves expérimentales de la sécurité du médicament avant l’essai clinique.' },
+  { question: 'Que comprend le dossier préclinique ?', answer: 'Les études pharmacologiques, pharmacocinétiques, toxicologiques et de sécurité.' },
+  { question: 'Pourquoi les études sur la stabilité sont-elles importantes avant la mise sur le marché ?', answer: 'Pour garantir que le médicament conserve son efficacité et sa sécurité pendant toute sa durée de conservation.' },
+  { question: 'Quelle est la différence entre stabilité physique et stabilité chimique ?', answer: 'La stabilité physique concerne l’aspect et la dissolution, la stabilité chimique la composition moléculaire.' },
+  { question: 'Que garantit la stérilité d’un médicament injectable ?', answer: 'L’absence totale de micro-organismes viables.' },
+  { question: 'Qu’est-ce que l’isotonie d’une solution injectable ?', answer: 'Une pression osmotique identique à celle du plasma sanguin.' },
+  { question: 'Qu’est-ce que la neutralité d’une solution injectable ?', answer: 'Un pH proche de celui du sang, généralement autour de 7,4.' },
+  { question: 'Que signifie l’indolence d’une solution injectable ?', answer: 'L’absence de douleur lors de l’injection.' },
+  { question: 'Quelle est la fonction des excipients dans un médicament ?', answer: 'Faciliter la fabrication, la conservation et l’administration du principe actif.' },
+  { question: 'Quelle est la fonction du principe actif ?', answer: 'Provoquer l’effet pharmacologique recherché.' },
+  { question: 'Quelle est la différence entre un médicament générique et un médicament princeps ?', answer: 'Le générique contient le même principe actif mais peut avoir des excipients différents.' },
+  { question: 'Qu’est-ce que le délai d’action d’un médicament ?', answer: 'Le temps nécessaire pour que la concentration efficace soit atteinte dans l’organisme.' },
+  { question: 'Qu’est-ce qu’une demi-vie plasmatique ?', answer: 'Le temps nécessaire pour que la concentration du médicament dans le sang diminue de moitié.' },
+  { question: 'Pourquoi la demi-vie est-elle importante ?', answer: 'Elle détermine la fréquence d’administration du médicament.' },
+  { question: 'Que signifie accumulation médicamenteuse ?', answer: 'L’augmentation progressive de la concentration du médicament dans l’organisme.' },
+  { question: 'Quelle est la conséquence d’une accumulation excessive ?', answer: 'Une toxicité médicamenteuse.' },
+  { question: 'Qu’est-ce qu’une interaction pharmacocinétique ?', answer: 'Une modification de l’absorption, de la distribution, du métabolisme ou de l’élimination par une autre substance.' },
+  { question: 'Qu’est-ce qu’une interaction pharmacodynamique ?', answer: 'Une modification des effets d’un médicament sans changer sa concentration.' },
+  { question: 'Quelle est la principale voie d’élimination des médicaments hydrosolubles ?', answer: 'La voie rénale.' },
+  { question: 'Quelle est la principale voie d’élimination des médicaments liposolubles ?', answer: 'La voie hépatobiliaire.' },
+  { question: 'Que signifie biodégradation d’un médicament ?', answer: 'Sa transformation enzymatique dans l’organisme.' },
+  { question: 'Qu’est-ce qu’une enzyme du cytochrome P450 ?', answer: 'Une enzyme hépatique impliquée dans le métabolisme des médicaments.' },
+  { question: 'Pourquoi la connaissance des cytochromes P450 est-elle essentielle ?', answer: 'Pour prévoir les interactions médicamenteuses et les variations d’efficacité.' },
+  { question: 'Que désigne le terme principe galénique ?', answer: 'La forme pharmaceutique du médicament, comme comprimé, gélule, sirop ou injection.' },
+  { question: 'Qu’est-ce que la formulation galénique ?', answer: 'L’ensemble des procédés permettant d’obtenir une forme pharmaceutique stable et efficace.' },
+  { question: 'Pourquoi la formulation galénique influence-t-elle la biodisponibilité ?', answer: 'Parce qu’elle détermine la vitesse et la quantité du principe actif absorbé.' },
+  { question: 'Quelle est la différence entre voie systémique et voie locale ?', answer: 'La voie systémique agit sur l’ensemble de l’organisme, la voie locale agit à l’endroit d’application.' },
+  { question: 'Qu’est-ce qu’une voie parentérale ?', answer: 'Une voie d’administration contournant le tube digestif, comme la voie intraveineuse ou intramusculaire.' },
+  { question: 'Quelle est la particularité des médicaments injectables par voie intraveineuse ?', answer: 'Ils doivent être stériles, apyrogènes, isotoniques et à pH neutre.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

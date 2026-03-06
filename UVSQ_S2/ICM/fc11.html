@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Bon usage du médicament</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Bon usage du médicament</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que le bon usage du médicament', answer: 'C’est l’utilisation du bon médicament, à la bonne dose, avec une forme galénique adaptée, pendant la durée nécessaire, pour un patient donné, avec la meilleure tolérance possible et au coût le plus faible.' },
+  { question: 'Quels sont les six critères du bon usage du médicament', answer: 'Bon médicament, bonne dose, bonne forme galénique, bonne durée, bon patient, bonne tolérance et coût minimal.' },
+  { question: 'Quelle est la durée minimale d’une antibiothérapie selon le bon usage', answer: 'Minimum 5 jours.' },
+  { question: 'Quelle est la durée minimale d’un traitement antidépresseur selon le bon usage', answer: 'Minimum 3 semaines.' },
+  { question: 'À quoi correspond la dose de départ d’un médicament dans l’AMM', answer: 'À la dose établie pour un volontaire sain.' },
+  { question: 'Quels facteurs nécessitent une adaptation de la posologie', answer: 'L’insuffisance rénale, l’insuffisance hépatique et la physiologie particulière du patient.' },
+  { question: 'Qui pose le diagnostic et établit la prescription médicamenteuse', answer: 'Le médecin.' },
+  { question: 'Quel est le rôle du médecin dans le bon usage du médicament', answer: 'Diagnostiquer, prescrire, surveiller le traitement, évaluer le rapport bénéfice/risque et éduquer le patient.' },
+  { question: 'Quel est le rôle du pharmacien dans le bon usage du médicament', answer: 'Analyser, délivrer, vérifier la conformité de l’ordonnance, conseiller et éduquer le patient.' },
+  { question: 'Quelle est la responsabilité du patient dans le bon usage du médicament', answer: 'Respecter l’observance et consulter en cas de doute le pharmacien ou le médecin.' },
+  { question: 'Qu’est-ce que le RCP', answer: 'Le Résumé des Caractéristiques du Produit, une monographie validée par la Commission d’AMM et destinée aux professionnels de santé.' },
+  { question: 'Que contient le RCP', answer: 'Les caractéristiques pharmacologiques, les modalités d’utilisation et les risques encourus du médicament.' },
+  { question: 'Qu’est-ce que la notice patient', answer: 'Une version vulgarisée du RCP, annexée à l’AMM, pour être compréhensible par tous les patients.' },
+  { question: 'Qu’est-ce que le Vidal', answer: 'Un recueil de référence contenant les RCP et les informations officielles sur les médicaments.' },
+  { question: 'Que contient la rubrique “Formes et présentation” du RCP', answer: 'La description physique des comprimés, gélules, poudres, leur conditionnement et leur forme galénique.' },
+  { question: 'Pourquoi la couleur ou la forme d’une gélule est-elle importante', answer: 'Pour l’identification et la prévention des contrefaçons.' },
+  { question: 'Que signifie DCI', answer: 'Dénomination Commune Internationale du principe actif.' },
+  { question: 'Pourquoi les excipients sont-ils listés dans le RCP', answer: 'Car certains peuvent provoquer des allergies ou des intolérances.' },
+  { question: 'Que signifie AMM', answer: 'Autorisation de Mise sur le Marché.' },
+  { question: 'Que contient la rubrique posologie du RCP', answer: 'Les doses recommandées selon l’âge, le poids, la pathologie et la durée du traitement.' },
+  { question: 'Quelle est la durée maximale recommandée d’un traitement anxiolytique', answer: '12 semaines.' },
+  { question: 'Quelle est la conséquence d’une posologie non adaptée chez l’insuffisant rénal', answer: 'Risque de toxicité par accumulation du médicament.' },
+  { question: 'Que décrit la rubrique contre-indications du RCP', answer: 'Les situations où le médicament ne doit pas être utilisé.' },
+  { question: 'Que contient la rubrique “mises en garde et précautions d’emploi”', answer: 'Les situations nécessitant une vigilance accrue ou une adaptation de la surveillance.' },
+  { question: 'Qu’est-ce qu’une association contre-indiquée', answer: 'Une combinaison de médicaments dont la co-administration est absolument interdite.' },
+  { question: 'Donne un exemple d’association contre-indiquée', answer: 'Antidépresseurs tricycliques et IMAO.' },
+  { question: 'Qu’est-ce qu’une association déconseillée', answer: 'Une association à éviter autant que possible, nécessitant une surveillance étroite.' },
+  { question: 'Donne un exemple d’association déconseillée', answer: 'Alcool et psychotropes.' },
+  { question: 'Qu’est-ce qu’une interaction médicamenteuse', answer: 'Modification de l’intensité ou de la durée de la réponse à un médicament en présence d’un autre.' },
+  { question: 'Qu’est-ce qu’une interaction pharmacodynamique', answer: 'Modification de l’effet sans modification des concentrations.' },
+  { question: 'Qu’est-ce qu’une interaction pharmacocinétique', answer: 'Modification de l’effet par modification des concentrations (ADME).' },
+  { question: 'Qu’est-ce qu’un inducteur enzymatique', answer: 'Substance augmentant la vitesse de biotransformation d’un médicament par le système des cytochromes P450.' },
+  { question: 'Qu’est-ce qu’un inhibiteur enzymatique', answer: 'Substance diminuant la vitesse de biotransformation d’un médicament par le système des cytochromes P450.' },
+  { question: 'Cite un inhibiteur enzymatique alimentaire connu', answer: 'Le jus de pamplemousse.' },
+  { question: 'Quels sont les principaux cytochromes hépatiques', answer: 'CYP1A2, CYP2C8, CYP2D6 et CYP3A4.' },
+  { question: 'Quelle proportion de médicaments est métabolisée par le CYP3A4', answer: 'Environ 50 %.' },
+  { question: 'Qu’est-ce que le mésusage médicamenteux', answer: 'Usage intentionnel et inapproprié d’un médicament non conforme à l’AMM ou aux recommandations.' },
+  { question: 'Quelle est la différence entre mésusage individuel et collectif', answer: 'Le mésusage collectif concerne une population entière, le mésusage individuel un patient particulier.' },
+  { question: 'Donne un exemple de mésusage collectif', answer: 'Prescription excessive et prolongée de psychotropes.' },
+  { question: 'Donne un exemple de mésusage individuel', answer: 'Utilisation détournée de la codéine à des fins récréatives.' },
+  { question: 'Quel est le surnom du mélange codéine-prométhazine-soda', answer: 'Purple Drank.' },
+  { question: 'Quelles sont les principales sources officielles du bon usage du médicament', answer: 'RCP, fiches BUM de la HAS, référentiels de l’INCa et CEPS.' },
+  { question: 'Quel est le rôle du CEPS', answer: 'Déterminer le prix des médicaments et comparer leur coût à efficacité égale.' },
+  { question: 'Qu’est-ce que la HAS', answer: 'Haute Autorité de Santé, évaluant le Service Médical Rendu et l’ASMR.' },
+  { question: 'Que signifie SMR', answer: 'Service Médical Rendu.' },
+  { question: 'Que signifie ASMR', answer: 'Amélioration du Service Médical Rendu.' },
+  { question: 'Qu’est-ce qu’une fiche BUM', answer: 'Document de la Commission de Transparence précisant la place d’un médicament dans la stratégie thérapeutique.' },
+  { question: 'Qu’est-ce que la médecine fondée sur les preuves', answer: 'Une démarche clinique basée sur les données scientifiques validées, complétant le jugement du clinicien.' },
+  { question: 'Qu’est-ce qu’un biais de publication', answer: 'Le fait que les industriels publient préférentiellement les résultats positifs d’études.' },
+  { question: 'Quelle loi impose la publication des résultats négatifs des essais cliniques', answer: 'La loi européenne d’avril 2014 impose à l’industrie pharmaceutique de publier également les résultats négatifs sous peine d’amendes.' },
+  { question: 'Qu’est-ce qu’une méta-analyse', answer: 'C’est une étude statistique qui regroupe les résultats de plusieurs études pour en dégager une conclusion globale plus puissante.' },
+  { question: 'Que signifie un faux positif dans un essai clinique', answer: 'C’est une conclusion erronée affirmant une différence entre deux groupes alors qu’il n’y en a pas, due au hasard.' },
+  { question: 'Quel est le pourcentage de risque d’un faux positif dans un essai clinique', answer: 'Environ 5 %, soit 5 études sur 100.' },
+  { question: 'Quelle est la limite principale des essais cliniques pré-AMM', answer: 'Les patients sont sélectionnés, souvent en meilleure santé et non représentatifs de la population générale.' },
+  { question: 'Pourquoi les effets indésirables rares ne sont-ils pas détectés avant l’AMM', answer: 'Car les essais pré-AMM ont une durée et un nombre de participants limités.' },
+  { question: 'Qu’est-ce que l’évaluation post-AMM', answer: 'C’est l’étude de l’utilisation réelle du médicament dans la population générale pour détecter de nouveaux risques.' },
+  { question: 'Qu’est-ce que la pharmaco-épidémiologie', answer: 'C’est la science qui étudie les effets des médicaments en population réelle.' },
+  { question: 'Qu’est-ce que la pharmacovigilance', answer: 'C’est la surveillance et la prévention des effets indésirables des médicaments après leur mise sur le marché.' },
+  { question: 'Quelle est la définition de l’iatrogénèse médicamenteuse', answer: 'Ensemble des troubles non désirés survenant à la suite d’une action médicale ou de l’utilisation d’un médicament.' },
+  { question: 'Quelle est la proportion d’évènements iatrogènes évitables', answer: 'Environ 45 %.' },
+  { question: 'Quels sont les types d’évènements iatrogènes évitables', answer: 'Erreurs médicamenteuses, interactions médicamenteuses, toxicités liées au dosage.' },
+  { question: 'Quels sont les évènements iatrogènes non évitables', answer: 'Pharmacodépendance, tolérance et effets indésirables imprévisibles.' },
+  { question: 'Combien d’hospitalisations par an sont liées à la iatrogénèse médicamenteuse en France', answer: 'Environ 130 000 hospitalisations par an.' },
+  { question: 'Combien de décès sont imputables à la iatrogénèse médicamenteuse chaque année', answer: 'Entre 8 000 et 13 000 décès par an.' },
+  { question: 'Quelle est la proportion d’hospitalisations liées à la iatrogénèse chez les plus de 80 ans', answer: 'Environ 20 %.' },
+  { question: 'Qu’est-ce qu’une erreur médicamenteuse', answer: 'Acte non intentionnel, évitable, commis par un professionnel de santé ou un patient, pouvant entraîner un effet indésirable.' },
+  { question: 'Quelles sont les étapes où peuvent survenir des erreurs médicamenteuses', answer: 'Prescription, dispensation et administration.' },
+  { question: 'Quelles sont les conséquences d’une erreur médicamenteuse', answer: 'Apparition d’effets indésirables, parfois graves, voire hospitalisation.' },
+  { question: 'Quelle est la définition d’un effet indésirable médicamenteux', answer: 'Réaction nocive et non voulue liée à l’utilisation d’un produit de santé dans les conditions conformes ou non d’emploi.' },
+  { question: 'Quels sont les cas inclus dans la définition d’un effet indésirable', answer: 'Surdosage, abus, erreur médicamenteuse, interaction, grossesse, allaitement ou exposition professionnelle.' },
+  { question: 'À qui doit-on déclarer les effets indésirables', answer: 'Au Centre Régional de Pharmacovigilance (CRPV) le plus proche.' },
+  { question: 'Que signifie EI grave', answer: 'Effet indésirable entraînant décès, incapacité, hospitalisation ou anomalie congénitale.' },
+  { question: 'Qu’est-ce qu’un effet indésirable inattendu', answer: 'Un effet dont la nature, la sévérité ou l’évolution diffère de ce qui est indiqué dans le RCP.' },
+  { question: 'Quelle est la différence entre les effets indésirables de type A et B', answer: 'Les effets de type A sont fréquents et liés aux propriétés pharmacologiques, les effets de type B sont rares et imprévisibles.' },
+  { question: 'Donne un exemple d’effet indésirable de type A', answer: 'Hémorragie sous anti-vitamine K.' },
+  { question: 'Donne un exemple d’effet indésirable de type B', answer: 'Thrombopénie à l’héparine.' },
+  { question: 'Quelle est la principale différence de gravité entre les effets de type A et B', answer: 'Les effets de type B sont généralement plus sévères.' },
+  { question: 'Qu’est-ce qu’une interaction médicamenteuse d’ordre pharmacodynamique', answer: 'Modification de l’effet d’un médicament sans changement de sa concentration.' },
+  { question: 'Donne un exemple de synergie médicamenteuse', answer: 'Association d’aminosides et de céphalosporines pour les infections graves.' },
+  { question: 'Donne un exemple d’antagonisme médicamenteux', answer: 'Association d’antipsychotiques et de L-Dopa.' },
+  { question: 'Qu’est-ce qu’une interaction pharmacocinétique', answer: 'Modification des concentrations plasmatiques d’un médicament par un autre.' },
+  { question: 'Quel effet les antiacides ont-ils sur l’absorption d’autres médicaments', answer: 'Ils diminuent l’absorption digestive des médicaments administrés simultanément.' },
+  { question: 'Quel délai doit-on respecter entre un antiacide et un autre médicament', answer: 'Environ deux heures.' },
+  { question: 'Quel est le risque d’une forte fixation protéique lors de la distribution', answer: 'Augmentation de la fraction libre et risque de surdosage.' },
+  { question: 'Donne un exemple d’interaction de distribution dangereuse', answer: 'Association antivitamine K et salicylés à forte dose.' },
+  { question: 'Quels médicaments sont les principaux inducteurs enzymatiques', answer: 'Les antiépileptiques, antituberculeux, certains antirétroviraux et le millepertuis.' },
+  { question: 'Cite trois antiépileptiques inducteurs enzymatiques', answer: 'Phénobarbital, phénytoïne et carbamazépine.' },
+  { question: 'Quel est le principal antituberculeux inducteur enzymatique', answer: 'La rifampicine.' },
+  { question: 'Quels toxiques sont inducteurs enzymatiques', answer: 'Alcool chronique, tabac, pesticides et benzopyrènes.' },
+  { question: 'Quels sont les principaux inhibiteurs enzymatiques médicamenteux', answer: 'Les macrolides, les imidazolés et les inhibiteurs de protéases antirétroviraux.' },
+  { question: 'Quelle est la conséquence d’une inhibition enzymatique', answer: 'Diminution du métabolisme et risque d’accumulation du médicament.' },
+  { question: 'Quelle mesure permet de prévenir les interactions médicamenteuses', answer: 'Limiter le nombre de prescriptions et consulter le Vidal ou le site de l’ANSM.' },
+  { question: 'Qu’est-ce qu’un surdosage médicamenteux', answer: 'Administration d’une quantité supérieure à la dose maximale recommandée.' },
+  { question: 'Quelles sont les causes possibles d’un surdosage', answer: 'Erreur de prescription, d’administration, confusion de comprimés ou ingestion volontaire.' },
+  { question: 'Quels sont les facteurs favorisant un surdosage', answer: 'Insuffisance rénale, hépatique, interactions médicamenteuses et polymorphismes génétiques.' },
+  { question: 'Qu’est-ce que la toxicovigilance', answer: 'Système de surveillance et d’alerte sur les effets toxiques des produits pour l’homme.' },
+  { question: 'Combien y a-t-il de centres antipoison en France', answer: 'Huit centres antipoison et de toxicovigilance (CAPTV).' },
+  { question: 'Quel est le rôle des CAPTV', answer: 'Conseiller sur les intoxications, aider au diagnostic, au traitement et à la prévention.' },
+  { question: 'Quelle est la première conduite à tenir en cas de surdosage médicamenteux', answer: 'Arrêter le médicament impliqué.' },
+  { question: 'Quel est le rôle d’un antidote', answer: 'Neutraliser ou s’opposer à l’effet toxique d’un médicament.' },
+  { question: 'Quelle est la première stratégie de traitement d’un surdosage médicamenteux', answer: 'Favoriser l’élimination du toxique ou réduire son absorption.' },
+  { question: 'Qu’est-ce qu’un antidote à action toxicocinétique', answer: 'Un antidote qui modifie la cinétique du toxique pour en accélérer l’élimination ou réduire son absorption.' },
+  { question: 'Qu’est-ce qu’un antidote à action pharmacodynamique', answer: 'Un antidote qui s’oppose à l’action du médicament sur sa cible biologique.' },
+  { question: 'Donne un exemple d’antidote limitant l’absorption d’un médicament', answer: 'Le charbon activé administré précocement.' },
+  { question: 'Quel est le rôle du charbon activé', answer: 'Il diminue la biodisponibilité du médicament en empêchant son absorption digestive.' },
+  { question: 'Donne un exemple d’antidote formant un complexe inactif avec un toxique', answer: 'Les fragments Fab anti-digitaliques pour les intoxications aux digitaliques.' },
+  { question: 'Que sont les chélateurs dans les intoxications', answer: 'Des molécules qui se lient aux métaux lourds pour faciliter leur élimination rénale.' },
+  { question: 'Donne un exemple de chélateur', answer: 'Le DMSA (acide dimercaptosuccinique).' },
+  { question: 'Quels métaux lourds peuvent être traités par chélateurs', answer: 'Plomb, mercure, nickel, arsenic et cadmium.' },
+  { question: 'Quelle est la principale cause de toxicité du paracétamol', answer: 'La formation du métabolite toxique NAPQI.' },
+  { question: 'Quel est l’antidote du paracétamol', answer: 'La N-acétylcystéine (NAC).' },
+  { question: 'Quel est le rôle de la NAC dans l’intoxication au paracétamol', answer: 'Elle régénère le glutathion hépatique et élimine le NAPQI toxique.' },
+  { question: 'Que se passe-t-il lors d’une intoxication grave au paracétamol', answer: 'Dépassement des capacités du glutathion entraînant une accumulation de NAPQI et des lésions hépatiques irréversibles.' },
+  { question: 'Quelle enzyme métabolise le méthanol', answer: 'L’alcool déshydrogénase (ADH).' },
+  { question: 'Quels sont les métabolites toxiques du méthanol', answer: 'L’acide formique et le formaldéhyde.' },
+  { question: 'Pourquoi l’éthanol est-il utilisé comme antidote du méthanol', answer: 'Car il a une plus grande affinité pour l’ADH, empêchant la formation des métabolites toxiques.' },
+  { question: 'Quelle est la concentration sanguine d’éthanol à maintenir lors du traitement d’une intoxication au méthanol', answer: 'Environ 1 g/L par perfusion continue.' },
+  { question: 'Quel est l’antidote des intoxications aux opiacés', answer: 'La naloxone.' },
+  { question: 'Quel est le mécanisme d’action de la naloxone', answer: 'Antagoniste pur, spécifique et compétitif des récepteurs opioïdes.' },
+  { question: 'Quels sont les signes d’une intoxication aux opiacés', answer: 'Dépression respiratoire, coma et risque de décès.' },
+  { question: 'Quand administrer la naloxone', answer: 'Jusqu’à obtention d’une ventilation efficace.' },
+  { question: 'Quel est l’antidote des benzodiazépines', answer: 'Le flumazénil.' },
+  { question: 'Dans quel cas utilise-t-on le flumazénil', answer: 'En cas de coma inexpliqué suspect de benzodiazépines.' },
+  { question: 'Quelle est la principale précaution avec le flumazénil', answer: 'Ne pas l’utiliser en cas d’intoxication mixte, risque de convulsions.' },
+  { question: 'Quelle est la définition de la pharmacodépendance', answer: 'Perte de la liberté de s’abstenir de consommer un médicament.' },
+  { question: 'Quelle est la différence entre dépendance psychique et physique', answer: 'La dépendance psychique correspond à un désir irrépressible, la dépendance physique entraîne un syndrome de sevrage.' },
+  { question: 'Qu’est-ce que l’effet rebond', answer: 'Réapparition exacerbée des symptômes à l’arrêt brutal d’un médicament.' },
+  { question: 'Donne deux exemples de médicaments entraînant une pharmacodépendance', answer: 'Les opiacés et les benzodiazépines.' },
+  { question: 'Combien existe-t-il de centres d’évaluation de la pharmacodépendance en France', answer: 'Treize centres (CEIP-A).' },
+  { question: 'Quelle est la définition de la tolérance médicamenteuse', answer: 'Diminution progressive de l’effet d’un médicament lors de son usage répété.' },
+  { question: 'Quelle est la conséquence de la tolérance', answer: 'Nécessité d’augmenter la posologie pour retrouver l’effet initial.' },
+  { question: 'Quels médicaments entraînent principalement une tolérance', answer: 'Les benzodiazépines, la morphine et les bêta2-agonistes.' },
+  { question: 'Donne un exemple illustrant la tolérance aux opiacés', answer: 'L’héroïnomane qui doit augmenter constamment les doses pour éviter le manque.' },
+  { question: 'Qu’est-ce que la médecine fondée sur les preuves', answer: 'Une démarche utilisant les résultats d’études cliniques valides pour guider la pratique médicale.' },
+  { question: 'Sur quoi repose la médecine fondée sur les preuves', answer: 'Sur l’analyse critique de la littérature scientifique et les avis d’experts.' },
+  { question: 'Quels sont les principaux moteurs de recherche bibliographique en médecine', answer: 'PubMed et Scopus.' },
+  { question: 'Quelle est la principale limite des référentiels de bon usage', answer: 'Leur hétérogénéité qualitative et quantitative selon les pathologies.' },
+  { question: 'Quelle institution met à jour les référentiels de bon usage', answer: 'L’ANSM et la HAS.' },
+  { question: 'Quelle est la cause du retard de mise à jour des référentiels', answer: 'Les délais administratifs plus longs que l’évolution des pratiques médicales.' },
+  { question: 'Quel est l’objectif principal des référentiels de bon usage', answer: 'Informer le médecin et le patient sur les conditions optimales d’utilisation des médicaments.' },
+  { question: 'Que privilégie le médecin en cas de bénéfice/risque identique', answer: 'Le médicament le moins cher.' },
+  { question: 'Quelle campagne illustre la prévention du mésusage des antibiotiques', answer: '“Les antibiotiques, ce n’est pas automatique.”' },
+  { question: 'Que signifie CEPS', answer: 'Comité Économique des Produits de Santé.' },
+  { question: 'Que signifie INCa', answer: 'Institut National du Cancer.' },
+  { question: 'Quelle est la fonction de l’INCa dans le bon usage des médicaments', answer: 'Publier des référentiels spécifiques aux traitements anticancéreux.' },
+  { question: 'Quel exemple illustre un médicament non commercialisé pour raisons économiques', answer: 'Le Sativex, à base de THC et CBD.' },
+  { question: 'Quelle était l’indication du Sativex', answer: 'Le traitement de la spasticité dans la sclérose en plaques après échec des autres thérapeutiques.' },
+  { question: 'Pourquoi le Sativex n’a-t-il pas été commercialisé en France', answer: 'À cause de son prix jugé trop élevé par le CEPS malgré un SMR faible.' },
+  { question: 'Quelle est la différence entre un médicament de première et de deuxième intention', answer: 'Le médicament de première intention est prescrit en priorité, celui de deuxième en cas d’échec ou d’intolérance du premier.' },
+  { question: 'Que signifie SMR faible pour un médicament', answer: 'Son service médical rendu est jugé limité, ce qui entraîne un remboursement faible.' },
+  { question: 'Que permet la médecine fondée sur les preuves en pratique médicale', answer: 'Adapter la prescription selon des données validées plutôt que des habitudes ou intuitions.' },
+  { question: 'Pourquoi la littérature scientifique anglo-saxonne est-elle dominante', answer: 'Parce qu’elle favorise une diffusion mondiale des résultats grâce à l’anglais.' },
+  { question: 'Que garantit la publication des résultats négatifs d’études', answer: 'Une évaluation plus objective du rapport bénéfice/risque d’un médicament.' },
+  { question: 'Quelle est la différence entre la pharmacologie et la toxicologie', answer: 'La pharmacologie étudie les concentrations thérapeutiques des médicaments, la toxicologie étudie les concentrations supra-thérapeutiques responsables d’effets toxiques.' },
+  { question: 'Qu’est-ce que le polymorphisme génétique en pharmacologie', answer: 'C’est la variation génétique individuelle influençant le métabolisme d’un médicament et donc sa réponse thérapeutique ou toxique.' },
+  { question: 'Quel cytochrome est concerné par le métabolisme de la codéine en morphine', answer: 'Le CYP2D6.' },
+  { question: 'Quelle est la conséquence d’un déficit en CYP2D6 sur la codéine', answer: 'Diminution de la conversion en morphine et donc inefficacité analgésique.' },
+  { question: 'Quelle est la conséquence d’un CYP2D6 ultra-rapide sur la codéine', answer: 'Production excessive de morphine entraînant un risque de dépression respiratoire.' },
+  { question: 'Quelle est la définition d’un médicament à index thérapeutique étroit', answer: 'C’est un médicament dont la concentration efficace est proche de la concentration toxique.' },
+  { question: 'Cite un exemple de médicament à index thérapeutique étroit', answer: 'La digoxine.' },
+  { question: 'Quelle est la principale cause d’interactions médicamenteuses chez les sujets âgés', answer: 'La polymédication associée à des modifications physiologiques du métabolisme.' },
+  { question: 'Pourquoi l’automédication augmente-t-elle le risque d’interactions', answer: 'Parce que le patient peut associer des médicaments sans connaître leurs effets cumulés.' },
+  { question: 'Quelle est la différence entre un effet additif et un effet synergique', answer: 'L’effet additif est la somme des effets, l’effet synergique est supérieur à la somme des effets individuels.' },
+  { question: 'Qu’est-ce qu’un antagonisme compétitif', answer: 'C’est la compétition de deux substances pour le même récepteur.' },
+  { question: 'Qu’est-ce qu’un antagonisme fonctionnel', answer: 'C’est l’action opposée de deux médicaments sur des récepteurs différents.' },
+  { question: 'Quelle est la principale cause d’hépatotoxicité médicamenteuse', answer: 'Le métabolisme hépatique excessif générant des métabolites toxiques.' },
+  { question: 'Quels tests biologiques permettent de surveiller la fonction hépatique', answer: 'Le dosage des transaminases (ALAT, ASAT).' },
+  { question: 'Quelle surveillance est recommandée en cas de traitement hépatotoxique', answer: 'Un contrôle régulier de la fonction hépatique par bilan biologique.' },
+  { question: 'Quel est le risque principal des antidépresseurs en début de traitement', answer: 'La levée d’inhibition entraînant un risque suicidaire accru.' },
+  { question: 'Pourquoi certains médicaments sont déconseillés pendant la grossesse', answer: 'Parce qu’ils peuvent traverser la barrière placentaire et avoir un effet tératogène.' },
+  { question: 'Pourquoi certains médicaments sont contre-indiqués pendant l’allaitement', answer: 'Parce qu’ils passent dans le lait maternel, souvent riche en lipides, exposant le nourrisson.' },
+  { question: 'Quelle mention du RCP informe sur la sécurité pendant la grossesse', answer: 'La rubrique grossesse et allaitement.' },
+  { question: 'Qu’est-ce que la contre-indication absolue', answer: 'Situation où le médicament ne doit jamais être administré car le risque dépasse le bénéfice.' },
+  { question: 'Qu’est-ce que la contre-indication relative', answer: 'Situation où le médicament peut être utilisé sous conditions strictes ou surveillance renforcée.' },
+  { question: 'Qu’est-ce que la prescription hors AMM', answer: 'Prescription d’un médicament pour une indication, une dose ou une population non validée par l’AMM.' },
+  { question: 'Dans quel cas une prescription hors AMM peut-elle être un bon usage', answer: 'Lorsqu’elle repose sur des données scientifiques solides et un rapport bénéfice/risque favorable.' },
+  { question: 'Quelle est la définition d’une erreur de dispensation', answer: 'C’est une erreur d’analyse, de préparation ou de délivrance du médicament par le pharmacien.' },
+  { question: 'Quelle est la définition d’une erreur d’administration', answer: 'C’est une erreur commise lors de la prise ou de l’injection du médicament.' },
+  { question: 'Quelle est la définition d’une erreur de prescription', answer: 'C’est une erreur dans le choix du médicament, de la dose, de la voie ou de la durée.' },
+  { question: 'Que signifie “observance thérapeutique”', answer: 'Respect strict par le patient des prescriptions et modalités de prise du traitement.' },
+  { question: 'Qu’est-ce qui améliore l’observance du patient', answer: 'Une prescription simple, expliquée et adaptée au mode de vie du patient.' },
+  { question: 'Quelle est la différence entre efficacité et tolérance', answer: 'L’efficacité mesure le bénéfice thérapeutique, la tolérance mesure la survenue d’effets indésirables.' },
+  { question: 'Que représente le rapport bénéfice/risque', answer: 'L’évaluation de la balance entre l’efficacité du traitement et ses risques potentiels.' },
+  { question: 'Qui évalue le rapport bénéfice/risque d’un médicament', answer: 'Le médecin et les autorités de santé via les essais cliniques et la pharmacovigilance.' },
+  { question: 'Quelle est la différence entre la Commission d’AMM et la HAS', answer: 'La Commission d’AMM évalue la sécurité et l’efficacité, la HAS évalue le service médical rendu et la stratégie thérapeutique.' },
+  { question: 'Que signifie la notion de SMR important', answer: 'Que le médicament apporte un bénéfice majeur et est remboursé à un taux élevé.' },
+  { question: 'Que signifie ASMR I', answer: 'Amélioration majeure du service médical rendu par rapport aux traitements existants.' },
+  { question: 'Que signifie ASMR V', answer: 'Aucune amélioration du service médical rendu par rapport aux traitements disponibles.' },
+  { question: 'Pourquoi les médecins doivent-ils connaître les référentiels BUM', answer: 'Pour prescrire selon les recommandations officielles et éviter le mésusage.' },
+  { question: 'Que signifie “évidence-based medicine”', answer: 'C’est la traduction anglaise de la médecine fondée sur les preuves.' },
+  { question: 'Pourquoi les médecins doivent-ils participer à des congrès', answer: 'Pour se tenir à jour des évolutions scientifiques avant leur intégration dans les documents officiels.' },
+  { question: 'Qu’est-ce que la variabilité interindividuelle', answer: 'C’est la différence de réponse à un médicament selon les caractéristiques propres à chaque individu.' },
+  { question: 'Qu’est-ce que la chronopharmacologie', answer: 'Étude de l’influence du moment de la prise sur l’efficacité ou la tolérance d’un médicament.' },
+  { question: 'Donne un exemple de médicament dont la prise dépend de l’heure', answer: 'Les corticoïdes doivent être pris le matin pour respecter le rythme circadien.' },
+  { question: 'Pourquoi certains médicaments doivent être pris pendant les repas', answer: 'Pour augmenter leur biodisponibilité ou réduire les effets secondaires digestifs.' },
+  { question: 'Donne un exemple de médicament à prendre pendant les repas', answer: 'Les antirétroviraux.' },
+  { question: 'Pourquoi est-il important de connaître le coût journalier d’un traitement', answer: 'Pour favoriser une prescription économiquement responsable et remboursable.' },
+  { question: 'Qu’est-ce qu’un médicament générique', answer: 'Médicament ayant la même DCI, dose et efficacité qu’un médicament de référence, mais à moindre coût.' },
+  { question: 'Pourquoi les médicaments génériques favorisent-ils le bon usage', answer: 'Parce qu’ils permettent un accès équitable aux soins tout en maîtrisant les dépenses de santé.' },
+  { question: 'Qu’est-ce que le concept de bon usage collectif', answer: 'C’est l’application du bon usage du médicament à l’échelle de la population, intégrant les aspects économiques et de santé publique.' },
+  { question: 'Quelle est la différence entre bon usage et iatrogénèse', answer: 'Le bon usage vise à optimiser le bénéfice du médicament, l’iatrogénèse en est la conséquence négative d’un mauvais usage ou d’une réaction imprévisible.' },
+  { question: 'Que doit faire un professionnel en cas d’effet indésirable suspecté', answer: 'Le déclarer au CRPV pour surveillance et analyse.' },
+  { question: 'Quelle autorité centralise les données de pharmacovigilance', answer: 'L’Agence Nationale de Sécurité du Médicament et des Produits de Santé (ANSM).' },
+  { question: 'Que signifie ANSM', answer: 'Agence Nationale de Sécurité du Médicament et des Produits de Santé.' },
+  { question: 'Quelle est la finalité du bon usage du médicament', answer: 'Garantir l’efficacité, la sécurité, la tolérance et la soutenabilité économique des traitements.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Favoris - UVSQ S2</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../images/diploma.jpeg" />
+<script src="../security.js" defer></script>
+<script src="../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main">
+<h1>Mes Favoris</h1>
+</header>
+
+<style>
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.favorite-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.favorite-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 174, 239, 0.2);
+  border-color: #00aeef;
+}
+.favorite-card .question {
+  font-weight: 600;
+  color: #3d4449;
+  margin-bottom: 0.5rem;
+}
+.favorite-card .answer {
+  color: #7f888f;
+  display: none;
+}
+.favorite-card.show .answer {
+  display: block;
+}
+.favorite-card .remove-btn {
+  float: right;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+body.dark-mode .favorite-card {
+  background: linear-gradient(135deg, #2d3436 0%, #1e2124 100%);
+  border-color: #4a5568;
+}
+body.dark-mode .favorite-card .question { color: #e2e8f0; }
+body.dark-mode .favorite-card .answer { color: #a0aec0; }
+.no-favorites {
+  text-align: center;
+  color: #7f888f;
+  padding: 3rem;
+  font-size: 1.2em;
+}
+</style>
+
+<div class="favorites-container" id="favoritesContainer">
+</div>
+
+<script>
+function getFavoritesKey() {
+  return 'favorites_UVSQ_S2';
+}
+
+function loadFavorites() {
+  const container = document.getElementById('favoritesContainer');
+  const key = getFavoritesKey();
+  const favs = JSON.parse(localStorage.getItem(key) || '[]');
+
+  if (favs.length === 0) {
+    container.innerHTML = '<div class="no-favorites"><p>Aucun favori pour le moment.</p><p>Cliquez sur l\u2019étoile d\u2019une flashcard pour l\u2019ajouter à vos favoris !</p></div>';
+    return;
+  }
+
+  container.innerHTML = '';
+  favs.forEach(function(fav, index) {
+    const card = document.createElement('div');
+    card.classList.add('favorite-card');
+
+    const removeBtn = document.createElement('span');
+    removeBtn.classList.add('remove-btn');
+    removeBtn.innerHTML = '&times;';
+    removeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      favs.splice(index, 1);
+      localStorage.setItem(key, JSON.stringify(favs));
+      loadFavorites();
+    });
+
+    const questionDiv = document.createElement('div');
+    questionDiv.classList.add('question');
+    questionDiv.textContent = fav.question;
+
+    const answerDiv = document.createElement('div');
+    answerDiv.classList.add('answer');
+    answerDiv.textContent = typeof fav.answer === 'string' ? fav.answer : JSON.stringify(fav.answer);
+
+    card.appendChild(removeBtn);
+    card.appendChild(questionDiv);
+    card.appendChild(answerDiv);
+
+    card.addEventListener('click', function() {
+      card.classList.toggle('show');
+    });
+
+    container.appendChild(card);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', loadFavorites);
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="./index.html">Accueil</a></li>
+<li><a href="./favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="./Anatomie/fc1.html">Oreille</a></li>
+<li><a href="./Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="./Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="./Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="./Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="./Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="./Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="./Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="./Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="./Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="./Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="./Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="./Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="./Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="./Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="./Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="./Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="./Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="./Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="./Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="./Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="./Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="./Anglais/fc1.html">Anatomy</a></li>
+<li><a href="./Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="./Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="./Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="./Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="./ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="./ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="./ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="./ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="./ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="./ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="./ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="./ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="./ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="./ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="./ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="./ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="./ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="./ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="./ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="./ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="./Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="./Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="./Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="./Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="./Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="./Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="./Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="./SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="./SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="./SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="./SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="./SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="./SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="./SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="./SHS/fc8.html">Éthique et société</a></li>
+<li><a href="./SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="./SHS/fc10.html">Le secret médical</a></li>
+<li><a href="./SHS/fc11.html">Relation soignante</a></li>
+<li><a href="./SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="./SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="./SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="./SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="./SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="./SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="./SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="./SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="./SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/darkmode.js"></script>
+<script src="../assets/js/favorites.js"></script>
+
+</body>
+</html>

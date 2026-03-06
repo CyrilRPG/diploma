@@ -1,0 +1,574 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Élément méthodologique des essais cliniques</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Élément méthodologique des essais cliniques</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce qu’un essai thérapeutique ?', answer: 'C’est une étude qui évalue l’effet d’un traitement par comparaison à un groupe témoin ou contrôle.' },
+  { question: 'Que signifie « essai contrôlé » ?', answer: 'Cela signifie que les facteurs autres que l’effet du traitement testé sont contrôlés pour garantir une comparaison valide.' },
+  { question: 'Pourquoi la comparabilité des groupes est-elle nécessaire ?', answer: 'Pour s’assurer que les différences observées sont dues uniquement au traitement et non à des facteurs externes.' },
+  { question: 'Comment obtient-on la comparabilité des groupes ?', answer: 'Par la randomisation, c’est-à-dire un tirage au sort des groupes.' },
+  { question: 'Qu’est-ce que le double aveugle ?', answer: 'C’est une méthode où ni les patients ni les investigateurs ne savent à quel groupe le patient appartient.' },
+  { question: 'Pourquoi utiliser le double aveugle ?', answer: 'Pour éviter les biais d’évaluation et de comportement liés à la connaissance du traitement.' },
+  { question: 'Quel est le format standard d’un protocole d’essai clinique ?', answer: 'Justification, objectifs, population, critères d’évaluation, plan expérimental, conditions de déroulement, analyse statistique, contrôle qualité, annexes.' },
+  { question: 'Que doit-on inclure dans la justification de l’étude ?', answer: 'Une base bibliographique, les informations sur l’indication testée et les paramètres d’évaluation.' },
+  { question: 'Quels sont les deux types d’objectifs d’un essai thérapeutique ?', answer: 'L’objectif principal (démonstratif) et les objectifs secondaires (supportifs).' },
+  { question: 'Que signifie l’objectif principal d’un essai ?', answer: 'Il démontre l’efficacité de la molécule testée et détermine le nombre de patients à inclure.' },
+  { question: 'À quoi servent les objectifs secondaires ?', answer: 'À explorer des sous-groupes ou des paramètres complémentaires sans pouvoir conclure.' },
+  { question: 'Qu’est-ce qu’un critère d’évaluation ?', answer: 'C’est un paramètre défini à l’avance pour juger de l’efficacité du traitement.' },
+  { question: 'Que signifie un critère d’évaluation « dur » ?', answer: 'C’est un critère cliniquement pertinent, sans ambiguïté, comme la mortalité ou un infarctus.' },
+  { question: 'Qu’est-ce qu’un critère intermédiaire ?', answer: 'Un critère de substitution censé prédire un critère dur, mais qui ne reflète pas toujours la balance bénéfice/risque.' },
+  { question: 'Pourquoi les critères intermédiaires peuvent-ils être trompeurs ?', answer: 'Parce qu’ils peuvent montrer une amélioration sans bénéfice réel sur la survie ou la santé.' },
+  { question: 'Quel est l’exemple classique de critère intermédiaire trompeur ?', answer: 'La baisse du cholestérol sans réduction de la mortalité.' },
+  { question: 'Qu’a montré l’essai CAST sur les antiarythmiques ?', answer: 'Une augmentation de la mortalité dans le groupe traité par flécaïnide, malgré une réduction des extrasystoles.' },
+  { question: 'Qu’est-ce qu’un essai en groupes parallèles ?', answer: 'Un essai où chaque patient appartient à un seul groupe (intervention ou témoin).' },
+  { question: 'Qu’est-ce qu’un essai en cross-over ?', answer: 'Un essai où le patient reçoit successivement les deux traitements, servant ainsi de témoin à lui-même.' },
+  { question: 'Qu’est-ce qu’un critère d’inclusion ?', answer: 'C’est une condition précise et non ambiguë permettant de définir la population à étudier.' },
+  { question: 'Qu’est-ce qu’un critère d’exclusion ?', answer: 'C’est une condition qui empêche la participation à l’essai, souvent liée à une comorbidité ou un traitement associé.' },
+  { question: 'De quoi dépend le calcul du nombre de sujets nécessaires ?', answer: 'De la différence espérée, de la fréquence de l’événement dans le groupe témoin et des risques α et β.' },
+  { question: 'Que représente le risque α ?', answer: 'La probabilité de conclure à tort à une différence alors qu’elle n’existe pas (faux positif).' },
+  { question: 'Quelle valeur est souvent admise pour le risque α ?', answer: '5 %.' },
+  { question: 'Que représente le risque β ?', answer: 'La probabilité de ne pas détecter une différence alors qu’elle existe (faux négatif).' },
+  { question: 'Quelle est la valeur courante du risque β ?', answer: '20 %.' },
+  { question: 'Qu’est-ce que la puissance d’un essai ?', answer: 'La probabilité de détecter une vraie différence entre les groupes, égale à 1 - β.' },
+  { question: 'Quelle puissance minimale est généralement attendue ?', answer: 'Au moins 80 %.' },
+  { question: 'De quoi dépend la puissance ?', answer: 'De la différence espérée, de la variance, du risque α et du nombre de sujets.' },
+  { question: 'Qu’est-ce que la probabilité p ?', answer: 'C’est la probabilité d’observer une différence uniquement par hasard lorsqu’il n’en existe pas en réalité.' },
+  { question: 'Quel est le seuil classique de rejet du hasard ?', answer: '5 % (p < 0,05).' },
+  { question: 'Que signifie un essai contrôlé randomisé ?', answer: 'Les patients sont répartis aléatoirement entre un groupe traité et un groupe témoin pour éviter les biais.' },
+  { question: 'Comment minimise-t-on le biais d’indication ?', answer: 'Par la randomisation, le double aveugle et la stratification des facteurs pronostiques.' },
+  { question: 'Pourquoi utiliser la stratification ?', answer: 'Pour équilibrer des facteurs pronostiques importants entre les groupes.' },
+  { question: 'Quelle est la différence entre un placebo et un comparateur actif ?', answer: 'Le placebo ne contient pas de principe actif, alors que le comparateur est un traitement de référence.' },
+  { question: 'Que garantit la randomisation ?', answer: 'La comparabilité initiale des groupes.' },
+  { question: 'À quel moment débute l’analyse en intention de traiter ?', answer: 'Dès la randomisation.' },
+  { question: 'Quels patients sont inclus dans l’analyse en ITT ?', answer: 'Tous les patients randomisés, même s’ils arrêtent ou changent de groupe.' },
+  { question: 'Pourquoi l’analyse ITT est-elle importante ?', answer: 'Parce qu’elle conserve la répartition aléatoire et évite les biais post-randomisation.' },
+  { question: 'Que signifie « perdu de vue » dans un essai ?', answer: 'Un patient inclus dont l’investigateur n’a plus de nouvelles.' },
+  { question: 'Quand effectue-t-on la levée d’aveugle ?', answer: 'Après inclusion et évaluation de tous les sujets pour garantir l’intégrité des données.' },
+  { question: 'Que signifie une différence significative ?', answer: 'Une différence observée avec une probabilité inférieure à 5 % d’être due au hasard.' },
+  { question: 'Quelle conclusion tirer d’une différence significative ?', answer: 'Le traitement est probablement responsable de l’effet observé.' },
+  { question: 'Que faire en cas d’absence de différence significative ?', answer: 'Vérifier s’il s’agit d’une vraie absence d’effet ou d’un manque de puissance.' },
+  { question: 'Qu’est-ce qu’un risque absolu ?', answer: 'La probabilité de survenue d’un événement dans une population donnée.' },
+  { question: 'Qu’est-ce que la réduction absolue du risque (RAR) ?', answer: 'La différence des risques absolus entre le groupe traité et le groupe témoin.' },
+  { question: 'Qu’est-ce que le risque relatif (RR) ?', answer: 'Le rapport du risque absolu dans le groupe traité sur celui du groupe témoin.' },
+  { question: 'Que signifie RR < 1 ?', answer: 'Le traitement est efficace.' },
+  { question: 'Que signifie RR > 1 ?', answer: 'Le traitement est potentiellement délétère.' },
+  { question: 'Qu’est-ce que la réduction relative du risque (RRR) ?', answer: 'La diminution proportionnelle du risque, calculée comme 1 - RR.' },
+  { question: 'Qu’est-ce que le nombre de sujets à traiter (NST) ?', answer: 'Le nombre de patients à traiter pour éviter un événement indésirable.' },
+  { question: 'De quoi dépend la valeur du NST ?', answer: 'Du niveau de risque dans le groupe témoin et de la réduction absolue du risque apportée par le traitement.' },
+  { question: 'Comment interpréter un NST élevé ?', answer: 'Cela signifie que le traitement est peu efficace ou que l’événement est rare.' },
+  { question: 'Que signifie une réduction absolue du risque de 0,6 % ?', answer: 'Le traitement diminue le risque de décès ou d’événement de 0,6 % dans la population étudiée.' },
+  { question: 'Quelle est la formule du risque relatif ?', answer: 'RR = RAttt / RAplacebo.' },
+  { question: 'Quelle est la formule de la réduction relative du risque ?', answer: 'RRR = 1 - RR.' },
+  { question: 'Quelle est la formule de la réduction absolue du risque ?', answer: 'RAR = RAttt - RAplacebo.' },
+  { question: 'Quelle est la formule du nombre de sujets à traiter ?', answer: 'NST = 1 / RAR.' },
+  { question: 'Quelle est la condition pour conclure à un lien de causalité entre traitement et effet ?', answer: 'L’essai doit être randomisé, en double aveugle et analysé en intention de traiter.' },
+  { question: 'Qu’est-ce que la probabilité a priori de succès dans un essai ?', answer: 'C’est la chance estimée avant l’essai que le traitement démontre un effet bénéfique.' },
+  { question: 'Pourquoi justifier un essai d’un point de vue éthique ?', answer: 'Pour s’assurer que l’expérimentation est moralement acceptable et justifiée par un bénéfice potentiel.' },
+  { question: 'Pourquoi justifier un essai d’un point de vue méthodologique ?', answer: 'Pour garantir la validité scientifique et éviter des essais inutiles ou biaisés.' },
+  { question: 'Que garantit la traçabilité des données ?', answer: 'La possibilité de vérifier et de reproduire les résultats de l’essai.' },
+  { question: 'Qu’est-ce qu’une bonne pratique clinique (BPC) ?', answer: 'Un ensemble de règles garantissant la qualité, la sécurité et l’éthique des essais cliniques.' },
+  { question: 'Pourquoi la reproductibilité d’un essai est-elle essentielle ?', answer: 'Parce qu’elle permet de confirmer la validité des résultats.' },
+  { question: 'Qu’est-ce qu’une brochure investigateur ?', answer: 'Un document contenant toutes les informations scientifiques pertinentes sur le médicament testé.' },
+  { question: 'Qu’est-ce qu’un formulaire de consentement ?', answer: 'Un document signé par le participant attestant qu’il comprend et accepte les conditions de l’essai.' },
+  { question: 'Que signifie « groupe contrôle » ?', answer: 'Le groupe qui ne reçoit pas le traitement testé mais un placebo ou un traitement de référence.' },
+  { question: 'Que signifie « groupe expérimental » ?', answer: 'Le groupe de patients recevant le traitement à l’étude.' },
+  { question: 'Que veut dire « les deux groupes ne doivent différer que d’un seul facteur » ?', answer: 'Cela signifie que seule la prise du médicament doit varier entre les groupes.' },
+  { question: 'Qu’est-ce qu’un placebo ?', answer: 'Une substance sans principe actif utilisée pour mesurer l’effet psychologique du traitement.' },
+  { question: 'Quel est le rôle d’un comparateur actif ?', answer: 'Servir de référence lorsqu’il existe déjà un traitement efficace.' },
+  { question: 'Quand parle-t-on d’essai séquentiel ?', answer: 'Quand les résultats sont analysés au fur et à mesure de l’inclusion des patients.' },
+  { question: 'Pourquoi les essais séquentiels ne sont-ils pas toujours applicables ?', answer: 'À cause de contraintes pharmacodynamiques ou éthiques.' },
+  { question: 'Qu’est-ce qu’un biais d’indication ?', answer: 'C’est une différence initiale entre groupes liée à la gravité ou aux caractéristiques des patients.' },
+  { question: 'Comment éviter les biais d’indication ?', answer: 'Grâce à la randomisation et au double aveugle.' },
+  { question: 'Qu’est-ce que la variance du paramètre évalué ?', answer: 'La dispersion des valeurs autour de la moyenne, influençant la puissance de l’étude.' },
+  { question: 'Comment augmenter la puissance d’un essai ?', answer: 'En augmentant le nombre de patients ou en réduisant la variabilité.' },
+  { question: 'Pourquoi la taille de l’échantillon est-elle cruciale ?', answer: 'Parce qu’un échantillon trop petit peut empêcher de détecter un effet réel.' },
+  { question: 'Qu’est-ce qu’un faux positif ?', answer: 'Une conclusion erronée affirmant qu’une différence existe alors qu’elle n’existe pas (risque α).' },
+  { question: 'Qu’est-ce qu’un faux négatif ?', answer: 'Une conclusion erronée affirmant qu’il n’y a pas de différence alors qu’il y en a une (risque β).' },
+  { question: 'Que signifie p < 0,05 ?', answer: 'Qu’il y a moins de 5 % de probabilité que la différence observée soit due au hasard.' },
+  { question: 'Que signifie p > 0,05 ?', answer: 'Que la différence observée n’est pas statistiquement significative.' },
+  { question: 'Quelle est la différence entre significatif et signifiant ?', answer: 'Significatif indique une différence statistique, signifiant indique une différence cliniquement pertinente.' },
+  { question: 'Qu’est-ce que la survie sans progression ?', answer: 'C’est un critère intermédiaire utilisé en cancérologie indiquant le temps avant aggravation.' },
+  { question: 'Qu’est-ce que la mortalité globale ?', answer: 'C’est un critère dur mesurant le nombre total de décès quelle qu’en soit la cause.' },
+  { question: 'Pourquoi choisir un critère cliniquement pertinent ?', answer: 'Pour que les résultats aient une vraie signification médicale et non seulement statistique.' },
+  { question: 'Qu’est-ce que la balance bénéfice/risque ?', answer: 'C’est la comparaison entre les avantages du traitement et ses effets indésirables potentiels.' },
+  { question: 'Que signifie une différence cliniquement pertinente ?', answer: 'C’est une différence ayant un impact réel sur la santé du patient.' },
+  { question: 'Quand un essai peut-il être qualifié de « pivot » ?', answer: 'Lorsqu’il s’agit d’un essai de phase III déterminant pour l’autorisation du médicament.' },
+  { question: 'Quelle est la conséquence d’un mauvais choix de critère d’évaluation ?', answer: 'Le risque de conclusions erronées ou non applicables cliniquement.' },
+  { question: 'Qu’est-ce qu’un événement ischémique majeur ?', answer: 'Un événement grave lié à un déficit d’apport sanguin, comme un infarctus.' },
+  { question: 'Que signifie un risque relatif égal à 1 ?', answer: 'Cela signifie que le traitement n’a aucun effet par rapport au témoin.' },
+  { question: 'Comment interpréter un risque relatif inférieur à 1 ?', answer: 'Le traitement diminue la probabilité de l’événement.' },
+  { question: 'Comment interpréter un risque relatif supérieur à 1 ?', answer: 'Le traitement augmente la probabilité de l’événement.' },
+  { question: 'Que représente la réduction relative du risque ?', answer: 'La proportion de risque évitée grâce au traitement par rapport au témoin.' },
+  { question: 'Pourquoi calculer la réduction absolue du risque en plus du relatif ?', answer: 'Parce qu’elle donne une mesure concrète de l’effet du traitement sur la population.' },
+  { question: 'Qu’est-ce qu’une étude en double aveugle maintenu ?', answer: 'Un essai où le secret du traitement est gardé jusqu’à la fin pour les patients et les chercheurs.' },
+  { question: 'Quand la levée d’aveugle est-elle réalisée ?', answer: 'Une fois que tous les sujets ont été inclus et évalués.' },
+  { question: 'Pourquoi décrire les écarts au protocole avant la levée d’aveugle ?', answer: 'Pour éviter tout biais d’interprétation postérieur aux résultats.' },
+  { question: 'Pourquoi l’analyse statistique doit-elle être prévue dès le protocole ?', answer: 'Pour éviter les manipulations de données a posteriori.' },
+  { question: 'Quelle est la première étape avant de rédiger un protocole d’essai ?', answer: 'Définir clairement l’hypothèse et les objectifs de l’étude.' },
+  { question: 'Pourquoi faut-il définir les critères d’inclusion et d’exclusion avant le début de l’essai ?', answer: 'Pour garantir la représentativité et l’homogénéité de la population étudiée.' },
+  { question: 'Pourquoi les critères doivent-ils être précis et non ambigus ?', answer: 'Pour éviter les erreurs de sélection et les biais de recrutement.' },
+  { question: 'Qu’est-ce qu’un essai contrôlé randomisé (ECR) ?', answer: 'C’est un essai comparatif où la répartition des patients dans les groupes se fait par tirage au sort.' },
+  { question: 'Que signifie la comparabilité des groupes ?', answer: 'Cela signifie que les groupes sont similaires sur tous les aspects sauf le traitement testé.' },
+  { question: 'Pourquoi est-il nécessaire de prévoir la méthode d’analyse avant le début de l’étude ?', answer: 'Pour éviter d’adapter les méthodes aux résultats obtenus et fausser les conclusions.' },
+  { question: 'Que signifie « hypothèse nulle » dans un essai clinique ?', answer: 'C’est l’hypothèse selon laquelle il n’y a pas de différence entre les traitements comparés.' },
+  { question: 'Que signifie « hypothèse alternative » ?', answer: 'C’est l’hypothèse selon laquelle il existe une différence entre les traitements.' },
+  { question: 'Quel est le but d’un test statistique ?', answer: 'De déterminer si la différence observée est due au hasard ou au traitement.' },
+  { question: 'Que représente la probabilité p dans un test ?', answer: 'La probabilité d’obtenir une différence aussi grande ou plus grande si l’hypothèse nulle est vraie.' },
+  { question: 'Quelle conclusion tirer si p < 0,05 ?', answer: 'On rejette l’hypothèse nulle et on conclut à une différence significative.' },
+  { question: 'Quelle conclusion tirer si p > 0,05 ?', answer: 'On ne peut pas rejeter l’hypothèse nulle, la différence n’est pas significative.' },
+  { question: 'Qu’est-ce qu’une différence cliniquement non significative mais statistiquement significative ?', answer: 'Une différence réelle mais trop faible pour avoir un impact médical.' },
+  { question: 'Qu’est-ce qu’une différence cliniquement significative mais non statistiquement significative ?', answer: 'Une différence importante mais non démontrée par manque de puissance.' },
+  { question: 'Pourquoi la puissance d’un essai est-elle importante ?', answer: 'Parce qu’elle garantit la capacité à détecter une vraie différence.' },
+  { question: 'Que signifie puissance = 1 - β ?', answer: 'Cela exprime la probabilité de rejeter correctement l’hypothèse nulle quand la différence existe vraiment.' },
+  { question: 'Que se passe-t-il si la puissance est trop faible ?', answer: 'Le risque de ne pas détecter une différence réelle augmente.' },
+  { question: 'Que veut dire « optimiser la puissance » ?', answer: 'C’est augmenter les chances de détecter une vraie différence en ajustant les paramètres.' },
+  { question: 'Comment la variance influence-t-elle la puissance ?', answer: 'Plus la variance est faible, plus la puissance est élevée.' },
+  { question: 'Comment le nombre de sujets influence-t-il la puissance ?', answer: 'Plus le nombre de sujets augmente, plus la puissance statistique est grande.' },
+  { question: 'Pourquoi parler d’analyse en intention de traiter ?', answer: 'Parce qu’elle prend en compte tous les patients randomisés, même ceux qui dévient du protocole.' },
+  { question: 'Que signifie « biais maximum » dans l’analyse ITT ?', answer: 'C’est l’hypothèse la plus défavorable au traitement testé.' },
+  { question: 'Que permet l’analyse ITT par rapport à une analyse per-protocole ?', answer: 'Elle reflète mieux les conditions réelles de traitement et évite les biais de sélection.' },
+  { question: 'Que doit-on faire des patients perdus de vue ?', answer: 'Ils doivent être inclus dans l’analyse selon le principe ITT, en notant les raisons de la perte de suivi.' },
+  { question: 'Que signifie « levée d’aveugle » ?', answer: 'C’est le moment où l’on révèle quel patient a reçu quel traitement.' },
+  { question: 'Pourquoi la levée d’aveugle ne doit-elle pas se faire avant la fin de l’essai ?', answer: 'Pour éviter toute influence sur le suivi ou l’analyse des résultats.' },
+  { question: 'Que garantit la description des écarts au protocole ?', answer: 'La transparence et la rigueur méthodologique de l’essai.' },
+  { question: 'Quelle est la relation entre risque α et p-value ?', answer: 'La p-value représente le risque α recalculé à partir des données observées.' },
+  { question: 'Que signifie une p-value de 0,03 ?', answer: 'Il y a 3 % de chance que la différence observée soit due au hasard.' },
+  { question: 'Que signifie une p-value de 0,6 ?', answer: 'La différence observée est très probablement due au hasard.' },
+  { question: 'Quelle est la différence entre risque relatif et risque absolu ?', answer: 'Le risque absolu est la probabilité d’un événement, le risque relatif compare ces probabilités entre groupes.' },
+  { question: 'Pourquoi calculer la réduction relative du risque ?', answer: 'Pour mesurer la proportion de réduction du risque grâce au traitement.' },
+  { question: 'Pourquoi calculer la réduction absolue du risque ?', answer: 'Pour connaître la différence réelle de risque entre les groupes.' },
+  { question: 'Qu’est-ce qu’une étude en intention de traiter montre mieux qu’une analyse per protocole ?', answer: 'L’efficacité réelle du traitement dans les conditions habituelles d’utilisation.' },
+  { question: 'Qu’est-ce qu’un biais ?', answer: 'C’est une erreur systématique qui fausse les résultats d’une étude.' },
+  { question: 'Quels sont les principaux types de biais dans les essais cliniques ?', answer: 'Biais de sélection, d’évaluation, d’observation et de confusion.' },
+  { question: 'Quel est le rôle du double aveugle dans la prévention des biais ?', answer: 'Il prévient les biais d’évaluation et d’attitude des patients et des investigateurs.' },
+  { question: 'Pourquoi la stratification est-elle utilisée dans un essai ?', answer: 'Pour équilibrer les groupes sur des facteurs pronostiques connus.' },
+  { question: 'Que signifie un test unilatéral ?', answer: 'Il teste une différence dans un seul sens (supériorité ou infériorité).' },
+  { question: 'Que signifie un test bilatéral ?', answer: 'Il teste la possibilité d’une différence dans les deux sens.' },
+  { question: 'Pourquoi la plupart des essais utilisent-ils des tests bilatéraux ?', answer: 'Parce qu’ils sont plus prudents et considèrent toutes les possibilités de différence.' },
+  { question: 'Qu’est-ce que la validité externe d’un essai ?', answer: 'C’est la possibilité de généraliser les résultats à d’autres populations.' },
+  { question: 'Qu’est-ce que la validité interne ?', answer: 'C’est la capacité de l’essai à démontrer une relation causale fiable.' },
+  { question: 'Comment renforcer la validité interne ?', answer: 'Par la randomisation, le double aveugle et le respect du protocole.' },
+  { question: 'Comment renforcer la validité externe ?', answer: 'En choisissant des patients représentatifs de la population cible.' },
+  { question: 'Qu’est-ce qu’un événement clinique majeur ?', answer: 'Un événement grave ayant une importance médicale, comme un décès ou une hospitalisation.' },
+  { question: 'Pourquoi un critère de jugement doit-il être défini a priori ?', answer: 'Pour éviter le biais de sélection rétrospective des résultats.' },
+  { question: 'Qu’est-ce qu’une échelle validée ?', answer: 'Un outil de mesure reconnu scientifiquement pour évaluer un symptôme ou un effet.' },
+  { question: 'Que doit permettre un critère de jugement principal ?', answer: 'De répondre clairement à la question principale de l’essai.' },
+  { question: 'Pourquoi ne peut-on pas conclure sur les objectifs secondaires ?', answer: 'Parce qu’ils n’ont pas été utilisés pour calculer la taille d’échantillon ni la puissance.' },
+  { question: 'Que signifie « randomisation simple » ?', answer: 'Chaque patient a la même probabilité d’être assigné à un groupe, sans stratification.' },
+  { question: 'Que signifie « randomisation stratifiée » ?', answer: 'Les patients sont randomisés selon des sous-groupes définis par des facteurs pronostiques.' },
+  { question: 'Que signifie « randomisation en blocs » ?', answer: 'C’est une méthode assurant un équilibre du nombre de patients par groupe au fur et à mesure de l’essai.' },
+  { question: 'Que représente le risque absolu (RA) dans un essai clinique ?', answer: 'C’est la probabilité de survenue d’un événement dans un groupe donné.' },
+  { question: 'Quelle est la formule du risque absolu ?', answer: 'RA = nombre d’événements / nombre total de sujets dans le groupe.' },
+  { question: 'Que représente la réduction absolue du risque (RAR) ?', answer: 'C’est la différence des risques absolus entre le groupe placebo et le groupe traité.' },
+  { question: 'Quelle est la formule de la réduction absolue du risque ?', answer: 'RAR = RAplacebo - RAttt.' },
+  { question: 'Que signifie une RAR négative ?', answer: 'Cela indique que le traitement réduit le risque d’événement.' },
+  { question: 'Que signifie une RAR positive ?', answer: 'Cela indique que le traitement augmente le risque d’événement.' },
+  { question: 'Que représente le risque relatif (RR) ?', answer: 'C’est le rapport entre le risque absolu du groupe traité et celui du groupe témoin.' },
+  { question: 'Quelle est la formule du risque relatif ?', answer: 'RR = RAttt / RAplacebo.' },
+  { question: 'Que signifie RR = 1 ?', answer: 'Le traitement n’a aucun effet sur le risque d’événement.' },
+  { question: 'Que signifie RR < 1 ?', answer: 'Le traitement réduit le risque d’événement.' },
+  { question: 'Que signifie RR > 1 ?', answer: 'Le traitement augmente le risque d’événement.' },
+  { question: 'Qu’est-ce que la réduction relative du risque (RRR) ?', answer: 'C’est la proportion de réduction du risque dans le groupe traité par rapport au témoin.' },
+  { question: 'Quelle est la formule de la réduction relative du risque ?', answer: 'RRR = 1 - RR.' },
+  { question: 'Que signifie une RRR de 15 % ?', answer: 'Le traitement réduit le risque de décès ou d’événement de 15 % par rapport au placebo.' },
+  { question: 'Qu’est-ce que le nombre de sujets à traiter (NST) ?', answer: 'C’est le nombre de patients qu’il faut traiter pour éviter un seul événement indésirable.' },
+  { question: 'Quelle est la formule du NST ?', answer: 'NST = 1 / RAR.' },
+  { question: 'Comment interpréter un NST de 167 ?', answer: 'Il faut traiter 167 patients pendant la durée de l’essai pour éviter un événement.' },
+  { question: 'Pourquoi le NST est-il utile en pratique ?', answer: 'Il permet d’estimer l’efficacité clinique réelle d’un traitement.' },
+  { question: 'Comment comparer deux traitements avec le NST ?', answer: 'Le traitement avec le NST le plus faible est généralement le plus efficace.' },
+  { question: 'Quelle est la différence entre efficacité et efficience ?', answer: 'L’efficacité est mesurée dans les conditions de l’essai, l’efficience dans la pratique réelle.' },
+  { question: 'Quelle est la différence entre efficacité et tolérance ?', answer: 'L’efficacité mesure le bénéfice thérapeutique, la tolérance évalue la sécurité du traitement.' },
+  { question: 'Que signifie « nombre d’événements évités » ?', answer: 'C’est le nombre de cas qui ne se produisent pas grâce au traitement, proportionnel à la RAR.' },
+  { question: 'Pourquoi la mesure de l’effet doit-elle être interprétée avec prudence ?', answer: 'Parce que les valeurs peuvent varier selon la population, la durée et le critère choisi.' },
+  { question: 'Que représente la variabilité interindividuelle dans un essai ?', answer: 'Les différences de réponse au traitement entre patients.' },
+  { question: 'Pourquoi faut-il contrôler la variabilité ?', answer: 'Pour augmenter la puissance et la fiabilité de l’essai.' },
+  { question: 'Comment peut-on contrôler la variabilité ?', answer: 'En standardisant les conditions expérimentales et en utilisant des critères de jugement objectifs.' },
+  { question: 'Quelle est la conséquence d’une variabilité trop élevée ?', answer: 'Elle réduit la puissance de l’étude et augmente le risque d’erreur.' },
+  { question: 'Pourquoi faut-il un groupe témoin dans un essai ?', answer: 'Pour distinguer l’effet spécifique du traitement de l’effet placebo ou du hasard.' },
+  { question: 'Pourquoi le hasard seul ne suffit-il pas à expliquer les résultats d’un essai significatif ?', answer: 'Parce que le risque d’erreur statistique est contrôlé par la p-value et la puissance.' },
+  { question: 'Qu’est-ce qu’une erreur de type I ?', answer: 'C’est conclure à une différence alors qu’il n’y en a pas (risque α).' },
+  { question: 'Qu’est-ce qu’une erreur de type II ?', answer: 'C’est ne pas détecter une différence alors qu’elle existe (risque β).' },
+  { question: 'Qu’est-ce que la probabilité d’un faux positif ?', answer: 'C’est le risque α.' },
+  { question: 'Qu’est-ce que la probabilité d’un faux négatif ?', answer: 'C’est le risque β.' },
+  { question: 'Que signifie « 5 % de risque de conclure à tort » ?', answer: 'Cela correspond à un seuil de signification statistique de 0,05.' },
+  { question: 'Quelle est la relation entre puissance et risque β ?', answer: 'La puissance est égale à 1 - β.' },
+  { question: 'Pourquoi la puissance est-elle souvent fixée à 80 % ?', answer: 'Parce que c’est un compromis entre fiabilité et faisabilité (nombre de sujets).' },
+  { question: 'Comment interpréter un essai non significatif mais avec une faible puissance ?', answer: 'Il est possible qu’une vraie différence existe mais n’ait pas été détectée.' },
+  { question: 'Qu’est-ce qu’un effet du traitement cliniquement pertinent ?', answer: 'Un effet qui a un réel impact sur la santé du patient.' },
+  { question: 'Que signifie « rapport bénéfice/risque » ?', answer: 'C’est la comparaison entre les avantages du traitement et ses effets indésirables.' },
+  { question: 'Pourquoi un médicament peut-il être efficace mais non utilisé ?', answer: 'Si son rapport bénéfice/risque est défavorable.' },
+  { question: 'Qu’est-ce qu’un essai de phase III ?', answer: 'C’est un essai de grande ampleur visant à démontrer l’efficacité et la sécurité avant autorisation de mise sur le marché.' },
+  { question: 'Qu’est-ce qu’un essai de phase IV ?', answer: 'C’est une étude post-commercialisation évaluant le médicament en conditions réelles d’utilisation.' },
+  { question: 'Qu’est-ce qu’un critère de jugement principal unique ?', answer: 'C’est le critère défini comme le plus important pour évaluer l’efficacité du traitement.' },
+  { question: 'Pourquoi le critère principal doit-il être défini avant l’essai ?', answer: 'Pour éviter les analyses post hoc et les biais de confirmation.' },
+  { question: 'Qu’est-ce qu’un critère composite ?', answer: 'Un critère combinant plusieurs événements cliniques pertinents pour augmenter la puissance.' },
+  { question: 'Quels sont les avantages d’un critère composite ?', answer: 'Il permet d’observer plus d’événements et donc d’augmenter la puissance.' },
+  { question: 'Quels sont les inconvénients d’un critère composite ?', answer: 'Il peut diluer la signification clinique si tous les composants n’ont pas la même importance.' },
+  { question: 'Pourquoi une étude peut-elle montrer une différence statistique mais non clinique ?', answer: 'Parce que la différence observée est trop faible pour être utile au patient.' },
+  { question: 'Pourquoi une étude peut-elle montrer une différence clinique mais non significative ?', answer: 'Parce que le nombre de patients est insuffisant pour prouver statistiquement la différence.' },
+  { question: 'Qu’est-ce qu’un test de supériorité ?', answer: 'C’est un test visant à prouver qu’un traitement est plus efficace qu’un autre.' },
+  { question: 'Qu’est-ce qu’un test de non-infériorité ?', answer: 'C’est un test visant à montrer qu’un traitement n’est pas moins efficace qu’un autre au-delà d’une marge fixée.' },
+  { question: 'Qu’est-ce qu’un test d’équivalence ?', answer: 'C’est un test visant à montrer que deux traitements ont des efficacités comparables.' },
+  { question: 'Quelle est la finalité d’un essai clinique randomisé ?', answer: 'Établir une relation causale fiable entre un traitement et un effet clinique.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

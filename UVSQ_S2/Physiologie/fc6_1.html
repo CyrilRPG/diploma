@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Transmission synaptique Partie 1</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Transmission synaptique Partie 1</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce qu’une synapse', answer: 'Une zone de communication entre deux cellules nerveuses ou entre un neurone et une cellule musculaire ou glandulaire' },
+  { question: 'Quels sont les deux grands types de synapses', answer: 'Les synapses électriques et les synapses chimiques' },
+  { question: 'Qu’est-ce qu’un connexon', answer: 'Une protéine transmembranaire qui assure la communication directe entre les cytosols de deux cellules' },
+  { question: 'Combien de connexines forment un connexon', answer: 'Six connexines' },
+  { question: 'Combien de connexons forment un gap junction', answer: 'Deux connexons soit douze connexines' },
+  { question: 'Que permet un gap junction', answer: 'Le passage direct d’ions et de petites molécules de masse inférieure à 1000 Da d’une cellule à une autre' },
+  { question: 'Où trouve-t-on fréquemment des gap junctions', answer: 'Dans les cellules nerveuses, myocardiques, musculaires lisses, gliales, hépatiques et glandulaires' },
+  { question: 'Les synapses électriques sont-elles bidirectionnelles ou unidirectionnelles', answer: 'Elles sont bidirectionnelles' },
+  { question: 'Quelle est la largeur d’une fente synaptique chimique', answer: 'Entre 20 et 50 nanomètres' },
+  { question: 'Pourquoi les synapses chimiques sont-elles unidirectionnelles', answer: 'À cause de l’asymétrie de leurs structures pré et post-synaptiques' },
+  { question: 'Quel élément contient les neurotransmetteurs dans une synapse chimique', answer: 'L’élément pré-synaptique' },
+  { question: 'Quel élément contient les récepteurs spécifiques aux neurotransmetteurs', answer: 'L’élément post-synaptique' },
+  { question: 'Que devient le signal chimique au niveau de la membrane post-synaptique', answer: 'Il est transformé en signal intracellulaire' },
+  { question: 'Qu’est-ce qu’un PPSE', answer: 'Un potentiel post-synaptique excitateur provoqué par l’entrée de Na+ et la dépolarisation membranaire' },
+  { question: 'Qu’est-ce qu’un PPSI', answer: 'Un potentiel post-synaptique inhibiteur provoqué par l’entrée de Cl- et une hyperpolarisation membranaire' },
+  { question: 'Quels types de contacts synaptiques existent', answer: 'Axo-axoniques, axo-dendritiques et axo-somatiques' },
+  { question: 'Quels types de synapses sont le plus souvent excitatrices', answer: 'Les synapses axo-dendritiques' },
+  { question: 'Quels types de synapses sont souvent inhibitrices', answer: 'Les synapses axo-axoniques' },
+  { question: 'Quelle est la théorie vésiculaire', answer: 'Chaque vésicule contient un quantum de neurotransmetteur libéré en présynaptique de manière synchrone' },
+  { question: 'Qu’est-ce qu’un potentiel miniature', answer: 'Une libération spontanée d’un quantum de neurotransmetteur' },
+  { question: 'Qu’est-ce que la sommation temporelle', answer: 'L’addition de plusieurs PPSE rapprochés dans le temps provenant d’une même terminaison présynaptique' },
+  { question: 'Qu’est-ce que la sommation spatiale', answer: 'L’association de plusieurs PPSE provenant de neurones différents mais proches dans l’espace' },
+  { question: 'Où se situe le point initial du potentiel d’action', answer: 'Au niveau du segment initial de l’axone' },
+  { question: 'Quel est le rôle principal des PPSI', answer: 'Hyperpolariser localement la membrane et diminuer la résistance électrique pour s’opposer au PA' },
+  { question: 'Qu’est-ce qu’un neurotransmetteur', answer: 'Une substance chimique libérée par un neurone au niveau d’une synapse chimique qui modifie l’activité d’une autre cellule' },
+  { question: 'Quels sont les cinq critères d’un neurotransmetteur', answer: 'Synthèse par le neurone, localisation présynaptique, libération suffisante, reproduction de l’effet physiologique, inactivation spécifique' },
+  { question: 'Quels sont les trois grands types de neurotransmetteurs', answer: 'Les amines, les acides aminés et les peptides' },
+  { question: 'De quoi est synthétisée l’acétylcholine', answer: 'D’acétyl-CoA et de choline grâce à la choline acétyltransférase' },
+  { question: 'Où agit l’acétylcholine', answer: 'Dans le striatum, l’hippocampe, le cortex et le système parasympathique' },
+  { question: 'Quel est le rôle majeur de l’acétylcholine dans le striatum', answer: 'Jouer un rôle dans la motricité' },
+  { question: 'Quelles cellules disparaissent en premier dans la maladie d’Alzheimer', answer: 'Les cellules cholinergiques du cerveau antérieur basal' },
+  { question: 'Quelle enzyme transforme la tyrosine en L-DOPA', answer: 'La tyrosine hydroxylase' },
+  { question: 'Quelle enzyme transforme la L-DOPA en dopamine', answer: 'La DOPA décarboxylase' },
+  { question: 'Quelle pathologie est liée à la dégénérescence des neurones dopaminergiques de la substance noire', answer: 'La maladie de Parkinson' },
+  { question: 'Où sont synthétisées les catécholamines', answer: 'À partir de la tyrosine issue de la phénylalanine' },
+  { question: 'Où sont situés les neurones noradrénergiques du locus coeruleus', answer: 'Sur le plancher du quatrième ventricule au niveau du pont' },
+  { question: 'Quels rôles joue la noradrénaline', answer: 'Vigilance, attention, cycles veille-sommeil, apprentissage, mémoire, anxiété et douleur' },
+  { question: 'Quelle enzyme transforme la noradrénaline en adrénaline', answer: 'La phentolamine-N-méthyltransférase' },
+  { question: 'À partir de quel acide aminé est synthétisée la sérotonine', answer: 'Le tryptophane' },
+  { question: 'Quelle enzyme est l’étape limitante de la synthèse de sérotonine', answer: 'La tryptophane hydroxylase' },
+  { question: 'Quel est le rôle principal de la sérotonine', answer: 'Réguler l’humeur et le sommeil' },
+  { question: 'Quels sont les principaux neurotransmetteurs acides aminés', answer: 'Le glutamate, l’aspartate, la glycine et le GABA' },
+  { question: 'Quel neurotransmetteur inhibiteur est synthétisé à partir du glutamate', answer: 'Le GABA' },
+  { question: 'Quelle enzyme permet la synthèse du GABA à partir du glutamate', answer: 'L’acide glutamique décarboxylase' },
+  { question: 'Quel est le rôle principal des opioïdes endogènes comme les endorphines', answer: 'Lutter contre la douleur' },
+  { question: 'Quel neuropeptide transmet spécifiquement la douleur', answer: 'La substance P' },
+  { question: 'Quel gaz joue un rôle de messager diffusible et rétrograde', answer: 'Le monoxyde d’azote' },
+  { question: 'Quel est le rôle vasculaire du monoxyde d’azote', answer: 'Une action vasorelaxante artérielle' },
+  { question: 'Quelles sont les étapes de l’exocytose vésiculaire', answer: 'Entrée de Ca2+, arrimage, formation du complexe SNARE, fusion membranaire, libération du neurotransmetteur' },
+  { question: 'Quelles protéines vésiculaires participent à l’exocytose', answer: 'Les v-SNAREs et la synaptotagmine' },
+  { question: 'Quelles protéines membranaires participent à l’exocytose', answer: 'Les t-SNAREs comme la syntaxine' },
+  { question: 'Quelle toxine bloque les canaux calciques de type N', answer: 'L’alpha-conotoxine' },
+  { question: 'Quelle toxine bloque les canaux calciques de type P', answer: 'L’alpha-agatoxine' },
+  { question: 'Quelle pathologie est liée à des anticorps empêchant la libération d’acétylcholine', answer: 'Le syndrome de Lambert-Eaton' },
+  { question: 'Quelles bactéries produisent les toxines botuliques et tétaniques', answer: 'Les clostridies' },
+  { question: 'Quels sont les trois devenirs d’un neurotransmetteur après sa libération', answer: 'Diffusion hors de la synapse, dégradation enzymatique, recapture présynaptique' },
+  { question: 'Quelle enzyme dégrade l’acétylcholine', answer: 'L’acétylcholinestérase' },
+  { question: 'Quelle enzyme dégrade les catécholamines', answer: 'La catéchol-O-méthyltransférase' },
+  { question: 'Qu’inhibent les antidépresseurs IMAO', answer: 'Les monoamines oxydases responsables de la dégradation des catécholamines et de la sérotonine' },
+  { question: 'Quelle est la conséquence de la désensibilisation des récepteurs post-synaptiques', answer: 'Une diminution du nombre ou de la sensibilité des récepteurs' },
+  { question: 'Qu’est-ce qu’un agoniste compétitif', answer: 'Une substance qui mime l’effet du neurotransmetteur en se fixant sur le même site récepteur' },
+  { question: 'Qu’est-ce qu’un agoniste non compétitif', answer: 'Une substance qui mime l’effet du neurotransmetteur en se fixant sur un site différent du récepteur' },
+  { question: 'Qu’est-ce qu’un antagoniste compétitif', answer: 'Une molécule qui bloque l’action du neurotransmetteur en occupant son site récepteur' },
+  { question: 'Qu’est-ce qu’un antagoniste non compétitif', answer: 'Une molécule qui bloque l’action du neurotransmetteur en se fixant ailleurs que sur le site récepteur' },
+  { question: 'Quelle est la définition d’un neurotransmetteur', answer: 'Une substance chimique libérée par un neurone au niveau d’une synapse chimique qui modifie spécifiquement l’activité d’une autre cellule' },
+  { question: 'Quels sont les critères qu’un neurotransmetteur doit remplir', answer: 'Synthèse par le neurone, localisation présynaptique, libération suffisante, reproduction de l’effet physiologique, inactivation spécifique' },
+  { question: 'Quels sont les trois grands types de neurotransmetteurs classiques', answer: 'Les amines, les acides aminés et les peptides' },
+  { question: 'Quelles sont les amines neurotransmettrices principales', answer: 'L’acétylcholine, la dopamine, la noradrénaline, l’adrénaline, la sérotonine et l’histamine' },
+  { question: 'Comment est synthétisée l’acétylcholine', answer: 'À partir d’acétyl-CoA et de choline par la choline acétyltransférase' },
+  { question: 'Où agit l’acétylcholine dans le système nerveux central', answer: 'Dans le striatum, l’hippocampe, le néocortex et le complexe du cerveau antérieur basal' },
+  { question: 'Quel est le lien entre acétylcholine et la maladie d’Alzheimer', answer: 'La disparition précoce des neurones cholinergiques du cerveau antérieur basal est associée à la maladie d’Alzheimer' },
+  { question: 'Quels neurones utilisent l’acétylcholine dans le système périphérique', answer: 'Les motoneurones médullaires, les neurones pré-ganglionnaires du système végétatif et les neurones post-ganglionnaires parasympathiques' },
+  { question: 'Quelle est la voie de synthèse des catécholamines', answer: 'Elle commence par l’hydroxylation de la tyrosine en L-DOPA puis sa transformation en dopamine, ensuite en noradrénaline et enfin en adrénaline' },
+  { question: 'Quelle enzyme transforme la tyrosine en L-DOPA', answer: 'La tyrosine hydroxylase' },
+  { question: 'Quelle enzyme transforme la L-DOPA en dopamine', answer: 'La DOPA décarboxylase' },
+  { question: 'Quelle enzyme transforme la dopamine en noradrénaline', answer: 'La dopamine β-hydroxylase' },
+  { question: 'Quelle enzyme transforme la noradrénaline en adrénaline', answer: 'La phentolamine-N-méthyltransférase' },
+  { question: 'Où sont situés les neurones dopaminergiques impliqués dans la motricité', answer: 'Dans la substance noire et l’aire tegmentale ventrale' },
+  { question: 'Quelle est la principale pathologie liée au déficit dopaminergique', answer: 'La maladie de Parkinson' },
+  { question: 'Quelle est la principale voie dopaminergique impliquée dans la récompense', answer: 'La voie mésocorticolimbique' },
+  { question: 'Quels sont les rôles principaux de la noradrénaline', answer: 'Vigilance, attention, éveil, cycles veille-sommeil, apprentissage, mémoire, anxiété et modulation de la douleur' },
+  { question: 'Quelle structure cérébrale produit la majorité de la noradrénaline', answer: 'Le locus coeruleus' },
+  { question: 'Quelle est la particularité de l’adrénaline par rapport à la noradrénaline', answer: 'Elle est surtout libérée par la médullosurrénale dans le sang et agit comme hormone plutôt que comme neurotransmetteur' },
+  { question: 'À partir de quel acide aminé est synthétisée la sérotonine', answer: 'Le tryptophane' },
+  { question: 'Quelle est l’enzyme limitante de la synthèse de sérotonine', answer: 'La tryptophane hydroxylase' },
+  { question: 'Où sont localisés les neurones sérotoninergiques principaux', answer: 'Dans les noyaux du raphé du tronc cérébral' },
+  { question: 'Quels rôles physiologiques remplit la sérotonine', answer: 'Régulation de l’humeur, du sommeil, du cycle circadien, modulation de la douleur et des comportements émotionnels' },
+  { question: 'Quels sont les principaux neurotransmetteurs acides aminés excitateurs', answer: 'Le glutamate et l’aspartate' },
+  { question: 'Quels sont les principaux neurotransmetteurs acides aminés inhibiteurs', answer: 'Le GABA et la glycine' },
+  { question: 'Quelle enzyme permet la synthèse du GABA à partir du glutamate', answer: 'L’acide glutamique décarboxylase' },
+  { question: 'Quelle est la fonction principale du GABA', answer: 'Inhiber l’activité neuronale et prévenir l’emballement électrique du système nerveux central' },
+  { question: 'Où agit principalement la glycine comme neurotransmetteur inhibiteur', answer: 'Au niveau de la moelle épinière' },
+  { question: 'Quels sont les principaux neurotransmetteurs peptidiques', answer: 'Les endorphines, enképhalines, dynorphine, substance P, neuropeptide Y, VIP, somatostatine, CCK' },
+  { question: 'Quel est le rôle principal des opioïdes endogènes', answer: 'Moduler la douleur en produisant une inhibition postsynaptique' },
+  { question: 'Quel neuropeptide transmet la douleur au niveau du ganglion rachidien postérieur', answer: 'La substance P' },
+  { question: 'Quel gaz joue le rôle de neurotransmetteur atypique', answer: 'Le monoxyde d’azote' },
+  { question: 'Quel est le rôle du monoxyde d’azote', answer: 'Vasorelaxation artérielle et messager rétrograde facilitant la potentialisation à long terme' },
+  { question: 'Quelle est l’étape initiale de l’exocytose d’un neuromédiateur', answer: 'La propagation du potentiel d’action jusqu’au bouton terminal de l’axone' },
+  { question: 'Quels canaux s’ouvrent pour déclencher l’exocytose', answer: 'Les canaux calciques voltage-dépendants' },
+  { question: 'Quel est le seuil d’ouverture des canaux calciques présynaptiques', answer: 'Environ -40 millivolts' },
+  { question: 'Quels types de canaux calciques interviennent dans l’exocytose', answer: 'Les canaux de type N et P' },
+  { question: 'Quelle toxine bloque les canaux calciques de type N', answer: 'L’alpha-conotoxine' },
+  { question: 'Quelle toxine bloque les canaux calciques de type P', answer: 'L’alpha-agatoxine' },
+  { question: 'Quelle protéine libère la vésicule du cytosquelette pour la rendre disponible à l’exocytose', answer: 'La synapsine' },
+  { question: 'Quel complexe active la phosphorylation de la synapsine', answer: 'Le complexe calcium-calmoduline' },
+  { question: 'Quelles protéines vésiculaires interviennent dans l’arrimage', answer: 'Les v-SNAREs' },
+  { question: 'Quelles protéines membranaires cibles participent à l’arrimage', answer: 'Les t-SNAREs' },
+  { question: 'Quel est le rôle des SNAPs dans l’exocytose', answer: 'Reconnaître et stabiliser le complexe SNARE' },
+  { question: 'Quel est le rôle de la NSF dans l’exocytose', answer: 'Hydrolyser l’ATP et dissocier le complexe SNARE pour permettre la fusion' },
+  { question: 'Quel est le rôle de la syntaxine', answer: 'Protéine t-SNARE qui permet l’arrimage de la vésicule et régule les canaux calciques' },
+  { question: 'Quel est le rôle de la synaptotagmine', answer: 'Détecteur du calcium et déclencheur de la fusion vésiculaire' },
+  { question: 'À quelle concentration de calcium la synaptotagmine est-elle sensible', answer: 'À de fortes concentrations car elle a une faible affinité pour le Ca2+' },
+  { question: 'Quelle maladie est liée à un défaut de libération de l’acétylcholine dû à des anticorps', answer: 'Le syndrome de Lambert-Eaton' },
+  { question: 'Quels types de toxines bloquent le complexe SNARE', answer: 'Les toxines botuliques et tétaniques' },
+  { question: 'Quelles bactéries produisent les toxines botuliques et tétaniques', answer: 'Les clostridies' },
+  { question: 'Quelles sont les trois voies d’inactivation d’un neuromédiateur libéré', answer: 'Diffusion hors de la fente, dégradation enzymatique, recapture présynaptique' },
+  { question: 'Quelle enzyme dégrade l’acétylcholine', answer: 'L’acétylcholinestérase' },
+  { question: 'Quelle enzyme dégrade les catécholamines', answer: 'La catéchol-O-méthyltransférase (COMT)' },
+  { question: 'Quelle enzyme dégrade les catécholamines et la sérotonine dans la terminaison présynaptique', answer: 'La monoamine oxydase (MAO)' },
+  { question: 'Quels médicaments inhibent la monoamine oxydase', answer: 'Les IMAO utilisés comme antidépresseurs' },
+  { question: 'Quel est l’effet de la cocaïne et des amphétamines sur la neurotransmission', answer: 'Elles diminuent la recapture des catécholamines et augmentent leur concentration synaptique' },
+  { question: 'Quelle est la conséquence de la désensibilisation des récepteurs post-synaptiques', answer: 'Une diminution du nombre ou de la sensibilité des récepteurs' },
+  { question: 'Qu’est-ce qu’un autorécepteur présynaptique', answer: 'Un récepteur situé sur la membrane présynaptique qui régule la libération ou la synthèse du neurotransmetteur' },
+  { question: 'Qu’est-ce que l’inhibition présynaptique', answer: 'Une diminution de l’action du potentiel d’action arrivant, empêchant la libération du neurotransmetteur' },
+  { question: 'Qu’est-ce que l’inhibition récurrente', answer: 'L’auto-inhibition d’un neurone par un interneurone inhibiteur qu’il a lui-même activé' },
+  { question: 'Quel interneurone médullaire illustre l’inhibition récurrente', answer: 'L’interneurone de Renshaw' },
+  { question: 'Quel est le rôle principal des récepteurs post-synaptiques', answer: 'Transformer le signal chimique extracellulaire en signal intracellulaire' },
+  { question: 'Quelles sont les deux grandes classes de substances agissant sur les récepteurs post-synaptiques', answer: 'Les agonistes et les antagonistes' },
+  { question: 'Qu’est-ce qu’un agoniste compétitif', answer: 'Une substance qui reproduit l’effet du neurotransmetteur en se fixant sur le même site récepteur' },
+  { question: 'Qu’est-ce qu’un agoniste non compétitif', answer: 'Une substance qui reproduit l’effet du neurotransmetteur en se fixant sur un site différent de celui du neurotransmetteur' },
+  { question: 'Qu’est-ce qu’un antagoniste compétitif réversible', answer: 'Une molécule qui se fixe sur le même site que le neurotransmetteur et empêche son action de manière réversible' },
+  { question: 'Qu’est-ce qu’un antagoniste compétitif irréversible', answer: 'Une molécule qui bloque durablement le site du récepteur et empêche l’action du neurotransmetteur' },
+  { question: 'Qu’est-ce qu’un antagoniste non compétitif réversible', answer: 'Une molécule qui bloque l’action du neurotransmetteur sans se fixer sur son site mais de manière réversible' },
+  { question: 'Comment agit un agoniste sur un récepteur', answer: 'Il active le récepteur et déclenche une réponse similaire à celle du neurotransmetteur naturel' },
+  { question: 'Comment agit un antagoniste sur un récepteur', answer: 'Il bloque le récepteur et empêche l’action du neurotransmetteur' },
+  { question: 'Quelle est la différence entre un agoniste compétitif et un non compétitif', answer: 'L’agoniste compétitif se fixe au même site que le neurotransmetteur, le non compétitif se fixe ailleurs' },
+  { question: 'Quelle est la différence entre un antagoniste compétitif et un non compétitif', answer: 'Le compétitif empêche la fixation du neurotransmetteur sur son site, le non compétitif empêche son action par un mécanisme allostérique' },
+  { question: 'Quelles substances peuvent agir comme agonistes des récepteurs cholinergiques nicotiniques', answer: 'L’acétylcholine et la nicotine' },
+  { question: 'Quelles substances peuvent agir comme antagonistes des récepteurs cholinergiques nicotiniques', answer: 'Le curare et certains myorelaxants' },
+  { question: 'Quelles substances peuvent agir comme agonistes des récepteurs GABAergiques', answer: 'Le GABA et certaines benzodiazépines' },
+  { question: 'Quelles substances peuvent agir comme antagonistes des récepteurs GABAergiques', answer: 'Le bicuculline et la picrotoxine' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

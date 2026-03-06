@@ -6,6 +6,7 @@ function getFavoritesKey() {
     if (path.includes('/SU_S1/')) return 'favorites_SU_S1';
     if (path.includes('/SU_S2/')) return 'favorites_SU_S2';
     if (path.includes('/UPEC_LSPS1_S2/')) return 'favorites_UPEC_LSPS1_S2';
+    if (path.includes('/UPEC_LSPS3_S2/')) return 'favorites_UPEC_LSPS3_S2';
   } catch (e) {
     // Fallback si window.location n'est pas disponible (tests, node, etc.)
   }

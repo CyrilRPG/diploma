@@ -1,0 +1,710 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Hospital Staff</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anglais médical</h1><h2>Hospital Staff</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quel est le mot anglais pour Administrateur ?', answer: 'Administrator' },
+  { question: 'Quel est le mot anglais pour Réceptionniste ?', answer: 'Admission clerk / receptionist' },
+  { question: 'Quel est le mot anglais pour Conducteur d’ambulance ?', answer: 'Ambulance driver' },
+  { question: 'Comment dit-on Andrologie en anglais ?', answer: 'Andrology / male health (reproduction + urology)' },
+  { question: 'Quel est le mot anglais pour Anesthésiste ?', answer: 'Anesthesiologist / anesthetist' },
+  { question: 'Quel est le mot anglais pour Aide-soignant ?', answer: 'Assistant nurse / nurse’s aide / auxiliary nurse / healthcare assistant' },
+  { question: 'Comment dit-on Cancérologue en anglais ?', answer: 'Cancer specialist' },
+  { question: 'Comment dit-on Cancérologie en anglais ?', answer: 'Cancer research' },
+  { question: 'Comment dit-on Cardiologue en anglais ?', answer: 'Cardiologist' },
+  { question: 'Comment dit-on Cardiologie en anglais ?', answer: 'Cardiology' },
+  { question: 'Comment dit-on Équipe de soins en anglais ?', answer: 'Care / healthcare team' },
+  { question: 'Comment dit-on Soignant en anglais ?', answer: 'Caregiver / care provider' },
+  { question: 'Comment dit-on Personnel non-soignant en anglais ?', answer: 'Administrative staff' },
+  { question: 'Comment dit-on Personnel soignant en anglais ?', answer: 'Caregiving staff' },
+  { question: 'Comment dit-on Personnel administratif en anglais ?', answer: 'Administrative staff' },
+  { question: 'Comment dit-on Examen général ou Bilan en anglais ?', answer: 'Check-up' },
+  { question: 'Comment dit-on Stage professionnel en anglais ?', answer: 'Clinical training / rotation' },
+  { question: 'Comment dit-on Faire un stage en anglais ?', answer: 'To be in clinical training' },
+  { question: 'Comment dit-on Stage ou Internat en anglais ?', answer: 'Internship' },
+  { question: 'Comment dit-on Stage (au sens éducatif) en anglais ?', answer: 'Training (course / lesson)' },
+  { question: 'Comment dit-on Suivre un stage de formation en… en anglais ?', answer: 'To take a training course in…' },
+  { question: 'Comment dit-on Technicien en soins d’urgence en anglais ?', answer: 'EMT (Emergency Medical Technician) / ambulance technician' },
+  { question: 'Comment dit-on ORL en anglais ?', answer: 'ENT (Ear-Nose-Throat)' },
+  { question: 'Comment dit-on Examen en anglais ?', answer: 'Examination / exam' },
+  { question: 'Comment dit-on Gastroentérologue en anglais ?', answer: 'Gastroenterologist' },
+  { question: 'Comment dit-on Gastroentérologie en anglais ?', answer: 'Gastroenterology' },
+  { question: 'Comment dit-on Gériatre en anglais ?', answer: 'Geriatrician' },
+  { question: 'Comment dit-on Gériatrie en anglais ?', answer: 'Geriatrics' },
+  { question: 'Comment dit-on Gérontologue en anglais ?', answer: 'Gerontologist' },
+  { question: 'Comment dit-on Gérontologie en anglais ?', answer: 'Gerontology' },
+  { question: 'Comment dit-on Gynécologue en anglais ?', answer: 'Gynecologist' },
+  { question: 'Comment dit-on Gynécologie en anglais ?', answer: 'Gynecology' },
+  { question: 'Comment dit-on Soins de santé en anglais ?', answer: 'Health care' },
+  { question: 'Comment dit-on Technicien d’information médicale en anglais ?', answer: 'Health information technician' },
+  { question: 'Comment dit-on Cadre de santé en anglais ?', answer: 'Healthcare executive / health services manager / healthcare administrator' },
+  { question: 'Comment dit-on Professionnel de santé en anglais ?', answer: 'Healthcare practitioner / health professional' },
+  { question: 'Comment dit-on Prestataire de soins de santé en anglais ?', answer: 'Healthcare provider' },
+  { question: 'Comment dit-on Prestation de soins de santé en anglais ?', answer: 'Healthcare delivery' },
+  { question: 'Comment dit-on Hématologue en anglais ?', answer: 'Hematologist' },
+  { question: 'Comment dit-on Hématologie en anglais ?', answer: 'Hematology' },
+  { question: 'Comment dit-on Stagiaire en anglais ?', answer: 'Intern / trainee' },
+  { question: 'Comment dit-on Interniste en anglais ?', answer: 'Internist / specialist in internal medicine' },
+  { question: 'Comment dit-on Profession en anglais ?', answer: 'Job / position' },
+  { question: 'Comment dit-on Connaissance en anglais ?', answer: 'Knowledge' },
+  { question: 'Comment dit-on Technicien de laboratoire en anglais ?', answer: 'Lab technician' },
+  { question: 'Comment dit-on Consultant en anglais ?', answer: 'Consultant / consulting' },
+  { question: 'Comment dit-on Dentiste en anglais ?', answer: 'Dentist' },
+  { question: 'Comment dit-on Dentisterie en anglais ?', answer: 'Dentistry' },
+  { question: 'Comment dit-on Dermatologue en anglais ?', answer: 'Dermatologist' },
+  { question: 'Comment dit-on Dermatologie en anglais ?', answer: 'Dermatology' },
+  { question: 'Comment dit-on Diagnostic en anglais ?', answer: 'Diagnosis' },
+  { question: 'Quel est le mot anglais pour Diététicien ?', answer: 'Dietician' },
+  { question: 'Quel est le mot anglais pour Diététique ?', answer: 'Dietetics' },
+  { question: 'Quel est le mot anglais pour Directeur des soins ?', answer: 'Director of care / of nursing' },
+  { question: 'Quel est le mot anglais pour Docteur ou Médecin ?', answer: 'Doctor' },
+  { question: 'Quel est le mot anglais pour Médecin de famille ?', answer: 'Family doctor' },
+  { question: 'Quel est le mot anglais pour Médecin généraliste ?', answer: 'General practitioner (GP) / physician' },
+  { question: 'Quel est le mot anglais pour Médecine générale ?', answer: 'General medicine' },
+  { question: 'Quel est le mot anglais pour Personne âgée ?', answer: 'Elderly' },
+  { question: 'Quel est le mot anglais pour Urgentiste (médecin) ?', answer: 'Emergency doctor' },
+  { question: 'Quel est le mot anglais pour Direction ?', answer: 'Leadership' },
+  { question: 'Quel est le mot anglais pour Qualités de leader ?', answer: 'Leadership skills' },
+  { question: 'Quel est le mot anglais pour Cadre ?', answer: 'Manager / executive' },
+  { question: 'Quel est le mot anglais pour Infirmière cadre ?', answer: 'Nurse supervisor / manager / charge nurse' },
+  { question: 'Quel est le mot anglais pour Cadre supérieur de santé ?', answer: 'Senior health manager' },
+  { question: 'Quel est le mot anglais pour Cadre de santé ?', answer: 'Health manager' },
+  { question: 'Quel est le mot anglais pour Masseuse ou Masseur ?', answer: 'Masseuse / masseur' },
+  { question: 'Quel est le mot anglais pour Services de santé ?', answer: 'Medical and health services' },
+  { question: 'Quel est le mot anglais pour Sage-femme ?', answer: 'Midwife' },
+  { question: 'Quel est le mot anglais pour Profession de sage-femme ?', answer: 'Midwifery' },
+  { question: 'Quel est le mot anglais pour Faute ?', answer: 'Misconduct' },
+  { question: 'Quel est le mot anglais pour Faute grave ?', answer: 'Gross misconduct' },
+  { question: 'Quel est le mot anglais pour Neurologue ?', answer: 'Neurologist' },
+  { question: 'Quel est le mot anglais pour Neurologie ?', answer: 'Neurology' },
+  { question: 'Quel est le mot anglais pour Infirmier ou Infirmière ?', answer: 'Nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière diplômée d’État ?', answer: 'Registered nurse (RN)' },
+  { question: 'Quel est le mot anglais pour Infirmière à domicile ?', answer: 'Home health nurse / visiting nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière chef ?', answer: 'Head nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière clinicienne ?', answer: 'Nurse practitioner' },
+  { question: 'Quel est le mot anglais pour Infirmière de garde ?', answer: 'Nurse on duty' },
+  { question: 'Quel est le mot anglais pour Infirmière en soins intensifs ?', answer: 'Critical-care nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière hygiéniste ?', answer: 'Public-health nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière instrumentiste ?', answer: 'Scrub nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière d’accueil et d’orientation ?', answer: 'Admission nurse' },
+  { question: 'Quel est le mot anglais pour Infirmière d’annonce ?', answer: 'Nurse who discloses information / diagnoses' },
+  { question: 'Quel est le mot anglais pour Nutritionniste ?', answer: 'Nutritionist' },
+  { question: 'Quel est le mot anglais pour Nutrition ?', answer: 'Nutrition' },
+  { question: 'Quel est le mot anglais pour Obstétricien ?', answer: 'Obstetrician' },
+  { question: 'Quel est le mot anglais pour Obstétrique ?', answer: 'Obstetrics' },
+  { question: 'Quel est le mot anglais pour Obstétricien-gynécologue ?', answer: 'OBGYN (obstetrician-gynecologist)' },
+  { question: 'Quel est le mot anglais pour Oncologue ?', answer: 'Oncologist' },
+  { question: 'Quel est le mot anglais pour Oncologie ?', answer: 'Oncology' },
+  { question: 'Quel est le mot anglais pour Opération chirurgicale ?', answer: 'Operation / surgery' },
+  { question: 'Quel est le mot anglais pour Ophtalmologiste ?', answer: 'Ophthalmologist / eye specialist' },
+  { question: 'Quel est le mot anglais pour Ophtalmologie ?', answer: 'Ophthalmology' },
+  { question: 'Quel est le mot anglais pour Optométriste ?', answer: 'Optometrist' },
+  { question: 'Quel est le mot anglais pour Optométrie ?', answer: 'Optometry' },
+  { question: 'Quel est le mot anglais pour Garçon de salle ?', answer: 'Orderly' },
+  { question: 'Quel est le mot anglais pour Orthopédiste ?', answer: 'Orthopedist' },
+  { question: 'Quel est le mot anglais pour Orthopédie ?', answer: 'Orthopedics' },
+  { question: 'Quel est le mot anglais pour Tâches administratives ?', answer: 'Paperwork' },
+  { question: 'Quel est le mot anglais pour Technicien ambulancier ?', answer: 'Paramedic' },
+  { question: 'Quel est le mot anglais pour Secours paramédicaux ?', answer: 'Paramedics' },
+  { question: 'Quel est le mot anglais pour Puéricultrice ?', answer: 'Pediatric / neonatal nurse' },
+  { question: 'Quel est le mot anglais pour Puéricultrice en crèche ?', answer: 'Nursery nurse' },
+  { question: 'Quel est le mot anglais pour Puériculture ?', answer: 'Pediatric nursing / infant care' },
+  { question: 'Quel est le mot anglais pour Puériculture en crèche ?', answer: 'Nursery nursing' },
+  { question: 'Quel est le mot anglais pour Pédiatre ?', answer: 'Pediatrician' },
+  { question: 'Quel est le mot anglais pour Pédiatrie ?', answer: 'Pediatrics' },
+  { question: 'Quel est le mot anglais pour Pharmacien ?', answer: 'Pharmacist / chemist' },
+  { question: 'Quel est le mot anglais pour Pharmacie ?', answer: 'Pharmacy' },
+  { question: 'Quel est le mot anglais pour Préparateur en pharmacie ?', answer: 'Pharmacy technician' },
+  { question: 'Quel est le mot anglais pour Préleveur ?', answer: 'Phlebotomist' },
+  { question: 'Quel est le mot anglais pour Kinésithérapeute ?', answer: 'Physical therapist / physiotherapist' },
+  { question: 'Quel est le mot anglais pour Kinésithérapie ?', answer: 'Physical therapy / physiotherapy' },
+  { question: 'Quel est le mot anglais pour Chirurgien esthétique ?', answer: 'Plastic surgeon' },
+  { question: 'Quel est le mot anglais pour Chirurgie esthétique ?', answer: 'Plastic surgery' },
+  { question: 'Quel est le mot anglais pour Podologue ?', answer: 'Podiatrist / chiropodist' },
+  { question: 'Quel est le mot anglais pour Podologie ?', answer: 'Podiatry / chiropody' },
+  { question: 'Quel est le mot anglais pour Praticien hospitalier ?', answer: 'Practitioner / hospital doctor' },
+  { question: 'Quel est le mot anglais pour Prépa de médecine ?', answer: 'Pre-med program' },
+  { question: 'Quel est le mot anglais pour Secret professionnel ?', answer: 'Professional secrecy' },
+  { question: 'Quel est le mot anglais pour Psychiatre ?', answer: 'Psychiatrist' },
+  { question: 'Quel est le mot anglais pour Psychiatrie ?', answer: 'Psychiatry' },
+  { question: 'Quel est le mot anglais pour Manipulateur en électroradiologie médicale ?', answer: 'Radiologic technologist' },
+  { question: 'Quel est le mot anglais pour Radiologue ?', answer: 'Radiologist' },
+  { question: 'Quel est le mot anglais pour Radiologie ?', answer: 'Radiology' },
+  { question: 'Quel est le mot anglais pour Orientation d’un patient ?', answer: 'Referral' },
+  { question: 'Quel est le mot anglais pour Interne ?', answer: 'Resident physician / intern / medical resident' },
+  { question: 'Quel est le mot anglais pour Résident ?', answer: 'Junior / house doctor' },
+  { question: 'Quel est le mot anglais pour Internat ?', answer: 'Residency' },
+  { question: 'Quel est le mot anglais pour Libéral ou Indépendant ?', answer: 'Self-employed / independent' },
+  { question: 'Quel est le mot anglais pour Travail d’équipe de jour ou de nuit ?', answer: 'Shift (day / night)' },
+  { question: 'Quel est le mot anglais pour Assistant social ?', answer: 'Social worker' },
+  { question: 'Quel est le mot anglais pour Spécialiste ?', answer: 'Specialist' },
+  { question: 'Quel est le mot anglais pour Personnel ?', answer: 'Staff' },
+  { question: 'Quel est le mot anglais pour Stomatologie ?', answer: 'Stomatology / mouth diseases' },
+  { question: 'Quel est le mot anglais pour Brancardier ?', answer: 'Stretcher-bearer / porter' },
+  { question: 'Quel est le mot anglais pour Étudiant en soins infirmiers ?', answer: 'Student nurse / nursing student' },
+  { question: 'Quel est le mot anglais pour Chirurgien ?', answer: 'Surgeon' },
+  { question: 'Quel est le mot anglais pour Chirurgie ?', answer: 'Surgery' },
+  { question: 'Quel est le mot anglais pour Stagiaire ?', answer: 'Trainee' },
+  { question: 'Quel est le mot anglais pour Traitement ?', answer: 'Treatment' },
+  { question: 'Quel est le mot anglais pour Radio ?', answer: 'X-ray' },
+  { question: 'Comment dit-on Prodiguer un traitement ou des soins en anglais ?', answer: 'To give / provide a treatment / care' },
+  { question: 'Comment dit-on Soigner en anglais ?', answer: 'To heal' },
+  { question: 'Comment dit-on Embaucher ou Engager en anglais ?', answer: 'To hire / recruit' },
+  { question: 'Comment dit-on Traiter en anglais ?', answer: 'To treat' },
+  { question: 'Quel est le mot anglais pour Établissements médicaux ?', answer: 'Medical facilities' },
+  { question: 'Quel est le mot anglais pour Maison d’accueil spécialisée ?', answer: 'Adult day care facility' },
+  { question: 'Quel est le mot anglais pour Foyer d’accueil spécialisé ?', answer: 'Skilled nursing care facility / nursing home' },
+  { question: 'Quel est le mot anglais pour Bâtiment ?', answer: 'Building' },
+  { question: 'Quel est le mot anglais pour Clinique ?', answer: 'Clinic' },
+  { question: 'Quel est le mot anglais pour Maison de convalescence ?', answer: 'Convalescent home' },
+  { question: 'Quel est le mot anglais pour Hôpital de jour ?', answer: 'Day hospital' },
+  { question: 'Quel est le mot anglais pour Soins extra-hospitaliers ?', answer: 'Day hospital care' },
+  { question: 'Quel est le mot anglais pour Crèche ?', answer: 'Day-care / child-care center / day nursery' },
+  { question: 'Quel est le mot anglais pour Structure d’accueil ?', answer: 'Facility' },
+  { question: 'Quel est le mot anglais pour Établissement de santé ?', answer: 'Healthcare facility' },
+  { question: 'Quel est le mot anglais pour Hôpital général ?', answer: 'General hospital' },
+  { question: 'Quel est le mot anglais pour Centre de santé ?', answer: 'Health unit' },
+  { question: 'Quel est le mot anglais pour Hospitalisation à domicile ?', answer: 'Home (medical) care / home hospitalization' },
+  { question: 'Quel est le mot anglais pour Service de soins infirmiers à domicile ?', answer: 'Home nursing care' },
+  { question: 'Quel est le mot anglais pour Hospice ?', answer: 'Home / hospice / old people’s home' },
+  { question: 'Quel est le mot anglais pour Établissement ?', answer: 'Institution' },
+  { question: 'Quel est le mot anglais pour Maison de convalescence ou de retraite ?', answer: 'Nursing home / convalescent home / care home / rest home' },
+  { question: 'Quel est le mot anglais pour Service de moyen-séjour ?', answer: 'Intermediate care facility (ICF)' },
+  { question: 'Quel est le mot anglais pour Service de long-séjour ?', answer: 'Assisted living facility (ALF)' },
+  { question: 'Quel est le mot anglais pour Établissement d’Hébergement pour Personnes Âgées Dépendantes (EHPAD) ?', answer: 'Skilled nursing facility (SNF)' },
+  { question: 'Quel est le mot anglais pour Maison de retraite ?', answer: 'Retirement home' },
+  { question: 'Quel est le mot anglais pour Secteur privé ou cabinet privé ?', answer: 'Private practice' },
+  { question: 'Quel est le mot anglais pour Aile ?', answer: 'Wing' },
+  { question: 'Quel est le mot anglais pour Urgences ?', answer: 'A&E (Accident & Emergency department / unit)' },
+  { question: 'Quel est le mot anglais pour Administration ?', answer: 'Administration' },
+  { question: 'Quel est le mot anglais pour Réception ou Admissions ?', answer: 'Admissions' },
+  { question: 'Quel est le mot anglais pour Archives ?', answer: 'Archives' },
+  { question: 'Quel est le mot anglais pour Asile ?', answer: 'Asylum' },
+  { question: 'Quel est le mot anglais pour Office ou Tisanerie ?', answer: 'Break room' },
+  { question: 'Quel est le mot anglais pour Couloir ?', answer: 'Corridor' },
+  { question: 'Quel est le mot anglais pour Box du patient ?', answer: 'Cubicle / room' },
+  { question: 'Quel est le mot anglais pour Porte ?', answer: 'Door' },
+  { question: 'Quel est le mot anglais pour Ascenseur ou Monte-charge ?', answer: 'Elevator / lift' },
+  { question: 'Quel est le mot anglais pour Urgences (autre terme) ?', answer: 'Emergency room (ER)' },
+  { question: 'Quel est le mot anglais pour Hall d’entrée ?', answer: 'Entrance hall' },
+  { question: 'Quel est le mot anglais pour Bâtiment ou Installations ?', answer: 'Facility' },
+  { question: 'Quel est le mot anglais pour Dossier médical ?', answer: 'File' },
+  { question: 'Quel est le mot anglais pour Classeur ?', answer: 'File cabinet' },
+  { question: 'Quel est le mot anglais pour Sol ou Étage ?', answer: 'Floor' },
+  { question: 'Quel est le mot anglais pour Service de soins généraux ?', answer: 'General care unit / general ward' },
+  { question: 'Quel est le mot anglais pour Hallway ?', answer: 'Couloir' },
+  { question: 'Quel est le mot anglais pour Bureau de renseignement ?', answer: 'Information desk' },
+  { question: 'Quel est le mot anglais pour Laboratoire ?', answer: 'Laboratory / lab' },
+  { question: 'Quel est le mot anglais pour Niveau ou Étage ?', answer: 'Level' },
+  { question: 'Quel est le mot anglais pour Lingerie ?', answer: 'Linen room' },
+  { question: 'Quel est le mot anglais pour Soins à long terme ?', answer: 'Long-term care' },
+  { question: 'Quel est le mot anglais pour Archives médicales ?', answer: 'Medical records' },
+  { question: 'Quel est le mot anglais pour Morgue ?', answer: 'Morgue' },
+  { question: 'Quel est le mot anglais pour Infirmerie ou Poste des infirmières ?', answer: 'Nurses’ station' },
+  { question: 'Quel est le mot anglais pour Bloc opératoire ?', answer: 'Operating suite' },
+  { question: 'Quel est le mot anglais pour Ambulatoire ?', answer: 'Out-patient' },
+  { question: 'Quel est le mot anglais pour Laboratoire de pathologie ?', answer: 'Pathology laboratory' },
+  { question: 'Quel est le mot anglais pour Pharmacie ?', answer: 'Pharmacy / chemist’s shop / drugstore' },
+  { question: 'Quel est le mot anglais pour Centre anti-poison ?', answer: 'Poison-control center' },
+  { question: 'Quel est le mot anglais pour Maternité (service) ?', answer: 'Postnatal ward' },
+  { question: 'Quel est le mot anglais pour Cabinet médical ?', answer: 'Practice' },
+  { question: 'Quel est le mot anglais pour Aire d’accueil ?', answer: 'Reception area / room' },
+  { question: 'Quel est le mot anglais pour Bureau d’accueil ?', answer: 'Reception desk' },
+  { question: 'Quel est le mot anglais pour Dossier médical ?', answer: 'Records' },
+  { question: 'Quel est le mot anglais pour Réadaptation ?', answer: 'Rehabilitation / rehab' },
+  { question: 'Quel est le mot anglais pour Chambre ?', answer: 'Room' },
+  { question: 'Quel est le mot anglais pour Chambre d’isolement ?', answer: 'Isolation room' },
+  { question: 'Quel est le mot anglais pour Chambre d’observation ?', answer: 'Observation room' },
+  { question: 'Quel est le mot anglais pour Chambre de réanimation ?', answer: 'Resuscitation room' },
+  { question: 'Quel est le mot anglais pour Salle ?', answer: 'Room / theater / ward' },
+  { question: 'Quel est le mot anglais pour Salle d’attente ?', answer: 'Waiting room' },
+  { question: 'Quel est le mot anglais pour Salle d’examen ?', answer: 'Examination room' },
+  { question: 'Quel est le mot anglais pour Salle d’induction ?', answer: 'Induction room' },
+  { question: 'Quel est le mot anglais pour Salle d’opération ?', answer: 'Operating theater / surgery room' },
+  { question: 'Quel est le mot anglais pour Salle de bain ?', answer: 'Bathroom' },
+  { question: 'Quel est le mot anglais pour Salle de consultation ?', answer: 'Consultation / consulting room' },
+  { question: 'Quel est le mot anglais pour Salle de réveil ?', answer: 'Recovery room' },
+  { question: 'Quel est le mot anglais pour Salle de soins ?', answer: 'Treatment room' },
+  { question: 'Quel est le mot anglais pour Salle de surveillance prénatale ?', answer: 'Antenatal ward' },
+  { question: 'Quel est le mot anglais pour Salle de triage ?', answer: 'Triage room' },
+  { question: 'Quel est le mot anglais pour Salle des urgences ?', answer: 'Casualty ward' },
+  { question: 'Quel est le mot anglais pour Salle d’accouchement ?', answer: 'Delivery room' },
+  { question: 'Quel est le mot anglais pour Scanner ?', answer: 'Scanner' },
+  { question: 'Quel est le mot anglais pour Secrétariat ?', answer: 'Secretary’s office' },
+  { question: 'Quel est le mot anglais pour Centre de prélèvements ?', answer: 'Specimen collection center' },
+  { question: 'Quel est le mot anglais pour Escaliers ?', answer: 'Stairs' },
+  { question: 'Quel est le mot anglais pour Stérilisation ?', answer: 'Sterilization' },
+  { question: 'Quel est le mot anglais pour Bloc opératoire ?', answer: 'Surgical ward' },
+  { question: 'Quel est le mot anglais pour Toilettes ?', answer: 'Toilets / restrooms' },
+  { question: 'Quel est le mot anglais pour Unité ?', answer: 'Unit' },
+  { question: 'Quel est le mot anglais pour Unité de soins ?', answer: 'Patient care unit' },
+  { question: 'Quel est le mot anglais pour Unité de soins ambulatoires ?', answer: 'Ambulatory care unit' },
+  { question: 'Quel est le mot anglais pour Unité de soins intensifs ?', answer: 'Intensive care unit (ICU)' },
+  { question: 'Quel est le mot anglais pour Unité spécialisée ?', answer: 'Specialized hospital unit' },
+  { question: 'Quel est le mot anglais pour Service ?', answer: 'Unit / department / ward' },
+  { question: 'Quel est le mot anglais pour Service d’oncologie ?', answer: 'Oncology department' },
+  { question: 'Quel est le mot anglais pour Service de cardiologie ?', answer: 'Cardiac care unit' },
+  { question: 'Quel est le mot anglais pour Service de consultation prénatale ?', answer: 'Antenatal clinic' },
+  { question: 'Quel est le mot anglais pour Service de maternité ?', answer: 'Maternity ward' },
+  { question: 'Quel est le mot anglais pour Service de radiologie ?', answer: 'Radiology department' },
+  { question: 'Quel est le mot anglais pour Service de soins généraux ?', answer: 'General care unit / general ward' },
+  { question: 'Quel est le mot anglais pour Service de soins intensifs ?', answer: 'Critical-care unit' },
+  { question: 'Quel est le mot anglais pour Service des grands brûlés ?', answer: 'Burns unit' },
+  { question: 'Quel est le mot anglais pour Service médical ?', answer: 'Medical unit / ward' },
+  { question: 'Quel est le mot anglais pour Service pédiatrique ?', answer: 'Pediatric ward' },
+  { question: 'Quel est le mot anglais pour Service psychiatrique ?', answer: 'Psychiatric ward' },
+  { question: 'Quel est le mot anglais pour Poste de travail ?', answer: 'Workstation' },
+  { question: 'Quel est le mot anglais pour Chambre d’hôpital ?', answer: 'Patient’s room' },
+  { question: 'Quel est le mot anglais pour Matelas pneumatique ?', answer: 'Air bed' },
+  { question: 'Quel est le mot anglais pour Fauteuil ?', answer: 'Arm chair' },
+  { question: 'Quel est le mot anglais pour Barre d’accès au lit ?', answer: 'Assist bar' },
+  { question: 'Quel est le mot anglais pour Cuvette ou Bassine ?', answer: 'Basin' },
+  { question: 'Quel est le mot anglais pour Salle de bains ?', answer: 'Bathroom' },
+  { question: 'Quel est le mot anglais pour Télécommande du lit ?', answer: 'Bed control' },
+  { question: 'Quel est le mot anglais pour Table de nuit ?', answer: 'Bed / bedside / night table' },
+  { question: 'Quel est le mot anglais pour Alité ?', answer: 'Bedridden' },
+  { question: 'Quel est le mot anglais pour Barrière de sécurité ?', answer: 'Bedside rail / bed safety rail' },
+  { question: 'Quel est le mot anglais pour Couverture ?', answer: 'Blanket' },
+  { question: 'Quel est le mot anglais pour Placard ?', answer: 'Cabinet' },
+  { question: 'Quel est le mot anglais pour Sonnette ?', answer: 'Call button / call bell' },
+  { question: 'Quel est le mot anglais pour Chaise ?', answer: 'Chair' },
+  { question: 'Quel est le mot anglais pour Commode ?', answer: 'Chest (of drawers)' },
+  { question: 'Quel est le mot anglais pour Placard (meuble mural) ?', answer: 'Cupboard' },
+  { question: 'Quel est le mot anglais pour Rideau ?', answer: 'Curtain' },
+  { question: 'Quel est le mot anglais pour Rideau séparateur ?', answer: 'Privacy curtain' },
+  { question: 'Quel est le mot anglais pour Coussin ?', answer: 'Cushion' },
+  { question: 'Quel est le mot anglais pour Tiroir ?', answer: 'Drawer' },
+  { question: 'Quel est le mot anglais pour Bord du lit ?', answer: 'Edge of the bed' },
+  { question: 'Comment dit-on Assis sur le bord du lit en anglais ?', answer: 'Sitting on the edge of the bed' },
+  { question: 'Quel est le mot anglais pour Paravent ?', answer: 'Folding screen / partition' },
+  { question: 'Quel est le mot anglais pour Blouse ?', answer: 'Gown' },
+  { question: 'Quel est le mot anglais pour Blouse d’hôpital ?', answer: 'Hospital gown' },
+  { question: 'Quel est le mot anglais pour Blouse de patient ?', answer: 'Patient gown' },
+  { question: 'Quel est le mot anglais pour Blouse médicale (uniforme) ?', answer: 'Smocks / coat' },
+  { question: 'Quel est le mot anglais pour Chemise de nuit ?', answer: 'Nightgown' },
+  { question: 'Quel est le mot anglais pour Cintre ?', answer: 'Hanger' },
+  { question: 'Quel est le mot anglais pour Crochet ?', answer: 'Hook' },
+  { question: 'Quel est le mot anglais pour Lit d’hôpital ?', answer: 'Hospital bed' },
+  { question: 'Quel est le mot anglais pour Pied à perfusion ?', answer: 'IV pole / intravenous stand' },
+  { question: 'Quel est le mot anglais pour Interrupteur ?', answer: 'Light switch' },
+  { question: 'Quel est le mot anglais pour Casier ?', answer: 'Locker' },
+  { question: 'Quel est le mot anglais pour Matelas ?', answer: 'Mattress' },
+  { question: 'Quel est le mot anglais pour Miroir ?', answer: 'Mirror' },
+  { question: 'Quel est le mot anglais pour Serviette de table ?', answer: 'Napkin' },
+  { question: 'Quel est le mot anglais pour Table adaptable ou table de lit ?', answer: 'Overbed table' },
+  { question: 'Quel est le mot anglais pour Prise à oxygène ?', answer: 'Oxygen outlet' },
+  { question: 'Quel est le mot anglais pour Serviette en papier ?', answer: 'Paper napkin' },
+  { question: 'Quel est le mot anglais pour Sopalin ?', answer: 'Paper towel' },
+  { question: 'Quel est le mot anglais pour Chambre d’hôpital ?', answer: 'Patient’s / hospital room' },
+  { question: 'Quel est le mot anglais pour Oreiller ?', answer: 'Pillow' },
+  { question: 'Quel est le mot anglais pour Télécommande ?', answer: 'Remote control' },
+  { question: 'Quel est le mot anglais pour Peignoir ?', answer: 'Robe' },
+  { question: 'Quel est le mot anglais pour Draps ?', answer: 'Sheets' },
+  { question: 'Quel est le mot anglais pour Douche ?', answer: 'Shower' },
+  { question: 'Quel est le mot anglais pour Lavabo ?', answer: 'Sink' },
+  { question: 'Quel est le mot anglais pour Pantoufles ou Chaussons ?', answer: 'Slippers' },
+  { question: 'Quel est le mot anglais pour Brancard ou Civière ?', answer: 'Stretcher' },
+  { question: 'Quel est le mot anglais pour Robinet ?', answer: 'Tap' },
+  { question: 'Quel est le mot anglais pour Toilettes ?', answer: 'Toilet' },
+  { question: 'Quel est le mot anglais pour Serviette de toilette ?', answer: 'Towel' },
+  { question: 'Quel est le mot anglais pour Potence ?', answer: 'Trapeze' },
+  { question: 'Quel est le mot anglais pour Consommation ?', answer: 'Intake / consumption' },
+  { question: 'Quel est le mot anglais pour Consommation d’alcool ?', answer: 'Alcohol intake' },
+  { question: 'Quel est le mot anglais pour Consommation de stupéfiants ?', answer: 'Narcotics intake' },
+  { question: 'Quel est le mot anglais pour Consommation de tabac ?', answer: 'Smoking intake' },
+  { question: 'Quel est le mot anglais pour Profession ?', answer: 'Job' },
+  { question: 'Quel est le mot anglais pour Représentant légal ?', answer: 'Legal representative' },
+  { question: 'Quel est le mot anglais pour PACS ?', answer: 'Legal union' },
+  { question: 'Quel est le mot anglais pour Nom de jeune fille ?', answer: 'Maiden name' },
+  { question: 'Quel est le mot anglais pour Masculin ?', answer: 'Male' },
+  { question: 'Quel est le mot anglais pour Situation de famille ?', answer: 'Marital status' },
+  { question: 'Quel est le mot anglais pour Marié ?', answer: 'Married' },
+  { question: 'Quel est le mot anglais pour Assurance maladie ?', answer: 'Medical insurance' },
+  { question: 'Quel est le mot anglais pour Médicament ?', answer: 'Medication' },
+  { question: 'Quel est le mot anglais pour Menstruation ?', answer: 'Menstruation' },
+  { question: 'Quel est le mot anglais pour Deuxième prénom ?', answer: 'Middle name' },
+  { question: 'Quel est le mot anglais pour Mineur ?', answer: 'Minor / underage' },
+  { question: 'Quel est le mot anglais pour Non applicable ?', answer: 'N/A (not applicable)' },
+  { question: 'Quel est le mot anglais pour Nouveau ?', answer: 'New' },
+  { question: 'Quel est le mot anglais pour Parent le plus proche ?', answer: 'Next of kin / close relative or friend' },
+  { question: 'Quel est le mot anglais pour Normal ?', answer: 'Normal' },
+  { question: 'Quel est le mot anglais pour Consultation ?', answer: 'Consultation' },
+  { question: 'Quel est le mot anglais pour Numéro à contacter ?', answer: 'Contact number' },
+  { question: 'Quel est le mot anglais pour Pays ?', answer: 'Country' },
+  { question: 'Quel est le mot anglais pour Assurance financière ?', answer: 'Coverage' },
+  { question: 'Quel est le mot anglais pour Rayez la mention inutile ?', answer: 'Cross out where not applicable' },
+  { question: 'Quel est le mot anglais pour Adresse actuelle ?', answer: 'Current address' },
+  { question: 'Quel est le mot anglais pour Traitement en cours ?', answer: 'Current treatment' },
+  { question: 'Quel est le mot anglais pour Questionnaire de satisfaction ?', answer: 'Customer satisfaction form' },
+  { question: 'Quel est le mot anglais pour Date d’admission ?', answer: 'Date of admission' },
+  { question: 'Quel est le mot anglais pour Diurèse ?', answer: 'Diuresis' },
+  { question: 'Quel est le mot anglais pour Régime alimentaire ?', answer: 'Diet' },
+  { question: 'Quel est le mot anglais pour Sortie de l’hôpital ?', answer: 'Discharge' },
+  { question: 'Quel est le mot anglais pour Formulaire de sortie ?', answer: 'Discharge form' },
+  { question: 'Quel est le mot anglais pour Divulgation ?', answer: 'Disclosure' },
+  { question: 'Quel est le mot anglais pour Divorcé ?', answer: 'Divorced' },
+  { question: 'Quel est le mot anglais pour Date de naissance ?', answer: 'Date of birth (DOB)' },
+  { question: 'Quel est le mot anglais pour À jeun ?', answer: 'On an empty stomach' },
+  { question: 'Quel est le mot anglais pour Ressortissant européen ?', answer: 'European citizen / from the European Union' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

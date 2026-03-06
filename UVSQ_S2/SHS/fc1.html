@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Prise en charge de la maladie chronique Exemple du Diabète</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Prise en charge de la maladie chronique Exemple du Diabète</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la glycémie ?', answer: 'La concentration de glucose dans le sang, en g/L ou mmol/L.' },
+  { question: 'Quelle est la valeur normale de la glycémie à jeun ?', answer: '0,70 – 1,10 g/L (3,8 – 6 mmol/L).' },
+  { question: 'Quelle est la valeur seuil du diabète selon l’OMS ?', answer: '≥ 1,26 g/L (7 mmol/L) à deux reprises.' },
+  { question: 'Qu’est-ce que l’hyperglycémie modérée à jeun ?', answer: 'Glycémie comprise entre 1,10 et 1,26 g/L.' },
+  { question: 'Qu’est-ce que l’intolérance au glucose ?', answer: 'Hyperglycémie excessive après charge orale de glucose malgré glycémie à jeun normale.' },
+  { question: 'Pourquoi la valeur de 1,26 g/L est choisie pour définir le diabète ?', answer: 'C’est le seuil associé à la rétinopathie diabétique.' },
+  { question: 'Qu’est-ce que l’HbA1c ?', answer: 'Hémoglobine glyquée, soit la glycémie moyenne des 3 derniers mois.' },
+  { question: 'Quelles sont les cellules qui produisent l’insuline ?', answer: 'Les cellules β des îlots de Langerhans du pancréas.' },
+  { question: 'Quel est le rôle principal de l’insuline ?', answer: 'Favoriser l’entrée du glucose dans les cellules.' },
+  { question: 'Comment est régulée la sécrétion d’insuline ?', answer: 'Par la concentration de glucose sanguin.' },
+  { question: 'Quelles sont les 4 grandes classes de diabète selon l’OMS ?', answer: 'Type 1, Type 2, diabètes rares, diabète gestationnel.' },
+  { question: 'Qu’est-ce que le diabète gestationnel ?', answer: 'Intolérance au glucose survenant pendant la grossesse.' },
+  { question: 'Quelle est l’origine du DT1 ?', answer: 'Destruction auto-immune des cellules β pancréatiques.' },
+  { question: 'Quel est le mécanisme du DT2 ?', answer: 'Insulino-résistance + déficit relatif en insuline.' },
+  { question: 'Quelles sont les formes rares de diabète ?', answer: 'Diabètes monogéniques (MODY), secondaires à maladies pancréatiques, endocrinopathies ou médicaments.' },
+  { question: 'Quel diabète est insulino-dépendant d’emblée ?', answer: 'Le diabète de type 1.' },
+  { question: 'Quelle est la différence fondamentale entre DT1 et DT2 ?', answer: 'DT1 = absence absolue d’insuline ; DT2 = déficit relatif.' },
+  { question: 'Dans quel diabète retrouve-t-on une insulinorésistance ?', answer: 'Dans le diabète de type 2.' },
+  { question: 'Quelle est la proportion de DT1 parmi les diabètes ?', answer: '10 %.' },
+  { question: 'Quel est l’âge typique d’apparition du DT1 ?', answer: 'Enfance, adolescence, adulte jeune.' },
+  { question: 'Quelle est la physiopathologie du DT1 ?', answer: 'Réaction auto-immune détruisant les cellules β.' },
+  { question: 'Quelle hormone manque dans le DT1 ?', answer: 'L’insuline.' },
+  { question: 'Quels sont les 4 symptômes cardinaux du DT1 ?', answer: 'Polyurie, polydipsie, amaigrissement, asthénie.' },
+  { question: 'Quel est le risque vital immédiat du DT1 non traité ?', answer: 'Acidocétose diabétique.' },
+  { question: 'Le DT1 apparaît-il brutalement ou progressivement ?', answer: 'Brutalement.' },
+  { question: 'Le DT1 est-il lié au mode de vie ?', answer: 'Non, c’est une maladie auto-immune.' },
+  { question: 'Le traitement du DT1 repose sur quoi ?', answer: 'L’insulinothérapie à vie.' },
+  { question: 'Quels examens permettent de confirmer l’auto-immunité du DT1 ?', answer: 'La recherche d’auto-anticorps (anti-GAD, anti-IA2).' },
+  { question: 'Quelle est la proportion du DT2 ?', answer: '85 % des diabètes.' },
+  { question: 'Quel est le mécanisme principal du DT2 ?', answer: 'Insulino-résistance.' },
+  { question: 'Quelles sont les causes du DT2 ?', answer: 'Facteurs génétiques + environnementaux (sédentarité, obésité).' },
+  { question: 'Quel type d’obésité favorise le DT2 ?', answer: 'L’obésité abdominale (androïde).' },
+  { question: 'Le DT2 apparaît-il plutôt jeune ou âgé ?', answer: 'Souvent après 40 ans, mais de plus en plus jeune avec l’obésité.' },
+  { question: 'Le DT2 a-t-il une apparition brutale ?', answer: 'Non, il est souvent silencieux.' },
+  { question: 'Quel est le mode de découverte fréquent du DT2 ?', answer: 'Complications (infarctus, AVC, rétinopathie, etc.).' },
+  { question: 'Quels symptômes peuvent exister dans le DT2 ?', answer: 'Fatigue, infections urinaires ou cutanées répétées, troubles visuels.' },
+  { question: 'Quels facteurs de risque sont modifiables pour le DT2 ?', answer: 'Surpoids, alimentation, sédentarité, tabac.' },
+  { question: 'Le traitement initial du DT2 repose sur quoi ?', answer: 'Mesures hygiéno-diététiques (alimentation + activité physique)' },
+  { question: 'Quelle est la prévalence du diabète en France ?', answer: '5 % (≈ 3,5 millions de personnes).' },
+  { question: 'Quelle proportion de diabétiques ignore sa maladie ?', answer: '20 %.' },
+  { question: 'Quelle est la prévalence mondiale du diabète en 2022 ?', answer: '14 % des adultes (≈ 500 millions).' },
+  { question: 'Quelle proportion mondiale de diabétiques n’est pas diagnostiquée ?', answer: '1 sur 2.' },
+  { question: 'Quelle tendance est observée ?', answer: 'Augmentation rapide (transition nutritionnelle et vieillissement).' },
+  { question: 'Quelle région du monde ont une croissance la + rapide du diabète ?', answer: 'Les pays en développement.' },
+  { question: 'Quelle est la prévalence du DT2 par rapport au DT1 ?', answer: 'Le DT2 représente environ 9 cas sur 10.' },
+  { question: 'Le diabète est-il une maladie chronique fréquente ?', answer: 'Oui, c’est l’une des plus fréquentes au monde.' },
+  { question: 'Quelle fraction des hospitalisations en France concerne le diabète ?', answer: 'Environ 10 %.' },
+  { question: 'Quelle est la principale cause de l’épidémie de diabète ?', answer: 'Le surpoids/obésité et la sédentarité.' },
+  { question: 'Quelles sont les 3 grandes catégories de complications du diabète ?', answer: 'Macro angiopathie, microangiopathie, neuropathie.' },
+  { question: 'Quelles complications cardiovasculaires sont fréquentes ?', answer: 'Infarctus, AVC, artérite des membres inférieurs.' },
+  { question: 'Quelle complication oculaire est typique du diabète ?', answer: 'Rétinopathie diabétique.' },
+  { question: 'Quelle complication rénale est typique du diabète ?', answer: 'Néphropathie diabétique.' },
+  { question: 'Quelle complication neurologique est fréquente ?', answer: 'Neuropathie périphérique.' },
+  { question: 'Quelle est la première cause de cécité acquise avant 65 ans ?', answer: 'La rétinopathie diabétique.' },
+  { question: 'Quel risque vital est associé à l’artérite diabétique ?', answer: 'Amputation des membres inférieurs.' },
+  { question: 'Quelle est la principale cause d’insuffisance rénale terminale ?', answer: 'La néphropathie diabétique.' },
+  { question: 'Quels symptômes provoque la neuropathie périphérique ?', answer: 'Douleurs, troubles sensitifs, plaies aux pieds.' },
+  { question: 'Pourquoi le diabète augmente-t-il le risque cardiovasculaire ?', answer: 'Il accélère l’athérosclérose.' },
+  { question: 'Quel est le traitement indispensable du DT1 ?', answer: 'L’insuline, à vie.' },
+  { question: 'Quelles sont les modalités de traitement par insuline ?', answer: 'Injections pluriquotidiennes ou pompe à insuline.' },
+  { question: 'Quels sont les 3 piliers du traitement du DT1 ?', answer: 'Insuline, alimentation adaptée, activité physique.' },
+  { question: 'Quel est le rôle de l’autosurveillance glycémique ?', answer: 'Adapter les doses d’insuline et prévenir les hypoglycémies.' },
+  { question: 'Quels sont les principaux risques du traitement insulinique ?', answer: 'Hypoglycémies et prise de poids.' },
+  { question: 'Quels outils peuvent faciliter la prise en charge ?', answer: 'Capteurs de glycémie, stylos à insuline, pompes connectées.' },
+  { question: 'Quel est l’objectif d’HbA1c pour un patient DT1 ?', answer: 'Environ 7 %.' },
+  { question: 'Quels sont les facteurs influençant les doses d’insuline ?', answer: 'Alimentation, activité physique, stress, infections.' },
+  { question: 'Quel est l’intérêt de la pompe à insuline ?', answer: 'Permet un débit basal continu et des bolus aux repas.' },
+  { question: 'Pourquoi l’éducation thérapeutique est-elle essentielle dans le DT1 ?', answer: 'Car le patient doit savoir adapter son traitement au quotidien.' },
+  { question: 'Quelle est la première étape du traitement du DT2 ?', answer: 'Mesures hygiéno-diététiques (alimentation + activité physique).' },
+  { question: 'Quel est le médicament de première intention du DT2 ?', answer: 'La metformine.' },
+  { question: 'Que faire si la metformine ne suffit pas ?', answer: 'Ajouter un autre antidiabétique oral ou une injection (GLP1, insuline).' },
+  { question: 'Quels sont les objectifs glycémiques dans le DT2 ?', answer: 'HbA1c < 7 % chez la majorité des patients.' },
+  { question: 'Quand introduit-on l’insuline dans le DT2 ?', answer: 'En cas d’échec des traitements oraux et injectables non insulinique.' },
+  { question: 'Quels sont les principaux effets secondaires de la metformine ?', answer: 'Troubles digestifs, risque d’acidose lactique (rare).' },
+  { question: 'Quels sont les bénéfices de l’activité physique dans le DT2 ?', answer: 'Améliore l’insulinorésistance et diminue le risque cardiovasculaire.' },
+  { question: 'Quels médicaments ont un bénéfice cardiovasculaire dans le DT2 ?', answer: 'Les analogues du GLP-1 et les inhibiteurs de SGLT2.' },
+  { question: 'Quelle est la place de l’éducation thérapeutique dans le DT2 ?', answer: 'Aider le patient à comprendre la maladie et améliorer l’adhésion.' },
+  { question: 'Quelle complication est réduite par un meilleur contrôle glycémique ?', answer: 'Les complications microangiopathies (œil, rein, nerfs).' },
+  { question: 'Qu’est-ce que l’observance thérapeutique ?', answer: 'Le fait pour le patient de suivre correctement son traitement et les recommandations médicales.' },
+  { question: 'Quelles sont les 3 dimensions de l’observance ?', answer: 'Suivi médical, mesures hygiéno-diététiques, prise du traitement.' },
+  { question: 'Quelles sont les principales causes de mauvaise observance ?', answer: 'Âge, effets secondaires, complexité du traitement, absence de symptômes, précarité.' },
+  { question: 'Quel est le rôle de la relation médecin-patient dans l’observance ?', answer: 'Une relation de confiance améliore l’adhésion au traitement.' },
+  { question: 'Quels outils permettent d’évaluer l’observance ?', answer: 'Piluliers, données pharmaceutiques, questionnaires (ex : Girerd).' },
+  { question: 'Quelles sont les conséquences de la mauvaise observance ?', answer: 'Moindre efficacité, complications accrues, coûts de santé augmentés.' },
+  { question: 'Quel est le pourcentage de patients chroniques non observants ?', answer: 'Environ 50 %.' },
+  { question: 'Pourquoi l’absence de symptômes favorise la non-observance ?', answer: 'Car le patient ne perçoit pas immédiatement les bénéfices du traitement.' },
+  { question: 'Quelle complication peut résulter d’une non-observance dans le diabète ?', answer: 'Rétinopathie, néphropathie, infarctus, AVC.' },
+  { question: 'Quels nouveaux outils numériques aident l’observance ?', answer: 'Applications, lecteurs connectés, objets médicaux intelligents.' },
+  { question: 'Pourquoi l’observance est-elle cruciale pour une maladie chronique ?', answer: 'Elle conditionne l’efficacité du traitement et prévient les complications.' },
+  { question: 'Quel est l’impact clinique d’une bonne observance ?', answer: 'Diminution des complications aiguës et chroniques, amélioration du pronostic vital.' },
+  { question: 'Quel est l’impact économique d’une bonne observance ?', answer: 'Réduction des hospitalisations et des coûts de santé.' },
+  { question: 'Pourquoi le diabète est-il un modèle pour l’étude de l’observance ?', answer: 'Car il nécessite un traitement quotidien, à long terme, avec des conséquences graves en cas de non-observance.' },
+  { question: 'Quel bénéfice sociétal apporte une bonne observance ?', answer: 'Réduction du fardeau économique et sanitaire lié au diabète.' },
+  { question: 'Quel est le coût de la mauvaise observance estimé en France ?', answer: 'Plusieurs milliards d’euros par an.' },
+  { question: 'Quel est l’intérêt d’impliquer le patient dans sa prise en charge ?', answer: 'Augmenter son autonomie et améliorer l’adhésion au traitement.' },
+  { question: 'Quelle proportion des échecs thérapeutiques dans le diabète est liée à la non-observance ?', answer: 'Une grande partie (≈ 50 %).' },
+  { question: 'Quelles causes liées au patient favorisent la non-observance ?', answer: 'Âge, manque d’éducation, dépression, précarité sociale, absence de symptômes.' },
+  { question: 'Quelles causes liées au traitement diminuent l’observance ?', answer: 'Effets secondaires, complexité du schéma thérapeutique, coût.' },
+  { question: 'Quelles causes liées au médecin influencent l’observance ?', answer: 'Mauvaise communication, manque d’explications, absence de suivi.' },
+  { question: 'Quelles maladies chroniques asymptomatiques favorisent la non-observance ?', answer: 'Hypertension, diabète de type 2, hypercholestérolémie.' },
+  { question: 'Pourquoi la poly-médication diminue-t-elle l’observance ?', answer: 'Plus le traitement est complexe, plus le risque d’oubli augmente.' },
+  { question: 'Comment la relation médecin-patient influence-t-elle l’observance ?', answer: 'Une relation de confiance et pédagogique augmente l’adhésion.' },
+  { question: 'Quel est l’effet de la dépression sur l’observance ?', answer: 'Elle diminue la motivation du patient à suivre son traitement.' },
+  { question: 'Pourquoi les effets secondaires favorisent-ils la non-observance ?', answer: 'Car le patient associe le traitement à un inconfort immédiat.' },
+  { question: 'Quelle cause sociale est fréquemment retrouvée dans la non-observance ?', answer: 'La précarité financière et sociale.' },
+  { question: 'Comment les croyances personnelles du patient influencent-elles l’observance ?', answer: 'Certaines perceptions négatives du médicament entraînent un rejet du traitement.' },
+  { question: 'Quelles sont les méthodes directes d’évaluation de l’observance ?', answer: 'Dosage des concentrations plasmatiques du médicament, suivi électronique d’ingestion.' },
+  { question: 'Quelles sont les méthodes indirectes d’évaluation ?', answer: 'Questionnaires, comptage des comprimés, suivi pharmaceutique, piluliers intelligents.' },
+  { question: 'Quel questionnaire est utilisé en France pour évaluer l’observance ?', answer: 'Le questionnaire de Girerd.' },
+  { question: 'Quel est l’intérêt des piluliers électroniques ?', answer: 'Vérifier les heures et jours de prise du traitement.' },
+  { question: 'Quel est l’inconvénient des méthodes directes ?', answer: 'Elles sont coûteuses et peu applicables en routine.' },
+  { question: 'Quel est l’avantage des méthodes indirectes ?', answer: 'Elles sont simples, peu coûteuses et applicables à grande échelle.' },
+  { question: 'Pourquoi le suivi pharmaceutique est-il utile pour évaluer l’observance ?', answer: 'Il permet de contrôler les renouvellements d’ordonnance.' },
+  { question: 'Comment les objets connectés peuvent-ils aider à l’observance ?', answer: 'Grâce à des rappels et au suivi de la prise en temps réel.' },
+  { question: 'Quelles limites présentent les questionnaires d’observance ?', answer: 'Dépendance aux déclarations du patient (biais).' },
+  { question: 'Quelle combinaison de méthodes est la plus fiable ?', answer: 'Associer méthodes directes et indirectes.' },
+  { question: 'Quelles sont les conséquences cliniques de la non-observance dans le diabète ?', answer: 'Augmentation des complications micro et macrovasculaires.' },
+  { question: 'Quel est l’impact sur la mortalité ?', answer: 'Augmentation significative de la mortalité prématurée.' },
+  { question: 'Quel est l’impact économique d’une mauvaise observance ?', answer: 'Hausse des hospitalisations, consultations et coûts de traitement.' },
+  { question: 'Quelle est la conséquence immédiate d’une non-prise d’insuline chez le DT1 ?', answer: 'Risque d’acidocétose diabétique.' },
+  { question: 'Quelle est la conséquence de l’arrêt du traitement antihypertenseur ?', answer: 'Augmentation du risque d’AVC et d’infarctus.' },
+  { question: 'Quel impact la non-observance a-t-elle sur les résistances médicamenteuses ?', answer: 'Favorise l’émergence de résistances (VIH, antibiotiques).' },
+  { question: 'Quel est le lien entre non-observance et hospitalisations ?', answer: 'Elle multiplie le risque d’hospitalisation.' },
+  { question: 'Quel est l’effet de la non-observance sur la qualité de vie ?', answer: 'Dégradation, perte d’autonomie, plus de complications.' },
+  { question: 'Comment la non-observance impacte-t-elle la santé publique ?', answer: 'Elle augmente la charge économique et réduit l’efficacité des politiques de santé.' },
+  { question: 'Quel est l’effet d’une bonne observance sur la survie des patients diabétiques ?', answer: 'Amélioration significative de l’espérance de vie.' },
+  { question: 'Quelle est la première étape pour améliorer l’observance ?', answer: 'Identifier les causes de la non-observance.' },
+  { question: 'Quel est le rôle de la simplification du traitement ?', answer: 'Faciliter la prise régulière et réduire les oublis.' },
+  { question: 'Comment l’éducation thérapeutique aide-t-elle l’observance ?', answer: 'Elle permet au patient de mieux comprendre sa maladie et son traitement.' },
+  { question: 'Quel est le rôle du médecin dans l’amélioration de l’observance ?', answer: 'Établir une relation de confiance, écouter et impliquer le patient.' },
+  { question: 'Quels outils numériques peuvent améliorer l’observance ?', answer: 'Applications mobiles, rappels, capteurs connectés, télémédecine.' },
+  { question: 'Pourquoi l’adaptation du traitement au mode de vie est-elle importante ?', answer: 'Pour que le traitement soit réaliste et acceptable pour le patient.' },
+  { question: 'Quel est l’impact de la réduction des effets secondaires sur l’observance ?', answer: 'Moins d’abandon de traitement.' },
+  { question: 'Quel est l’intérêt des associations de patients dans l’observance ?', answer: 'Partage d’expérience et soutien.' },
+  { question: 'Quel rôle joue le pharmacien dans l’observance ?', answer: 'Éducation, rappel des prises et suivi des délivrances.' },
+  { question: 'Quelle est la place des programmes d’accompagnement patient ?', answer: 'Aider à l’adhésion thérapeutique par un suivi personnalisé.' },
+  { question: 'Qu’est-ce qu’un partenariat patient-médecin ?', answer: 'Une relation collaborative où le patient est acteur de sa santé.' },
+  { question: 'Pourquoi le patient doit-il être impliqué dans les décisions thérapeutiques ?', answer: 'Car cela augmente son adhésion et son autonomie.' },
+  { question: 'Quelles qualités relationnelles sont nécessaires pour un bon partenariat ?', answer: 'Écoute, empathie, explications claires, respect.' },
+  { question: 'Quel est le rôle du médecin dans ce partenariat ?', answer: 'Fournir l’expertise médicale et accompagner les choix du patient.' },
+  { question: 'Quel est le rôle du patient dans ce partenariat ?', answer: 'S’engager dans sa prise en charge et exprimer ses préférences.' },
+  { question: 'Qu’est-ce que la décision partagée ?', answer: 'Processus où médecin et patient choisissent ensemble la stratégie thérapeutique.' },
+  { question: 'Quels sont les bénéfices du partenariat patient-médecin ?', answer: 'Meilleure observance, satisfaction accrue, meilleurs résultats de santé.' },
+  { question: 'Quel est l’impact de la communication sur l’observance ?', answer: 'Une bonne communication améliore l’adhésion au traitement.' },
+  { question: 'Pourquoi l’éducation thérapeutique doit-elle être personnalisée ?', answer: 'Chaque patient a des besoins et capacités différents.' },
+  { question: 'Comment le médecin peut-il renforcer la motivation du patient ?', answer: 'Par un suivi régulier, des encouragements et des objectifs réalistes.' },
+  { question: 'Qu’est-ce que l’empowerment du patient ?', answer: 'Son autonomisation dans la gestion de sa maladie.' },
+  { question: 'Pourquoi l’empowerment est-il essentiel dans le diabète ?', answer: 'Le patient doit ajuster quotidiennement son traitement.' },
+  { question: 'Quels outils favorisent l’empowerment ?', answer: 'Auto-mesure glycémique, carnets de suivi, applications de santé.' },
+  { question: 'Qu’est-ce que l’autogestion dans le diabète ?', answer: 'Le patient ajuste lui-même ses doses d’insuline et son hygiène de vie.' },
+  { question: 'Quel est le rôle de l’éducation dans l’empowerment ?', answer: 'Donner au patient les compétences nécessaires pour agir seul.' },
+  { question: 'Quels sont les bénéfices de l’empowerment ?', answer: 'Meilleur équilibre glycémique, moins de complications, meilleure qualité de vie.' },
+  { question: 'Quelle est la limite de l’empowerment ?', answer: 'Risque d’isolement du patient si le suivi médical est insuffisant.' },
+  { question: 'Comment le numérique favorise-t-il l’empowerment ?', answer: 'Par des outils de suivi et d’analyse des données.' },
+  { question: 'Quel est le rôle de la famille dans l’empowerment ?', answer: 'Soutenir et encourager le patient dans sa prise en charge.' },
+  { question: 'L’empowerment s’applique-t-il seulement au diabète ?', answer: 'Non, à toutes les maladies chroniques nécessitant une implication du patient.' },
+  { question: 'Quelles sont les innovations récentes dans la prise en charge du diabète ?', answer: 'Capteurs en continu, pompes à insuline intelligentes, intelligence artificielle.' },
+  { question: 'Quel est l’apport des capteurs en continu de glycémie ?', answer: 'Surveillance 24h/24 et adaptation rapide du traitement.' },
+  { question: 'Quelle est la différence entre une pompe classique et une pompe intelligente ?', answer: 'La pompe intelligente ajuste automatiquement l’insuline selon la glycémie.' },
+  { question: 'Qu’est-ce que la télémédecine apporte dans le suivi du diabète ?', answer: 'Un suivi à distance plus régulier et plus accessible.' },
+  { question: 'Quelles classes de médicaments ont révolutionné la prise en charge du DT2 ?', answer: 'Inhibiteurs de SGLT2 et analogues du GLP-1.' },
+  { question: 'Quelles perspectives ouvre l’intelligence artificielle dans le diabète ?', answer: 'Prédire les déséquilibres glycémiques et personnaliser les traitements.' },
+  { question: 'Quel est l’avenir de l’éducation thérapeutique ?', answer: 'Des programmes interactifs personnalisés, intégrant le numérique.' },
+  { question: 'Quel est l’objectif ultime de ces innovations ?', answer: 'Améliorer l’équilibre glycémique et la qualité de vie des patients.' },
+  { question: 'Qu’est-ce que les “systèmes en boucle fermée” ?', answer: 'Des dispositifs reliant capteur et pompe pour ajuster automatiquement l’insuline.' },
+  { question: 'Quelle est la tendance mondiale de la prise en charge du diabète ?', answer: 'Vers plus d’autonomie du patient, plus de technologie et plus de prévention.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

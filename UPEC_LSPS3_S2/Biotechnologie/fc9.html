@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Biotechnologie</h1><h2>Édition du génome</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { color: green; }
+  .cross-icon:hover { stroke: red; }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.1); }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+  body.dark-mode .flashcard-back { background-color: #1a6fa0; }
+  body.dark-mode .progress-container { background-color: #4a5568; border-color: #2d3748; }
+  @media (max-width: 736px) {
+    .flashcard-front, .flashcard-back { font-size: 1.3rem; padding: 1.5rem; }
+    .flashcard { min-height: 320px; height: calc(100vh - 300px); }
+    .check-icon, .cross-icon { width: 35px; height: 35px; top: 15px; }
+    .check-icon { left: 15px; }
+    .cross-icon { right: 15px; }
+    .favorite-icon { width: 24px; height: 24px; }
+    header.main { flex-direction: column; gap: 1rem; }
+    header.main h1 { font-size: 1.5em !important; }
+    header.main h2 { font-size: 1.1em !important; }
+  }
+</style>
+
+<div id="progress-text" style="text-align:center;font-size:1rem;color:#00aeef;font-weight:600;margin-bottom:0.3rem;"></div>
+<div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+
+<div class="flashcards-container">
+<div class="flashcard" id="flashcard" onclick="toggleAnswer()">
+<div class="flashcard-inner">
+<div class="flashcard-front" id="flashcard-question"></div>
+<div class="flashcard-back" id="flashcard-answer"></div>
+<div class="check-icon" id="check-icon" onclick="event.stopPropagation(); markCorrect()"><i class="fas fa-check"></i></div>
+<svg class="cross-icon" id="cross-icon" onclick="event.stopPropagation(); markWrong()" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+<svg class="favorite-icon" id="favorite-icon" onclick="event.stopPropagation(); toggleFavorite()" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+</div>
+</div>
+<div class="flashcard-button">
+<button class="button small" onclick="previousCard()" aria-label="Carte précédente"><i class="fas fa-chevron-left"></i></button>
+<button class="button small" onclick="nextCard()" aria-label="Carte suivante"><i class="fas fa-chevron-right"></i></button>
+<button class="button small" onclick="shuffleCards()"><i class="fas fa-random"></i></button>
+<button class="button small" onclick="resetProgress()"><i class="fas fa-redo"></i></button>
+</div>
+</div>
+
+</section>
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+<section id="search" class="alt"><form method="post" action="#"><input type="text" name="query" id="query" placeholder="Rechercher"></form></section>
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+<footer id="footer"><p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p></footer>
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script>
+const PAGE_ID = 'lsps3_Biotechnologie_fc9';
+const SECTION = 'LSPS3_S2';
+
+const flashcardsData = [
+  { question: 'Qu’est-ce que la recombinaison homologue ?', answer: 'Un mécanisme de réparation de l’ADN utilisant la chromatide sœur intacte comme matrice après une cassure double brin, sans introduire de mutation.' },
+  { question: 'Quel est le taux de réussite de la recombinaison homologue dans les cellules souches de souris ?', answer: 'Environ 1 cellule sur 1 million.' },
+  { question: 'En quelle phase du cycle cellulaire la recombinaison homologue peut-elle avoir lieu ?', answer: 'En phase S ou G2 (pendant la duplication de l’ADN). Impossible en phase G0 (quiescence).' },
+  { question: 'Qu’est-ce qu’un knock-out ?', answer: 'L’inactivation complète d’un gène pour étudier les conséquences phénotypiques de son absence.' },
+  { question: 'Qu’est-ce que DSB ?', answer: 'Double Strand Break : cassure double brin de l’ADN.' },
+  { question: 'Combien de gènes codants le génome humain contient-il environ ?', answer: 'Environ 21 000 gènes codants.' },
+  { question: 'Qu’est-ce qu’un knock-out conditionnel ?', answer: 'Un knock-out activable par une recombinase exprimée de manière ciblée dans certains tissus spécifiques.' },
+  { question: 'Comment sélectionne-t-on les cellules ayant intégré le transgène ?', answer: 'En ajoutant un antibiotique (néomycine) au milieu de culture : seules les cellules résistantes (ayant intégré le gène) survivent.' },
+  { question: 'Pourquoi la sélection par antibiotique ne suffit-elle pas ?', answer: 'Car certaines cellules intègrent l’ADN par recombinaison non homologue dans un locus non ciblé. Il faut vérifier le site par Southern Blot.' },
+  { question: 'Qu’est-ce que le système CRISPR-Cas9 ?', answer: 'Un outil d’édition du génome utilisant un ARN guide pour diriger la nucléase Cas9 vers une séquence cible spécifique pour la couper.' },
+  { question: 'De quel organisme provient le système CRISPR ?', answer: 'Des bactéries, où il sert de système de défense contre les bactériophages (virus de bactéries).' },
+  { question: 'Que signifie CRISPR ?', answer: 'Clustered Regularly Interspaced Short Palindromic Repeats (courtes répétitions palindromiques groupées et régulièrement espacées).' },
+  { question: 'Quel est le rôle de l’ARN guide (sgRNA) dans CRISPR-Cas9 ?', answer: 'Il guide la protéine Cas9 vers la séquence d’ADN cible par complémentarité de bases.' },
+  { question: 'Que se passe-t-il après la coupure par Cas9 ?', answer: 'La cellule répare la cassure soit par NHEJ (jonction non homologue, introduction de mutations) soit par HDR (réparation dirigée par homologie).' },
+  { question: 'Qu’est-ce que le NHEJ ?', answer: 'Non-Homologous End Joining : mécanisme de réparation imprécis pouvant introduire des insertions ou délétions (indels).' },
+  { question: 'Qu’est-ce que le HDR ?', answer: 'Homology-Directed Repair : réparation précise utilisant un modèle d’ADN fourni pour introduire des modifications spécifiques.' },
+  { question: 'Qu’est-ce que les ZFN (Zinc Finger Nucleases) ?', answer: 'Des nucléases à doigts de zinc, premiers outils d’édition génomique avant CRISPR, utilisant des protéines à doigts de zinc pour reconnaître l’ADN.' },
+  { question: 'Qu’est-ce que les TALEN ?', answer: 'Transcription Activator-Like Effector Nucleases : des nucléases utilisant des protéines TALE pour cibler des séquences spécifiques d’ADN.' },
+  { question: 'Quel avantage CRISPR-Cas9 a-t-il sur les ZFN et TALEN ?', answer: 'CRISPR est plus simple, plus rapide, moins coûteux et plus versatile car il utilise un ARN guide au lieu de protéines complexes.' },
+  { question: 'Quels sont les risques de l’édition du génome ?', answer: 'Les effets hors cible (off-target), les modifications non désirées et les questions éthiques liées à la modification de la lignée germinale.' }
+];
+
+let currentIndex = 0;
+let showingAnswer = false;
+let progress = {};
+let cardOrder = [];
+
+function loadProgress() {
+  try { progress = JSON.parse(localStorage.getItem('progress_' + PAGE_ID) || '{}'); } catch(e) { progress = {}; }
+  cardOrder = [];
+  for (let i = 0; i < flashcardsData.length; i++) cardOrder.push(i);
+}
+
+function saveProgress() {
+  localStorage.setItem('progress_' + PAGE_ID, JSON.stringify(progress));
+  checkCompletion();
+}
+
+function checkCompletion() {
+  const total = flashcardsData.length;
+  let correct = 0;
+  for (let k in progress) if (progress[k] === 'correct') correct++;
+  if (correct === total) localStorage.setItem('completed_' + PAGE_ID, 'true');
+  else localStorage.removeItem('completed_' + PAGE_ID);
+}
+
+function updateProgress() {
+  const total = flashcardsData.length;
+  let answered = 0;
+  for (let k in progress) if (progress[k]) answered++;
+  const pct = Math.round((answered / total) * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = answered + ' / ' + total + ' (' + pct + '%)';
+}
+
+function displayCard() {
+  const idx = cardOrder[currentIndex];
+  const card = flashcardsData[idx];
+  document.getElementById('flashcard-question').innerHTML = card.question;
+  document.getElementById('flashcard-answer').innerHTML = card.answer;
+  document.getElementById('flashcard').classList.remove('show-answer');
+  showingAnswer = false;
+  const state = progress[idx];
+  const ci = document.getElementById('check-icon');
+  const xi = document.getElementById('cross-icon');
+  ci.style.color = (state === 'correct') ? 'green' : '#888';
+  xi.style.stroke = (state === 'wrong') ? 'red' : '#888';
+  if (typeof updateFavoriteIcon === 'function') updateFavoriteIcon(idx);
+  updateProgress();
+}
+
+function toggleAnswer() { document.getElementById('flashcard').classList.toggle('show-answer'); showingAnswer = !showingAnswer; }
+function nextCard() { currentIndex = (currentIndex + 1) % cardOrder.length; displayCard(); }
+function previousCard() { currentIndex = (currentIndex - 1 + cardOrder.length) % cardOrder.length; displayCard(); }
+function markCorrect() { progress[cardOrder[currentIndex]] = 'correct'; saveProgress(); nextCard(); }
+function markWrong() { progress[cardOrder[currentIndex]] = 'wrong'; saveProgress(); nextCard(); }
+function shuffleCards() { for (let i = cardOrder.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cardOrder[i], cardOrder[j]] = [cardOrder[j], cardOrder[i]]; } currentIndex = 0; displayCard(); }
+function resetProgress() { if (confirm('Réinitialiser la progression ?')) { progress = {}; localStorage.removeItem('progress_' + PAGE_ID); localStorage.removeItem('completed_' + PAGE_ID); displayCard(); } }
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadProgress();
+  displayCard();
+  initFavorites(PAGE_ID, SECTION, flashcardsData);
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') previousCard();
+  else if (e.key === ' ') { e.preventDefault(); toggleAnswer(); }
+});
+</script>
+
+</body>
+</html>

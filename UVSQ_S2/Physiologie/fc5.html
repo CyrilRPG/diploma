@@ -1,0 +1,531 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Potentiel d_action</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Potentiel d_action</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la taille maximale qu’un neurone peut atteindre chez l’homme', answer: 'Il peut dépasser un mètre de longueur' },
+  { question: 'Quelles sont les principales parties constitutives d’un neurone', answer: 'Un corps cellulaire, des dendrites et un axone' },
+  { question: 'Quel est le rôle des dendrites', answer: 'Recevoir et transmettre les signaux provenant d’autres cellules nerveuses' },
+  { question: 'Quelle est la particularité morphologique des dendrites', answer: 'Elles sont courtes, ramifiées et augmentent la surface de réception' },
+  { question: 'Quel est le rôle principal de l’axone', answer: 'Conduire le potentiel d’action du corps cellulaire vers les cellules cibles' },
+  { question: 'Quelle est la caractéristique de la conduction de l’axone', answer: 'Elle se fait sans perte d’amplitude du signal' },
+  { question: 'Qu’est-ce que la gaine de myéline', answer: 'Une enveloppe lipidique synthétisée par les cellules gliales entourant certains axones' },
+  { question: 'Quel est l’avantage de la gaine de myéline', answer: 'Elle augmente la vitesse de conduction nerveuse' },
+  { question: 'Quelle est la valeur du potentiel de repos dans un neurone typique', answer: 'Environ -70 millivolts' },
+  { question: 'Quelle est l’origine du potentiel de repos', answer: 'L’asymétrie de distribution ionique entre l’intérieur et l’extérieur de la cellule' },
+  { question: 'Qu’est-ce qu’un potentiel d’action', answer: 'Une variation rapide, transitoire et importante du potentiel de membrane qui rend l’intérieur de la cellule transitoirement positif' },
+  { question: 'Dans quels types de cellules observe-t-on des potentiels d’action', answer: 'Neurones, fibres musculaires squelettiques, cellules myocardiques et certaines glandes endocrines' },
+  { question: 'Quels sont les deux grands types de potentiels d’action', answer: 'Le potentiel d’action sodique rapide et le potentiel d’action sodio-calcique à plateau' },
+  { question: 'Qu’est-ce qu’une cellule polarisée', answer: 'Une cellule dont le potentiel membranaire au repos est différent de zéro, généralement négatif' },
+  { question: 'Définir l’hyperpolarisation', answer: 'Augmentation de la polarisation membranaire, éloignant encore plus le potentiel de zéro' },
+  { question: 'Définir la dépolarisation', answer: 'Diminution de la polarisation, puis inversion temporaire de polarité jusqu’à +40 mV' },
+  { question: 'Définir la repolarisation', answer: 'Retour de la membrane à son potentiel de repos après la dépolarisation' },
+  { question: 'Quelle est la longueur maximale que peut atteindre un neurone humain', answer: 'Plus d’un mètre' },
+  { question: 'Quels sont les trois grands éléments qui composent un neurone', answer: 'Le corps cellulaire, les dendrites et l’axone' },
+  { question: 'Que contient le corps cellulaire du neurone', answer: 'Le noyau et les organites nécessaires à la vie de la cellule' },
+  { question: 'Quel est le rôle principal des dendrites', answer: 'Recevoir et transmettre les signaux provenant d’autres neurones' },
+  { question: 'Quelle est la particularité morphologique des dendrites', answer: 'Elles sont courtes, ramifiées et augmentent la surface de réception' },
+  { question: 'Quelle est la fonction principale de l’axone', answer: 'Transporter le signal nerveux du corps cellulaire vers les cellules cibles' },
+  { question: 'Comment se caractérise la conduction dans l’axone', answer: 'Elle se fait sans perte d’amplitude' },
+  { question: 'Quelle est la particularité de l’extrémité de l’axone', answer: 'Elle se ramifie et forme des synapses avec de nombreuses cellules cibles' },
+  { question: 'Qu’est-ce que la gaine de myéline', answer: 'Une enveloppe lipidique produite par les cellules gliales entourant certains axones' },
+  { question: 'Quel est l’effet fonctionnel de la gaine de myéline', answer: 'Elle accélère la conduction nerveuse' },
+  { question: 'Quel est le but principal du potentiel d’action', answer: 'Transmettre l’information nerveuse de proche en proche le long de l’axone' },
+  { question: 'Quelle est la valeur du potentiel de repos d’un neurone typique', answer: 'Environ -70 millivolts' },
+  { question: 'Qu’est-ce qui est à l’origine du potentiel de repos', answer: 'L’asymétrie de distribution ionique entre le milieu intracellulaire et extracellulaire' },
+  { question: 'Qu’est-ce qu’un potentiel d’action', answer: 'Une variation rapide et transitoire du potentiel de membrane qui rend l’intérieur de la cellule positif' },
+  { question: 'Où retrouve-t-on des potentiels d’action en dehors du système nerveux', answer: 'Dans les fibres musculaires et certaines glandes endocrines' },
+  { question: 'Quels sont les deux types de potentiels d’action', answer: 'Le potentiel d’action sodique rapide et le potentiel d’action sodiocalcique à plateau' },
+  { question: 'Qu’est-ce qu’une cellule polarisée', answer: 'Une cellule dont le potentiel membranaire au repos est différent de zéro' },
+  { question: 'Comment se définit l’hyperpolarisation', answer: 'Une augmentation de la polarisation de la membrane au-delà de son potentiel de repos' },
+  { question: 'Comment se définit la dépolarisation', answer: 'Une diminution de la polarisation qui peut aller jusqu’à une inversion de polarité positive' },
+  { question: 'Comment se définit la repolarisation', answer: 'Le retour de la membrane à son potentiel de repos' },
+  { question: 'Pourquoi l’axone de calmar a-t-il été utilisé pour les expériences de potentiel d’action', answer: 'Parce que son diamètre est 100 fois plus grand que celui d’un mammifère' },
+  { question: 'Quel type d’électrodes est utilisé pour enregistrer un potentiel d’action', answer: 'Une électrode intracellulaire et une électrode extracellulaire' },
+  { question: 'Quelle est la durée totale approximative d’un potentiel d’action', answer: 'Environ 5 millisecondes' },
+  { question: 'Que représente la latence dans un potentiel d’action', answer: 'Le délai entre la stimulation et l’apparition du potentiel d’action' },
+  { question: 'Quelle est la valeur maximale atteinte lors de la phase ascendante du potentiel d’action', answer: 'Proche de +40 millivolts' },
+  { question: 'Quelle est la durée de la phase de repolarisation', answer: 'Environ 1 milliseconde' },
+  { question: 'Quelle est la valeur atteinte lors de l’hyperpolarisation', answer: 'En dessous de -70 millivolts' },
+  { question: 'Quelle est la durée de l’hyperpolarisation', answer: 'Environ 3 millisecondes' },
+  { question: 'Quelle est la loi fondamentale décrivant la genèse d’un potentiel d’action', answer: 'La loi du tout ou rien' },
+  { question: 'Que se passe-t-il si la dépolarisation est insuffisante pour atteindre le seuil', answer: 'Aucun potentiel d’action n’est généré' },
+  { question: 'Comment se propage un potentiel d’action le long d’un axone', answer: 'De proche en proche par régénération locale' },
+  { question: 'Comment varie l’amplitude d’un potentiel d’action au cours de sa propagation', answer: 'Elle reste constante' },
+  { question: 'Comment appelle-t-on une dépolarisation insuffisante qui s’atténue avec la distance', answer: 'Un potentiel électrotonique' },
+  { question: 'Quelle est la forme d’atténuation d’un potentiel électrotonique', answer: 'Une décroissance exponentielle' },
+  { question: 'De quoi dépend la vitesse de conduction d’un axone', answer: 'De son diamètre et de sa myélinisation' },
+  { question: 'Comment le diamètre influence-t-il la vitesse de conduction', answer: 'Plus il est grand, plus la vitesse est élevée' },
+  { question: 'Qu’est-ce que la conduction saltatoire', answer: 'Une propagation de potentiel d’action de nœud de Ranvier en nœud de Ranvier' },
+  { question: 'Pourquoi la conduction saltatoire est-elle plus rapide', answer: 'Grâce à la concentration élevée de canaux sodiques aux nœuds de Ranvier' },
+  { question: 'Quelle vitesse maximale peut atteindre la conduction saltatoire', answer: 'Plus de 100 mètres par seconde' },
+  { question: 'Quelle est la fonction des cellules de Schwann', answer: 'Produire la gaine de myéline' },
+  { question: 'Qu’est-ce que la période réfractaire absolue', answer: 'La période pendant laquelle aucun nouvel influx ne peut être généré' },
+  { question: 'Quelle est la durée approximative de la période réfractaire absolue', answer: 'Environ 1,5 millisecondes' },
+  { question: 'Quelle est la cause de la période réfractaire absolue', answer: 'L’inactivation des canaux sodiques' },
+  { question: 'Qu’est-ce que la période réfractaire relative', answer: 'La période où un nouvel influx peut être généré mais avec un stimulus plus fort' },
+  { question: 'Quand survient la période réfractaire relative', answer: 'Juste après la période réfractaire absolue' },
+  { question: 'Quelle est l’utilité physiologique de la période réfractaire absolue', answer: 'Empêcher une propagation rétrograde du potentiel d’action' },
+  { question: 'Pourquoi le seuil d’excitabilité est-il plus élevé pendant la période réfractaire relative', answer: 'Parce que les canaux sodiques se réactivent progressivement' },
+  { question: 'Quelle est la conséquence de la période réfractaire sur la fréquence de décharge d’un neurone', answer: 'Elle limite la fréquence maximale des potentiels d’action' },
+  { question: 'Que se passe-t-il si une stimulation survient trop tôt après un potentiel d’action', answer: 'Elle ne déclenche aucun potentiel d’action' },
+  { question: 'Quelle est la différence essentielle entre PRA et PRR', answer: 'La PRA interdit tout influx, la PRR en autorise un si le stimulus est plus fort' },
+  { question: 'Qui ont réalisé les premières expériences de voltage imposé', answer: 'Hodgkin et Huxley en 1930' },
+  { question: 'Quel prix Nobel Hodgkin et Huxley ont-ils reçu', answer: 'Le prix Nobel de médecine en 1963' },
+  { question: 'Pourquoi les cellules nerveuses de calmar ont-elles été utilisées pour le voltage clamp', answer: 'Parce que leur axone est de grande taille et facile à manipuler' },
+  { question: 'Combien d’électrodes sont utilisées pour la technique du voltage clamp', answer: 'Deux électrodes insérées dans l’axone' },
+  { question: 'Quel est le rôle de la première électrode dans le voltage clamp', answer: 'Mesurer le potentiel de membrane' },
+  { question: 'Quel est le rôle de la seconde électrode dans le voltage clamp', answer: 'Injecter un courant pour maintenir le potentiel imposé' },
+  { question: 'Que permet le courant injecté dans la technique du voltage clamp', answer: 'Compenser exactement les flux ioniques à travers la membrane' },
+  { question: 'Comment varie le courant dans une expérience où l’on impose 0 mV pendant 5 ms', answer: 'Il présente un courant capacitif court, un courant entrant transitoire puis un courant sortant prolongé' },
+  { question: 'A quoi correspond le courant capacitif observé dans le voltage clamp', answer: 'À la charge de la membrane lors du changement de potentiel' },
+  { question: 'A quoi correspond le courant entrant enregistré', answer: 'À l’entrée de cations positifs, principalement Na+' },
+  { question: 'A quoi correspond le courant sortant enregistré', answer: 'À la sortie de cations positifs, principalement K+' },
+  { question: 'Quel est l’effet de la tétrodotoxine (TTX) sur les courants ioniques', answer: 'Elle bloque les canaux sodiques et supprime le courant entrant' },
+  { question: 'Où agit spécifiquement la TTX', answer: 'Sur les sites extracellulaires des canaux sodiques' },
+  { question: 'Quel est l’effet du tétraéthylammonium (TEA)', answer: 'Il bloque les canaux potassiques et supprime le courant sortant' },
+  { question: 'Comment prouve-t-on que le courant entrant est lié au sodium', answer: 'Par disparition de ce courant après ajout de TTX' },
+  { question: 'Comment prouve-t-on que le courant sortant est lié au potassium', answer: 'Par disparition de ce courant après ajout de TEA' },
+  { question: 'Que se passe-t-il si l’on impose un potentiel égal au potentiel d’équilibre du sodium', answer: 'Il n’y a plus de courant entrant de sodium' },
+  { question: 'Quelle est la valeur du potentiel d’équilibre du sodium', answer: 'Environ +58 millivolts' },
+  { question: 'Quelle est la relation entre conductance et résistance', answer: 'La conductance est l’inverse de la résistance' },
+  { question: 'Quelle est la formule de la loi d’Ohm appliquée à la membrane', answer: 'I = g × (Vm – E)' },
+  { question: 'Que représente g dans la loi d’Ohm', answer: 'La conductance ionique de la membrane' },
+  { question: 'Que se passe-t-il lors d’une stimulation infraliminaire', answer: 'Il y a ouverture locale de canaux sodiques et entrée de Na+ mais pas de potentiel d’action' },
+  { question: 'Quelle est la valeur seuil de dépolarisation pour déclencher un potentiel d’action', answer: 'Environ -40 millivolts' },
+  { question: 'Que provoque l’ouverture massive des canaux sodiques au-delà du seuil', answer: 'Une entrée rapide de Na+ et la phase ascendante du potentiel d’action' },
+  { question: 'Quelle est la valeur maximale du pic du potentiel d’action', answer: 'Environ +40 millivolts' },
+  { question: 'Pourquoi le potentiel d’action n’atteint-il pas le potentiel d’équilibre du sodium', answer: 'Parce que les canaux sodiques s’inactivent et que les canaux potassiques s’ouvrent' },
+  { question: 'Qu’est-ce qui limite la durée du potentiel d’action', answer: 'L’inactivation progressive des canaux Na+ et l’ouverture retardée des canaux K+' },
+  { question: 'Quels canaux potassiques sont impliqués dans la repolarisation', answer: 'Les canaux potassiques de la rectification retardée' },
+  { question: 'A quelle valeur de potentiel de membrane les canaux potassiques s’ouvrent-ils au maximum', answer: 'Environ +20 millivolts' },
+  { question: 'Quelle est la différence entre les canaux Na+ et les canaux K+ concernant l’inactivation', answer: 'Les canaux Na+ s’inactivent, les canaux K+ ne s’inactivent pas' },
+  { question: 'Quelle phase du potentiel d’action est liée à la sortie massive de K+', answer: 'La repolarisation et l’hyperpolarisation' },
+  { question: 'Quelle est la conséquence de l’ouverture prolongée des canaux K+', answer: 'L’hyperpolarisation de la membrane' },
+  { question: 'Quelle est la conséquence de la fermeture progressive des canaux K+', answer: 'Le retour du potentiel de membrane au niveau de repos' },
+  { question: 'Que démontre l’expérience de Hodgkin et Huxley avec le voltage clamp', answer: 'Que le potentiel d’action est dû à la succession d’une entrée de Na+ suivie d’une sortie de K+' },
+  { question: 'Que signifie le terme conductance dans ce contexte', answer: 'La capacité d’un canal ionique à laisser passer les ions' },
+  { question: 'Que montre la courbe de conductance sodique pendant le potentiel d’action', answer: 'Une augmentation rapide puis une diminution par inactivation' },
+  { question: 'Que montre la courbe de conductance potassique pendant le potentiel d’action', answer: 'Une augmentation plus lente et prolongée' },
+  { question: 'Quelle est la conséquence de l’augmentation de la conductance potassique', answer: 'La repolarisation et l’hyperpolarisation membranaire' },
+  { question: 'Pourquoi l’expérience de voltage clamp est-elle essentielle', answer: 'Parce qu’elle permet de séparer et mesurer indépendamment les courants ioniques' },
+  { question: 'Quelle est la différence entre un stimulus infraliminaire et un stimulus supraliminaire', answer: 'L’infraliminaire provoque une dépolarisation locale, le supraliminaire déclenche un potentiel d’action' },
+  { question: 'Quelle entrée ionique compense la sortie de K+ pendant la dépolarisation', answer: 'L’entrée massive de Na+' },
+  { question: 'Que se passe-t-il si la sortie de K+ dépasse l’entrée de Na+', answer: 'La repolarisation débute' },
+  { question: 'Que se passe-t-il si le potentiel reste dépolarisé trop longtemps', answer: 'Les canaux sodiques restent inactivés et empêchent un nouveau potentiel d’action' },
+  { question: 'Quelle est la valeur maximale atteinte par la dépolarisation dans un neurone', answer: 'Environ +40 millivolts' },
+  { question: 'Quelle est la valeur approximative du potentiel d’équilibre du potassium', answer: 'Environ -90 millivolts' },
+  { question: 'Quelle est la conséquence de la sortie de potassium sur le potentiel de membrane', answer: 'Il devient plus négatif et tend vers le potentiel d’équilibre du K+' },
+  { question: 'Pourquoi dit-on que les canaux potassiques sont à rectification retardée', answer: 'Parce que leur ouverture est plus lente que celle des canaux sodiques' },
+  { question: 'Comment appelle-t-on le moment où les canaux Na+ se ferment mais restent inactivés', answer: 'La phase d’inactivation sodique' },
+  { question: 'Quelle est la conséquence de l’inactivation des canaux sodiques sur la propagation du potentiel d’action', answer: 'Elle empêche un retour arrière de l’influx nerveux' },
+  { question: 'Qui ont développé la technique du patch-clamp', answer: 'Bert Sakmann et Erwin Neher dans les années 1970' },
+  { question: 'Quel prix Nobel a été attribué à Sakmann et Neher', answer: 'Le prix Nobel de médecine en 1991' },
+  { question: 'Quel est le principe de base du patch-clamp', answer: 'Isoler un fragment de membrane avec une micropipette pour étudier un canal ionique' },
+  { question: 'Quelle résistance électrique présente un patch membranaire isolé', answer: 'De l’ordre du gigaohm' },
+  { question: 'Que permet le patch-clamp par rapport au voltage clamp classique', answer: 'Étudier le fonctionnement d’un seul canal ionique' },
+  { question: 'Quels canaux ont été confirmés grâce au patch-clamp comme étant responsables du potentiel d’action', answer: 'Les canaux sodiques voltage-dépendants et les canaux potassiques à rectification retardée' },
+  { question: 'Qu’est-ce qu’un courant élémentaire en patch-clamp', answer: 'Le courant généré par l’ouverture et la fermeture d’un seul canal' },
+  { question: 'Quelle est la relation entre courant élémentaire et conductance d’un canal', answer: 'La pente du courant en fonction du voltage donne la conductance' },
+  { question: 'Que se passe-t-il si le potentiel imposé est inférieur au potentiel d’équilibre du sodium', answer: 'On observe un courant entrant négatif' },
+  { question: 'Que se passe-t-il si le potentiel imposé est égal au potentiel d’équilibre du sodium', answer: 'Le courant sodique est nul' },
+  { question: 'Que se passe-t-il si le potentiel imposé est supérieur au potentiel d’équilibre du sodium', answer: 'On observe un courant sortant positif' },
+  { question: 'Quelle est la formule reliant le courant sodique à la conductance', answer: 'I = gNa × (Vm – ENa)' },
+  { question: 'Combien d’ions sodium peuvent traverser un canal en une seconde', answer: 'Environ 6 250 000 ions par seconde' },
+  { question: 'Quelle est la structure protéique du canal sodique', answer: 'Une protéine α associée à deux protéines β1 et β2' },
+  { question: 'Combien de domaines possède la protéine α du canal sodique', answer: 'Quatre domaines homologues' },
+  { question: 'Combien de segments transmembranaires par domaine comporte le canal sodique', answer: 'Six segments en hélice α' },
+  { question: 'Quel est le rôle principal du segment S4 du canal sodique', answer: 'Servir de capteur de voltage grâce à ses charges positives' },
+  { question: 'Quelle est la particularité de la boucle P entre les segments S5 et S6', answer: 'Elle forme la région de sélectivité ionique et contient le site de liaison de la TTX' },
+  { question: 'Où se fixe la tétrodotoxine dans le canal sodique', answer: 'Sur la portion extracellulaire du pore au niveau de la boucle P' },
+  { question: 'Quelle est la conséquence de la liaison de la TTX sur le canal sodique', answer: 'Le blocage complet de la conduction sodique' },
+  { question: 'Quels domaines du canal sodique assurent l’activation', answer: 'Trois des quatre domaines protéiques' },
+  { question: 'Quel domaine est responsable de l’inactivation du canal sodique', answer: 'Le quatrième domaine' },
+  { question: 'Quels sont les trois états principaux d’un canal sodique', answer: 'Fermé, ouvert et inactivé' },
+  { question: 'Que se passe-t-il pour les domaines d’activation au potentiel de repos', answer: 'Ils sont fermés, le canal est globalement fermé' },
+  { question: 'Que se passe-t-il pour les domaines d’activation lors de la dépolarisation', answer: 'Ils s’ouvrent et le canal devient conducteur' },
+  { question: 'Que se passe-t-il pour le domaine d’inactivation lors de la dépolarisation prolongée', answer: 'Il se ferme et bloque le canal' },
+  { question: 'Quand le domaine d’inactivation se rouvre-t-il', answer: 'Lors de la repolarisation' },
+  { question: 'Quelle est la conséquence fonctionnelle de l’inactivation sodique', answer: 'La période réfractaire absolue' },
+  { question: 'Quelle est la valeur de conductance élémentaire d’un canal sodique', answer: 'Constante et spécifique du canal' },
+  { question: 'Comment varie la probabilité d’ouverture d’un canal sodique', answer: 'Elle dépend de l’amplitude et de la durée de la dépolarisation' },
+  { question: 'Que se passe-t-il si la dépolarisation persiste', answer: 'Le canal reste inactivé et empêche un nouvel influx' },
+  { question: 'Quelle différence fondamentale existe entre les canaux sodiques et potassiques en termes d’inactivation', answer: 'Les canaux sodiques s’inactivent, les canaux potassiques ne s’inactivent pas' },
+  { question: 'Qu’est-ce qui déclenche l’ouverture d’un canal potassique à rectification retardée', answer: 'Une dépolarisation membranaire' },
+  { question: 'Quelle est la caractéristique temporelle de l’ouverture des canaux potassiques', answer: 'Elle est retardée par rapport à l’ouverture des canaux sodiques' },
+  { question: 'Comment appelle-t-on ce délai d’ouverture des canaux potassiques', answer: 'La rectification retardée' },
+  { question: 'Quelle est la relation entre le courant potassique et le potentiel de membrane', answer: 'Relation linéaire de type I = gK × (Vm – EK)' },
+  { question: 'Que se passe-t-il pour un canal potassique si la dépolarisation persiste', answer: 'Il peut s’ouvrir et se fermer successivement sans inactivation' },
+  { question: 'Quelle est la perméabilité principale du canal potassique', answer: 'Aux ions K+, avec une faible perméabilité au sodium' },
+  { question: 'Quel est l’effet du TEA sur les canaux potassiques', answer: 'Il bloque sélectivement leur conduction' },
+  { question: 'Quelle est la structure protéique du canal potassique', answer: 'Quatre sous-unités α et quatre sous-unités β' },
+  { question: 'Que forment les quatre sous-unités α d’un canal potassique', answer: 'Elles entourent le pore central du canal' },
+  { question: 'Quelle est la conséquence du fait que toutes les sous-unités α s’ouvrent simultanément', answer: 'Le canal est soit totalement ouvert soit totalement fermé' },
+  { question: 'Quel est le rôle du segment H5 dans le canal potassique', answer: 'Déterminer la conductance et la sélectivité ionique' },
+  { question: 'Quelle est la particularité évolutive de la séquence du segment H5', answer: 'Elle est très conservée dans les canaux potassiques' },
+  { question: 'Où se fixe le TEA dans un canal potassique', answer: 'Sur un site intracellulaire du segment H5 dans l’axone de calmar' },
+  { question: 'Quelle est la conséquence physiologique de l’ouverture des canaux potassiques', answer: 'La repolarisation et l’hyperpolarisation du potentiel de membrane' },
+  { question: 'Quelle est la probabilité d’ouverture d’un canal potassique en fonction du voltage', answer: 'Elle augmente avec l’amplitude de la dépolarisation' },
+  { question: 'Qu’est-ce qui distingue la cinétique des canaux potassiques de celle des canaux sodiques', answer: 'Une ouverture plus tardive et une absence d’inactivation' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

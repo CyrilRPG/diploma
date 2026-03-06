@@ -1,0 +1,569 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Développement du médicament essais cliniques</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Développement du médicament essais cliniques</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce qu’un essai clinique', answer: 'C’est une étude réalisée chez l’Homme pour évaluer l’innocuité et l’efficacité d’une nouvelle molécule selon les Bonnes Pratiques Cliniques' },
+  { question: 'Combien de phases comporte la recherche clinique', answer: 'Elle comporte quatre phases, de la Phase I à la Phase IV' },
+  { question: 'Quelle autorité administrative autorise les essais cliniques en France', answer: 'L’ANSM, Agence Nationale de Sécurité du Médicament' },
+  { question: 'Que permet la phase préclinique avant un essai clinique', answer: 'Elle permet de vérifier sur l’animal la toxicité et la faisabilité avant tout essai sur l’Homme' },
+  { question: 'Que teste la phase I', answer: 'Elle teste la tolérance, la pharmacocinétique et parfois la pharmacodynamie d’une molécule' },
+  { question: 'Quelle est la population cible des essais de phase I', answer: 'Les volontaires sains, sauf exceptions comme les cancers, maladies rares ou la pédiatrie' },
+  { question: 'Quelle est la principale caractéristique des essais de phase I', answer: 'Ce sont des essais monocentriques menés sur de petits groupes' },
+  { question: 'Quelle est la première dose administrée lors d’un essai de phase I', answer: 'C’est une dose basée sur la NOAEL, divisée par un facteur de sécurité supérieur à 10' },
+  { question: 'Que signifie NOAEL', answer: 'No Observed Adverse Effect Level, dose sans effet toxique observé chez l’animal' },
+  { question: 'Que signifie NOEL', answer: 'No Observed Effect Level, dose sans effet pharmacologique observé' },
+  { question: 'Quelle est la relation étudiée lors de la phase I', answer: 'Les relations dose-effets indésirables et dose-concentrations plasmatiques' },
+  { question: 'Quelle est la voie d’administration de référence pour la biodisponibilité', answer: 'La voie intraveineuse, dont la biodisponibilité est de 100 %' },
+  { question: 'Qu’est-ce que l’étude masse balance', answer: 'C’est une étude utilisant une faible dose radiomarquée pour déterminer les métabolites et les voies d’élimination' },
+  { question: 'Que signifie ADME', answer: 'Absorption, Distribution, Métabolisme, Élimination' },
+  { question: 'Que permet l’étude pharmacocinétique', answer: 'Elle permet de comprendre le devenir du médicament dans l’organisme' },
+  { question: 'Que permet l’étude pharmacodynamique', answer: 'Elle permet de relier la dose, les concentrations sanguines et les effets observés' },
+  { question: 'Que vise la phase I en fin d’étude', answer: 'À connaître la tolérance et la cinétique du médicament chez l’Homme sain' },
+  { question: 'Que détermine la phase I pour la suite du développement', answer: 'La dose maximale tolérée et la dose à ne pas dépasser' },
+  { question: 'Pourquoi certains médicaments sont testés directement sur patients en phase I', answer: 'Parce qu’ils sont trop dangereux ou non éthiques à administrer à des sujets sains, comme en cancérologie' },
+  { question: 'Que représente le profil pharmacocinétique chez l’Homme sain', answer: 'Il permet de comparer les données à celles de l’animal et d’étudier l’absorption et l’élimination' },
+  { question: 'Que se passe-t-il si la tolérance du médicament est inférieure à celle de produits déjà commercialisés', answer: 'Le développement du candidat médicament est souvent arrêté' },
+  { question: 'Quelle est la taille typique d’un groupe de phase I', answer: 'Environ 20 à 80 volontaires' },
+  { question: 'Quelle est la dose de départ déterminée à partir de la NOAEL', answer: 'Une dose sans effet toxique détectable à court terme' },
+  { question: 'Quel est le rôle des animaux transgéniques en préclinique', answer: 'Reproduire les récepteurs humains pour tester la pertinence pharmacologique' },
+  { question: 'Quelle relation peut poser problème lors des essais de phase I', answer: 'Une relation non linéaire entre la dose administrée et les concentrations plasmatiques' },
+  { question: 'Que sont les métaboliseurs rapides et lents', answer: 'Des profils de sujets présentant des vitesses différentes de biotransformation du médicament' },
+  { question: 'Quel est le rôle des études de bioéquivalence', answer: 'Comparer des formes galéniques différentes d’un même médicament' },
+  { question: 'Quelle est la finalité de la phase I pour un médicament oncologique', answer: 'Tester la tolérance et la dose maximale tolérée directement chez des patients malades' },
+  { question: 'Que signifie dose maximale tolérée', answer: 'C’est la dose la plus élevée qui ne provoque pas d’effet indésirable inacceptable' },
+  { question: 'Quelle est la conséquence si la pharmacodynamie n’est pas mesurable en phase I', answer: 'Elle sera étudiée ultérieurement en phase II' },
+  { question: 'Pourquoi la phase I est-elle appelée « tolérance »', answer: 'Parce qu’elle vise à évaluer la sécurité et les effets indésirables du médicament' },
+  { question: 'Qu’est-ce qu’une étude de dose unique', answer: 'L’administration d’une seule dose pour observer les effets immédiats' },
+  { question: 'Qu’est-ce qu’une étude à doses répétées', answer: 'L’administration répétée du médicament jusqu’à atteindre un équilibre plasmatique' },
+  { question: 'Que signifie état d’équilibre des concentrations plasmatiques', answer: 'Un état où la quantité de médicament absorbée égale la quantité éliminée' },
+  { question: 'Quelle est la différence entre tolérance clinique et biologique', answer: 'La tolérance clinique concerne les effets observés, la biologique les paramètres sanguins' },
+  { question: 'Quel type d’effet indésirable recherche-t-on en phase I', answer: 'Les effets indésirables dose-dépendants' },
+  { question: 'Quelle est la particularité des essais de phase I en pharmacologie', answer: 'Ils visent à établir les premières données pharmacocinétiques et pharmacodynamiques' },
+  { question: 'Quels paramètres cinétiques sont mesurés en phase I', answer: 'Volume de distribution, demi-vie, biodisponibilité et effet de premier passage hépatique' },
+  { question: 'Pourquoi la phase I est-elle souvent mono-centrique', answer: 'Pour un meilleur contrôle et une surveillance rapprochée des volontaires' },
+  { question: 'Qu’est-ce que la pharmacocinétique pathologique', answer: 'L’étude du devenir du médicament chez des patients présentant une pathologie' },
+  { question: 'Que veut dire « effet de premier passage hépatique »', answer: 'C’est la métabolisation partielle d’un médicament lors de son premier passage dans le foie' },
+  { question: 'Que se passe-t-il à la fin de la phase I', answer: 'On décide de poursuivre ou non le développement vers la phase II' },
+  { question: 'Quelle est la durée typique d’une étude de phase I', answer: 'Quelques semaines à quelques mois' },
+  { question: 'Quelle est la relation entre la dose et l’effet indésirable recherchée', answer: 'La dose maximale sans effet indésirable significatif' },
+  { question: 'Pourquoi la phase I est-elle cruciale dans le développement', answer: 'Elle conditionne la sécurité et le passage vers les essais thérapeutiques' },
+  { question: 'Que se passe-t-il si les données de phase I ne sont pas satisfaisantes', answer: 'Le candidat médicament est abandonné ou reformulé' },
+  { question: 'Que cherche-t-on à éviter en phase I', answer: 'Les réactions graves ou imprévisibles chez l’Homme sain' },
+  { question: 'Quelle est la principale difficulté de la phase I', answer: 'Extrapoler les données animales à l’Homme' },
+  { question: 'Quelle est la finalité ultime de la phase I', answer: 'Déterminer si le médicament peut être administré à des patients en toute sécurité' },
+  { question: 'Quel est l’objectif principal de la phase II', answer: 'Déterminer l’efficacité thérapeutique du médicament et affiner la tolérance chez les patients' },
+  { question: 'Quelle est la différence entre la phase IIA et la phase IIB', answer: 'La phase IIA démontre la preuve de concept, tandis que la phase IIB choisit la meilleure dose' },
+  { question: 'Quelle est la population cible des essais de phase II', answer: 'Des patients atteints de la maladie ciblée, homogènes et sans comorbidité majeure' },
+  { question: 'Quelle est la taille typique d’un essai de phase II', answer: 'Environ 300 patients' },
+  { question: 'Quelle est la durée moyenne d’un essai de phase II', answer: 'De quelques semaines à trois mois' },
+  { question: 'Quelle est la finalité de la phase IIA', answer: 'Vérifier que le médicament a un effet cliniquement mesurable' },
+  { question: 'Quelle est la finalité de la phase IIB', answer: 'Identifier la dose optimale pour la phase III' },
+  { question: 'Que signifie dose-ranging', answer: 'Étude de la relation entre la dose administrée et l’effet observé' },
+  { question: 'Que signifie relation effet-dose', answer: 'Analyse du lien entre la quantité administrée et la réponse thérapeutique ou indésirable' },
+  { question: 'Que signifie relation effet-concentration', answer: 'Corrélation entre la concentration plasmatique du médicament et son effet clinique' },
+  { question: 'Qu’étudie la pharmacocinétique en phase II', answer: 'Le devenir du médicament chez le patient, en tenant compte de la pathologie' },
+  { question: 'Que mesure la pharmacodynamie en phase II', answer: 'L’intensité et la durée des effets en fonction de la dose et du temps' },
+  { question: 'Quelle est la dose sélectionnée pour la phase III', answer: 'Celle qui offre le meilleur compromis entre efficacité et tolérance' },
+  { question: 'Que veut dire dose maximale tolérée', answer: 'C’est la dose procurant l’effet maximal avec une toxicité minimale' },
+  { question: 'Que permet la phase II en matière de forme galénique', answer: 'Déterminer la forme galénique définitive du médicament' },
+  { question: 'Quels sont les objectifs principaux de la phase II', answer: 'Étudier l’efficacité, la tolérance et choisir la dose et la forme finale du médicament' },
+  { question: 'Pourquoi la phase II est-elle appelée « étude pilote »', answer: 'Parce qu’elle constitue la première étude du médicament chez des patients' },
+  { question: 'Quels types d’essais sont utilisés en phase II', answer: 'Des essais en groupes parallèles, souvent multicentriques' },
+  { question: 'Combien de centres participent généralement à une phase II', answer: 'Environ cinq à dix centres' },
+  { question: 'Quelle est la différence entre un essai monocentrique et multicentrique', answer: 'Le premier se déroule dans un seul centre, le second dans plusieurs' },
+  { question: 'Quelle proportion de la population cible représente les patients de phase II', answer: 'Moins de 5 à 10 % de la population totale atteinte par la maladie' },
+  { question: 'Que veut dire « malades idéaux »', answer: 'Patients sélectionnés sans comorbidité ni co-médication pour isoler l’effet du médicament' },
+  { question: 'Pourquoi les patients de phase II sont-ils très sélectionnés', answer: 'Pour limiter les variables confondantes et obtenir des résultats fiables' },
+  { question: 'Quelle est la durée typique du traitement en phase II', answer: 'De quelques jours à quelques semaines, rarement plus de trois mois' },
+  { question: 'Quels critères d’efficacité sont utilisés', answer: 'Des critères quantifiables et reproductibles liés au mécanisme d’action' },
+  { question: 'Que signifie marqueur de substitution', answer: 'Paramètre biologique utilisé à la place d’un critère clinique de résultat' },
+  { question: 'Que permet l’étude dose-effet en phase II', answer: 'Trouver la meilleure dose pour un bénéfice maximal et une toxicité minimale' },
+  { question: 'Quelles sont les trois conditions influençant le schéma posologique', answer: 'La pharmacocinétique, la concurrence et l’observance' },
+  { question: 'Pourquoi les conditions de la phase II sont-elles très contrôlées', answer: 'Pour révéler clairement un effet thérapeutique réel du médicament' },
+  { question: 'Quelle est la différence entre efficacité clinique et efficacité biologique', answer: 'La première concerne les symptômes, la seconde les paramètres mesurables biologiquement' },
+  { question: 'Quelles études spécifiques peuvent être faites en phase II', answer: 'Des études pharmacocinétiques chez des insuffisants rénaux ou hépatiques' },
+  { question: 'Que permet l’étude de tolérance en phase II', answer: 'Identifier les effets indésirables spécifiques chez les patients malades' },
+  { question: 'Que cherche-t-on à démontrer avec la preuve de concept', answer: 'Que le médicament produit bien l’effet thérapeutique attendu' },
+  { question: 'Pourquoi la phase II est-elle dite intermédiaire', answer: 'Parce qu’elle fait le lien entre la phase de tolérance et la phase d’efficacité confirmée' },
+  { question: 'Quelle est la différence majeure entre phase I et II', answer: 'La phase I évalue la tolérance chez des sains, la phase II l’efficacité chez des malades' },
+  { question: 'Que veut dire efficacité-tolérance', answer: 'C’est le rapport entre le bénéfice clinique obtenu et les effets indésirables observés' },
+  { question: 'Que signifie l’expression « choix de la dose pour la phase III »', answer: 'Sélection de la dose offrant le meilleur rapport bénéfice-risque' },
+  { question: 'Quelle est la durée de suivi typique en phase II', answer: 'En général inférieure à trois mois' },
+  { question: 'Que sait-on à la fin de la phase II', answer: 'Le candidat médicament est efficace et bien toléré sur une courte période' },
+  { question: 'Que ne sait-on pas à la fin de la phase II', answer: 'Si la tolérance et l’efficacité se maintiendront à long terme' },
+  { question: 'Quelle est la principale limite de la phase II', answer: 'La population étudiée est trop homogène et non représentative de la vraie vie' },
+  { question: 'Quelle est la conséquence d’un échec de phase II', answer: 'L’arrêt du développement ou la modification de la molécule' },
+  { question: 'Quelle est la finalité de la phase II avant la phase III', answer: 'Confirmer l’efficacité et établir la dose thérapeutique à tester' },
+  { question: 'Quel est l’intérêt des études multicentriques', answer: 'Obtenir des données plus généralisables et représentatives' },
+  { question: 'Qu’est-ce qu’un critère de jugement', answer: 'Un indicateur mesurable servant à évaluer l’efficacité d’un traitement' },
+  { question: 'Qu’est-ce que l’observance', answer: 'C’est le respect par le patient du traitement prescrit' },
+  { question: 'Pourquoi l’observance est-elle importante en phase II', answer: 'Car elle influence directement l’évaluation de l’efficacité réelle' },
+  { question: 'Quel est l’objectif global de la phase II', answer: 'Déterminer si le médicament est suffisamment prometteur pour passer en phase III' },
+  { question: 'Quel est l’objectif principal de la phase III', answer: 'Vérifier le rapport efficacité-tolérance du médicament sur un grand nombre de malades' },
+  { question: 'Quelle est la taille typique d’une étude de phase III', answer: 'Plusieurs centaines à plusieurs milliers de patients' },
+  { question: 'Quel est le but de la phase III dans le développement du médicament', answer: 'Confirmer l’efficacité et la sécurité du médicament dans sa forme galénique définitive' },
+  { question: 'Que signifie le terme « essai pivot »', answer: 'Étude déterminante pour l’obtention de l’autorisation de mise sur le marché' },
+  { question: 'Quelle est la différence majeure entre phase II et phase III', answer: 'La phase III inclut une population plus large et plus représentative de la vraie vie' },
+  { question: 'Qu’est-ce que le rapport bénéfice-risque', answer: 'C’est l’évaluation de l’équilibre entre les effets thérapeutiques et les effets indésirables' },
+  { question: 'Qu’est-ce qu’un essai multicentrique', answer: 'Un essai réalisé dans plusieurs centres investigateurs à la fois' },
+  { question: 'Qu’est-ce qu’un essai international', answer: 'Un essai mené simultanément dans plusieurs pays' },
+  { question: 'Pourquoi la phase III est-elle souvent multicentrique et internationale', answer: 'Pour garantir la représentativité des résultats et leur validité externe' },
+  { question: 'Qu’est-ce qu’un comparateur dans un essai clinique', answer: 'Un médicament ou un placebo utilisé pour évaluer la performance du nouveau traitement' },
+  { question: 'Quand est-il éthique d’utiliser un placebo', answer: 'Lorsqu’il n’existe pas de traitement actif de référence' },
+  { question: 'Pourquoi le placebo peut être inacceptable', answer: 'Parce qu’il serait contraire à l’éthique de priver un patient d’un traitement efficace existant' },
+  { question: 'Que cherche à confirmer la phase III', answer: 'L’innocuité et l’efficacité dans les conditions les plus proches de la réalité clinique' },
+  { question: 'Quelles sont les principales caractéristiques des essais de phase III', answer: 'Randomisés, contrôlés, en double aveugle et multicentriques' },
+  { question: 'Que signifie « randomisé »', answer: 'Les participants sont répartis de manière aléatoire entre les groupes de traitement' },
+  { question: 'Que signifie « en double aveugle »', answer: 'Ni le patient ni l’investigateur ne savent quel traitement est administré' },
+  { question: 'Pourquoi la phase III doit être contrôlée', answer: 'Pour comparer les résultats à un traitement standard ou un placebo' },
+  { question: 'Que représente le critère de jugement principal', answer: 'La mesure principale utilisée pour évaluer l’efficacité du médicament' },
+  { question: 'Peut-on conclure sur les critères secondaires d’un essai de phase III', answer: 'Non, sauf si l’essai a été planifié pour les évaluer spécifiquement' },
+  { question: 'Peut-on extrapoler les résultats à d’autres populations', answer: 'Non, les conclusions ne concernent que la population étudiée' },
+  { question: 'Quelle est la durée typique de la phase III', answer: 'Généralement de un à quatre ans' },
+  { question: 'Qu’évalue la phase III sur le plan clinique', answer: 'Le bénéfice thérapeutique réel et les risques associés' },
+  { question: 'Quelle est la taille d’un essai pour un vaccin', answer: 'Parfois jusqu’à 50 000 participants' },
+  { question: 'Quelle est la limite principale des essais de phase III', answer: 'Ils ne permettent pas toujours de détecter les effets indésirables rares ou tardifs' },
+  { question: 'Quelle est la conséquence de la phase III réussie', answer: 'L’obtention de l’autorisation de mise sur le marché' },
+  { question: 'Que signifie AMM', answer: 'Autorisation de Mise sur le Marché' },
+  { question: 'Quelle partie du dossier d’AMM contient les résultats des phases cliniques', answer: 'Le module 5 du dossier d’AMM' },
+  { question: 'Quelle est la forme galénique testée en phase III', answer: 'La forme définitive du médicament destinée à la commercialisation' },
+  { question: 'Quels sont les risques d’un essai de phase III trop court', answer: 'Ne pas détecter certains effets indésirables à long terme' },
+  { question: 'Quelle est la durée de traitement typique en phase III', answer: 'Quelques mois à quelques années selon la pathologie' },
+  { question: 'Qu’est-ce que l’innocuité immédiate', answer: 'L’absence d’effets indésirables graves à court terme après administration' },
+  { question: 'Pourquoi la phase III est essentielle pour la réglementation', answer: 'Parce qu’elle détermine la balance bénéfice-risque nécessaire à l’AMM' },
+  { question: 'Que fait-on des patients pendant un essai de phase III', answer: 'Ils sont suivis étroitement selon un protocole standardisé' },
+  { question: 'Pourquoi il est difficile de suivre tous les patients à long terme', answer: 'À cause des pertes de suivi et de la durée de l’étude' },
+  { question: 'Quelle est la différence entre un essai prospectif et rétrospectif', answer: 'Le premier suit les patients dans le temps, le second analyse des données passées' },
+  { question: 'Que veut dire « essai contrôlé »', answer: 'L’essai compare un nouveau traitement à un contrôle (placebo ou médicament de référence)' },
+  { question: 'Quelle est la finalité de la phase III pour les autorités de santé', answer: 'Fournir la preuve de l’efficacité et de la sécurité pour l’évaluation du médicament' },
+  { question: 'Quelle est la phase précédant la mise sur le marché', answer: 'La phase III' },
+  { question: 'Que sait-on à la fin de la phase III', answer: 'Que le médicament a une balance bénéfice-risque positive dans une indication donnée' },
+  { question: 'Que ne sait-on pas à la fin de la phase III', answer: 'Si des effets indésirables rares apparaîtront en population générale' },
+  { question: 'Pourquoi les essais de phase III sont coûteux', answer: 'En raison du nombre de patients, de centres et de la durée de suivi' },
+  { question: 'Que signifie « prospectif »', answer: 'L’étude est menée vers l’avenir en suivant l’évolution des participants' },
+  { question: 'Qu’est-ce qu’une extrapolation de population', answer: 'L’application abusive des résultats d’un groupe à un autre non étudié' },
+  { question: 'Pourquoi les essais de phase III ne permettent pas d’analyse en sous-groupes', answer: 'Parce qu’ils ne sont pas statistiquement dimensionnés pour cela' },
+  { question: 'Que se passe-t-il après une phase III concluante', answer: 'Le dossier d’AMM est soumis aux autorités compétentes' },
+  { question: 'Que représente le bénéfice dans le rapport bénéfice-risque', answer: 'L’amélioration clinique ou la guérison apportée au patient' },
+  { question: 'Que représente le risque dans le rapport bénéfice-risque', answer: 'La probabilité et la gravité des effets indésirables' },
+  { question: 'Quelle est la conséquence d’une balance bénéfice-risque défavorable', answer: 'Le refus d’AMM ou l’arrêt du développement du médicament' },
+  { question: 'Quelle est la définition d’une étude de phase IV', answer: 'C’est une étude menée après la mise sur le marché pour évaluer le médicament en conditions réelles d’utilisation' },
+  { question: 'Quel est l’objectif principal de la phase IV', answer: 'Vérifier si les effets observés en phase III se retrouvent dans la vraie vie' },
+  { question: 'Que signifie AMM', answer: 'Autorisation de Mise sur le Marché' },
+  { question: 'Pourquoi la phase IV est-elle nécessaire', answer: 'Pour détecter les effets indésirables rares et évaluer la tolérance en population générale' },
+  { question: 'Qui peut demander une étude de phase IV', answer: 'Le PRAC, la HAS ou les autorités sanitaires nationales et européennes' },
+  { question: 'Que signifie PRAC', answer: 'Pharmacovigilance Risk Assessment Committee' },
+  { question: 'Que signifie HAS', answer: 'Haute Autorité de Santé' },
+  { question: 'Quelles sont les trois grandes catégories d’études de phase IV', answer: 'Études de surveillance, d’efficacité et d’utilisation en vie réelle' },
+  { question: 'Que peut entraîner une étude de phase IV', answer: 'La réévaluation du rapport bénéfice-risque et éventuellement le retrait du médicament' },
+  { question: 'Que signifie PGR', answer: 'Plan de Gestion des Risques' },
+  { question: 'Quand le PGR est-il devenu obligatoire', answer: 'Depuis 2005 pour toute nouvelle substance active' },
+  { question: 'Quels médicaments sont concernés par un PGR', answer: 'Toute nouvelle substance active, biosimilaire, générique à risque ou extension d’AMM significative' },
+  { question: 'Que signifie le plan de gestion des risques', answer: 'C’est un ensemble d’études et d’actions destinées à mieux connaître et maîtriser les risques liés à un médicament' },
+  { question: 'Quel est l’objectif d’un PGR', answer: 'Assurer le maintien de l’AMM et du remboursement en garantissant la sécurité d’emploi du médicament' },
+  { question: 'Que contient un PGR', answer: 'Des études de sécurité, des mesures de minimisation des risques et un suivi pharmaco-épidémiologique' },
+  { question: 'Pourquoi les PGR ont-ils été mis en place', answer: 'Suite à plusieurs scandales médicamenteux et à un besoin accru de surveillance post-AMM' },
+  { question: 'Que veut dire pharmaco-épidémiologie', answer: 'L’étude des relations entre les médicaments et les maladies en conditions réelles' },
+  { question: 'Quelle est la différence entre pharmaco-épidémiologie et pharmacovigilance', answer: 'La première étudie globalement les usages et effets en population, la seconde surveille les effets indésirables' },
+  { question: 'Que cherche à identifier la pharmaco-épidémiologie', answer: 'Les effets indésirables, les populations à risque et l’efficacité réelle en pratique courante' },
+  { question: 'Qu’est-ce qu’une donnée de vraie vie', answer: 'Une donnée médicale obtenue hors du cadre expérimental, pendant la pratique clinique normale' },
+  { question: 'Quelles sont les sources de données de vraie vie', answer: 'Les dossiers médicaux, les bases de données publiques comme le SNDS et les bases privées comme OPTUM' },
+  { question: 'Que signifie SNDS', answer: 'Système National des Données de Santé' },
+  { question: 'Que mesure une étude d’utilisation des médicaments', answer: 'Les profils d’usage, les doses, durées, motifs d’arrêt ou de poursuite du traitement' },
+  { question: 'Que mesure une étude d’impact des médicaments', answer: 'L’effet du médicament sur la survenue, l’évolution et le pronostic d’une maladie' },
+  { question: 'Que signifie étude observationnelle', answer: 'Étude sans intervention sur la prise en charge habituelle du patient' },
+  { question: 'Qu’est-ce qu’une étude de cohorte', answer: 'Une étude observationnelle qui suit un groupe de patients dans le temps pour observer les effets d’un traitement' },
+  { question: 'Qu’est-ce qu’une étude cas-témoins', answer: 'Étude comparant des patients ayant une pathologie (cas) à ceux qui ne l’ont pas (témoins) pour identifier les facteurs de risque' },
+  { question: 'Que signifie étude longitudinale', answer: 'Étude suivant les mêmes sujets sur une longue période' },
+  { question: 'Qu’est-ce qu’une étude pragmatique', answer: 'Étude randomisée réalisée dans des conditions proches de la pratique clinique réelle' },
+  { question: 'Que permet la phase IV en termes de sécurité', answer: 'Détecter des toxicités rares et spécifiques qui n’apparaissent pas dans les phases précédentes' },
+  { question: 'Que permet la phase IV en termes d’efficacité', answer: 'Vérifier si le médicament conserve son efficacité dans la population réelle' },
+  { question: 'Que permet la phase IV en termes de bon usage', answer: 'Identifier les pratiques non conformes et les mésusages' },
+  { question: 'Qu’est-ce que le mésusage médicamenteux', answer: 'L’utilisation d’un médicament en dehors de ses indications ou posologies recommandées' },
+  { question: 'Que signifie plan de minimisation du risque', answer: 'Ensemble d’actions de communication et de formation pour réduire les risques liés à un médicament' },
+  { question: 'Qui sont les destinataires du plan de minimisation du risque', answer: 'Les professionnels de santé et les patients' },
+  { question: 'Pourquoi la phase IV est-elle appelée étude en vraie vie', answer: 'Parce qu’elle évalue le médicament dans des conditions réelles de soins' },
+  { question: 'Que signifie le terme « effectiveness »', answer: 'C’est l’efficacité réelle d’un médicament dans la pratique quotidienne' },
+  { question: 'Quelle est la différence entre efficacité et effectiveness', answer: 'L’efficacité est mesurée en conditions expérimentales, l’effectiveness en vraie vie' },
+  { question: 'Quelles méthodologies sont utilisées pour les études en vraie vie', answer: 'Études de cohorte, cas-témoins, études observationnelles ou pragmatiques' },
+  { question: 'Quels sont les principaux objectifs des études post-AMM', answer: 'Améliorer la sécurité, confirmer le bénéfice et promouvoir le bon usage du médicament' },
+  { question: 'Que peut provoquer une phase IV défavorable', answer: 'Le retrait du médicament du marché ou la restriction de son usage' },
+  { question: 'Qu’est-ce qu’une réévaluation du rapport bénéfice-risque', answer: 'C’est une analyse du rapport entre les effets bénéfiques et les effets indésirables à long terme' },
+  { question: 'Qu’est-ce que la pharmacovigilance', answer: 'La surveillance et l’analyse continue des effets indésirables des médicaments' },
+  { question: 'À quel moment a lieu la pharmacovigilance', answer: 'Avant et après la mise sur le marché du médicament' },
+  { question: 'Que permet la pharmacovigilance proactive', answer: 'Identifier précocement les risques et mettre en place des mesures correctives' },
+  { question: 'Quelle est la différence entre surveillance proactive et classique', answer: 'La surveillance proactive anticipe les risques, la classique réagit aux signaux rapportés' },
+  { question: 'Que contient le plan de gestion des risques d’un médicament', answer: 'Des études complémentaires, des outils éducatifs et un plan de communication sur la sécurité' },
+  { question: 'Quel est le but ultime du PGR', answer: 'Garantir une utilisation sûre et efficace du médicament dans la population' },
+  { question: 'Quelle discipline évalue les interactions entre le médicament et la société', answer: 'La pharmaco-épidémiologie' },
+  { question: 'Que signifie le terme pharmacologie clinique', answer: 'L’étude des interactions entre le médicament et la maladie chez l’Homme' },
+  { question: 'Que signifie le terme pharmacologie', answer: 'L’étude des interactions entre le médicament et la biologie' },
+  { question: 'Quelle discipline étudie les effets du médicament dans des contextes sociaux et sanitaires différents', answer: 'La pharmaco-épidémiologie' },
+  { question: 'Que signifie l’expression « efficacité pragmatique »', answer: 'C’est l’efficacité observée dans les conditions réelles d’utilisation' },
+  { question: 'Quelle est la finalité du développement du médicament', answer: 'Mettre sur le marché un produit sûr, efficace et adapté à la population cible' },
+  { question: 'Quelles sont les trois grandes étapes après le screening du candidat médicament', answer: 'Pharmacologie, pharmacologie clinique et pharmaco-épidémiologie' },
+  { question: 'Quelle est la différence entre pharmacologie clinique et pharmaco-épidémiologie', answer: 'La première évalue le médicament chez le patient, la seconde dans la population générale' },
+  { question: 'Pourquoi la phase IV est essentielle pour la santé publique', answer: 'Parce qu’elle garantit la sécurité d’utilisation à grande échelle' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Règles de prescription</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Règles de prescription</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce qu’une prescription médicale', answer: 'C’est l’acte majeur de la pratique médicale qui conclut l’examen clinique et permet le diagnostic' },
+  { question: 'Sur quel support se réalise une prescription', answer: 'Sur une ordonnance' },
+  { question: 'Pour quels médicaments la prescription est-elle obligatoire', answer: 'Pour les médicaments listés en liste I, liste II et les stupéfiants' },
+  { question: 'La prescription est-elle obligatoire pour tous les médicaments', answer: 'Non, elle n’est pas obligatoire pour les médicaments à prescription facultative' },
+  { question: 'Qui contrôle et délivre l’ordonnance', answer: 'Le pharmacien' },
+  { question: 'Que signifie la non-prescription dans certains cas', answer: 'C’est parfois la meilleure prescription, lorsqu’un traitement n’est pas nécessaire' },
+  { question: 'Pourquoi la manière de prescrire est-elle importante', answer: 'Parce qu’elle influence la compréhension et l’observance du patient' },
+  { question: 'Quelle est l’obligation du médecin concernant l’explication d’un traitement', answer: 'Il doit expliquer le traitement car un traitement mal suivi peut être dangereux' },
+  { question: 'Sur quoi repose la liberté de prescription du médecin', answer: 'Sur les données acquises de la science' },
+  { question: 'De quoi le médecin est-il responsable devant la loi', answer: 'De sa prescription' },
+  { question: 'Quels sont les quatre acteurs principaux impliqués dans une ordonnance', answer: 'Le prescripteur, le pharmacien, le patient et les organismes sociaux' },
+  { question: 'Quels praticiens peuvent prescrire des médicaments en France', answer: 'Les docteurs en médecine habilités et inscrits au Conseil de l’Ordre' },
+  { question: 'Qui sont les prescripteurs délégués sous responsabilité directe d’un praticien', answer: 'Les internes, résidents et FFI sous la responsabilité de leur maître de stage' },
+  { question: 'Les internes peuvent-ils prescrire tous les médicaments', answer: 'Oui sauf les médicaments à statut particulier' },
+  { question: 'Que peut prescrire un chirurgien-dentiste', answer: 'Tous les actes et produits nécessaires à l’art dentaire, y compris antibiotiques et antalgiques' },
+  { question: 'Un chirurgien-dentiste peut-il prescrire des stupéfiants', answer: 'Oui, il en a la possibilité' },
+  { question: 'Que peut prescrire une sage-femme', answer: 'Des médicaments figurant sur une liste définie par décret pour les femmes, les nouveau-nés et certains partenaires' },
+  { question: 'Que peut prescrire une sage-femme en cas d’urgence vitale', answer: 'De l’adrénaline en cas de choc' },
+  { question: 'Que peut prescrire un pédicure-podologue', answer: 'Des topiques externes et pansements, mais aucun médicament listé' },
+  { question: 'Que doit faire un vétérinaire pour une prescription', answer: 'Prescrire en priorité des médicaments à usage vétérinaire' },
+  { question: 'Les infirmières peuvent-elles prescrire des médicaments', answer: 'Non, sauf certains dispositifs médicaux et le renouvellement de contraceptifs oraux' },
+  { question: 'À quoi sert une ordonnance en dehors du traitement', answer: 'C’est un outil de communication entre professionnels de santé et avec le patient' },
+  { question: 'Quelles sont les qualités d’une bonne ordonnance', answer: 'Claire, lisible, intelligible, non ambiguë et idéalement dactylographiée' },
+  { question: 'Pourquoi expliquer oralement l’ordonnance au patient est-il important', answer: 'Pour assurer la bonne compréhension et éviter les erreurs de prise' },
+  { question: 'Que risque un patient en cas de mauvaise compréhension de son traitement', answer: 'Une mauvaise observance et un échec thérapeutique' },
+  { question: 'Quelle est la conséquence d’un arrêt prématuré d’antibiotiques', answer: 'Le risque d’antibiorésistance' },
+  { question: 'Quelle est la conséquence d’une mauvaise observance des antirétroviraux', answer: 'La réactivation du virus' },
+  { question: 'Quels traitements doivent être pris tous les jours sans interruption', answer: 'Les traitements préventifs comme ceux de l’asthme, de l’hypertension ou de l’épilepsie' },
+  { question: 'Quels sont les éléments administratifs d’une ordonnance', answer: 'Identification du prescripteur, du patient, date, signature' },
+  { question: 'Que doit contenir l’identification du prescripteur', answer: 'Nom, prénom, adresse, numéro ADELI ou RPPS et téléphone' },
+  { question: 'Pourquoi la signature doit-elle être apposée sans espace après le dernier médicament', answer: 'Pour éviter les falsifications et ajouts frauduleux' },
+  { question: 'Que doit comporter l’identification du patient', answer: 'Nom, prénom, âge, sexe et poids (obligatoire pour un enfant)' },
+  { question: 'Quelle mention est utile pour les traitements calculés à la surface corporelle', answer: 'La taille du patient' },
+  { question: 'Depuis quand la DCI est-elle obligatoire sur les ordonnances', answer: 'Depuis janvier 2015' },
+  { question: 'Qu’est-ce que la DCI', answer: 'La dénomination commune internationale du principe actif' },
+  { question: 'Pourquoi écrire le dosage en mg plutôt qu’en nombre de comprimés', answer: 'Parce que les comprimés existent sous plusieurs dosages' },
+  { question: 'À quoi sert la forme galénique sur une ordonnance', answer: 'À préciser le mode d’administration adapté au patient' },
+  { question: 'Que faut-il indiquer concernant la posologie', answer: 'Le nombre de prises et le rythme d’administration' },
+  { question: 'Que faut-il mentionner pour éviter les interactions entre médicaments', answer: 'L’intervalle de temps à respecter entre les prises' },
+  { question: 'Quelle est la durée maximale d’une ordonnance classique', answer: 'Un mois, sauf exceptions comme les contraceptifs' },
+  { question: 'Quelle mention doit être inscrite en cas de dépassement de posologie', answer: '« Je dis » avec la posologie écrite en toutes lettres' },
+  { question: 'Quand le médecin peut-il mentionner « Non substituable »', answer: 'S’il justifie la non substitution d’un médicament générique' },
+  { question: 'Que signifie la mention NR sur une ordonnance', answer: 'Non remboursable, utilisée en cas de prescription hors AMM' },
+  { question: 'Qu’est-ce qu’une ordonnance classique', answer: 'Une ordonnance pour tout médicament non stupéfiant, sur papier libre' },
+  { question: 'Qu’est-ce qu’une ordonnance sécurisée', answer: 'Une ordonnance spéciale pour les stupéfiants, avec éléments pré-imprimés et numérotation' },
+  { question: 'Quelles informations sont obligatoires sur une ordonnance sécurisée', answer: 'Identité du prescripteur, du patient, du médicament et du lot d’ordonnance' },
+  { question: 'Que contient une ordonnance bi-zone', answer: 'Une zone pour l’ALD et une zone pour les autres affections' },
+  { question: 'Quelle est la prise en charge des médicaments selon le SMR', answer: 'De 100 % pour affections graves à 0 % pour SMR insuffisant' },
+  { question: 'Qu’est-ce qu’une ordonnance d’exception', answer: 'Une ordonnance réservée à certains médicaments coûteux et à prescription restreinte' },
+  { question: 'Quelle instance valide la conformité des ordonnances d’exception', answer: 'La Haute Autorité de Santé' },
+  { question: 'Quelles sont les trois grandes classes de médicaments selon la prescription', answer: 'Médicaments à prescription médicale facultative, obligatoire et restreinte' },
+  { question: 'Que signifie PMF', answer: 'Prescription Médicale Facultative, médicaments disponibles sans ordonnance' },
+  { question: 'Comment appelle-t-on les médicaments de la PMF', answer: 'Médicaments d’automédication' },
+  { question: 'Quelle est la toxicité des médicaments à prescription facultative', answer: 'Modérée, même en cas de surdosage ou d’emploi prolongé' },
+  { question: 'Pourquoi le rôle du pharmacien est-il important pour les PMF', answer: 'Car il conseille le patient en l’absence d’avis médical' },
+  { question: 'Les médicaments à prescription facultative sont-ils soumis à un contrôle de qualité', answer: 'Oui, le même que pour les médicaments soumis à prescription' },
+  { question: 'Les médicaments PMF peuvent-ils être remboursables', answer: 'Oui, certains le sont encore, mais de moins en moins' },
+  { question: 'Quelles sont les conditions de vente sur Internet des médicaments PMF', answer: 'Vente autorisée sur un site rattaché à une pharmacie physique depuis 2013' },
+  { question: 'Que signifie PMO', answer: 'Prescription Médicale Obligatoire' },
+  { question: 'Quelles sont les trois listes de médicaments à prescription obligatoire', answer: 'Liste I, Liste II et Liste des Stupéfiants' },
+  { question: 'Que contiennent les listes I et II', answer: 'Des substances vénéneuses nécessitant une ordonnance simple' },
+  { question: 'Quel est le risque lié aux médicaments des listes I et II', answer: 'Un risque direct ou indirect pour la santé nécessitant une surveillance médicale' },
+  { question: 'Quel est le support obligatoire pour la prescription des stupéfiants', answer: 'L’ordonnance sécurisée' },
+  { question: 'Quelle est la différence de renouvellement entre la liste I et la liste II', answer: 'La liste I n’est pas renouvelable sauf mention contraire, la liste II l’est sauf mention contraire' },
+  { question: 'Quelle est la durée maximale d’une prescription sur liste I ou II', answer: 'Douze mois si précisé sur l’ordonnance' },
+  { question: 'Quelle est la quantité maximale délivrée pour les listes I et II', answer: '28 jours maximum, sauf exceptions' },
+  { question: 'Quelle couleur d’étiquette distingue les médicaments de la liste I', answer: 'Étiquette blanche à cadre rouge' },
+  { question: 'Quelle couleur d’étiquette distingue les médicaments de la liste II', answer: 'Étiquette blanche à cadre vert' },
+  { question: 'Qu’est-ce qu’un stupéfiant', answer: 'Un médicament dont l’usage peut entraîner une dépendance' },
+  { question: 'Que signifie un médicament assimilé stupéfiant', answer: 'Un médicament soumis à la même réglementation qu’un stupéfiant' },
+  { question: 'Donne un exemple de médicament assimilé stupéfiant', answer: 'Le Zolpidem' },
+  { question: 'Quelle ordonnance est obligatoire pour les stupéfiants', answer: 'L’ordonnance sécurisée' },
+  { question: 'Quelles informations doivent être écrites en toutes lettres sur l’ordonnance de stupéfiant', answer: 'Nom de la molécule, dosage, posologie et durée du traitement' },
+  { question: 'Que signifie le fractionnement des délivrances', answer: 'La délivrance échelonnée de la quantité prescrite selon la durée du traitement' },
+  { question: 'Comment le médecin peut-il exclure le fractionnement', answer: 'En inscrivant la mention « délivrance en une seule fois »' },
+  { question: 'Que signifie le chevauchement interdit', answer: 'Il est interdit de délivrer un stupéfiant pendant une période déjà couverte par une précédente prescription' },
+  { question: 'Quelle est la durée maximale de prescription des stupéfiants', answer: 'De 7 à 28 jours selon la substance et la forme pharmaceutique' },
+  { question: 'Quelle est la durée maximale de délivrance d’un stupéfiant par le pharmacien', answer: 'De 7 à 28 jours selon la prescription' },
+  { question: 'Quelle est la validité d’exécution d’une ordonnance de stupéfiants', answer: 'Le patient doit se présenter dans les 3 jours suivant la prescription' },
+  { question: 'Que fait le pharmacien si le patient se présente après 3 jours', answer: 'Il délivre la quantité correspondant au temps restant de traitement' },
+  { question: 'Combien de temps le pharmacien conserve une copie de l’ordonnance de stupéfiants', answer: 'Trois ans' },
+  { question: 'Quelle est la règle pour un patient voyageant avec des stupéfiants dans l’espace Schengen', answer: 'Il doit obtenir une autorisation de transport auprès de l’ARS' },
+  { question: 'Quelle est la règle pour le transport de stupéfiants hors espace Schengen', answer: 'Autorisation du département des stupéfiants et psychotropes de l’ANSM' },
+  { question: 'Qu’est-ce qu’un médicament à prescription restreinte', answer: 'Un médicament prescrit seulement par certains spécialistes ou dans certaines structures' },
+  { question: 'Que signifie RH', answer: 'Réservé à l’usage Hospitalier' },
+  { question: 'Que signifie PIH', answer: 'Prescription Initiale Hospitalière' },
+  { question: 'Que signifie PH', answer: 'Prescription Hospitalière' },
+  { question: 'Que signifie SP', answer: 'Surveillance Particulière durant le traitement' },
+  { question: 'Que signifie PRS', answer: 'Prescription Réservée à certains Spécialistes' },
+  { question: 'Que signifie PUI', answer: 'Pharmacie à Usage Intérieur' },
+  { question: 'Que désigne la rétrocession', answer: 'La délivrance au public d’un médicament hospitalier via une PUI' },
+  { question: 'Donne un exemple de médicament à prescription restreinte hospitalière', answer: 'La Méthadone' },
+  { question: 'Quelle est la responsabilité du pharmacien lors de la délivrance', answer: 'Il vérifie la régularité formelle et la conformité technique de l’ordonnance' },
+  { question: 'Que contrôle le pharmacien avant la délivrance', answer: 'La date, la signature, la posologie, la forme galénique et les interactions' },
+  { question: 'Le pharmacien peut-il refuser une délivrance', answer: 'Oui, en cas de danger ou d’erreur manifeste' },
+  { question: 'Dans quelle condition le pharmacien peut-il modifier une ordonnance', answer: 'Après accord du médecin prescripteur' },
+  { question: 'Qu’est-ce que le droit de substitution du pharmacien', answer: 'La possibilité de délivrer un médicament générique à la place d’une spécialité' },
+  { question: 'Depuis quand le droit de substitution est-il accordé', answer: 'Depuis avril 1999' },
+  { question: 'Que doit faire le médecin s’il s’oppose à une substitution', answer: 'Inscrire la mention « non substituable » et la justifier' },
+  { question: 'Que signifie DCI', answer: 'Dénomination Commune Internationale' },
+  { question: 'Quelle est l’origine de la DCI', answer: 'Elle est attribuée par l’Organisation Mondiale de la Santé' },
+  { question: 'Quel est le rôle de la DCI', answer: 'Identifier un principe actif de manière universelle et normalisée' },
+  { question: 'Quelle est la différence entre DCI et nom de spécialité', answer: 'La DCI désigne le principe actif, la spécialité désigne le nom commercial' },
+  { question: 'Que signifie le suffixe « olol » dans une DCI', answer: 'Indique un bêta-bloquant' },
+  { question: 'Que signifie le suffixe « pril » dans une DCI', answer: 'Indique un inhibiteur de l’enzyme de conversion (IEC)' },
+  { question: 'Que signifie le suffixe « sartan » dans une DCI', answer: 'Indique un antagoniste des récepteurs de l’angiotensine II (ARA2)' },
+  { question: 'Que signifie le suffixe « navir » dans une DCI', answer: 'Indique un inhibiteur de protéase' },
+  { question: 'Quelle est la base juridique encadrant la prescription médicale', answer: 'Le code de déontologie médicale' },
+  { question: 'Que dit le code de déontologie sur la liberté de prescription', answer: 'Le médecin est libre de ses prescriptions, mais dans l’intérêt du patient et dans les limites fixées par la loi' },
+  { question: 'Quelles sont les limites à la liberté de prescription', answer: 'L’intérêt du malade, la loi et les données de la science' },
+  { question: 'Qu’impose le code de la sécurité sociale à propos des prescriptions', answer: 'D’observer la plus stricte économie compatible avec la qualité, la sécurité et l’efficacité des soins' },
+  { question: 'Que doit prendre en compte le médecin selon le code de la sécurité sociale', answer: 'L’intérêt collectif sans négliger celui du patient' },
+  { question: 'Quelle est la responsabilité du médecin exerçant dans un service public', answer: 'La responsabilité incombe à l’établissement public sauf faute personnelle détachable du service' },
+  { question: 'Quelle est la responsabilité du médecin libéral', answer: 'Sa responsabilité est engagée selon les données acquises de la science' },
+  { question: 'Le médecin peut-il s’écarter des recommandations officielles', answer: 'Oui, à condition de pouvoir justifier ses choix' },
+  { question: 'Quelle instance juge la responsabilité disciplinaire du médecin', answer: 'Le Conseil de l’Ordre des Médecins' },
+  { question: 'Que représente le rapport bénéfice / risque', answer: 'L’équilibre entre les effets bénéfiques attendus et les risques potentiels du traitement' },
+  { question: 'Sur quoi repose la prescription médicale selon le rapport bénéfice / risque', answer: 'Sur la probabilité d’efficacité et la possibilité d’effets indésirables' },
+  { question: 'Comment est établi le rapport bénéfice / risque', answer: 'À partir des résultats des essais cliniques réalisés sur la population' },
+  { question: 'Y a-t-il un traitement avec 100 % de patients répondeurs', answer: 'Non, aucun traitement n’a 100 % d’efficacité' },
+  { question: 'Tous les traitements ont-ils des effets indésirables', answer: 'Oui, plus ou moins graves selon la molécule et le patient' },
+  { question: 'Que représente toute prescription pour le médecin', answer: 'Une prise de risque thérapeutique' },
+  { question: 'Quelles sont les conséquences d’une prescription inadaptée', answer: 'Échec thérapeutique, effets secondaires ou complications' },
+  { question: 'Pourquoi le prescripteur doit-il garder son sens critique', answer: 'Car l’industrie pharmaceutique a un objectif commercial' },
+  { question: 'Qui est l’acheteur final du médicament selon le cours', answer: 'Le prescripteur, même si le coût est supporté par la Sécurité Sociale' },
+  { question: 'Pourquoi le médecin doit-il être prudent face au marketing pharmaceutique', answer: 'Parce que les stratégies de vente peuvent influencer les prescriptions' },
+  { question: 'Quelle est la première règle d’or de la prescription', answer: 'Ne prescrire que si cela est absolument nécessaire' },
+  { question: 'Quelle est la deuxième règle d’or de la prescription', answer: 'Prescrire le moins possible' },
+  { question: 'Quelle est la troisième règle d’or de la prescription', answer: 'Éviter les interactions médicamenteuses' },
+  { question: 'Quelle est la quatrième règle d’or de la prescription', answer: 'Adapter la posologie au patient' },
+  { question: 'Quelle est la cinquième règle d’or de la prescription', answer: 'Choisir de préférence des médicaments éprouvés' },
+  { question: 'Quelle est la sixième règle d’or de la prescription', answer: 'Attendre les résultats d’essais cliniques avant d’utiliser un nouveau traitement' },
+  { question: 'Quelle est la septième règle d’or de la prescription', answer: 'Expliquer l’ordonnance au patient' },
+  { question: 'Quelle est la huitième règle d’or de la prescription', answer: 'Réévaluer régulièrement la pertinence du traitement et sa balance bénéfice / risque' },
+  { question: 'Quelle est la neuvième règle d’or de la prescription', answer: 'Se tenir informé et se former continuellement' },
+  { question: 'Quelle est la dixième règle d’or de la prescription', answer: 'Garder un esprit critique face aux pressions des patients et du marketing' },
+  { question: 'Pourquoi est-il important d’éviter la surprescription d’antibiotiques', answer: 'Pour limiter le développement des résistances bactériennes' },
+  { question: 'Quelle est la responsabilité du médecin en cas de prescription hors AMM', answer: 'Il engage sa responsabilité personnelle et doit justifier la décision' },
+  { question: 'Que signifie AMM', answer: 'Autorisation de Mise sur le Marché' },
+  { question: 'Qui délivre l’AMM en France', answer: 'L’Agence Nationale de Sécurité du Médicament et des produits de santé (ANSM)' },
+  { question: 'Que doit faire le médecin en cas de prescription hors AMM', answer: 'Mentionner NR (non remboursable) sur l’ordonnance' },
+  { question: 'Dans quel cas une prescription hors AMM est-elle justifiée', answer: 'Lorsqu’il existe des preuves d’efficacité dans une autre pathologie' },
+  { question: 'Quelle est la sanction d’un manquement aux règles de prescription', answer: 'Sanction disciplinaire, civile ou pénale selon la gravité' },
+  { question: 'Que doit faire le médecin face à un patient exigeant un médicament inutile', answer: 'Expliquer et refuser la prescription si elle n’est pas justifiée' },
+  { question: 'Pourquoi la prescription est-elle un acte médical complet', answer: 'Parce qu’elle engage la responsabilité, la compétence et la communication du médecin' },
+  { question: 'Pourquoi est-il nécessaire d’expliquer la balance bénéfice / risque au patient', answer: 'Pour obtenir son consentement éclairé et favoriser l’adhésion au traitement' },
+  { question: 'Pourquoi le suivi thérapeutique est-il important', answer: 'Pour ajuster le traitement en fonction de l’évolution et des effets observés' },
+  { question: 'Que risque un médecin qui prescrit sans justification scientifique', answer: 'Une faute professionnelle' },
+  { question: 'Comment limiter les effets indésirables d’un médicament', answer: 'En ajustant la dose et en surveillant le patient' },
+  { question: 'Quelle attitude le médecin doit-il adopter face à la pression des laboratoires', answer: 'Garder une indépendance critique et éthique' },
+  { question: 'Qu’est-ce qu’un effet indésirable grave', answer: 'Un effet provoquant hospitalisation, invalidité, ou mettant la vie en danger' },
+  { question: 'Qu’est-ce qu’un effet indésirable inattendu', answer: 'Un effet non mentionné dans la notice ou non observé lors des essais cliniques' },
+  { question: 'Que doit faire le médecin en cas d’effet indésirable grave', answer: 'Le déclarer à l’ANSM via le système de pharmacovigilance' },
+  { question: 'Quel est le rôle de la pharmacovigilance', answer: 'Surveiller la sécurité d’emploi des médicaments après leur mise sur le marché' },
+  { question: 'Pourquoi faut-il préférer les médicaments éprouvés', answer: 'Parce que leur efficacité et leurs risques sont mieux connus' },
+  { question: 'Que signifie la notion de probabilité de réponse thérapeutique', answer: 'Tous les patients ne répondent pas de la même manière à un traitement' },
+  { question: 'Qu’est-ce que le rapport bénéfice / risque individuel', answer: 'L’évaluation du gain thérapeutique attendu pour un patient particulier' },
+  { question: 'Qu’est-ce que le rapport bénéfice / risque populationnel', answer: 'L’évaluation statistique basée sur les essais cliniques pour une population donnée' },
+  { question: 'Quelle est la différence entre bénéfice clinique et bénéfice perçu', answer: 'Le bénéfice clinique est mesurable, le bénéfice perçu dépend du ressenti du patient' },
+  { question: 'Quelle est la démarche du médecin face à un traitement à risque', answer: 'Évaluer, informer, surveiller et réévaluer' },
+  { question: 'Quelle est la première question à se poser avant de prescrire', answer: 'Le traitement est-il vraiment nécessaire' },
+  { question: 'Quelle est la deuxième question à se poser avant de prescrire', answer: 'Le médicament choisi est-il le plus sûr et le plus adapté' },
+  { question: 'Quelle est la troisième question à se poser avant de prescrire', answer: 'Le patient a-t-il bien compris et accepté le traitement' },
+  { question: 'Quelle est la quatrième question à se poser avant de prescrire', answer: 'Existe-t-il des interactions avec d’autres médicaments du patient' },
+  { question: 'Quelle est la cinquième question à se poser avant de prescrire', answer: 'La durée et la dose sont-elles appropriées à la situation' },
+  { question: 'Quelle est la finalité principale d’une prescription médicale', answer: 'Améliorer la santé du patient tout en limitant les risques' },
+  { question: 'Quelles sont les trois étapes essentielles de l’acte de prescription', answer: 'Diagnostic, choix du traitement, rédaction de l’ordonnance' },
+  { question: 'Quelles sont les trois obligations légales liées à la prescription', answer: 'Responsabilité, traçabilité et justification' },
+  { question: 'Que doit comporter obligatoirement toute ordonnance pour être valide', answer: 'Date, identification complète du médecin et du patient, signature, médicament et posologie' },
+  { question: 'Pourquoi la date sur l’ordonnance a-t-elle une valeur médico-légale', answer: 'Elle permet de vérifier la validité de la prescription, notamment pour les stupéfiants' },
+  { question: 'Que risque un médecin en cas d’ordonnance falsifiée à son nom', answer: 'Une enquête disciplinaire et une possible sanction de l’Ordre' },
+  { question: 'Quel est le rôle de l’ordonnance dans la relation médecin-patient', answer: 'C’est un outil de communication et de confiance' },
+  { question: 'Pourquoi le médecin doit-il adapter la forme galénique à chaque patient', answer: 'Pour assurer l’efficacité du traitement et éviter les erreurs de prise' },
+  { question: 'Quelle est la responsabilité du médecin concernant la compréhension du patient', answer: 'Il doit s’assurer que le patient a bien compris le traitement' },
+  { question: 'Quelle est la conséquence d’une ordonnance mal expliquée', answer: 'Mauvaise observance et risque d’échec thérapeutique' },
+  { question: 'Quelle est la cause principale d’inobservance thérapeutique', answer: 'Une mauvaise compréhension de la prescription' },
+  { question: 'Quelle est la durée de validité d’une ordonnance classique', answer: 'En général 3 mois sauf mention contraire ou médicament spécifique' },
+  { question: 'Quelle est la durée de validité d’une ordonnance sécurisée pour stupéfiants', answer: 'Entre 7 et 28 jours selon la molécule' },
+  { question: 'Quelle est la durée de conservation d’une ordonnance en pharmacie', answer: 'Trois ans pour les stupéfiants' },
+  { question: 'Que doit vérifier le pharmacien avant toute délivrance', answer: 'La conformité formelle et légale de l’ordonnance' },
+  { question: 'Quelle est la responsabilité du pharmacien en cas d’erreur de délivrance', answer: 'Elle peut être engagée civilement et pénalement' },
+  { question: 'Quelle est la principale mission du pharmacien lors de la dispensation', answer: 'Garantir la sécurité et la bonne utilisation du médicament' },
+  { question: 'Que signifie le mot « dispensation »', answer: 'L’acte de délivrer un médicament avec vérification et conseil au patient' },
+  { question: 'Pourquoi la mention « Non substituable » est-elle encadrée', answer: 'Pour éviter les abus et garantir la justification médicale' },
+  { question: 'Que représente la substitution générique pour la Sécurité Sociale', answer: 'Une économie importante sur le coût des traitements' },
+  { question: 'Que signifie la prescription « hors AMM »', answer: 'Prescription d’un médicament pour une indication non validée dans son autorisation' },
+  { question: 'Qu’est-ce qu’une ordonnance bi-zone permet de distinguer', answer: 'Les traitements liés à une ALD et ceux des affections intercurrentes' },
+  { question: 'Que signifie ALD', answer: 'Affection de Longue Durée' },
+  { question: 'Quel est le taux de remboursement pour une ALD', answer: '100 % par l’Assurance Maladie' },
+  { question: 'Quelle est la différence entre ALD et traitement courant', answer: 'L’ALD est exonérée, le traitement courant est remboursé selon le SMR' },
+  { question: 'Que signifie SMR', answer: 'Service Médical Rendu' },
+  { question: 'Quels sont les taux de remboursement selon le SMR', answer: '100 %, 65 %, 30 %, 15 % ou 0 % selon l’importance du bénéfice' },
+  { question: 'Que doit faire le médecin en cas de prescription d’un médicament coûteux d’exception', answer: 'Utiliser une ordonnance d’exception conforme au modèle HAS' },
+  { question: 'Quelle est la particularité d’une ordonnance d’exception', answer: 'Elle comporte trois zones pour le patient, le prescripteur et le pharmacien' },
+  { question: 'Qui valide la conformité d’une ordonnance d’exception', answer: 'Le médecin spécialiste via une attestation signée' },
+  { question: 'Quelles sont les catégories principales de prescripteurs autorisés', answer: 'Médecins, chirurgiens-dentistes, sages-femmes, vétérinaires et pédicures-podologues' },
+  { question: 'Que signifie un médicament « réservé à l’usage hospitalier »', answer: 'Il ne peut être prescrit ni délivré qu’à l’hôpital' },
+  { question: 'Que signifie un médicament à « prescription initiale hospitalière »', answer: 'La première prescription doit être faite à l’hôpital, puis renouvelable en ville' },
+  { question: 'Que signifie un médicament à « prescription hospitalière »', answer: 'Il est prescrit à l’hôpital mais peut être délivré en ville' },
+  { question: 'Que signifie un médicament nécessitant une « surveillance particulière »', answer: 'Un suivi médical étroit est requis pendant le traitement' },
+  { question: 'Que signifie un médicament à « prescription réservée à certains spécialistes »', answer: 'Il ne peut être prescrit que par des médecins d’une spécialité donnée' },
+  { question: 'Quelle est la sanction en cas de prescription illégale d’un médicament restreint', answer: 'Responsabilité disciplinaire et possible sanction pénale' },
+  { question: 'Que doit faire un médecin avant de prescrire un stupéfiant', answer: 'Évaluer le besoin, informer le patient et respecter la réglementation sécurisée' },
+  { question: 'Quelle est la durée de prescription maximale de la morphine injectable', answer: '7 jours' },
+  { question: 'Quelle est la durée de prescription maximale du fentanyl transdermique', answer: '14 jours' },
+  { question: 'Quelle est la durée de prescription maximale du Subutex', answer: '7 jours' },
+  { question: 'Quelle est la démarche d’un patient en voyage avec des stupéfiants', answer: 'Demander une autorisation officielle selon sa destination' },
+  { question: 'Quelle est la mission principale du médecin vis-à-vis du patient', answer: 'Prescrire dans son intérêt, selon les données de la science et en toute sécurité' },
+  { question: 'Pourquoi la prescription engage-t-elle la responsabilité du médecin', answer: 'Parce qu’elle constitue un acte médical à valeur légale et éthique' },
+  { question: 'Quelle est la principale différence entre un médicament générique et une spécialité', answer: 'Le générique a la même DCI mais un nom et excipients différents' },
+  { question: 'Quelles sont les caractéristiques d’une ordonnance claire et légale', answer: 'Lisible, datée, signée, non ambiguë et correctement structurée' },
+  { question: 'Pourquoi la signature du médecin doit-elle suivre immédiatement la dernière ligne', answer: 'Pour empêcher tout ajout frauduleux' },
+  { question: 'Quelle mention doit être indiquée en cas de dépassement de posologie habituelle', answer: 'La mention « je dis » suivie de la posologie en toutes lettres' },
+  { question: 'Quelle est la règle à retenir concernant les interactions médicamenteuses', answer: 'Toujours vérifier les associations et les intervalles de prise' },
+  { question: 'Que doit faire le médecin avant de prescrire un traitement long', answer: 'Évaluer la durée et planifier une réévaluation périodique' },
+  { question: 'Quelle est la valeur pédagogique du rapport bénéfice / risque pour l’étudiant en médecine', answer: 'Comprendre que toute prescription comporte un risque et doit être réfléchie' },
+  { question: 'Pourquoi la pharmacovigilance est-elle essentielle pour les futurs médecins', answer: 'Pour surveiller et signaler les effets indésirables des traitements' },
+  { question: 'Quelle attitude doit adopter un étudiant en médecine lors de ses prescriptions supervisées', answer: 'Toujours justifier, vérifier et expliquer chaque choix thérapeutique' },
+  { question: 'Quelle est la principale qualité attendue d’un prescripteur', answer: 'Le discernement' },
+  { question: 'Que doit toujours accompagner une ordonnance', answer: 'Une explication claire et adaptée au patient' },
+  { question: 'Que signifie l’expression « non prescription = prescription »', answer: 'Qu’il est parfois préférable de ne rien prescrire pour protéger le patient' },
+  { question: 'Quelle phrase résume la responsabilité médicale dans la prescription', answer: 'Prescrire, c’est soigner mais aussi s’engager' },
+  { question: 'Quelle est la compétence clé à maîtriser pour le concours de médecine sur ce thème', answer: 'Identifier les règles légales, les classes de médicaments et la hiérarchie des ordonnances' },
+  { question: 'Quelle est la meilleure stratégie d’étude pour retenir les règles de prescription', answer: 'Réviser par cas concrets, schémas d’ordonnance et flashcards régulières' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

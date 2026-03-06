@@ -1,0 +1,529 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Compartiment liquidien</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Compartiment liquidien</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la proportion moyenne d’eau dans le corps humain ?', answer: 'Environ 60 % du poids du corps' },
+  { question: 'Quelles sont les variations du contenu en eau selon l’âge ?', answer: 'Nourrisson 75 %, adulte 60 %, personne âgée moins de 60 %' },
+  { question: 'Comment varie le contenu en eau selon la corpulence ?', answer: 'Il est inversement proportionnel à la masse grasse, plus la graisse augmente plus l’eau diminue' },
+  { question: 'Quelle est la teneur en eau des muscles ?', answer: 'Environ 75 %' },
+  { question: 'Quelle est la teneur en eau des os ?', answer: 'Environ 22 %' },
+  { question: 'Quelle est la teneur en eau de la graisse ?', answer: 'Environ 15 %' },
+  { question: 'Quels sont les trois grands compartiments hydriques de l’organisme ?', answer: 'Compartiment intracellulaire, extracellulaire et transcellulaire' },
+  { question: 'Quel volume représente le compartiment intracellulaire ?', answer: 'Environ 23 litres, soit deux tiers de l’eau totale' },
+  { question: 'Quelle est la proportion du compartiment intracellulaire en pourcentage du poids corporel ?', answer: 'Entre 30 et 40 %' },
+  { question: 'Quel ion est le plus abondant dans le compartiment intracellulaire ?', answer: 'Le potassium (K+)' },
+  { question: 'Quels anions prédominent dans le compartiment intracellulaire ?', answer: 'Les anions organiques comme les phosphates (P-)' },
+  { question: 'Quel volume représente le compartiment extracellulaire ?', answer: 'Environ 13 litres' },
+  { question: 'Quelles sont les sous-parties du compartiment extracellulaire ?', answer: 'Plasma, liquide interstitiel, lymphe' },
+  { question: 'Quel est le volume du plasma ?', answer: 'Environ 3 litres soit 5 % du poids corporel' },
+  { question: 'Quel est le volume du liquide interstitiel ?', answer: 'Environ 9 litres soit 15 % du poids corporel' },
+  { question: 'Quelle est la proportion de la lymphe dans le compartiment extracellulaire ?', answer: 'Environ 2 %' },
+  { question: 'Que regroupe le compartiment transcellulaire ?', answer: 'Les liquides séparés du plasma par un épithélium : LCR, liquide intra-oculaire, pleural, synovial, digestif' },
+  { question: 'Quelle est la composition principale du compartiment transcellulaire ?', answer: 'Le chlorure de sodium (NaCl)' },
+  { question: 'Quelle est la concentration plasmatique en sodium ?', answer: 'Environ 143 mEq/L' },
+  { question: 'Quelle est la concentration interstitielle en sodium ?', answer: 'Environ 137 mEq/L' },
+  { question: 'Quelle est la concentration intracellulaire en sodium ?', answer: 'Environ 12 mEq/L' },
+  { question: 'Quelle est la concentration plasmatique en potassium ?', answer: 'Environ 4 mEq/L' },
+  { question: 'Quelle est la concentration interstitielle en potassium ?', answer: 'Environ 4 mEq/L' },
+  { question: 'Quelle est la concentration intracellulaire en potassium ?', answer: 'Environ 154 mEq/L' },
+  { question: 'Quelle est la concentration plasmatique en chlorures ?', answer: 'Environ 103 mEq/L' },
+  { question: 'Quelle est la concentration interstitielle en chlorures ?', answer: 'Environ 110 mEq/L' },
+  { question: 'Quelle est la concentration intracellulaire en chlorures ?', answer: 'Environ 3 mEq/L' },
+  { question: 'Quelle est la concentration intracellulaire en phosphates (HPO4-) ?', answer: 'Environ 135 mEq/L' },
+  { question: 'Quelle est la concentration plasmatique en phosphates ?', answer: 'Environ 2 mEq/L' },
+  { question: 'Quelle est la concentration interstitielle en phosphates ?', answer: 'Environ 2 mEq/L' },
+  { question: 'Quelle est la formule de base de la dilution d’un traceur pour mesurer un compartiment ?', answer: 'm = C x V' },
+  { question: 'Quelles sont les conditions requises pour un traceur idéal ?', answer: 'Diffusion rapide et spécifique, facile à doser, différenciable d’une substance endogène, non toxique, sans effet pharmacologique' },
+  { question: 'Quel traceur est utilisé pour mesurer l’eau totale ?', answer: 'L’antipyrine ou les isotopes de l’eau (²H₂O, ³H₂O)' },
+  { question: 'Quelle proportion du poids corporel représente l’eau totale ?', answer: 'Environ 60 %' },
+  { question: 'Quel traceur est utilisé pour mesurer l’eau extracellulaire ?', answer: 'L’inuline, le mannitol ou le thiosulfate' },
+  { question: 'Quelle proportion du poids corporel représente l’eau extracellulaire ?', answer: 'Environ 20 %' },
+  { question: 'Quel traceur est utilisé pour mesurer l’eau plasmatique ?', answer: 'L’albumine marquée à l’iode 131 ou le bleu Evans' },
+  { question: 'Quelle proportion du poids corporel représente l’eau plasmatique ?', answer: 'Environ 4 à 5 %' },
+  { question: 'Quelle méthode permet de mesurer le volume globulaire ?', answer: 'Utilisation d’hématies marquées au chrome 51 ou au phosphore radioactif' },
+  { question: 'Quel est le principe de la méthode de l’inuline ?', answer: 'Perfusion jusqu’à concentration plasmatique stable puis mesure de l’élimination urinaire' },
+  { question: 'Que permet de calculer le volume de distribution de l’inuline ?', answer: 'Le rapport de l’inuline excrétée dans les urines sur la concentration plasmatique au plateau' },
+  { question: 'Quelle est la principale caractéristique de l’inuline ?', answer: 'Elle est éliminée rapidement par le rein' },
+  { question: 'Comment évolue la teneur en eau chez un obèse par rapport à un sujet normopondéral ?', answer: 'Elle diminue car l’eau est inversement proportionnelle à la masse grasse' },
+  { question: 'Quelle est la différence essentielle entre plasma et interstitium au niveau de la composition ionique ?', answer: 'La présence de protéines dans le plasma' },
+  { question: 'Quelle fraction du poids corporel représente l’eau transcellulaire ?', answer: 'Environ 1 à 3 %' },
+  { question: 'Quels sont des exemples de liquides transcellulaires ?', answer: 'Liquide céphalo-rachidien, pleural, synovial, digestif, intra-oculaire' },
+  { question: 'Quel compartiment contient la majorité du potassium ?', answer: 'Le compartiment intracellulaire' },
+  { question: 'Quel compartiment contient la majorité du sodium ?', answer: 'Le compartiment extracellulaire' },
+  { question: 'Quelle est la particularité du compartiment intracellulaire en termes de composition ionique ?', answer: 'Il est riche en potassium et en anions organiques, pauvre en sodium et en chlorures' },
+  { question: 'Quelle est la formule permettant de calculer un volume de distribution si le traceur est partiellement éliminé ?', answer: 'V = m / C corrigé de l’élimination' },
+  { question: 'Quelles sont les propriétés nécessaires d’un indicateur pour mesurer les compartiments liquidiens ?', answer: 'Diffusion rapide, distribution spécifique, dosage facile, substance non endogène, innocuité' },
+  { question: 'Pourquoi utilise-t-on le bleu Evans pour mesurer l’eau plasmatique ?', answer: 'Parce qu’il se fixe à l’albumine' },
+  { question: 'Pourquoi utilise-t-on l’inuline pour mesurer l’eau extracellulaire ?', answer: 'Parce qu’elle ne pénètre pas dans les cellules et est rapidement éliminée par le rein' },
+  { question: 'Quelles sont les unités classiques pour exprimer les concentrations ioniques ?', answer: 'En mEq/L' },
+  { question: 'Pourquoi le contenu en eau varie-t-il avec l’âge ?', answer: 'Parce que la proportion de tissus riches en eau (muscles) diminue avec l’âge, au profit de la masse grasse' },
+  { question: 'Pourquoi l’eau totale est-elle plus faible chez une personne obèse ?', answer: 'Parce que la masse grasse contient peu d’eau' },
+  { question: 'Où se déroulent principalement les échanges entre compartiments plasmatiques et intracellulaires ?', answer: 'Au niveau des capillaires' },
+  { question: 'Par quel compartiment transitent les échanges entre plasma et cellule ?', answer: 'Par le compartiment interstitiel' },
+  { question: 'Quel est le mécanisme principal des échanges capillaires ?', answer: 'La diffusion passive' },
+  { question: 'Quelle est la formule de la diffusion selon Fick ?', answer: 'dN/dt = - D . A . dc/dx' },
+  { question: 'De quoi dépend le coefficient de diffusion D ?', answer: 'Du milieu, de la molécule, de la température et de la pression' },
+  { question: 'Quel est le sens du flux de diffusion ?', answer: 'De la région la plus concentrée vers la moins concentrée' },
+  { question: 'Qu’est-ce que la pression osmotique ?', answer: 'C’est la pression exercée par les solutés qui attire l’eau à travers une membrane semi-perméable' },
+  { question: 'Quelle est la relation entre osmolarité et pression osmotique ?', answer: 'La pression osmotique est proportionnelle au nombre de particules dissoutes' },
+  { question: 'Quelle est la différence entre osmolarité et osmolalité ?', answer: 'L’osmolarité est rapportée au volume de solution, l’osmolalité est rapportée à la masse de solvant' },
+  { question: 'Pourquoi parle-t-on de pseudo-hyponatrémie en cas d’hyperprotéinémie ?', answer: 'Parce que l’osmolarité apparente est faussement diminuée à cause du volume occupé par les protéines' },
+  { question: 'Quelles molécules traversent librement la bicouche lipidique ?', answer: 'Les molécules lipophiles (O₂, CO₂, N₂) et les petites molécules polaires non chargées comme l’eau et l’urée' },
+  { question: 'Quelles molécules ne traversent pas librement la bicouche lipidique ?', answer: 'Les ions (Na+, K+, Ca2+, HCO3-, Cl-) et les grosses molécules polaires comme le glucose' },
+  { question: 'Quel est le rôle des protéines membranaires spécialisées ?', answer: 'Transporter les molécules hydrosolubles à travers la membrane' },
+  { question: 'Qu’est-ce que l’équilibre de Gibbs-Donnan ?', answer: 'Un équilibre électrochimique impliquant les ions diffusibles autour d’une membrane imperméable aux protéines' },
+  { question: 'Qu’est-ce que la pression oncotique ?', answer: 'C’est la pression osmotique exercée par les protéines plasmatiques retenant l’eau dans le compartiment vasculaire' },
+  { question: 'Quels sont les trois types de capillaires sanguins ?', answer: 'Capillaires continus, fenêtrés, sinusoïdes' },
+  { question: 'Où trouve-t-on des capillaires continus ?', answer: 'Dans les muscles, les poumons et le cerveau' },
+  { question: 'Où trouve-t-on des capillaires fenêtrés ?', answer: 'Dans le mésentère, les glomérules rénaux, les plexus choroïdes, l’intestin' },
+  { question: 'Où trouve-t-on des capillaires sinusoïdes ?', answer: 'Dans le foie, la rate et la moelle osseuse' },
+  { question: 'Quelle est la principale caractéristique de la paroi capillaire vis-à-vis de l’eau ?', answer: 'Elle est très perméable grâce aux aquaporines' },
+  { question: 'Les protéines traversent-elles la paroi capillaire ?', answer: 'Non, sauf dans les capillaires sinusoïdes' },
+  { question: 'Quel est le principe de l’hypothèse de Starling ?', answer: 'Les transferts d’eau résultent des différences entre pression hydrostatique et pression oncotique' },
+  { question: 'Quelle est la valeur moyenne de la pression hydrostatique capillaire en entrée ?', answer: 'Environ 30 mmHg' },
+  { question: 'Quelle est la valeur moyenne de la pression hydrostatique capillaire en sortie ?', answer: 'Environ 10 mmHg' },
+  { question: 'Quelle est la valeur moyenne de la pression oncotique plasmatique ?', answer: 'Environ 20 mmHg' },
+  { question: 'Quel est le rôle du système lymphatique dans les échanges hydriques ?', answer: 'Il récupère environ 2 litres d’eau par jour non réabsorbés par les capillaires' },
+  { question: 'Quelles sont les trois causes principales d’œdèmes ?', answer: 'Augmentation de la pression veineuse, hypoalbuminémie, obstruction lymphatique' },
+  { question: 'Quel est l’exemple typique d’œdème par augmentation de la pression veineuse ?', answer: 'L’insuffisance cardiaque droite' },
+  { question: 'Quelle est la cause des œdèmes par hypoalbuminémie ?', answer: 'Une dénutrition entraînant une baisse de la pression oncotique' },
+  { question: 'Quelle est la cause des œdèmes lymphatiques ?', answer: 'Des infections parasitaires obstruant les vaisseaux lymphatiques' },
+  { question: 'Quelles sont les grandes catégories de protéines membranaires de transport ?', answer: 'Canaux ioniques, transporteurs, pompes' },
+  { question: 'Qu’est-ce qu’un canal ionique ?', answer: 'Un pore hydrophile permettant le passage passif d’ions selon leur gradient électrochimique' },
+  { question: 'Comment sont régulés les canaux ioniques ?', answer: 'Par le voltage, la fixation d’un ligand, les protéines G, ou l’augmentation de Ca²⁺ intracellulaire' },
+  { question: 'Qu’est-ce qu’un transporteur membranaire ?', answer: 'Une protéine qui change de conformation pour faire passer un soluté' },
+  { question: 'Quels sont les trois types de transport via transporteurs ?', answer: 'Transport facilité, symport, antiport' },
+  { question: 'Quelle est la caractéristique du transport facilité ?', answer: 'Il est saturable et peut être compétitif entre deux molécules' },
+  { question: 'Qu’est-ce qu’un symport ?', answer: 'Transport simultané de deux molécules dans le même sens' },
+  { question: 'Qu’est-ce qu’un antiport ?', answer: 'Transport simultané de deux molécules dans des sens opposés' },
+  { question: 'Quel est le rôle de la pompe Na+/K+ ATPase ?', answer: 'Expulser 3 Na+ et faire entrer 2 K+ contre leur gradient, maintenant le potentiel membranaire' },
+  { question: 'Quelle est la source d’énergie de la pompe Na+/K+ ATPase ?', answer: 'L’hydrolyse de l’ATP' },
+  { question: 'Quel inhibiteur spécifique bloque la pompe Na+/K+ ATPase ?', answer: 'L’ouabaïne' },
+  { question: 'Pourquoi la pompe Na+/K+ ATPase est-elle indispensable aux cellules ?', answer: 'Elle maintient le gradient ionique nécessaire au fonctionnement des enzymes et à la polarité cellulaire' },
+  { question: 'Comment la pompe Na+/K+ ATPase participe-t-elle à l’équilibre hydrique intracellulaire ?', answer: 'En expulsant le sodium qui attire l’eau, elle empêche la surcharge hydrique intracellulaire' },
+  { question: 'Comment est polarisée une cellule épithéliale ?', answer: 'Elle possède plus de pompes Na+/K+ ATPase sur sa face basolatérale que sur sa face apicale' },
+  { question: 'Comment l’eau suit-elle le sodium dans les cellules épithéliales ?', answer: 'Par diffusion osmotique à travers les membranes et les aquaporines' },
+  { question: 'Quelle est la conséquence du passage du sodium de l’apical vers le basolatéral ?', answer: 'Un mouvement passif du chlore et de l’eau qui suit le sodium' },
+  { question: 'Que se passe-t-il si l’osmolarité extracellulaire est supérieure à l’intracellulaire ?', answer: 'L’eau sort des cellules entraînant une déshydratation intracellulaire' },
+  { question: 'Que se passe-t-il si l’osmolarité extracellulaire est inférieure à l’intracellulaire ?', answer: 'L’eau entre dans les cellules entraînant une hyperhydratation intracellulaire' },
+  { question: 'Que se passe-t-il en situation iso-osmotique ?', answer: 'Il n’y a pas de mouvement d’eau entre les compartiments' },
+  { question: 'Quelle est la conséquence d’une fuite d’eau extracellulaire sans sodium ?', answer: 'Une hyperosmolarité extracellulaire et une déshydratation intracellulaire' },
+  { question: 'Quelle est la conséquence d’une perte de sodium extracellulaire sans perte d’eau ?', answer: 'Une hypo-osmolarité extracellulaire et une hyperhydratation intracellulaire' },
+  { question: 'Quelle est la conséquence d’une hypoprotéinémie sur l’équilibre ionique ?', answer: 'Elle fausse la natrémie mesurée et donne une pseudo-hyponatrémie' },
+  { question: 'Quelle est la quantité d’eau excrétée dans les urines par jour chez un sujet normal ?', answer: 'Environ 1,5 L par jour' },
+  { question: 'Avec quelle précision le volume d’eau total est-il régulé dans l’organisme sain ?', answer: 'À 0,5 % près' },
+  { question: 'Quels sont les deux principaux mécanismes de régulation de l’eau corporelle ?', answer: 'La sensation de soif et la physiologie rénale' },
+  { question: 'Quelles sont les pertes d’eau obligatoires par jour en l’absence d’apport hydrique ?', answer: 'Entre 0,5 et 1 L par jour' },
+  { question: 'Combien de jours peut survivre un individu sans boire en climat tempéré ?', answer: 'Environ 4 à 6 jours' },
+  { question: 'Quelle réduction d’eau corporelle rend un individu très assoiffé ?', answer: 'Une perte de 2 kg d’eau' },
+  { question: 'Quelle réduction d’eau corporelle rend un individu très malade ?', answer: 'Une perte de 4 kg d’eau' },
+  { question: 'Quelle réduction d’eau corporelle entraîne la mort ?', answer: 'Une perte de 8 kg d’eau' },
+  { question: 'Quelle est la teneur en sodium dans l’alimentation quotidienne ?', answer: 'Entre 4 et 20 g de NaCl par jour' },
+  { question: 'Où se trouve le tiers du sodium total de l’organisme ?', answer: 'Dans l’os' },
+  { question: 'Où se trouve la majorité du sodium échangeable ?', answer: 'Dans le compartiment extracellulaire' },
+  { question: 'Pourquoi ne peut-on pas vivre en buvant de l’eau de mer ?', answer: 'Parce qu’elle est hypertonique et trop riche en magnésium' },
+  { question: 'Quelle est la quantité totale de potassium dans l’organisme ?', answer: 'Environ 3,5 mol' },
+  { question: 'Quelle proportion du potassium est intracellulaire ?', answer: '95 %' },
+  { question: 'Quelles sont les conséquences d’une déplétion sévère en sodium ?', answer: 'Un choc hypovolémique' },
+  { question: 'Quelles sont les conséquences d’une déplétion en potassium de 30 % ?', answer: 'Troubles neurologiques, troubles cardiaques, parfois mortels' },
+  { question: 'Quelle est l’osmolalité normale du compartiment extracellulaire ?', answer: 'Environ 300 mosm/kg d’eau' },
+  { question: 'Quels ions sont responsables de la tonicité extracellulaire ?', answer: 'Na+, Cl-, HCO3-' },
+  { question: 'Quelle est l’osmolalité intracellulaire normale ?', answer: 'Environ 300 mosm/kg d’eau' },
+  { question: 'Combien d’osmoles intracellulaires possède un sujet de 60 kg ?', answer: 'Environ 7200 osmoles' },
+  { question: 'Quelle est l’osmolalité moyenne d’un sujet de 60 kg ?', answer: '285 mosm/kg d’eau' },
+  { question: 'Quelle est la répartition de l’eau dans l’organisme d’un sujet de 60 kg ?', answer: '40 kg d’eau, soit 2/3 intracellulaire et 1/3 extracellulaire' },
+  { question: 'Qu’entraîne une osmolarité extracellulaire supérieure à l’intracellulaire ?', answer: 'Une déshydratation intracellulaire' },
+  { question: 'Qu’entraîne une osmolarité extracellulaire inférieure à l’intracellulaire ?', answer: 'Une hyperhydratation intracellulaire' },
+  { question: 'Quelle est la conséquence d’une situation iso-osmotique ?', answer: 'Pas de mouvement d’eau entre compartiments' },
+  { question: 'Quels sont les signes cliniques d’une augmentation du volume extracellulaire ?', answer: 'Prise de poids, augmentation de la TA, œdèmes, diminution de l’hématocrite et de la protidémie' },
+  { question: 'Quels sont les signes cliniques d’une diminution du volume extracellulaire ?', answer: 'Perte de poids, hypotension, pli cutané, augmentation de l’hématocrite et de la protidémie' },
+  { question: 'Quels sont les signes cliniques d’une augmentation du volume intracellulaire ?', answer: 'Troubles neurologiques, coma, muqueuses humides' },
+  { question: 'Quels sont les signes cliniques d’une diminution du volume intracellulaire ?', answer: 'Coma, muqueuses sèches, troubles neurologiques' },
+  { question: 'Quelle est la conséquence d’une hyperhydratation isotonique ?', answer: 'Augmentation du volume extracellulaire sans changement intracellulaire, augmentation de la PA et œdèmes' },
+  { question: 'Quelle est la conséquence d’une déshydratation isotonique ?', answer: 'Diminution du volume extracellulaire sans modification intracellulaire, hypotension, pli cutané' },
+  { question: 'Quelle est la conséquence d’un apport hypotonique ?', answer: 'Augmentation des volumes intracellulaire et extracellulaire, diminution de la natrémie' },
+  { question: 'Quelle est la conséquence d’un apport hypertonique ?', answer: 'Augmentation du volume extracellulaire, déshydratation intracellulaire, augmentation de la natrémie' },
+  { question: 'Quelle est la conséquence d’une perte d’eau extracellulaire sans sodium ?', answer: 'Hyperosmolarité extracellulaire, déshydratation intracellulaire, diminution du poids et de la TA' },
+  { question: 'Quel est le traitement d’une perte d’eau extracellulaire sans sodium ?', answer: 'Apport d’une solution hypotonique comme de l’eau pure' },
+  { question: 'Quelle est la conséquence d’une perte de sodium extracellulaire sans perte d’eau ?', answer: 'Hypo-osmolarité extracellulaire, hyperhydratation intracellulaire, diminution de la TA' },
+  { question: 'Quel est le traitement d’une perte de sodium extracellulaire sans perte d’eau ?', answer: 'Apport d’une solution de NaCl hypertonique' },
+  { question: 'Quel est le point commun à toutes les pertes de sodium ?', answer: 'Elles entraînent toujours une diminution du volume extracellulaire' },
+  { question: 'Que se passe-t-il à l’équilibre entre compartiments IC et EC ?', answer: 'L’osmolalité est identique dans les deux compartiments' },
+  { question: 'Quelle est la règle générale concernant les membranes cellulaires vis-à-vis de l’eau et des solutés ?', answer: 'Elles sont perméables à l’eau mais imperméables aux solutés' },
+  { question: 'Quelle est la conséquence d’une augmentation du sodium extracellulaire sans modification du volume d’eau ?', answer: 'Hyperosmolarité, mouvement d’eau vers l’extracellulaire, déshydratation intracellulaire' },
+  { question: 'Quelle est la conséquence d’une diminution du sodium extracellulaire avec eau normale ?', answer: 'Hypo-osmolarité, mouvement d’eau vers l’intracellulaire, hyperhydratation intracellulaire' },
+  { question: 'Quelles variables influencent directement l’osmolalité extracellulaire ?', answer: 'Le nombre d’osmoles et le volume de solvant' },
+  { question: 'Comment évalue-t-on biologiquement l’état d’hydratation ?', answer: 'Par la mesure de la natrémie, de l’hématocrite, de la protidémie et de la pression osmotique' },
+  { question: 'Quels sont les paramètres cliniques permettant d’évaluer l’hydratation extracellulaire ?', answer: 'Pression artérielle, poids, fréquence cardiaque, présence d’œdèmes' },
+  { question: 'Quels sont les paramètres cliniques permettant d’évaluer l’hydratation intracellulaire ?', answer: 'État neurologique, muqueuses, poids' },
+  { question: 'Quel est l’effet d’une alimentation riche en sel sur l’équilibre hydrique ?', answer: 'Le rein doit excréter davantage de sodium à condition qu’une quantité suffisante d’eau soit éliminée' },
+  { question: 'Quelle est la conséquence d’un déficit en eau de mer consommée ?', answer: 'Déshydratation car l’eau de mer est hypertonique et non utilisable par l’organisme' },
+  { question: 'Quels sont les deux déterminants principaux des mouvements d’eau entre IC et EC ?', answer: 'Le nombre d’osmoles et le volume du compartiment extracellulaire' },
+  { question: 'Quelles sont les conséquences cliniques d’une hyperhydratation extracellulaire isotonique ?', answer: 'Œdèmes, augmentation de la TA, diminution de l’hématocrite et de la protidémie' },
+  { question: 'Quelles sont les conséquences cliniques d’une déshydratation extracellulaire isotonique ?', answer: 'Hypotension, pli cutané, perte de poids, augmentation de l’hématocrite et de la protidémie' },
+  { question: 'Quelle est la conséquence d’un apport d’eau hypotonique sur la cellule ?', answer: 'Une hyperhydratation intracellulaire' },
+  { question: 'Quelle est la conséquence d’un apport d’eau hypertonique sur la cellule ?', answer: 'Une déshydratation intracellulaire' },
+  { question: 'Quelle est la règle générale des mouvements d’eau entre compartiments ?', answer: 'L’eau se déplace toujours vers le compartiment le plus concentré en osmoles' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Pharmacocinétique</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Pharmacocinétique</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’étudie la pharmacocinétique', answer: 'La pharmacocinétique étudie en fonction du temps les étapes du devenir d’un principe actif dans l’organisme depuis son administration jusqu’à son élimination' },
+  { question: 'Quelles sont les quatre étapes principales du devenir d’un médicament selon la pharmacocinétique', answer: 'Absorption, Distribution, Métabolisme et Élimination' },
+  { question: 'Quelle est la différence entre pharmacocinétique et pharmacodynamie', answer: 'La pharmacocinétique étudie la relation dose-concentration tandis que la pharmacodynamie étudie la relation concentration-effet' },
+  { question: 'Quel est l’objectif principal de la pharmacocinétique', answer: 'Déterminer les modalités optimales d’administration du médicament chez un patient donné' },
+  { question: 'Quelles sont les trois conditions pour une action efficace d’un médicament', answer: 'Présence au site d’action, concentration optimale et durée d’action suffisante' },
+  { question: 'Que représente la zone thérapeutique d’un médicament', answer: 'L’intervalle de concentration sanguine où l’effet thérapeutique est obtenu avec un minimum d’effets indésirables' },
+  { question: 'Que signifie le sigle ADME', answer: 'Absorption, Distribution, Métabolisme, Élimination' },
+  { question: 'Quelle est la voie d’administration qui n’implique pas d’étape d’absorption', answer: 'La voie intraveineuse' },
+  { question: 'Quel type de molécules passe le plus facilement les membranes biologiques par diffusion passive', answer: 'Les molécules liposolubles, non ionisées et de faible poids moléculaire' },
+  { question: 'Quelle loi régit la diffusion passive des médicaments', answer: 'La loi de Fick' },
+  { question: 'Quel type de transport est saturable, spécifique et dépendant de l’ATP', answer: 'Le transport actif' },
+  { question: 'Quelle protéine d’efflux majeure limite l’absorption intestinale de nombreux médicaments', answer: 'La P-glycoprotéine' },
+  { question: 'Quelle est la conséquence d’une forte fixation protéique d’un médicament', answer: 'Une diffusion tissulaire retardée et un risque de surdosage en cas de déplacement de la liaison' },
+  { question: 'Quelles protéines plasmatiques sont les principales impliquées dans la liaison médicamenteuse', answer: 'L’albumine, les alpha-globulines, les bêta-globulines et les lipoprotéines' },
+  { question: 'Quelle est la principale protéine de fixation pour les médicaments acides', answer: 'L’albumine' },
+  { question: 'Quelle est la principale protéine de fixation pour les médicaments basiques', answer: 'L’alpha-1-glycoprotéine acide' },
+  { question: 'Quel est le principal organe du métabolisme médicamenteux', answer: 'Le foie' },
+  { question: 'Quelles sont les deux phases du métabolisme', answer: 'Phase I de fonctionnalisation et phase II de conjugaison' },
+  { question: 'Quelle enzyme est la plus impliquée dans le métabolisme médicamenteux', answer: 'Le cytochrome P450, notamment l’isoenzyme CYP3A4' },
+  { question: 'Quel est l’objectif du métabolisme des médicaments', answer: 'Transformer les substances lipophiles en métabolites hydrosolubles plus facilement éliminables' },
+  { question: 'Qu’est-ce qu’un pro-médicament', answer: 'Une substance inactive qui devient active après métabolisation' },
+  { question: 'Qu’est-ce que l’effet de premier passage hépatique', answer: 'La perte d’une partie du principe actif avant son arrivée dans la circulation générale lors d’une administration orale' },
+  { question: 'Quelle voie d’administration permet d’éviter l’effet de premier passage', answer: 'La voie sublinguale' },
+  { question: 'Qu’est-ce que la biodisponibilité d’un médicament', answer: 'La fraction de la dose administrée retrouvée inchangée dans la circulation systémique' },
+  { question: 'Quelle est la biodisponibilité de référence pour la voie intraveineuse', answer: '100 pour cent' },
+  { question: 'Que mesure la surface sous la courbe (AUC ou SSC)', answer: 'La quantité totale de principe actif ayant circulé dans le sang dans le temps' },
+  { question: 'Que représentent Cmax et Tmax', answer: 'Cmax est la concentration maximale atteinte et Tmax est le temps pour atteindre cette concentration' },
+  { question: 'Qu’est-ce que le volume de distribution (Vd)', answer: 'Le volume fictif dans lequel le médicament devrait être dissous pour obtenir la même concentration que dans le plasma' },
+  { question: 'Quelle est la relation entre le Vd et la diffusion tissulaire', answer: 'Plus le Vd est élevé, plus la diffusion tissulaire est importante' },
+  { question: 'Qu’est-ce que la clairance d’un médicament', answer: 'Le volume de sang totalement épuré du médicament par unité de temps' },
+  { question: 'Quelle est la relation entre clairance totale, hépatique et rénale', answer: 'CLtotale égale CLhépatique plus CLrénale plus CLaute' },
+  { question: 'Qu’est-ce que la demi-vie d’élimination', answer: 'Le temps nécessaire pour que la concentration sanguine d’un médicament diminue de moitié' },
+  { question: 'Combien de demi-vies sont nécessaires pour éliminer presque complètement un médicament', answer: 'Environ cinq demi-vies' },
+  { question: 'Que signifie une cinétique linéaire', answer: 'Les paramètres pharmacocinétiques ne dépendent pas de la dose administrée' },
+  { question: 'Qu’est-ce que la pharmacodynamie', answer: 'L’étude des effets d’un médicament sur l’organisme et de leur relation avec la concentration' },
+  { question: 'Quelle est la relation concentration-effet typique d’un médicament', answer: 'Une courbe sigmoïde' },
+  { question: 'Que représente Emax', answer: 'L’effet maximal qu’un médicament peut produire' },
+  { question: 'Que représente CE50', answer: 'La concentration nécessaire pour atteindre la moitié de l’effet maximal' },
+  { question: 'Quelle est la signification de la puissance d’un médicament', answer: 'C’est l’inverse de la concentration nécessaire pour produire un effet donné' },
+  { question: 'Quelle est la différence entre efficacité et puissance', answer: 'L’efficacité correspond à Emax, la puissance correspond à CE50' },
+  { question: 'Quelle est la zone thérapeutique', answer: 'L’intervalle de concentration efficace sans toxicité pour la majorité des patients' },
+  { question: 'Que représente le plateau d’équilibre lors d’un traitement chronique', answer: 'L’état stable atteint après environ cinq demi-vies où les concentrations sanguines deviennent constantes' },
+  { question: 'Qu’est-ce qu’une dose d’entretien', answer: 'La dose administrée à chaque prise pour maintenir la concentration à l’état d’équilibre' },
+  { question: 'Qu’est-ce qu’une dose de charge', answer: 'Une dose initiale plus élevée destinée à atteindre rapidement la concentration d’équilibre' },
+  { question: 'Quels sont les principaux facteurs de variabilité pharmacocinétique', answer: 'Âge, sexe, pathologies, interactions médicamenteuses, polymorphisme génétique, alimentation' },
+  { question: 'Qu’est-ce que l’induction enzymatique', answer: 'L’augmentation de l’activité métabolique d’une enzyme, accélérant la dégradation des médicaments' },
+  { question: 'Qu’est-ce que l’inhibition enzymatique', answer: 'La diminution de l’activité métabolique d’une enzyme, ralentissant la dégradation des médicaments' },
+  { question: 'Qu’est-ce que la tolérance pharmacodynamique', answer: 'La diminution progressive de l’effet d’un médicament après administration répétée' },
+  { question: 'Quelle est la conséquence du jus de pamplemousse sur les médicaments', answer: 'Il inhibe les enzymes CYP3A4 intestinaux, augmentant la concentration sanguine de certains médicaments' },
+  { question: 'Que désigne la chronopharmacologie', answer: 'L’étude de l’influence du moment d’administration sur l’efficacité et la tolérance d’un médicament' },
+  { question: 'Quelle est la définition d’un xénobiotique', answer: 'C’est une substance étrangère à l’organisme qui, une fois introduite, est destinée à être éliminée' },
+  { question: 'Quelle est la conséquence d’une concentration sanguine trop élevée d’un médicament', answer: 'L’augmentation des effets indésirables sans gain d’efficacité' },
+  { question: 'Pourquoi une concentration sanguine élevée ne garantit-elle pas une efficacité optimale', answer: 'Parce que la concentration au site d’action peut être insuffisante malgré une concentration plasmatique importante' },
+  { question: 'Quelle est la conséquence d’une insuffisance rénale sur la pharmacocinétique', answer: 'Elle diminue l’élimination rénale et augmente le risque d’accumulation et de toxicité du médicament' },
+  { question: 'Quelle est la conséquence d’une insuffisance hépatique sur la pharmacocinétique', answer: 'Elle diminue le métabolisme hépatique et augmente la concentration plasmatique du médicament' },
+  { question: 'Quelle est la voie d’administration à biodisponibilité maximale', answer: 'La voie intraveineuse' },
+  { question: 'Quel est le rôle des transporteurs d’efflux comme la P-glycoprotéine', answer: 'Limiter l’entrée des médicaments dans les cellules en favorisant leur extrusion' },
+  { question: 'Quels organes possèdent des transporteurs d’efflux P-gp', answer: 'L’intestin, le foie, le rein, la barrière hémato-encéphalique, le placenta et certaines cellules tumorales' },
+  { question: 'Qu’est-ce qu’un passage paracellulaire', answer: 'C’est le passage d’une molécule entre les cellules à travers les jonctions serrées' },
+  { question: 'Quels médicaments utilisent le transport actif des acides aminés', answer: 'Le baclofène et la L-Dopa' },
+  { question: 'Quels médicaments utilisent les transporteurs d’oligopeptides', answer: 'Le céfixime et le captopril' },
+  { question: 'Quelle molécule est un exemple de diffusion rapide par passage paracellulaire', answer: 'L’éthanol' },
+  { question: 'Quelle est la conséquence d’une alcalinisation des urines sur l’élimination de l’aspirine', answer: 'Elle favorise son élimination en empêchant la réabsorption de sa forme ionisée' },
+  { question: 'Quelle est la principale voie d’absorption des médicaments administrés par voie orale', answer: 'L’intestin grêle' },
+  { question: 'Qu’est-ce que l’effet de premier passage intestinal ou hépatique', answer: 'C’est la dégradation d’une partie du médicament par les enzymes intestinales ou hépatiques avant son arrivée dans la circulation' },
+  { question: 'Quelle est la différence entre effet de premier passage et cycle entéro-hépatique', answer: 'L’effet de premier passage diminue la biodisponibilité alors que le cycle entéro-hépatique la prolonge' },
+  { question: 'Quelle voie d’administration permet un effet systémique rapide sans effet de premier passage', answer: 'La voie sublinguale' },
+  { question: 'Qu’est-ce qu’un médicament gastro-résistant', answer: 'Un médicament conçu pour résister à l’acidité gastrique et se libérer dans l’intestin' },
+  { question: 'Quelles sont les voies d’élimination principales des médicaments', answer: 'Rénale, hépatique, pulmonaire, cutanée et digestive' },
+  { question: 'Quelle est la particularité de l’élimination rénale', answer: 'Elle dépend de la filtration glomérulaire, de la sécrétion et de la réabsorption tubulaire' },
+  { question: 'Quelle est la clairance glomérulaire normale', answer: 'Environ 120 millilitres par minute' },
+  { question: 'Quelles sont les étapes du passage d’un médicament dans le rein', answer: 'Filtration glomérulaire, sécrétion tubulaire et réabsorption tubulaire' },
+  { question: 'Qu’est-ce que la sécrétion tubulaire', answer: 'Le transport actif d’un médicament du sang vers la lumière tubulaire rénale' },
+  { question: 'Qu’est-ce que la réabsorption tubulaire', answer: 'Le retour d’un médicament depuis l’urine vers la circulation sanguine' },
+  { question: 'Quelle est la conséquence d’une alcalinisation des urines sur les médicaments acides', answer: 'Elle augmente leur élimination' },
+  { question: 'Quelle est la conséquence d’une acidification des urines sur les médicaments basiques', answer: 'Elle augmente leur élimination' },
+  { question: 'Qu’est-ce que la clairance totale', answer: 'Le volume de plasma totalement épuré d’un médicament par unité de temps' },
+  { question: 'Quelle est la relation entre la clairance totale et les clairances d’organe', answer: 'CLtotale égale CLhépatique plus CLrénale plus CLaute' },
+  { question: 'Quelle est la relation entre la clairance, le débit sanguin et la fraction extraite', answer: 'CL égale débit sanguin multiplié par fraction extraite' },
+  { question: 'Qu’est-ce qu’un médicament hydrophile', answer: 'Un médicament soluble dans l’eau, peu lié aux protéines plasmatiques et éliminé rapidement par le rein' },
+  { question: 'Qu’est-ce qu’un médicament lipophile', answer: 'Un médicament soluble dans les graisses, fortement lié aux protéines plasmatiques et éliminé lentement' },
+  { question: 'Quelle est la conséquence d’un grand volume de distribution', answer: 'Une large diffusion tissulaire et une concentration sanguine plus faible' },
+  { question: 'Quels sont les trois niveaux de volume de distribution', answer: 'Faible inférieur à 20 litres, moyen entre 20 et 100 litres, élevé supérieur à 100 litres' },
+  { question: 'Quelles sont les conséquences d’une fixation protéique variable', answer: 'Risque de déplacement, d’interactions médicamenteuses et de modification de la fraction libre active' },
+  { question: 'Quelle enzyme de conjugaison est la plus fréquente', answer: 'L’UDP-glucuronyl-transférase' },
+  { question: 'Quels sont les principaux facteurs modifiant le métabolisme hépatique', answer: 'Induction enzymatique, inhibition enzymatique, polymorphisme génétique et environnement' },
+  { question: 'Quels sont des exemples d’inducteurs enzymatiques', answer: 'L’éthanol, le tabac, la viande grillée, le millepertuis et les crucifères' },
+  { question: 'Quels sont des exemples d’inhibiteurs enzymatiques', answer: 'Le jus de pamplemousse, le vin rouge et le cresson' },
+  { question: 'Quelle est la conséquence d’une induction enzymatique sur un médicament actif', answer: 'Diminution de son effet par dégradation plus rapide' },
+  { question: 'Quelle est la conséquence d’une inhibition enzymatique sur un médicament actif', answer: 'Augmentation de son effet ou de sa toxicité par accumulation' },
+  { question: 'Quelle est la conséquence d’une déficience en CYP2D6 sur la codéine', answer: 'Absence d’effet antalgique car la codéine n’est pas transformée en morphine' },
+  { question: 'Quelle est la différence entre biodisponibilité absolue et relative', answer: 'La biodisponibilité absolue compare à la voie intraveineuse, la relative compare deux formes galéniques d’un même médicament' },
+  { question: 'Quelle est la valeur de biodisponibilité d’un médicament non absorbé', answer: 'Zéro pour cent' },
+  { question: 'Quelle est la conséquence d’un cycle entéro-hépatique important', answer: 'Prolongation de la durée d’action du médicament' },
+  { question: 'Quels sont les paramètres dépendants de la dose administrée', answer: 'Cmax et AUC' },
+  { question: 'Quels sont les paramètres indépendants de la dose administrée', answer: 'Biodisponibilité, volume de distribution, clairance et demi-vie' },
+  { question: 'Qu’est-ce qu’une interaction médicamenteuse d’ordre pharmacocinétique', answer: 'Une interaction qui modifie l’absorption, la distribution, le métabolisme ou l’élimination d’un médicament' },
+  { question: 'Qu’est-ce qu’une interaction médicamenteuse d’ordre pharmacodynamique', answer: 'Une interaction qui modifie la réponse au niveau de la cible sans modifier la concentration sanguine' },
+  { question: 'Qu’est-ce qu’une étude post-AMM', answer: 'Une étude réalisée après la mise sur le marché pour évaluer les interactions et la sécurité dans différentes populations' },
+  { question: 'Quel est le rôle global des études pharmacocinétiques et pharmacodynamiques', answer: 'Décrire, comprendre et anticiper le devenir et les effets des médicaments afin d’établir la posologie optimale' },
+  { question: 'Quelle est la relation entre dose administrée et concentration plasmatique dans la pharmacocinétique', answer: 'La pharmacocinétique établit la relation directe entre la dose administrée et la concentration sanguine obtenue' },
+  { question: 'Quelle est la relation entre concentration et effet dans la pharmacodynamie', answer: 'La pharmacodynamie relie la concentration du médicament à l’intensité de l’effet pharmacologique observé' },
+  { question: 'Pourquoi la relation dose-effet est-elle souvent moins fiable que la relation concentration-effet', answer: 'Parce que la dose administrée ne tient pas compte des différences d’absorption, de métabolisme et d’élimination entre individus' },
+  { question: 'Quelle est la conséquence d’une hypoalbuminémie sur les médicaments fortement liés aux protéines plasmatiques', answer: 'Elle augmente la fraction libre du médicament et donc le risque de toxicité' },
+  { question: 'Quelles situations physiopathologiques peuvent modifier la concentration plasmatique d’un médicament', answer: 'L’insuffisance rénale, l’insuffisance hépatique, l’âge, la grossesse et l’obésité' },
+  { question: 'Quelle est la conséquence d’un débit cardiaque élevé sur la distribution médicamenteuse', answer: 'Il augmente la vitesse de distribution dans les tissus' },
+  { question: 'Quel est le volume sanguin moyen d’un adulte', answer: 'Environ cinq à six litres' },
+  { question: 'Quel est le débit cardiaque moyen d’un adulte', answer: 'Environ six litres par minute' },
+  { question: 'Quelles sont les caractéristiques de la liaison médicament-protéine', answer: 'Rapide, réversible, aspécifique et parfois saturable' },
+  { question: 'Pourquoi la fixation protéique peut-elle entraîner des interactions médicamenteuses', answer: 'Parce que deux médicaments fortement liés peuvent se concurrencer pour les mêmes sites de liaison' },
+  { question: 'Quelle est la conséquence d’un médicament se liant faiblement aux protéines plasmatiques', answer: 'Il diffuse plus rapidement vers les tissus et s’élimine plus vite' },
+  { question: 'Quelles barrières physiologiques peuvent limiter la diffusion médicamenteuse', answer: 'La barrière hémato-encéphalique, le placenta et certaines barrières tissulaires spécifiques' },
+  { question: 'Pourquoi les infections osseuses sont-elles difficiles à traiter', answer: 'À cause de la faible perfusion et de la faible diffusion des antibiotiques dans les tissus osseux' },
+  { question: 'Qu’est-ce que la barrière hémato-encéphalique', answer: 'Une structure protectrice formée par les cellules endothéliales et les astrocytes limitant le passage des molécules vers le cerveau' },
+  { question: 'Qu’est-ce qu’un médicament hydrosoluble', answer: 'Un médicament soluble dans l’eau, éliminé principalement par voie rénale et avec une faible diffusion tissulaire' },
+  { question: 'Qu’est-ce qu’un médicament liposoluble', answer: 'Un médicament soluble dans les graisses, à forte diffusion tissulaire et élimination plus lente' },
+  { question: 'Quelle est la conséquence d’un médicament lipophile sur sa demi-vie', answer: 'Il a généralement une demi-vie plus longue' },
+  { question: 'Qu’est-ce que la phase de fonctionnalisation du métabolisme', answer: 'C’est la phase I du métabolisme comprenant les réactions d’oxydation, de réduction ou d’hydrolyse' },
+  { question: 'Qu’est-ce que la phase de conjugaison du métabolisme', answer: 'C’est la phase II du métabolisme qui consiste à fixer un radical hydrophile sur la molécule pour la rendre éliminable' },
+  { question: 'Quel cytochrome P450 est le plus impliqué dans la métabolisation médicamenteuse', answer: 'Le CYP3A4' },
+  { question: 'Quels sont les effets possibles du métabolisme sur un médicament', answer: 'Activation, inactivation, transformation toxique ou modification de la durée d’action' },
+  { question: 'Quelle est la conséquence d’une induction enzymatique sur un pro-médicament', answer: 'Elle peut augmenter son effet par activation plus rapide' },
+  { question: 'Quelle est la conséquence d’une inhibition enzymatique sur un pro-médicament', answer: 'Elle peut diminuer son effet car la conversion en métabolite actif est ralentie' },
+  { question: 'Qu’est-ce que le cycle entéro-hépatique', answer: 'C’est le recyclage du médicament ou de son métabolite par réabsorption intestinale après sécrétion biliaire' },
+  { question: 'Quelle est la conséquence d’un cycle entéro-hépatique sur la durée d’action d’un médicament', answer: 'Il prolonge la durée d’action' },
+  { question: 'Quels sont les médicaments souvent éliminés par voie biliaire', answer: 'Les médicaments lipophiles et les métabolites glucuroconjugués' },
+  { question: 'Quelle est la conséquence d’une pathologie hépatique sur la clairance d’un médicament', answer: 'Elle diminue la clairance hépatique et augmente la concentration plasmatique' },
+  { question: 'Quelle est la conséquence d’une insuffisance rénale sur la clairance d’un médicament', answer: 'Elle diminue la clairance rénale et augmente le risque d’accumulation' },
+  { question: 'Comment varie la demi-vie d’un médicament en cas d’insuffisance rénale', answer: 'Elle augmente' },
+  { question: 'Comment varie la demi-vie d’un médicament en cas d’induction enzymatique', answer: 'Elle diminue' },
+  { question: 'Comment varie la demi-vie d’un médicament en cas d’inhibition enzymatique', answer: 'Elle augmente' },
+  { question: 'Quelle est la relation entre la clairance et la demi-vie', answer: 'Plus la clairance est élevée, plus la demi-vie est courte' },
+  { question: 'Quelle est la relation entre le volume de distribution et la demi-vie', answer: 'Plus le volume de distribution est élevé, plus la demi-vie est longue' },
+  { question: 'Qu’est-ce qu’une cinétique d’ordre un', answer: 'C’est une cinétique dans laquelle la vitesse d’élimination est proportionnelle à la concentration du médicament' },
+  { question: 'Qu’est-ce qu’une cinétique d’ordre zéro', answer: 'C’est une cinétique où la vitesse d’élimination est constante quel que soit le niveau de concentration' },
+  { question: 'Qu’est-ce que la posologie', answer: 'C’est la dose et la fréquence d’administration d’un médicament nécessaires pour obtenir l’effet souhaité' },
+  { question: 'Quelle est la différence entre dose de charge et dose d’entretien', answer: 'La dose de charge vise à atteindre rapidement la concentration thérapeutique, la dose d’entretien la maintient' },
+  { question: 'Qu’est-ce qu’une zone thérapeutique étroite', answer: 'Une plage de concentration où la marge entre efficacité et toxicité est faible' },
+  { question: 'Pourquoi la surveillance thérapeutique pharmacologique est-elle importante', answer: 'Pour ajuster la posologie en fonction des concentrations plasmatiques et éviter les effets indésirables' },
+  { question: 'Quelle est la signification de Emax dans la relation concentration-effet', answer: 'C’est l’effet maximal qu’un médicament peut produire sur sa cible' },
+  { question: 'Quelle est la signification de CE50', answer: 'C’est la concentration nécessaire pour atteindre la moitié de l’effet maximal' },
+  { question: 'Quelle est la différence entre efficacité et puissance d’un médicament', answer: 'L’efficacité est la hauteur maximale de l’effet, la puissance dépend de la concentration nécessaire pour l’obtenir' },
+  { question: 'Que signifie la tolérance d’un médicament', answer: 'C’est la diminution progressive de son effet lors d’une administration répétée' },
+  { question: 'Qu’est-ce qu’une interaction pharmacodynamique par antagonisme', answer: 'C’est une interaction où deux médicaments ont des effets opposés sur une même cible' },
+  { question: 'Qu’est-ce qu’une interaction pharmacodynamique par synergie', answer: 'C’est une interaction où deux médicaments ont des effets similaires qui s’additionnent ou se potentialisent' },
+  { question: 'Quel est l’objectif d’une étude PK/PD', answer: 'Déterminer la relation entre la concentration plasmatique et l’effet pharmacologique pour ajuster la posologie' },
+  { question: 'Qu’est-ce qu’une variabilité pharmacodynamique', answer: 'Une différence de réponse à une même concentration due à des variations de sensibilité des récepteurs' },
+  { question: 'Quelle est la conséquence d’une administration répétée à intervalles inférieurs à la demi-vie', answer: 'Une accumulation progressive du médicament jusqu’à un plateau d’équilibre' },
+  { question: 'Combien de demi-vies faut-il pour atteindre le plateau d’équilibre', answer: 'Environ cinq demi-vies' },
+  { question: 'Quelle est la conséquence d’une diminution de l’intervalle entre deux prises', answer: 'Une augmentation des concentrations plasmatiques et du risque de surdosage' },
+  { question: 'Quelle est la conséquence d’un allongement de l’intervalle entre deux prises', answer: 'Une diminution des concentrations plasmatiques et un risque d’inefficacité' },
+  { question: 'Quel est le rôle du facteur d’accumulation', answer: 'Il explique l’augmentation progressive des concentrations plasmatiques lors d’administrations répétées' },
+  { question: 'Qu’est-ce que la chronopharmacologie recommande pour les corticoïdes', answer: 'De les administrer le matin pour respecter le rythme physiologique du cortisol' },
+  { question: 'Qu’est-ce qu’un médicament à demi-vie longue', answer: 'C’est un médicament dont l’élimination est lente, nécessitant un intervalle de prise plus espacé' },
+  { question: 'Qu’est-ce qu’un médicament à demi-vie courte', answer: 'C’est un médicament éliminé rapidement nécessitant des prises plus fréquentes' },
+  { question: 'Quelle est la conséquence d’une clairance élevée sur la concentration plasmatique', answer: 'Elle diminue la concentration plasmatique plus rapidement' },
+  { question: 'Quelle est la conséquence d’une clairance faible sur la concentration plasmatique', answer: 'Elle augmente la concentration plasmatique et le risque d’accumulation' },
+  { question: 'Quelles sont les deux principales voies d’excrétion d’un médicament', answer: 'L’excrétion rénale et l’excrétion biliaire' },
+  { question: 'Qu’est-ce que la clairance rénale', answer: 'Le volume de plasma totalement épuré d’un médicament par le rein par unité de temps' },
+  { question: 'Qu’est-ce que la clairance hépatique', answer: 'Le volume de plasma totalement épuré d’un médicament par le foie par unité de temps' },
+  { question: 'Que reflète la surface sous la courbe AUC', answer: 'L’exposition totale de l’organisme au médicament' },
+  { question: 'Quelle est la conséquence d’une biodisponibilité faible', answer: 'Elle nécessite une augmentation de la dose pour obtenir l’effet thérapeutique' },
+  { question: 'Quelle est la biodisponibilité d’un médicament administré par voie rectale', answer: 'Elle est partielle car seule une partie échappe à l’effet de premier passage' },
+  { question: 'Quelle est la différence entre une voie entérale et une voie parentérale', answer: 'La voie entérale passe par le tube digestif alors que la voie parentérale le contourne' },
+  { question: 'Quelle est la voie parentérale la plus rapide', answer: 'La voie intraveineuse' },
+  { question: 'Quelle est la voie parentérale à effet retardé', answer: 'La voie intramusculaire ou sous-cutanée' },
+  { question: 'Quelle est la conséquence d’une inflammation au site d’injection sur l’absorption d’un médicament', answer: 'Elle diminue la diffusion du médicament et ralentit l’absorption' },
+  { question: 'Quelle est la conséquence d’une augmentation du pH gastrique sur les médicaments acides faibles', answer: 'Elle diminue leur absorption' },
+  { question: 'Quelle est la conséquence d’une diminution du pH gastrique sur les médicaments basiques faibles', answer: 'Elle diminue leur absorption' },
+  { question: 'Quelle est la conséquence d’un repas riche en graisses sur l’absorption des médicaments lipophiles', answer: 'Il augmente leur absorption' },
+  { question: 'Quelle est la conséquence d’un repas riche en fibres sur l’absorption des médicaments', answer: 'Il peut diminuer l’absorption en ralentissant le transit' },
+  { question: 'Qu’est-ce que la biodisponibilité absolue d’un médicament', answer: 'C’est le rapport entre l’AUC de la voie testée et celle de la voie intraveineuse pour une même dose' },
+  { question: 'Qu’est-ce que la biodisponibilité relative d’un médicament', answer: 'C’est le rapport entre les AUC de deux formes galéniques différentes administrées par la même voie' },
+  { question: 'Quelle est la valeur de biodisponibilité si F = 30 %', answer: 'Il faut administrer trois fois plus de médicament par voie orale que par voie intraveineuse pour le même effet' },
+  { question: 'Que signifie bioéquivalence entre deux médicaments', answer: 'Qu’ils présentent des AUC, Cmax et Tmax similaires dans l’intervalle de 0,8 à 1,25' },
+  { question: 'Qu’est-ce qu’une étude de bioéquivalence', answer: 'Une étude comparant la biodisponibilité de deux formes pharmaceutiques d’un même principe actif' },
+  { question: 'Quelle est la conséquence d’un métabolisme saturable', answer: 'Une accumulation du médicament avec risque de toxicité' },
+  { question: 'Qu’est-ce qu’un métabolite actif', answer: 'Un produit de transformation du médicament ayant encore une activité pharmacologique' },
+  { question: 'Qu’est-ce qu’un métabolite inactif', answer: 'Un produit de transformation sans activité pharmacologique' },
+  { question: 'Qu’est-ce qu’un métabolite toxique', answer: 'Un produit de métabolisation pouvant entraîner des effets nocifs pour l’organisme' },
+  { question: 'Quel est le métabolite toxique du paracétamol', answer: 'Le N-acétyl-p-benzoquinone-imine ou NAPQI' },
+  { question: 'Comment prévenir la toxicité du paracétamol', answer: 'En administrant de la N-acétylcystéine qui régénère le glutathion hépatique' },
+  { question: 'Quelle est la conséquence d’un polymorphisme enzymatique', answer: 'Il provoque des différences interindividuelles dans le métabolisme des médicaments' },
+  { question: 'Quelle enzyme est déficiente chez certains sujets rendant la codéine inefficace', answer: 'Le CYP2D6' },
+  { question: 'Quelle est la conséquence d’une insuffisance hépatique sur les pro-médicaments', answer: 'Elle peut diminuer leur activation et leur efficacité' },
+  { question: 'Quelle est la conséquence d’une maladie hépatique sur un médicament actif', answer: 'Elle peut augmenter sa concentration et provoquer des effets indésirables' },
+  { question: 'Quel est le principal organe d’élimination des substances hydrosolubles', answer: 'Le rein' },
+  { question: 'Quel est le principal organe d’élimination des substances liposolubles', answer: 'Le foie' },
+  { question: 'Quelle est la conséquence d’une hypoalbuminémie chez le nouveau-né', answer: 'Une augmentation de la fraction libre des médicaments et un risque accru d’effets indésirables' },
+  { question: 'Quelle est la conséquence d’un âge avancé sur la pharmacocinétique', answer: 'Diminution de la fonction rénale et hépatique, nécessitant une adaptation posologique' },
+  { question: 'Quelle est la conséquence d’une insuffisance cardiaque sur la distribution d’un médicament', answer: 'Une diminution du débit sanguin et donc une diffusion tissulaire ralentie' },
+  { question: 'Quelle est la conséquence du millepertuis sur la pharmacocinétique des médicaments', answer: 'Il induit les cytochromes P450 et diminue l’efficacité de nombreux médicaments' },
+  { question: 'Quelle est la conséquence du jus de pamplemousse sur les antirétroviraux', answer: 'Il inhibe leur métabolisme intestinal et augmente leur concentration plasmatique' },
+  { question: 'Quelle est la conséquence d’une perfusion continue sur les concentrations plasmatiques', answer: 'Elle permet de maintenir un plateau stable sans pics ni creux de concentration' },
+  { question: 'Quelle est la conséquence d’une administration discontinue sur les concentrations plasmatiques', answer: 'Elle provoque des variations cycliques de concentration avec des pics et des creux' },
+  { question: 'Quelle est la principale cause de variabilité interindividuelle pharmacocinétique', answer: 'Les différences génétiques, enzymatiques et physiologiques entre les individus' },
+  { question: 'Quelle est la principale cause de variabilité intra-individuelle pharmacocinétique', answer: 'Les changements de régime, de traitements ou d’état physiologique au cours du temps' },
+  { question: 'Qu’est-ce qu’un effet pharmacologique systémique', answer: 'Un effet résultant de la diffusion du médicament dans la circulation générale' },
+  { question: 'Qu’est-ce qu’un effet pharmacologique local', answer: 'Un effet limité à la zone d’application du médicament' },
+  { question: 'Quelle est la conséquence d’un médicament à diffusion tissulaire importante', answer: 'Une demi-vie longue et une élimination retardée' },
+  { question: 'Qu’est-ce que la pente d’élimination ke', answer: 'C’est la constante de proportionnalité décrivant la vitesse d’élimination d’un médicament' },
+  { question: 'Que représente la courbe concentration-temps après administration intraveineuse', answer: 'Une décroissance exponentielle de la concentration plasmatique' },
+  { question: 'Que représente la courbe concentration-temps après administration orale', answer: 'Une phase ascendante d’absorption suivie d’une phase descendante d’élimination' },
+  { question: 'Qu’est-ce que le temps de latence d’un médicament', answer: 'Le délai entre l’administration et l’apparition de l’effet thérapeutique' },
+  { question: 'Quelle est la conséquence d’un médicament très lipophile sur la barrière hémato-encéphalique', answer: 'Il la traverse facilement et peut agir sur le système nerveux central' },
+  { question: 'Quelle est la conséquence d’un médicament hydrosoluble sur la barrière hémato-encéphalique', answer: 'Il la traverse difficilement voire pas du tout' },
+  { question: 'Quelle est la différence entre clairance totale et élimination', answer: 'La clairance exprime un volume de plasma épuré, l’élimination exprime une quantité réellement sortie de l’organisme' },
+  { question: 'Quelle est la signification de l’équation C(t) = C0 e⁻ᵏᵗ', answer: 'C’est la fonction décrivant la décroissance exponentielle de la concentration plasmatique au cours du temps' },
+  { question: 'Que signifie un coefficient de partage octanol/eau élevé', answer: 'Le médicament est lipophile et traverse facilement les membranes biologiques' },
+  { question: 'Que signifie un coefficient de partage octanol/eau faible', answer: 'Le médicament est hydrophile et traverse difficilement les membranes biologiques' },
+  { question: 'Quelle est la conséquence d’un pKa acide faible sur l’absorption gastrique', answer: 'Le médicament est mieux absorbé en milieu acide' },
+  { question: 'Quelle est la conséquence d’un pKa basique élevé sur l’absorption intestinale', answer: 'Le médicament est mieux absorbé en milieu basique' },
+  { question: 'Quelle est la conséquence d’une variabilité de pH urinaire sur l’élimination d’un médicament', answer: 'Elle peut accélérer ou ralentir son élimination selon son caractère acide ou basique' },
+  { question: 'Quelle est la conséquence d’un médicament à forte affinité tissulaire', answer: 'Il s’accumule dans certains organes comme le foie, le cœur ou le tissu adipeux' },
+  { question: 'Pourquoi la morphine doit-elle être administrée à dose plus élevée par voie orale que par voie intraveineuse', answer: 'À cause de son effet de premier passage hépatique qui réduit sa biodisponibilité' },
+  { question: 'Quelle est la conséquence de l’administration orale d’un antibiotique non absorbable', answer: 'Il agit localement dans le tube digestif sans effet systémique' },
+  { question: 'Quelle est la conséquence d’une alcalinisation des urines en cas d’intoxication aux acides faibles', answer: 'Elle favorise leur élimination en bloquant leur réabsorption' },
+  { question: 'Quelle est la conséquence d’une acidification des urines en cas d’intoxication aux bases faibles', answer: 'Elle favorise leur élimination en bloquant leur réabsorption' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

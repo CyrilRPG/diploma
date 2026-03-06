@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>One Health</h1><h2>Évaluation, prévention et gestion des risques en santé environnementale</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition du risque dans un contexte sanitaire ?', answer: 'Le risque est le produit d’un aléa, c’est-à-dire un événement incertain (inondation, pathologie, pollution), survenant sur un enjeu ou une population présentant une vulnérabilité particulière. [1]', },
+{ question: 'Pourquoi dit-on que le risque est une « construction sociale » ?', answer: 'Parce que sa perception est spécifique aux différentes cultures et dépend du contexte social, de l’opinion publique et de la pression médiatique. [1, 2]', },
+{ question: 'Quelle est la différence entre un danger et un risque ?', answer: 'Le danger est l’effet délétère lui-même (dommage, maladie, toxicité), tandis que le risque est la probabilité que cet effet apparaisse suite à une exposition. [2-4]', },
+{ question: 'Définissez le principe de précaution en santé environnementale.', answer: 'C’est l’obligation de prendre des mesures pour éviter un danger grave ou irréversible pour la santé ou l’environnement, même si les preuves scientifiques ne sont pas encore certaines. [2, 5]', },
+{ question: 'Quels sont les deux types de risques définis selon le degré de connaissance ?', answer: 'On distingue le risque connu (persistant ou provoqué) et le risque émergent (pressenti ou inconnu). [6]', },
+{ question: 'Quelles dimensions la définition du risque combine-t-elle ?', answer: 'Elle combine des éléments objectifs (évalués par des scientifiques avec des données toxicologiques et probabilistes) et des éléments subjectifs (perçus par la population avec une dimension émotionnelle). [6, 7]', },
+{ question: 'Citez un exemple de risque dont l’évaluation scientifique diffère fortement de la perception publique.', answer: 'Le transport aérien est plus redouté que l’automobile, alors que l’automobile cause environ 3 500 morts par an en France contre moins de 200 pour l’aérien en 2022. [8]', },
+{ question: 'Quel attribut rend un risque moins acceptable pour la population selon les études de perception ?', answer: 'Un risque est moins accepté s’il est « subi » (comme la pollution) plutôt qu\'« assumé » (comme le tabac), ou s’il est jugé incontrôlable. [9]', },
+{ question: 'Quelle institution française publie un baromètre sur la perception des risques par les Français ?', answer: 'L’IRSN (Institut de radioprotection et de sûreté nucléaire), qui s’y est initialement intéressé à cause du risque nucléaire. [10, 11]', },
+{ question: 'Qu’est-ce qu’une gouvernance partenariale du risque ?', answer: 'C’est un modèle de gestion qui renforce le pouvoir des individus et des parties prenantes en leur permettant d’interroger les données scientifiques et de participer aux décisions stratégiques. [12, 13]', },
+{ question: 'Quels sont les 7 attributs indispensables à une gouvernance partenariale du risque ?', answer: 'Renforcement du pouvoir, respect mutuel/confiance, accès aux données, décisions souples/révisables, processus ouvert/transparent, retour automatique sur les décisions et culture partagée. [13, 14]', },
+{ question: 'Quelles sont les quatre étapes du processus d’évaluation du risque ?', answer: '1. Identification des dangers ; 2. Étude de la relation exposition-risque (dose-effet) ; 3. Évaluation de l’exposition ; 4. Caractérisation des risques. [3, 15]', },
+{ question: 'Quelles sont les trois approches méthodologiques pour évaluer un risque ?', answer: 'L’épidémiologie (chez l’homme), la toxicologie animale et les tests in vitro (sur tissus ou cellules isolées). [16, 17]', },
+{ question: 'Quelle est la principale limite des études épidémiologiques ?', answer: 'L’exposition est difficile à mesurer, les facteurs confondants sont fréquents et le coût est élevé. [17]', },
+{ question: 'Quel est l’avantage des tests in vitro par rapport à la toxicologie animale ?', answer: 'Ils sont moins coûteux, plus courts et évitent le sacrifice d’animaux, tout en permettant d’explorer des mécanismes biologiques précis. [17, 18]', },
+{ question: 'Qu’est-ce que l\'« effet cocktail » en toxicologie ?', answer: 'C’est l’interaction entre différents polluants ou produits de dégradation qui peut générer des effets négatifs supérieurs à la somme des polluants pris isolément. [19, 20]', },
+{ question: 'Définissez l’EQRS (Évaluation Quantitative des Risques Sanitaires).', answer: 'C’est une démarche fondée sur les connaissances apportées par la toxicologie pour déterminer les effets néfastes d’un agent selon son mode d’exposition. [15]', },
+{ question: 'Définissez l’EIS (ou HIA en anglais : Health Impact Assessment).', answer: 'L’Évaluation d’Impact Sanitaire est une démarche fondée sur les connaissances apportées par l’épidémiologie pour mesurer l’impact d’une exposition sur la santé. [15]', },
+{ question: 'Qu’est-ce que la Dose Journalière Admissible (DJA) ?', answer: 'C’est la valeur toxicologique de référence pour les effets à seuil, exprimée en mg/kg/jour ou µg/m³/jour. [21, 22]', },
+{ question: 'Que signifie l’Excès de Risque Unitaire (ERU) ?', answer: 'C’est un indicateur utilisé pour les effets sans seuil (effets probabilistes) exprimant la probabilité de survenue d’un effet proportionnellement à la dose. [22, 23]', },
+{ question: 'Qu’est-ce que le « budget espace-temps » dans l’évaluation de l’exposition ?', answer: 'C’est la part du temps qu’un individu passe dans différents milieux (ex: 80% en intérieur, 20% en extérieur), déterminant son niveau réel d’exposition aux polluants. [22, 24]', },
+{ question: 'Quelle est la durée moyenne théorique de vie utilisée par convention dans les calculs d’exposition ?', answer: 'Elle est fixée à 70 ans. [25]', },
+{ question: 'Comment calcule-t-on le Ratio de Danger (RD) pour un polluant à effet de seuil ?', answer: 'RD = DJE (Dose Journalière d’Exposition) / DJA (Dose Journalière Admissible). [4]', },
+{ question: 'À partir de quelle valeur du Ratio de Danger s’attend-on à des effets sanitaires ?', answer: 'Lorsque le Ratio de Danger (RD) est supérieur à 1. [26]', },
+{ question: 'Pourquoi la mesure de la pollution en microgrammes par mètre cube (masse) est-elle critiquable ?', answer: 'Parce que les filtres à particules fragmentent les polluants en particules plus petites (toxiques) qui pèsent moins lourd, rendant le poids moins pertinent que le nombre de particules. [27]', },
+{ question: 'Définissez le Risque Relatif (RR).', answer: 'C’est le rapport entre le risque de survenue d’une maladie chez les sujets exposés et celui chez les sujets non exposés. [28]', },
+{ question: 'Qu’est-ce que l’Odds Ratio (OR) et quand est-il privilégié ?', answer: 'C’est le rapport des cotes (paris) entre malades et non-malades ; il est utilisé principalement pour l’étude des maladies rares. [29, 30]', },
+{ question: 'Comment interprète-t-on un Risque Relatif (RR) inférieur à 5 ?', answer: 'On considère qu’il s’agit d’une faible association, souvent à l’origine d’incertitudes et de controverses. [31]', },
+{ question: 'Qu’est-ce que le Risque Attribuable (RA) ?', answer: 'C’est une mesure tenant compte de la prévalence de l’exposition qui permet d’estimer le nombre de cas évitables si l’exposition était supprimée. [32]', },
+{ question: 'Donnez l’exemple du risque attribuable pour le gaz radon en France.', answer: 'Le risque attribuable est de 10%, ce qui signifie qu’un cancer du poumon sur dix est lié à l’exposition au radon émis par les roches granitiques. [32, 33]', },
+{ question: 'Citez trois critères de Hill utilisés pour établir un lien de causalité.', answer: 'La force de l’association (RR, OR), la temporalité (l’exposition précède l’effet) et la relation dose-effet. [34, 35]', },
+{ question: 'Qui sont les « marchands de doute » ?', answer: 'Ce sont des lobbyistes utilisant l’incertitude scientifique pour retarder la reconnaissance de liens causaux (ex: tabac et cancer du poumon, réchauffement climatique). [36, 37]', },
+{ question: 'Quel est l’objectif principal des Zones à Faible Émission (ZFE) ?', answer: 'Réduire les niveaux ambiants de dioxyde d’azote (NO2) et de particules pour améliorer la santé publique et l’espérance de vie. [38, 39]', },
+{ question: 'Quelles sont les vignettes Crit’Air les plus visées par les restrictions en ZFE ?', answer: 'Les vignettes 4 et 5, qui correspondent aux véhicules diesel les plus anciens. [40, 41]', },
+{ question: 'Selon l’étude de 2018 sur la ZFE élargie à Paris, combien de décès pourraient être évités par an ?', answer: 'Environ 340 décès par an chez les plus de 30 ans, soit un gain de 114 300 années de vie. [42, 43]', },
+{ question: 'Quelle est la définition de la Sécurité Sanitaire ?', answer: 'La protection de la santé de l’homme contre les risques induits par le fonctionnement de la société (alimentaires, environnementaux, climatiques ou liés aux soins). [44]', },
+{ question: 'Quels sont les quatre principes fondamentaux de la sécurité sanitaire en France ?', answer: 'Évaluation bénéfices-risques, indépendance de l’expertise, transparence et principe de précaution. [45]', },
+{ question: 'Pourquoi l’évaluation des risques et la gestion des risques sont-elles disjointes en France ?', answer: 'Pour garantir l’indépendance de l’expertise scientifique par rapport aux décisions politiques et administratives. [46, 47]', },
+{ question: 'Quand a été créée l’agence Santé publique France (SpF) ?', answer: 'Par le décret du 27 avril 2016. [48, 49]', },
+{ question: 'Quelles sont les trois entités qui ont fusionné pour créer Santé publique France ?', answer: 'L’Inpes (Prévention), l’InVS (Veille sanitaire) et l’Eprus (Urgences sanitaires). [49]', },
+{ question: 'Quelles sont les trois missions majeures de Santé publique France ?', answer: 'Anticiper, Comprendre et Agir. [49]', },
+{ question: 'Qu’est-ce qu’une CIRE ?', answer: 'C’est une Cellule d’Intervention en Région (représentant régional de Santé publique France) placée au sein d’une ARS. [50, 51]', },
+{ question: 'Quel est le domaine d’expertise de l’ANSES ?', answer: 'L’évaluation des risques dans les domaines de l’alimentation, de l’environnement et du travail. [52, 53]', },
+{ question: 'Quel est le rôle de l’ANSM ?', answer: 'Garantir la sécurité des produits de santé (médicaments, dispositifs) tout au long de leur cycle de vie et offrir un accès équitable à l’innovation. [53]', },
+{ question: 'Définissez une Situation Sanitaire Exceptionnelle (SSE).', answer: 'Un événement inhabituel (biologique, technologique, climatique) dont l’impact sanitaire dépasse les capacités habituelles de gestion mais qui n’est pas forcément piloté par le préfet. [54, 55]', },
+{ question: 'Quelle est la définition d’une crise sanitaire selon le cadre légal ?', answer: 'Un événement porteur d’un risque sanitaire présentant un trouble à l’ordre public et nécessitant que le préfet dispose des moyens de l’ARS. [56]', },
+{ question: 'Pourquoi dit-on qu’une crise est « transitoire » ?', answer: 'Parce qu’elle correspond à une rupture d’équilibre à un instant donné (contexte social, ressources) contrairement à un danger permanent comme le réchauffement climatique. [57]', },
+{ question: 'Citez les quatre phases chronologiques d’une gestion de crise.', answer: '1. Gestion courante ; 2. Évitement de la crise (phase tendue) ; 3. Gestion de crise (phase critique) ; 4. Sortie de crise et retour à la normale. [58]', },
+{ question: 'Quels sont les trois niveaux de la planification de l’État en cas de crise ?', answer: 'Stratégique (Ministères/DGS), Opératif (Zonal/Régional/ARS) et Tactique (Départemental/Préfet/Services de terrain). [59]', },
+{ question: 'Que signifie l’acronyme ORSEC ?', answer: 'Organisation de la Réponse de SÉcurité Civile. [59, 60]', },
+{ question: 'Que signifie l’acronyme ORSAN ?', answer: 'Organisation de la Réponse du Système de SAnté. [59, 61]', },
+{ question: 'Quel est le rôle de la Direction Générale de la Santé (DGS) dans la planification ?', answer: 'Elle fixe la doctrine, évalue les risques au niveau national et élabore les scénarios de crise. [62]', },
+{ question: 'Qu’est-ce qu’un RETEX ?', answer: 'C’est un Retour d’EXpérience permettant d’analyser une gestion de crise passée pour améliorer les plans futurs. [63]', },
+{ question: 'Quels sont les trois secteurs d’intervention des zones de défense et de sécurité en France ?', answer: 'La France est divisée en 7 zones de défense et de sécurité (ex: Zone Nord, Zone Paris, Zone Sud). [64, 65]', },
+{ question: 'Qui est le Directeur des Opérations de Secours (DOS) au niveau départemental ?', answer: 'Le préfet de département. [65, 66]', },
+{ question: 'Qu’est-ce que le CRAPS dans l’organisation régionale ?', answer: 'C’est la Cellule Régionale d’Appui au Pilotage Sanitaire, activée par l’ARS pour coordonner la réponse. [67, 68]', },
+{ question: 'Définissez le zonage de sécurité « Rouge » lors d’un événement.', answer: 'C’est la zone d’exclusion (danger immédiat) strictement contrôlée, réservée à la police, au déminage et aux secours d’extraction. [69]', },
+{ question: 'Définissez le zonage de sécurité « Vert » lors d’un événement.', answer: 'C’est la zone de soutien excentrée et sécurisée où l’on trouve le Poste Médical Avancé (PMA) et le Point de Rassemblement des Victimes (PRV). [61, 69]', },
+{ question: 'Citez les 5 plans opérationnels constituant le dispositif ORSAN.', answer: 'AMAVI (accueil massif de victimes), REB (risque épidémique), EPI-CLIM (épisodes climatiques), NRC (nucléaire/chimique) et Médico-psy. [70, 71]', },
+{ question: 'Quel est l’objectif du plan ORSAN REB ?', answer: 'Gérer les maladies émergentes transmissibles et le terrorisme biologique (ex: 200 cas index pour une maladie interhumaine). [71, 72]', },
+{ question: 'Quelle est la différence fondamentale entre une SSE et une crise concernant la gestion ?', answer: 'Dans une SSE, le risque est connu et planifié ; dans une crise, le risque est méconnu ou sous-estimé, imposant une improvisation sereine. [73, 74]', },
+{ question: 'Citez deux indicateurs « avancés » utilisés par l’ARS pour analyser une situation.', answer: 'Les appels et interventions du SAMU/Pompiers, les données biologiques (3lab, SIDEP) et l’activité de ville (SOS Médecins). [75, 76]', },
+{ question: 'Qu’est-ce que le « centre de gravité » dans la recherche de manœuvres de crise ?', answer: 'Ce sont les capacités essentielles d’un acteur qui lui donnent sa liberté d’action ; l’objectif est de les protéger. [76]', },
+{ question: 'Qu’est-ce qu’une « condition décisive » en gestion opérationnelle ?', answer: 'Une condition indispensable à la création du maintien de la liberté d’action ou à la réalisation des objectifs. [77]', },
+{ question: 'Citez un exemple de mesure dérogatoire possible lors d’une crise.', answer: 'Un arrêté préfectoral ou ministériel (ex: réquisition de moyens privés ou fermeture de lieux). [78]', },
+{ question: 'Quel était le niveau de l’onde de crue lors des inondations de 2016 en IDF par rapport à 1910 ?', answer: 'Elle a atteint 70% à 80% du débit de la crue de référence de 1910. [79]', },
+{ question: 'Quels sont les trois mécanismes d’impact identifiés lors des crues ?', answer: 'La submersion des bâtiments, la coupure d’alimentation électrique et la dégradation de la qualité de l’eau potable. [80]', },
+{ question: 'Quel service de santé spécifique a été identifié comme une « fragilité précoce » lors des inondations de 2016 ?', answer: 'La dialyse, en raison de l’évacuation de structures à forte activité et du besoin de maintenir des cycles de soins complets. [81, 82]', },
+{ question: 'Quels sont les risques sanitaires à surveiller à l’issue d’une crue (post-crue) ?', answer: 'Les moisissures, la prolifération d’insectes/rongeurs vecteurs de maladies et la pollution des sols aux hydrocarbures. [83, 84]', },
+{ question: 'Pourquoi les motopompes peuvent-elles être dangereuses lors de la décrue ?', answer: 'Leur mésusage peut provoquer des intoxications massives au monoxyde de carbone (CO). [83-85]', },
+{ question: 'Quelles étaient les solutions logistiques pour l’oxygène médical à Mayotte ?', answer: 'L’acheminement d’obus par cargo depuis Marseille et une coopération régionale avec l’île Maurice et La Réunion. [86, 87]', },
+{ question: 'Citez trois types de vulnérabilités structurelles de Mayotte face aux crises sanitaires.', answer: 'Pauvreté extrême (PIB bas), pression migratoire forte et infrastructures d’eau potable insuffisantes. [88, 89]', },
+{ question: 'Quelle mesure d’urgence a été prise pour l’eau à Mayotte ?', answer: 'Installation d’unités de potabilisation de la sécurité civile et distribution d’un objectif de 1,5L d’eau embouteillée par personne et par jour. [90, 91]', },
+{ question: 'Qu’est-ce que le Plan Blanc ?', answer: 'C’est un plan d’urgence hospitalier permettant de mobiliser immédiatement les moyens (personnel, lits) face à une situation sanitaire exceptionnelle. [78, 92]', },
+{ question: 'Qu’est-ce que le Plan Bleu ?', answer: 'C’est le plan d’urgence spécifique aux EHPAD et aux établissements médico-sociaux. [93]', },
+{ question: 'Quelle est la mission de l’EFS (Établissement Français du Sang) dans la sécurité sanitaire ?', answer: 'Assurer l’autosuffisance nationale en produits sanguins et garantir leur sécurité. [94]', },
+{ question: 'Quel facteur climatique peut impacter indirectement le système de santé selon les sources ?', answer: 'La sécheresse, qui peut entraîner des incendies ou des baisses de qualité de l’eau, ou les températures extrêmes (canicule). [54, 95]', },
+{ question: 'Qu’est-ce que la « veille » en sécurité sanitaire ?', answer: 'C’est l’activité de disposer d’une connaissance réactive, actualisée et prospective des dangers pour la santé. [45]', },
+{ question: 'Quel est l’impact des grandes grèves sur le système de santé ?', answer: 'Elles peuvent perturber les réseaux structurants (transport, énergie) et affecter les ressources humaines nécessaires au fonctionnement des hôpitaux. [95]', },
+{ question: 'Pourquoi est-il crucial de « tracer » et de « rendre compte » pour un décideur administratif (ex: ARS) ?', answer: 'Parce qu’ils doivent assumer leurs responsabilités devant l’Assemblée nationale ou la justice, comme illustré lors du COVID-19. [3, 96]', },
+{ question: 'Dans quel cas utilise-t-on des ventilateurs lors de la mesure de pollution intérieure ?', answer: 'Pour simuler l’activité humaine et remettre en suspension les particules afin d’éviter les biais de mesure. [27]', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_One_Health_fc7";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

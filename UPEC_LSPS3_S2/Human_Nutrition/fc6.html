@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Human nutrition</h1><h2>Maladies cardiovasculaires</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition de la morbidité dans le contexte des maladies cardiovasculaires ?', answer: 'La morbidité désigne un état où les personnes ne sont pas décédées, mais restent en mauvaise santé et nécessitent des soins constants, tels que la prise de médicaments et des consultations régulières.', },
+{ question: 'Quelle est la différence entre une maladie cardiovasculaire et une maladie coronarienne ?', answer: 'La maladie cardiovasculaire désigne toutes les conditions affectant le cœur et les artères, tandis que la maladie coronarienne (CHD) est spécifiquement liée aux artères qui alimentent le muscle cardiaque.', },
+{ question: 'Qu’est-ce que l’athérosclérose ?', answer: 'C’est une lésion qui tend à obstruer les artères par l’accumulation progressive de graisses (lipides), de cholestérol, de cellules inflammatoires et de tissu fibreux, formant des plaques d’athérome.', },
+{ question: 'Comment se définit un thrombus ?', answer: 'Un thrombus est un caillot sanguin qui peut se superposer à une plaque d’athérome dans l’artère et l’obstruer jusqu’au blocage total.', },
+{ question: 'Qu’est-ce que la thrombose ?', answer: 'La thrombose résulte de la rupture d’une plaque d’athérome, provoquant un syndrome coronarien aigu.', },
+{ question: 'Quelles sont les caractéristiques de l’angine de poitrine ?', answer: 'Elle résulte d’une réduction temporaire de la circulation sanguine coronaire, causant une douleur thoracique (pouvant irradier au bras gauche et au cou) qui disparaît généralement en moins de 15 minutes sans destruction cellulaire.', },
+{ question: 'Qu’est-ce que l’ischémie transitoire ?', answer: 'C’est un apport insuffisant en oxygène au muscle cardiaque sans destruction des cellules, caractéristique de l’angine de poitrine.', },
+{ question: 'Quelle est la définition de l’infarctus du myocarde ?', answer: 'C’est une occlusion totale et prolongée d’une artère coronaire provoquant la mort (nécrose irréversible) d’une partie du muscle cardiaque.', },
+{ question: 'Quels sont les facteurs de risque irréversibles de la maladie coronarienne ?', answer: 'Le genre masculin, l’âge croissant, les traits génétiques (troubles du métabolisme des lipides) et le corps construit.', },
+{ question: 'Citez cinq facteurs de risque potentiellement réversibles de la maladie coronarienne.', answer: 'Fumer des cigarettes, la dyslipidémie, l’oxydabilité des LDL, l’obésité (tour de taille élevé) et l’hypertension artérielle.', },
+{ question: 'Quels sont les trois facteurs de risque psychosociaux mentionnés pour la CHD ?', answer: 'Un faible statut socio-économique, des situations stressantes et l’inactivité physique.', },
+{ question: 'Quel facteur géographique influe sur le risque cardiovasculaire ?', answer: 'Le climat et le temps froid.', },
+{ question: 'Quelle est la part des maladies cardiovasculaires dans la mortalité mondiale en 2019 ?', answer: 'Elles sont la principale cause de décès, représentant 32 % de tous les décès mondiaux (environ 17,9 millions de personnes).', },
+{ question: 'Dans quels types de pays surviennent plus des trois quarts des décès dus aux maladies cardiovasculaires ?', answer: 'Dans les pays à revenu faible ou intermédiaire.', },
+{ question: 'Pourquoi les taux de maladies cardiovasculaires diminuent-ils dans les pays occidentaux ?', answer: 'Grâce aux campagnes de prévention, une meilleure prise en charge des facteurs de risque (hypertension, cholestérol) et aux avancées des traitements médicaux et chirurgicaux.', },
+{ question: 'Quelle est la situation de la France par rapport au taux de mortalité par maladie cardiaque ischémique en Europe ?', answer: 'La France présente l’un des taux de mortalité les plus bas par million d’habitants en Europe.', },
+{ question: 'Quelle était l’hypothèse principale d’Ancel Keys ?', answer: 'Il a été le premier à émettre l’hypothèse d’un lien entre les maladies cardiovasculaires et le cholestérol alimentaire.', },
+{ question: 'Quelle observation clé Keys a-t-il faite sur les populations japonaises en 1956 ?', answer: 'Les taux de CHD étaient bas au Japon (13 % de calories issues des graisses) mais augmentaient significativement chez les Japonais vivant à Hawaï (32 %) ou Los Angeles (45 %) suite à l’adoption du mode de vie américain.', },
+{ question: 'Qu’a démontré l’Étude des Sept Pays (1957) concernant les graisses saturées ?', answer: 'Elle a montré que les graisses saturées entraînent des maladies cardiovasculaires et que cette relation est médiée par le taux de cholestérol sérique.', },
+{ question: 'Quelle est la relation entre le cholestérol total et la mortalité cardiovasculaire ?', answer: 'Il existe une relation positive : plus le cholestérol total est élevé, plus le pourcentage de mortalité augmente.', },
+{ question: 'Quelle est la répartition habituelle du cholestérol LDL et HDL dans le plasma ?', answer: 'Le cholestérol LDL représente environ 3/4 du cholestérol plasmatique et le HDL environ 1/4.', },
+{ question: 'Quel est le rôle du cholestérol HDL ?', answer: 'Considéré comme le \'bon cholestérol\', il transporte l’excès de cholestérol des tissus vers le foie pour être éliminé, ce qui aide à réduire les dépôts artériels.', },
+{ question: 'Pourquoi le cholestérol LDL est-il qualifié de \'mauvais cholestérol\' ?', answer: 'Parce qu’un excès de LDL favorise le dépôt de cholestérol dans les parois des artères, menant à la formation de plaques d’athérome.', },
+{ question: 'Quel indicateur est jugé plus prédictif des maladies coronariennes que le cholestérol total ?', answer: 'Le rapport HDL/LDL.', },
+{ question: 'Quels facteurs alimentaires augmentent spécifiquement le taux de cholestérol LDL ?', answer: 'Le cholestérol alimentaire, les acides gras saturés et la consommation de café non filtré (contenant des diterpènes).', },
+{ question: 'Quels facteurs peuvent abaisser le taux de cholestérol HDL ?', answer: 'L’obésité, les acides gras trans et une consommation excessive de glucides (via la production d’insuline).', },
+{ question: 'Quels facteurs favorisent l’augmentation du cholestérol HDL ?', answer: 'Une consommation modérée d’alcool, la consommation de graisses saines et l’exercice physique.', },
+{ question: 'Quelle est la composition d’une lipoprotéine ?', answer: 'Elle possède une couche externe de phospholipides et d’apoprotéines, et un cœur contenant des triglycérides et du cholestérol estérifié.', },
+{ question: 'Qu’est-ce que le transfert inverse du cholestérol ?', answer: 'C’est la voie par laquelle les HDL absorbent le cholestérol sanguin pour l’acheminer vers le foie, où il est métabolisé et excrété via l’acide biliaire.', },
+{ question: 'Comment agissent les stérols et stanols végétaux ?', answer: 'Ce sont des composés naturels (présents dans les huiles, noix, graines) qui bloquent partiellement l’absorption du cholestérol dans l’intestin.', },
+{ question: 'Quel est l’impact des viandes transformées sur le risque cardiovasculaire ?', answer: 'Elles augmentent fortement le risque car elles contiennent souvent des nitrates, des graisses saturées et des niveaux élevés de sel.', },
+{ question: 'Quels aliments ont des preuves solides de réduction du risque de maladies cardiovasculaires ?', answer: 'Les grains entiers, les fibres solubles (avoine, orge), les noix (amandes, noisettes), l’huile d’olive, les tomates, le thé vert, l’avocat et les protéines de soja.', },
+{ question: 'Qu’est-ce que le \'régime prudent\' ?', answer: 'Un modèle alimentaire caractérisé par une forte consommation d’aliments d’origine végétale et une réduction des aliments transformés et riches en graisses saturées.', },
+{ question: 'Quelle recommandation est faite pour le remplacement des acides gras saturés (AGS) ?', answer: 'Leur remplacement par des acides gras polyinsaturés (AGPI) entraîne la plus forte réduction du risque de coronaropathie.', },
+{ question: 'Quel est l’apport maximal recommandé en sel par jour pour prévenir les MCV ?', answer: 'L’apport maximal est de 5 g de sel (soit 2 g de sodium) par jour.', },
+{ question: 'Quelle quantité de fruits et légumes par jour est associée à un effet protecteur ?', answer: 'Une consommation de 200 g par jour diminue le risque, l’effet protecteur augmentant jusqu’à 800 g par jour.', },
+{ question: 'Pourquoi la consommation de noix doit-elle être modérée malgré ses bienfaits ?', answer: 'Parce que leur densité énergétique est élevée, ce qui peut augmenter le risque de surpoids.', },
+{ question: 'Quelle est la définition de l’AVC selon l’OMS ?', answer: 'Un état clinique se développant rapidement, avec des signes de perturbation focale ou globale de la fonction cérébrale, durant plus de 24 heures ou entraînant la mort, d’origine exclusivement vasculaire.', },
+{ question: 'Quelle est la proportion d’AVC ischémiques par rapport aux AVC hémorragiques ?', answer: 'Les AVC ischémiques représentent 80 % des cas, contre 15 % pour les hémorragies cérébrales et 5 % pour les hémorragies sous-arachnoïdiennes.', },
+{ question: 'Qu’est-ce qu’une hémorragie sous-arachnoïdienne ?', answer: 'C’est l’extravasation de sang dans l’espace contenant le liquide céphalo-rachidien (LCR), souvent due à la rupture d’un vaisseau sanguin (anévrisme).', },
+{ question: 'Qu’est-ce qu’un AVC ischémique (ou infarctus cérébral) ?', answer: 'Il correspond à une nécrose du tissu cérébral causée par une réduction ou un arrêt de la circulation sanguine dans un territoire artériel précis.', },
+{ question: 'Citez les cinq symptômes fréquents d’un AVC.', answer: 'Engourdissement/faiblesse soudaine d’un côté du corps, confusion/difficulté à parler, troubles soudains de la vision, vertiges/perte d’équilibre et maux de tête sévères et soudains.', },
+{ question: 'Que signifie l’acronyme DALY (ou AVCI en français) ?', answer: 'Disability-Adjusted Life Years (Années de vie corrigées de l’incapacité) : mesure de la perte d’années de vie en bonne santé due à la maladie ou à la mort prématurée.', },
+{ question: 'Comment le cerveau contrôle-t-il le corps en cas d’AVC ?', answer: 'Les deux hémisphères contrôlent la partie opposée du corps ; une lésion à l’hémisphère droit affectera le côté gauche du corps et inversement.', },
+{ question: 'Quelle est la prédisposition génétique observée concernant l’AVC aux États-Unis ?', answer: 'Les Afro-Américains ont un taux de prévalence presque deux fois plus élevé que les Caucasiens.', },
+{ question: 'Comment le risque d’AVC évolue-t-il chez les femmes après la ménopause ?', answer: 'Le risque augmente considérablement car les femmes perdent l’effet protecteur des œstrogènes.', },
+{ question: 'Quelle différence de première manifestation cardiovasculaire observe-t-on entre hommes et femmes ?', answer: 'Les hommes développent plus souvent une maladie coronarienne en premier, tandis que les femmes développent plus souvent une maladie cérébrovasculaire (AVC).', },
+{ question: 'Quel est l’impact des particules fines (PM2.5) sur le risque d’AVC ?', answer: 'Elles peuvent entrer dans la circulation sanguine, provoquant une inflammation systémique et des lésions vasculaires.', },
+{ question: 'Pourquoi un régime riche en sodium augmente-t-il le risque d’AVC ?', answer: 'L’excès de sodium augmente la rétention d’eau, ce qui élève la pression artérielle, favorisant l’athérosclérose et les hémorragies cérébrales.', },
+{ question: 'Quel est l’effet protecteur du potassium vis-à-vis de l’AVC ?', answer: 'Il existe une relation inverse forte : plus l’apport en potassium est élevé, plus le risque d’accident vasculaire cérébral diminue.', },
+{ question: 'Quels nutriments du poisson protègent contre les AVC ?', answer: 'Les oméga-3, qui ont des effets anti-inflammatoires, réduisent la pression artérielle et diminuent le risque d’athérosclérose.', },
+{ question: 'Qu’est-ce que le lycopène et quel est son effet ?', answer: 'C’est un caroténoïde présent dans les tomates qui réduit l’inflammation et protège les cellules endothéliales des vaisseaux sanguins contre les AVC.', },
+{ question: 'Quel effet ont les flavonoïdes sur la santé vasculaire ?', answer: 'Ils possèdent des propriétés antioxydantes et anti-inflammatoires qui réduisent le risque d’AVC.', },
+{ question: 'Comment le Japon a-t-il réussi à faire chuter ses taux d’AVC ?', answer: 'Par une campagne gouvernementale active de réduction du sel dans les aliments transformés et dans la cuisine familiale.', },
+{ question: 'Quel est l’objectif premier pour réduire le risque d’AVC selon l’Université de Rochester ?', answer: 'L’objectif prioritaire est de normaliser la tension artérielle.', },
+{ question: 'Qu’est-ce qu’une statine ?', answer: 'C’est un médicament qui réduit le taux de cholestérol en bloquant l’enzyme hépatique responsable de sa production à partir des graisses.', },
+{ question: 'Pourquoi l’hypertension artérielle est-elle appelée le \'tueur silencieux\' ?', answer: 'Parce qu’elle est souvent asymptomatique ; les patients ne ressentent rien même avec une pression artérielle très élevée.', },
+{ question: 'Comment se mesure idéalement la tension artérielle ?', answer: 'Par le suivi sur 24 heures (MAPA : mesure ambulatoire de la pression artérielle) pour évaluer les variations diurnes et nocturnes.', },
+{ question: 'À quoi correspond la pression artérielle systolique ?', answer: 'C’est le premier chiffre, indiquant la pression exercée par le sang sur les parois des artères lorsque le cœur se contracte (bat).', },
+{ question: 'À quoi correspond la pression artérielle diastolique ?', answer: 'C’est le deuxième chiffre, indiquant la pression exercée par le sang sur les parois des artères lorsque le cœur se repose entre deux battements.', },
+{ question: 'Quelles sont les valeurs d’une pression artérielle normale ?', answer: 'Une pression systolique inférieure à 120 mmHg et une pression diastolique inférieure à 80 mmHg.', },
+{ question: 'Quels sont les seuils du Stade 1 de l’hypertension ?', answer: 'Une systolique entre 130 et 139 mmHg ou une diastolique entre 80 et 89 mmHg.', },
+{ question: 'Quels sont les seuils du Stade 2 de l’hypertension ?', answer: 'Une systolique de 140 mmHg ou plus, ou une diastolique de 90 mmHg ou plus.', },
+{ question: 'Qu’est-ce qu’une crise hypertensive ?', answer: 'Une situation d’urgence où la pression systolique dépasse 180 mmHg et/ou la diastolique dépasse 120 mmHg.', },
+{ question: 'Quel pourcentage de la population de plus de 75 ans souffre d’hypertension ?', answer: 'Près de 80 % des femmes et 76,4 % des hommes.', },
+{ question: 'Quel est l’impact de l’alcool sur la pression artérielle à court terme ?', answer: 'La tension artérielle augmente fortement après une consommation excessive et peut rester élevée pendant 2 jours.', },
+{ question: 'Quel est l’effet des bêta-bloquants ?', answer: 'Ils bloquent les effets d’hormones comme l’adrénaline, ralentissant les battements du cœur et réduisant leur force pour abaisser la tension.', },
+{ question: 'Comment agissent les inhibiteurs de l’ECA ?', answer: 'Ils réduisent la tension artérielle en relâchant les vaisseaux sanguins.', },
+{ question: 'Quel est le rôle des diurétiques dans le traitement de l’hypertension ?', answer: 'Ils aident l’organisme à éliminer l’excès d’eau et de sel par l’urine.', },
+{ question: 'Quel lien existe-t-il entre l’IMC et la tension artérielle ?', answer: 'Plus l’indice de masse corporelle augmente, plus la tension artérielle augmente, même chez les personnes ayant un IMC considéré comme sain (18-24,9).', },
+{ question: 'Quel résultat de perte de poids a été observé à la clinique RediCare sur la tension ?', answer: 'Une intervention de perte de poids a permis une réduction de 18,36 % de la pression systolique et de 14,44 % de la diastolique.', },
+{ question: 'Quels sont les piliers du régime DASH ?', answer: 'Céréales complètes, abondance de fruits et légumes, produits laitiers allégés, poisson, volaille, noix, et réduction des viandes rouges et sucreries.', },
+{ question: 'Quelle réduction de la pression systolique le régime DASH permet-il d’atteindre ?', answer: 'Une réduction de 11,8 mmHg (contre 3,8 mmHg pour un simple régime riche en fruits et légumes).', },
+{ question: 'Pourquoi le sel était-il consommé en grande quantité (~25g/j) dans les sociétés traditionnelles ?', answer: 'Il était principalement utilisé comme agent de conservation des aliments avant l’invention de la réfrigération.', },
+{ question: 'Où se trouve la majeure partie du sel consommé aujourd’hui ?', answer: 'Elle se trouve dans les aliments transformés industriellement.', },
+{ question: 'Quelles complications une hypertension persistante peut-elle entraîner hors AVC/Infarctus ?', answer: 'Insuffisance cardiaque, maladie rénale, maladie artérielle périphérique, anévrisme aortique et démence vasculaire.', },
+{ question: 'Quelle est l’influence de l’âge sur la mortalité par AVC selon la pression artérielle ?', answer: 'À pression égale, la mortalité par AVC est beaucoup plus élevée chez les personnes âgées que chez les jeunes.', },
+{ question: 'Quel est le seuil critique de pression systolique chez l’homme de 65-74 ans pour la mortalité ?', answer: 'Au-delà de 160 mmHg, le nombre de décès pour 1000 personnes augmente de façon spectaculaire.', },
+{ question: 'Qu’est-ce que l’American Heart Association ?', answer: 'Une association très active aux États-Unis qui promeut la santé cardiaque, la gestion de la tension et le contrôle du diabète via des centres de santé et des campagnes.', },
+{ question: 'Quels sont les facteurs du mode de vie qui augmentent le risque d’hypertension ?', answer: 'Le stress, le manque d’exercice, le surpoids, la consommation élevée d’alcool et de sel, et une faible consommation de fruits et légumes.', },
+{ question: 'Comment l’abstinence d’alcool influe-t-elle sur les grands buveurs après un mois ?', answer: 'L’abstinence abaisse significativement la pression artérielle systolique et diastolique sans modifier son rythme circadien.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Human_Nutrition_fc6";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

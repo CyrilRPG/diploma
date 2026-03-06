@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Thermorégulation</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Physiologie</h1><h2>Thermorégulation</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la thermorégulation', answer: 'La thermorégulation permet au corps humain de maintenir constante la température des parties profondes du corps en fonction de la température extérieure' },
+  { question: 'Comment sont classés les êtres vivants selon leur type de thermorégulation', answer: 'Ils sont classés en ectothermes et endothermes' },
+  { question: 'Quelle est la caractéristique principale des ectothermes', answer: 'Leur température intérieure varie avec celle du milieu extérieur' },
+  { question: 'Donne trois exemples d’ectothermes', answer: 'Les poissons, les reptiles et les amphibiens' },
+  { question: 'Comment sont appelés les endothermes', answer: 'Ils sont appelés homéothermes' },
+  { question: 'Quelle est la particularité de l’homme concernant son homéothermie', answer: 'L’homme doit souvent modifier technologiquement son environnement par des vêtements ou du chauffage pour maintenir son homéothermie' },
+  { question: 'Quelle est la définition du noyau dans la thermorégulation', answer: 'Le noyau est l’ensemble des organes et tissus dont la température reste constante et qui est le siège de la thermogenèse' },
+  { question: 'Comment évolue la superficie du noyau avec la température', answer: 'La superficie du noyau augmente avec l’élévation de la température et diminue lorsque la température baisse' },
+  { question: 'Quelle est la répartition énergétique de l’oxydation des substrats', answer: '40 % sous forme d’énergie chimique et 60 % sous forme d’énergie thermique' },
+  { question: 'Quels organes produisent majoritairement la chaleur du noyau', answer: 'Le cœur, le cerveau, les muscles et les viscères' },
+  { question: 'Dans quelles situations la production de chaleur augmente-t-elle', answer: 'Lors de la thermogenèse alimentaire, de l’exercice musculaire et du sommeil paradoxal' },
+  { question: 'Quelles sont les deux grandes fonctions équilibrées dans la thermorégulation', answer: 'La thermogenèse et la thermolyse' },
+  { question: 'Quelle température correspond à la température du noyau', answer: 'La température rectale' },
+  { question: 'Qu’est-ce que l’écorce dans la thermorégulation', answer: 'L’écorce est la zone d’échange thermique avec l’environnement' },
+  { question: 'Quelle est la relation entre la température de l’écorce et celle du noyau', answer: 'La température de l’écorce est toujours inférieure à celle du noyau' },
+  { question: 'Comment se définit la température cutanée moyenne', answer: 'Elle correspond à la température de l’écorce' },
+  { question: 'Où se fait principalement l’augmentation de la superficie de l’écorce en cas de baisse de température', answer: 'Au niveau des membres' },
+  { question: 'Quel est le principe des échanges thermiques à contre-courant au niveau des membres', answer: 'La chaleur des artères est transférée aux veines de drainage limitant les pertes de chaleur' },
+  { question: 'Quels sont les deux modes de transfert de chaleur du noyau vers la peau', answer: 'La conduction physique et la convection sanguine' },
+  { question: 'Qu’est-ce que la conduction physique', answer: 'C’est la dissipation de la chaleur dans les tissus par contact moléculaire de proche en proche' },
+  { question: 'Quels milieux sont de bons conducteurs thermiques', answer: 'Les métaux et l’eau' },
+  { question: 'La conduction est-elle un mode majeur de transfert de chaleur du noyau à la peau', answer: 'Non, c’est un mode minoritaire' },
+  { question: 'Quelle est la valeur de la conductance tissulaire moyenne', answer: '5 watts par degré Celsius' },
+  { question: 'La conductance tissulaire est-elle contrôlable', answer: 'Non, elle n’est pas contrôlable' },
+  { question: 'Qu’est-ce que la convection sanguine', answer: 'C’est le transfert de chaleur dû à la circulation du sang entre les zones chaudes et froides' },
+  { question: 'La convection sanguine est-elle passive ou forcée chez l’homme', answer: 'C’est une convection forcée grâce à l’action de pompe du cœur' },
+  { question: 'Quelle est la formule du débit de chaleur par convection sanguine', answer: 'C’sang = Q’cut.c (Tre – Tcut)' },
+  { question: 'Quelle est la chaleur massique du sang', answer: '3800 joules par litre et par degré Celsius' },
+  { question: 'Quelle est la formule de la chaleur totale produite par le métabolisme du noyau', answer: 'M’ = (Q’cut x c + h(tis)) (Tre – Tcut)' },
+  { question: 'Qu’est-ce que la conductance physiologique', answer: 'C’est Q’cut x c + h(tis), exprimée en watts par degré Celsius' },
+  { question: 'Quels sont les modes de transfert de chaleur de la peau vers l’environnement', answer: 'Conduction, radiation, convection et évaporation' },
+  { question: 'Quelle est la formule du débit de chaleur par conduction cutanée', answer: 'K’ = h(k) (Tcut – Tg)' },
+  { question: 'La conductance par conduction est faible dans quel milieu', answer: 'Dans l’air' },
+  { question: 'La conductance par conduction est élevée dans quels milieux', answer: 'Dans l’eau et dans certains solides' },
+  { question: 'Qu’est-ce que la radiation thermique', answer: 'C’est la propagation de chaleur sous forme d’ondes électromagnétiques infrarouges' },
+  { question: 'Comment est considérée la peau en termes de radiation', answer: 'Comme un corps noir capable d’émettre ou recevoir de la chaleur' },
+  { question: 'Qu’est-ce que la convection libre', answer: 'C’est le remplacement naturel de l’air chaud au contact de la peau par de l’air froid' },
+  { question: 'Qu’est-ce que la convection forcée', answer: 'C’est une convection provoquée par un mouvement d’air externe comme le vent' },
+  { question: 'Quelle est la formule de l’approximation de Newton pour convection et radiation', answer: 'R’ + C’ = h(R+C) (Tcut – Tg)' },
+  { question: 'Quelles sont les trois conditions de validité de la loi de Newton', answer: 'Température ambiante proche de la neutralité, températures des parois proches de l’air, vitesse de l’air inférieure à 2 m/s' },
+  { question: 'Qu’est-ce que la température opérative Top', answer: 'C’est la température réellement ressentie tenant compte de la vitesse de l’air et de la température radiante' },
+  { question: 'Quelle est la formule de la température opérative', answer: 'Top = xTg + (1 – x)Tr avec x = 0,5 + 0,25V' },
+  { question: 'Qu’est-ce que l’évaporation dans la thermorégulation', answer: 'C’est le passage de l’eau de l’état liquide à l’état vapeur avec absorption de chaleur' },
+  { question: 'Quelle est la quantité d’énergie absorbée par gramme d’eau évaporée', answer: 'Environ 2,5 kJ' },
+  { question: 'Quels types de pertes thermiques sont liées à la sudation', answer: 'Les pertes thermiques régulées par les glandes sudoripares eccrines sous contrôle sympathique cholinergique' },
+  { question: 'Quelles sont les pertes thermiques sans sudation', answer: 'La perspiration cutanée et respiratoire, environ 600 mL d’eau par jour, non régulée' },
+  { question: 'Que se passe-t-il si Top < Tcut', answer: 'La chaleur est transférée du noyau vers la peau et dissipée par conduction, convection, radiation et évaporation' },
+  { question: 'Que se passe-t-il si Top > Tcut', answer: 'La chaleur est gagnée depuis l’environnement et la dissipation ne se fait que par évaporation' },
+  { question: 'Quel est l’objectif général de l’organisation fonctionnelle de la thermorégulation', answer: 'Garder la température interne proche de la valeur de consigne' },
+  { question: 'Par quoi sont transmises les informations des thermorécepteurs cutanés et centraux', answer: 'Par les voies afférentes vers l’hypothalamus' },
+  { question: 'Quels sont les principaux effecteurs de la thermorégulation', answer: 'Les muscles striés squelettiques, les artérioles cutanées et les glandes sudoripares' },
+  { question: 'Quelle voie nerveuse déclenche les frissons', answer: 'La voie motrice extra-pyramidale au niveau des muscles striés' },
+  { question: 'Quel système active la vasomotricité cutanée', answer: 'Le système sympathique noradrénergique par l’intermédiaire du muscle lisse et des artérioles cutanées' },
+  { question: 'Quel système active la sudation', answer: 'Le système sympathique cholinergique' },
+  { question: 'Quels sont les deux grands types de thermorécepteurs', answer: 'Les thermorécepteurs profonds et les thermorécepteurs cutanés' },
+  { question: 'Où se situent les thermorécepteurs profonds', answer: 'Dans le territoire vasculaire splanchnique, la moelle épinière et l’hypothalamus' },
+  { question: 'Quel rôle ont les thermorécepteurs profonds', answer: 'Ils sont impliqués dans la thermorégulation de la température centrale' },
+  { question: 'Quels thermorécepteurs sont majoritaires au niveau cutané', answer: 'Les récepteurs au froid' },
+  { question: 'Où se situent les récepteurs cutanés au froid', answer: 'Directement sous l’épiderme' },
+  { question: 'À quelle température se situe le pic de fréquence des potentiels d’action des récepteurs au froid', answer: 'Vers 30 °C' },
+  { question: 'Par quels types de fibres sont véhiculées les informations des récepteurs cutanés au froid', answer: 'Par des fibres myéliniques' },
+  { question: 'À quelle substance sont sensibles les récepteurs cutanés au froid', answer: 'Au menthol' },
+  { question: 'Où se trouvent les récepteurs cutanés au chaud', answer: 'Dans la partie profonde du derme' },
+  { question: 'À quelle température se situe le pic de fréquence des potentiels d’action des récepteurs au chaud', answer: 'Vers 40 °C' },
+  { question: 'À quelle substance sont sensibles les récepteurs cutanés au chaud', answer: 'Aux épices' },
+  { question: 'Quelle est la réponse thermorégulatrice principale à la chaleur', answer: 'La sudation' },
+  { question: 'Par quel système nerveux est déclenchée la sudation', answer: 'Par le système sympathique cholinergique' },
+  { question: 'Dans quelles conditions la sudation n’est-elle pas efficace', answer: 'Quand l’humidité est trop importante et empêche l’évaporation' },
+  { question: 'Quelle autre réponse accompagne la sudation en cas de chaleur', answer: 'La vasodilatation cutanée par inhibition du système adrénergique' },
+  { question: 'Quelle est la réponse thermorégulatrice principale au froid', answer: 'Le frisson musculaire' },
+  { question: 'Quelle est l’efficacité énergétique du frisson musculaire', answer: 'Il peut multiplier par cinq la dépense énergétique de fond mais ne dure que 3 à 5 heures' },
+  { question: 'Qu’est-ce que la thermogenèse chimique adrénergique', answer: 'L’oxydation de la graisse brune produisant de l’énergie thermique' },
+  { question: 'Quelle est la réponse vasculaire principale au froid', answer: 'La vasoconstriction cutanée adrénergique pour limiter les pertes de chaleur' },
+  { question: 'Qu’est-ce que la zone de neutralité thermique', answer: 'La zone de température comprise entre 18 et 32 °C où la thermorégulation est assurée par la vasomotricité cutanée' },
+  { question: 'Quelles réponses sont absentes dans la zone de neutralité thermique', answer: 'La sudation et le frisson' },
+  { question: 'Comment évolue la température cutanée dans la zone de neutralité thermique', answer: 'Elle reste parallèle à la température opérative' },
+  { question: 'Comment est assuré l’équilibre thermogenèse et thermolyse dans la zone de neutralité', answer: 'Par la vasomotricité cutanée, la radiation et la convection' },
+  { question: 'Qu’est-ce que le rythme circadien de la température centrale', answer: 'C’est la variation journalière de la température centrale avec un minimum vers 1 h du matin' },
+  { question: 'Quelle est la variation de température au moment de l’ovulation', answer: 'Une augmentation d’environ 0,5 °C' },
+  { question: 'Quelle hormone est responsable de l’élévation de température après l’ovulation', answer: 'La progestérone sécrétée durant la phase lutéale' },
+  { question: 'Quelle est la température centrale maximale atteinte lors d’un exercice musculaire intense', answer: 'Jusqu’à 39 à 40 °C' },
+  { question: 'Quel est le rendement mécanique maximal de l’exercice musculaire', answer: '25 %' },
+  { question: 'Quelle quantité de chaleur supplémentaire doit être évacuée pour 100 watts de travail musculaire', answer: '300 watts de chaleur' },
+  { question: 'Quelles zones bénéficient d’un refroidissement sélectif lors de l’exercice', answer: 'Le cerveau, grâce à la sudation du visage et du scalp et la convection autour de la tête' },
+  { question: 'Quelle est la caractéristique principale de la fièvre', answer: 'Un changement de la valeur de consigne de la température centrale' },
+  { question: 'Quelles molécules sont responsables du déclenchement de la fièvre', answer: 'Les cytokines' },
+  { question: 'Quelle réponse thermorégulatrice correspond à une augmentation brutale du point de consigne', answer: 'Le frisson et la vasoconstriction' },
+  { question: 'Quelle réponse thermorégulatrice correspond à une diminution brutale du point de consigne', answer: 'La sudation et la vasodilatation' },
+  { question: 'Quels sujets sont plus sensibles aux dérèglements de la thermorégulation', answer: 'Les enfants et les personnes âgées' },
+  { question: 'Quels médicaments peuvent interférer avec les réponses thermorégulatrices', answer: 'Les anticholinergiques, diurétiques, tranquillisants, anesthésiques et l’alcool' },
+  { question: 'Quel médicament peut ramener le point de consigne de la température à 37 °C', answer: 'L’aspirine' },
+  { question: 'Quelle est la définition du coup de chaleur', answer: 'Une hyperthermie avec Tre supérieure à 40 °C et une thermorégulation inefficace' },
+  { question: 'Pourquoi la sudation diminue en cas de coup de chaleur', answer: 'Parce que l’humidité élevée empêche l’évaporation et bloque la sudation' },
+  { question: 'Quels sont les signes d’un coup de chaleur grave', answer: 'Hypotension, déshydratation, encéphalopathie avec délire, convulsions ou coma, et défaillance multiviscérale' },
+  { question: 'Quelle cytokine est libérée lors d’un coup de chaleur', answer: 'Des cytokines pro-inflammatoires' },
+  { question: 'Quel traitement est recommandé pour un coup de chaleur', answer: 'Réhydratation et augmentation des pertes thermiques par conduction, convection et évaporation' },
+  { question: 'Donne deux exemples de moyens physiques de refroidissement lors d’un coup de chaleur', answer: 'Immersion dans l’eau et application de linges mouillés' },
+  { question: 'Donne deux exemples de moyens de refroidissement par convection forcée et évaporation', answer: 'Ventilation et humidification de la peau' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Ostéologie Crânienne</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Ostéologie Crânienne</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que le squelette osseux de la tête', answer: 'Il comprend le massif facial antérieur et la boîte crânienne qui renferme l’encéphale' },
+  { question: 'Quelles sont les subdivisions de la boîte crânienne', answer: 'La voûte crânienne supérieure convexe et la base crânienne inférieure aplatie' },
+  { question: 'Quels organes la boîte crânienne contient-elle', answer: 'Le cerveau, le tronc cérébral et le cervelet' },
+  { question: 'Quelles sont les principales cavités de la tête', answer: 'Deux orbites, deux cavités nasales et une cavité buccale' },
+  { question: 'Combien d’os composent la boîte crânienne', answer: 'Huit os' },
+  { question: 'Quel os forme la mâchoire inférieure', answer: 'La mandibule' },
+  { question: 'Quel autre nom porte la mandibule', answer: 'Maxillaire inférieur' },
+  { question: 'Quels os forment la mâchoire supérieure', answer: 'Les deux os maxillaires' },
+  { question: 'Quels os forment la pommette', answer: 'Les deux os malaires ou zygomatiques' },
+  { question: 'Où se situent les os lacrymaux', answer: 'À l’intérieur des orbites' },
+  { question: 'Où se situent les os palatins', answer: 'Profondément en arrière des os maxillaires' },
+  { question: 'Quel os participe à la cloison médiale des fosses nasales', answer: 'Le vomer' },
+  { question: 'Quelles parties de la voûte crânienne sont formées par les os pariétaux', answer: 'La paroi supérieure et postéro-latérale' },
+  { question: 'Avec quels os les os pariétaux sont-ils en rapport en avant', answer: 'Avec l’os frontal' },
+  { question: 'Avec quels os les os pariétaux sont-ils en rapport en bas et en avant', answer: 'Avec la grande aile du sphénoïde' },
+  { question: 'Avec quels os les os pariétaux sont-ils en rapport en bas et en arrière', answer: 'Avec les os temporaux' },
+  { question: 'Avec quels os les os pariétaux sont-ils en rapport en arrière', answer: 'Avec l’os occipital' },
+  { question: 'Où se situent les os temporaux', answer: 'À la partie latérale et inférieure de la voûte crânienne' },
+  { question: 'Avec quel os les os temporaux s’articulent-ils en avant', answer: 'Avec la grande aile du sphénoïde' },
+  { question: 'Avec quel os les os temporaux s’articulent-ils en haut', answer: 'Avec les os pariétaux' },
+  { question: 'Avec quel os les os temporaux s’articulent-ils en arrière et en bas', answer: 'Avec l’os occipital' },
+  { question: 'Quel processus des os temporaux forme une expansion antérieure effilée', answer: 'Le processus zygomatique' },
+  { question: 'Que délimite le processus zygomatique de l’os temporal', answer: 'La fosse temporale externe' },
+  { question: 'Quel muscle est logé dans la fosse temporale externe', answer: 'Le muscle temporal' },
+  { question: 'Quel vaisseau chemine dans l’os temporal', answer: 'L’artère carotide interne' },
+  { question: 'Quelle partie de l’os temporal est quadrangulaire et verticale', answer: 'L’écaille de l’os temporal' },
+  { question: 'Que comprend la partie inférieure de l’os temporal', answer: 'Le processus mastoïde, le méat du conduit auditif externe, le processus styloïde et la cavité glénoïde' },
+  { question: 'Quelle articulation implique la cavité glénoïde de l’os temporal', answer: 'L’articulation temporo-mandibulaire' },
+  { question: 'Quelle région de l’os temporal renferme l’oreille interne', answer: 'Le rocher' },
+  { question: 'Quel méat se trouve dans la pyramide pétreuse de l’os temporal', answer: 'Le méat acoustique interne' },
+  { question: 'Quels éléments l’os temporal renferme-t-il', answer: 'Le conduit auditif externe, la caisse du tympan avec ses osselets et l’oreille interne' },
+  { question: 'Où se trouvent les os malaires ou zygomatiques', answer: 'À la partie supérieure et latérale de la face' },
+  { question: 'Quelle est la forme des os malaires', answer: 'Quadrangulaire et aplatie' },
+  { question: 'Quelle partie de l’orbite est formée par les os malaires', answer: 'Le bord latéral et antéro-externe' },
+  { question: 'Avec quel os le malaire s’articule-t-il en haut', answer: 'Avec l’os frontal' },
+  { question: 'Avec quel os le malaire s’articule-t-il en bas', answer: 'Avec l’os maxillaire' },
+  { question: 'Avec quel os le malaire s’articule-t-il en arrière', answer: 'Avec l’os temporal' },
+  { question: 'Avec quel os le malaire s’articule-t-il en dedans', answer: 'Avec l’os sphénoïde' },
+  { question: 'Quelle est la forme des os palatins', answer: 'Une forme de L majuscule' },
+  { question: 'Quelles sont les deux lames de l’os palatin', answer: 'La lame verticale et la lame horizontale' },
+  { question: 'Avec quel os l’os palatin s’articule-t-il en avant', answer: 'Avec l’os maxillaire' },
+  { question: 'Avec quel os l’os palatin s’articule-t-il en arrière', answer: 'Avec l’apophyse ptérygoïde du sphénoïde' },
+  { question: 'Avec quel os l’os palatin s’articule-t-il en haut', answer: 'Avec le corps du sphénoïde' },
+  { question: 'Quelle partie de l’os palatin forme la paroi postéro-externe de la cavité nasale', answer: 'La face interne de la lame verticale' },
+  { question: 'Quelle partie de l’os palatin forme le plancher de la cavité nasale', answer: 'La lame horizontale' },
+  { question: 'Avec quels os du massif facial supérieur le maxillaire s’articule-t-il', answer: 'Avec le palatin, le zygomatique, le lacrymal, le cornet nasal inférieur, le nasal et le vomer' },
+  { question: 'Avec quels os du crâne le maxillaire s’articule-t-il', answer: 'Avec l’os frontal et l’os ethmoïde' },
+  { question: 'Quelle arcade le maxillaire supérieur compose-t-il', answer: 'L’arcade dentaire supérieure' },
+  { question: 'À quelle autre arcade le maxillaire est-il relié par les dents', answer: 'À l’arcade dentaire inférieure' },
+  { question: 'Quel est l’os impair situé à la partie antérieure de la voûte crânienne', answer: 'L’os frontal' },
+  { question: 'Quelle est la caractéristique des sutures de l’os frontal', answer: 'Elles présentent un aspect dentelé' },
+  { question: 'Où se situe l’os frontal par rapport au massif facial', answer: 'Au-dessus du massif facial' },
+  { question: 'Où se situe l’os frontal par rapport aux orbites et au nez', answer: 'Latéralement aux orbites et médialement au nez' },
+  { question: 'Quelle est la forme de la face antérieure de l’os frontal', answer: 'Lisse et convexe' },
+  { question: 'Quelle structure se trouve sur le bord inférieur de l’os frontal', answer: 'L’épine nasale médiale' },
+  { question: 'Quelle structure se trouve sur le bord antéro-supérieur de l’os frontal', answer: 'Les orbites latéralement' },
+  { question: 'Quelle est la forme de l’incisure ethmoïdale de l’os frontal', answer: 'Une paroi inféro-interne médiane en U' },
+  { question: 'Avec quel os l’incisure ethmoïdale du frontal s’articule-t-elle', answer: 'Avec la lame criblée de l’ethmoïde' },
+  { question: 'Quelle est la fonction de l’épine nasale de l’os frontal', answer: 'Former la paroi supérieure des cavités nasales et contribuer à la cloison nasale' },
+  { question: 'Quelle partie de l’os frontal constitue la paroi supérieure des orbites', answer: 'La face inférieure du frontal' },
+  { question: 'Quelles structures loge la face inférieure de l’os frontal', answer: 'Les globes oculaires et les glandes lacrymales' },
+  { question: 'Où se situe l’os occipital', answer: 'À la partie postéro-inférieure de la voûte crânienne' },
+  { question: 'Quelle partie de l’os occipital participe à la base du crâne', answer: 'Sa partie inférieure' },
+  { question: 'Quelle structure veineuse est située à la face interne de l’os occipital', answer: 'Le torcular ou confluent des sinus' },
+  { question: 'Avec quels os l’os occipital est-il en rapport en bas', answer: 'Avec les os temporaux' },
+  { question: 'Avec quels os l’os occipital est-il en rapport en haut', answer: 'Avec les os pariétaux' },
+  { question: 'Avec quels os l’os occipital est-il en rapport en bas et en avant', answer: 'Avec le sphénoïde' },
+  { question: 'Quelle structure médiane s’ouvre dans l’os occipital', answer: 'Le foramen magnum' },
+  { question: 'Quelle est la fonction du foramen magnum', answer: 'Relier le cerveau à la moelle épinière' },
+  { question: 'Quelles structures articulaires encadrent le foramen magnum', answer: 'Les condyles occipitaux' },
+  { question: 'Avec quel os cervical les condyles occipitaux s’articulent-ils', answer: 'Avec l’atlas ou C1' },
+  { question: 'Quelle est la particularité de l’écaille occipitale', answer: 'Elle présente deux protubérances occipitales externes' },
+  { question: 'Que logent les fosses postérieures de l’os occipital', answer: 'Le cervelet' },
+  { question: 'Quelle partie de l’os occipital s’articule avec le sphénoïde', answer: 'La partie basilaire' },
+  { question: 'Quelle partie de l’os occipital entoure le foramen magnum en avant', answer: 'La partie fusionnée antérieure' },
+  { question: 'Quel os compose l’arcade dentaire inférieure', answer: 'La mandibule' },
+  { question: 'Quels sont les deux grands éléments constitutifs de la mandibule', answer: 'Un corps et deux branches' },
+  { question: 'Quelle ouverture est présente sur la face antéro-latérale de la mandibule', answer: 'L’orifice du nerf alvéolaire inférieur' },
+  { question: 'Quelle articulation permet le mouvement de la mandibule', answer: 'L’articulation temporo-mandibulaire' },
+  { question: 'Quel os impair est situé à la partie moyenne de la base du crâne', answer: 'Le sphénoïde' },
+  { question: 'Quelle est la forme du corps du sphénoïde', answer: 'Cubique avec plusieurs faces' },
+  { question: 'Quelle structure se trouve sur la face supérieure du sphénoïde', answer: 'Le jugum sphénoïdal et la selle turcique' },
+  { question: 'Quelle glande loge dans la fosse pituitaire du sphénoïde', answer: 'L’hypophyse' },
+  { question: 'Quelle partie postérieure du sphénoïde prolonge la selle turcique', answer: 'Le dorsum sellaire et le clivus' },
+  { question: 'Quelle est la forme des petites ailes du sphénoïde', answer: 'Triangulaire et aplatie' },
+  { question: 'Quelle est la fonction des petites ailes du sphénoïde', answer: 'Définir la jonction entre les étages antérieur et moyen de la base du crâne' },
+  { question: 'Quelle est la forme des grandes ailes du sphénoïde', answer: 'Incurvée, orientée vers l’avant et le dehors' },
+  { question: 'Quelle partie de la base du crâne est formée par les grandes ailes', answer: 'La paroi de l’étage moyen' },
+  { question: 'Quelle est la particularité des apophyses ptérygoïdes du sphénoïde', answer: 'Elles se terminent par une bifurcation en lame externe et lame interne' },
+  { question: 'Quels foramens sont situés à la racine de la grande aile du sphénoïde', answer: 'Le foramen rond, le foramen ovale et le foramen épineux' },
+  { question: 'Que traverse le foramen rond du sphénoïde', answer: 'Le nerf maxillaire V2' },
+  { question: 'Que traverse le foramen ovale du sphénoïde', answer: 'Le nerf mandibulaire V3' },
+  { question: 'Que traverse le foramen épineux du sphénoïde', answer: 'Le rameau méningé du nerf mandibulaire V3' },
+  { question: 'Quelle structure traverse le canal optique du sphénoïde', answer: 'Le nerf optique II' },
+  { question: 'Quelle apophyse est située en arrière du canal optique', answer: 'L’apophyse clinoïde antérieure' },
+  { question: 'Dans quelle région du crâne se situe l’ethmoïde', answer: 'Dans la région antérieure et médiale de la base du crâne' },
+  { question: 'Quelle lame verticale de l’ethmoïde participe à la cloison nasale', answer: 'La lame perpendiculaire' },
+  { question: 'Quelle apophyse se trouve sur la partie supérieure de la lame perpendiculaire', answer: 'La crista galli' },
+  { question: 'Quelle lame de l’ethmoïde constitue la paroi supérieure des cavités nasales', answer: 'La lame criblée' },
+  { question: 'Que laissent passer les orifices de la lame criblée de l’ethmoïde', answer: 'Les filets olfactifs' },
+  { question: 'Que contiennent les masses latérales de l’ethmoïde', answer: 'Des cavités osseuses appelées cellules ethmoïdales ou labyrinthes' },
+  { question: 'Avec quel os s’articule la partie supérieure des masses latérales de l’ethmoïde', answer: 'Avec le bord interne de l’os maxillaire au niveau de l’incisure ethmoïdale' },
+  { question: 'Avec quel os la lame perpendiculaire de l’ethmoïde est-elle en relation en avant', answer: 'Avec le vomer' },
+  { question: 'Quelle partie de l’ethmoïde sépare l’espace intracrânien de l’espace nasal', answer: 'La lame criblée' },
+  { question: 'Quelle partie de l’ethmoïde constitue une partie de la paroi interne de l’orbite', answer: 'La paroi externe des masses latérales' },
+  { question: 'Quel os impair forme la partie postéro-inférieure de la cloison nasale', answer: 'Le vomer' },
+  { question: 'Quelle est la forme du vomer', answer: 'Une lame verticale' },
+  { question: 'Où se situent les fosses nasales par rapport au vomer', answer: 'De part et d’autre du vomer' },
+  { question: 'Quelle est la fonction principale de l’orbite', answer: 'Loger les globes oculaires et les glandes lacrymales' },
+  { question: 'Quels os constituent la paroi interne de l’orbite', answer: 'L’os lacrymal et la face externe des masses latérales de l’ethmoïde' },
+  { question: 'Quel canal est associé à l’os lacrymal', answer: 'Le canal lacrymo-nasal' },
+  { question: 'Quelle est la fonction du canal lacrymo-nasal', answer: 'Permettre l’évacuation des larmes dans la cavité nasale' },
+  { question: 'Quels os constituent la paroi externe de l’orbite', answer: 'La grande aile du sphénoïde et l’os malaire' },
+  { question: 'Quel os constitue la paroi supérieure de l’orbite', answer: 'L’os frontal' },
+  { question: 'Quels os constituent la paroi inférieure de l’orbite', answer: 'L’os malaire et l’os maxillaire' },
+  { question: 'Quels os constituent la paroi postérieure de l’orbite', answer: 'Les petites et grandes ailes du sphénoïde' },
+  { question: 'Quelle fissure se trouve dans la paroi postérieure de l’orbite', answer: 'La fissure orbitaire supérieure' },
+  { question: 'Quelle fissure est située entre le sphénoïde et le maxillaire', answer: 'La fissure orbitaire inférieure ou sphéno-maxillaire' },
+  { question: 'Quel canal traverse uniquement le nerf optique', answer: 'Le canal optique' },
+  { question: 'Quels os composent l’étage antérieur de la base du crâne', answer: 'L’os frontal, l’ethmoïde et le sphénoïde' },
+  { question: 'Quels lobes cérébraux reposent sur l’étage antérieur de la base du crâne', answer: 'Les lobes orbito-frontaux et préfrontaux' },
+  { question: 'Quels os composent l’étage moyen de la base du crâne', answer: 'Le sphénoïde et les os temporaux' },
+  { question: 'Quels lobes cérébraux reposent sur l’étage moyen de la base du crâne', answer: 'Les lobes temporaux' },
+  { question: 'Quels os composent l’étage inférieur de la base du crâne', answer: 'L’os occipital' },
+  { question: 'Quels organes reposent sur l’étage inférieur de la base du crâne', answer: 'Le tronc cérébral et le cervelet' },
+  { question: 'Quelles structures osseuses sont visibles sur la face externe de la base du crâne en vue inférieure', answer: 'La mandibule, les grandes ailes du sphénoïde, le processus mastoïde, l’os occipital et l’articulation occiput-C1' },
+  { question: 'Quelle suture sépare l’os frontal des os pariétaux', answer: 'La suture coronale' },
+  { question: 'Quelle suture sépare les deux os pariétaux', answer: 'La suture sagittale' },
+  { question: 'Quel est le point de jonction entre la suture coronale et la suture sagittale', answer: 'Le bregma' },
+  { question: 'Quelle suture sépare les os pariétaux de l’écaille de l’os temporal', answer: 'La suture inter-pariéto-squameuse' },
+  { question: 'Quelle suture sépare l’os occipital des deux os pariétaux', answer: 'La suture lambdoïde' },
+  { question: 'Quel est le point de jonction entre la suture lambdoïde et la suture sagittale', answer: 'Le lambda' },
+  { question: 'Quelle suture sépare la grande aile du sphénoïde de l’os frontal', answer: 'La suture ptéro-frontale' },
+  { question: 'Quelle suture sépare la grande aile du sphénoïde de l’os pariétal', answer: 'La suture ptéro-pariétale' },
+  { question: 'Quelle suture sépare la grande aile du sphénoïde de l’os temporal', answer: 'La suture ptéro-temporale' },
+  { question: 'Quels orifices traversent les filets olfactifs au niveau de l’étage antérieur du crâne', answer: 'Les orifices de la lame criblée de l’ethmoïde' },
+  { question: 'Quels orifices traversent le nerf optique au niveau de l’étage antérieur du crâne', answer: 'Les canaux optiques' },
+  { question: 'Quelle fissure de l’étage moyen laisse passer les nerfs oculomoteurs, trochléaire, abducens et ophtalmique', answer: 'La fente sphénoïdale ou fissure orbitaire supérieure' },
+  { question: 'Quel foramen de l’étage moyen livre passage au nerf maxillaire V2', answer: 'Le foramen rond' },
+  { question: 'Quel foramen de l’étage moyen livre passage au nerf mandibulaire V3', answer: 'Le foramen ovale' },
+  { question: 'Quel foramen de l’étage moyen livre passage au rameau méningé du nerf mandibulaire', answer: 'Le foramen épineux' },
+  { question: 'Quel orifice est situé en arrière du sphénoïde au niveau du rocher temporal', answer: 'Le trou déchiré' },
+  { question: 'Quel orifice de l’étage inférieur livre passage aux nerfs cochléovestibulaire et facial', answer: 'Le conduit auditif interne' },
+  { question: 'Quel foramen de l’étage inférieur livre passage aux nerfs glossopharyngien, vague et spinal', answer: 'Le foramen jugulaire' },
+  { question: 'Quel canal de l’étage inférieur livre passage au nerf hypoglosse', answer: 'Le canal hypoglosse' },
+  { question: 'Quel est le plus grand orifice de l’étage inférieur de la base du crâne', answer: 'Le foramen magnum' },
+  { question: 'Quels nerfs traversent le foramen jugulaire', answer: 'Les nerfs mixtes IX, X et XI' },
+  { question: 'Quelle est la fonction des sutures crâniennes', answer: 'Délimiter la fin d’un os et le début d’un autre' },
+  { question: 'Quelle est la particularité du bregma', answer: 'C’est le point de rencontre de la suture coronale et de la suture sagittale' },
+  { question: 'Quelle est la particularité du lambda', answer: 'C’est le point de rencontre de la suture sagittale et de la suture lambdoïde' },
+  { question: 'Quel os forme la région antérieure aplatie du massif facial', answer: 'La mandibule' },
+  { question: 'Quels os pairs forment la mâchoire supérieure', answer: 'Les deux os maxillaires' },
+  { question: 'Quels os pairs sont situés profondément au niveau de la face', answer: 'Les deux os malaires et les deux os palatins' },
+  { question: 'Quels os pairs sont situés dans l’orbite en relation avec le canal lacrymal', answer: 'Les deux os lacrymaux' },
+  { question: 'Quel petit os impair contribue à la cloison médiale des fosses nasales', answer: 'Le vomer' },
+  { question: 'Quels os pairs forment la paroi supérieure et latérale de la voûte crânienne', answer: 'Les os pariétaux' },
+  { question: 'Quels os pairs constituent la paroi latérale et inférieure de la voûte crânienne', answer: 'Les os temporaux' },
+  { question: 'Quelle est la partie quadrangulaire verticale de l’os temporal', answer: 'L’écaille de l’os temporal' },
+  { question: 'Quelle partie de l’os temporal comprend le processus mastoïde et le conduit auditif externe', answer: 'La partie inférieure' },
+  { question: 'Quel processus de l’os temporal est situé en avant du processus mastoïde', answer: 'Le processus styloïde' },
+  { question: 'Quelle cavité articulaire se trouve sous le processus zygomatique de l’os temporal', answer: 'La cavité glénoïde' },
+  { question: 'Quel os zygomatique forme une partie du bord latéral de l’orbite', answer: 'L’os malaire' },
+  { question: 'Quel os zygomatique s’articule avec l’apophyse orbitaire du frontal', answer: 'L’os malaire' },
+  { question: 'Quel os zygomatique s’articule en arrière avec l’apophyse zygomatique du temporal', answer: 'L’os malaire' },
+  { question: 'Quel os zygomatique s’articule en dedans avec l’os sphénoïde', answer: 'L’os malaire' },
+  { question: 'Quelle est la forme de l’os palatin vu en coupe', answer: 'Un L majuscule' },
+  { question: 'Quelle partie de l’os palatin fusionne avec son homologue controlatéral', answer: 'La lame horizontale' },
+  { question: 'Quel massif osseux pyramidal est situé sur le bord supérieur de la lame verticale du palatin', answer: 'L’apophyse orbitaire' },
+  { question: 'Quelle échancrure sépare l’apophyse orbitaire et l’apophyse sphénoïdale du palatin', answer: 'L’échancrure sphéno-palatine' },
+  { question: 'Quelle apophyse du palatin est située au bord postéro-inférieur', answer: 'L’apophyse pyramidale' },
+  { question: 'Quelle articulation relie la mandibule à la base du crâne', answer: 'L’articulation temporo-mandibulaire' },
+  { question: 'Quel os impair du crâne est convexe et forme la partie antérieure de la voûte', answer: 'L’os frontal' },
+  { question: 'Quelle incisure de l’os frontal permet l’articulation avec l’ethmoïde', answer: 'L’incisure ethmoïdale' },
+  { question: 'Quel os impair est situé à la partie postérieure et inférieure de la voûte', answer: 'L’os occipital' },
+  { question: 'Quelle zone veineuse se situe sur la face interne de l’os occipital', answer: 'Le torcular' },
+  { question: 'Quels reliefs osseux se trouvent sur l’écaille occipitale', answer: 'Les protubérances occipitales externes' },
+  { question: 'Quel orifice permet la communication entre cerveau et moelle épinière', answer: 'Le foramen magnum' },
+  { question: 'Quelle articulation unit l’os occipital et l’atlas', answer: 'L’articulation occipito-cervicale' },
+  { question: 'Quelle partie du sphénoïde loge l’hypophyse', answer: 'La selle turcique' },
+  { question: 'Quelle expansion postérieure du sphénoïde se prolonge en clivus', answer: 'Le dorsum sellaire' },
+  { question: 'Quelles expansions latérales du sphénoïde délimitent l’étage moyen', answer: 'Les grandes ailes' },
+  { question: 'Quelle fissure du sphénoïde est en forme de V et laisse passer plusieurs nerfs crâniens', answer: 'La fente sphénoïdale' },
+  { question: 'Quel foramen du sphénoïde livre passage au nerf maxillaire V2', answer: 'Le foramen rond' },
+  { question: 'Quel foramen du sphénoïde livre passage au nerf mandibulaire V3', answer: 'Le foramen ovale' },
+  { question: 'Quel foramen du sphénoïde livre passage au rameau méningé du nerf mandibulaire', answer: 'Le foramen épineux' },
+  { question: 'Quel canal du sphénoïde livre passage au nerf optique', answer: 'Le canal optique' },
+  { question: 'Quelle apophyse de l’ethmoïde s’élève au-dessus de la lame perpendiculaire', answer: 'La crista galli' },
+  { question: 'Quelle partie de l’ethmoïde permet le passage des filets olfactifs', answer: 'La lame criblée' },
+  { question: 'Quels petits os de l’ethmoïde contiennent les cellules ethmoïdales', answer: 'Les masses latérales' },
+  { question: 'Quel os impair forme la partie inférieure postérieure de la cloison nasale', answer: 'Le vomer' },
+  { question: 'Quelle paroi de l’orbite est formée par l’os frontal', answer: 'La paroi supérieure' },
+  { question: 'Quelle paroi de l’orbite est formée par l’os maxillaire et l’os malaire', answer: 'La paroi inférieure' },
+  { question: 'Quelle paroi de l’orbite est formée par la grande aile du sphénoïde et le malaire', answer: 'La paroi externe' },
+  { question: 'Quelle paroi de l’orbite est formée par l’os lacrymal et l’ethmoïde', answer: 'La paroi interne' },
+  { question: 'Quel orifice de la base du crâne laisse passer le nerf hypoglosse XII', answer: 'Le canal hypoglosse' },
+  { question: 'Quels nerfs passent par le conduit auditif interne', answer: 'Le nerf cochléovestibulaire VIII et le nerf facial VII' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

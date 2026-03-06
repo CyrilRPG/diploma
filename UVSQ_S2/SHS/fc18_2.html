@@ -1,0 +1,558 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Prévention des infections transmises par contact. Partie 2</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Prévention des infections transmises par contact. Partie 2</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la principale différence entre le lavage simple et la friction hydroalcoolique des mains ?', answer: 'Le lavage simple réduit les micro-organismes mais la friction hydroalcoolique les élimine presque totalement, jusqu’à un million de germes détruits.' },
+  { question: 'Après un lavage simple, que reste-t-il sur la peau ?', answer: 'Des germes actifs demeurent et peuvent proliférer si le séchage est mal réalisé.' },
+  { question: 'Après une désinfection par friction hydroalcoolique, que retrouve-t-on sur la peau ?', answer: 'Presque plus aucune bactérie, la réduction est maximale.' },
+  { question: 'Quels gestes compromettent l’efficacité de la friction hydroalcoolique ?', answer: 'Ongles longs, vernis, bagues, bijoux et séchage inapproprié.' },
+  { question: 'Quel est l’objectif du lavage des mains avec eau et savon ?', answer: 'Réduire la quantité de micro-organismes mais sans les éliminer totalement.' },
+  { question: 'Quel est l’objectif de la désinfection hydroalcoolique des mains ?', answer: 'Éliminer les micro-organismes avec une efficacité bien supérieure au lavage.' },
+  { question: 'En l’absence d’eau, quelle méthode d’hygiène des mains est privilégiée ?', answer: 'La friction hydroalcoolique.' },
+  { question: 'Quelle méthode est priorisée pour prévenir les infections : lavage ou friction hydroalcoolique ?', answer: 'La friction hydroalcoolique est priorisée.' },
+  { question: 'Quels sont les cinq moments définis par l’OMS pour l’hygiène des mains ?', answer: 'Avant le contact patient, avant le geste aseptique, après un risque d’exposition à un liquide biologique, après le contact patient, après le contact avec l’environnement du patient.' },
+  { question: 'Pourquoi le séchage des mains est-il crucial après lavage ?', answer: 'Car un séchage mal fait abîme la peau, favorise les microbes et augmente le risque infectieux.' },
+  { question: 'Comment doit-on sécher ses mains après lavage ?', answer: 'Par tapotement doux avec une serviette et non par frottement agressif.' },
+  { question: 'Quand appliquer systématiquement les précautions standard en soins ?', answer: 'Pour tout patient, en tout lieu et en tout temps.' },
+  { question: 'Donne deux exemples de précautions standard en soins.', answer: 'Hygiène des mains avant et après tout contact patient, port de gants lors de la manipulation de liquides biologiques.' },
+  { question: 'Quelle était l’ancienne méthode de lavage chirurgical des mains ?', answer: 'Lavage de 7 minutes au savon et à l’eau avant le bloc opératoire.' },
+  { question: 'Quelle est la nouvelle méthode de préparation chirurgicale des mains ?', answer: 'Lavage initial court puis double friction hydroalcoolique d’une minute chacune.' },
+  { question: 'Pourquoi la friction chirurgicale est-elle préférable au lavage chirurgical ?', answer: 'Plus efficace, moins agressive pour la peau et plus rapide.' },
+  { question: 'Quel principe doit être respecté lors de la friction chirurgicale ?', answer: 'Se frictionner jusqu’à évaporation complète du produit.' },
+  { question: 'Quel soin de la peau est conseillé pour prévenir les irritations dues aux solutions hydroalcooliques ?', answer: 'L’application régulière d’une crème protectrice.' },
+  { question: 'Pourquoi certains soignants résistent-ils à l’usage des solutions hydroalcooliques ?', answer: 'A cause de brûlures sur peau abîmée, irritations, intolérance à l’alcool ou fausses croyances.' },
+  { question: 'Quelle stratégie pédagogique permet de convaincre les soignants réticents ?', answer: 'Accompagnement progressif, démonstration microbiologique avant/après et correction des pratiques.' },
+  { question: 'Quel rôle peut jouer un chirurgien sceptique après formation ?', answer: 'Devenir ambassadeur de la méthode auprès de ses collègues.' },
+  { question: 'Pourquoi un étudiant doit absolument maîtriser l’hygiène des mains en stage ?', answer: 'Parce que c’est une condition de validation du stage et un réflexe professionnel essentiel.' },
+  { question: 'Quel est le message clé sur l’hygiène des mains ?', answer: 'Efficacité et constance, la méthode prime autant que le produit.' },
+  { question: 'Pourquoi le port de bijoux est-il interdit en zone de soins ?', answer: 'Car ils abritent des germes et empêchent la désinfection correcte.' },
+  { question: 'Quelle étude a montré le rôle des ongles artificiels dans la transmission bactérienne ?', answer: 'Une étude de 1989 sur 112 infirmières a montré un risque accru de bactéries Gram chez celles portant des faux ongles.' },
+  { question: 'Quel impact les médias peuvent-ils avoir sur l’hygiène des mains ?', answer: 'Ils diffusent des exagérations ou fausses croyances entraînant l’abandon des solutions efficaces.' },
+  { question: 'Depuis quelle année les perturbateurs endocriniens sont-ils interdits en France dans les cosmétiques ?', answer: 'Depuis 1998.' },
+  { question: 'Comment sont contrôlées les solutions hydroalcooliques utilisées en hôpital ?', answer: 'Elles sont validées par des experts et répondent à une réglementation stricte.' },
+  { question: 'Quel outil pédagogique montre les zones mal désinfectées sur les mains ?', answer: 'La boîte à coucou avec lumière UV.' },
+  { question: 'Pourquoi la boîte à coucou est-elle efficace en formation ?', answer: 'Car elle rend visible immédiatement les zones oubliées, ce qui marque les esprits.' },
+  { question: 'Quel est le rôle des campagnes de sensibilisation sur l’hygiène des mains ?', answer: 'Faire des précautions standard un automatisme comparable à la ceinture de sécurité.' },
+  { question: 'Pourquoi les gants ne remplacent-ils pas l’hygiène des mains ?', answer: 'Car ils protègent seulement le porteur mais pas l’environnement ni les autres patients.' },
+  { question: 'Quelle est la bonne pratique du port de gants en soins ?', answer: 'Un soin égale une paire de gants suivie d’une friction hydroalcoolique après retrait.' },
+  { question: 'Que démontre l’exemple des caissiers portant des gants toute la journée ?', answer: 'Qu’ils propagent plus de germes qu’avec une bonne hygiène des mains.' },
+  { question: 'Quelles sont les deux catégories principales de précautions en soins ?', answer: 'Les précautions standards et les précautions complémentaires d’hygiène.' },
+  { question: 'Quelle est la proportion des infections hospitalières provenant du microbiote humain ?', answer: 'Environ 65 %.' },
+  { question: 'Pourquoi la prévention est-elle essentielle contre les bactéries multi-résistantes ?', answer: 'Parce que les antibiotiques ne sont plus efficaces et il ne reste que les mesures d’hygiène.' },
+  { question: 'Qu’est-ce qu’une BHRe ?', answer: 'Une bactérie hautement résistante émergente, commensale devenue très résistante et transmissible.' },
+  { question: 'Dans quels cas un dépistage de BHRe est-il indiqué ?', answer: 'Chez un patient hospitalisé à l’étranger ou rapatrié sanitaire.' },
+  { question: 'Quelle mesure hospitalière est mise en place en attendant les résultats d’un dépistage BHRe ?', answer: 'Isolement avec précautions contact.' },
+  { question: 'Pourquoi les précautions contact sont-elles appliquées en hôpital ?', answer: 'Pour réduire la transmission par contact direct et limiter l’usage des antibiotiques.' },
+  { question: 'Donne un exemple concret de précaution contact.', answer: 'Isolement en chambre seule avec matériel médical dédié.' },
+  { question: 'Quel est le lien entre hygiène des mains et résistance aux antibiotiques ?', answer: 'L’hygiène réduit les infections et donc limite l’utilisation d’antibiotiques.' },
+  { question: 'Quels secteurs sont concernés par l’approche One Health de l’antibiorésistance ?', answer: 'Santé humaine, santé vétérinaire et environnement.' },
+  { question: 'Quelle est la différence entre désinfection et antisepsie ?', answer: 'La désinfection concerne les surfaces inertes, l’antisepsie concerne les tissus vivants.' },
+  { question: 'Qu’est-ce qu’un produit biocide ?', answer: 'Un produit destiné à détruire ou rendre inoffensifs les organismes nuisibles sur des surfaces inertes.' },
+  { question: 'Combien existe-t-il de types de produits biocides ?', answer: '22 types regroupés en 4 grandes familles.' },
+  { question: 'Quels sont les produits biocides de type 1 (TP1) ?', answer: 'Les produits destinés à l’hygiène humaine comme les solutions hydroalcooliques.' },
+  { question: 'Quelle obligation entrera en vigueur en 2026 concernant les désinfectants ?', answer: 'Tous devront avoir une autorisation de mise sur le marché et les acheteurs devront être formés.' },
+  { question: 'Qu’est-ce que la classification de Spaulding des dispositifs médicaux ?', answer: 'Une classification qui détermine le niveau de traitement requis selon le risque lié à l’utilisation des dispositifs médicaux.' },
+  { question: 'Quels dispositifs sont considérés comme critiques selon Spaulding ?', answer: 'Ceux qui pénètrent les sites anatomiques stériles ou les vaisseaux sanguins, nécessitant stérilisation.' },
+  { question: 'Quels dispositifs sont semi-critiques selon Spaulding ?', answer: 'Ceux en contact avec muqueuses ou peau non intacte, nécessitant désinfection de haut niveau.' },
+  { question: 'Quels dispositifs sont non critiques selon Spaulding ?', answer: 'Ceux en contact avec la peau intacte, nécessitant désinfection de niveau bas ou intermédiaire.' },
+  { question: 'Quelle est la différence entre nettoyage et désinfection ?', answer: 'Le nettoyage enlève les salissures, la désinfection détruit ou inactive les micro-organismes.' },
+  { question: 'Quelle est la différence entre désinfection et stérilisation ?', answer: 'La désinfection réduit ou élimine la charge microbienne alors que la stérilisation élimine totalement tous les germes y compris les spores.' },
+  { question: 'Qu’est-ce que le bio-nettoyage ?', answer: 'Une opération combinant nettoyage et désinfection pour réduire la charge microbienne sur les surfaces.' },
+  { question: 'Quelles sont les étapes du bio-nettoyage ?', answer: 'Nettoyage, évacuation de la salissure puis désinfection.' },
+  { question: 'Qu’est-ce que la bio-décontamination ?', answer: 'Une méthode visant à éliminer les germes et leur ADN résiduel.' },
+  { question: 'Quelles méthodes peuvent être utilisées pour la bio-décontamination ?', answer: 'Désinfectants chimiques, plasma froid, lumière UV-C, aérosols ou brumes désinfectantes.' },
+  { question: 'Qu’est-ce qu’un détergent ?', answer: 'Produit chimique tensioactif qui enlève les salissures mais ne détruit pas les micro-organismes.' },
+  { question: 'Quel est le rôle principal d’un détergent en hygiène hospitalière ?', answer: 'Préparer une surface avant application d’un désinfectant.' },
+  { question: 'Qu’est-ce qu’un désinfectant ?', answer: 'Produit chimique ou physique qui tue ou inactive des micro-organismes sur des surfaces inertes.' },
+  { question: 'Qu’est-ce que la biocharge ?', answer: 'La population de micro-organismes viables sur ou dans un produit ou système.' },
+  { question: 'Que signifie le cycle PDCA en désinfection ?', answer: 'Planifier, Agir, Vérifier, Ajuster pour une gestion continue des risques microbiologiques.' },
+  { question: 'Quelles technologies nouvelles sont apparues depuis la pandémie de Covid-19 en désinfection ?', answer: 'Ozone, plasma froid, UV-C, brumisation désinfectante.' },
+  { question: 'Quelles zones doivent être désinfectées avec exigences différentes en milieu hospitalier ?', answer: 'Zones de risque 1 à 4 allant des locaux administratifs aux services de haute sécurité biologique.' },
+  { question: 'Donne un exemple de zone à risque 1 en désinfection.', answer: 'WC, entrepôts, morgue sans chambre froide, bureaux administratifs.' },
+  { question: 'Donne un exemple de zone à risque 2.', answer: 'Couloirs, ascenseurs, salles d’attente, services de maternité, blanchisserie.' },
+  { question: 'Donne un exemple de zone à risque 3.', answer: 'Réanimation, urgences, pédiatrie, chimiothérapie, hémodialyse.' },
+  { question: 'Donne un exemple de zone à risque 4.', answer: 'Néonatologie, blocs opératoires aseptiques, greffes, laboratoires de haute sécurité.' },
+  { question: 'Quel est le rythme de nettoyage pour les zones à risque 4 ?', answer: 'Bionettoyage pluriquotidien par agents formés.' },
+  { question: 'Quelle est la norme cible microbiologique pour le linge hospitalier selon la démarche RABC ?', answer: '12 UFC pour 25 cm².' },
+  { question: 'Pourquoi la désinfection du linge ne doit-elle pas se limiter au lavage ?', answer: 'Car un linge propre remis dans un véhicule contaminé perd toute efficacité.' },
+  { question: 'Quelle précaution doit être prise lors du transport du linge hospitalier ?', answer: 'Transporter dans des véhicules désinfectés et contrôlés régulièrement.' },
+  { question: 'Quelle est la définition de l’asepsie ?', answer: 'Action empêchant la contamination d’une zone ou d’un tissu vivant par des micro-organismes.' },
+  { question: 'Quelle est la définition de l’antisepsie ?', answer: 'Action éliminant momentanément les micro-organismes sur tissus vivants avec un produit antiseptique.' },
+  { question: 'Quelle est la définition d’un antiseptique ?', answer: 'Produit désinfectant à usage corporel appliqué sur peau, muqueuses ou champ opératoire.' },
+  { question: 'Quel est l’objectif principal d’un antiseptique ?', answer: 'Limiter la transmission des germes commensaux vers des zones où ils deviendraient pathogènes.' },
+  { question: 'Quelles qualités doit posséder un bon antiseptique ?', answer: 'Efficace contre les germes ciblés avec toxicité minimale.' },
+  { question: 'Donne un exemple de situation nécessitant un antiseptique.', answer: 'Pose d’un cathéter ou préparation cutanée préopératoire.' },
+  { question: 'Quelle est la différence entre un antiseptique pour peau intacte et pour plaies ouvertes ?', answer: 'Certains antiseptiques adaptés à la peau saine peuvent être dangereux pour plaies ou muqueuses.' },
+  { question: 'Quelle est la démarche logique pour une désinfection efficace ?', answer: 'Identifier la cible, déterminer le niveau requis, choisir le bon produit, respecter le protocole, contrôler l’efficacité.' },
+  { question: 'Pourquoi le protocole d’antisepsie doit-il être strict ?', answer: 'Car un mauvais choix de produit ou temps de contact réduit l’efficacité et peut nuire au patient.' },
+  { question: 'Qu’est-ce que le protocole antiseptique en 4 temps ?', answer: 'Détersion, rinçage, séchage, antisepsie.' },
+  { question: 'Qu’est-ce que la procédure en 2 ou 3 temps ?', answer: 'Détersion si nécessaire puis antisepsie double.' },
+  { question: 'Pourquoi doit-on utiliser un applicateur pour appliquer un antiseptique ?', answer: 'Pour standardiser l’application et éviter les erreurs humaines.' },
+  { question: 'Quelles précautions sont nécessaires pour stocker un antiseptique ?', answer: 'Respecter les conditions de conservation, éviter contamination du flacon, respecter le temps de contact.' },
+  { question: 'Que peut provoquer un antiseptique souillé ?', answer: 'Une épidémie nosocomiale par propagation des bactéries résistantes.' },
+  { question: 'Quelles erreurs peuvent contaminer un antiseptique ?', answer: 'Conservation inappropriée, récipient mal fermé, dosage ou temps de contact non respectés.' },
+  { question: 'Quelle est la règle clé concernant la désinfection ?', answer: 'On ne peut désinfecter que ce qui est propre.' },
+  { question: 'Quelles sont les étapes de l’antisepsie préopératoire ?', answer: 'Douche, dépilation si besoin, détersion, rinçage, séchage, désinfection, champs stériles.' },
+  { question: 'Quelle est la précaution essentielle avant perfusion ?', answer: 'Désinfection de la peau au point d’insertion.' },
+  { question: 'Quelle hygiène globale doit être respectée au-delà des mains ?', answer: 'Vêtements, lunettes, cheveux propres et éviter de toucher son visage après désinfection.' },
+  { question: 'Qu’est-ce qu’un pathogène opportuniste ?', answer: 'Un micro-organisme non dangereux habituellement mais qui profite d’une faiblesse de l’hôte.' },
+  { question: 'Donne un exemple de situation favorisant un pathogène opportuniste.', answer: 'Une plaie ouverte ou une destruction de flore protectrice par antibiotiques.' },
+  { question: 'Quel est le rôle du microbiote dans la prévention des infections ?', answer: 'Maintenir un équilibre qui empêche la prolifération des pathogènes opportunistes.' },
+  { question: 'Quelle conclusion générale peut-on tirer de la maîtrise des désinfectants et antiseptiques ?', answer: 'Qu’elle est essentielle pour limiter la transmission des infections et protéger les patients.' },
+  { question: 'Pourquoi dit-on que l’hygiène des mains est le geste central de la prévention infectieuse ?', answer: 'Parce qu’elle réduit la transmission des germes et limite le recours aux antibiotiques.' },
+  { question: 'Que signifie le terme « précautions standards » ?', answer: 'Mesures d’hygiène systématiques appliquées à tous les patients en toutes circonstances.' },
+  { question: 'Que signifie le terme « précautions complémentaires » ?', answer: 'Mesures spécifiques supplémentaires mises en place selon le risque infectieux identifié.' },
+  { question: 'Quelles sont les trois principales voies de transmission visées par les précautions complémentaires ?', answer: 'Contact, gouttelettes, et air.' },
+  { question: 'Quelles bactéries sont responsables de la majorité des infections hospitalières ?', answer: 'Celles issues du microbiote humain.' },
+  { question: 'Quels sont les trois principaux facteurs favorisant l’antibiorésistance ?', answer: 'Surconsommation d’antibiotiques chez l’homme, usage vétérinaire excessif, contamination environnementale.' },
+  { question: 'Quelle est la particularité des BHRe par rapport aux BMR ?', answer: 'Elles développent une très forte résistance et un fort potentiel de transmission.' },
+  { question: 'Quelle est la mesure la plus efficace contre les BHRe ?', answer: 'Dépistage, isolement et hygiène stricte des mains.' },
+  { question: 'Quel est l’objectif des précautions contact en milieu hospitalier ?', answer: 'Empêcher les germes de se propager entre patients et soignants.' },
+  { question: 'Quelles sont les mesures incluses dans les précautions contact ?', answer: 'Isolement géographique, matériel dédié, surblouse, hygiène stricte des mains, bonne gestion des déchets.' },
+  { question: 'Quelle est la conséquence d’un mauvais usage des antibiotiques ?', answer: 'Le développement et la diffusion de bactéries résistantes.' },
+  { question: 'Qu’est-ce que l’approche « One Health » ?', answer: 'Une approche intégrée liant santé humaine, animale et environnementale dans la lutte contre l’antibiorésistance.' },
+  { question: 'Quelle est la différence entre désinfection et antisepsie au niveau réglementaire ?', answer: 'La désinfection relève de la réglementation biocide ou dispositif médical, l’antisepsie relève du médicament avec AMM.' },
+  { question: 'Que signifie AMM pour un antiseptique ?', answer: 'Autorisation de mise sur le marché.' },
+  { question: 'Quelles sont les quatre grandes familles de biocides ?', answer: 'Désinfectants, produits de protection, antiparasitaires, autres produits.' },
+  { question: 'Donne un exemple de produit TP2.', answer: 'Lingettes désinfectantes de surface.' },
+  { question: 'Donne un exemple de produit TP3.', answer: 'Produits biocides pour l’hygiène vétérinaire.' },
+  { question: 'Donne un exemple de produit TP4.', answer: 'Désinfectants pour surfaces en contact avec des aliments.' },
+  { question: 'Donne un exemple de produit TP5.', answer: 'Désinfectants pour eaux de boisson.' },
+  { question: 'Que signifie « dispositif médical » dans le cas d’un désinfectant ?', answer: 'Produit destiné à traiter un dispositif médical pour son usage sur patient.' },
+  { question: 'Quelles étapes suivent les instruments chirurgicaux critiques selon Spaulding ?', answer: 'Décontamination, nettoyage puis stérilisation.' },
+  { question: 'Quelles étapes suivent les dispositifs semi-critiques ?', answer: 'Décontamination, nettoyage puis désinfection de haut niveau.' },
+  { question: 'Quelles étapes suivent les dispositifs non critiques ?', answer: 'Décontamination, nettoyage et désinfection bas ou intermédiaire.' },
+  { question: 'Quel est le but de la stérilisation ?', answer: 'Éliminer totalement tous les micro-organismes, y compris les spores.' },
+  { question: 'Quels sont les trois niveaux de désinfection ?', answer: 'Bas niveau, intermédiaire et haut niveau.' },
+  { question: 'Donne un exemple d’utilisation d’une désinfection de bas niveau.', answer: 'Nettoyage courant des surfaces.' },
+  { question: 'Donne un exemple d’utilisation d’une désinfection intermédiaire.', answer: 'Matériel semi-critique.' },
+  { question: 'Donne un exemple d’utilisation d’une désinfection de haut niveau.', answer: 'Endoscopes.' },
+  { question: 'Quelles surfaces sont visées par les précautions standard 2017 (R31) ?', answer: 'Environnement proche du patient, surfaces fréquemment utilisées, locaux.' },
+  { question: 'Quelles sont les étapes de la démarche stratégique pour choisir un désinfectant ?', answer: 'Identifier l’objectif, définir le niveau de désinfection requis, choisir le produit compatible et respecter son temps d’action.' },
+  { question: 'Pourquoi doit-on choisir un seul produit désinfectant par usage ?', answer: 'Pour garantir l’efficacité optimale et éviter les incompatibilités.' },
+  { question: 'Quels critères déterminent le choix d’un produit de désinfection ?', answer: 'Objectif, niveau de désinfection requis, matériel utilisé, temps d’action.' },
+  { question: 'Quelles sont les zones nécessitant un bio-nettoyage pluriquotidien ?', answer: 'Services de néonatologie, blocs opératoires aseptiques, services des greffes, brûlés, immunodéprimés.' },
+  { question: 'Pourquoi doit-on alterner entre détergents et détergents-désinfectants ?', answer: 'Pour éviter la résistance microbienne et améliorer l’efficacité.' },
+  { question: 'Quelles précautions spécifiques concernent le linge hospitalier ?', answer: 'Lavage à température adaptée, transport hygiénique, contrôle microbiologique.' },
+  { question: 'Comment s’assure-t-on du contrôle microbiologique du linge hospitalier ?', answer: 'Par gélose contact, filtration et incubation de 72h à 30°C.' },
+  { question: 'Quelle est la conséquence d’un transport de linge propre dans un véhicule contaminé ?', answer: 'Annulation de l’efficacité du lavage, risque de recontamination.' },
+  { question: 'Quelles autres structures doivent être désinfectées régulièrement en hôpital ?', answer: 'Ambulances, chariots de transport, équipements médicaux.' },
+  { question: 'Quelle règle résume l’utilisation des gants en soins ?', answer: 'Un soin = une paire de gants + friction hydroalcoolique après retrait.' },
+  { question: 'Quelle erreur fréquente commet-on avec le port de gants ?', answer: 'Croire qu’ils dispensent de l’hygiène des mains.' },
+  { question: 'Quelles sont les principales erreurs dans l’utilisation des antiseptiques ?', answer: 'Temps de contact non respecté, contamination du flacon, produit non adapté à la zone.' },
+  { question: 'Quelles sont les étapes d’un protocole antiseptique préopératoire ?', answer: 'Douche, dépilation si besoin, détersion, rinçage, séchage, antisepsie, champs stériles.' },
+  { question: 'Quelles précautions doivent prendre les soignants avec leur tenue ?', answer: 'Tenue propre, pas de bijoux, hygiène des cheveux et lunettes.' },
+  { question: 'Quel est le rôle des soignants dans la prévention des infections transmises par contact ?', answer: 'Appliquer rigoureusement les protocoles et intégrer les gestes d’hygiène comme des réflexes.' },
+  { question: 'Pourquoi dit-on que les pathogènes opportunistes ne sont pas une fatalité ?', answer: 'Parce qu’ils peuvent être contrôlés par une bonne hygiène et le renforcement des défenses naturelles.' },
+  { question: 'Quels facteurs affaiblissent l’immunité et favorisent les infections ?', answer: 'Mauvaise hygiène, stress, alimentation déséquilibrée.' },
+  { question: 'Quelle est la conclusion principale du cours sur la prévention des infections par contact ?', answer: 'L’hygiène des mains et le respect des protocoles de désinfection et antisepsie sont essentiels pour limiter les infections et l’antibiorésistance.' },
+  { question: 'Quel est le but de l’hygiène des mains selon l’OMS ?', answer: 'Prévenir la transmission des infections associées aux soins par des gestes simples et efficaces.' },
+  { question: 'Pourquoi l’efficacité d’un produit désinfectant dépend-elle de la méthode d’application ?', answer: 'Parce qu’une mauvaise application laisse des zones non traitées où les germes persistent.' },
+  { question: 'Quelle est la conséquence d’une peau abîmée sur l’hygiène des mains ?', answer: 'Elle devient un réservoir à microbes et favorise les infections.' },
+  { question: 'Pourquoi la friction hydroalcoolique est-elle moins agressive que le lavage répété au savon ?', answer: 'Parce qu’elle assèche moins la peau et préserve la barrière cutanée.' },
+  { question: 'Pourquoi doit-on retirer les bagues avant toute désinfection des mains ?', answer: 'Parce qu’elles empêchent le produit d’atteindre la peau et abritent des germes.' },
+  { question: 'Que montrent les études microbiologiques avant et après désinfection ?', answer: 'Une réduction nette des bactéries avec la friction hydroalcoolique comparée au lavage simple.' },
+  { question: 'Quelle est la principale difficulté dans l’adoption des solutions hydroalcooliques par les soignants ?', answer: 'La résistance au changement et les fausses croyances.' },
+  { question: 'Quelle démarche pédagogique aide à corriger les mauvaises pratiques d’hygiène des mains ?', answer: 'Formation continue avec démonstrations pratiques et accompagnement.' },
+  { question: 'Quelle est la mission des campagnes de sensibilisation à l’hygiène des mains ?', answer: 'Faire entrer le geste dans les automatismes des soignants et du public.' },
+  { question: 'Quel est le message clé du « mythe des gants » ?', answer: 'Les gants ne remplacent jamais l’hygiène des mains.' },
+  { question: 'Pourquoi la gestion des déchets hospitaliers est-elle importante dans les précautions contact ?', answer: 'Pour éviter les projections, contaminations croisées et aérosolisations.' },
+  { question: 'Quelle est la proportion estimée des bactéries résistantes provenant d’un usage excessif d’antibiotiques ?', answer: 'Une part majeure, liée à la surconsommation en santé humaine et animale.' },
+  { question: 'Quels secteurs doivent coopérer pour lutter contre l’antibiorésistance selon One Health ?', answer: 'Santé humaine, vétérinaire et environnement.' },
+  { question: 'Pourquoi l’hygiène des mains réduit-elle indirectement l’antibiorésistance ?', answer: 'Parce qu’elle diminue les infections et donc la nécessité de prescrire des antibiotiques.' },
+  { question: 'Quelle est la différence entre un biocide et un antiseptique ?', answer: 'Le biocide agit sur surfaces inertes, l’antiseptique agit sur tissus vivants.' },
+  { question: 'Quelle est la différence entre désinfection chimique et bio-décontamination par UV-C ?', answer: 'La désinfection chimique détruit par action chimique, l’UV-C détruit par action physique sur l’ADN.' },
+  { question: 'Pourquoi la formation continue en désinfection est-elle indispensable ?', answer: 'Pour appliquer les bons gestes et comprendre l’importance de l’antibiorésistance.' },
+  { question: 'Quel est le rôle d’un spécialiste en désinfection hospitalière ?', answer: 'Choisir, contrôler et gérer les produits adaptés pour limiter les infections.' },
+  { question: 'Quelles sont les trois étapes clés dans le choix d’un produit désinfectant ?', answer: 'Identifier l’usage, vérifier les normes, évaluer l’efficacité attendue.' },
+  { question: 'Quelle est la durée minimale d’une friction chirurgicale par solution hydroalcoolique ?', answer: 'Au moins une minute par application.' },
+  { question: 'Pourquoi doit-on se frictionner jusqu’au séchage complet du produit ?', answer: 'Parce que l’évaporation garantit l’efficacité et l’absence de résidus humides.' },
+  { question: 'Quelles sont les erreurs fréquentes lors de l’antisepsie préopératoire ?', answer: 'Temps de contact insuffisant, zone mal préparée, contamination du matériel.' },
+  { question: 'Pourquoi la douche préopératoire est-elle recommandée avant chirurgie ?', answer: 'Pour réduire la flore cutanée et prévenir les infections opératoires.' },
+  { question: 'Pourquoi faut-il éviter de toucher son visage après désinfection des mains ?', answer: 'Pour éviter l’auto-contamination à partir des muqueuses.' },
+  { question: 'Pourquoi un bon équilibre du microbiote est-il essentiel ?', answer: 'Parce qu’il empêche la prolifération des germes opportunistes.' },
+  { question: 'Quels sont les principaux risques d’une mauvaise conservation d’un antiseptique ?', answer: 'Développement de bactéries résistantes et infections nosocomiales.' },
+  { question: 'Pourquoi la norme de 12 UFC/25 cm² est-elle utilisée en blanchisserie hospitalière ?', answer: 'Pour garantir que le linge est microbiologiquement sûr.' },
+  { question: 'Quel est le rôle des aérosols et brumes désinfectantes ?', answer: 'Désinfecter de grandes surfaces rapidement.' },
+  { question: 'Pourquoi doit-on alterner les produits de nettoyage dans les hôpitaux ?', answer: 'Pour éviter l’adaptation des micro-organismes et maintenir l’efficacité.' },
+  { question: 'Pourquoi le plasma froid est-il intéressant en désinfection ?', answer: 'Car il agit sans laisser de résidus chimiques.' },
+  { question: 'Quel est l’avantage de l’ozone en désinfection ?', answer: 'Il neutralise efficacement les virus et bactéries.' },
+  { question: 'Quels types de services exigent un bionettoyage quotidien renforcé ?', answer: 'Urgences, réanimation, hématologie, pédiatrie.' },
+  { question: 'Quels services exigent un bionettoyage pluriquotidien ?', answer: 'Néonatologie, greffes, oncologie, blocs aseptiques.' },
+  { question: 'Pourquoi les surfaces proches du patient doivent-elles être désinfectées régulièrement ?', answer: 'Parce qu’elles sont fréquemment contaminées par contact direct.' },
+  { question: 'Quelle est la règle de base avant toute désinfection ?', answer: 'On ne désinfecte que ce qui est propre.' },
+  { question: 'Quelle est la différence entre désinfection de bas niveau et haut niveau ?', answer: 'Le bas niveau réduit la charge microbienne, le haut niveau détruit presque tous les pathogènes.' },
+  { question: 'Pourquoi le port d’une surblouse est-il nécessaire en précautions contact ?', answer: 'Pour protéger la tenue soignante de la contamination.' },
+  { question: 'Quelles zones du corps sont particulièrement oubliées lors de la friction hydroalcoolique ?', answer: 'Espaces interdigitaux, dos des mains, pouces et ongles.' },
+  { question: 'Pourquoi est-il dangereux d’utiliser un antiseptique inadapté sur une muqueuse ?', answer: 'Parce qu’il peut provoquer des irritations sévères ou complications graves.' },
+  { question: 'Quelle est l’importance du temps de contact d’un antiseptique ?', answer: 'Il conditionne son efficacité antimicrobienne.' },
+  { question: 'Pourquoi faut-il éviter la dépilation mécanique avant chirurgie ?', answer: 'Car elle provoque des micro-lésions favorisant les infections.' },
+  { question: 'Quelle est la différence entre antisepsie en deux temps et en quatre temps ?', answer: 'La méthode en quatre temps inclut détersion, rinçage, séchage avant antisepsie, alors que la méthode en deux temps se limite à antisepsie.' },
+  { question: 'Pourquoi la perception du risque est-elle essentielle pour un soignant ?', answer: 'Parce qu’elle guide l’adaptation des mesures d’hygiène en fonction du patient.' },
+  { question: 'Pourquoi la friction hydroalcoolique est-elle priorisée même en présence d’eau ?', answer: 'Parce qu’elle est plus rapide et plus efficace que le lavage.' },
+  { question: 'Quelle est la règle à retenir sur l’efficacité des gants en supermarché ?', answer: 'Ils propagent plus de germes que l’hygiène des mains s’ils ne sont pas changés régulièrement.' },
+  { question: 'Quelle est la conséquence d’un oubli d’hygiène après retrait des gants ?', answer: 'Les bactéries présentes sous les gants peuvent se transmettre aux patients.' },
+  { question: 'Quelle conclusion finale résume le cours ?', answer: 'L’hygiène des mains, la désinfection et l’antisepsie bien appliquées sont les piliers de la prévention des infections transmises par contact.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Prévention des infections transmises par contact Partie 1</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Prévention des infections transmises par contact Partie 1</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'quel est l’objectif principal de la prévention des infections associées aux soins', answer: 'réduire au maximum le taux d’infections associées aux soins en interrompant la chaîne de transmission' },
+  { question: 'comment l’OMS définit la prévention (1948)', answer: 'l’ensemble des mesures visant à éviter ou réduire le nombre et la gravité des maladies, des accidents et des handicaps' },
+  { question: 'que regroupe le terme hygiène hospitalière', answer: 'la discipline dont l’objectif est la prévention des maladies infectieuses associées aux soins dans les établissements de santé' },
+  { question: 'quelles sont les trois grandes catégories de prévention décrites dans le cours', answer: 'prévention-protection, prévention du risque infectieux associé aux soins, prévention positive' },
+  { question: 'qui est l’hygiéniste et quel est son rôle principal', answer: 'le responsable de la prévention du risque infectieux associé aux soins, analyse les risques et définit les mesures préventives' },
+  { question: 'sur quels éléments l’hygiéniste doit-il définir les conditions optimales de prise en charge', answer: 'environnement (air, eau, surfaces), procédures, matériel, communication aux soignants' },
+  { question: 'comment est défini le risque en contexte infectieux', answer: 'la probabilité qu’un événement indésirable (contamination ou infection) se produise dans une population donnée sur une période donnée' },
+  { question: 'qu’est-ce que l’ias', answer: 'infection associée aux soins, une infection survenant lors d’un séjour ou d’un acte de soins et n’étant pas présente à l’admission' },
+  { question: 'quand parle-t-on d’infection nosocomiale selon le critère temporel général', answer: 'lorsque l’infection survient après 48 heures d’hospitalisation ou selon le délai d’incubation du micro-organisme impliqué' },
+  { question: 'donnez un exemple d’infection avec un délai d’incubation long mentionné dans le cours', answer: 'légionellose peut apparaître après ≥ 10 jours d’hospitalisation' },
+  { question: 'quelle est la différence fondamentale entre bactéries et virus', answer: 'les bactéries sont autonomes et peuvent se multiplier seules, les virus ont besoin d’un hôte pour se répliquer' },
+  { question: 'quelles sont les grandes catégories de micro-organismes évoquées dans le cours', answer: 'bactéries, champignons (levures et filamenteux), parasites, virus' },
+  { question: 'qu’est-ce que le microbiote', answer: 'l’ensemble des micro-organismes vivant dans et sur un hôte, avec des rôles bénéfiques et pathogéniques éventuels' },
+  { question: 'qu’est-ce que la flore commensale résidente', answer: 'les micro-organismes stables et habituels d’un site corporel qui partagent une relation symbiotique avec l’hôte' },
+  { question: 'qu’est-ce que la flore transitoire', answer: 'micro-organismes présents temporairement sur la peau ou les surfaces, potentiellement pathogènes si non éliminés' },
+  { question: 'décrivez le saprophytisme', answer: 'relation où l’organisme vit aux dépens d’un hôte sans causer de maladie' },
+  { question: 'décrivez le commensalisme', answer: 'relation bénéfique ou neutre entre un micro-organisme et son hôte, par exemple le microbiote intestinal' },
+  { question: 'qu’est-ce que la pathogénicité', answer: 'la capacité d’un micro-organisme à causer une maladie lorsque les conditions le permettent' },
+  { question: 'donnez un exemple d’un pathogène strict', answer: 'Mycobacterium tuberculosis, qui peut infecter même des hôtes sans déficit immunitaire' },
+  { question: 'qu’est-ce qu’un pathogène opportuniste', answer: 'micro-organisme de la flore commensale qui provoque une infection lors d’une défaillance de l’hôte ou d’un traitement' },
+  { question: 'donnez un exemple d’organisme opportuniste cité dans le cours', answer: 'pseudomonas aeruginosa qui peut causer des infections chez les patients ventilés ou immunodéprimés' },
+  { question: 'quelles sont les principales voies de transmission des micro-organismes', answer: 'contact direct, contact indirect, voie aérienne, voie respiratoire, voie orale, voie sanguine, voie cutanée, voie sexuelle' },
+  { question: 'qu’est-ce que le contact indirect', answer: 'transmission par l’intermédiaire d’objets ou surfaces contaminés (fauteuils, stéthoscope, poignées)' },
+  { question: 'pourquoi les mains sont-elles le principal vecteur de transmission', answer: 'car elles touchent à la fois les patients, les surfaces et les équipements, permettant la diffusion des germes' },
+  { question: 'que signifie le terme chaîne épidémiologique', answer: 'l’ensemble réservoir, source, mode de transmission et hôte qui permet la propagation d’un agent infectieux' },
+  { question: 'quelle est la différence entre réservoir et source d’un germe', answer: 'le réservoir est l’endroit où le germe vit naturellement, la source est l’endroit où il est déposé avant transmission' },
+  { question: 'quels facteurs favorisent l’apparition d’infections opportunistes', answer: 'immunodépression, traitements antibiotiques, chimiothérapie, blessures, altération de la flore' },
+  { question: 'qu’est-ce que le concept one Health', answer: 'approche intégrée liant santé humaine, animale et environnement pour prévenir la circulation des germes' },
+  { question: 'quelles sont les trois lignes de défense naturelles de l’organisme contre les infections', answer: 'barrières mécaniques (peau, cils), barrières chimiques (sécrétions), réponse immunitaire adaptative' },
+  { question: 'qu’est-ce que l’antibiorésistance', answer: 'capacité des bactéries à survivre aux traitements antibiotiques, rendant les infections plus difficiles à traiter' },
+  { question: 'quel pourcentage des ias est lié aux causes endogènes selon le cours', answer: 'environ 65 pourcent des infections associées aux soins sont d’ origine endogène' },
+  { question: 'quelle part des ias est liée au manuportage et matériel', answer: 'environ 30 pourcent des ias sont liées au manuportage et au matériel' },
+  { question: 'quelle part des ias est liée à l’environnement', answer: 'environ 5 pourcent des ias proviennent directement de l’environnement' },
+  { question: 'qui était ignaz semmelweis et que découvrit-il', answer: 'médecin hongrois du XIXe siècle qui a démontré l’efficacité du lavage des mains pour réduire les fièvres puerpérales' },
+  { question: 'quelle mesure simple semmelweis a-t-il introduite pour réduire la mortalité', answer: 'lavage des mains avec chlore ou chlorure de chaux avant les accouchements, réduisant significativement la mortalité' },
+  { question: 'pourquoi les collègues de semmelweis ont-ils rejeté sa théorie', answer: 'parce qu’elle allait à l’encontre de la théorie des miasmes et remettait en cause l’hygiène des médecins' },
+  { question: 'quel est le message principal de l’histoire de semmelweis pour l’hygiène hospitalière', answer: 'l’importance de base des pratiques d’hygiène des mains et de l’adoption de mesures basées sur des preuves scientifiques' },
+  { question: 'quelle est la différence entre lavage des mains et désinfection des mains', answer: 'le lavage enlève les salissures et certains micro-organismes par action mécanique, la désinfection tue ou inactive les agents pathogènes par des produits antiseptiques' },
+  { question: 'quand faut-il laver les mains avec de l’eau et du savon plutôt que d’utiliser un gel hydroalcoolique', answer: 'lorsque les mains sont visiblement sales ou en cas de contact avec des substances protéiniques ou défécatoires' },
+  { question: 'quelles sont les cinq moments de l’hygiène des mains en milieu soignant (oms)', answer: 'avant contact avec le patient, avant un geste aseptique, après risque d’exposition à des liquides biologiques, après contact avec le patient, après contact avec l’environnement du patient' },
+  { question: 'quel est l’objectif de l’asepsie cutanée avant une intervention', answer: 'réduire la charge microbienne de la peau pour diminuer le risque d’infection opératoire' },
+  { question: 'qu’est-ce qu’un détergent', answer: 'un produit qui permet d’éliminer les salissures et facilite l’enlèvement des micro-organismes' },
+  { question: 'qu’est-ce que la détersion', answer: 'action de nettoyage visant à enlever les salissures adhérentes à une surface ou à un tissu' },
+  { question: 'qu’est-ce que la désinfection', answer: 'opération d’élimination temporaire ou réduction des micro-organismes pathogènes sur une surface ou un objet' },
+  { question: 'quand la désinfection est-elle indiquée plutôt que le nettoyage simple', answer: 'lorsque les objets ou les surfaces sont en contact direct avec les patients ou utilisés dans des actes invasifs' },
+  { question: 'quels types d’objets nécessitent une désinfection adaptée en milieu hospitalier', answer: 'matériel médical, stéthoscopes, poignées de porte, jouets d’enfants, surfaces de soins' },
+  { question: 'quel est le rôle de la vaccination dans la prévention des infections', answer: 'réduire la probabilité de maladie sévère en stimulant la réponse immunitaire, mais n’empêche pas l’exposition' },
+  { question: 'quelle est la différence entre prévention et traitement dans le contexte infectieux', answer: 'la prévention visera à éviter l’exposition et la transmission, le traitement intervient après l’infection' },
+  { question: 'qu’est-ce que l’efficience en prévention', answer: 'obtenir le résultat souhaité (réduire les ias) avec le moins de ressources possibles' },
+  { question: 'pourquoi il est inefficace de tenter d’éliminer tous les réservoirs de germes', answer: 'c’est trop complexe et coûteux ; mieux vaut cibler les modes de transmission les plus efficaces' },
+  { question: 'quelles mesures collectives sont suggérées pour promouvoir l’hygiène en population', answer: 'campagnes d’information, installation de lave-mains accessibles, éducation dès l’enfance' },
+  { question: 'quelles sont les 5 domaines d’action prioritaires adaptés aux mesures d’hygiène (charte d’ottawa adaptée)', answer: 'élaborer des politiques publiques saines, créer des milieux favorables, renforcer l’action communautaire, acquérir des aptitudes individuelles, réorienter les services de santé' },
+  { question: 'quelles pratiques quotidiennes sont recommandées pour limiter les transmissions en dehors de l’hôpital', answer: 'hygiène des mains, distanciation lors d’épidémies respiratoires, hygiène alimentaire' },
+  { question: 'qu’est ce que le manuportage', answer: 'transmission d’un agent infectieux par les mains ou par un objet manipulé par une personne' },
+  { question: 'pourquoi les jouets en milieu pédiatrique sont-ils considérés à risque', answer: 'ils sont fréquemment touchés par les enfants et peuvent transmettre des germes si non désinfectés' },
+  { question: 'quel serait un exemple de mesure de contrôle pour le réseau d’eau d’un hôpital', answer: 'surveillance microbiologique, désinfection, maintenance des boucles d’eau et contrôle de la température' },
+  { question: 'quelles sont les mesures à prendre lors d’un contact avec du sang ou des liquides biologiques', answer: 'port de gants, lavage rigoureux des mains, protection oculaire si risque d’éclaboussure, désinfection des surfaces' },
+  { question: 'qu’est ce qu’une évaluation épidémiologique dans la gestion du risque', answer: 'analyse des données sur les infections pour identifier les facteurs de risque et orienter les mesures préventives' },
+  { question: 'quelle est la place de la communication dans la prévention des ias', answer: 'essentielle pour informer les soignants, adapter les procédures et assurer l’adhésion aux mesures d’hygiène' },
+  { question: 'quel type de surveillance est important pour mesurer l’efficacité des mesures de prévention', answer: 'surveillance des taux d’infection, audits des pratiques d’hygiène, rapports épidémiologiques' },
+  { question: 'quel est l’impact possible d’une utilisation excessive d’antiseptiques sur la flore cutanée', answer: 'rupture de l’équilibre du microbiote, augmentation du risque d’infections opportunistes' },
+  { question: 'quel est le risque lié à la non désinfection correcte d’un stéthoscope', answer: 'transmission de germes entre patients et contribution aux ias' },
+  { question: 'quels sont des exemples d’objets qui peuvent transmettre des germes dans un hôpital', answer: 'smartphones, clochettes, poignées de porte, matériel médical, lits' },
+  { question: 'quel est le rôle des politiques publiques dans la prévention infectieuse', answer: 'financer la formation, diffuser des campagnes, créer des environnements propices à l’hygiène' },
+  { question: 'quelle est la mesure minimale à appliquer avant et après contact avec un patient', answer: 'hygiène des mains adaptée (friction hydroalcoolique ou lavage au savon)' },
+  { question: 'quand la désinfection d’un matériel médical est-elle insuffisante et quand la stérilisation est-elle nécessaire', answer: 'la désinfection convient aux surfaces et matériels non invasifs ; la stérilisation est nécessaire pour le matériel pénétrant les tissus stériles' },
+  { question: 'qu’est ce que la transmission par gouttelettes (droplet)', answer: 'propagation de micro-organismes par des gouttelettes issues des voies aéros-respiratoires, en général à courte distance' },
+  { question: 'qu’est ce que la transmission aéroportée', answer: 'propagation par aérosols fins capables de rester en suspension et de parcourir de plus grandes distances' },
+  { question: 'quels sont des exemples de maladies transmises par voie aérienne ou gouttelettes', answer: 'tuberculose (aérienne), grippe et covid-19 (gouttelettes/aérosols)' },
+  { question: 'pourquoi l’identification de la source de contamination est-elle importante', answer: 'permet d’appliquer des mesures ciblées pour rompre la chaîne de transmission' },
+  { question: 'quelles sont les bonnes pratiques lors de la manipulation de matériel sous risque biologique', answer: 'utiliser des gants, respecter les protocoles de désinfection, éviter les contaminations croisées, éliminer les déchets selon les règles' },
+  { question: 'qu’est ce qu’une surveillance microbiologique de l’environnement', answer: 'analyses ponctuelles ou régulières de l’eau, de l’air et des surfaces pour détecter la présence de germes' },
+  { question: 'quelle est la définition d’un agent pathogène nu et enveloppé', answer: 'virus nus sont plus résistants aux désinfectants, virus enveloppés sont moins résistants à cause de leur enveloppe lipidique' },
+  { question: 'parmi les bactéries, quelles sont celles plus résistantes aux désinfectants selon le cours', answer: 'les bactéries gram négatives sont en général plus résistantes aux désinfectants que les gram positives' },
+  { question: 'quel germe produit des spores très résistantes dans l’environnement', answer: 'clostridioides difficile est connu pour ses spores résistantes qui ne sont pas toujours éliminées par tous les désinfectants' },
+  { question: 'quel est l’impact des traitements antibiotiques sur le microbiote', answer: 'ils peuvent déséquilibrer la flore, favorisant l’émergence d’agents opportunistes' },
+  { question: 'quelle est la stratégie globale pour réduire les ias selon le cours', answer: 'identifier les risques, former le personnel, appliquer les précautions standard, surveiller les taux d’infection, adapter les mesures' },
+  { question: 'qu’est ce que les précautions standard', answer: 'ensemble de mesures basiques à appliquer pour tous les patients incluant hygiène des mains, port de gants lorsque nécessaire, gestion des déchets et désinfection' },
+  { question: 'quand porter des gants dans la pratique quotidienne de soins', answer: 'lorsque le contact avec du sang, des liquides biologiques, des muqueuses ou des surfaces contaminées est probable' },
+  { question: 'quel est le message principal à transmettre lors de la formation des soignants', answer: 'comprendre le risque, adopter les bons réflexes et appliquer les mesures adaptées en toutes circonstances' },
+  { question: 'quels outils pédagogiques sont recommandés pour la formation en hygiène', answer: 'diaporamas, sessions pratiques, audits, retours d’expérience, campagnes de sensibilisation' },
+  { question: 'quel est le rôle de la direction d’un établissement dans la prévention des ias', answer: 'assurer les ressources, mettre en place des politiques, financer la formation, suivre les indicateurs' },
+  { question: 'quelles mesures peuvent être prises pour rendre les locaux hospitaliers plus propices à l’hygiène', answer: 'utiliser des matériaux faciles à nettoyer, installer des lave-mains accessibles, organiser les circuits de désinfection' },
+  { question: 'quel est l’effet d’une mauvaise désinfection sur la transmission des germes', answer: 'augmentation du risque d’infection, propagation dans l’environnement, augmentation des ias' },
+  { question: 'quelles sont les conséquences d’une surexposition aux antibiotiques dans un hôpital', answer: 'sélection d’agents résistants, difficulté de traitement, augmentation de la morbidité et des coûts' },
+  { question: 'quelles actions peuvent limiter la propagation des germes via le matériel médical', answer: 'nettoyage, désinfection, utilisation de matériels à usage unique quand nécessaire, maintenance régulière' },
+  { question: 'quelles précautions lors du transport d’un patient infectieux', answer: 'couvrir les plaies, désinfecter le brancard après usage, porter une protection adéquate, informer les services récepteurs' },
+  { question: 'quelle est la place de l’observation comportementale dans l’amélioration de l’hygiène des mains', answer: 'essentielle pour détecter les lacunes, donner des feedbacks et renforcer les bons comportements' },
+  { question: 'quelles mesures de nettoyage sont recommandées pour les surfaces fortement touchées', answer: 'nettoyage régulier suivi d’une désinfection à l’aide de produits normatifs appropriés' },
+  { question: 'qu’est ce qu’un produit hydroalcoolique (pha)', answer: 'solution antiseptique utilisée pour la friction des mains destinée à réduire rapidement la charge microbienne' },
+  { question: 'quelles conditions rendent l’utilisation des pha inefficace', answer: 'mains visibles sales, présence de matières organiques, certains agents sporales résistants' },
+  { question: 'quelle est la bonne technique pour la friction hydroalcoolique', answer: 'appliquer assez de produit, frotter toutes les surfaces des mains pendant au moins 20 à 30 secondes jusqu’à séchage complet' },
+  { question: 'quelle est la relation entre santé environnementale et risque infectieux hospitalier', answer: 'l’environnement (air, eau, surfaces) peut servir de réservoir et contribuer à la transmission si non maîtrisé' },
+  { question: 'quelles sont les principales actions à mettre en place lors d’une épidémie respiratoire en milieu hospitalier', answer: 'renforcer l’hygiène des mains, port de masques, isolement des cas, ventilation et nettoyage régulier des surfaces' },
+  { question: 'qu’est-ce que la désinfection de niveau intermédiaire', answer: 'procédure destinée à éliminer la plupart des agents pathogènes sur des surfaces non critiques' },
+  { question: 'qu’est-ce que la désinfection de niveau hospitalier', answer: 'usage de produits et procédures conçus pour éliminer les agents pathogènes circonstanciels dans les établissements de santé' },
+  { question: 'quelles sont les limites du lavage excessif avec des produits antiseptiques', answer: 'irritation cutanée, dérèglement du microbiote, résistance sélectionnée' },
+  { question: 'quels indicateurs peuvent être publiés pour évaluer la performance en prévention des ias', answer: 'taux d’ias par type d’acte, taux d’utilisation des pha, résultats d’audits d’hygiène' },
+  { question: 'quels sont les exemples d’actions pour réduire l’usage inutile d’antibiotiques', answer: 'programmes d’asp (antibiotic stewardship), protocoles de prescription, surveillance de l’utilisation, éducation des praticiens' },
+  { question: 'quel rôle jouent les patients dans la prévention des ias', answer: 'participer à l’hygiène des mains, respecter les consignes d’isolement, signaler les problèmes d’hygiène' },
+  { question: 'quelles sont les bonnes pratiques lors de la gestion des déchets biologiques', answer: 'tri à la source, utilisation de conteneurs adaptés, étiquetage, élimination sécurisée selon la réglementation' },
+  { question: 'qu’est ce que le triage épidémiologique en service', answer: 'identification rapide des cas suspects pour mettre en place les mesures d’isolement et de prévention' },
+  { question: 'quel est l’intérêt de la maintenance des équipements hospitaliers dans la prévention', answer: 'assurer le fonctionnement optimal, éviter la contamination par défauts et réduire les risques d’incidents infectieux' },
+  { question: 'quel est le risque lié à l’utilisation de matériel à usage multiple mal désinfecté', answer: 'transmission croisée entre patients et augmentation des cas d’ias' },
+  { question: 'comment l’hôpital peut-il promouvoir l’hygiène en dehors des soignants', answer: 'sensibiliser les visiteurs, installer des distributeurs de pha, afficher des consignes claires' },
+  { question: 'quelles sont les étapes d’une stratégie de prévention efficace', answer: 'identification des risques, mise en place de protocoles, formation, surveillance, réajustement' },
+  { question: 'quelle est la définition de contamination selon le cours', answer: 'présence de micro-organismes sur une surface, un objet ou un hôte sans qu’il n’y ait nécessairement d’infection' },
+  { question: 'qu’est ce que le portage (carriage)', answer: 'état où un individu porte un germe sans signes cliniques et peut le transmettre' },
+  { question: 'quelle est l’importance de l’analyse des incidents et des aes (accidents d’exposition au sang)', answer: 'permettre d’identifier les failles, prévenir les récidives et protéger le personnel' },
+  { question: 'quels sont les principes de base lors de l’utilisation d’un antiseptique cutané', answer: 'choisir le produit adapté, respecter le temps de contact, nettoyer préalablement si nécessaire' },
+  { question: 'quel est le rôle de l’audit dans la procédure de prévention', answer: 'mesurer la conformité aux protocoles, détecter les défauts et soutenir l’amélioration continue' },
+  { question: 'quelles mesures peuvent être mises en place pour les animaux en milieu de soins', answer: 'contrôle vaccinal, hygiène, surveillance, désinfection après contact et règles d’accès strictes' },
+  { question: 'quelle est la définition d’une infection nosocomiale depuis l’admission', answer: 'infection survenant lors d’un séjour hospitalier et non présente à l’admission, souvent après 48 heures' },
+  { question: 'quelle est l’importance de la déclaration et du rapportage des ias', answer: 'assurer la surveillance, permettre l’analyse épidémiologique et orienter les mesures de contrôle' },
+  { question: 'quels sont les facteurs liés aux patients qui augmentent le risque d’ias', answer: 'immunodépression, comorbidités, traitements antibiotiques, prothèses, sondes et cathéters' },
+  { question: 'quel est l’exemple historique qui illustre l’effet des soignants dans la transmission', answer: 'l’histoire de semmelweis et la réduction des fièvres puerpérales par l’hygiène des mains' },
+  { question: 'quelles sont les principales étapes pour rompre la chaîne de transmission', answer: 'identifier la source, nettoyer et désinfecter, adopter l’hygiène des mains, utiliser des équipements de protection, isolement si nécessaire' },
+  { question: 'quelles sont les limites de la désinfection avec seuls les produits non normatifs', answer: 'inefficacité contre certains agents, risque de résultats variables, possible sélection de résistance' },
+  { question: 'quel rôle jouent les structures de direction dans la sécurité des patients', answer: 'définir la politique d’hygiène, allouer des ressources, suivre les indicateurs et promouvoir la culture de sécurité' },
+  { question: 'quel est l’effet de la formation régulière sur le respect des précautions standard', answer: 'amélioration des pratiques, réduction des erreurs, meilleure adhésion aux protocoles' },
+  { question: 'quelles recommandations pour les visiteurs dans un service hospitalier', answer: 'laver ou désinfecter les mains, éviter les visites lorsque malades, respecter les consignes d’isolement' },
+  { question: 'quelles sont les bonnes pratiques pour la maintenance des circuits d’air', answer: 'entretien régulier, filtration appropriée, surveillance des systèmes de ventilation et réparations rapides' },
+  { question: 'quelles actions doivent être entreprises lors d’une contamination d’un produit liquide intraveineux', answer: 'retirer le produit, stopper son utilisation, tests microbiologiques, surveillance des patients et actions correctives' },
+  { question: 'qu’est ce qu’un audit d’hygiène des mains', answer: 'observation structurée de la pratique des soignants pour évaluer la conformité aux moments d’hygiène' },
+  { question: 'quelle est la stratégie en cas d’apparition d’un germe résistant dans un service', answer: 'enquête épidémiologique, renforcement des mesures d’hygiène, isolement, révision des pratiques antibiotiques' },
+  { question: 'quels sont les exemples d’indicateurs de processus en hygiène hospitalière', answer: 'taux d’utilisation des pha, pourcentage de conformité aux moments d’hygiène, nombre d’audits effectués' },
+  { question: 'quelles sont les exemples d’indicateurs de résultat en hygiène hospitalière', answer: 'taux d’ias, nombre d’infections sur cathéters, taux d’infections opératoires' },
+  { question: 'comment évaluer l’efficacité d’un désinfectant', answer: 'tests normatifs, spectre d’activité, temps de contact, compatibilité matérielle et toxicité' },
+  { question: 'qu’est ce qu’un produit normatif en désinfection', answer: 'un produit ayant réussi des tests standards et homologué pour l’usage prévu' },
+  { question: 'quels sont les principes de prévention à appliquer lors d’une procédure invasive', answer: 'asepsie, stérilité du matériel, désinfection de la zone cutanée, hygiène des mains, port de gants stériles' },
+  { question: 'quelles mesures doivent être communiquées aux nouveaux soignants lors de leur arrivée', answer: 'procédures d’hygiène, emplacement des pha, protocoles d’isolement, signaler les incidents' },
+  { question: 'quel est le message clé à retenir sur la relation entre microbiote et santé', answer: 'le microbiote joue un rôle essentiel dans la santé et son déséquilibre peut favoriser des infections' },
+  { question: 'quelles sont les pratiques à éviter pour ne pas dérégler le microbiote cutané', answer: 'usage excessif d’antiseptiques sans rationnel, lavages trop fréquents avec produits agressifs' },
+  { question: 'qu’est ce qui distingue une infection contagieuse d’une infection non contagieuse', answer: 'la capacité de transmettre directement d’une personne à une autre et la nature du germe' },
+  { question: 'quels sont les exemples de mesures d’hygiène alimentaire pertinentes en milieu hospitalier', answer: 'respect des températures, séparation des aliments crus/cuits, nettoyage des surfaces, hygiène des manutentionnaires' },
+  { question: 'quelle est l’importance de la notion de risque dans la mise en place des précautions', answer: 'la perception du risque oriente le niveau d’intervention et l’adoption des mesures adaptées' },
+  { question: 'quelles sont les stratégies pour promouvoir l’adhésion aux mesures d’hygiène', answer: 'formation, leadership, feedback, incitations, simplicité des procédures et accessibilité des produits' },
+  { question: 'quelles mesures sont recommandées pour l’entretien des surfaces dans les unités à risque', answer: 'nettoyage quotidien, désinfection après procédures, utilisation de produits normatifs et formation du personnel' },
+  { question: 'quelles sont les bonnes pratiques lors de la préparation de solutions et médicaments stériles', answer: 'respect de l’asepsie, stérilité du matériel, environnement contrôlé, personnel formé' },
+  { question: 'quelles sont les répercussions sociales d’une mauvaise gestion des ias dans un hôpital', answer: 'perte de confiance, coûts économiques accrus, augmentation de la morbidité et de la mortalité' },
+  { question: 'quel est le rôle des biocides dans la prévention et quelles précautions prendre', answer: 'les biocides sont utilisés pour désinfecter mais doivent être choisis selon le spectre d’activité et utilisés selon les recommandations pour éviter résistance et toxicité' },
+  { question: 'qu’est ce que la désinfection d’une surface après un contact biologique exposé', answer: 'procédure immédiate de nettoyage et désinfection avec produits adaptés et port d’équipement de protection' },
+  { question: 'quelles sont les mesures spéciales pour prévenir la transmission via les cathéters urinaires', answer: 'maintenir l’asepsie à la pose, réduire la durée d’utilisation, suivi et manipulation par personnel formé' },
+  { question: 'qu’est ce que l’isolement contact', answer: 'mesures d’isolement destinées à éviter la transmission par contact direct ou indirect avec un patient infecté' },
+  { question: 'quels sont les éléments clés d’un protocole d’isolement efficace', answer: 'signalisation claire, fourniture de matériel protecteur, formation, procédures de nettoyage et désinfection spécifiques' },
+  { question: 'quelles sont les principales précautions à prendre lors de la réalisation d’actes aseptiques', answer: 'hygiène des mains, utilisation de matériel stérile, environnement propice, port de gants stériles' },
+  { question: 'quels sont les grands objectifs de la prévention des infections associées aux soins', answer: 'réduire la morbidité et la mortalité, limiter les coûts, protéger patients et soignants, préserver l’efficacité des traitements' },
+  { question: 'qu’est ce que la prévention positive', answer: 'stratégie visant à renforcer la santé globale des individus par l’éducation, la vaccination et l’amélioration des conditions de vie' },
+  { question: 'pourquoi la communication interprofessionnelle est-elle essentielle en prévention des ias', answer: 'pour assurer la cohérence des pratiques, éviter les erreurs et coordonner les actions entre équipes' },
+  { question: 'qu’est ce que le concept de barrière en hygiène hospitalière', answer: 'ensemble de mesures physiques ou comportementales qui empêchent la transmission d’un agent infectieux' },
+  { question: 'quels sont les facteurs organisationnels qui influencent la qualité de l’hygiène', answer: 'disponibilité des produits, accessibilité des lave-mains, charge de travail, encadrement et culture de sécurité' },
+  { question: 'qu’est ce que la vigilance sanitaire', answer: 'système de surveillance visant à détecter et corriger rapidement les risques pour la santé dans les établissements' },
+  { question: 'quels sont les principaux éléments de la chaîne de transmission à interrompre', answer: 'réservoir, source, mode de transmission, porte d’entrée, hôte réceptif' },
+  { question: 'quelle est la différence entre asepsie et antisepsie', answer: 'l’asepsie est l’ensemble des mesures pour empêcher l’introduction de germes, l’antisepsie est la destruction des germes sur les tissus vivants' },
+  { question: 'quelles sont les conditions d’efficacité d’un produit antiseptique', answer: 'respect du temps de contact, quantité suffisante, absence de souillures, bonne technique d’application' },
+  { question: 'quels sont les gestes de base de l’hygiène individuelle du soignant', answer: 'lavage des mains, ongles courts, pas de bijoux, tenue adaptée, cheveux attachés' },
+  { question: 'pourquoi les bijoux aux mains sont-ils interdits en milieu de soins', answer: 'ils favorisent la colonisation bactérienne et empêchent l’efficacité de l’hygiène des mains' },
+  { question: 'qu’est ce qu’un porteur sain', answer: 'individu hébergeant un agent pathogène sans présenter de symptômes mais pouvant le transmettre' },
+  { question: 'quelles sont les conditions qui favorisent la colonisation d’un dispositif médical invasif', answer: 'pose prolongée, absence d’asepsie, défaut de surveillance et biofilm bactérien' },
+  { question: 'quelle est la différence entre désinfection et stérilisation', answer: 'la désinfection élimine la majorité des germes pathogènes, la stérilisation détruit toutes les formes de vie microbienne' },
+  { question: 'quel est l’intérêt d’une politique de gestion des antibiotiques à l’échelle hospitalière', answer: 'limiter l’antibiorésistance, préserver l’efficacité des traitements et réduire les coûts' },
+  { question: 'quelles sont les étapes d’une enquête épidémiologique lors d’une épidémie nosocomiale', answer: 'détection des cas, confirmation microbiologique, identification de la source, mise en place de mesures correctives' },
+  { question: 'qu’est ce que la surveillance environnementale de l’air en salle opératoire', answer: 'contrôle microbiologique de l’air pour vérifier la stérilité relative et limiter les risques infectieux' },
+  { question: 'quel est le rôle du comité de lutte contre les infections nosocomiales (clin)', answer: 'coordonner la prévention, analyser les risques, organiser la formation, proposer des actions' },
+  { question: 'pourquoi l’éducation thérapeutique des patients est-elle utile pour la prévention', answer: 'elle favorise l’adhésion aux mesures d’hygiène, réduit les comportements à risque et responsabilise les patients' },
+  { question: 'quelles sont les précautions standard liées aux liquides biologiques', answer: 'port de gants, désinfection, élimination dans des contenants adaptés, hygiène des mains' },
+  { question: 'qu’est ce qu’un produit sporicide', answer: 'désinfectant capable de détruire les spores bactériennes particulièrement résistantes' },
+  { question: 'pourquoi la maîtrise des infections liées aux cathéters est-elle prioritaire', answer: 'car elles représentent une part importante des ias, souvent graves et coûteuses' },
+  { question: 'quelles mesures réduisent le risque infectieux lié aux sondes urinaires', answer: 'pose aseptique, surveillance, réduction de la durée, hygiène périnéale, système clos' },
+  { question: 'quelles sont les précautions particulières pour les patients immunodéprimés', answer: 'isolement protecteur, environnement filtré, limitation des visites, hygiène stricte' },
+  { question: 'qu’est ce que la transmission croisée', answer: 'passage d’un agent infectieux d’un patient à un autre par l’intermédiaire des mains, surfaces ou matériel' },
+  { question: 'quelles sont les grandes familles de produits utilisés pour la désinfection', answer: 'alcool, chlore, ammoniums quaternaires, peroxydes, biguanides' },
+  { question: 'quelle est la limite de l’utilisation du chlore', answer: 'corrosif pour certains matériels et inefficace en présence de matière organique abondante' },
+  { question: 'pourquoi l’observance des soignants est-elle parfois faible malgré la formation', answer: 'contraintes de temps, manque de ressources, sous-estimation du risque, habitudes difficiles à changer' },
+  { question: 'qu’est ce que la culture de sécurité', answer: 'état d’esprit collectif où chaque membre de l’équipe met en priorité la sécurité des patients dans ses pratiques' },
+  { question: 'quelles mesures réduisent la contamination de l’eau hospitalière', answer: 'maintenance, désinfection des réseaux, surveillance régulière, température adaptée' },
+  { question: 'quels sont les risques liés à la ventilation mal entretenue', answer: 'prolifération de moisissures, bactéries aérosolisées, risque accru d’infections respiratoires' },
+  { question: 'quelle est la différence entre prévention primaire, secondaire et tertiaire', answer: 'primaire empêche l’apparition, secondaire détecte précocement, tertiaire limite les complications' },
+  { question: 'quels sont les facteurs humains favorisant la transmission des infections', answer: 'fatigue, surcharge de travail, manque de formation, non-respect des protocoles' },
+  { question: 'qu’est ce que la friction hydroalcoolique par rapport au lavage simple', answer: 'technique plus rapide et plus efficace contre la flore transitoire, sauf si mains souillées' },
+  { question: 'pourquoi la désinfection des surfaces est-elle essentielle dans les chambres d’isolement', answer: 'car les germes peuvent survivre sur les surfaces et contaminer soignants ou visiteurs' },
+  { question: 'quels sont les rôles des précautions complémentaires en plus des précautions standard', answer: 'prévenir la transmission de pathogènes spécifiques nécessitant isolement contact, gouttelettes ou air' },
+  { question: 'qu’est ce que l’isolement gouttelettes', answer: 'mesure destinée à limiter la transmission de germes respiratoires via les sécrétions projetées' },
+  { question: 'quels sont les principes d’un isolement respiratoire strict', answer: 'chambre à pression négative, masque ffp2 pour le personnel, limitation des entrées, hygiène stricte' },
+  { question: 'quels sont les bénéfices économiques de la prévention des ias', answer: 'réduction des durées d’hospitalisation, diminution des coûts de traitement, baisse des indemnisations légales' },
+  { question: 'quels sont les risques juridiques pour un établissement en cas de défaut d’hygiène', answer: 'responsabilité civile, pénale et administrative en cas de dommages aux patients' },
+  { question: 'quelles sont les actions de l’oms pour la promotion de l’hygiène des mains', answer: 'campagnes mondiales, journées de sensibilisation, guides de bonnes pratiques, surveillance internationale' },
+  { question: 'quel est le rôle des solutions hydroalcooliques dans la stratégie oms', answer: 'rendre l’hygiène des mains plus simple, rapide et efficace à l’échelle mondiale' },
+  { question: 'pourquoi les infections associées aux soins sont-elles un indicateur de qualité hospitalière', answer: 'elles reflètent le niveau de sécurité, d’organisation et de respect des procédures de l’établissement' },
+  { question: 'quel est l’impact psychologique des ias sur les patients et familles', answer: 'anxiété, perte de confiance, souffrance liée aux complications et prolongation de l’hospitalisation' },
+  { question: 'pourquoi la prévention des ias est-elle considérée comme une priorité de santé publique', answer: 'en raison de leur fréquence, de leur gravité, de leur coût et du rôle central de la transmission évitable' },
+  { question: 'quels sont les liens entre prévention des ias et développement durable', answer: 'réduction de l’usage des antibiotiques, gestion des déchets, optimisation des ressources et protection de l’environnement' },
+  { question: 'quelle est la conclusion clé à retenir de l’histoire de semmelweis', answer: 'l’importance capitale de l’hygiène des mains comme mesure universelle et scientifiquement prouvée' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

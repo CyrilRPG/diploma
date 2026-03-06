@@ -1,0 +1,479 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>One Health</h1><h2>Écologie de la faune sauvage</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Qu’est-ce que l’anthropisation des milieux ?', answer: 'C’est un processus lié à la croissance exponentielle de la population humaine et à la transformation des milieux naturels par les activités humaines, particulièrement marqué depuis environ 150 ans.', },
+{ question: 'Quelles sont les caractéristiques de la phase 1 de la transition démographique ?', answer: 'Taux de natalité et de mortalité élevés, maintenant un équilibre avec une croissance faible, typique des sociétés pré-industrielles aux conditions sanitaires précaires.', },
+{ question: 'Qu’est-ce qui définit la phase 2 de la transition démographique ?', answer: 'Une réduction forte de la mortalité grâce aux progrès médicaux, alors que la natalité reste élevée, provoquant une croissance rapide et un pic démographique.', },
+{ question: 'Quels facteurs provoquent le passage à la phase 3 démographique ?', answer: 'Une baisse de la natalité due à l’urbanisation, l’éducation et l’accès à la contraception, ralentissant progressivement la croissance.', },
+{ question: 'Comment se caractérise la phase 4 de la transition démographique ?', answer: 'Taux de natalité et de mortalité faibles, stabilisant la population ou menant à une décroissance si la natalité devient inférieure à la mortalité.', },
+{ question: 'Quel est le chiffre de population projeté en 2100 selon le scénario « catastrophique » ?', answer: 'Un doublement de la population actuelle, atteignant environ 16 milliards d’habitants.', },
+{ question: 'Quel défi alimentaire majeur pose la croissance démographique actuelle ?', answer: 'Nourrir efficacement les populations grandissantes, ce qui nécessite une gestion accrue de la production végétale et animale.', },
+{ question: 'Comment la production animale a-t-elle évolué par rapport à la population depuis 1960 ?', answer: 'La population mondiale a triplé alors que la production animale a été multipliée par cinq, en raison de l’augmentation de la consommation de viande par habitant.', },
+{ question: 'Quelle est la place des populations animales domestiques dans la biomasse globale des vertébrés ?', answer: 'Elles représentent une part prépondérante et écrasante, surpassant de loin les humains et tous les vertébrés terrestres sauvages.', },
+{ question: 'Définissez l’Anthropocène.', answer: 'Époque de l’histoire de la Terre (débutée il y a environ 10 000 ans) où les activités humaines ont un impact significatif, global et irréversible sur le système planétaire.', },
+{ question: 'Citez trois gaz à effet de serre dont l’augmentation est notable durant l’Anthropocène.', answer: 'Le dioxyde de carbone (CO2), le protoxyde d’azote et le méthane.', },
+{ question: 'Qu’est-ce qui distingue la sixième extinction de masse des précédentes ?', answer: 'Elle est directement imputable aux activités humaines (déforestation, surpêche, élevage intensif) et non à des causes géologiques naturelles.', },
+{ question: 'Quel est le taux d’extinction naturel théorique en l’absence de l’homme ?', answer: 'Environ une espèce éteinte par million d’espèces par an.', },
+{ question: 'Donnez un exemple d’accélération d’extinction due à l’homme chez les amphibiens.', answer: 'Des espèces disparues en 150 ans auraient mis entre 2 000 et 10 000 ans à s’éteindre à un taux naturel.', },
+{ question: 'Comment se répartissent les espèces d’oiseaux à Hawaï face à la malaria aviaire selon l’altitude ?', answer: 'À basse altitude, les espèces introduites dominent (vecteurs présents) ; les oiseaux indigènes naïfs subsistent en haute altitude où les conditions sont défavorables aux moustiques.', },
+{ question: 'Quel est le vecteur de la malaria aviaire introduit à Hawaï par les bateaux ?', answer: 'Le moustique Culex quinquefasciatus.', },
+{ question: 'Définissez le concept de réservoir en épidémiologie.', answer: 'Une ou plusieurs populations (ou milieux) liées épidémiologiquement où les agents pathogènes se maintiennent de façon pérenne et d’où l’infection est transmise à une population cible.', },
+{ question: 'Qu’est-ce qu’un réservoir primaire ?', answer: 'Constitué d’espèces capables de maintenir l’agent pathogène de manière indéfinie et indépendante, avec ou sans symptômes cliniques.', },
+{ question: 'Qu’est-ce qu’un réservoir secondaire (ou hôtes vicariants) ?', answer: 'Des hôtes complémentaires qui ne peuvent pas seuls soutenir la pérennité du pathogène sans une connexion avec le réservoir primaire.', },
+{ question: 'Qu’est-ce qu’un hôte accidentel (cul-de-sac épidémiologique) ?', answer: 'Un hôte qui contracte le pathogène mais ne contribue ni à son entretien ni à sa transmission ultérieure vers d’autres hôtes.', },
+{ question: 'Quelles sont les trois grandes stratégies d’intervention opérationnelle pour contrôler une infection ?', answer: 'L’élimination de la source, la mise en place de barrières de transmission, et la protection de la cible (ex: vaccination).', },
+{ question: 'Quelle est la nature du virus du Louping-ill ?', answer: 'C’est un Flavivirus enveloppé à ARN transmis par des tiques dures (Ixodes ricinus), provoquant des encéphalites.', },
+{ question: 'Quels sont les symptômes de l’infection humaine au virus du Louping-ill ?', answer: 'Asymptomatique, syndrome grippal ou évolution vers une encéphalite parfois létale.', },
+{ question: 'Comment se transmet le Louping-ill chez le lièvre variable (Lepus timidus) ?', answer: 'Par co-feeding : transmission non virémique entre tiques infectées et non infectées se nourrissant simultanément au même endroit sur l’hôte.', },
+{ question: 'Quel est l’impact du Louping-ill sur le lagopède d’Écosse ?', answer: 'Une mortalité rapide pouvant atteindre 78 % due à une transmission virémique à titres élevés.', },
+{ question: 'Quel rôle jouent les grands cervidés dans le cycle du Louping-ill ?', answer: 'Ils sont des « barres nutritives » pour les tiques (maintien de la population de vecteurs) mais ne participent pas à la transmission du virus.', },
+{ question: 'Pourquoi la gestion du Louping-ill est-elle simplifiée au Pays de Galles ?', answer: 'Car le mouton y est le seul réservoir connu, facilitant l’usage d’acaricides ou d’éventuels vaccins.', },
+{ question: 'Définissez les bactéries du genre Brucella.', answer: 'Petits coccobacilles à Gram négatif, intracellulaires facultatifs, possédant deux chromosomes circulaires et un génome très conservé.', },
+{ question: 'Qu’est-ce que la compétence d’une espèce vis-à-vis d’un pathogène ?', answer: 'C’est sa capacité à contracter un agent pathogène et à le transmettre efficacement à un vecteur qui infectera ensuite d’autres hôtes.', },
+{ question: 'Quelles sont les variations structurelles de Brucella influençant sa virulence ?', answer: 'Les variations des phases des lipopolysaccharides (LPS) dites « Rough » (rugueuses) vs « Smooth » (lisses).', },
+{ question: 'Comment l’homme contracte-t-il la brucellose par voie alimentaire ?', answer: 'Par la consommation de produits laitiers contaminés non pasteurisés ou non chauffés (lait cru, fromage).', },
+{ question: 'Quels systèmes biologiques Brucella affecte-t-elle principalement chez les animaux ?', answer: 'Les systèmes reproducteurs, causant avortements, infertilité, orchites et épididymites.', },
+{ question: 'Quelle est l’espèce de Brucella associée aux chèvres et moutons, très virulente pour l’homme ?', answer: 'Brucella melitensis.', },
+{ question: 'Qu’indique la forte correspondance phylogénétique entre Brucella et ses hôtes vertébrés ?', answer: 'Une coévolution significative où chaque souche s’est spécialisée et adaptée à une espèce de vertébré spécifique.', },
+{ question: 'Qu’est-ce que l’hypothèse de déprédation pour Brucella suis type 4 ?', answer: 'L’idée que cette souche du renne est passée au chien (devenant B. canis) suite à la consommation de carcasses de rennes par les canidés.', },
+{ question: 'Pourquoi la domestication a-t-elle favorisé la transmission de pathogènes comme Brucella ?', answer: 'Par la cohabitation prolongée (ex: 30 000 ans pour le chien) et l’augmentation de la densité favorisant les contacts étroits et répétés.', },
+{ question: 'Quel avantage sélectif a favorisé la persistance de la lactase chez l’humain adulte ?', answer: 'L’accès à une source supplémentaire de calories et de nutriments (calcium) lors des famines dans les sociétés agricoles élevant des bovins.', },
+{ question: 'Détaillez le foyer de brucellose de Haute-Savoie (2012).', answer: 'Contamination croisée entre bouquetins des Alpes et bovins, entraînant 2 cas humains via la consommation de fromage reblochon.', },
+{ question: 'Quelle mesure sanitaire nuancée a permis de gérer la brucellose chez les bouquetins ?', answer: 'Une stratégie de capture, test, et abattage ciblé des seuls individus séropositifs pour préserver cette espèce protégée.', },
+{ question: 'Citez des réservoirs féraux de Brucella suis mentionnés dans le cours.', answer: 'Les populations de porcs sauvages en Amérique du Nord et en Australie.', },
+{ question: 'Quelle est la structure génomique du virus Influenza aviaire ?', answer: 'Virus à ARN de type A, enveloppé, au génome segmenté composé de 8 segments d’ARN de polarité négative.', },
+{ question: 'Définissez le glissement (dérive) antigénique de l’Influenza.', answer: 'Accumulation de mutations spontanées (2 à 8 substitutions/1000 bases/an) entraînant des variations virales progressives.', },
+{ question: 'Qu’est-ce que le réassortiment génomique (cassure antigénique) ?', answer: 'Échange brutal de segments d’ARN lors d’une co-infection d’une cellule par deux virus différents, favorisant l’émergence de souches pandémiques.', },
+{ question: 'Quel est le rôle de l’Hémagglutinine (HA) ?', answer: 'Glycoprotéine permettant l’attachement aux récepteurs acides sialiques de la cellule hôte et facilitant l’entrée (fusion membranaire).', },
+{ question: 'Quelle est la fonction de la Neuraminidase (NA) ?', answer: 'Glycoprotéine qui clive les acides sialiques pour libérer les nouveaux virions de la surface de la cellule hôte.', },
+{ question: 'Pourquoi le porc est-il considéré comme un « réacteur » ou un pont épidémiologique ?', answer: 'Parce que ses cellules possèdent à la fois des récepteurs de type aviaire et de type humain, facilitant les réassortiments entre virus.', },
+{ question: 'Quelle étape moléculaire est nécessaire pour l’activation de l’agglutinine et la fusion virale ?', answer: 'Un clivage spécifique par des protéases cellulaires pour exposer le peptide de fusion.', },
+{ question: 'Quelle est la différence entre les virus Influenza LPIA et HPIA ?', answer: 'LPIA (faiblement pathogène) possède un site de clivage monobasique (infection localisée) ; HPIA (hautement pathogène) a un site polybasique (infection systémique).', },
+{ question: 'Quels sont les réservoirs principaux de tous les sous-types Influenza (H1-H16, N1-N9) ?', answer: 'Les oiseaux aquatiques sauvages (canards, oies, cygnes, mouettes, goélands).', },
+{ question: 'Quelle était la particularité du virus H1N1 de 2009 ?', answer: 'C’était un triple-réassortant combinant des segments génomiques de lignages porcins, humains et aviaires.', },
+{ question: 'Quel impact le H5N1 a-t-il eu sur la faune sauvage en Bretagne ?', answer: 'Mortalités massives d’espèces emblématiques comme le Fou de Bassan, ainsi que des dizaines de milliers de mouettes rieuses.', },
+{ question: 'Quels symptômes neurologiques présentent les oiseaux atteints de formes graves d’Influenza ?', answer: 'Troubles empêchant le mouvement ou la nutrition, menant à la mort par inanition ou noyade.', },
+{ question: 'Quelle proportion des mammifères représentent les Chiroptères ?', answer: 'Environ 22 % de toutes les espèces de mammifères.', },
+{ question: 'Pourquoi les chauves-souris sont-elles d’excellents réservoirs viraux ?', answer: 'Elles ont une grande longévité (x3,5), vivent en colonies denses, migrent, et possèdent une immunotolérance permettant des charges virales élevées sans maladie.', },
+{ question: 'Qu’est-ce que le virus Nipah ?', answer: 'Un Henipavirus (Paramyxoviridae) hébergé par la roussette (Pteropus), causant des encéphalites mortelles et des pneumonies chez l’homme.', },
+{ question: 'Quel événement écologique a déclenché l’épidémie de Nipah en Malaisie (1998) ?', answer: 'La déforestation par brûlis et El Niño ont poussé les chauves-souris vers des porcheries intensives où les porcs ont été infectés par des fruits souillés.', },
+{ question: 'Comment le virus Nipah s’est-il transmis au Bangladesh ?', answer: 'Par la consommation de sève de palmier contaminée par les déjections de chauves-souris tombant dans les récipients de collecte.', },
+{ question: 'Quel risque rabique existe-t-il avec les chauves-souris en France ?', answer: 'Le portage asymptomatique de Lyssavirus (lignées European Bat Lyssavirus 1 et 2), avec une prépondérance chez la sérotine commune.', },
+{ question: 'Qu’est-ce que l’histoplasmose pulmonaire ?', answer: 'Une infection par le champignon Histoplasma capsulatum, contractée par inhalation d’aérosols issus de déjections de chauves-souris.', },
+{ question: 'Qu’est-ce que le syndrome du museau blanc ?', answer: 'Infection cutanée par le champignon psychrophile Pseudogymnoascus destructans qui réveille les chauves-souris en hibernation, causant leur mort par épuisement des réserves.', },
+{ question: 'Définissez la synurbanisation.', answer: 'L’adaptation et le développement d’espèces animales sauvages en milieu urbain, favorisés par la modification de l’environnement par l’homme.', },
+{ question: 'Citez trois caractéristiques des espèces réussissant leur synurbanisation.', answer: 'Sociabilité (vie en groupe), sédentarité (absence de migration), et volume cérébral relativement plus important.', },
+{ question: 'Quels sont les dangers majeurs du milieu urbain pour la faune sauvage ?', answer: 'Pollutions (chimique, sonore, lumineuse), collisions (vitres, véhicules), actes de malveillance et prédateurs domestiques (chats).', },
+{ question: 'Quel est le risque épidémiologique du nourrissage artificiel en ville ?', answer: 'Il concentre de grands nombres d’animaux d’espèces différentes, facilitant la transmission de pathogènes (ex: Poxvirus, Salmonelles) via des sites mal entretenus.', },
+{ question: 'Qu’est-ce que l’échinococcose multiloculaire ?', answer: 'Une maladie grave causée par un cestode (Echinococcus multilocularis) dont le renard est l’hôte définitif et les rongeurs les hôtes intermédiaires.', },
+{ question: 'Comment l’homme se contamine-t-il par l’échinococcose ?', answer: 'Par ingestion accidentelle d’œufs du parasite présents sur des baies, des fruits ou le sol contaminé par les déjections de renards.', },
+{ question: 'Quelle est la latence habituelle des symptômes de l’échinococcose alvéolaire chez l’homme ?', answer: 'Les troubles apparaissent généralement 10 à 15 ans après la contamination initiale.', },
+{ question: 'Comment a été éradiquée la rage vulpine en Europe de l’Ouest ?', answer: 'Grâce à des campagnes de vaccination orale massive utilisant des largages aériens d’appâts contenant un virus atténué.', },
+{ question: 'Quel nouvel animal est devenu un réservoir majeur de la rage en Europe ?', answer: 'Le chien viverrin.', },
+{ question: 'Quels pathogènes intestinaux aviaires présentent un risque zoonotique pour l’homme ?', answer: 'Escherichia coli, Campylobacter sp. et Salmonella sp.', },
+{ question: 'Citez deux agents fongiques responsables des chytridiomycoses chez les amphibiens.', answer: 'Batrachochytrium dendrobatidis (Bd) et Batrachochytrium salamandrivorans (Bsal).', },
+{ question: 'Décrivez le cycle de vie dimorphique des chytridiomycètes.', answer: 'Alternance entre une forme libre (zoospore mobile flagellée en milieu aquatique) et une forme fixée (enkystement et production de rhizoïdes sur l’hôte).', },
+{ question: 'Quels sont les rôles majeurs de la peau chez les amphibiens ?', answer: 'Barrière protectrice, respiration (organe respiratoire complémentaire ou unique) et homéostasie électrolytique/hydrique.', },
+{ question: 'Comment la chytridiomycose (Bd) cause-t-elle la mort de l’amphibien ?', answer: 'En provoquant une hyperplasie et hyperkératose de l’épiderme, bloquant la respiration et les échanges d’électrolytes, menant à l’arrêt cardiaque.', },
+{ question: 'Quel est l’impact mondial estimé de Bd sur la biodiversité des amphibiens ?', answer: 'Responsable du déclin de 501 espèces (6,5 %) et de l’extinction de 90 espèces à l’échelle mondiale.', },
+{ question: 'Pourquoi les espèces d’amphibiens résistantes sont-elles des « super disséminateurs » ?', answer: 'Parce qu’elles assurent un portage asymptomatique du champignon, agissant comme réservoirs pour contaminer des espèces plus sensibles.', },
+{ question: 'Pourquoi le diclofénac a-t-il décimé les vautours en Asie du Sud ?', answer: 'Ce médicament anti-inflammatoire utilisé chez les bovins présente une toxicité aiguë majeure pour les vautours consommant les carcasses traitées.', },
+{ question: 'Quelle conséquence sanitaire inattendue a eu la disparition des vautours en Inde ?', answer: 'La prolifération de chiens errants se nourrissant des carcasses non consommées, entraînant une incidence accrue de la rage humaine.', },
+{ question: 'Quel médicament antiparasitaire a été utilisé en appâts à Zurich pour traiter les renards urbains ?', answer: 'Le praziquantel.', },
+{ question: 'Quelle est la durée de cohabitation entre l’homme et le chien selon l’historique de domestication ?', answer: 'Environ 32 000 ans de familiarité.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_One_Health_fc11";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

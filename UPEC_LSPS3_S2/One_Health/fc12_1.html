@@ -1,0 +1,482 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>One Health</h1><h2>Environnement, biodiversité, écologie, évolution des risques (partie 1)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition de l’Anthropocène ?', answer: 'C’est une ère marquée par une forte augmentation de la population humaine et des changements d’occupation des terres (déforestation, agriculture) ayant un impact global sur le système Terre [1, 2].', },
+{ question: 'Quelles sont les deux types de crises majeures caractérisant l’Anthropocène ?', answer: 'Une crise environnementale (climat, biodiversité) et une crise sanitaire (pathologies chroniques et maladies infectieuses) [1, 3].', },
+{ question: 'Quels sont les principaux gaz à effet de serre dont les émissions augmentent durant l’Anthropocène ?', answer: 'Le dioxyde de carbone (CO2) et le protoxyde d’azote (N2O) [4, 5].', },
+{ question: 'Quel a été le nombre de morts causés par les pathologies chroniques non transmissibles en 2019 ?', answer: 'Elles ont été responsables de 42 millions de morts en 2019 [3].', },
+{ question: 'Quel a été le nombre de morts liés aux maladies infectieuses (transmissibles, zoonotiques ou vectorielles) en 2019 ?', answer: 'Elles ont causé 2,7 millions de morts en 2019 [6].', },
+{ question: 'Quelle est la définition d’une maladie infectieuse ?', answer: 'C’est une maladie provoquée par l’invasion d’un tissu par un ou des agents infectieux déclenchant une réponse du système immunitaire [7].', },
+{ question: 'Citez les six types d’agents infectieux mentionnés dans le cours.', answer: 'Virus, bactéries (et rickettsies), protozoaires, champignons, plathelminthes et nématodes [7-9].', },
+{ question: 'Qu’est-ce qu’une maladie infectieuse émergente ou réémergente ?', answer: 'C’est une infection qui apparaît récemment dans une population ou qui réapparaît après avoir existé auparavant, avec une abondance ou une aire géographique en augmentation [7].', },
+{ question: 'Quelle est la définition d’une zoonose ?', answer: 'C’est une maladie dont le pathogène est transmis de l’animal à l’homme [10].', },
+{ question: 'Quelle proportion des maladies infectieuses émergentes a une origine zoonotique ?', answer: 'Environ 60 % de ces maladies proviennent des animaux [9].', },
+{ question: 'Dans quel pourcentage de cas les zoonoses sont-elles transmises par un animal sauvage ?', answer: 'Elles sont transmises par un animal sauvage dans 70 % des cas [9].', },
+{ question: 'Qu’est-ce qu’une maladie vectorielle ?', answer: 'C’est une maladie provoquée par un agent infectieux véhiculé et inoculé par un vecteur vivant [10].', },
+{ question: 'Quel est le rôle exact d’un vecteur vivant (ex: tique, moustique) dans une maladie ?', answer: 'Le vecteur ne provoque pas la maladie ; il transmet l’agent infectieux d’un hôte à un autre [10].', },
+{ question: 'Définissez une espèce réservoir.', answer: 'C’est toute espèce qui participe majoritairement au cycle de reproduction d’un agent pathogène infectieux et peut contribuer à contaminer d’autres espèces [7].', },
+{ question: 'Quel agent infectieux est responsable de la maladie de Lyme ?', answer: 'Une bactérie du genre Borrelia [11].', },
+{ question: 'Comment se définit la niche écologique d’un agent infectieux ?', answer: 'Elle est constituée de son histoire naturelle : ses hôtes, son cycle de vie (réservoirs, vecteurs) et les facteurs écologiques favorables [12].', },
+{ question: 'Quels sont les trois événements nécessaires à l’émergence d’une maladie infectieuse chez l’humain ?', answer: '1. Contacts répétés avec des espèces animales infectées ; 2. Transmission du pathogène de l’animal à l’humain ; 3. Transmission interhumaine [13].', },
+{ question: 'Quelles sont les quatre voies de transmission interhumaine citées ?', answer: 'Voie aérienne, ingestion, voie transcutanée ou inoculation vectorielle [13].', },
+{ question: 'Quel processus biologique est indispensable pour qu’un pathogène s’adapte à un nouvel hôte (ex: passage de l’humain à l’humain) ?', answer: 'Il doit subir des processus évolutifs permettant son adaptation [13].', },
+{ question: 'Qu’est-ce que le concept « One Health » ?', answer: 'C’est une approche globale, transdisciplinaire et multisectorielle de la santé reconnaissant l’interdépendance entre santé humaine, animale et environnementale [14].', },
+{ question: 'Quel est l’impact d’une biodiversité élevée sur les écosystèmes ?', answer: 'Plus elle est élevée, plus les écosystèmes sont résilients et protecteurs [14].', },
+{ question: 'Citez cinq activités humaines augmentant les risques d’émergence de maladies.', answer: 'Destruction des habitats, intensification de l’agriculture/élevage, changements climatiques, pollutions environnementales et mondialisation des échanges [15].', },
+{ question: 'Quelle est la définition scientifique de l’écologie ?', answer: 'C’est la science qui étudie l’abondance et la répartition des organismes vivants, en lien avec d’autres organismes et les conditions du milieu [16].', },
+{ question: 'Citez les échelles d’analyse du vivant en écologie, de la plus petite à la plus grande.', answer: 'Atome, molécule, cellule, individu, population, communauté, écosystème, biome, biosphère [16, 17].', },
+{ question: 'Quelle est la définition d’une espèce en écologie ?', answer: 'Un groupe d’individus capables de se reproduire entre eux et de donner une descendance fertile [18].', },
+{ question: 'Qu’étudie l’éco-physiologie ?', answer: 'Elle étudie comment la morphologie, la physiologie et le comportement d’un individu lui permettent de survivre et de s’adapter à son environnement [19].', },
+{ question: 'Quelle est la différence entre autotrophie et hétérotrophie concernant l’énergie ?', answer: 'Les autotrophes produisent leur matière organique à partir de lumière/minéraux, les hétérotrophes consomment d’autres organismes [20].', },
+{ question: 'Définissez une « ressource » en écologie.', answer: 'C’est un élément limité dans le temps et/ou l’espace (eau, nourriture, partenaire sexuel) qui est consommé lors de son utilisation [20].', },
+{ question: 'Quelle est la différence entre un facteur abiotique et un facteur biotique ?', answer: 'Les facteurs abiotiques sont des éléments non vivants (température, pH, polluants), les facteurs biotiques sont des organismes vivants en interaction (compétiteurs, prédateurs) [20, 21].', },
+{ question: 'Comment se définit la niche écologique d’un organisme ?', answer: 'C’est l’ensemble des ressources utilisées et des facteurs écologiques (abiotiques et biotiques) qu’un individu peut tolérer pour vivre, croître et se reproduire [22].', },
+{ question: 'Décrivez la forme générale de la courbe de performance d’une espèce face à un gradient de température.', answer: 'C’est une courbe en cloche avec une zone optimale au centre (reproduction possible) et des zones de stress/mort aux extrémités (carence ou toxicité) [23].', },
+{ question: 'Quelle est la particularité de la courbe de réponse d’un organisme face à un polluant comme l’arsenic ?', answer: 'Elle ne présente pas de besoin minimal (pas de carence) ; la performance diminue dès qu’une concentration critique est atteinte jusqu’à la mort [24].', },
+{ question: 'Qu’est-ce que l’hypervolume à n dimensions en écologie ?', answer: 'C’est la représentation de la niche écologique réelle intégrant simultanément toutes les dimensions (ressources, facteurs abiotiques et biotiques) [25].', },
+{ question: 'Qu’est-ce que le transformisme de Lamarck ?', answer: 'Une théorie (réfutée) supposant que les modifications acquises par un individu au cours de sa vie (ex: cou étiré de la girafe) sont transmises à sa descendance [26, 27].', },
+{ question: 'Sur quel principe repose la théorie de l’évolution de Darwin ?', answer: 'Elle repose sur la sélection naturelle agissant sur une variabilité génétique préexistante et héréditaire [28].', },
+{ question: 'Qu’est-ce que la valence écologique ?', answer: 'C’est la capacité d’une espèce à supporter les variations plus ou moins importantes d’un facteur écologique [29].', },
+{ question: 'Quelle est la différence entre une espèce généraliste et une espèce spécialiste ?', answer: 'Une espèce généraliste a une niche large (forte valence), une espèce spécialiste a une niche étroite (faible valence) et est plus vulnérable aux changements [29, 30].', },
+{ question: 'Définissez une population en écologie.', answer: 'L’ensemble des individus d’une même espèce vivant dans un lieu donné, pendant une période de temps déterminée [31].', },
+{ question: 'Qu’étudie la dynamique des populations ?', answer: 'Les facteurs influençant la taille, la composition (sex-ratio, âge) et la répartition géographique des populations au cours du temps [32, 33].', },
+{ question: 'Quel est l’impact d’une forte densité de population sur la transmission d’un agent infectieux ?', answer: 'Une forte densité facilite la propagation rapide du pathogène car les contacts rapprochés sont plus fréquents [34].', },
+{ question: 'Pourquoi une diversité génétique élevée est-elle un atout pour une population ?', answer: 'Elle augmente le potentiel d’adaptation et de résilience, car certains individus peuvent posséder des allèles de résistance aux maladies ou perturbations [35, 36].', },
+{ question: 'Quels sont les quatre processus déterminant l’effectif d’une population ?', answer: 'La natalité, l’immigration (augmentation) ainsi que la mortalité et l’émigration (diminution) [33].', },
+{ question: 'Quelle est la différence entre compétition intraspécifique et interspécifique ?', answer: 'L’intraspécifique se passe entre individus de la même espèce, l’interspécifique entre individus d’espèces différentes [37].', },
+{ question: 'Définissez une communauté (ou biocénose).', answer: 'L’ensemble des populations animales (zoocénose), végétales (phytocénose) et microbiennes vivant ensemble dans une zone déterminée [17, 38].', },
+{ question: 'Qu’est-ce qu’un écosystème ?', answer: 'C’est l’ensemble formé par la biocénose (êtres vivants) et le biotope (milieu physico-chimique) [17].', },
+{ question: 'Quelles sont les trois mesures permettant de caractériser la diversité spécifique d’une communauté ?', answer: 'La richesse spécifique (nombre d’espèces), l’abondance relative (%) et l’équitabilité (équilibre de répartition) [39].', },
+{ question: 'Décrivez la dynamique cyclique du couple lynx-lièvre.', answer: 'L’augmentation des proies (lièvres) favorise les prédateurs (lynx), dont la prédation finit par faire chuter la population de proies, entraînant ensuite le déclin des prédateurs [40-42].', },
+{ question: 'Définissez le mutualisme.', answer: 'C’est une relation de coopération entre deux espèces où chacune tire un bénéfice réciproque (ex: pollinisation) [43].', },
+{ question: 'Qu’est-ce que le mutualisme symbiotique ?', answer: 'Une association durable et étroite à bénéfice réciproque où l’un des partenaires vit à l’intérieur de l’autre (ex: Rhizobium dans les racines, microbiote) [44, 45].', },
+{ question: 'Définissez le commensalisme.', answer: 'Une interaction où une espèce bénéficie de la relation tandis que l’autre reste indifférente (effet neutre) [46].', },
+{ question: 'Citez deux exemples d’espèces commensales synanthropiques.', answer: 'Les pigeons et les rats en milieu urbain [47].', },
+{ question: 'Qu’est-ce qu’une espèce épiphyte ?', answer: 'C’est une plante (ex: orchidée) qui utilise une autre plante comme support physique sans en prélever les ressources [48].', },
+{ question: 'Quelle est la différence entre un ectoparasite et un endoparasite ?', answer: 'L’ectoparasite vit à l’extérieur de l’hôte (ex: moustique), l’endoparasite vit à l’intérieur (ex: Plasmodium, Schistosoma) [49].', },
+{ question: 'Quelle maladie est causée par le nématode Wuchereria bancrofti ?', answer: 'L’éléphantiasis (ou filariose lymphatique), qui obstrue le système lymphatique [50].', },
+{ question: 'Qu’est-ce que la compétition interspécifique par exploitation ?', answer: 'C’est une interaction indirecte où les espèces utilisent la même ressource limitée, réduisant sa disponibilité pour l’autre [51].', },
+{ question: 'Qu’est-ce que la compétition interspécifique par interférence ?', answer: 'C’est une action directe (agression, obstruction) pour empêcher l’autre d’accéder à la ressource [52].', },
+{ question: 'Qu’est-ce que l’allélopathie ?', answer: 'C’est la libération de substances chimiques par une plante pour inhiber la croissance des plantes voisines [53].', },
+{ question: 'Quelle est la différence entre niche fondamentale et niche réalisée ?', answer: 'La niche fondamentale est l’espace théorique sans compétition ; la niche réalisée est l’espace restreint occupé en présence de compétiteurs [54, 55].', },
+{ question: 'Qu’est-ce que le principe d’exclusion compétitive ?', answer: 'C’est l’élimination d’une espèce par une autre plus efficace lorsqu’elles occupent exactement la même niche [55, 56].', },
+{ question: 'Qu’est-ce que la partition de la niche ?', answer: 'C’est l’ajustement des comportements ou préférences (ex: taille du bec, profondeur des racines) permettant la coexistence stable d’espèces concurrentes [55, 56].', },
+{ question: 'Quelle est la différence entre un herbivore et un « vrai prédateur » (carnivore) ?', answer: 'Le vrai prédateur tue immédiatement sa proie ; l’herbivore consomme une partie de la plante généralement sans la tuer [57].', },
+{ question: 'Qu’est-ce que la minéralisation dans un réseau trophique ?', answer: 'C’est la transformation de la matière organique morte en matière minérale par les décomposeurs et détritivores [58, 59].', },
+{ question: 'Qu’est-ce qu’un superprédateur ?', answer: 'Un organisme situé au sommet de la chaîne alimentaire qui n’est chassé par aucune autre espèce [58, 60].', },
+{ question: 'Quelle est la différence entre le phytoplancton et le zooplancton dans un réseau aquatique ?', answer: 'Le phytoplancton est le producteur primaire (algues) ; le zooplancton est le consommateur primaire [60, 61].', },
+{ question: 'Définissez le contrôle trophique ascendant (bottom-up).', answer: 'C’est une régulation exercée par la disponibilité des ressources (producteurs primaires) sur les niveaux supérieurs [62, 63].', },
+{ question: 'Définissez le contrôle trophique descendant (top-down).', answer: 'C’est une régulation exercée par les prédateurs du sommet sur les niveaux trophiques inférieurs [62, 64].', },
+{ question: 'Qu’est-ce qu’une espèce clé de voûte ?', answer: 'Une espèce qui exerce un effet disproportionné sur son environnement par rapport à son effectif ; sa disparition peut faire effondrer l’écosystème [65, 66].', },
+{ question: 'Quel a été l’effet de l’éradication du loup à Yellowstone sur la végétation ?', answer: 'La surpopulation de wapitis a entraîné un broutage excessif empêchant la régénération des arbres (saules, bouleaux) [67, 68].', },
+{ question: 'Pourquoi les castors sont-ils qualifiés d’ingénieurs de l’écosystème ?', answer: 'Par leurs barrages, ils modifient le cours de l’eau et créent des zones humides favorisant une nouvelle diversité biologique [69].', },
+{ question: 'Qu’est-ce que la succession écologique ?', answer: 'C’est le changement progressif de la structure et de la composition d’une communauté au cours du temps, du milieu nu vers le climax [70].', },
+{ question: 'Quelles sont les caractéristiques des espèces pionnières ?', answer: 'Croissance et reproduction rapides, petite taille et forte capacité de dispersion [71].', },
+{ question: 'Qu’est-ce que le climax ?', answer: 'C’est le stade d’équilibre stable et final d’une succession écologique (ex: forêt mature) [70, 72].', },
+{ question: 'Quelle est la différence entre la résistance et la résilience d’un écosystème ?', answer: 'La résistance est la capacité à ne pas changer face à un choc ; la résilience est la capacité à retrouver l’état initial après avoir été modifié [73].', },
+{ question: 'Comment la diversité spécifique influence-t-elle la propagation d’un pathogène ?', answer: 'Une forte diversité peut faire barrière à la propagation (effet de dilution/barrière), alors qu’une dominance d’une espèce sensible facilite la transmission [74, 75].', },
+{ question: 'Citez les quatre dimensions de la biodiversité.', answer: 'Diversité génétique, diversité spécifique, diversité écosystémique et diversité fonctionnelle [76, 77].', },
+{ question: 'Quelle est l’augmentation du CO2 atmosphérique depuis 1750 ?', answer: 'Il a augmenté de plus de 30 % [5].', },
+{ question: 'Combien de grandes extinctions de masse la Terre a-t-elle connues avant l’homme ?', answer: 'Elle a connu cinq grandes extinctions de masse (perte de >75 % des espèces) [78].', },
+{ question: 'Quelle est la différence entre le taux d’extinction naturel et le taux actuel ?', answer: 'Le taux naturel est de 100-1000 espèces/siècle ; le taux actuel est 100 à 1000 fois plus élevé (10 000-100 000/siècle) [78, 79].', },
+{ question: 'Que sont les services écosystémiques ?', answer: 'L’ensemble des biens et services fournis gratuitement par les écosystèmes (nourriture, régulation du climat, etc.) dont dépendent les sociétés [80].', },
+{ question: 'Quelles sont les quatre catégories de services écosystémiques ?', answer: 'Approvisionnement, régulation, culturels et services de soutien [81-83].', },
+{ question: 'Quelle était la valeur estimée des services écosystémiques mondiaux en 2011 ?', answer: '125 trillions de dollars par an, soit plus que le PIB mondial [84, 85].', },
+{ question: 'Quelle est la première cause de l’érosion de la biodiversité terrestre ?', answer: 'La dégradation et fragmentation des habitats naturels [86, 87].', },
+{ question: 'Pourquoi la disparition d’espèces peut-elle favoriser les zoonoses ?', answer: 'Elle laisse parfois plus de place à des espèces réservoirs (rongeurs, moustiques) et augmente la proximité homme-animal sauvage [88].', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_One_Health_fc12_1";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

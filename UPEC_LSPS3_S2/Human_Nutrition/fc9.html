@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Human nutrition</h1><h2>Interaction régime-maladie : obésité, syndrome métabolique et diabète</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition du « poids corporel idéal » ?', answer: 'Il s’agit du poids corporel associé statistiquement à l’espérance de vie la plus élevée, utilisé notamment par les compagnies d’assurance [1].', },
+{ question: 'Quels sont les paramètres nécessaires pour calculer l’Indice de Masse Corporelle (IMC) ?', answer: 'L’IMC nécessite uniquement la mesure du poids et de la taille de l’individu [1].', },
+{ question: 'Quelles sont les limites majeures de l’IMC en tant qu’outil de diagnostic de l’obésité ?', answer: 'Il ne distingue pas la masse grasse de la masse musculaire maigre et ne prend pas en compte la répartition de la graisse [2].', },
+{ question: 'Quelles sont les caractéristiques morphologiques des formes d’obésité en « pomme » et en « poire » ?', answer: 'La forme de pomme (graisse abdominale) est plus fréquente chez les hommes, tandis que la forme de poire (graisse sur les hanches et le haut des jambes) est plus fréquente chez les femmes [2].', },
+{ question: 'Pourquoi l’obésité de forme « pomme » est-elle plus dangereuse pour la santé ?', answer: 'La graisse abdominale augmente significativement le risque de syndrome métabolique, de diabète et de maladies cardiovasculaires [3].', },
+{ question: 'Quelle est la prévalence de l’obésité aux États-Unis par rapport au Japon selon l’étude de 2019 ?', answer: 'La prévalence est de près de 40 % aux États-Unis contre moins de 5 % au Japon [4].', },
+{ question: 'Quelle est la prévalence moyenne de l’obésité en France ?', answer: 'Elle se situe environ entre 17 % et 18 %, avec des variations régionales [5, 6].', },
+{ question: 'Quel groupe d’âge est le plus touché par le surpoids en Europe ?', answer: 'Le groupe des 65-74 ans est le plus touché, le surpoids étant fortement lié à l’âge [7].', },
+{ question: 'Quelle disparité de sexe observe-t-on chez les 18-24 ans européens concernant le surpoids et l’obésité ?', answer: 'Le problème touche 40,2 % des femmes contre 22,6 % des hommes dans cette tranche d’âge [8].', },
+{ question: 'Quel lien existe-t-il entre le statut socio-économique et l’obésité ?', answer: 'Une incidence plus élevée de l’obésité est associée à la pauvreté et à un faible statut socio-économique [9, 10].', },
+{ question: 'Selon l’Inserm, quelle était la proportion d’adultes français en excès de poids en 2020 ?', answer: 'Près d’un adulte sur deux (47,3 %), dont 17 % en situation d’obésité [6, 10].', },
+{ question: 'Comment a évolué l’obésité chez les 18-24 ans en France depuis 1997 ?', answer: 'Elle a été multipliée par plus de quatre, passant de 2,1 % en 1997 à 9,2 % en 2020 [11, 12].', },
+{ question: 'Quel impact la période Covid-19 a-t-elle eu sur la santé pondérale des Français ?', answer: 'Elle risque d’avoir eu des impacts négatifs liés notamment au manque d’activité physique [11].', },
+{ question: 'Quelle région française présentait le taux d’obésité le plus élevé en 2012 ?', answer: 'Les Hauts-de-France (anciennement Allier cité dans le texte analytique) avec 22,1 % [13, 14].', },
+{ question: 'Qu’est-ce que la « transition nutritionnelle » dans les pays en développement ?', answer: 'C’est un changement rapide vers une consommation accrue d’aliments transformés et une réduction de l’activité physique, augmentant l’obésité [15, 16].', },
+{ question: 'Quelle tendance observe-t-on pour l’obésité sévère aux États-Unis entre 1999 et 2018 ?', answer: 'L’obésité sévère a presque doublé, passant de 4,7 % à 9,2 % de la population [17].', },
+{ question: 'À partir de quel seuil d’IMC la mortalité commence-t-elle à augmenter progressivement ?', answer: 'La mortalité augmente dès que l’IMC dépasse la fourchette saine de 20-25 [18].', },
+{ question: 'Pourquoi la courbe de mortalité selon l’IMC est-elle en forme de « J » ?', answer: 'Parce que le risque de mortalité est minimal pour un IMC normal (20-25) mais augmente en cas d’excès de poids ET en cas de sous-poids (IMC < 20) [19].', },
+{ question: 'Quelles sont les principales pathologies auxquelles l’obésité prédispose ?', answer: 'Le syndrome métabolique, le diabète de type 2, l’hyperlipidémie, les maladies vasculaires, l’arthrite et certains cancers [20].', },
+{ question: 'Quel est le lien biologique entre l’obésité et l’inflammation ?', answer: 'La graisse excédentaire sécrète des cytokines pro-inflammatoires, entraînant une inflammation chronique de bas grade [20, 21].', },
+{ question: 'Quels types de cancers sont particulièrement associés à l’obésité ?', answer: 'Les cancers hormonodépendants (sein, endomètre, prostate) et le cancer du côlon [22].', },
+{ question: 'Quelle particularité éthnique a été observée pour le risque de diabète en Asie ?', answer: 'Les populations asiatiques (Sud et Est) présentent un risque de diabète accru même à des niveaux d’IMC inférieurs à 25 [23, 24].', },
+{ question: 'Quels sont les principaux moteurs de la pandémie mondiale d’obésité ?', answer: 'Les changements du système alimentaire mondial et l’augmentation des comportements sédentaires [25].', },
+{ question: 'Sur quels types d’aliments se concentre le régime paléolithique ?', answer: 'La viande, le poisson, les fruits de mer, les œufs, les légumes, les fruits, les noix et les graines [26].', },
+{ question: 'Quelles sont les critiques nutritionnelles adressées au régime paléo ?', answer: 'L’élimination des produits laitiers et des légumineuses peut causer des carences en calcium et en fibres [27].', },
+{ question: 'Quelle différence de mode de vie explique la santé métabolique des Indiens Pima du Mexique ?', answer: 'Ils conservent un mode de vie traditionnel basé sur l’agriculture et la chasse, avec une alimentation riche en fibres et faible en calories [28].', },
+{ question: 'Quelle est la situation des Indiens Pima vivant aux États-Unis ?', answer: '50 % sont en surpoids et 95 % de ces derniers souffrent de diabète à cause du mode de vie occidental sédentaire [28, 29].', },
+{ question: 'Quelle est la différence entre l’hyperplasie et l’hypertrophie des adipocytes ?', answer: 'L’hyperplasie est l’augmentation du nombre de cellules, tandis que l’hypertrophie est l’augmentation de leur taille [29, 30].', },
+{ question: 'Comment évoluent les cellules adipeuses lors d’une obésité sévère chez l’adulte ?', answer: 'Il y a une augmentation significative du nombre de cellules (obésité hyperplasique) [31].', },
+{ question: 'Pourquoi les personnes ayant un nombre élevé d’adipocytes reprennent-elles vite du poids ?', answer: 'Parce que le régime réduit la taille des cellules mais pas leur nombre, laissant la possibilité d’un stockage rapide ultérieur [32, 33].', },
+{ question: 'Quel est le mode d’action de la chirurgie bariatrique ?', answer: 'Elle réduit la capacité de l’estomac ou modifie l’absorption des nutriments, mais ne réduit pas le nombre d’adipocytes existants [33, 34].', },
+{ question: 'Quelles sont les trois phases de l’adipogenèse ?', answer: 'L’engagement, l’expansion clonale et la différenciation terminale [35, 36].', },
+{ question: 'Quelles hormones régulent le processus de transformation des cellules en adipocytes ?', answer: 'L’insuline et les glucocorticoïdes [36].', },
+{ question: 'Quels marqueurs pro-inflammatoires sont produits par le tissu adipeux obèse ?', answer: 'Le TNF-alpha, l’interféron gamma, l’IL-1 bêta et l’IL-6 [35, 37].', },
+{ question: 'Quel est le rôle de la leptine et que se passe-t-il en cas d’obésité ?', answer: 'Elle contrôle l’appétit et la satiété ; en cas d’obésité, son taux augmente mais le corps devient résistant à ses effets [37, 38].', },
+{ question: 'Qu’est-ce que l’adiponectine et comment évolue-t-elle dans l’obésité ?', answer: 'C’est une hormone régulant le métabolisme du glucose et la sensibilité à l’insuline ; elle diminue en cas d’obésité [38, 39].', },
+{ question: 'Quelle est la part de l’hérédité dans le risque d’obésité pour un enfant ?', answer: 'Le risque est de 14 % avec des parents normaux, 30 % avec un parent obèse et 70-80 % avec deux parents obèses [39].', },
+{ question: 'Quels stimuli psychologiques peuvent déclencher une alimentation inappropriée ?', answer: 'Le stress, l’ennui, la dépression et la solitude [40].', },
+{ question: 'Quels sont les trois paliers de la pyramide de traitement de l’obésité selon l’IMC ?', answer: '1. Modification du mode de vie (25-30), 2. Pharmacothérapie (30-40), 3. Chirurgie (≥ 40) [34, 41].', },
+{ question: 'Quelles sont les fonctions des médicaments de lutte contre l’obésité ?', answer: 'Ils ciblent la suppression de l’appétit ou la réduction de l’absorption des graisses [34].', },
+{ question: 'Qu’est-ce que le syndrome métabolique (MetS) selon l’introduction du cours ?', answer: 'C’est un ensemble de troubles liés à la résistance à l’insuline incluant hypertension, glycémie élevée et anomalies lipidiques [42, 43].', },
+{ question: 'Quels sont les seuils de tour de taille indiquant une obésité centrale ?', answer: 'Supérieur à 90 cm pour les hommes et 80 cm pour les femmes (selon les critères généraux) [42].', },
+{ question: 'Combien de critères faut-il remplir pour être diagnostiqué d’un syndrome métabolique ?', answer: 'Il faut présenter au moins trois des critères cliniques définis (obésité, HTA, glycémie, triglycérides, HDL) [43].', },
+{ question: 'Quels sont les critères du syndrome métabolique selon l’OMS (1999) ?', answer: 'Résistance à l’insuline (ou glycémie > 6,1 mmol/L) plus deux critères parmi : HDL bas, triglycérides élevés, rapport taille/hanche élevé ou IMC > 30, et HTA [44, 45].', },
+{ question: 'Quelle est la définition du MetS selon le NCEP ATP3 (2005) ?', answer: 'Présence d’au moins 3 critères : glycémie > 5,6 mmol/L, HDL < 1 (hommes)/1,3 (femmes), triglycérides > 1,7, tour de taille > 102/88 cm, HTA > 130/85 [45, 46].', },
+{ question: 'Quelle est la définition du MetS selon la FID (2006) ?', answer: 'Tour de taille > 94 cm (hommes)/80 cm (femmes) OBLIGATOIRE, plus deux autres critères (glycémie, HDL, TG ou HTA) [46, 47].', },
+{ question: 'Comment évolue la répartition des graisses chez la femme après la ménopause ?', answer: 'Elle se rapproche de celle des hommes (forme pomme) à cause de la diminution des œstrogènes [48, 49].', },
+{ question: 'Qu’est-ce qu’un dépôt ectopique de graisse ?', answer: 'C’est quand le stockage des graisses déborde du tissu adipeux vers d’autres tissus comme le foie, le cœur ou les muscles [49, 50].', },
+{ question: 'Quelles sont les conséquences de l’accumulation de graisse péricardique ?', answer: 'Elle augmente le risque de développer une maladie cardiovasculaire [51].', },
+{ question: 'Définissez l’obésité métaboliquement saine (MHO).', answer: 'Elle décrit des individus obèses (IMC ≥ 30) ne présentant pas les critères majeurs du syndrome métabolique [52, 53].', },
+{ question: 'Qu’est-ce que la résistance à l’insuline ?', answer: 'C’est une diminution de l’efficacité de l’insuline pour réguler la glycémie, entraînant une surproduction compensatoire de cette hormone [54, 55].', },
+{ question: 'Pourquoi la résistance à l’insuline est-elle un danger « silencieux » ?', answer: 'Car cet état prédiabétique peut durer plusieurs années sans hyperglycémie apparente, les taux d’insuline n’étant pas souvent contrôlés [56].', },
+{ question: 'Quelle est la composante la plus fréquente du syndrome métabolique chez les obèses ?', answer: 'L’hypertension artérielle, présente dans 60 à 85 % des cas [53, 57].', },
+{ question: 'Le poids normal protège-t-il de la mortalité liée au syndrome métabolique ?', answer: 'Non, les adultes de poids normal atteints du syndrome métabolique ont le taux de mortalité le plus élevé dans certaines études [58, 59].', },
+{ question: 'Qu’est-ce que le Liraglutide ?', answer: 'C’est un agoniste du récepteur GLP-1 qui augmente la sécrétion d’insuline, ralentit la vidange gastrique et réduit l’appétit [60, 61].', },
+{ question: 'Quelle intervention thérapeutique est la plus efficace contre le syndrome métabolique ?', answer: 'La combinaison d’un médicament (type Liraglutide) et de l’exercice physique [62, 63].', },
+{ question: 'Quel a été l’impact économique du syndrome métabolique en Allemagne entre 2008 et 2020 ?', answer: 'Le coût annuel est passé d’environ 24 millions à près de 39 millions d’euros [64].', },
+{ question: 'Comment se définit biologiquement le diabète ?', answer: 'Par une hyperglycémie persistante résultant d’un défaut de sécrétion d’insuline, d’une résistance à son action, ou des deux [65].', },
+{ question: 'Qui a inventé le terme « diabète » au IIe siècle ?', answer: 'Aretaeus de Cappadoce [66].', },
+{ question: 'Que signifie le terme « mellitus » ajouté au XVIIe siècle ?', answer: 'Cela signifie « doux » en latin, décrivant le goût sucré de l’urine des patients [66].', },
+{ question: 'Quelle est la fonction des cellules alpha (α) du pancréas ?', answer: 'Elles produisent le glucagon, qui augmente la glycémie en stimulant la dégradation du glycogène hépatique [67, 68].', },
+{ question: 'Quelle est la fonction des cellules bêta (β) du pancréas ?', answer: 'Elles produisent l’insuline, qui déclenche l’absorption du glucose par les muscles et les tissus adipeux [67, 68].', },
+{ question: 'Quel est le mécanisme d’action de l’insuline au niveau cellulaire ?', answer: 'Elle se lie à des récepteurs de surface, ce qui déverrouille les canaux permettant au glucose de pénétrer dans la cellule [69].', },
+{ question: 'Citez cinq symptômes courants du diabète.', answer: 'Uriner souvent, soif intense, perte de poids inexpliquée, fatigue et vision trouble [70].', },
+{ question: 'Quelle est la principale différence de développement entre le DT1 et le DT2 ?', answer: 'Le DT1 apparaît rapidement (semaines), tandis que le DT2 se développe sur plusieurs années, souvent sans symptômes apparents au début [70].', },
+{ question: 'Quelle est la cause biologique du Diabète de Type 1 ?', answer: 'Une carence en insuline due à la destruction des cellules bêta, souvent associée à la présence d’auto-anticorps [70].', },
+{ question: 'Qu’est-ce que le diabète gestationnel ?', answer: 'Un type de diabète qui se développe pendant la grossesse chez des femmes non diabétiques, souvent dû aux hormones placentaires [71].', },
+{ question: 'Quelles sont les conséquences potentielles du diabète gestationnel pour le bébé ?', answer: 'Un poids de naissance élevé (≥ 4kg), une naissance prématurée, une hypoglycémie néonatale et un risque de DT2 plus tard [72].', },
+{ question: 'Quel pourcentage de femmes atteintes de diabète gestationnel développent un DT2 plus tard ?', answer: 'Environ 50 % des femmes [72].', },
+{ question: 'Quel est le pic d’âge de prévalence du diabète en France ?', answer: 'Il se situe autour de 60-70 ans [73].', },
+{ question: 'Qu’est-ce qu’une complication macrovasculaire du diabète ?', answer: 'Il s’agit d’atteintes des gros vaisseaux pouvant mener à un infarctus du myocarde, un AVC ou une maladie vasculaire périphérique [74].', },
+{ question: 'Citez trois complications microvasculaires du diabète.', answer: 'La rétinopathie (lésions oculaires), la néphropathie (insuffisance rénale) et la neuropathie [74].', },
+{ question: 'Qu’est-ce que l’hémoglobine glyquée (HbA1c) ?', answer: 'Un marqueur qui mesure le taux moyen de glucose sanguin sur une période de 2 à 3 mois [75].', },
+{ question: 'Quels sont les examens de suivi indispensables pour un diabétique ?', answer: 'Glycémie, HbA1c, bilan rénal (urée/électrolytes), albumine urinaire, ECG et photographie rétinienne [75].', },
+{ question: 'Quel est le pourcentage recommandé de glucides totaux pour un diabétique ?', answer: 'Entre 45 % et 50 % de l’apport énergétique, sans descendre sous les 30 % [76].', },
+{ question: 'Quels types d’aliments faut-il privilégier pour contrôler la glycémie ?', answer: 'Les aliments à faible indice glycémique, car ils libèrent le glucose lentement [76, 77].', },
+{ question: 'Quelle recommandation est faite concernant les boissons pour les diabétiques ?', answer: 'Éviter les boissons sucrées, y compris les jus de fruits, et réduire les sucres ajoutés [78].', },
+{ question: 'Pourquoi est-il conseillé de compter les glucides en cas d’insulinothérapie flexible ?', answer: 'Pour déterminer précisément la dose d’insuline nécessaire au moment des repas et améliorer le contrôle glycémique [79].', },
+{ question: 'Quels sont les repères de consommation de fruits pour un diabétique selon le guide NLM ?', answer: 'Une petite pomme, 4 abricots ou une demi-mangue constituent des portions appropriées [80].', },
+{ question: 'Quelle est la position de la France sur les conseils nutritionnels aux diabétiques ?', answer: 'Elle recommande les mêmes lignes directrices d’alimentation saine que pour la population générale, adaptées individuellement [77].', },
+{ question: 'Quel est le principal défi pour les patients diabétiques face aux recommandations ?', answer: 'La complexité des documents professionnels ; il est essentiel de fournir des outils simples comme des tableaux visuels de portions [81].', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Human_Nutrition_fc9";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

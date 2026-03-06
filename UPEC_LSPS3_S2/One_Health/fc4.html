@@ -1,0 +1,494 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>One Health</h1><h2>Maladies émergentes transmises de l'animal à l'homme</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition d’une infection ?', answer: 'Une maladie liée à l’action directe et/ou indirecte d’un agent infectieux (appelé couramment « microbe »).', },
+{ question: 'Quelles sont les caractéristiques biologiques d’une bactérie ?', answer: 'C’est un microorganisme unicellulaire procaryote (anucléé), protégé par une paroi et contenant un unique chromosome.', },
+{ question: 'Qu’est-ce que le microbiote bactérien ?', answer: 'C’est l’ensemble des bactéries non pathogènes qui vivent naturellement dans ou sur l’organisme humain.', },
+{ question: 'Quelle est la caractéristique structurelle d’un virus ?', answer: 'C’est un microorganisme possédant un seul type d’acide nucléique (ADN ou ARN), pouvant être enveloppé ou non enveloppé.', },
+{ question: 'Quel est le mode de reproduction obligatoire d’un virus ?', answer: 'Un virus ne peut se reproduire qu’en parasitant une cellule hôte.', },
+{ question: 'Définissez ce qu’est un parasite en microbiologie.', answer: 'Un organisme (le plus souvent microscopique) qui vit sur ou dans un autre organisme (l’hôte) et en profite à ses dépens, sans relation unilatérale bénéfique.', },
+{ question: 'Quels sont les trois types de parasites cités dans le cours ?', answer: 'Les microorganismes unicellulaires (protozoaires), les helminthes multicellulaires (vers) et les ectoparasites macroscopiques (gale, poux).', },
+{ question: 'Quelle est la définition d’un champignon en tant qu’agent infectieux ?', answer: 'C’est un microorganisme eucaryote hétérotrophe d’origine végétale, mais dépourvu de chlorophylle.', },
+{ question: 'Quels sont les trois modes de nutrition des champignons ?', answer: 'La nécrotrophie (matière organique inerte), la biotrophie (parasitisme) et la symbiose (ex : lichens).', },
+{ question: 'Qu’est-ce qu’un prion ?', answer: 'Un agent infectieux protéinique dont la conformation ou le repliement est anormal, capable de transmettre cette anomalie à des protéines normales.', },
+{ question: 'Donnez un exemple de pathologie causée par un prion.', answer: 'L’encéphalopathie spongiforme bovine (ou maladie de Creutzfeldt-Jakob chez l’homme).', },
+{ question: 'Comment définit-on une infection transmissible ?', answer: 'Une infection capable de se propager à plusieurs individus ou entre individus par transmissions interhumaines.', },
+{ question: 'Pourquoi le tétanos est-il une infection non transmissible entre humains ?', answer: 'Parce qu’il est causé par l’inoculation directe d’une bactérie environnementale (Clostridium tetani) dans une plaie et non par contact interhumain.', },
+{ question: 'Quelle est l’origine de la contamination par le botulisme ?', answer: 'C’est une toxi-infection alimentaire due à la prolifération de Clostridium botulinum dans des aliments mal stérilisés, libérant une toxine bloquant les neurotransmetteurs.', },
+{ question: 'Comment se transmet la légionellose ?', answer: 'Par inhalation de fines gouttelettes d’eau contaminée (douches, climatisations), mais elle ne se transmet pas de personne à personne.', },
+{ question: 'Qu’est-ce qu’un risque émergent ?', answer: 'Tout risque qui est à la fois nouveau et croissant.', },
+{ question: 'Quelle est la définition d’une épidémie ?', answer: 'Une augmentation brutale de l’incidence d’une infection dans une population sur une courte période.', },
+{ question: 'Quels sont les trois éléments fondamentaux dont dépend l’émergence d’un agent infectieux ?', answer: 'L’hôte, l’agent pathogène et l’environnement.', },
+{ question: 'Définissez une infection émergente.', answer: 'Une maladie infectieuse – ou présumée infectieuse – à la fois nouvelle et en augmentation touchant l’homme, l’animal ou les deux.', },
+{ question: 'Comment une modification de la population peut-elle entraîner une réémergence (ex: rougeole) ?', answer: 'Par une modification de l’immunité et de la réceptivité de la population, par exemple si les gens cessent de se vacciner.', },
+{ question: 'Citez deux coronavirus identifiés avant la COVID-19.', answer: 'Le SRAS (2003) et le MERS (depuis 2012 au Moyen-Orient).', },
+{ question: 'Quelle est la particularité épidémiologique du SRAS de 2003 ?', answer: 'Il était très virulent et mortel, mais s’est peu propagé car sa létalité élevée limitait sa propre diffusion.', },
+{ question: 'Quel est le réservoir principal du MERS ?', answer: 'Les camélidés (chameaux).', },
+{ question: 'Comment le virus West Nile a-t-il pu se diffuser mondialement ?', answer: 'Grâce à la mondialisation, au réchauffement climatique et à la déforestation facilitant la transmission par les tiques.', },
+{ question: 'Quels facteurs ont provoqué les épidémies de Chikungunya à La Réunion ?', answer: 'La conjonction du rapprochement des personnes, de leur concentration et de la présence d’un moustique vecteur.', },
+{ question: 'Quelle complication grave est associée au virus Zika ?', answer: 'Des complications graves chez les femmes enceintes (fœtus).', },
+{ question: 'Quel est le taux de mortalité moyen du virus Ebola ?', answer: 'Environ 20 %.', },
+{ question: 'Que signifie l’acronyme BHRE ?', answer: 'Bactéries Hautement Résistantes aux antibiotiques émergentes.', },
+{ question: 'Quel risque pose la modification antigénique complète de la grippe (cassure) ?', answer: 'Elle rend les vaccins existants inefficaces, créant un risque de pandémie mondiale.', },
+{ question: 'Quelle est la spécificité de la souche émergente 027 de Clostridioides difficile ?', answer: 'Elle produit une toxine particulièrement virulente causant des diarrhées sous antibiotiques.', },
+{ question: 'Quel moustique est le vecteur de la dengue et du Chikungunya en France ?', answer: 'Aedes albopictus (moustique tigre).', },
+{ question: 'Quelle est la définition d’une zoonose (ou anthropozoonose) ?', answer: 'Une maladie ou infection qui se transmet naturellement des animaux vertébrés à l’homme, et vice versa.', },
+{ question: 'Pourquoi la majorité des agents animaux n’infectent-ils pas l’homme ?', answer: 'Car ils ne possèdent pas les récepteurs adéquats pour franchir la barrière humaine.', },
+{ question: 'Quelle est la différence entre une transmission directe et indirecte d’une zoonose ?', answer: 'La transmission directe se fait par contact animal/homme ; l’indirecte passe par la voie alimentaire ou un vecteur (insecte, arachnide).', },
+{ question: 'Quelles proportions des maladies infectieuses humaines et émergentes les zoonoses représentent-elles ?', answer: 'Elles constituent 60 % de toutes les maladies infectieuses humaines et 75 % des maladies infectieuses émergentes.', },
+{ question: 'Quel est le bilan annuel de mortalité des zoonoses selon l’ONU ?', answer: '2,2 millions de morts chaque année.', },
+{ question: 'Définissez le Stade 1 de la transformation d’un pathogène animal en humain.', answer: 'L’agent pathogène est exclusivement animal, sans aucune transmission à l’homme.', },
+{ question: 'Qu’est-ce que le Stade 2 d’émergence zoonotique ?', answer: 'Une première infection de l’animal vers l’homme seulement, sans transmission interhumaine (ex : rage).', },
+{ question: 'Qu’est-ce que le Stade 3 d’émergence zoonotique ?', answer: 'Une épidémie limitée à un foyer avec une transmission interhumaine restreinte.', },
+{ question: 'Définissez le Stade 4 d’émergence zoonotique.', answer: 'Une épidémie longue, voire une pandémie, où la transmission se fait par l’animal ou par l’homme après de nombreux cycles.', },
+{ question: 'Qu’est-ce que le Stade 5 d’émergence zoonotique ?', answer: 'L’agent pathogène est devenu exclusivement humain (ex : VIH-1, variole).', },
+{ question: 'Pourquoi le virus de la rage reste-t-il au stade 2 ?', answer: 'Parce qu’il entraîne 100 % de décès chez l’hôte une fois développé, ce qui empêche la création d’une chaîne de transmission interhumaine.', },
+{ question: 'Comment le commerce international a-t-il favorisé la diffusion d’Aedes albopictus ?', answer: 'À travers le commerce mondial de pneus usagés qui abritaient des œufs du moustique.', },
+{ question: 'Quel animal a transmis le SRAS à l’homme en 2003 ?', answer: 'La civette.', },
+{ question: 'Quelle est la zoonose vectorielle la plus fréquente dans l’Hémisphère Nord ?', answer: 'La borréliose de Lyme (maladie de Lyme).', },
+{ question: 'Quel est l’agent infectieux de la maladie de Lyme ?', answer: 'La bactérie Borrelia burgdorferi.', },
+{ question: 'Combien de temps doit durer la piqûre d’une tique pour transmettre Lyme ?', answer: 'Au moins une heure.', },
+{ question: 'Quel est le symptôme initial caractéristique de la maladie de Lyme ?', answer: 'L’érythème chronique migrant (éruption inflammatoire centrifuge à centre clair).', },
+{ question: 'Citez trois complications secondaires possibles de la maladie de Lyme.', answer: 'Paralysie faciale (nerfs crâniens), atteintes articulaires et anomalies neurologiques des membres inférieurs.', },
+{ question: 'Qui a découvert l’agent de la maladie de Lyme et en quelle année ?', answer: 'Willy Burgdorfer aux USA en 1982.', },
+{ question: 'Quelle preuve archéologique témoigne de l’ancienneté de Borrelia ?', answer: 'La présence d’ADN du microbe chez la momie Otzi, vieille de 5 300 ans.', },
+{ question: 'Quelle est l’incidence moyenne de la maladie de Lyme en France ?', answer: '104 cas pour 100 000 habitants.', },
+{ question: 'Quelle région française est la plus touchée par la maladie de Lyme ?', answer: 'L’Alsace (environ 3 000 cas/an).', },
+{ question: 'Pourquoi observe-t-on un pic saisonnier de Lyme en été ?', answer: 'Parce que c’est la période propice aux activités de plein air en forêt et que le cycle des tiques y est favorisé.', },
+{ question: 'Comment la reforestation a-t-elle influencé l’incidence de Lyme ?', answer: 'L’augmentation des forêts proches des habitations a accru la proximité avec les réservoirs animaux et l’exposition humaine.', },
+{ question: 'Quelle était la cause du pic de déforestation en France sous Louis XIV ?', answer: 'Un besoin massif de bois pour les constructions et la marine.', },
+{ question: 'Quel est l’impact des feux de forêt sur les zoonoses (ex : Australie) ?', answer: 'Ils détruisent la biodiversité et forcent les animaux à se déplacer vers les zones d’habitation, augmentant les interactions.', },
+{ question: 'Quelle est la règle générale concernant le lien entre la vitesse de létalité d’un virus et sa propagation ?', answer: 'Plus un virus tue rapidement son hôte, moins il se propage efficacement car il limite sa propre diffusion.', },
+{ question: 'Citez les trois grandes pestes de l’histoire humaine.', answer: 'La peste justinienne, la grande peste noire du Moyen Âge et la 3ème peste (18e-19e siècle).', },
+{ question: 'Quel est l’agent bactérien de la peste ?', answer: 'Yersinia pestis.', },
+{ question: 'Quel est le cycle de transmission de la peste ?', answer: 'Petits mammifères (rats) -> puces infectées -> homme (par piqûre).', },
+{ question: 'Qu’est-ce qu’un bubon ?', answer: 'Une adénopathie inflammatoire (ganglion gonflé) caractéristique de la peste bubonique.', },
+{ question: 'Pourquoi la forme pulmonaire de la peste est-elle particulièrement redoutable ?', answer: 'Elle est quasiment mortelle à 100 % sans traitement et se transmet par aérosolisation.', },
+{ question: 'Quelle maladie a provoqué 25 à 55 millions de morts lors de la conquête du Nouveau Monde ?', answer: 'La variole (Petite vérole).', },
+{ question: 'Qu’est-ce qu’un peuple « immunologiquement naïf » ?', answer: 'Une population n’ayant jamais été exposée à un virus et ne possédant aucune défense immunitaire contre celui-ci.', },
+{ question: 'Quelle proportion de la population amérindienne a disparu suite aux épidémies européennes ?', answer: '90 % de la population.', },
+{ question: 'Quelle était l’espérance de vie humaine moyenne avant le 18ème siècle ?', answer: 'Entre 20 et 40 ans.', },
+{ question: 'Quels sont les trois piliers ayant permis de doubler l’espérance de vie humaine ?', answer: 'Les antibiotiques, la vaccination et l’amélioration des conditions sanitaires.', },
+{ question: 'Quelle déesse grecque symbolise la prévention et la propreté ?', answer: 'Hygie (fille d’Asclépios).', },
+{ question: 'Quel fut le premier type d’antibiotique utilisé en médecine expérimentale en 1935 ?', answer: 'Les sulfamides (Laboratoire Bayer).', },
+{ question: 'Qui a découvert la pénicilline et comment ?', answer: 'Alexander Fleming, de manière accidentelle en observant l’inhibition de bactéries par un champignon (Penicillium).', },
+{ question: 'Combien de personnes vivent avec le VIH aujourd’hui ?', answer: '38 millions de personnes.', },
+{ question: 'Quelle région du monde est la plus touchée par le VIH ?', answer: 'L’Afrique subsaharienne.', },
+{ question: 'Quelle est la différence entre épidémie, pandémie et endémie ?', answer: 'L’épidémie est locale/temporelle, la pandémie est mondiale, l’endémie est limitée à une région spécifique de façon permanente.', },
+{ question: 'Quand ont été décrits les 5 premiers cas officiels de SIDA ?', answer: 'Le 5 juin 1981 (chez des homosexuels californiens atteints de pneumocystose).', },
+{ question: 'Que signifie l’acronyme SIDA ?', answer: 'Syndrome d’immunodéficience acquise.', },
+{ question: 'Quels chercheurs ont découvert le VIH et reçu le Prix Nobel ?', answer: 'Françoise Barré-Sinoussi et Luc Montagnier.', },
+{ question: 'Quelle est la cellule cible principale du VIH ?', answer: 'Le lymphocyte CD4 (globule blanc de l’immunité cellulaire).', },
+{ question: 'Quelle est l’origine animale du VIH-1 ?', answer: 'Il s’agit d’un virus simien issu du chimpanzé (forêt camerounaise, vers 1920).', },
+{ question: 'Comment le VIH est-il passé du singe à l’homme ?', answer: 'Par contact avec du sang (chasse, perçage de cadavres, griffures) et adaptation progressive au fil des rapprochements.', },
+{ question: 'Quel fut le premier médicament antirétroviral approuvé en 1987 ?', answer: 'L’AZT (Zidovudine).', },
+{ question: 'Qu’est-ce que la trithérapie et quel est son objectif ?', answer: 'L’association de trois molécules pour obtenir une suppression durable de la virémie et normaliser la survie.', },
+{ question: 'Quel changement l’espérance de vie d’un patient VIH a-t-elle connu entre 2000 et 2023 ?', answer: 'Elle est passée de moins de 10 ans à plus de 60 ans après diagnostic.', },
+{ question: 'Expliquez le concept « Indétectable = Intransmissible ».', answer: 'Une personne sous traitement ayant une charge virale indétectable ne peut plus transmettre le virus, même lors de rapports sexuels ou d’une grossesse.', },
+{ question: 'Quelle est la durée d’incubation moyenne de la COVID-19 ?', answer: '5 à 7 jours (pouvant aller de 2 à 12 jours).', },
+{ question: 'Quel est le taux de mortalité global estimé de la COVID-19 ?', answer: 'Environ 2 % (contre 0,1 % pour la grippe).', },
+{ question: 'Combien de morts la pandémie de Sars-Cov-2 a-t-elle causé selon les évaluations ?', answer: 'Entre 5 et 17 millions de morts.', },
+{ question: 'Quel est le pourcentage d’identité génétique entre le SARS-CoV-2 et le virus de chauve-souris Rhinolophus affinis ?', answer: '96 % d’identité.', },
+{ question: 'Pourquoi Wuhan a-t-elle été l’épicentre du Sars-Cov-2 ?', answer: 'En raison des marchés de bestiaux et de la culture de consommation d’animaux sauvages favorisant le franchissement de la barrière d’espèce.', },
+{ question: 'Quelle innovation vaccinale a valu le Prix Nobel 2023 ?', answer: 'La technologie des vaccins à ARN messager (Katalin Karikó et Drew Weissman).', },
+{ question: 'Combien de temps a pris le développement des vaccins anti-COVID ?', answer: 'Entre 6 et 12 mois.', },
+{ question: 'Qu’est-ce que la veille sanitaire ?', answer: 'La surveillance continue de l’état de santé des populations et la caractérisation précoce des risques émergents.', },
+{ question: 'Quelles sont les agences responsables de la surveillance aux niveaux national, européen et mondial ?', answer: 'SPF/DGS (France), ECDC (Europe), CDC (USA) et OMS (Mondial).', },
+{ question: 'Quelles sont les 4 étapes de réponse de l’OMS à une épidémie ?', answer: '1. Mitigate (Atténuer), 2. Alert (Alerter), 3. Control (Contrôler), 4. Learn (Apprendre).', },
+{ question: 'Que signifie le terme « malaria » étymologiquement ?', answer: 'Il provient de l’italien signifiant « mauvais air » lié aux marais.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_One_Health_fc4";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

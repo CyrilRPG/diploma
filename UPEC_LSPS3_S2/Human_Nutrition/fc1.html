@@ -1,0 +1,484 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Human nutrition</h1><h2>Métabolisme bioénergétique (révision)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quels sont les sept principaux groupes alimentaires ?', answer: 'Les céréales, les produits laitiers, les viandes/poissons/etc., les légumes, les fruits, les noix et graines, ainsi que les matières grasses.', },
+{ question: 'Quels exemples de céréales sont cités dans les documents ?', answer: 'Le pain, les pâtes, le riz, les céréales de petit déjeuner et le quinoa.', },
+{ question: 'Quels sont les trois macronutriments ?', answer: 'Les protéines, les glucides (CHO) et les graisses (lipides).', },
+{ question: 'Quels sont les trois types de micronutriments ?', answer: 'Les vitamines, les minéraux et les substances phytochimiques.', },
+{ question: 'Quelle est l’origine et la spécificité des substances phytochimiques ?', answer: 'Ce sont des produits chimiques exclusivement fabriqués par les plantes car elles possèdent des voies métaboliques complexes que l’être humain n’a pas.', },
+{ question: 'Dans quels types d’aliments trouve-t-on principalement les micronutriments ?', answer: 'On les retrouve principalement dans les fruits et légumes, mais ils sont aussi présents dans la viande et le lait.', },
+{ question: 'Quel est le rôle biologique du calcium et sa source principale ?', answer: 'C’est un minéral essentiel présent dans le lait qui joue un rôle fondamental dans la santé osseuse.', },
+{ question: 'Quelles sont les deux activités majeures des isothiocyanates présents dans le brocoli ou le chou-fleur ?', answer: 'Ils possèdent une activité antioxydante et une activité anti-inflammatoire.', },
+{ question: 'Quel est le bénéfice nutritionnel des polyphénols présents dans les myrtilles ?', answer: 'Ils possèdent une forte activité antioxydante et contribuent aux effets bénéfiques d’une alimentation à base de plantes.', },
+{ question: 'Quelle est la définition générale du métabolisme ?', answer: 'Il s’agit de l’ensemble des transformations chimiques nécessaires à la vie se déroulant à l’intérieur des cellules des organismes vivants.', },
+{ question: 'Quelles sont les quatre fonctions vitales permises par les réactions biochimiques métaboliques ?', answer: 'Croître, se reproduire, maintenir sa structure et répondre à son environnement.', },
+{ question: 'Donnez un exemple d’adaptation métabolique lors d’une infection.', answer: 'Le système immunitaire se mobilise pour combattre l’agent pathogène en modifiant, par exemple, le métabolisme des macrophages.', },
+{ question: 'Quel organe est principalement responsable de la métabolisation et de l’élimination des médicaments ?', answer: 'Le foie (ainsi que d’autres organes).', },
+{ question: 'Quelles molécules cellulaires l’alimentation permet-elle de construire ?', answer: 'Les protéines, les lipides, les acides nucléiques et certains glucides.', },
+{ question: 'Quelle est la définition d’une enzyme ?', answer: 'C’est une protéine ayant pour fonction spécifique de catalyser (favoriser) des réactions chimiques nécessaires à l’organisme.', },
+{ question: 'Qu’est-ce que l’anabolisme ?', answer: 'C’est l’ensemble des réactions de synthèse où de petites molécules sont assemblées en grandes molécules, processus qui nécessite de l’énergie.', },
+{ question: 'Qu’est-ce que le catabolisme ?', answer: 'C’est l’ensemble des réactions de dégradation des molécules biologiques en molécules simples et finalement en CO2, libérant de l’énergie.', },
+{ question: 'Quel est le lien énergétique entre le catabolisme et l’anabolisme ?', answer: 'L’énergie libérée par le catabolisme est utilisée pour alimenter les réactions de l’anabolisme.', },
+{ question: 'Quelles sont les formes de stockage du glucose chez les animaux et les plantes ?', answer: 'Le glycogène pour les animaux et l’amidon pour les plantes.', },
+{ question: 'Quelle est la définition de la glycolyse ?', answer: 'C’est une voie métabolique cytosolique qui convertit le glucose en pyruvate en produisant de l’ATP et du NADH.', },
+{ question: 'Quel est le rôle de la voie des pentoses phosphates (PPP) ?', answer: 'Elle génère des intermédiaires pour la biosynthèse (ribose-5-phosphate) et du NADPH pour les réactions redox.', },
+{ question: 'Comment appelle-t-on le processus de dégradation des acides gras ?', answer: 'Le catabolisme de Lynen ou bêta-oxydation.', },
+{ question: 'Pourquoi le recyclage des protéines est-il nécessaire ?', answer: 'Parce que les protéines s’usent, s’endommagent ou vieillissent et doivent être remplacées pour maintenir l’homéostasie.', },
+{ question: 'Que se passe-t-il au niveau des protéines musculaires lors d’un jeûne prolongé ?', answer: 'Le corps dégrade les protéines musculaires pour libérer des acides aminés afin de produire l’énergie nécessaire au fonctionnement.', },
+{ question: 'Où se déroule précisément la glycolyse dans la cellule ?', answer: 'Elle a lieu dans le cytosol (cytoplasme).', },
+{ question: 'Quelle enzyme transforme le glucose en glucose-6-phosphate (G6P) ?', answer: 'La glucokinase ou l’hexokinase.', },
+{ question: 'Quel est le coût énergétique de la transformation du glucose en G6P ?', answer: 'Cette étape consomme une molécule d’ATP.', },
+{ question: 'Quelle enzyme transforme le G6P en fructose-6-phosphate (F6P) ?', answer: 'La G6P isomérase.', },
+{ question: 'Quelle enzyme catalyse la formation du fructose-1,6-biphosphate ?', answer: 'La phosphofructokinase-1 (PFK-1).', },
+{ question: 'Quel est le coût énergétique de la formation du fructose-1,6-biphosphate ?', answer: 'Cette étape consomme une molécule d’ATP.', },
+{ question: 'En quelles molécules le fructose-1,6-biphosphate est-il décomposé par l’aldolase ?', answer: 'En dihydroxyacétone phosphate (DHP) et en glycéraldéhyde-3-phosphate.', },
+{ question: 'Quel est le rôle de la triose phosphate isomérase ?', answer: 'Elle convertit immédiatement le DHP en glycéraldéhyde-3-phosphate pour permettre la suite de la glycolyse.', },
+{ question: 'Quelle enzyme produit du NADH à partir du glycéraldéhyde-3-phosphate ?', answer: 'La G3P déshydrogénase.', },
+{ question: 'Citez les quatre intermédiaires de la glycolyse entre le G3P et le pyruvate.', answer: 'Glycérate 1-3P, Glycérate-3P, Glycérate-2P et Phosphoénolpyruvate (PEP).', },
+{ question: 'Que devient le pyruvate en anaérobiose (absence d’oxygène) ?', answer: 'Il est transformé en lactate par l’enzyme lactate déshydrogénase.', },
+{ question: 'Quel est le bilan énergétique net de la glycolyse anaérobie ?', answer: '2 lactates et un gain net de 2 ATP (4 formés moins 2 consommés) par molécule de glucose.', },
+{ question: 'Quel est le bilan en ATP de la glycolyse en aérobiose ?', answer: '8 ATP au total (2 pyruvates, 2 NADH générant 6 ATP, et 2 ATP directs).', },
+{ question: 'Où se situe la chaîne respiratoire dans la cellule ?', answer: 'Elle est incorporée dans la membrane interne de la mitochondrie.', },
+{ question: 'Quelles sont les deux membranes de la mitochondrie ?', answer: 'La membrane externe et la membrane interne.', },
+{ question: 'Où se situe la matrice mitochondriale ?', answer: 'C’est l’espace situé à l’intérieur de la membrane interne de la mitochondrie.', },
+{ question: 'Qu’est-ce que l’espace intermembranaire mitochondrial ?', answer: 'C’est l’espace situé entre la membrane externe et la membrane interne de la mitochondrie.', },
+{ question: 'Comment le pyruvate entre-t-il dans le cycle de Krebs ?', answer: 'Il pénètre dans la mitochondrie et est transformé en acétyl-CoA par la pyruvate déshydrogénase.', },
+{ question: 'De quoi est constituée la chaîne respiratoire ?', answer: 'De cinq complexes enzymatiques (I à V) et de coenzymes redox (NADH, FADH2, cytochrome C, coenzyme Q).', },
+{ question: 'Quel est le nom spécifique du complexe V de la chaîne respiratoire ?', answer: 'L’ATP synthase.', },
+{ question: 'Quel processus entraîne l’accumulation de protons dans l’espace intermembranaire ?', answer: 'L’extrusion (expulsion) des protons lors du passage des électrons à travers les complexes de la chaîne respiratoire.', },
+{ question: 'Quelle est la fonction de l’oxygène dans la chaîne respiratoire ?', answer: 'Il est l’accepteur final d’électrons et est réduit pour produire de l’eau (H2O).', },
+{ question: 'Quel est le rôle du gradient de protons créé par la chaîne respiratoire ?', answer: 'Il crée une force proton-motrice exploitée par l’ATP synthase pour produire de l’ATP.', },
+{ question: 'Quelle est la définition du potentiel de réduction (E°\') ?', answer: 'C’est une mesure de la tendance d’une molécule ou d’un ion à accepter des électrons, exprimée en volts.', },
+{ question: 'Que signifie un potentiel de réduction (E°\') élevé ?', answer: 'La molécule est un oxydant, donc un capteur d’électrons (ex: l’oxygène).', },
+{ question: 'Que signifie un potentiel de réduction (E°\') faible ?', answer: 'La molécule est un réducteur, donc un donneur d’électrons (ex: le NADH).', },
+{ question: 'Quel est le sens du mouvement des électrons dans la chaîne respiratoire ?', answer: 'Un mouvement unidirectionnel du potentiel négatif vers le potentiel positif (du Complexe I vers le Complexe IV).', },
+{ question: 'Quel est le potentiel redox du Complexe I ?', answer: 'Environ -200 mV.', },
+{ question: 'Quel est le potentiel redox du Complexe IV ?', answer: 'Environ 600 mV.', },
+{ question: 'Qu’est-ce que la théorie chimiosmotique de Mitchell ?', answer: 'C’est la théorie selon laquelle le gradient de protons fournit l’énergie nécessaire à la synthèse d’ATP.', },
+{ question: 'Quelles sont les deux grandes étapes de la phosphorylation oxydative ?', answer: '1) Le transport d’électrons (oxydation) créant le gradient de protons. 2) L’utilisation de ce gradient par l’ATP synthase (phosphorylation).', },
+{ question: 'Quels sont les deux transporteurs d’électrons diffusibles et leur localisation ?', answer: 'L’ubiquinone (dans la membrane interne) et le cytochrome (dans l’espace intermembranaire).', },
+{ question: 'Comment se répartissent les charges électriques de part et d’autre de la membrane interne ?', answer: 'L’espace intermembranaire est chargé positivement (accumulation de H+) et la matrice est chargée négativement.', },
+{ question: 'Quel est le gradient de pH entre l’espace intermembranaire et la matrice ?', answer: 'Le pH est plus acide (7.2) dans l’espace intermembranaire que dans la matrice (7.9).', },
+{ question: 'Qu’est-ce que le couplage chimio-osmotique ?', answer: 'C’est le processus par lequel l’énergie du double gradient électrique et chimique force les protons à retourner dans la matrice via l’ATP synthase pour produire de l’ATP.', },
+{ question: 'Combien d’ATP sont produits par molécule de NADH et de FADH2 ?', answer: '3 ATP pour chaque NADH et 2 ATP pour chaque FADH2.', },
+{ question: 'Pourquoi la régénération du NAD+ et du FAD est-elle cruciale ?', answer: 'Elle permet de maintenir en fonctionnement la glycolyse et le cycle de Krebs en fournissant les cofacteurs d’oxydation nécessaires.', },
+{ question: 'Quels sont les trois noms donnés au cycle de Krebs ?', answer: 'Le cycle de Krebs, le cycle du citrate ou le cycle des acides tricarboxyliques (TCA).', },
+{ question: 'Pourquoi le cycle de Krebs est-il appelé \'centre biochimique de la cellule\' ?', answer: 'C’est le point de convergence terminal pour l’oxydation complète des glucides, lipides et protéines.', },
+{ question: 'Où se déroule le cycle de Krebs dans la cellule ?', answer: 'Dans la matrice mitochondriale.', },
+{ question: 'Quel déchet métabolique est relâché par le cycle de Krebs ?', answer: 'Le dioxyde de carbone (CO2).', },
+{ question: 'Quelle est la première réaction du cycle de Krebs ?', answer: 'La condensation de l’acétyl-CoA avec l’oxaloacétate pour former du citrate.', },
+{ question: 'Citez la séquence des intermédiaires du cycle de Krebs de l’isocitrate au succinate.', answer: 'Isocitrate, alpha-cétoglutarate, succinyl-CoA et succinate.', },
+{ question: 'Citez la séquence finale des intermédiaires du cycle de Krebs après le succinate.', answer: 'Succinate, fumarate, malate et oxaloacétate.', },
+{ question: 'Combien d’ATP sont produits par tour de cycle lors de l’oxydation de l’acétyl-CoA ?', answer: '12 ATP par tour (en comptant la chaîne respiratoire).', },
+{ question: 'Quel est le bilan total d’ATP produit à partir d’un seul pyruvate ?', answer: '15 ATP.', },
+{ question: 'Quelles molécules réduites alimentent directement la chaîne respiratoire depuis le cycle de Krebs ?', answer: 'Le NADH + H+ et le FADH2.', },
+{ question: 'Combien de sites de production de NADH et FADH comporte le cycle de Krebs ?', answer: '4 sites de production de NADH et 1 site de production de FADH.', },
+{ question: 'Qu’est-ce que le GTP dans le cycle de Krebs ?', answer: 'C’est une molécule intermédiaire d’énergie produite au cours du cycle.', },
+{ question: 'En quoi les acides aminés asparagine et aspartate peuvent-ils être convertis ?', answer: 'Ils peuvent être convertis en oxaloacétate.', },
+{ question: 'Quels acides aminés sont précurseurs du fumarate ?', answer: 'La phénylalanine et la tyrosine.', },
+{ question: 'Quels sont les trois constituants principaux issus de la digestion des carbohydrates ?', answer: 'Le glucose, le fructose et le galactose.', },
+{ question: 'En quoi les lipides sont-ils dégradés lors de la digestion ?', answer: 'En acides gras et en glycérol.', },
+{ question: 'Quel est le nom de l’enzyme (complexe I) de la chaîne respiratoire ?', answer: 'La NADH déshydrogénase.', },
+{ question: 'Quel est le nom du complexe IV de la chaîne respiratoire ?', answer: 'La cytochrome oxydase.', },
+{ question: 'Quelle enzyme transforme le pyruvate en acétyl-CoA ?', answer: 'La pyruvate déshydrogénase.', },
+{ question: 'Quels sont les groupes prosthétiques du Complexe I ?', answer: 'FMN (Flavine mononucléotide) et Fe-S (Fer-Soufre).', },
+{ question: 'Quel complexe de la chaîne respiratoire ne pompe pas de protons ?', answer: 'Le complexe II (Succinate-CoQ réductase).', },
+{ question: 'Quel est le rôle du ribose-5-phosphate produit par la voie PPP ?', answer: 'Il sert d’intermédiaire pour la biosynthèse des nucléotides.', },
+{ question: 'Quelle est l’enzyme responsable de la formation du citrate ?', answer: 'La citrate synthase.', },
+{ question: 'Où se produit la régénération des coenzymes NADH et FADH2 ?', answer: 'Dans la chaîne respiratoire mitochondriale.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Human_Nutrition_fc1";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

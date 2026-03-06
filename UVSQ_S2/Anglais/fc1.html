@@ -1,0 +1,586 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Anatomy</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anglais médical</h1><h2>Anatomy</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Comment dit-on abdomen ou ventre en anglais ?', answer: 'Abdomen ou belly ou stomach' },
+  { question: 'Comment dit-on cheville en anglais ?', answer: 'Ankle' },
+  { question: 'Comment dit-on bras en anglais ?', answer: 'Arm' },
+  { question: 'Comment dit-on sang en anglais ?', answer: 'Blood' },
+  { question: 'Comment dit-on sein en anglais ?', answer: 'Breast' },
+  { question: 'Comment dit-on poitrine en anglais ?', answer: 'Chest' },
+  { question: 'Comment dit-on un pied et deux pieds en anglais ?', answer: 'One foot et two feet' },
+  { question: 'Comment dit-on main en anglais ?', answer: 'Hand' },
+  { question: 'Comment dit-on tête en anglais ?', answer: 'Head' },
+  { question: 'Comment dit-on hanche en anglais ?', answer: 'Hip' },
+  { question: 'Comment dit-on genou en anglais ?', answer: 'Knee' },
+  { question: 'Comment dit-on jambe en anglais ?', answer: 'Leg' },
+  { question: 'Comment dit-on muscle en anglais ?', answer: 'Muscle' },
+  { question: 'Comment dit-on nombril en anglais ?', answer: 'Navel ou belly button ou umbilicus' },
+  { question: 'Comment dit-on cou en anglais ?', answer: 'Neck' },
+  { question: 'Comment dit-on paume de main en anglais ?', answer: 'Palm' },
+  { question: 'Comment dit-on tibia en anglais ?', answer: 'Shin ou tibia' },
+  { question: 'Comment dit-on épaule en anglais ?', answer: 'Shoulder' },
+  { question: 'Comment dit-on cuisse en anglais ?', answer: 'Thigh' },
+  { question: 'Comment dit-on doigt de pied en anglais ?', answer: 'Toe' },
+  { question: 'Comment dit-on veines et artères en anglais ?', answer: 'Veins et arteries' },
+  { question: 'Comment dit-on taille en anglais ?', answer: 'Waist' },
+  { question: 'Comment dit-on joue en anglais ?', answer: 'Cheek' },
+  { question: 'Comment dit-on menton en anglais ?', answer: 'Chin' },
+  { question: 'Comment dit-on oreille en anglais ?', answer: 'Ear' },
+  { question: 'Comment dit-on œil en anglais ?', answer: 'Eye' },
+  { question: 'Comment dit-on front en anglais ?', answer: 'Forehead' },
+  { question: 'Comment dit-on cheveux en anglais ?', answer: 'Hair' },
+  { question: 'Comment dit-on mâchoire en anglais ?', answer: 'Jaw' },
+  { question: 'Comment dit-on bouche en anglais ?', answer: 'Mouth' },
+  { question: 'Comment dit-on nez en anglais ?', answer: 'Nose' },
+  { question: 'Comment dit-on sourcil en anglais ?', answer: 'Eyebrow' },
+  { question: 'Comment dit-on cils en anglais ?', answer: 'Eyelashes' },
+  { question: 'Comment dit-on paupière en anglais ?', answer: 'Eyelid' },
+  { question: 'Comment dit-on iris en anglais ?', answer: 'Iris' },
+  { question: 'Comment dit-on pupille en anglais ?', answer: 'Pupil' },
+  { question: 'Comment dit-on gencives en anglais ?', answer: 'Gums' },
+  { question: 'Comment dit-on lèvres en anglais ?', answer: 'Lip' },
+  { question: 'Comment dit-on une dent et deux dents en anglais ?', answer: 'One tooth et two teeth' },
+  { question: 'Comment dit-on gorge en anglais ?', answer: 'Throat' },
+  { question: 'Comment dit-on langue en anglais ?', answer: 'Tongue' },
+  { question: 'Comment dit-on cerveau en anglais ?', answer: 'Brain' },
+  { question: 'Comment dit-on cœur en anglais ?', answer: 'Heart' },
+  { question: 'Comment dit-on rein en anglais ?', answer: 'Kidney' },
+  { question: 'Comment dit-on foie en anglais ?', answer: 'Liver' },
+  { question: 'Comment dit-on poumon en anglais ?', answer: 'Lung' },
+  { question: 'Comment dit-on estomac ou ventre en anglais ?', answer: 'Stomach' },
+  { question: 'Comment dit-on aorte en anglais ?', answer: 'Aorta' },
+  { question: 'Comment dit-on veine cave supérieure en anglais ?', answer: 'Superior vena cava' },
+  { question: 'Comment dit-on ventricule gauche en anglais ?', answer: 'Left ventricle' },
+  { question: 'Comment dit-on ventricule droit en anglais ?', answer: 'Right ventricle' },
+  { question: 'Comment dit-on col de l’utérus en anglais ?', answer: 'Cervix' },
+  { question: 'Comment dit-on lèvres (organe féminin) en anglais ?', answer: 'Labia' },
+  { question: 'Comment dit-on ovaire en anglais ?', answer: 'Ovary' },
+  { question: 'Comment dit-on utérus en anglais ?', answer: 'Uterus' },
+  { question: 'Comment dit-on vagin en anglais ?', answer: 'Vagina' },
+  { question: 'Comment dit-on vulve en anglais ?', answer: 'Vulva' },
+  { question: 'Comment dit-on anus en anglais ?', answer: 'Anus' },
+  { question: 'Comment dit-on vessie en anglais ?', answer: 'Bladder' },
+  { question: 'Comment dit-on gland en anglais ?', answer: 'Glans' },
+  { question: 'Comment dit-on pénis en anglais ?', answer: 'Penis' },
+  { question: 'Comment dit-on prostate en anglais ?', answer: 'Prostate' },
+  { question: 'Comment dit-on scrotum en anglais ?', answer: 'Scrotum' },
+  { question: 'Comment dit-on testicule en anglais ?', answer: 'Testicle ou testis' },
+  { question: 'Comment dit-on urètre en anglais ?', answer: 'Urethra' },
+  { question: 'Comment dit-on appendice en anglais ?', answer: 'Appendix' },
+  { question: 'Comment dit-on côlon en anglais ?', answer: 'Colon' },
+  { question: 'Comment dit-on œsophage en anglais ?', answer: 'Esophagus' },
+  { question: 'Comment dit-on vésicule biliaire en anglais ?', answer: 'Gall-bladder' },
+  { question: 'Comment dit-on gros intestin en anglais ?', answer: 'Large intestine' },
+  { question: 'Comment dit-on pancréas en anglais ?', answer: 'Pancreas' },
+  { question: 'Comment dit-on rectum en anglais ?', answer: 'Rectum' },
+  { question: 'Comment dit-on intestin grêle en anglais ?', answer: 'Small intestine' },
+  { question: 'Comment dit-on bronchiole en anglais ?', answer: 'Bronchiole' },
+  { question: 'Comment dit-on bronche ou bronches en anglais ?', answer: 'Bronchus ou bronchi' },
+  { question: 'Comment dit-on diaphragme en anglais ?', answer: 'Diaphragm' },
+  { question: 'Comment dit-on larynx en anglais ?', answer: 'Larynx' },
+  { question: 'Comment dit-on cavité nasale en anglais ?', answer: 'Nasal cavity' },
+  { question: 'Comment dit-on pharynx en anglais ?', answer: 'Pharynx' },
+  { question: 'Comment dit-on trachée en anglais ?', answer: 'Windpipe ou trachea' },
+  { question: 'Comment dit-on sphincter en anglais ?', answer: 'Sphincter' },
+  { question: 'Comment dit-on uretère en anglais ?', answer: 'Ureter' },
+  { question: 'Comment dit-on clavicule en anglais ?', answer: 'Clavicle ou collarbone' },
+  { question: 'Comment dit-on coude en anglais ?', answer: 'Elbow' },
+  { question: 'Comment dit-on fémur en anglais ?', answer: 'Femur' },
+  { question: 'Comment dit-on péroné en anglais ?', answer: 'Fibula' },
+  { question: 'Comment dit-on humérus en anglais ?', answer: 'Humerus' },
+  { question: 'Comment dit-on rotule en anglais ?', answer: 'Patella' },
+  { question: 'Comment dit-on bassin ou pelvis en anglais ?', answer: 'Pelvis' },
+  { question: 'Comment dit-on phalange en anglais ?', answer: 'Phalanges ou phalanx' },
+  { question: 'Comment dit-on radius en anglais ?', answer: 'Radius' },
+  { question: 'Comment dit-on côte en anglais ?', answer: 'Rib' },
+  { question: 'Comment dit-on cage thoracique en anglais ?', answer: 'Rib cage' },
+  { question: 'Comment dit-on omoplate en anglais ?', answer: 'Shoulder blade ou scapula' },
+  { question: 'Comment dit-on tibia en anglais ?', answer: 'Tibia ou shin' },
+  { question: 'Comment dit-on crâne en anglais ?', answer: 'Skull' },
+  { question: 'Comment dit-on colonne vertébrale en anglais ?', answer: 'Spine ou backbone ou spinal column ou vertebral column' },
+  { question: 'Comment dit-on sternum en anglais ?', answer: 'Sternum' },
+  { question: 'Comment dit-on cubitus en anglais ?', answer: 'Ulna' },
+  { question: 'Comment dit-on vertèbre ou vertèbres en anglais ?', answer: 'Vertebra ou vertebrae' },
+  { question: 'Comment dit-on poignet en anglais ?', answer: 'Wrist' },
+  { question: 'Comment dit-on plier en anglais ?', answer: 'To bend' },
+  { question: 'Comment dit-on casser ou fracturer en anglais ?', answer: 'To break ou fracture' },
+  { question: 'Comment dit-on craquer en anglais ?', answer: 'To crack' },
+  { question: 'Comment dit-on se disloquer ou se luxer en anglais ?', answer: 'To dislocate ou luxate' },
+  { question: 'Comment dit-on grandir en anglais ?', answer: 'To grow' },
+  { question: 'Comment dit-on protéger en anglais ?', answer: 'To protect' },
+  { question: 'Comment dit-on réparer ou guérir en anglais ?', answer: 'To repair ou heal ou mend' },
+  { question: 'Comment dit-on soutenir en anglais ?', answer: 'To support' },
+  { question: 'Comment dit-on tordre ou tourner en anglais ?', answer: 'To twist' },
+  { question: 'Comment dit-on absorber en anglais ?', answer: 'To absorb' },
+  { question: 'Comment dit-on mordre en anglais ?', answer: 'To bite' },
+  { question: 'Comment dit-on roter ou avoir un renvoi en anglais ?', answer: 'To burp' },
+  { question: 'Comment dit-on mâcher en anglais ?', answer: 'To chew' },
+  { question: 'Comment dit-on éliminer en anglais ?', answer: 'To eliminate' },
+  { question: 'Comment dit-on digérer en anglais ?', answer: 'To digest' },
+  { question: 'Comment dit-on mélanger en anglais ?', answer: 'To mix' },
+  { question: 'Comment dit-on faire pipi ou uriner en anglais ?', answer: 'To pee ou urinate' },
+  { question: 'Comment dit-on faire caca ou aller à la selle en anglais ?', answer: 'To poop ou have a bowel movement' },
+  { question: 'Comment dit-on avaler en anglais ?', answer: 'To swallow' },
+  { question: 'Comment dit-on goûter en anglais ?', answer: 'To taste' },
+  { question: 'Comment dit-on vomir en anglais ?', answer: 'To vomit ou throw up' },
+  { question: 'Comment dit-on baver en anglais ?', answer: 'To drool' },
+  { question: 'Comment dit-on cracher en anglais ?', answer: 'To spit' },
+  { question: 'Comment dit-on battre (pour le cœur) en anglais ?', answer: 'To beat' },
+  { question: 'Comment dit-on saigner en anglais ?', answer: 'To bleed' },
+  { question: 'Comment dit-on transporter ou porter en anglais ?', answer: 'To carry ou transport' },
+  { question: 'Comment dit-on circuler en anglais ?', answer: 'To circulate' },
+  { question: 'Comment dit-on recueillir en anglais ?', answer: 'To collect' },
+  { question: 'Comment dit-on distribuer en anglais ?', answer: 'To deliver' },
+  { question: 'Comment dit-on dilater ou se dilater en anglais ?', answer: 'To dilate' },
+  { question: 'Comment dit-on couler ou circuler (pour le sang) en anglais ?', answer: 'To flow' },
+  { question: 'Comment dit-on ramasser en anglais ?', answer: 'To pick up' },
+  { question: 'Comment dit-on pomper en anglais ?', answer: 'To pump' },
+  { question: 'Comment dit-on contracter en anglais ?', answer: 'To contract ou flex' },
+  { question: 'Comment dit-on tenir en anglais ?', answer: 'To hold' },
+  { question: 'Comment dit-on s’allonger en anglais ?', answer: 'To lie down' },
+  { question: 'Comment dit-on bouger en anglais ?', answer: 'To move' },
+  { question: 'Comment dit-on tirer ou pousser en anglais ?', answer: 'To pull' },
+  { question: 'Comment dit-on lever en anglais ?', answer: 'To raise ou lift' },
+  { question: 'Comment dit-on relâcher en anglais ?', answer: 'To relax' },
+  { question: 'Comment dit-on secouer en anglais ?', answer: 'To shake' },
+  { question: 'Comment dit-on serrer en anglais ?', answer: 'To squeeze' },
+  { question: 'Comment dit-on ne pas bouger en anglais ?', answer: 'To stay still' },
+  { question: 'Comment dit-on sortir ou tirer la langue en anglais ?', answer: 'To stick out' },
+  { question: 'Comment dit-on forcer en anglais ?', answer: 'To strain' },
+  { question: 'Comment dit-on étirer en anglais ?', answer: 'To stretch' },
+  { question: 'Comment dit-on bonjour en anglais ?', answer: 'Good morning ou good afternoon ou good evening ou hello ou hi' },
+  { question: 'Comment dit-on enchanté ou ravi de vous rencontrer en anglais ?', answer: 'Nice to meet you ou pleasure to meet you' },
+  { question: 'Comment dit-on comment allez-vous en anglais ?', answer: 'How are you ou how are you doing' },
+  { question: 'Comment dit-on bien merci et vous en anglais ?', answer: 'Fine thank you and you' },
+  { question: 'Comment dit-on au revoir en anglais ?', answer: 'Goodbye ou bye ou good night' },
+  { question: 'Comment dit-on à bientôt en anglais ?', answer: 'See you soon' },
+  { question: 'Comment dit-on bonne journée en anglais ?', answer: 'Have a nice day' },
+  { question: 'Comment dit-on ravi de vous avoir rencontré en anglais ?', answer: 'It was nice meeting you' },
+  { question: 'Comment se forme le verbe être à la première personne du singulier en anglais ?', answer: 'I am ou I’m' },
+  { question: 'Comment se forme le verbe être à la troisième personne du singulier en anglais ?', answer: 'He is ou she is ou it is' },
+  { question: 'Quelle est la forme négative de I am ?', answer: 'I am not ou I’m not' },
+  { question: 'Quelle est la forme interrogative de you are ?', answer: 'Are you ?' },
+  { question: 'Comment dit-on je suis heureux en anglais ?', answer: 'I am happy' },
+  { question: 'Comment dit-on nous sommes étudiants en anglais ?', answer: 'We are students' },
+  { question: 'Comment dit-on ils sont français en anglais ?', answer: 'They are French' },
+  { question: 'Comment dit-on je ne suis pas vieux en anglais ?', answer: 'I am not old' },
+  { question: 'Comment dit-on quel âge as-tu en anglais ?', answer: 'How old are you ?' },
+  { question: 'Quels sont les pronoms personnels sujets en anglais ?', answer: 'I, you, he, she, it, we, you, they' },
+  { question: 'Quels sont les pronoms personnels compléments en anglais ?', answer: 'Me, you, him, her, it, us, you, them' },
+  { question: 'Quels sont les pronoms réfléchis en anglais ?', answer: 'Myself, yourself, himself, herself, itself, ourselves, yourselves, themselves' },
+  { question: 'Quels sont les adjectifs possessifs en anglais ?', answer: 'My, your, his, her, its, our, your, their' },
+  { question: 'Quels sont les pronoms possessifs en anglais ?', answer: 'Mine, yours, his, hers, ours, yours, theirs' },
+  { question: 'Comment dit-on mon nom est en anglais ?', answer: 'My name is' },
+  { question: 'Comment dit-on quel est ton prénom en anglais ?', answer: 'What is your first name ?' },
+  { question: 'Comment dit-on mon nom de famille est en anglais ?', answer: 'My last name is' },
+  { question: 'Comment dit-on je suis marié en anglais ?', answer: 'I am married' },
+  { question: 'Comment dit-on il est divorcé en anglais ?', answer: 'He is divorced' },
+  { question: 'Comment dit-on je ne suis pas célibataire en anglais ?', answer: 'I am not single' },
+  { question: 'Comment dit-on mon voisin est veuf en anglais ?', answer: 'My neighbor is a widower' },
+  { question: 'Comment dit-on es-tu français en anglais ?', answer: 'Are you French ?' },
+  { question: 'Comment dit-on nous venons de différents pays en anglais ?', answer: 'We are from different countries' },
+  { question: 'Comment dit-on je suis un professeur en anglais ?', answer: 'I am a teacher' },
+  { question: 'Comment dit-on mes parents sont retraités en anglais ?', answer: 'My parents are retired' },
+  { question: 'Comment dit-on ton mari n’est pas journaliste en anglais ?', answer: 'Your husband is not a journalist' },
+  { question: 'Comment dit-on ma maison est à Cannes en anglais ?', answer: 'My home is in Cannes' },
+  { question: 'Comment dit-on ils ne sont pas à l’hôpital en anglais ?', answer: 'They aren’t at the hospital' },
+  { question: 'Comment dit-on le livre est sur la table en anglais ?', answer: 'The book is on the table' },
+  { question: 'Comment dit-on mes cheveux sont roux en anglais ?', answer: 'My hair is red' },
+  { question: 'Comment dit-on je mesure un mètre soixante-dix en anglais ?', answer: 'I’m five feet seven' },
+  { question: 'Comment dit-on je suis intelligent en anglais ?', answer: 'I am intelligent' },
+  { question: 'Comment dit-on tu es très jolie aujourd’hui en anglais ?', answer: 'You are very pretty today' },
+  { question: 'Comment dit-on je suis intéressé par la philosophie en anglais ?', answer: 'I’m interested in philosophy' },
+  { question: 'Quel article défini utilise-t-on pour un nom spécifique en anglais ?', answer: 'The' },
+  { question: 'Que signifie l’article indéfini a ou an ?', answer: 'Il sert à désigner une chose non spécifique' },
+  { question: 'Quand utilise-t-on an ?', answer: 'Avant un son vocalique comme a, e, i, o' },
+  { question: 'Quand utilise-t-on a ?', answer: 'Avant un son consonantique ou la lettre u' },
+  { question: 'Quel article utilise-t-on si le mot commence par un H prononcé ?', answer: 'A' },
+  { question: 'Quel article utilise-t-on si le H est muet ?', answer: 'An' },
+  { question: 'Dans quels cas n’utilise-t-on pas d’article en anglais ?', answer: 'Pour les concepts abstraits, les langues, les sports et les généralités' },
+  { question: 'Comment dit-on je n’aime pas le café en anglais ?', answer: 'I do not like coffee' },
+  { question: 'Comment dit-on je viens de France en anglais ?', answer: 'I am from France' },
+  { question: 'Comment dit-on nous parlons anglais en anglais ?', answer: 'We speak English' },
+  { question: 'Comment dit-on j’aime le sport en anglais ?', answer: 'I like sport' },
+  { question: 'Comment dit-on il joue au football en anglais ?', answer: 'He plays football' },
+  { question: 'Quelle conjonction exprime l’addition en anglais ?', answer: 'And' },
+  { question: 'Quelle conjonction exprime un choix ou une possibilité en anglais ?', answer: 'Or' },
+  { question: 'Quelle conjonction exprime un contraste en anglais ?', answer: 'But' },
+  { question: 'Quelle conjonction exprime la raison ou la cause en anglais ?', answer: 'Because' },
+  { question: 'Quelle conjonction exprime la conséquence en anglais ?', answer: 'So' },
+  { question: 'Comment dit-on j’ai deux yeux et ils sont bleus en anglais ?', answer: 'I have two eyes and they are blue' },
+  { question: 'Comment dit-on est-ce ton coude ou ton avant-bras en anglais ?', answer: 'Is this your elbow or your forearm ?' },
+  { question: 'Comment dit-on ma jambe me fait mal mais ma tête va bien en anglais ?', answer: 'My leg hurts but my head is fine' },
+  { question: 'Comment dit-on je saigne parce que je me suis blessé à la jambe en anglais ?', answer: 'I am bleeding because I hurt my leg' },
+  { question: 'Comment dit-on je me suis cassé la jambe donc je ne peux pas marcher en anglais ?', answer: 'I broke my leg so I can’t walk' },
+  { question: 'Comment dit-on quel est ton passe-temps préféré en anglais ?', answer: 'What is your favorite hobby ?' },
+  { question: 'Comment dit-on ma couleur préférée est le rose en anglais ?', answer: 'My favorite color is pink' },
+  { question: 'Comment dit-on mes sports préférés sont l’équitation et le ski nautique en anglais ?', answer: 'My favorite sports are horse riding and water skiing' },
+  { question: 'Comment dit-on je ne suis pas un joueur de tennis en anglais ?', answer: 'I’m not a tennis player' },
+  { question: 'Comment dit-on je suis de Floride en anglais ?', answer: 'I’m from Florida' },
+  { question: 'Comment dit-on ils ne sont pas engagés en anglais ?', answer: 'They are not engaged' },
+  { question: 'Comment dit-on êtes-vous affamé en anglais ?', answer: 'Are you hungry ?' },
+  { question: 'Comment dit-on elle est amoureuse en anglais ?', answer: 'She’s in love' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

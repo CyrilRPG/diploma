@@ -1,0 +1,485 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Bases moléculaires en oncologie</h1><h2>Lymphome diffus à grandes cellules (DLBCL)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Où se produit la fabrication initiale des lymphocytes B normaux ?', answer: 'Dans la moelle osseuse, quel que soit l’antigène.', },
+{ question: 'Où se déroule la différenciation des lymphocytes B dépendante de l’antigène ?', answer: 'Dans les ganglions lymphatiques.', },
+{ question: 'Quel est le rôle des cellules dendritiques dans l’ontogénie B ?', answer: 'Elles amènent les pathogènes de la périphérie vers le ganglion pour les présenter aux lymphocytes T.', },
+{ question: 'Sous quelle forme les protéines antigéniques arrivent-elles dans le ganglion par la voie lymphatique ?', answer: 'Elles peuvent être morcelées mais restent à l’état natif.', },
+{ question: 'Où sont capturés et gardés les antigènes natifs dans le ganglion ?', answer: 'Dans les follicules primaires situés dans la zone corticale.', },
+{ question: 'Définition des HEV (High Endothelial Venules).', answer: 'Veinules spécialisées à endothélium cubique situées dans les organes lymphoïdes secondaires, favorisant le passage sélectif des lymphocytes du sang vers les tissus.', },
+{ question: 'Que se passe-t-il dans la Zone T d’un ganglion ?', answer: 'Les lymphocytes T y rencontrent les cellules dendritiques présentant l’antigène morcelé.', },
+{ question: 'Que se passe-t-il dans la Zone B d’un ganglion ?', answer: 'Les lymphocytes B arrivent dans les follicules primaires.', },
+{ question: 'Quelle est la condition pour qu’un lymphocyte sorte du ganglion par la voie lymphatique efférente ?', answer: 'Il doit avoir reconnu un déterminant antigénique responsable de sa stimulation.', },
+{ question: 'Que devient un lymphocyte qui pénètre par l’artère mais ne traverse pas les HEV ?', answer: 'Il repart du ganglion par la voie veineuse.', },
+{ question: 'Quelle différence histologique majeure distingue un centre naïf d’un centre germinatif ?', answer: 'Le centre germinatif (follicule secondaire) présente une polarisation visible, contrairement au centre naïf.', },
+{ question: 'Quelle activité se déroule dans la zone sombre (dense) du follicule secondaire ?', answer: 'La prolifération intense des cellules B (centroblastes).', },
+{ question: 'Quelle activité se déroule dans la zone claire du follicule secondaire ?', answer: 'La sélection des cellules B (centrocytes).', },
+{ question: 'Définition de l’hypermutation somatique.', answer: 'Processus de mutations ciblées des gènes des immunoglobulines déclenché par la rencontre avec l’antigène pour augmenter l’affinité du BCR.', },
+{ question: 'Quels sont les signaux de survie essentiels reçus par les lymphocytes B dans la zone claire ?', answer: 'Des signaux provenant des cellules folliculaires dendritiques (FDC).', },
+{ question: 'Que deviennent les lymphocytes B dont le BCR a subi des mutations désavantageuses ?', answer: 'Ils entrent en apoptose (sélection clonale négative).', },
+{ question: 'Quelles sont les deux issues possibles de la différenciation d’un lymphocyte B sélectionné positivement ?', answer: 'Il devient soit un plasmocyte, soit un lymphocyte B à mémoire.', },
+{ question: 'Quels sont les 4 acteurs principaux de la coopération lymphocytaire dans le follicule secondaire ?', answer: 'Les cellules dendritiques, les lymphocytes Tfh (follicular helper), les lymphocytes B et les FDC (cellules folliculaires dendritiques).', },
+{ question: 'Quels signaux les cellules dendritiques fournissent-elles pour activer les Tfh ?', answer: 'L’interaction peptide/CMH, la co-stimulation via CD28 et des cytokines comme l’IL-2.', },
+{ question: 'Par quels deux moyens le BCR d’un lymphocyte B peut-il être activé lors de la première phase ?', answer: 'Par l’antigène libre ou par l’antigène lié à la FDC.', },
+{ question: 'Quels sont les trois signaux d’activation émis par l’interaction avec les FDC en seconde phase ?', answer: 'La reconnaissance de l’antigène par le BCR, la co-stimulation CD40/CD40L et les cytokines IL-21/IL-4.', },
+{ question: 'Rôle de l’enzyme AID (Activation-Induced cytidine Deaminase).', answer: 'Elle est responsable du réarrangement VDJ, de l’apparition des mutations somatiques et de la commutation isotypique.', },
+{ question: 'Définition de la commutation isotypique (class-switch).', answer: 'Capacité des lymphocytes B à passer de la production d’IgM à celle d’autres classes (IgG, IgA, IgE) tout en gardant la spécificité antigénique.', },
+{ question: 'Quel facteur de transcription est essentiel pour la différenciation finale en plasmocyte ?', answer: 'BLIMP-1.', },
+{ question: 'Quel récepteur de chimiokine doit être éteint pour que le lymphocyte B quitte le centre germinatif ?', answer: 'CXCR5.', },
+{ question: 'Quelles sont les caractéristiques d’une réponse immunitaire secondaire par rapport à une primaire ?', answer: 'Elle est plus rapide, plus intense (quantité d’IgG), plus affine (mutations) et adaptée (switch d’isotype).', },
+{ question: 'Dans la réponse primaire, vers quel jour les IgG commencent-elles à augmenter ?', answer: 'Vers le 7ème jour.', },
+{ question: 'Quelles lignées cellulaires sont issues du progéniteur commun myéloïde ?', answer: 'Les granulocytes (neutrophiles, basophiles, éosinophiles), les monocytes/macrophages, les érythrocytes et les plaquettes.', },
+{ question: 'Quelles lignées cellulaires sont issues du progéniteur commun lymphoïde ?', answer: 'Les lymphocytes T, B et les cellules NK.', },
+{ question: 'Comment se développent progressivement les lymphomes ?', answer: 'Par accumulation d’altérations génétiques conférant des capacités de prolifération incontrôlée, de survie prolongée et d’échappement immunitaire.', },
+{ question: 'Sur quel critère principal repose la classification des lymphomes B ?', answer: 'Sur leur ressemblance avec les différents stades de différenciation des lymphocytes B normaux (moelle, centre germinatif ou post-centre).', },
+{ question: 'À quel stade de différenciation correspondent les Leucémies Aiguës Lymphoblastiques B (LAL-B) ?', answer: 'Au stade précoce dans la moelle osseuse, juste après le réarrangement V(D)J.', },
+{ question: 'Citez trois sous-types de lymphomes dits « germinatifs ».', answer: 'Le lymphome folliculaire, le lymphome de Burkitt et le lymphome à cellules du manteau (stade pré-centre).', },
+{ question: 'Définition d’un plasmocytome.', answer: 'Tumeur maligne résultant de la prolifération anormale et localisée de plasmocytes, souvent dans la moelle osseuse.', },
+{ question: 'Quels marqueurs spécifiques permettent d’identifier les pathologies plasmocytaires ?', answer: 'CD138 et CD19.', },
+{ question: 'Quelle est la différence clinique entre un lymphome indolent et un lymphome agressif ?', answer: 'L’indolent évolue lentement (mois) avec des symptômes discrets ; l’agressif évolue vite (semaines) avec des symptômes importants.', },
+{ question: 'Quels sont les deux risques majeurs d’un lymphome indolent ?', answer: 'La rechute fréquente après traitement et le risque de transformation en lymphome agressif.', },
+{ question: 'Quelle est la proportion approximative des lymphomes B par rapport aux lymphomes T ?', answer: 'Les lymphomes B représentent environ 3/4 des cas (78%), tandis que les lymphomes T représentent environ 14%.', },
+{ question: 'Quel est le lymphome agressif le plus fréquent ?', answer: 'Le lymphome diffus à grandes cellules B (DLBCL).', },
+{ question: 'Pourquoi les lymphomes peuvent-ils engendrer des symptômes très variés (ganglions, épanchements, atteintes cérébrales) ?', answer: 'Parce que les lymphocytes matures circulent et peuvent proliférer dans n’importe quel organe lymphoïde secondaire ou muqueuse.', },
+{ question: 'Quel est le rôle indispensable du gène BCL6 ?', answer: 'Il est indispensable à la formation du centre germinatif en agissant comme répresseur transcriptionnel.', },
+{ question: 'Quels gènes BCL6 empêche-t-il d’être transcrits ?', answer: 'Les gènes de contrôle des dommages de l’ADN (P53, ATR), les gènes de l’apoptose, du cycle cellulaire et de réponse aux cytokines.', },
+{ question: 'Pourquoi la zone sombre est-elle qualifiée de « zone de tous les dangers » ?', answer: 'Parce que BCL6 y met au repos les mécanismes de surveillance du génome pour autoriser les mutations somatiques sans déclencher l’apoptose.', },
+{ question: 'Quel événement permet l’inhibition physiologique de BCL6 dans la zone claire ?', answer: 'La reconnaissance de l’antigène couplée aux signaux CD40/CD40L.', },
+{ question: 'Que permet l’extinction de BCL6 au niveau cellulaire ?', answer: 'La différenciation plasmatique, la migration, la vérification de l’intégrité du génome et la mort cellulaire si nécessaire.', },
+{ question: 'Citez trois régulateurs épigénétiques qui éteignent normalement l’expression de BCL6.', answer: 'EP300, CREBBP et FBXO11.', },
+{ question: 'Quel est le mécanisme de malignité lié à BCL6 dans les DLBCL ?', answer: 'La persistance anormale de son expression (due à des mutations de régulateurs ou translocations), empêchant la vérification des dommages de l’ADN.', },
+{ question: 'Décrivez la translocation impliquant BCL6 dans certains lymphomes.', answer: 'Un segment du chromosome 3 (portant BCL6) est transféré à proximité d’un promoteur très actif, comme celui des immunoglobulines.', },
+{ question: 'Quelle est la particularité du gène MEF2B dans les lymphomes ?', answer: 'Il possède une mutation activatrice qui induit de façon persistante l’expression de BCL6.', },
+{ question: 'Quel est le devenir des cytidines désaminées par l’enzyme AID ?', answer: 'Elles sont reconnues comme sites abasiques et réparées par une ADN polymérase « error-prone » (encline aux erreurs).', },
+{ question: 'Pourquoi le recrutement d’une polymérase « error-prone » est-il crucial dans le centre germinatif ?', answer: 'Parce qu’elle commet volontairement des erreurs de recopiage, créant ainsi la diversité des mutations somatiques nécessaire à l’affinité.', },
+{ question: 'Quelle problématique l’hétérogénéité des lymphomes pose-t-elle aux cliniciens ?', answer: 'La difficulté de prédire quels patients vont répondre à la chimiothérapie et lesquels vont rechuter.', },
+{ question: 'Quels sont les deux grands types de DLBCL définis par l’étude du transcriptome (ARN) ?', answer: 'Le type GCB (Germinal Center B-cell) et le type ABC (Activated B-cell).', },
+{ question: 'Lequel des deux types de DLBCL (GCB ou ABC) présente la moins bonne probabilité de survie ?', answer: 'Le type ABC (Activated B-cell).', },
+{ question: 'D’où proviennent les cellules tumorales du modèle ABC-DLBCL ?', answer: 'De cellules B ayant déjà quitté le centre germinatif (lymphocytes activés).', },
+{ question: 'Que signifie WGS (Whole Genome Sequencing) ?', answer: 'C’est le séquençage complet de l’ordre des bases nucléotidiques de l’ensemble de l’ADN d’un individu.', },
+{ question: 'Quelle mutation de CD79A/B est retrouvée dans certains lymphomes ABC ?', answer: 'Une mutation entraînant l’activation constitutive du récepteur BCR, rendant la survie indépendante de l’antigène.', },
+{ question: 'Quel est le rôle normal de la molécule MYD88 ?', answer: 'Elle est commune à la transduction du signal de tous les récepteurs TLR (Toll-Like Receptors).', },
+{ question: 'Quelle proportion de lymphomes ABC possède une mutation activatrice de MYD88 ?', answer: 'Environ 40%.', },
+{ question: 'Citez trois mécanismes d’échappement au système immunitaire utilisés par les cellules tumorales.', answer: 'L’arrêt de l’expression du CMH de classe I/II, la mutation des molécules de costimulation (CD70, CD58) et l’activation de molécules inhibitrices (PD-L1).', },
+{ question: 'Comment la mutation de la bêta-2-microglobuline favorise-t-elle la tumeur ?', answer: 'Elle diminue la présentation des antigènes sur les molécules du CMH, empêchant la reconnaissance par le TCR des lymphocytes T.', },
+{ question: 'Quel est l’effet de l’interaction PD-L1 (tumeur) / PD-1 (lymphocyte T) ?', answer: 'Elle inhibe le lymphocyte T, réduisant sa réponse cytotoxique contre la tumeur.', },
+{ question: 'Définition des antigènes T-indépendants.', answer: 'Antigènes à structures très répétitives (ex: polysaccharides bactériens) activant directement les lymphocytes B sans l’aide des lymphocytes Tfh.', },
+{ question: 'Quelles sont les limites de la réponse immunitaire T-indépendante ?', answer: 'Elle ne forme pas de centre germinatif, n’a pas de maturation d’affinité, pas de switch isotypique et génère une mémoire limitée.', },
+{ question: 'Quel est le rôle de la protéine EZH2 en épigénétique ?', answer: 'Elle médie la triméthylation de la Lys27 de l’histone H3, ce qui supprime l’activité transcriptionnelle de gènes régulateurs du cycle et de la différenciation.', },
+{ question: 'Dans quel type de DLBCL retrouve-t-on préférentiellement des mutations activatrices d’EZH2 ?', answer: 'Dans les formes GCB (Germinal Center B-cell).', },
+{ question: 'Quel est l’effet d’une mutation inactivatrice de KMT2D (MLL2) ?', answer: 'Elle diminue l’expression de gènes suppresseurs de tumeurs, favorisant la lymphomagenèse.', },
+{ question: 'Comment les mutations de CREBBP et EP300 affectent-elles BCL6 et P53 ?', answer: 'Elles diminuent l’acétylation (et donc l’activité) de P53 tout en maintenant BCL6 actif.', },
+{ question: 'Quelle est la principale difficulté pour accéder à la maladie résiduelle dans le DLBCL ?', answer: 'Il y a peu ou pas de cellules tumorales circulantes dans le sang et la moelle est peu envahie.', },
+{ question: 'Définition de la maladie résiduelle.', answer: 'Maladie qui persiste dans l’organisme (cellules tumorales restantes) après traitement, alors qu’elle est invisible en radiologie.', },
+{ question: 'Définition de l’ADN tumoral circulant (ctDNA).', answer: 'Fraction de l’ADN libre plasmatique provenant spécifiquement des cellules tumorales mortes (nécrose ou apoptose).', },
+{ question: 'Pourquoi le ctDNA est-il considéré comme un « entonnoir » de l’information tumorale ?', answer: 'Parce qu’il regroupe l’ADN de toutes les régions de la tumeur, reflétant l’hétérogénéité génétique globale mieux qu’une biopsie locale.', },
+{ question: 'Quelle est la taille moyenne stéréotypée des fragments d’ADN circulant (cfDNA) ?', answer: 'Environ 150 paires de bases (correspondant à l’ADN entourant un nucléosome).', },
+{ question: 'Comment la fragmentation de l’ADN circulant révèle-t-elle l’accessibilité de la chromatine ?', answer: 'Les nucléases coupent préférentiellement les régions très accessibles (lâches), tandis que les régions compactes (riches en histones) sont protégées.', },
+{ question: 'Quelle est la durée de vie moyenne du ctDNA dans le sang ?', answer: 'Environ 30 minutes, ce qui permet un état des lieux quasi immédiat de la tumeur.', },
+{ question: 'Que signifie VAF (Variant Allele Frequency) ?', answer: 'C’est la proportion d’un variant génétique spécifique par rapport au nombre total de fragments séquencés pour cette position.', },
+{ question: 'Quel est l’intérêt théranostique du ctDNA ?', answer: 'Identifier des mutations cibles (ex: BRAF, EZH2) pour orienter le choix d’un médicament spécifique.', },
+{ question: 'Quel type de tube est utilisé pour les prélèvements de cfDNA et pourquoi ?', answer: 'Le tube « strike », car il contient un conservateur empêchant la lyse des globules blancs qui masquerait l’ADN tumoral.', },
+{ question: 'Quel est le lien entre la quantité de ctDNA et le pronostic du patient ?', answer: 'Plus la quantité de ctDNA est importante au diagnostic, moins bon est le pronostic.', },
+{ question: 'Qu’est-ce que le TMTV en imagerie PET-scan ?', answer: 'Total Metabolic Tumor Volume, soit la somme des volumes tumoraux avides de sucre (apparaissant en noir).', },
+{ question: 'Le ctDNA et le TMTV mesurent-ils exactement la même chose ?', answer: 'Non, ils sont complémentaires ; certains patients ont un faible TMTV mais un fort ctDNA, indiquant une maladie agressive malgré un faible volume.', },
+{ question: 'Définition de l’EMR (Early Molecular Response).', answer: 'Diminution rapide du niveau de ctDNA après une cure de chimiothérapie (ex: baisse de 2 logs).', },
+{ question: 'Pourquoi l’analyse du ctDNA est-elle particulièrement utile pour la maladie de Hodgkin ?', answer: 'Parce qu’il y a tellement peu de cellules tumorales dans le ganglion qu’une biopsie classique ne permet souvent pas d’accéder au paysage mutationnel.', },
+{ question: 'Quelles sont les trois étapes bioinformatiques de l’analyse NGS du cfDNA ?', answer: 'L’analyse primaire (base-calling), secondaire (alignement sur le génome de référence) et tertiaire (variant calling).', },
+{ question: 'Qu’est-ce que la déconvolution cellulaire à partir du cfDNA ?', answer: 'Méthode consistant à corréler le signal de position des histones avec des bases de données pour estimer l’origine tissulaire (foie, thymus, etc.) de l’ADN circulant.', },
+{ question: 'Quel est l’objectif du projet French Connect ?', answer: 'Harmoniser l’analyse du ctDNA en France en utilisant les mêmes gènes capturés, les mêmes techniques et la même analyse bioinformatique.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Bases_moleculaire_Oncologie_fc9";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Régulation du médicament</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Régulation du médicament</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est l’agence européenne chargée de la régulation des médicaments ?', answer: 'L’Agence Européenne du Médicament (EMA)' },
+  { question: 'En quelle année a été créée l’EMA ?', answer: 'En 1995' },
+  { question: 'Où se situe le siège de l’EMA ?', answer: 'À Amsterdam' },
+  { question: 'Quel était l’ancien siège de l’EMA avant Amsterdam ?', answer: 'À Londres' },
+  { question: 'Que signifie le sigle CHMP ?', answer: 'Committee for Medicinal Products for Human Use' },
+  { question: 'Quel est l’équivalent français du CHMP ?', answer: 'La Commission d’évaluation initiale du rapport entre les bénéfices et les risques des produits de santé' },
+  { question: 'Que signifie le sigle PRAC ?', answer: 'Pharmacovigilance Risk Assessment Committee' },
+  { question: 'Quelle est l’agence nationale française de régulation des médicaments ?', answer: 'L’Agence Nationale de Sécurité du Médicament et des Produits de Santé (ANSM)' },
+  { question: 'Sous la tutelle de quel ministère est placée l’ANSM ?', answer: 'Du Ministère de la Santé' },
+  { question: 'Que remplace la Commission d’Autorisation de Mise sur le Marché en France ?', answer: 'La Commission Initiale d’Évaluation du rapport Bénéfice / Risque des produits de santé' },
+  { question: 'Quelles sont les principales missions de l’ANSM ?', answer: 'Délivrance, retrait, suspension d’AMM, autorisations compassionnelles, pharmacovigilance, essais cliniques, publicité, information' },
+  { question: 'Qu’est-ce qu’une autorisation d’accès compassionnel ?', answer: 'Anciennement appelée ATU nominative, elle permet l’accès à un médicament avant son AMM' },
+  { question: 'Qu’est-ce qu’une autorisation de prescription compassionnelle ?', answer: 'Anciennement appelée RTU, permet la prescription encadrée d’un médicament hors AMM' },
+  { question: 'Qui autorise les essais cliniques en France ?', answer: 'L’ANSM' },
+  { question: 'Qui contrôle la publicité des médicaments en France ?', answer: 'L’ANSM' },
+  { question: 'Quelles sont les cibles de diffusion d’information de l’ANSM ?', answer: 'Les patients, les professionnels de santé, les sociétés savantes et la presse' },
+  { question: 'Quelle est l’agence française responsable de la biovigilance ?', answer: 'L’Agence de Biomédecine' },
+  { question: 'Quelle autorité évalue le SMR et l’ASMR des médicaments ?', answer: 'La Haute Autorité de Santé (HAS)' },
+  { question: 'Quelle commission au sein de la HAS évalue le SMR et l’ASMR ?', answer: 'La Commission de la Transparence' },
+  { question: 'Quelle autre commission de la HAS évalue l’impact économique des médicaments ?', answer: 'La Commission d’Évaluation Économique et de Santé Publique (CEESP)' },
+  { question: 'Quelle instance fixe le taux de remboursement des médicaments ?', answer: 'L’Union Nationale des Caisses d’Assurance Maladie (UNCAM)' },
+  { question: 'Quelle commission évalue les dispositifs médicaux ?', answer: 'La CNEDiMTS (Commission Nationale d’Évaluation des Dispositifs Médicaux et Technologies de Santé)' },
+  { question: 'Qui fixe le prix des médicaments remboursables ?', answer: 'Le Comité Économique des Produits de Santé (CEPS)' },
+  { question: 'De quels ministères dépend le CEPS ?', answer: 'Du Ministère de la Santé et du Ministère de l’Économie' },
+  { question: 'Quelle est la définition d’une AMM ?', answer: 'Autorisation de Mise sur le Marché nécessaire pour la commercialisation d’un médicament' },
+  { question: 'Quels médicaments nécessitent une AMM ?', answer: 'Tous les médicaments répondant à la définition de spécialité pharmaceutique' },
+  { question: 'Quels types de médicaments ont besoin d’une AMM ?', answer: 'Génériques, biomédicaments, biosimilaires, vaccins, stupéfiants, psychotropes, MTI, médicaments dérivés du sang' },
+  { question: 'Quels produits ne nécessitent pas d’AMM mais sont surveillés ?', answer: 'Préparations magistrales, officinales, hospitalières, APSI, MTI-PP, préparations de thérapie cellulaire' },
+  { question: 'Quelles sont les trois exigences pour obtenir une AMM ?', answer: 'Qualité, efficacité, sécurité' },
+  { question: 'Quel est le format du dossier d’AMM ?', answer: 'Format CTD (Common Technical Document)' },
+  { question: 'Quelles études contient le dossier d’AMM ?', answer: 'Études précliniques, cliniques, et travaux de développement industriel' },
+  { question: 'Sur quels critères l’AMM est-elle délivrée ?', answer: 'Sur le rapport bénéfice/risque favorable du médicament' },
+  { question: 'Que compare-t-on lors de l’évaluation initiale pour l’AMM ?', answer: 'Le médicament est comparé au placebo' },
+  { question: 'À quel moment compare-t-on le médicament à un traitement de référence ?', answer: 'Lors de la demande de remboursement et fixation du prix' },
+  { question: 'Quelle part des demandes d’AMM suit la procédure nationale ?', answer: '18 %' },
+  { question: 'Quand la procédure nationale est-elle applicable ?', answer: 'Si le médicament n’est commercialisé que dans un seul État membre' },
+  { question: 'Quelle autorité délivre l’AMM nationale en France ?', answer: 'L’ANSM' },
+  { question: 'Quelle est la durée officielle d’instruction d’un dossier d’AMM nationale ?', answer: '210 jours' },
+  { question: 'Quel est le coût d’une AMM nationale ?', answer: '34 000 euros (14 000 euros pour un générique)' },
+  { question: 'Quelle part des demandes d’AMM suit la procédure centralisée ?', answer: '12 %' },
+  { question: 'Pour quels produits la procédure centralisée est-elle obligatoire ?', answer: 'Produits issus des biotechnologies, MTI, médicaments orphelins, nouveaux principes actifs' },
+  { question: 'Quelle instance européenne rend l’avis sur une AMM centralisée ?', answer: 'Le CHMP au sein de l’EMA' },
+  { question: 'Qui délivre l’AMM centralisée ?', answer: 'La Commission Européenne' },
+  { question: 'Combien de pays sont couverts par une AMM centralisée ?', answer: '27 pays membres de l’UE + Norvège et Islande' },
+  { question: 'Qui désigne les pays rapporteurs dans une procédure centralisée ?', answer: 'Le CHMP' },
+  { question: 'Quel est le coût d’une procédure centralisée ?', answer: 'Environ 300 000 euros' },
+  { question: 'Quelle part des demandes d’AMM suit la procédure décentralisée ?', answer: '64 %' },
+  { question: 'Quand utilise-t-on la procédure décentralisée ?', answer: 'Pour un médicament sans AMM dans l’UE et hors procédure centralisée' },
+  { question: 'Qui agit comme État rapporteur dans la procédure décentralisée ?', answer: 'Un État membre choisi par le laboratoire, appelé RMS' },
+  { question: 'Quelle instance délivre l’AMM lors de la procédure décentralisée en France :', answer: 'L’ANSM' },
+  { question: 'Quelle est la durée minimale d’une procédure décentralisée :', answer: '210 jours' },
+  { question: 'Quel est le coût d’une procédure décentralisée avec la France comme pays rapporteur :', answer: '50 000 euros' },
+  { question: 'Quelle part des demandes d’AMM suit la procédure par reconnaissance mutuelle :', answer: '6 %' },
+  { question: 'Quand la procédure par reconnaissance mutuelle est-elle obligatoire :', answer: 'Lorsqu’un médicament a déjà une AMM dans un État membre et veut être commercialisé dans d’autres' },
+  { question: 'Comment s’appelle l’État membre ayant délivré l’AMM initiale :', answer: 'L’État membre de référence (RMS)' },
+  { question: 'Quelle est la durée de la procédure par reconnaissance mutuelle :', answer: '90 jours non-stop' },
+  { question: 'Qui délivre l’AMM dans chaque pays lors d’une reconnaissance mutuelle :', answer: 'Les autorités nationales compétentes comme l’ANSM en France' },
+  { question: 'Quelles informations doivent être identiques dans tous les pays pour une AMM européenne :', answer: 'Le RCP, la notice et l’étiquetage' },
+  { question: 'Que signifie RCP :', answer: 'Résumé des Caractéristiques du Produit' },
+  { question: 'Que signifie SMR :', answer: 'Service Médical Rendu' },
+  { question: 'Que signifie ASMR :', answer: 'Amélioration du Service Médical Rendu' },
+  { question: 'À quoi sert le SMR :', answer: 'À évaluer l’intérêt thérapeutique d’un médicament pour le remboursement' },
+  { question: 'À quoi sert l’ASMR :', answer: 'À évaluer la valeur ajoutée d’un médicament par rapport à un traitement existant' },
+  { question: 'Quelle autorité évalue le SMR et l’ASMR :', answer: 'La HAS via la Commission de la Transparence' },
+  { question: 'Quelle autorité fixe le taux de remboursement :', answer: 'L’UNCAM' },
+  { question: 'Quelle autorité fixe le prix du médicament :', answer: 'Le CEPS' },
+  { question: 'Que signifie CEPS :', answer: 'Comité Économique des Produits de Santé' },
+  { question: 'Quelles sont les deux tutelles du CEPS :', answer: 'Le Ministère de la Santé et le Ministère de l’Économie' },
+  { question: 'Quelle procédure d’AMM est la plus utilisée en Europe :', answer: 'La procédure décentralisée' },
+  { question: 'Quelle est la part des demandes d’AMM centralisées dans l’Union européenne :', answer: '12 %' },
+  { question: 'Quelle instance européenne émet l’avis sur les AMM :', answer: 'Le CHMP' },
+  { question: 'Quelle instance européenne délivre formellement l’AMM :', answer: 'La Commission Européenne' },
+  { question: 'Quel type de médicament suit obligatoirement la procédure centralisée :', answer: 'Les médicaments issus des biotechnologies, les MTI et les médicaments orphelins' },
+  { question: 'Que signifie MTI :', answer: 'Médicaments de Thérapie Innovante' },
+  { question: 'Quels domaines de recherche imposent la procédure centralisée :', answer: 'Cancer, SIDA, diabète, maladies neurodégénératives, maladies auto-immunes' },
+  { question: 'Que garantit l’AMM :', answer: 'La qualité, la sécurité et l’efficacité du médicament' },
+  { question: 'L’AMM fixe-t-elle le prix du médicament :', answer: 'Non, elle ne fixe pas le prix de vente' },
+  { question: 'Quelle est la durée d’instruction du dossier d’AMM centralisée :', answer: 'De 210 à 420 jours' },
+  { question: 'Quelle autorité évalue le rapport bénéfice/risque en France :', answer: 'L’ANSM' },
+  { question: 'Quelle autorité européenne évalue le rapport bénéfice/risque :', answer: 'Le CHMP' },
+  { question: 'Qu’est-ce que le rapport bénéfice/risque :', answer: 'La comparaison entre l’efficacité du médicament et ses effets indésirables' },
+  { question: 'Pourquoi une AMM peut-elle être refusée :', answer: 'Si le demandeur ne démontre pas de façon suffisante la qualité, la sécurité ou l’efficacité du médicament' },
+  { question: 'Que se passe-t-il après l’octroi d’une AMM centralisée :', answer: 'Le médicament peut être commercialisé dans tous les États membres concernés' },
+  { question: 'Quel document harmonise les dossiers d’AMM entre l’UE, les États-Unis et le Japon :', answer: 'Le CTD (Common Technical Document)' },
+  { question: 'Quelles sont les trois grandes étapes du développement d’un médicament avant l’AMM :', answer: 'Développement industriel, essais précliniques, essais cliniques' },
+  { question: 'Que comprend la phase de développement industriel :', answer: 'La synthèse chimique ou biologique du médicament' },
+  { question: 'Que comprennent les essais précliniques :', answer: 'Des tests pharmacologiques, toxicologiques et galéniques sur animaux' },
+  { question: 'Que comprennent les essais cliniques :', answer: 'Des tests sur des centaines à des milliers de patients' },
+  { question: 'Quelles sont les autorités compétentes pour les AMM européennes :', answer: 'L’EMA et la Commission Européenne' },
+  { question: 'Quelles sont les autorités compétentes pour les AMM nationales :', answer: 'Les agences nationales comme l’ANSM' },
+  { question: 'Quelle est la mission principale du PRAC :', answer: 'L’évaluation et la surveillance des risques liés aux médicaments' },
+  { question: 'Qu’est-ce qu’une ATU :', answer: 'Autorisation Temporaire d’Utilisation, permettant l’accès anticipé à certains médicaments' },
+  { question: 'Qu’est-ce qu’une RTU :', answer: 'Recommandation Temporaire d’Utilisation, permettant la prescription hors AMM encadrée' },
+  { question: 'Quelle instance gère les dispositifs médicaux en France :', answer: 'La CNEDiMTS' },
+  { question: 'Qu’est-ce qu’un médicament orphelin :', answer: 'Un médicament destiné à traiter une maladie rare' },
+  { question: 'Quelle agence est compétente pour la biovigilance :', answer: 'L’Agence de Biomédecine' },
+  { question: 'Que signifie ANSM :', answer: 'Agence Nationale de Sécurité du Médicament et des Produits de Santé' },
+  { question: 'Que signifie EMA :', answer: 'European Medicines Agency' },
+  { question: 'Quelle autorité contrôle la publicité pour les médicaments :', answer: 'L’ANSM' },
+  { question: 'Quel est l’objectif principal d’une AMM :', answer: 'Garantir que le médicament mis sur le marché présente un rapport bénéfice/risque favorable' },
+  { question: 'Quels sont les trois grands types de procédures européennes d’AMM :', answer: 'La procédure centralisée, la procédure décentralisée et la procédure de reconnaissance mutuelle' },
+  { question: 'Quelle procédure permet une AMM valable dans tous les États membres de l’Union Européenne :', answer: 'La procédure centralisée' },
+  { question: 'Quelle procédure permet une AMM simultanée dans plusieurs États choisis :', answer: 'La procédure décentralisée' },
+  { question: 'Quelle procédure permet l’extension d’une AMM déjà existante :', answer: 'La procédure de reconnaissance mutuelle' },
+  { question: 'Quel est le principal avantage de la procédure centralisée :', answer: 'Une AMM unique et valable dans toute l’Union Européenne' },
+  { question: 'Quel est le principal inconvénient de la procédure centralisée :', answer: 'Son coût élevé et sa complexité administrative' },
+  { question: 'Quel est le principal avantage de la procédure décentralisée :', answer: 'Une harmonisation entre plusieurs pays sans passer par la Commission Européenne' },
+  { question: 'Quelle est la particularité de la procédure par reconnaissance mutuelle :', answer: 'Elle repose sur la confiance entre les États membres pour reconnaître une AMM existante' },
+  { question: 'Que garantit le format CTD :', answer: 'L’harmonisation internationale du dossier de demande d’AMM' },
+  { question: 'Quelle institution fixe la méthodologie d’évaluation médico-économique :', answer: 'La CEESP au sein de la HAS' },
+  { question: 'À quoi sert l’évaluation médico-économique :', answer: 'À aider à déterminer le prix et la valeur ajoutée d’un médicament' },
+  { question: 'Quelle autorité française supervise les essais cliniques :', answer: 'L’ANSM' },
+  { question: 'Quelle autorité est responsable de la pharmacovigilance en France :', answer: 'L’ANSM' },
+  { question: 'Quelle autorité évalue le bénéfice/risque d’un médicament au niveau européen :', answer: 'Le CHMP' },
+  { question: 'Quelle autorité européenne gère les questions de sécurité post-AMM :', answer: 'Le PRAC' },
+  { question: 'Que signifie pharmacovigilance :', answer: 'Surveillance et prévention des effets indésirables des médicaments' },
+  { question: 'Que signifie biovigilance :', answer: 'Surveillance des incidents liés aux produits issus du corps humain' },
+  { question: 'Quelles sont les principales missions de la HAS :', answer: 'Évaluation des médicaments, dispositifs médicaux et élaboration de recommandations de bonnes pratiques' },
+  { question: 'Quelle autorité s’occupe de la fixation du prix des médicaments remboursables :', answer: 'Le CEPS' },
+  { question: 'Quelle autorité décide du taux de remboursement des médicaments :', answer: 'L’UNCAM' },
+  { question: 'Quelles données figurent dans le RCP :', answer: 'Les indications, la posologie, les contre-indications, les effets indésirables et les interactions médicamenteuses' },
+  { question: 'Quelle instance délivre les autorisations de publicité pour les dispositifs médicaux :', answer: 'L’ANSM' },
+  { question: 'Que signifie AMM :', answer: 'Autorisation de Mise sur le Marché' },
+  { question: 'Quelle est la condition essentielle pour obtenir une AMM :', answer: 'Démontrer la qualité, la sécurité et l’efficacité du médicament' },
+  { question: 'Que signifie SMR important :', answer: 'Que le médicament présente un bénéfice thérapeutique majeur justifiant un fort remboursement' },
+  { question: 'Que signifie ASMR I :', answer: 'Amélioration majeure du service médical rendu par rapport aux traitements existants' },
+  { question: 'Que signifie ASMR V :', answer: 'Absence d’amélioration du service médical rendu' },
+  { question: 'Quelle commission évalue les dispositifs médicaux pour leur remboursement :', answer: 'La CNEDiMTS' },
+  { question: 'Quel est le but de la Commission de la Transparence :', answer: 'Évaluer l’intérêt médical des médicaments pour la collectivité et guider le remboursement' },
+  { question: 'Quelle est la mission principale de l’UNCAM :', answer: 'Déterminer le taux de remboursement des médicaments et des dispositifs médicaux' },
+  { question: 'Quelle est la mission du CEPS :', answer: 'Négocier et fixer le prix des médicaments remboursables' },
+  { question: 'Quelle instance peut retirer une AMM :', answer: 'L’ANSM ou la Commission Européenne selon la procédure d’obtention' },
+  { question: 'Pourquoi une AMM peut-elle être suspendue :', answer: 'En cas de risque grave pour la santé publique ou de données nouvelles défavorables' },
+  { question: 'Quel document décrit l’ensemble des caractéristiques d’un médicament :', answer: 'Le RCP (Résumé des Caractéristiques du Produit)' },
+  { question: 'Qui élabore le RCP :', answer: 'Le laboratoire, puis validation par les autorités de santé' },
+  { question: 'Quelle instance fixe le remboursement des dispositifs médicaux :', answer: 'L’UNCAM sur avis de la CNEDiMTS' },
+  { question: 'Quelle est la mission de la CEESP :', answer: 'Réaliser l’évaluation médico-économique des produits de santé' },
+  { question: 'Quelle est la mission du PRAC :', answer: 'Surveiller et évaluer la sécurité des médicaments après leur commercialisation' },
+  { question: 'Quelle autorité européenne approuve les médicaments de thérapie innovante :', answer: 'L’EMA via la procédure centralisée' },
+  { question: 'Quel est le principal objectif des AMM européennes :', answer: 'Garantir un niveau commun de sécurité et d’efficacité des médicaments dans toute l’Union Européenne' },
+  { question: 'Quel est l’intérêt de la reconnaissance mutuelle :', answer: 'Éviter la duplication d’évaluations déjà effectuées dans un autre pays membre' },
+  { question: 'Quel organisme joue un rôle clé dans la fixation des prix des médicaments innovants :', answer: 'Le CEPS' },
+  { question: 'Quelles sont les missions du Ministère de la Santé en matière de médicament :', answer: 'Superviser les agences de régulation et veiller à la sécurité sanitaire' },
+  { question: 'Quel est le rôle de l’EMA dans le cadre de la pharmacovigilance :', answer: 'Coordonner les actions de surveillance des effets indésirables au niveau européen' },
+  { question: 'Que signifie la notion de rapport bénéfice/risque favorable :', answer: 'Les bénéfices thérapeutiques du médicament dépassent les risques potentiels' },
+  { question: 'Quelle autorité gère la publicité pour les médicaments en France :', answer: 'L’ANSM' },
+  { question: 'Que signifie l’acronyme CNEDiMTS :', answer: 'Commission Nationale d’Évaluation des Dispositifs Médicaux et Technologies de Santé' },
+  { question: 'Que signifie l’acronyme CEESP :', answer: 'Commission d’Évaluation Économique et de Santé Publique' },
+  { question: 'Que signifie l’acronyme UNCAM :', answer: 'Union Nationale des Caisses d’Assurance Maladie' },
+  { question: 'Quelle instance européenne assure la coordination entre les États membres pour les médicaments :', answer: 'L’EMA' },
+  { question: 'Quel est le but final de la régulation du médicament :', answer: 'Garantir la sécurité, l’efficacité et l’accès équitable aux médicaments pour tous' },
+  { question: 'Quelle instance émet un avis scientifique avant l’octroi d’une AMM centralisée :', answer: 'Le CHMP au sein de l’EMA' },
+  { question: 'Quel est le délai minimal d’instruction d’une AMM centralisée :', answer: '210 jours' },
+  { question: 'Que peut faire la firme pharmaceutique si le CHMP a des questions techniques complexes :', answer: 'Demander une suspension du calendrier pour répondre dans un délai maximum de six mois' },
+  { question: 'À quel moment la firme peut être auditionnée lors d’une procédure centralisée :', answer: 'À J181 uniquement si des questions résiduelles subsistent' },
+  { question: 'Combien de jours peut durer la procédure centralisée au maximum :', answer: 'Jusqu’à 420 jours' },
+  { question: 'Quelle autorité délivre formellement l’AMM pour les 27 pays de l’Union Européenne :', answer: 'La Commission Européenne' },
+  { question: 'Quels pays sont également couverts par une AMM centralisée en plus des 27 États membres :', answer: 'La Norvège et l’Islande' },
+  { question: 'Quelles informations sont harmonisées dans les 29 pays lors d’une AMM centralisée :', answer: 'Le nom de marque, le RCP, la notice et l’étiquetage' },
+  { question: 'Quelles informations peuvent varier d’un pays à l’autre même en AMM centralisée :', answer: 'Le nom commercial du médicament' },
+  { question: 'Quel est le coût moyen d’une AMM centralisée :', answer: 'Environ 300 000 euros' },
+  { question: 'Quelle est la part approximative des AMM centralisées dans l’Union Européenne :', answer: '12 %' },
+  { question: 'Quel est l’intérêt de la procédure décentralisée pour l’industrie pharmaceutique :', answer: 'Obtenir une AMM dans plusieurs pays sans passer par la Commission Européenne' },
+  { question: 'Quelle instance prépare le rapport d’évaluation lors d’une procédure décentralisée :', answer: 'Le RMS (État membre de référence)' },
+  { question: 'Comment sont délivrées les AMM dans les autres États membres lors d’une procédure décentralisée :', answer: 'Par les autorités nationales de chaque pays concerné' },
+  { question: 'Quelle est la durée minimale d’une procédure décentralisée :', answer: '210 jours' },
+  { question: 'Quelle est la part des AMM obtenues via la procédure décentralisée :', answer: '64 %' },
+  { question: 'Quelle est la part des AMM obtenues par reconnaissance mutuelle :', answer: '6 %' },
+  { question: 'Dans quel cas utilise-t-on la reconnaissance mutuelle :', answer: 'Lorsqu’un médicament dispose déjà d’une AMM dans un État membre et souhaite être commercialisé dans d’autres' },
+  { question: 'Quel État agit comme État membre de référence lors d’une reconnaissance mutuelle :', answer: 'Celui ayant délivré l’AMM initiale' },
+  { question: 'Quelle est la durée totale d’une procédure de reconnaissance mutuelle :', answer: '90 jours' },
+  { question: 'Quelle instance évalue les bénéfices et risques d’un médicament avant son autorisation :', answer: 'Le CHMP pour l’Europe, l’ANSM pour la France' },
+  { question: 'Quelle autorité peut suspendre une AMM en cas d’événement indésirable grave :', answer: 'L’ANSM ou la Commission Européenne selon le type de procédure' },
+  { question: 'Quelle autorité fixe la politique de remboursement en France :', answer: 'L’UNCAM' },
+  { question: 'Quelle autorité négocie le prix des médicaments avec les laboratoires :', answer: 'Le CEPS' },
+  { question: 'Quelle est la finalité de l’évaluation du SMR :', answer: 'Déterminer si le médicament doit être remboursé et à quel taux' },
+  { question: 'Quelle est la finalité de l’évaluation de l’ASMR :', answer: 'Déterminer le niveau d’amélioration par rapport aux traitements existants' },
+  { question: 'Quelle autorité française est responsable des décisions de suspension ou de retrait d’un médicament :', answer: 'L’ANSM' },
+  { question: 'Qui est responsable de la diffusion de l’information sur les médicaments en France :', answer: 'L’ANSM' },
+  { question: 'Quelles sont les principales sources d’information pour les patients :', answer: 'Les notices explicatives' },
+  { question: 'Quelles sont les principales sources d’information pour les professionnels de santé :', answer: 'Les RCP et les communications officielles de l’ANSM' },
+  { question: 'Qu’est-ce qu’un médicament générique :', answer: 'Un médicament ayant la même composition qualitative et quantitative en principe actif qu’un médicament de référence' },
+  { question: 'Les génériques passent-ils par une AMM :', answer: 'Oui, mais selon une procédure simplifiée' },
+  { question: 'Qu’est-ce qu’un médicament biosimilaire :', answer: 'Un médicament similaire à un produit biologique de référence mais non identique' },
+  { question: 'Quelle est la différence entre un médicament de référence et un générique :', answer: 'Le générique reprend la formule du médicament de référence après expiration du brevet' },
+  { question: 'Qu’est-ce qu’un médicament homéopathique :', answer: 'Un médicament préparé à partir de substances diluées selon la méthode homéopathique' },
+  { question: 'Les médicaments homéopathiques nécessitent-ils une AMM :', answer: 'Oui, sauf ceux à nom commun qui sont surveillés par l’ANSM sans AMM' },
+  { question: 'Qu’est-ce qu’un médicament dérivé du sang :', answer: 'Un médicament fabriqué à partir du plasma humain' },
+  { question: 'Qu’est-ce qu’un médicament de thérapie génique :', answer: 'Un médicament utilisant des gènes comme principe actif' },
+  { question: 'Qu’est-ce qu’un médicament de thérapie cellulaire :', answer: 'Un médicament à base de cellules vivantes modifiées ou non' },
+  { question: 'Quelle instance autorise les préparations de thérapie cellulaire en France :', answer: 'L’ANSM' },
+  { question: 'Qu’est-ce qu’un dispositif médical combiné à un médicament :', answer: 'Un produit associant un principe actif et un dispositif d’administration' },
+  { question: 'Ces dispositifs médicaux combinés nécessitent-ils une AMM :', answer: 'Oui, car ils contiennent un médicament' },
+  { question: 'Que garantit la régulation du médicament :', answer: 'La sécurité sanitaire et la transparence de l’information' },
+  { question: 'Quel est l’objectif global de la régulation du médicament :', answer: 'Protéger la santé publique tout en assurant l’accès aux innovations thérapeutiques' },
+  { question: 'Quelle est la mission de la Commission Européenne dans la régulation :', answer: 'Délivrer les AMM centralisées et garantir l’uniformité des décisions dans l’Union Européenne' },
+  { question: 'Quelle est la mission de l’EMA :', answer: 'Évaluer scientifiquement les médicaments pour l’Union Européenne' },
+  { question: 'Quelle est la mission du CHMP :', answer: 'Donner un avis sur la qualité, la sécurité et l’efficacité des médicaments humains' },
+  { question: 'Quelle est la mission du PRAC :', answer: 'Évaluer et surveiller les risques liés à l’utilisation des médicaments après AMM' },
+  { question: 'Quelle est la mission du CEPS :', answer: 'Déterminer le prix des médicaments remboursables en France' },
+  { question: 'Quelle est la mission de l’UNCAM :', answer: 'Fixer le taux de remboursement des médicaments et dispositifs médicaux' },
+  { question: 'Quelle est la mission de la HAS :', answer: 'Évaluer le bénéfice clinique et économique des médicaments et dispositifs médicaux' },
+  { question: 'Quelle est la mission de la CNEDiMTS :', answer: 'Évaluer les dispositifs médicaux et technologies de santé en vue de leur remboursement' },
+  { question: 'Quelle est la mission de l’ANSM :', answer: 'Garantir la sécurité, la qualité et le bon usage des produits de santé en France' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

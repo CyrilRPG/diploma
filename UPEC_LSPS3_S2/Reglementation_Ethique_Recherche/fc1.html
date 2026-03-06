@@ -1,0 +1,498 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Réglementation et éthique de la recherche - droit de la santé</h1><h2>Droit de la santé</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Qu’est-ce que le droit de la santé ?', answer: 'Branche du droit régissant les relations entre patients, professionnels et institutions de santé.', },
+{ question: 'Quel est le fondement constitutionnel du droit à la santé en France ?', answer: 'Le Préambule de la Constitution de 1946 et la Déclaration des droits de l’homme.', },
+{ question: 'Qu’est-ce que la loi Kouchner ?', answer: 'Loi du 4 mars 2002 relative aux droits des malades et à la qualité du système de santé.', },
+{ question: 'Quels sont les droits fondamentaux du patient ?', answer: 'Droit à l’information, au consentement, au respect de la vie privée et à l’accès au dossier médical.', },
+{ question: 'Qu’est-ce que le consentement éclairé ?', answer: 'Accord libre et éclairé du patient après information sur les risques et bénéfices d’un acte.', },
+{ question: 'Qui est responsable de l’information du patient ?', answer: 'Le professionnel de santé qui propose un acte ou un traitement.', },
+{ question: 'Qu’est-ce que la responsabilité médicale ?', answer: 'Obligation de réparer le préjudice causé par une faute, un défaut d’information ou un aléa thérapeutique.', },
+{ question: 'Quelle est la différence entre responsabilité civile et pénale en santé ?', answer: 'Civile : réparation du préjudice. Pénale : sanction pour infraction (homicide, blessures, etc.).', },
+{ question: 'Qu’est-ce que l’aléa thérapeutique ?', answer: 'Risque réalisé sans faute du praticien, pouvant donner lieu à indemnisation par la solidarité nationale.', },
+{ question: 'Quel rôle joue l’ONIAM ?', answer: 'Office national d’indemnisation des accidents médicaux : indemnise les victimes d’aléas ou d’infections nosocomiales.', },
+{ question: 'Qu’est-ce qu’une infection nosocomiale ?', answer: 'Infection contractée dans un établissement de santé, absente à l’admission.', },
+{ question: 'Quels sont les droits du patient en fin de vie ?', answer: 'Droit au refus de traitement, aux soins palliatifs, à la sédation, à la directive anticipée.', },
+{ question: 'Qu’est-ce que la directive anticipée ?', answer: 'Document par lequel une personne exprime à l’avance ses souhaits sur sa fin de vie en cas d’incapacité.', },
+{ question: 'Qu’est-ce que la personne de confiance ?', answer: 'Personne désignée par le patient pour l’accompagner et être consultée si le patient est hors d’état d’exprimer sa volonté.', },
+{ question: 'Quel est le cadre légal du secret médical ?', answer: 'Article L1110-4 du CSP : secret couvre tout ce qui est venu à la connaissance du professionnel dans l’exercice de sa profession.', },
+{ question: 'Quelles sont les exceptions au secret médical ?', answer: 'Dérogations légales : déclaration de naissance, décès, maladies contagieuses, sévices, etc.', },
+{ question: 'Qu’est-ce que le partage d’informations entre professionnels ?', answer: 'Possibilité de partager des informations pertinentes dans le cadre d’une prise en charge commune, avec accord du patient.', },
+{ question: 'Qu’est-ce que le dossier médical partagé (DMP) ?', answer: 'Dossier numérique regroupant les informations de santé du patient, accessible avec son consentement.', },
+{ question: 'Quels acteurs contrôlent l’éthique et la déontologie en santé ?', answer: 'Ordres professionnels (médecins, infirmiers, etc.), HAS, CNOM, instances de réflexion éthique.', },
+{ question: 'Qu’est-ce que la charte du patient hospitalisé ?', answer: 'Document rappelant les droits et devoirs des patients dans les établissements de santé.', },
+{ question: 'Quel est le rôle de la commission des usagers ?', answer: 'Instance qui contribue à l’amélioration de la qualité de l’accueil et du traitement des réclamations.', },
+{ question: 'Qu’est-ce que le droit d’accès au dossier médical ?', answer: 'Droit pour le patient (ou ses ayants droit) d’accéder à l’ensemble des informations concernant sa santé.', },
+{ question: 'Dans quel délai le dossier médical doit-il être communiqué ?', answer: 'Sous 8 jours pour les informations récentes, 2 mois pour l’ensemble du dossier (ou 15 jours en cas de décès).', },
+{ question: 'Qu’est-ce que la responsabilité du fait des produits de santé ?', answer: 'Régime spécifique de responsabilité sans faute pour les dommages causés par des produits défectueux.', },
+{ question: 'Quel est le rôle du CRU ?', answer: 'Commission des relations avec les usagers et de la qualité de la prise en charge dans les établissements.', },
+{ question: 'Qu’est-ce que la conciliation en matière de santé ?', answer: 'Procédure gratuite permettant de trouver une solution amiable en cas de litige avec un professionnel ou un établissement.', },
+{ question: 'Qu’est-ce que l’obligation de moyens en droit médical ?', answer: 'Le médecin s’engage à donner des soins conformes aux données de la science, pas à guérir.', },
+{ question: 'Qu’est-ce que l’obligation d’information en droit de la santé ?', answer: 'Obligation pour le professionnel d’informer le patient sur les risques graves et les alternatives.', },
+{ question: 'Quel est le rôle du juge administratif en droit de la santé ?', answer: 'Il juge les litiges impliquant les établissements publics de santé et l’administration.', },
+{ question: 'Quel est le rôle du juge judiciaire en droit de la santé ?', answer: 'Il juge les litiges entre patients et professionnels libéraux ou établissements privés.', },
+{ question: 'Qu’est-ce que la perte de chance en responsabilité médicale ?', answer: 'Préjudice consistant dans la perte d’une chance d’éviter un dommage ou d’obtenir un meilleur résultat.', },
+{ question: 'Qu’est-ce que l’expertise médicale amiable ?', answer: 'Expertise réalisée à l’amiable pour évaluer un préjudice avant ou en dehors d’un procès.', },
+{ question: 'Quel est le délai de prescription en responsabilité médicale ?', answer: '10 ans à compter de la consolidation du dommage (ou de la date du fait dommageable).', },
+{ question: 'Qu’est-ce que la solidarité nationale en matière d’indemnisation ?', answer: 'Prise en charge par l’ONIAM des victimes d’aléas thérapeutiques et d’infections nosocomiales.', },
+{ question: 'Qu’est-ce que la loi du 4 mars 2002 sur les droits des malades ?', answer: 'Loi renforçant les droits des patients (information, consentement, accès au dossier, indemnisation).', },
+{ question: 'Qu’est-ce que l’obligation de sécurité de résultat ?', answer: 'Dans certains cas (transfusion, produits de santé), l’établissement doit assurer la sécurité du patient.', },
+{ question: 'Quel est le rôle des ordres professionnels en santé ?', answer: 'Régulation de la déontologie, conseil, discipline des professionnels (médecins, infirmiers, etc.).', },
+{ question: 'Qu’est-ce que le refus de soins du patient ?', answer: 'Droit du patient majeur de refuser un traitement ; le médecin doit respecter ce choix après information.', },
+{ question: 'Qu’est-ce que l’urgence en droit médical ?', answer: 'Situation où le médecin peut dispenser des soins sans consentement si le patient est hors d’état d’exprimer sa volonté.', },
+{ question: 'Qu’est-ce que la notion de personne vulnérable en droit de la santé ?', answer: 'Personne dont la capacité à consentir ou à se protéger est altérée (mineur, majeur protégé, etc.).', },
+{ question: 'Quel est le statut du mineur en droit de la santé ?', answer: 'Le mineur peut consentir seul à certains actes (contraception, IVG, etc.) ; sinon le titulaire de l’autorité parentale consent.', },
+{ question: 'Qu’est-ce que la recherche de paternité en droit ?', answer: 'Action permettant d’établir un lien de filiation entre un enfant et un homme.', },
+{ question: 'Qu’est-ce que la confidentialité des données de santé ?', answer: 'Principe selon lequel les informations de santé ne peuvent être divulguées qu’avec le consentement ou dans les cas prévus par la loi.', },
+{ question: 'Quel est le rôle de la CNIL en santé ?', answer: 'Protection des données personnelles, contrôle du traitement des données de santé (dossiers, recherches).', },
+{ question: 'Qu’est-ce que le droit à l’oubli en assurance ?', answer: 'Droit pour les anciens malades de ne pas déclarer certaines pathologies après un délai pour les assurances.', },
+{ question: 'Qu’est-ce que la non-assistance à personne en péril ?', answer: 'Infraction pénale : ne pas porter secours à une personne en danger lorsque c’est possible sans risque.', },
+{ question: 'Qu’est-ce que l’euthanasie en droit français ?', answer: 'Actuellement interdite ; la loi encadre la sédation profonde et la fin de vie.', },
+{ question: 'Qu’est-ce que la sédation profonde et continue ?', answer: 'Mise en sommeil du patient en fin de vie jusqu’au décès, pour soulager des souffrances réfractaires.', },
+{ question: 'Quel est le rôle du médecin traitant en fin de vie ?', answer: 'Assurer les soins palliatifs, appliquer les directives anticipées, accompagner le patient et la famille.', },
+{ question: 'Qu’est-ce que l’obstination déraisonnable ?', answer: 'Poursuite de traitements inutiles ou disproportionnés ; la loi permet de les limiter ou les arrêter.', },
+{ question: 'Qu’est-ce que la procédure collégiale en fin de vie ?', answer: 'Réunion de l’équipe soignante (et possiblement d’un autre médecin) pour décider de limiter ou arrêter les traitements.', },
+{ question: 'Quel est le droit du patient en matière de don d’organes ?', answer: 'Principe du consentement présumé ; le patient peut s’opposer de son vivant (registre national).', },
+{ question: 'Qu’est-ce que le prélèvement d’organes sur personne vivante ?', answer: 'Don possible entre proches sous conditions strictes (consentement, comité d’experts, etc.).', },
+{ question: 'Qu’est-ce que la bioéthique en droit ?', answer: 'Ensemble des règles encadrant les pratiques touchant au corps humain, à la génétique, à la procréation.', },
+{ question: 'Quel est le principe d’indisponibilité du corps humain ?', answer: 'Le corps humain ne peut faire l’objet d’un droit patrimonial ; il est hors du commerce.', },
+{ question: 'Qu’est-ce que la non-commercialisation du corps en droit français ?', answer: 'Interdiction de vendre des organes, tissus, gamètes ; le don est gratuit.', },
+{ question: 'Qu’est-ce que l’assistance médicale à la procréation (AMP) en droit ?', answer: 'Encadrement légal de la FIV, don de gamètes, accès réservé aux couples hétérosexuels (évolution en cours).', },
+{ question: 'Quel est le statut de l’embryon en droit français ?', answer: 'Pas une personne, pas une chose ; statut spécifique avec protection (recherche encadrée).', },
+{ question: 'Qu’est-ce que le diagnostic prénatal (DPN) ?', answer: 'Ensemble des examens permettant de détecter des anomalies fœtales ; encadrement éthique et légal.', },
+{ question: 'Qu’est-ce que le diagnostic préimplantatoire (DPI) ?', answer: 'Analyse d’embryons avant transfert en AMP pour éviter une maladie génétique grave ; conditions strictes.', },
+{ question: 'Quel est le rôle des lois de bioéthique ?', answer: 'Encadrer la recherche sur l’embryon, l’AMP, les données génétiques ; révision périodique prévue.', },
+{ question: 'Qu’est-ce que le consentement aux soins en psychiatrie ?', answer: 'En principe requis ; des soins sans consentement sont possibles sous conditions (péril, décision du directeur).', },
+{ question: 'Qu’est-ce qu’une hospitalisation sans consentement ?', answer: 'Hospitalisation sous contrainte (HO, HDT) lorsque le patient présente un danger pour lui ou autrui.', },
+{ question: 'Quel est le rôle du défenseur des droits en santé ?', answer: 'Saisissable pour toute réclamation relative aux droits des usagers des services publics (dont santé).', },
+{ question: 'Qu’est-ce que la démocratie sanitaire ?', answer: 'Participation des usagers et des associations à l’élaboration des politiques de santé et au débat public.', },
+{ question: 'Qu’est-ce que la représentation des usagers dans les instances ?', answer: 'Présence de représentants des usagers (associations) dans les instances hospitalières et de santé.', },
+{ question: 'Quel est le droit à la protection contre la discrimination en santé ?', answer: 'Interdiction de discriminer (assurance, emploi) en raison de l’état de santé ; loi et contrats.', },
+{ question: 'Qu’est-ce que l’égalité d’accès aux soins ?', answer: 'Principe selon lequel toute personne doit pouvoir accéder aux soins nécessaires, sans discrimination.', },
+{ question: 'Quel est le rôle du médiateur de la République en santé ?', answer: 'Aider à résoudre les litiges avec les administrations et les services publics (dont établissements de santé).', },
+{ question: 'Qu’est-ce que la responsabilité des établissements de santé ?', answer: 'Responsabilité du fait du service ; l’établissement répond des dommages causés par ses agents ou son fonctionnement.', },
+{ question: 'Qu’est-ce que la faute médicale en droit ?', answer: 'Manquement du professionnel à son obligation de moyens ou d’information ; peut engager sa responsabilité.', },
+{ question: 'Qu’est-ce que l’aléa thérapeutique indemnisable ?', answer: 'Risque anormal qui se réalise sans faute ; indemnisation par l’ONIAM au titre de la solidarité nationale.', },
+{ question: 'Quel est le rôle du CEES dans les établissements ?', answer: 'Comité d’éthique et d’évaluation des pratiques ; réflexion et recommandations en matière d’éthique.', },
+{ question: 'Qu’est-ce que la formation continue en déontologie ?', answer: 'Obligation pour les professionnels de santé de se former tout au long de la vie, y compris en éthique.', },
+{ question: 'Qu’est-ce que le secret partagé en équipe ?', answer: 'Partage d’informations entre professionnels impliqués dans la prise en charge, dans l’intérêt du patient.', },
+{ question: 'Quel est le droit du patient à être informé d’une erreur médicale ?', answer: 'Obligation de transparence ; le professionnel doit informer le patient en cas d’événement indésirable grave.', },
+{ question: 'Qu’est-ce que la traçabilité des actes en santé ?', answer: 'Enregistrement des actes et décisions dans le dossier pour garantir la sécurité et la continuité des soins.', },
+{ question: 'Qu’est-ce que la certification des établissements de santé ?', answer: 'Évaluation externe par la HAS pour garantir la qualité et la sécurité des soins.', },
+{ question: 'Quel est le rôle du CLUD ?', answer: 'Comité de lutte contre les infections nosocomiales et la résistance aux antibiotiques en établissement.', },
+{ question: 'Qu’est-ce que le signalement des événements indésirables ?', answer: 'Obligation de déclarer les EIG et EIS pour améliorer la sécurité des soins (culture du signalement).', },
+{ question: 'Qu’est-ce que la bientraitance en établissement ?', answer: 'Respect de la dignité, des droits et du bien-être des personnes accueillies ; politique institutionnelle.', },
+{ question: 'Qu’est-ce que la personne de confiance en recherche ?', answer: 'Personne désignée par le participant pour être consultée si celui-ci ne peut exprimer sa volonté.', },
+{ question: 'Quel est le droit à l’information du patient sur son pronostic ?', answer: 'Le médecin doit informer le patient de son état ; l’information peut être délivrée de façon progressive.', },
+{ question: 'Qu’est-ce que l’accompagnement en fin de vie ?', answer: 'Soins palliatifs, soutien psychologique et social du patient et de l’entourage jusqu’au décès.', },
+{ question: 'Quel est le rôle des associations de patients en droit de la santé ?', answer: 'Représentation des usagers, information, soutien, participation aux instances et au débat public.', },
+{ question: 'Qu’est-ce que la continuité des soins ?', answer: 'Organisation des soins pour assurer la coordination entre professionnels et la suite des traitements.', },
+{ question: 'Qu’est-ce que le refus de soins du médecin ?', answer: 'Un médecin peut refuser de soigner sauf urgence ou discrimination ; il doit orienter le patient.', },
+{ question: 'Quel est le cadre du don du sang en France ?', answer: 'Don volontaire, anonyme et gratuit ; critères d’éligibilité pour la sécurité des receveurs.', },
+{ question: 'Qu’est-ce que la greffe d’organes en droit ?', answer: 'Encadrée par les lois de bioéthique ; consentement présumé pour le prélèvement sur personne décédée.', },
+{ question: 'Qu’est-ce que l’anonymat du don de gamètes ?', answer: 'En France, le don de gamètes est anonyme ; l’enfant ne peut connaître l’identité du donneur.', },
+{ question: 'Quel est le statut des données génétiques en droit ?', answer: 'Données sensibles ; usage encadré (recherche, médecine) et interdiction des tests hors cadre défini.', },
+{ question: 'Qu’est-ce que la médecine légale ?', answer: 'Application des connaissances médicales au droit : expertise, autopsie, détermination des causes de décès.', },
+{ question: 'Quel est le rôle du médecin expert ?', answer: 'Éclairer le juge sur les questions médicales dans le cadre d’une procédure judiciaire.', },
+{ question: 'Qu’est-ce que l’atteinte à l’intégrité physique en droit pénal ?', answer: 'Infractions (violences, mutilations) punies selon la gravité des blessures et l’intention.', },
+{ question: 'Qu’est-ce que l’omission de porter secours ?', answer: 'Infraction pénale : ne pas porter assistance à une personne en péril quand on pouvait le faire sans risque.', },
+{ question: 'Quel est le secret professionnel du médecin face à la justice ?', answer: 'En principe le médecin peut refuser de témoigner ; des dérogations existent (enfance en danger, etc.).', },
+{ question: 'Qu’est-ce que la réparation intégrale du préjudice ?', answer: 'Principe selon lequel la victime doit être indemnisée de tout son préjudice, sans perte ni profit.', },
+{ question: 'Qu’est-ce que le préjudice d’agrément ?', answer: 'Préjudice lié à l’impossibilité de pratiquer une activité de loisir ou sportive.', },
+{ question: 'Qu’est-ce que le préjudice économique en responsabilité médicale ?', answer: 'Perte de revenus, frais supplémentaires, coût des aides et aménagements.', },
+{ question: 'Qu’est-ce que le préjudice moral ?', answer: 'Souffrance psychologique, atteinte à la dignité, préjudice des proches (affection).', }
+];
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Reglementation_Ethique_Recherche_fc1";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

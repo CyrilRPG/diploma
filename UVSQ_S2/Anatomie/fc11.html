@@ -1,0 +1,565 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Membres inférieurs</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anatomie</h1><h2>Membres inférieurs</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle articulation est l’articulation proximale du membre inférieur', answer: 'L’articulation de la hanche' },
+  { question: 'Combien de degrés de liberté possède l’articulation de la hanche', answer: 'Trois degrés de liberté' },
+  { question: 'Quels os unit l’articulation de la hanche', answer: 'L’os coxal et le fémur' },
+  { question: 'Quelle est la fonction principale de l’articulation de la hanche', answer: 'Transmettre le poids du corps aux membres inférieurs' },
+  { question: 'Quelles structures comprend l’articulation de la hanche en plus de l’articulation coxo-fémorale', answer: 'Des nerfs, des muscles et des vaisseaux' },
+  { question: 'Combien y a-t-il d’os coxaux', answer: 'Deux os coxaux' },
+  { question: 'Par quoi sont séparés les os coxaux en arrière', answer: 'Par le sacrum' },
+  { question: 'Par quoi les os coxaux sont-ils reliés en avant', answer: 'Par la symphyse pubienne' },
+  { question: 'Quelles sont les deux faces de l’os coxal', answer: 'La face endopelvienne et la face exopelvienne' },
+  { question: 'De combien d’ébauches embryonnaires provient l’os coxal', answer: 'De trois ébauches embryonnaires' },
+  { question: 'Quels sont les trois os primitifs formant l’os coxal', answer: 'L’ilion, le pubis et l’ischion' },
+  { question: 'Quelle cavité se situe au niveau de la fusion des trois os primitifs', answer: 'La cavité glénoïde acétabulaire' },
+  { question: 'Où se trouve l’acétabulum', answer: 'Sur la face latérale de l’os coxal' },
+  { question: 'Quelle est la forme de la surface semi-lunaire de l’acétabulum', answer: 'En fer à cheval' },
+  { question: 'Que contient la fosse acétabulaire', answer: 'Un coussinet adipeux' },
+  { question: 'Quel ligament maintient la tête du fémur dans la fosse acétabulaire', answer: 'Le ligament de la tête fémorale' },
+  { question: 'Quel ligament s’étend de l’épine iliaque antérosupérieure à l’épine du pubis', answer: 'Le ligament inguinal' },
+  { question: 'Quel ligament ferme la surface semi-lunaire', answer: 'Le ligament transverse' },
+  { question: 'Comment est qualifié le fémur', answer: 'Comme un os long de la cuisse' },
+  { question: 'Quelle est la partie supérieure du fémur', answer: 'L’épiphyse proximale' },
+  { question: 'Quelle est la partie inférieure du fémur', answer: 'L’épiphyse distale' },
+  { question: 'Où se trouve la tête fémorale', answer: 'Sur l’épiphyse proximale du fémur' },
+  { question: 'Quelle est la particularité de la tête fémorale', answer: 'Elle est recouverte de cartilage et porte une fossette pour le ligament rond' },
+  { question: 'Quelle est la forme de la tête fémorale', answer: 'Les deux tiers d’une sphère' },
+  { question: 'Quel est l’angle entre l’axe de la diaphyse et l’axe du col du fémur', answer: 'Cent trente degrés' },
+  { question: 'Quelles sont les deux saillies osseuses principales du fémur proximal', answer: 'Le grand et le petit trochanter' },
+  { question: 'Quelle partie du fémur s’articule avec le tibia', answer: 'La trochlée et les condyles de l’épiphyse distale' },
+  { question: 'Quelles sont les deux catégories de moyens d’union de l’articulation de la hanche', answer: 'Actifs et passifs' },
+  { question: 'Qu’est-ce qui double la capsule articulaire', answer: 'La synoviale' },
+  { question: 'Quels sont les cinq ligaments passifs de l’articulation de la hanche', answer: 'Ilio-fémoral, pubo-fémoral, ischio-fémoral, annulaire, de la tête fémorale' },
+  { question: 'Quels moyens d’union actifs stabilisent l’articulation de la hanche', answer: 'Les muscles péri-articulaires' },
+  { question: 'Quelle structure de l’épiphyse distale du fémur est recouverte de cartilage', answer: 'La trochlée' },
+  { question: 'Quels sont les condyles du fémur', answer: 'Le condyle médial et le condyle latéral' },
+  { question: 'Quel os de la jambe participe à l’articulation du genou', answer: 'Le tibia' },
+  { question: 'Quelle partie du tibia est en contact avec le fémur', answer: 'Le plateau tibial' },
+  { question: 'Quelle est la zone d’insertion du muscle quadriceps sur le tibia', answer: 'La tubérosité tibiale antérieure' },
+  { question: 'Quelle est la particularité de l’épiphyse proximale de la fibula', answer: 'Elle n’intervient pas dans l’articulation du genou' },
+  { question: 'Que porte l’épiphyse distale de la fibula', answer: 'La malléole latérale' },
+  { question: 'Quels sont les os du tarse', answer: 'Calcanéus, talus, naviculaire, trois cunéiformes, cuboïde' },
+  { question: 'Combien y a-t-il de métatarsiens', answer: 'Cinq métatarsiens' },
+  { question: 'Combien de phalanges possède le gros orteil', answer: 'Deux phalanges' },
+  { question: 'Combien de phalanges possèdent les autres orteils', answer: 'Trois phalanges' },
+  { question: 'Quels types d’articulations réunit l’articulation du genou', answer: 'Deux articulations de type synovial' },
+  { question: 'Quelle est l’amplitude de la flexion du genou', answer: 'Cent quarante à cent cinquante degrés' },
+  { question: 'Quelle est l’amplitude de l’extension du genou', answer: 'Quasi nulle' },
+  { question: 'Quelle est l’amplitude des rotations du genou en flexion', answer: 'Trente degrés' },
+  { question: 'Quelle est l’articulation principale du genou', answer: 'L’articulation fémoro-tibiale' },
+  { question: 'Quel os est situé en avant du fémur dans l’articulation du genou', answer: 'La patella' },
+  { question: 'Quels sont les deux ménisques du genou', answer: 'Le ménisque médial et le ménisque latéral' },
+  { question: 'Quelle est la forme du ménisque médial', answer: 'En forme de C' },
+  { question: 'Quelle est la forme du ménisque latéral', answer: 'En forme de O' },
+  { question: 'Quels sont les cinq moyens d’union passifs du genou', answer: 'Capsule articulaire, synoviale, ligament patellaire, ligament collatéral fibulaire, ligament collatéral tibial' },
+  { question: 'Quels sont les moyens d’union actifs du genou', answer: 'Les muscles et tendons' },
+  { question: 'Quels sont les deux ligaments croisés du genou', answer: 'Le ligament croisé antéro-latéral et le ligament croisé postéro-médial' },
+  { question: 'D’où part le ligament croisé antéro-latéral', answer: 'De l’avant du plateau tibial' },
+  { question: 'Où se termine le ligament croisé antéro-latéral', answer: 'Sur la face interne du condyle latéral' },
+  { question: 'Où se termine le ligament croisé postéro-médial', answer: 'En arrière du plateau tibial' },
+  { question: 'Quelle artère assure la vascularisation du membre inférieur', answer: 'L’artère iliaque externe' },
+  { question: 'Quelle est l’origine de l’artère iliaque externe', answer: 'C’est une branche de l’artère iliaque commune issue de la division de l’aorte abdominale' },
+  { question: 'À quelle hauteur se divise l’aorte abdominale en artères iliaques communes', answer: 'À hauteur de L4/L5' },
+  { question: 'En passant sous quel ligament l’artère iliaque externe devient-elle fémorale', answer: 'Sous le ligament inguinal' },
+  { question: 'Quelle artère donne des collatérales et devient ensuite poplitée', answer: 'L’artère fémorale' },
+  { question: 'Où l’artère fémorale devient-elle poplitée', answer: 'À l’arrière de l’articulation du genou' },
+  { question: 'Quelles artères sont issues de l’artère poplitée', answer: 'Les artères tibiales antérieure et postérieure et l’artère fibulaire' },
+  { question: 'Que forment les artères tibiales et fibulaire au niveau du pied', answer: 'Les arcades plantaires' },
+  { question: 'Quel est l’autre nom du trigone fémoral', answer: 'Le trigone de Scarpa' },
+  { question: 'Par quoi est limité le trigone fémoral en haut', answer: 'Par le ligament inguinal' },
+  { question: 'Par quoi est limité le trigone fémoral en dehors', answer: 'Par le muscle sartorius' },
+  { question: 'Par quoi est limité le trigone fémoral en dedans et en bas', answer: 'Par le muscle long adducteur' },
+  { question: 'Que peut-on palper dans le trigone fémoral', answer: 'Le pouls de l’artère fémorale' },
+  { question: 'Dans quel ordre se trouvent les structures du trigone fémoral de dehors en dedans', answer: 'Veine, artère, nerf' },
+  { question: 'Par quel système tout le sang veineux du membre inférieur est-il drainé', answer: 'Le système cave' },
+  { question: 'Où se situe la fosse poplitée', answer: 'À la face postérieure du genou' },
+  { question: 'Quelle artère devient l’artère poplitée dans la fosse poplitée', answer: 'L’artère fémorale' },
+  { question: 'Quelle erreur est fréquente à propos de l’artère poplitée', answer: 'Parler d’artère fémorale au niveau de la fosse poplitée' },
+  { question: 'Quels nerfs sont présents dans la fosse poplitée', answer: 'Le nerf tibial et le nerf fibulaire commun' },
+  { question: 'Quelles veines sont présentes dans la fosse poplitée', answer: 'La veine poplitée et la petite saphène' },
+  { question: 'Quelles racines constituent le plexus lombaire', answer: 'Les racines L1 à L4' },
+  { question: 'Quelles racines forment le nerf fémoral', answer: 'L2, L3 et L4' },
+  { question: 'Quelles racines forment le nerf obturateur', answer: 'L2, L3 et L4' },
+  { question: 'Quelle est la conséquence d’une paralysie du nerf fémoral', answer: 'Incapacité à fléchir la cuisse et à tendre la jambe, abolition du réflexe patellaire' },
+  { question: 'Quels muscles sont innervés par le nerf fémoral', answer: 'Le quadriceps et le sartorius' },
+  { question: 'Quelles racines constituent le plexus sacré', answer: 'Les racines L4, L5, S1, S2 et S3' },
+  { question: 'Quelles racines constituent le nerf sciatique', answer: 'De L4 à S3' },
+  { question: 'Quelle région est innervée par le nerf sciatique', answer: 'La région glutéale et postérieure de la cuisse' },
+  { question: 'Quelle est la particularité du nerf sciatique', answer: 'C’est le plus long et le plus volumineux nerf du corps humain' },
+  { question: 'En quelles branches se divise le nerf sciatique', answer: 'En nerf tibial et nerf fibulaire commun' },
+  { question: 'Où se divise le nerf sciatique', answer: 'En regard de la fosse poplitée' },
+  { question: 'Quelle est la conséquence d’une paralysie du nerf sciatique', answer: 'Incapacité de fléchir la jambe, impossibilité de se mettre sur la pointe des pieds, abolition du réflexe achilléen' },
+  { question: 'Quel réflexe est aboli en cas de paralysie du nerf fémoral', answer: 'Le réflexe patellaire' },
+  { question: 'Quel réflexe est aboli en cas de paralysie du nerf sciatique', answer: 'Le réflexe achilléen' },
+  { question: 'Quelle est la principale artère du membre inférieur après le ligament inguinal', answer: 'L’artère fémorale' },
+  { question: 'Quelles sont les artères terminales de l’artère poplitée', answer: 'Les artères tibiales antérieure et postérieure et l’artère fibulaire' },
+  { question: 'Quelle artère assure la vascularisation de la jambe en avant', answer: 'L’artère tibiale antérieure' },
+  { question: 'Quelle artère assure la vascularisation de la jambe en arrière', answer: 'L’artère tibiale postérieure' },
+  { question: 'Quelle artère chemine plus latéralement dans la jambe', answer: 'L’artère fibulaire' },
+  { question: 'Quels sont les deux principaux plexus nerveux du membre inférieur', answer: 'Le plexus lombaire et le plexus sacré' },
+  { question: 'Quelle est la fonction du nerf tibial issu du sciatique', answer: 'Innerver la face postérieure de la jambe' },
+  { question: 'Quelle est la fonction du nerf fibulaire commun issu du sciatique', answer: 'Innerver la région latérale de la jambe' },
+  { question: 'Quelle est la conséquence clinique d’une atteinte du plexus lombaire', answer: 'Déficit moteur et sensitif des territoires du nerf fémoral et obturateur' },
+  { question: 'Quelle est la conséquence clinique d’une atteinte du plexus sacré', answer: 'Déficit moteur et sensitif des territoires du nerf sciatique' },
+  { question: 'Quel est le rôle principal de l’articulation de la hanche dans la locomotion', answer: 'Transmettre le poids et permettre des mouvements en trois plans' },
+  { question: 'Quelle est la caractéristique de stabilité de l’articulation de la hanche', answer: 'C’est une articulation très stable grâce à sa congruence osseuse et ses ligaments' },
+  { question: 'Quelle est la conséquence clinique d’une fracture du col du fémur', answer: 'Rupture fréquente entraînant une perte de mobilité de la hanche' },
+  { question: 'Où s’insère le ligament rond de la tête fémorale', answer: 'Dans la fossette de la tête fémorale et la fosse acétabulaire' },
+  { question: 'Quel est le rôle principal du ligament rond', answer: 'Stabiliser la tête fémorale dans l’acétabulum' },
+  { question: 'Quelle est la particularité du ligament inguinal sur le plan anatomique', answer: 'Il délimite un passage pour les vaisseaux et nerfs entre abdomen et cuisse' },
+  { question: 'Quels sont les trois principaux ligaments extracapsulaires de la hanche', answer: 'Le ligament ilio-fémoral, le pubo-fémoral et l’ischio-fémoral' },
+  { question: 'Quel ligament entoure le col du fémur', answer: 'Le ligament annulaire' },
+  { question: 'Quel est le rôle fonctionnel des muscles péri-articulaires de la hanche', answer: 'Maintenir l’articulation et participer aux mouvements' },
+  { question: 'Quel mouvement est limité par le ligament ilio-fémoral', answer: 'L’extension excessive de la hanche' },
+  { question: 'Quel mouvement est limité par le ligament pubo-fémoral', answer: 'L’abduction excessive' },
+  { question: 'Quel mouvement est limité par le ligament ischio-fémoral', answer: 'La rotation interne excessive' },
+  { question: 'Quelle est la conséquence d’une luxation de la hanche', answer: 'Perte de congruence et risque d’atteinte vasculaire ou nerveuse' },
+  { question: 'Quelle structure du genou est appelée rotule', answer: 'La patella' },
+  { question: 'Quel est le rôle fonctionnel de la patella', answer: 'Augmenter l’efficacité du quadriceps en augmentant le bras de levier' },
+  { question: 'Quels sont les deux ménisques du genou et leur rôle', answer: 'Le ménisque médial et le ménisque latéral assurant la congruence articulaire' },
+  { question: 'Pourquoi le ménisque médial est-il plus vulnérable aux lésions', answer: 'Car il est plus fixé et moins mobile que le ménisque latéral' },
+  { question: 'Quelle est la conséquence d’une rupture du ligament croisé antérieur', answer: 'Instabilité antérieure du genou' },
+  { question: 'Quelle est la conséquence d’une rupture du ligament croisé postérieur', answer: 'Instabilité postérieure du genou' },
+  { question: 'Quel est le rôle des ligaments croisés', answer: 'Stabiliser le genou dans les mouvements de translation' },
+  { question: 'Quel est le rôle du ligament patellaire', answer: 'Relier la patella à la tubérosité tibiale antérieure' },
+  { question: 'Quelle est la conséquence d’une lésion du ligament collatéral tibial', answer: 'Instabilité médiale du genou' },
+  { question: 'Quelle est la conséquence d’une lésion du ligament collatéral fibulaire', answer: 'Instabilité latérale du genou' },
+  { question: 'Quel est le mouvement principal permis par l’articulation fémoro-tibiale', answer: 'La flexion-extension' },
+  { question: 'Dans quelle position le genou permet-il des rotations', answer: 'En semi-flexion' },
+  { question: 'Quel muscle s’insère sur la tubérosité tibiale antérieure', answer: 'Le quadriceps' },
+  { question: 'Quelle est la conséquence clinique d’une atteinte du quadriceps', answer: 'Impossibilité d’étendre la jambe' },
+  { question: 'Quelle artère est palpable dans le trigone fémoral', answer: 'L’artère fémorale' },
+  { question: 'Quelle artère se palpe derrière le genou', answer: 'L’artère poplitée' },
+  { question: 'Quelle artère se palpe à la cheville en dedans', answer: 'L’artère tibiale postérieure' },
+  { question: 'Quelle artère se palpe sur le dos du pied', answer: 'L’artère tibiale antérieure (pédieuse)' },
+  { question: 'Où se drainent les veines du membre inférieur', answer: 'Dans la veine cave inférieure' },
+  { question: 'Quelle veine superficielle chemine sur la face médiale de la jambe', answer: 'La grande veine saphène' },
+  { question: 'Quelle veine superficielle chemine sur la face postérieure de la jambe', answer: 'La petite veine saphène' },
+  { question: 'Quelle est la racine nerveuse principale testée par le réflexe patellaire', answer: 'La racine L4' },
+  { question: 'Quelle est la racine nerveuse principale testée par le réflexe achilléen', answer: 'La racine S1' },
+  { question: 'Quel est le territoire sensitif principal du nerf fémoral', answer: 'La face antérieure de la cuisse et la face médiale de la jambe' },
+  { question: 'Quel est le territoire sensitif principal du nerf obturateur', answer: 'La face médiale de la cuisse' },
+  { question: 'Quel est le territoire sensitif du nerf sciatique', answer: 'La face postérieure de la cuisse et toute la jambe via ses branches' },
+  { question: 'Quelle est la fonction principale du nerf fémoral', answer: 'Flexion de la cuisse et extension de la jambe' },
+  { question: 'Quelle est la fonction principale du nerf obturateur', answer: 'Adduction de la cuisse' },
+  { question: 'Quelle est la fonction principale du nerf tibial', answer: 'Flexion plantaire et flexion des orteils' },
+  { question: 'Quelle est la fonction principale du nerf fibulaire commun', answer: 'Flexion dorsale et extension des orteils' },
+  { question: 'Quelle est la conséquence d’une atteinte du nerf fibulaire commun', answer: 'Un steppage (chute du pied)' },
+  { question: 'Quel est le plus gros tronc nerveux du membre inférieur', answer: 'Le nerf sciatique' },
+  { question: 'Quelle est la racine commune du plexus lombaire et du plexus sacré', answer: 'La racine L4' },
+  { question: 'Quels muscles principaux sont innervés par le nerf tibial', answer: 'Les muscles postérieurs de la jambe et la plante du pied' },
+  { question: 'Quels muscles principaux sont innervés par le nerf fibulaire commun', answer: 'Les muscles antérieurs et latéraux de la jambe' },
+  { question: 'Quelle est la conséquence d’une fracture de la diaphyse fémorale', answer: 'Risque hémorragique majeur et impotence fonctionnelle' },
+  { question: 'Quelle complication peut survenir après une fracture du col fémoral chez la personne âgée', answer: 'Une nécrose de la tête fémorale' },
+  { question: 'Quelle est la conséquence d’une luxation postérieure de la hanche', answer: 'Risque de lésion du nerf sciatique' },
+  { question: 'Quelle est la conséquence d’une luxation antérieure de la hanche', answer: 'Risque de lésion vasculaire' },
+  { question: 'Quel est le ligament le plus puissant de la hanche', answer: 'Le ligament ilio-fémoral' },
+  { question: 'Quel est le mouvement principal limité par le ligament ilio-fémoral', answer: 'L’hyperextension' },
+  { question: 'Quelles sont les amplitudes principales de la hanche', answer: 'Flexion, extension, abduction, adduction, rotations interne et externe' },
+  { question: 'Quelle est l’amplitude approximative de la flexion de la hanche', answer: 'Cent vingt degrés' },
+  { question: 'Quelle est l’amplitude approximative de l’extension de la hanche', answer: 'Vingt degrés' },
+  { question: 'Quelle est l’amplitude approximative de l’abduction de la hanche', answer: 'Quarante-cinq degrés' },
+  { question: 'Quelle est l’amplitude approximative de l’adduction de la hanche', answer: 'Trente degrés' },
+  { question: 'Quelle est l’amplitude approximative de la rotation interne de la hanche', answer: 'Trente-cinq degrés' },
+  { question: 'Quelle est l’amplitude approximative de la rotation externe de la hanche', answer: 'Quarante-cinq degrés' },
+  { question: 'Quel est le rôle principal des muscles glutéaux moyens et petits', answer: 'L’abduction et la stabilisation du bassin en appui monopodal' },
+  { question: 'Quelle démarche est observée en cas de paralysie des moyens fessiers', answer: 'La démarche de Trendelenburg' },
+  { question: 'Quelle structure osseuse forme la saillie palpable de la hanche', answer: 'Le grand trochanter' },
+  { question: 'Quel muscle s’insère sur le petit trochanter', answer: 'Le muscle ilio-psoas' },
+  { question: 'Quel est le rôle principal du muscle quadriceps', answer: 'L’extension de la jambe' },
+  { question: 'Quel est le rôle principal du muscle ischio-jambier', answer: 'La flexion de la jambe' },
+  { question: 'Quels muscles sont regroupés sous le nom d’ischio-jambiers', answer: 'Le biceps fémoral, le semi-tendineux et le semi-membraneux' },
+  { question: 'Quel muscle est appelé couturier', answer: 'Le muscle sartorius' },
+  { question: 'Quelle est la fonction principale du muscle sartorius', answer: 'Fléchir, abduire et faire une rotation latérale de la cuisse' },
+  { question: 'Quelle est la principale complication des ruptures méniscales', answer: 'L’arthrose secondaire' },
+  { question: 'Quelle est la triade lésionnelle classique du genou traumatique', answer: 'Lésion du ligament croisé antérieur, du ménisque médial et du ligament collatéral tibial' },
+  { question: 'Quelle est la conséquence d’une entorse grave du genou', answer: 'Instabilité articulaire' },
+  { question: 'Quel test clinique évalue l’intégrité du ligament croisé antérieur', answer: 'Le test de Lachman ou le tiroir antérieur' },
+  { question: 'Quel test clinique évalue l’intégrité du ligament croisé postérieur', answer: 'Le tiroir postérieur' },
+  { question: 'Quelle artère vascularise principalement la tête fémorale chez l’adulte', answer: 'L’artère circonflexe postérieure' },
+  { question: 'Quelle artère est en danger lors d’une fracture du col du fémur', answer: 'L’artère circonflexe postérieure' },
+  { question: 'Quelle est la complication d’une atteinte de l’artère circonflexe postérieure', answer: 'La nécrose aseptique de la tête fémorale' },
+  { question: 'Quels sont les deux grands réseaux veineux du membre inférieur', answer: 'Le réseau superficiel et le réseau profond' },
+  { question: 'Quelle pathologie est liée à l’insuffisance veineuse superficielle', answer: 'Les varices' },
+  { question: 'Quelle pathologie est liée à la stase veineuse profonde', answer: 'La thrombose veineuse profonde' },
+  { question: 'Quelle est la complication majeure d’une thrombose veineuse profonde', answer: 'L’embolie pulmonaire' },
+  { question: 'Quel signe clinique témoigne d’une ischémie aiguë du membre inférieur', answer: 'Douleur, pâleur, froideur et abolition du pouls' },
+  { question: 'Quelle racine médullaire est explorée par le réflexe achilléen', answer: 'La racine S1' },
+  { question: 'Quelle racine médullaire est explorée par le réflexe rotulien', answer: 'La racine L4' },
+  { question: 'Quelle est la conséquence d’une atteinte du nerf obturateur', answer: 'Difficulté à adducter la cuisse' },
+  { question: 'Quelle est la conséquence d’une atteinte du nerf fémoral', answer: 'Difficulté à étendre la jambe et abolition du réflexe patellaire' },
+  { question: 'Quelle est la conséquence d’une atteinte du nerf tibial', answer: 'Difficulté à fléchir la cheville et les orteils' },
+  { question: 'Quelle est la conséquence d’une atteinte du nerf fibulaire commun', answer: 'Chute du pied (steppage)' },
+  { question: 'Quelle est la conséquence d’une section complète du nerf sciatique', answer: 'Paralysie de la jambe et du pied avec perte de sensibilité' },
+  { question: 'Quel est le territoire sensitif du nerf saphène', answer: 'La face médiale de la jambe et du pied' },
+  { question: 'Quel est le territoire sensitif du nerf sural', answer: 'La face postéro-latérale de la jambe et du pied' },
+  { question: 'Quel est le territoire sensitif du nerf cutané latéral de la cuisse', answer: 'La face latérale de la cuisse' },
+  { question: 'Quelle pathologie résulte d’une compression du nerf cutané latéral de la cuisse', answer: 'La méralgie paresthésique' },
+  { question: 'Quelle artère donne la vascularisation terminale du pied', answer: 'Les artères plantaires issues des tibiales et fibulaire' },
+  { question: 'Quels sont les principaux arcs vasculaires du pied', answer: 'Les arcades plantaires profondes et superficielles' },
+  { question: 'Quelle structure permet de tester la perfusion distale du membre inférieur', answer: 'Le pouls pédieux' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

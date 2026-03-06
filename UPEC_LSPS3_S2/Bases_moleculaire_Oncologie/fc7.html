@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Bases moléculaires en oncologie</h1><h2>Bases de thérapeutique du cancer</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Définition de la carcinogenèse.', answer: 'Processus de transformation d’une cellule normale en cellule tumorale sous l’influence de facteurs oncogéniques extrinsèques ou intrinsèques.', },
+{ question: 'Citez les trois caractéristiques majeures d’une cellule ayant subi une transformation phénotypique tumorale.', answer: 'Une prolifération illimitée (immortalité réplicative), une capacité d’échappement au système immunitaire et le développement d’une néoangiogenèse.', },
+{ question: 'Quel est le rôle de la néoangiogenèse pour la tumeur ?', answer: 'Assurer l’apport en nutriments et l’oxygénation nécessaires à la croissance tumorale.', },
+{ question: 'Pourquoi les traitements contre le cancer sont-ils difficiles à long terme concernant les clones tumoraux ?', answer: 'Parce que les clones tumoraux qui émergent sont hétérogènes, ce qui explique la variabilité des cancers.', },
+{ question: 'Comment les cellules cancéreuses facilitent-elles leur progression via le stroma ?', answer: 'Elles interagissent avec leur microenvironnement stromal et le rééduquent pour favoriser leur progression.', },
+{ question: 'Décrivez les trois stades progressifs de l’évolution d’un cancer.', answer: 'Le stade local (confiné à l’organe), le stade locorégional (envahissement par contiguïté et ganglions de proximité) et le stade métastatique (dissémination à distance).', },
+{ question: 'Que signifie l’acronyme de la classification TNM ?', answer: 'T pour Tumor (taille et extension), N pour Node (atteinte ganglionnaire) et M pour Metastasis (présence de métastases).', },
+{ question: 'À quoi correspondent les stades T1 à T4 dans la classification TNM ?', answer: 'À une augmentation de la taille de la tumeur primitive et de l’envahissement de l’organe atteint.', },
+{ question: 'À quoi correspondent respectivement les stades N0, N1 et N2 ?', answer: 'N0 : absence d’atteinte ganglionnaire ; N1 : ganglions régionaux atteints ; N2 : atteinte ganglionnaire plus étendue.', },
+{ question: 'Quelle est la signification des stades M0 et M1 ?', answer: 'M0 indique l’absence de métastases et M1 indique la présence de métastases à distance.', },
+{ question: 'Comment sont regroupés les cancers selon les quatre stades cliniques basés sur le TNM ?', answer: 'Stades 1 et 2 : maladie localisée ; Stade 3 : maladie locorégionale avancée ; Stade 4 : maladie métastatique.', },
+{ question: 'Définition de la phase curative en oncologie.', answer: 'Phase de prise en charge des stades précoces localisés visant la rémission complète et l’éradication totale des cellules cancéreuses.', },
+{ question: 'Définition de la phase palliative.', answer: 'Phase où l’objectif n’est plus de guérir mais de contrôler la maladie, ralentir la progression tumorale et maintenir une qualité de vie acceptable.', },
+{ question: 'Quel est l’objectif exclusif de la phase terminale ?', answer: 'L’amélioration de la qualité de vie et le soulagement des symptômes (douleur), sans chercher à prolonger la survie.', },
+{ question: 'Qu’est-ce qu’une RCP et quel est son rôle ?', answer: 'La Réunion de Concertation Pluridisciplinaire est une instance où les décisions thérapeutiques sont prises de manière collégiale et multidisciplinaire pour chaque patient.', },
+{ question: 'Quels sont les deux principaux types de traitements localisés ?', answer: 'La chirurgie et la radiothérapie.', },
+{ question: 'Quels sont les quatre types de traitements systémiques cités ?', answer: 'La chimiothérapie, les thérapies ciblées, l’immunothérapie et la radiothérapie métabolique.', },
+{ question: 'Quelle échelle est utilisée pour évaluer l’autonomie fonctionnelle d’un patient avant traitement ?', answer: 'L’échelle Performance Status (PS) de l’Organisation Mondiale de la Santé (OMS).', },
+{ question: 'Décrivez le score OMS 0.', answer: 'Activité normale, aucune restriction.', },
+{ question: 'Décrivez le score OMS 2.', answer: 'Patient ambulant et autonome, incapable de travailler, mais alité moins de 50 % du temps.', },
+{ question: 'Décrivez le score OMS 4.', answer: 'Patient grabataire, totalement confiné au lit ou à une chaise, dépendant pour tous les soins.', },
+{ question: 'Quels scores OMS autorisent l’administration de traitements anticancéreux actifs ?', answer: 'Les scores compris entre 0 et 2.', },
+{ question: 'Quel est l’objectif de la chirurgie en phase curative ?', answer: 'L’exérèse complète de la tumeur pour atteindre une rémission complète.', },
+{ question: 'Pourquoi une tumeur solide inopérable est-elle le plus souvent incurable ?', answer: 'Parce que la chirurgie ne peut être réalisée sans laisser de résidus tumoraux significatifs.', },
+{ question: 'Citez trois complications post-opératoires générales de la chirurgie oncologique.', answer: 'Infections, hémorragies et troubles de la cicatrisation (désunion).', },
+{ question: 'Qu’est-ce que la cœlioscopie et quel est son avantage ?', answer: 'Une voie d’abord mini-invasive par petites incisions et contrôle vidéo qui réduit la douleur et accélère la récupération.', },
+{ question: 'Définition de la technique du ganglion sentinelle.', answer: 'Utilisation d’un traceur pour repérer le premier ganglion de drainage lymphatique ; s’il est sain, on évite le curage ganglionnaire complet.', },
+{ question: 'Quelle est la différence entre une lobectomie et une pneumonectomie ?', answer: 'La lobectomie est l’ablation d’un seul lobe pulmonaire, tandis que la pneumonectomie est l’ablation totale du poumon atteint.', },
+{ question: 'Quelle est la différence entre une mastectomie totale et une tumorectomie ?', answer: 'La mastectomie est l’ablation complète du sein, tandis que la tumorectomie est l’ablation partielle de la tumeur (chirurgie conservatrice).', },
+{ question: 'Définition de la radiothérapie.', answer: 'Méthode thérapeutique utilisant des rayonnements ionisants (photons, électrons, protons, etc.) pour traiter les cancers.', },
+{ question: 'Quel est le mécanisme d’action de la radiothérapie sur les cellules tumorales ?', answer: 'Elle endommage l’ADN des cellules, ce qui empêche leur division et provoque leur mort.', },
+{ question: 'Quelle est la différence entre la radiothérapie externe et la curiethérapie ?', answer: 'En radiothérapie externe, les rayons sont émis par un accélérateur de particules ; en curiethérapie, la source radioactive est implantée au contact ou dans la tumeur.', },
+{ question: 'Qu’est-ce que la radiothérapie métabolique ?', answer: 'L’injection d’un médicament radioactif (radiopharmaceutique) qui se fixe spécifiquement sur les cellules cancéreuses pour les irradier.', },
+{ question: 'Définition du contourage en radiothérapie.', answer: 'Action du radiothérapeute consistant à délimiter numériquement la zone cible (tumeur) et les organes à risque sur les images du scanner.', },
+{ question: 'Quel est le rôle du physicien médical dans le processus de radiothérapie ?', answer: 'Il réalise la dosimétrie, c’est-à-dire l’étude et le calcul physique de la distribution des faisceaux pour maximiser la dose sur la tumeur.', },
+{ question: 'Qu’est-ce qu’une contention personnalisée en radiothérapie ?', answer: 'Un dispositif (masque thermoformé, moulage) utilisé pour immobiliser précisément le patient et garantir la reproductibilité du ciblage.', },
+{ question: 'Qu’est-ce que la radiothérapie conformationnelle 3D ?', answer: 'Une technique où les faisceaux sont ajustés pour suivre précisément la forme de la tumeur grâce à l’imagerie 3D.', },
+{ question: 'Citez un exemple de curiethérapie interstitielle.', answer: 'La mise en place de grains d’Iode 125 dans la prostate pour le traitement du cancer prostatique.', },
+{ question: 'Donnez un exemple d’isotope utilisé en radiothérapie métabolique pour le cancer de la thyroïde.', answer: 'L’iode radioactif I-131.', },
+{ question: 'Quelle est la différence temporelle entre une toxicité aiguë et une toxicité chronique en radiothérapie ?', answer: 'La toxicité aiguë survient dans les 6 premiers mois, la chronicité après 6 mois.', },
+{ question: 'Citez deux exemples de toxicités chroniques irréversibles de la radiothérapie.', answer: 'La fibrose tissulaire (rigidité des organes) et la nécrose des tissus irradiés.', },
+{ question: 'Qu’est-ce qu’une mucite ?', answer: 'Une inflammation douloureuse des muqueuses, particulièrement fréquente dans les cancers ORL ou après chimiothérapie.', },
+{ question: 'Quel est le principe fondamental de la chimiothérapie ?', answer: 'Inhiber la division cellulaire en bloquant la mitose, ciblant prioritairement les cellules à réplication rapide.', },
+{ question: 'Définition des antimétabolites.', answer: 'Analogues structuraux des bases de l’ADN/ARN qui s’y incorporent pour bloquer la synthèse d’ADN et interrompre le cycle cellulaire.', },
+{ question: 'Comment agissent les inhibiteurs de la topoisomérase ?', answer: 'Ils inhibent les enzymes qui déroulent l’ADN, provoquant des cassures irréparables et bloquant la réplication.', },
+{ question: 'Quel est le mode d’action des agents alkylants ?', answer: 'Ils forment des liaisons covalentes avec l’ADN, perturbant sa structure et induisant l’apoptose.', },
+{ question: 'Comment agissent les poisons du fuseau ?', answer: 'Ils ciblent les microtubules pour empêcher la migration des chromosomes pendant la mitose.', },
+{ question: 'Qu’est-ce qu’une chambre implantable (PAC ou Port-à-cath) ?', answer: 'Un cathéter veineux central implanté sous la peau permettant des injections répétées sécurisées et la préservation des veines superficielles.', },
+{ question: 'Pourquoi le calcul de la dose de chimiothérapie est-il souvent basé sur la surface corporelle (m²) ?', answer: 'Pour personnaliser le protocole en fonction du poids et de la taille du patient.', },
+{ question: 'Définition de la chimiothérapie néoadjuvante.', answer: 'Traitement administré avant la chirurgie pour réduire la taille de la tumeur et faciliter son ablation.', },
+{ question: 'Définition de la chimiothérapie adjuvante.', answer: 'Traitement administré après la chirurgie pour éliminer les cellules tumorales résiduelles (maladie micro-métastatique).', },
+{ question: 'Qu’est-ce qu’une maladie micro-métastatique ?', answer: 'La présence de cellules tumorales circulant dans l’organisme sans être détectables par les examens d’imagerie classiques.', },
+{ question: 'Qu’est-ce que le NADIR en chimiothérapie ?', answer: 'Le point le plus bas de la numération des cellules sanguines après un cycle de traitement.', },
+{ question: 'Citez les trois composantes de la toxicité hématologique aiguë.', answer: 'L’anémie (baisse de l’hémoglobine), la neutropénie (baisse des neutrophiles) et la thrombopénie (baisse des plaquettes).', },
+{ question: 'Pourquoi la neutropénie fébrile est-elle considérée comme une urgence thérapeutique ?', answer: 'À cause du risque majeur d’infections sévères et de choc septique dû à la baisse des globules blancs.', },
+{ question: 'Qu’est-ce que le syndrome main-pied ?', answer: 'Une toxicité cutanée (souvent due au 5-FU) provoquant rougeurs, douleurs et desquamation des paumes et des plantes.', },
+{ question: 'Quelle molécule de chimiothérapie est spécifiquement associée à une toxicité cardiaque cumulative ?', answer: 'Les anthracyclines (ex: doxorubicine).', },
+{ question: 'Quelle molécule est responsable d’une toxicité pulmonaire (fibrose irréversible) ?', answer: 'La bléomycine.', },
+{ question: 'Qu’est-ce qu’un soin de support en oncologie ?', answer: 'Un traitement associé (antiémétiques, hydratation, facteurs de croissance) pour limiter les effets secondaires et améliorer la tolérance.', },
+{ question: 'Quel est le rôle du G-CSF (ex: filgrastim) ?', answer: 'Stimuler la production des neutrophiles pour réduire le risque d’infections liées à la chimiothérapie.', },
+{ question: 'Où est réalisée la préparation centralisée des chimiothérapies à l’hôpital ?', answer: 'À la Pharmacie à Usage Intérieur (PUI), sous hotte à flux laminaire.', },
+{ question: 'Quel est l’objectif principal des thérapies ciblées ?', answer: 'Cibler spécifiquement les cellules cancéreuses présentant une anomalie moléculaire précise, tout en épargnant les cellules saines.', },
+{ question: 'Quelle est la différence de site d’action entre un anticorps monoclonal et un inhibiteur de tyrosine kinase (ITK) ?', answer: 'L’anticorps monoclonal agit en extracellulaire (bloque les récepteurs), tandis que l’ITK agit en intracellulaire (bloque la transmission du signal).', },
+{ question: 'Citez un exemple d’anticorps monoclonal ciblant HER2.', answer: 'Le trastuzumab (Herceptin).', },
+{ question: 'Citez un exemple d’ITK utilisé pour la leucémie myéloïde chronique.', answer: 'L’imatinib (Glivec).', },
+{ question: 'Quelles enzymes sont ciblées par les inhibiteurs de la voie MAPK intracellulaire ?', answer: 'RAF, MEK et ERK.', },
+{ question: 'Quel est le principe de l’hormonothérapie ?', answer: 'Éliminer ou inhiber les hormones qui stimulent la croissance des cellules tumorales dans les cancers hormono-dépendants.', },
+{ question: 'Quels sont les deux types de cancers les plus concernés par l’hormonothérapie ?', answer: 'Le cancer du sein et le cancer de la prostate.', },
+{ question: 'Comment agissent les inhibiteurs de l’aromatase chez la femme ménopausée ?', answer: 'Ils empêchent la conversion des graisses en œstrogènes, réduisant ainsi le taux hormonal stimulant la tumeur.', },
+{ question: 'Donnez un exemple d’anti-œstrogène bloquant directement le récepteur.', answer: 'Le tamoxifène.', },
+{ question: 'Comment agissent les analogues de la GnRH dans le cancer de la prostate ?', answer: 'Ils bloquent la sécrétion de LH/FSH par l’hypophyse, induisant une castration chimique (arrêt de production de testostérone).', },
+{ question: 'Quel est l’objectif des inhibiteurs de points de contrôle immunitaire ?', answer: 'Lever les freins naturels (interactions PD1/PD-L1 ou CTLA-4) pour restaurer l’activation des lymphocytes T contre la tumeur.', },
+{ question: 'Qu’est-ce que PD-1 ?', answer: 'Un récepteur exprimé sur les lymphocytes T qui, lorsqu’il se lie à PD-L1, inhibe la réponse immunitaire.', },
+{ question: 'Quel est le rôle du récepteur CTLA-4 ?', answer: 'Il régule la réponse immunitaire en empêchant la costimulation initiale des lymphocytes T par les CPA dans les ganglions.', },
+{ question: 'Citez un exemple d’anticorps anti-CTLA-4.', answer: 'L’ipilimumab.', },
+{ question: 'Pourquoi certains cancers comme le mélanome répondent-ils mieux à l’immunothérapie ?', answer: 'Parce qu’ils sont très immunogènes et produisent de nombreux néoantigènes tumoraux.', },
+{ question: 'Définition de la thérapie par cellules CAR-T.', answer: 'Prélèvement de lymphocytes T du patient, modification génétique pour les reprogrammer contre la tumeur, puis réinjection au patient.', },
+{ question: 'Quel est l’effet secondaire majeur spécifique aux CAR-T cells ?', answer: 'Le syndrome de relargage des cytokines.', },
+{ question: 'Quelle est la particularité des toxicités de l’immunothérapie par rapport à la chimiothérapie ?', answer: 'Elles sont liées à une activation excessive du système immunitaire pouvant provoquer des maladies auto-immunes (colites, thyroïdites).', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Bases_moleculaire_Oncologie_fc7";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

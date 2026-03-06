@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Histoire du médicament</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>ICM</h1><h2>Histoire du médicament</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Quelle est la première période de l’histoire de la médecine ?', answer: 'La médecine des dieux.' },
+  { question: 'À quelle époque la médecine des dieux apparaît-elle ?', answer: 'Il y a plusieurs millénaires, dans l’Antiquité.' },
+  { question: 'Sur quoi reposait la médecine dans l’Antiquité ?', answer: 'Sur la croyance et la religion, très impliquées dans la maladie et la guérison.' },
+  { question: 'Quelle période correspond à la médecine clinique d’Hippocrate ?', answer: 'De 460 à 370 avant Jésus-Christ.' },
+  { question: 'Quelle période est appelée les six années glorieuses ?', answer: 'De 1859 à 1865.' },
+  { question: 'Quelles grandes découvertes scientifiques marquent les six années glorieuses ?', answer: 'Darwin et l’origine des espèces, Pasteur et la réfutation de la génération spontanée, Mendel et la génétique, Claude Bernard et la médecine expérimentale.' },
+  { question: 'Quelles découvertes empiriques apparaissent au XIXe siècle ?', answer: 'Les sulfamides, les antibiotiques et les hormones.' },
+  { question: 'Quelle est la démarche actuelle et future de la médecine ?', answer: 'Une démarche rationnelle fondée sur la révolution biologique et la médecine prédictive et personnalisée.' },
+  { question: 'Quels étaient les praticiens de la médecine des dieux ?', answer: 'Les prêtres, guérisseurs, magiciens, druides et sorciers.' },
+  { question: 'Quelles pratiques utilisaient les prêtres et guérisseurs ?', answer: 'Prières, exorcismes, incantations, rituels, magie et pratiques chamaniques.' },
+  { question: 'Quelles étaient les trois grandes origines des médicaments naturels ?', answer: 'Végétale, animale et minérale.' },
+  { question: 'Quels exemples illustrent les médicaments d’origine végétale ?', answer: 'Les plantes médicinales et les épices.' },
+  { question: 'Quels exemples illustrent les médicaments d’origine animale ?', answer: 'Les organes et extraits d’animaux.' },
+  { question: 'Quels exemples illustrent les médicaments d’origine minérale ?', answer: 'Les sels minéraux et les métaux.' },
+  { question: 'Que se passe-t-il aux XVIIIe et XIXe siècles concernant les substances naturelles ?', answer: 'Purification chimique des plantes et isolement des principes actifs.' },
+  { question: 'Quels principes actifs sont isolés au XVIIIe-XIXe siècle ?', answer: 'Morphine, aspirine, quinine, colchicine, nicotine et atropine.' },
+  { question: 'Quelle évolution se produit au XXe siècle ?', answer: 'L’apparition de la synthèse totale et de l’hémi-synthèse.' },
+  { question: 'Quels produits semi-synthétiques apparaissent au XXe siècle ?', answer: 'Les alcaloïdes de l’ergot de seigle.' },
+  { question: 'Quelle innovation marque le XXIe siècle ?', answer: 'Les biotechnologies avec thérapie génique, anticorps monoclonaux et oligonucléotides thérapeutiques.' },
+  { question: 'Quelle est la conception de la maladie en Mésopotamie vers 2100 av J.-C. ?', answer: 'Une conséquence d’une offense envers les dieux médecins.' },
+  { question: 'Quel dieu mésopotamien est considéré comme guérisseur ?', answer: 'Sin.' },
+  { question: 'Quel dieu est le créateur du cosmos pour les Babyloniens ?', answer: 'Mardouk.' },
+  { question: 'Comment les Babyloniens considéraient-ils la maladie ?', answer: 'Comme un châtiment divin.' },
+  { question: 'Quel était le seul recours contre la maladie en Mésopotamie ?', answer: 'Apaiser les dieux par la prière, les formules magiques et l’exorcisme.' },
+  { question: 'Quel dieu était invoqué pour l’exorcisme en Mésopotamie ?', answer: 'Le dieu Ea.' },
+  { question: 'Quelles pratiques divinatoires étaient courantes en Mésopotamie ?', answer: 'L’observation de la fumée, du vol des oiseaux et l’interprétation des rêves.' },
+  { question: 'Quelle était la fonction des rituels de sacrifice de substitution ?', answer: 'Éliminer la maladie en la transférant à un animal sacrifié.' },
+  { question: 'Quelle référence biblique évoque la guérison et l’expiation ?', answer: 'Le Lévitique dans l’Ancien Testament.' },
+  { question: 'Quelle vision la tradition chrétienne a-t-elle du médecin ?', answer: 'Le médecin et les produits de la terre sont des créations de Dieu pour soigner l’homme.' },
+  { question: 'Quelle était l’étymologie du mot médicament ?', answer: 'Du latin medicamentum signifiant remède ou drogue.' },
+  { question: 'Quelle est la plus ancienne preuve écrite de remèdes en Mésopotamie ?', answer: 'Les tablettes d’argile sumériennes du IIIe millénaire av. J.-C.' },
+  { question: 'Quelle découverte archéologique de 1948 a confirmé ces écrits ?', answer: 'La tablette décrivant une douzaine de remèdes sumériens.' },
+  { question: 'Quelles étaient les origines des remèdes décrits sur ces tablettes ?', answer: 'Végétale, animale et minérale.' },
+  { question: 'Quelle est la plus ancienne pharmacopée égyptienne connue ?', answer: 'Le papyrus d’Ebers.' },
+  { question: 'Quand le papyrus d’Ebers a-t-il été rédigé ?', answer: 'Vers 1600 av. J.-C.' },
+  { question: 'Combien de formules le papyrus d’Ebers contient-il ?', answer: 'Environ 700 formules magiques, remèdes et incantations.' },
+  { question: 'Qui a acheté et traduit le papyrus d’Ebers ?', answer: 'Georg Moritz Ebers.' },
+  { question: 'Qui est considéré comme le père de la médecine clinique ?', answer: 'Hippocrate.' },
+  { question: 'Où Hippocrate a-t-il fondé son école médicale ?', answer: 'Sur l’île de Cos.' },
+  { question: 'Quelle innovation Hippocrate apporte-t-il à la médecine ?', answer: 'L’observation du malade et de son environnement, détachée des causes divines.' },
+  { question: 'Quelle est la célèbre maxime d’Hippocrate ?', answer: 'Primum non nocere, avant tout ne pas nuire.' },
+  { question: 'Quelle théorie thérapeutique Hippocrate a-t-il énoncée ?', answer: 'La théorie des contraires, les propriétés du médicament doivent être opposées à celles de la maladie.' },
+  { question: 'Quel recueil regroupe les œuvres d’Hippocrate ?', answer: 'Le Corpus Hippocraticum.' },
+  { question: 'Combien de livres contient le Corpus Hippocraticum ?', answer: 'Environ soixante livres.' },
+  { question: 'Que décrit le traité Pharmakitis d’Hippocrate ?', answer: 'Que les médicaments doivent être choisis selon les symptômes.' },
+  { question: 'Quelle est la contribution principale de Dioscoride ?', answer: 'L’ouvrage De Materia Medica décrivant 600 simples végétaux et minéraux.' },
+  { question: 'Quelle préparation célèbre est attribuée à Andromaque ?', answer: 'La Thériaque d’Andromaque, remède contre les morsures d’animaux.' },
+  { question: 'Qui est considéré comme le père de la galénique ?', answer: 'Galien.' },
+  { question: 'Quelle est la définition de la galénique ?', answer: 'La science de la formulation des principes actifs pour les administrer au patient.' },
+  { question: 'Quelle était l’origine principale des substances médicamenteuses au Moyen Âge ?', answer: 'D’origine naturelle.' },
+  { question: 'Quel est le titre du grand ouvrage de Matthaeus Platearius au XIIe siècle ?', answer: 'Circa Instans, le Livre des simples médecines.' },
+  { question: 'Quelle est la définition d’une « drogue » selon le Circa Instans ?', answer: 'Substance empruntée à la Nature et utilisée telle que la Nature la produit.' },
+  { question: 'Combien de chapitres compose le manuscrit Circa Instans ?', answer: '273 chapitres.' },
+  { question: 'Combien de ces chapitres concernent des drogues végétales ?', answer: '229 chapitres.' },
+  { question: 'Combien de chapitres du Circa Instans concernent des médicaments d’origine animale ?', answer: '14 chapitres.' },
+  { question: 'Combien de chapitres concernent les produits d’origine minérale ou chimique ?', answer: '28 chapitres.' },
+  { question: 'Quelle est la majorité des substances médicamenteuses au Moyen Âge ?', answer: 'Les plantes médicinales.' },
+  { question: 'Quels types de composés inorganiques étaient utilisés au Moyen Âge ?', answer: 'Des métaux ou métalloïdes comme le plomb, le mercure, le soufre et l’antimoine.' },
+  { question: 'À quoi servaient les onguents de plomb ou de mercure ?', answer: 'Au traitement des pathologies cutanées.' },
+  { question: 'Quelle était l’utilisation du soufre et de l’antimoine ?', answer: 'À usage interne pour traiter diverses affections.' },
+  { question: 'Que désigne l’« eau forte » au Moyen Âge ?', answer: 'L’acide nitrique.' },
+  { question: 'Que désigne l’« eau régale » ?', answer: 'Le mélange d’acide nitrique et d’acide sulfurique.' },
+  { question: 'Qu’est-ce que la « pierre infernale » ?', answer: 'Le nitrate d’argent.' },
+  { question: 'Qu’est-ce que le « sublimé corrosif » ?', answer: 'Le bichlorure de mercure.' },
+  { question: 'Quel est le symbole chimique de l’antimoine ?', answer: 'Sb, du latin Stibium.' },
+  { question: 'À quoi servait historiquement l’antimoine ?', answer: 'À la fabrication du khôl pour maquiller et protéger les yeux.' },
+  { question: 'Qui est Basile Valentin ?', answer: 'Un moine, élève de Paracelse, qui croyait aux vertus purificatrices de l’antimoine.' },
+  { question: 'Pourquoi l’antimoine a-t-il été nommé ainsi ?', answer: 'Parce que de nombreux moines moururent après en avoir consommé.' },
+  { question: 'Qui était Avicenne ?', answer: 'Philosophe, médecin, mathématicien et astronome persan du Xe-XIe siècle.' },
+  { question: 'En quelle année est né Avicenne ?', answer: 'En 980.' },
+  { question: 'En quelle année est mort Avicenne ?', answer: 'En 1037.' },
+  { question: 'Quel était le surnom donné à Avicenne par ses disciples ?', answer: 'Cheik el-Raïs, le Prince des savants.' },
+  { question: 'Quelle découverte majeure Avicenne a-t-il faite concernant la tuberculose ?', answer: 'Il a découvert son caractère contagieux.' },
+  { question: 'Quel est le titre de l’œuvre majeure d’Avicenne ?', answer: 'Le Livre des lois médicales, Kitab Al Qanûn fi Al-Tibb.' },
+  { question: 'Combien de volumes composent le Livre des lois médicales ?', answer: 'Cinq volumes.' },
+  { question: 'Que contient le volume II du Livre des lois médicales ?', answer: 'La classification alphabétique des médicaments simples et leurs propriétés thérapeutiques.' },
+  { question: 'Qui est Paracelse ?', answer: 'Médecin suisse du XVIe siècle, père de la toxicologie.' },
+  { question: 'Quelle est la célèbre maxime de Paracelse sur les poisons ?', answer: 'Toute substance est un poison, seule la dose fait qu’elle ne l’est pas.' },
+  { question: 'Quelle notion Paracelse introduit-il en pharmacologie ?', answer: 'La relation dose-effet.' },
+  { question: 'Quelle théorie Paracelse reprend-il de Dioscoride ?', answer: 'La théorie des signatures.' },
+  { question: 'Que signifie « similia similibus curantur » ?', answer: 'Les semblables soignent les semblables.' },
+  { question: 'Que signifie la théorie de la quintessence selon Paracelse ?', answer: 'Il faut extraire les principes actifs et abandonner les mélanges complexes.' },
+  { question: 'Quels nouveaux types de préparations Paracelse a-t-il introduits ?', answer: 'Les teintures, alcoolats, esprits et extraits végétaux.' },
+  { question: 'Quelle préparation célèbre Paracelse a-t-il introduite en Occident ?', answer: 'Le laudanum, teinture d’opium safranée.' },
+  { question: 'Jusqu’à quand le laudanum a-t-il été utilisé ?', answer: 'Jusqu’au début du XXe siècle.' },
+  { question: 'Quelle période marque la transition vers la découverte scientifique des médicaments ?', answer: 'L’époque contemporaine, à partir de 1789.' },
+  { question: 'Quelle était la démarche utilisée au XVIIIe et XIXe siècle pour découvrir les médicaments ?', answer: 'Une démarche empirique.' },
+  { question: 'En quoi consistait la démarche empirique ?', answer: 'À observer les effets des substances et purifier les principes actifs des plantes.' },
+  { question: 'Quelle notion désigne une découverte inattendue faite par hasard et intuition ?', answer: 'La sérendipité.' },
+  { question: 'Qui a introduit le terme de sérendipité ?', answer: 'Horace Walpole en 1754.' },
+  { question: 'De quel conte persan vient le mot sérendipité ?', answer: 'Le Voyage et aventures des trois princes de Serendipi.' },
+  { question: 'Quelle démarche remplace progressivement la démarche empirique au XXIe siècle ?', answer: 'La démarche rationnelle.' },
+  { question: 'Quel est le but de la démarche rationnelle ?', answer: 'Comprendre le mécanisme de la maladie pour concevoir un médicament adapté.' },
+  { question: 'Quel est le principe fondateur de la pharmacologie ?', answer: 'La compréhension des mécanismes d’action des médicaments.' },
+  { question: 'Quelle école a fondé la pharmacologie expérimentale ?', answer: 'L’école française.' },
+  { question: 'Qui est François Magendie ?', answer: 'Médecin français, fondateur de la pharmacologie expérimentale.' },
+  { question: 'Quelle découverte a faite Magendie en 1821 ?', answer: 'Les effets ciblés de la strychnine chez l’animal.' },
+  { question: 'Qui est Claude Bernard ?', answer: 'Élève de Magendie, théoricien de la médecine expérimentale.' },
+  { question: 'Quelle œuvre majeure de Claude Bernard fonde la médecine expérimentale ?', answer: 'Introduction à l’étude de la médecine expérimentale.' },
+  { question: 'Sur quelles substances Claude Bernard a-t-il mené des études pharmacologiques ?', answer: 'Les curares et la nicotine.' },
+  { question: 'Quelle école allemande a marqué la naissance de la pharmacologie moderne', answer: 'L’école d’Oswald Schmiedeberg.' },
+  { question: 'Qui est considéré comme le père de la pharmacologie moderne', answer: 'Oswald Schmiedeberg.' },
+  { question: 'Quel fut le premier institut de pharmacologie créé par Schmiedeberg', answer: 'L’institut de pharmacologie de Strasbourg.' },
+  { question: 'En quelle année paraît le premier ouvrage de pharmacologie moderne', answer: 'En 1873.' },
+  { question: 'Quel est le nom de la revue fondée par Schmiedeberg', answer: 'Archiv für experimentelle Pathologie und Pharmakologie.' },
+  { question: 'Qui introduit la notion de récepteur dans l’action des médicaments', answer: 'Paul Ehrlich.' },
+  { question: 'Quelle année marque l’obtention du prix Nobel par Paul Ehrlich', answer: 'En 1908.' },
+  { question: 'Quelle école anglo-saxonne contribue à la découverte de la neurotransmission', answer: 'Celle d’Otto Loewi et Henri Hallet Dale.' },
+  { question: 'Quelle molécule Otto Loewi et Dale ont-ils isolée', answer: 'L’acétylcholine.' },
+  { question: 'Quelle découverte Henri Hallet Dale fait-il en 1910', answer: 'L’isolement de l’histamine et ses effets stimulants sur le muscle.' },
+  { question: 'Quelle plante est à l’origine de l’opium', answer: 'Le pavot, papaver somniferum.' },
+  { question: 'Que signifie le mot grec opium', answer: 'Jus.' },
+  { question: 'Quel dieu inspire le nom de la morphine', answer: 'Morphée, le dieu des songes.' },
+  { question: 'Qui découvre la morphine en 1805', answer: 'Friedrich Sertürner.' },
+  { question: 'Quelle solution de morphine était très utilisée au XIXe siècle', answer: 'La chlorodyne, solution de morphine dans de l’eau chloroformée.' },
+  { question: 'Quelle épidémie de dépendance a suivi les guerres du XIXe siècle', answer: 'La maladie du soldat.' },
+  { question: 'Quelle molécule a été découverte par hémisynthèse en 1874 à partir de la morphine', answer: 'L’héroïne ou diacétylmorphine.' },
+  { question: 'Qui découvre les sites de liaison de la morphine dans le cerveau', answer: 'Snyder et Pert en 1973.' },
+  { question: 'Quels agonistes endogènes ont été identifiés après cette découverte', answer: 'Les enképhalines, endorphines et dynorphines.' },
+  { question: 'Quelles nouvelles voies d’administration de la morphine ont été développées', answer: 'Les voies transdermique et transmuqueuse.' },
+  { question: 'Quelle molécule est à l’origine de l’aspirine', answer: 'L’acide salicylique.' },
+  { question: 'Quelle plante est à l’origine du mot aspirine', answer: 'La reine des prés, Spiraea.' },
+  { question: 'Qui a extrait l’acide salicylique du saule en 1829', answer: 'Pierre-Joseph Leroux.' },
+  { question: 'Qui a synthétisé l’acide acétylsalicylique chez Bayer en 1897', answer: 'Felix Hoffmann.' },
+  { question: 'Quel est le mécanisme d’action de l’aspirine découvert en 1971', answer: 'L’inhibition de la synthèse des prostaglandines.' },
+  { question: 'Quelle enzyme a été identifiée comme la cible de l’aspirine en 1976', answer: 'Les cyclooxygénases.' },
+  { question: 'Quelle nouvelle propriété de l’aspirine a été mise en évidence dans les années 2000', answer: 'Son effet protecteur contre certains cancers, notamment le cancer colorectal.' },
+  { question: 'Quelle plante est à l’origine de la quinine', answer: 'L’écorce de quinquina.' },
+  { question: 'Quelle maladie la quinine permet-elle de traiter', answer: 'Le paludisme ou malaria.' },
+  { question: 'Qui a extrait la quinine du quinquina jaune en 1820', answer: 'Pierre Joseph Pelletier et Joseph Caventou.' },
+  { question: 'Qu’est-ce que le cinchonisme', answer: 'L’effet indésirable du traitement par les alcaloïdes du quinquina.' },
+  { question: 'Quelle molécule de synthèse a remplacé la quinine dans le traitement du paludisme', answer: 'La chloroquine.' },
+  { question: 'Quelle molécule dérivée du quinquina est utilisée comme antiarythmique cardiaque', answer: 'La quinidine.' },
+  { question: 'Qui est à l’origine de la découverte de l’homéopathie', answer: 'Samuel Hahnemann.' },
+  { question: 'Quelle est la loi fondamentale de l’homéopathie', answer: 'Similia similibus curantur, les semblables guérissent les semblables.' },
+  { question: 'Que signifie la mention « CH » en homéopathie', answer: 'Centésimale hahnemannienne, dilution au centième.' },
+  { question: 'Quelle racine tropicale est à l’origine de l’émétine', answer: 'L’ipécacuanha.' },
+  { question: 'De quelle noix la strychnine est-elle issue', answer: 'De la noix vomique.' },
+  { question: 'Quelle plante est à l’origine de l’atropine', answer: 'La belladone.' },
+  { question: 'Quelle plante fournit la cocaïne', answer: 'Erythroxylum coca.' },
+  { question: 'De quelle plante provient la colchicine', answer: 'Du colchique.' },
+  { question: 'Quelle plante fournit l’éphédrine', answer: 'L’éphédra.' },
+  { question: 'Quelle substance est extraite de l’ergot de seigle', answer: 'L’ergotamine.' },
+  { question: 'Quelle hormone a été découverte par Paul Langerhans en 1869', answer: 'L’insuline.' },
+  { question: 'Quelle expérience a établi le lien entre le pancréas et le diabète', answer: 'L’ablation du pancréas chez un chien, provoquant un diabète sucré.' },
+  { question: 'Qui a isolé et utilisé l’insuline chez l’homme en 1921-1922', answer: 'Frederick Banting et Charles Best, dans le laboratoire de Mac Leod.' },
+  { question: 'Quand l’insuline humaine obtenue par génie génétique est-elle apparue', answer: 'En 1982.' },
+  { question: 'Quelle modification a permis d’humaniser l’insuline porcine', answer: 'La substitution d’un seul acide aminé.' },
+  { question: 'Quelle molécule anticoagulante a été découverte par hasard à partir de sangsues', answer: 'L’hirudine.' },
+  { question: 'De quel organe animal a été isolée l’héparine en 1916', answer: 'Du foie de chien.' },
+  { question: 'Quelle est la nature chimique de l’héparine déterminée en 1928', answer: 'Polysaccharidique.' },
+  { question: 'De quels animaux proviennent encore aujourd’hui les préparations d’héparine', answer: 'De l’intestin de porc ou du poumon de bœuf.' },
+  { question: 'Quelle est la date de la découverte de la pénicilline par Alexander Fleming', answer: 'En 1928.' },
+  { question: 'Quel champignon microscopique produit la pénicilline', answer: 'Penicillium notatum.' },
+  { question: 'Qui ont stabilisé la forme de la pénicilline en 1938', answer: 'Florey, Chain et Heatley.' },
+  { question: 'En quelle année la pénicilline fut injectée à des blessés de guerre britanniques', answer: 'En 1943.' },
+  { question: 'Quelle entreprise a inauguré la première usine de production de pénicilline', answer: 'Pfizer, en 1944.' },
+  { question: 'Qui ont reçu le prix Nobel en 1945 pour la découverte de la pénicilline', answer: 'Fleming, Florey et Chain.' },
+  { question: 'Quelle pratique chinoise ancienne utilisait des moisissures pour traiter les infections', answer: 'L’application de peau de fruits moisis sur les panaris.' },
+  { question: 'Quel médecin du XIXe siècle a observé l’effet antibactérien des moisissures', answer: 'Joseph Lister, en 1871.' },
+  { question: 'Quels chercheurs ont observé en 1877 l’inhibition du bacille du charbon par des moisissures', answer: 'Louis Pasteur et Jules François Joubert.' },
+  { question: 'Qui a traité des porcs atteints de typhoïde avec Penicillium glaucum en 1897', answer: 'Ernest Duchène.' },
+  { question: 'Quelle maladie virale est à l’origine de la première vaccination', answer: 'La variole.' },
+  { question: 'Quelle est l’étymologie du mot vaccine', answer: 'Du latin vacca, vache.' },
+  { question: 'Qui a inventé la vaccination en 1796', answer: 'Edward Jenner.' },
+  { question: 'Quelle expérience Jenner a-t-il réalisée pour démontrer l’immunisation', answer: 'Il inocule du pus de vaccine bovine à un enfant, qui devient protégé contre la variole.' },
+  { question: 'Quelle date marque l’éradication mondiale de la variole', answer: '1980, annoncée par l’OMS.' },
+  { question: 'Quel savant a donné son nom au mot vaccin', answer: 'Louis Pasteur, en hommage à Jenner.' },
+  { question: 'Quelle découverte Pasteur fait-il en 1877 sur le choléra des poules', answer: 'Qu’il est causé par une bactérie et qu’il peut être atténué pour produire une immunité.' },
+  { question: 'En quelle année Pasteur crée-t-il le premier vaccin humain contre la rage', answer: 'En 1885.' },
+  { question: 'Quelle technologie vaccinale a émergé pendant la pandémie de COVID-19', answer: 'Les vaccins à ARN messager.' },
+  { question: 'Quelle durée moyenne de développement ont eu ces vaccins comparée aux précédents', answer: 'Moins de 18 mois contre 10 à 15 ans habituellement.' },
+  { question: 'Quelle substance anesthésique est la première à être utilisée', answer: 'Le protoxyde d’azote.' },
+  { question: 'Quels anesthésiques de synthèse apparaissent au XIXe siècle', answer: 'Le chloroforme, le chloral et l’éther.' },
+  { question: 'Quelle famille de médicaments a été synthétisée en 1903', answer: 'Les barbituriques.' },
+  { question: 'Quelle molécule a marqué la naissance des antipaludéens de synthèse en 1926', answer: 'La 8-aminoquinoléine, suivie de la chloroquine.' },
+  { question: 'Quelle classe d’antibiotiques a été découverte en 1939', answer: 'Les gramicidines.' },
+  { question: 'Quelle classe d’antihistaminiques apparaît en 1942', answer: 'Les premiers antihistaminiques de synthèse.' },
+  { question: 'Quelle molécule colorante est à l’origine des neuroleptiques', answer: 'La phénothiazine.' },
+  { question: 'Quel laboratoire développe la prométhazine en 1947', answer: 'Le laboratoire Rhône-Poulenc.' },
+  { question: 'Quel chirurgien français soupçonne un effet stabilisant du système nerveux central', answer: 'Henri Laborit.' },
+  { question: 'Qui synthétise la chlorpromazine en 1950', answer: 'Paul Charpentier.' },
+  { question: 'Qui démontre les effets antipsychotiques de la chlorpromazine', answer: 'Jean Delay et Pierre Deniker à l’hôpital Sainte-Anne.' },
+  { question: 'Quel nom commercial reçoit la chlorpromazine en 1953', answer: 'Largactil.' },
+  { question: 'Quelle molécule dérivée de la phénothiazine a donné naissance aux antidépresseurs tricycliques', answer: 'L’imipramine.' },
+  { question: 'Quel psychiatre découvre l’effet antidépresseur de l’imipramine', answer: 'Roland Kuhn.' },
+  { question: 'Quelle molécule antituberculeuse est à l’origine de la découverte des IMAO', answer: 'L’iproniazide.' },
+  { question: 'Que signifie l’acronyme IMAO', answer: 'Inhibiteurs de la monoamine oxydase.' },
+  { question: 'Quelle année marque la découverte de l’imatinib', answer: '2001.' },
+  { question: 'Dans quel domaine l’imatinib est-il utilisé', answer: 'En cancérologie, comme inhibiteur de tyrosine kinase.' },
+  { question: 'Que sont les anticorps monoclonaux', answer: 'Des anticorps issus d’un seul clone de lymphocytes, ciblant un antigène unique.' },
+  { question: 'Quelle technologie permet de modifier le génome avec précision', answer: 'Les ciseaux moléculaires CRISPR-Cas9.' },
+  { question: 'Qui ont reçu le prix Nobel 2020 pour la technologie CRISPR', answer: 'Emmanuelle Charpentier et Jennifer Doudna.' },
+  { question: 'Quelle maladie a été traitée pour la première fois avec CRISPR en 2023', answer: 'La bêta-thalassémie et la drépanocytose sévère.' },
+  { question: 'Quelle proportion des médicaments en développement sont des molécules chimiques', answer: 'Environ 52 %.' },
+  { question: 'Quelle proportion correspond aux immunothérapies', answer: '33 %.' },
+  { question: 'Quel est le rôle des nano-vecteurs dans les chimiothérapies', answer: 'Cibler les cellules malades et limiter les effets indésirables.' },
+  { question: 'Quel polymère protège les nanoparticules de la dégradation immunitaire', answer: 'Le PEG, polyéthylène glycol.' },
+  { question: 'Quelle molécule est souvent greffée sur les nanoparticules pour le ciblage tumoral', answer: 'L’acide folique.' },
+  { question: 'Quel est le premier médicament fabriqué par impression 3D', answer: 'Le lévétiracétam, nommé Spiritam.' },
+  { question: 'Quel est le principe du médicament connecté', answer: 'Un capteur intégré envoie un signal après ingestion pour vérifier l’observance.' },
+  { question: 'Quel médicament antipsychotique intègre un capteur connecté', answer: 'L’aripiprazole.' },
+  { question: 'Quelle innovation future est envisagée pour la fabrication des médicaments', answer: 'La production à la demande de doses individuelles.' },
+  { question: 'Quelle invention de 2016 permet de libérer un principe actif selon des paramètres biologiques', answer: 'Un dispositif biodégradable de suivi en temps réel.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

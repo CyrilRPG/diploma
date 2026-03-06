@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Histoire de la psychiatrie et de ses organisations  soignantes en France</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Histoire de la psychiatrie et de ses organisations  soignantes en France</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la psychiatrie ?', answer: 'C’est une discipline médicale apparue au XIXe siècle qui a pour objectif d’étudier les troubles mentaux et de développer des traitements adaptés.' },
+  { question: 'Quelle est la particularité des troubles psychiatriques par rapport aux autres maladies médicales ?', answer: 'Ils se manifestent dans la relation à soi, aux autres et à la société, sans anomalie d’organe détectable en imagerie cérébrale pour la majorité des cas.' },
+  { question: 'Quels progrès scientifiques actuels permettent une meilleure compréhension des troubles psychiatriques ?', answer: 'L’étude des réseaux cérébraux, qui identifie des particularités fonctionnelles, bien que les anomalies structurelles restent rarement visibles.' },
+  { question: 'Comment étaient perçus les troubles psychiatriques dans l’Antiquité ?', answer: 'Comme un phénomène naturel.' },
+  { question: 'Comment étaient perçus les troubles psychiatriques au Moyen Âge ?', answer: 'Ils étaient souvent associés à la sorcellerie, comme l’exemple des sorcières de Salem.' },
+  { question: 'Que révèle l’exemple des sorcières de Salem au XVIe siècle ?', answer: 'Certaines femmes présentant hallucinations et délires furent accusées de sorcellerie, mais une explication moderne propose une intoxication par un champignon hallucinogène contenu dans le seigle.' },
+  { question: 'Comment étaient traitées les personnes considérées comme « folles » entre le XVe et le XVIIIe siècle ?', answer: 'Elles étaient isolées et enfermées.' },
+  { question: 'Quelle transformation marque la Révolution française dans la prise en charge des malades mentaux ?', answer: 'Le début de la psychiatrie moderne.' },
+  { question: 'Quel vocabulaire était utilisé avant le XIXe siècle pour désigner les troubles psychiatriques ?', answer: '« Aliénation mentale » dans le langage médical et « folie » dans le langage populaire.' },
+  { question: 'Quels termes sont privilégiés aujourd’hui pour désigner les troubles psychiatriques ?', answer: 'Trouble mental, trouble psychiatrique, trouble psychique, trouble psychologique.' },
+  { question: 'Quelle est l’approche actuelle de la psychiatrie pour comprendre les troubles ?', answer: 'Une approche biopsychosociale qui prend en compte les facteurs biologiques, psychologiques et sociaux.' },
+  { question: 'Quels sont les aspects biologiques du modèle explicatif des troubles psychiatriques ?', answer: 'Facteurs génétiques hérités, histoire développementale du cerveau, impact du stress.' },
+  { question: 'Quels sont les aspects psychologiques du modèle explicatif des troubles psychiatriques ?', answer: 'Traits de caractère individuels, propension à l’anxiété ou autres traits psychologiques.' },
+  { question: 'Quels sont les aspects sociaux du modèle explicatif des troubles psychiatriques ?', answer: 'Influence de l’environnement familial, social et culturel, ainsi que les interactions sociales.' },
+  { question: 'Donne un exemple d’application du modèle biopsychosocial.', answer: 'Après un traumatisme violent, une personne peut développer une dépression ou un trouble des conduites alimentaires selon sa génétique, son psychisme et son environnement social.' },
+  { question: 'Pourquoi l’organisation des soins psychiatriques a-t-elle évolué au fil du temps ?', answer: 'Parce qu’elle a été influencée par les conceptions historiques des maladies mentales.' },
+  { question: 'Comment étaient localisés historiquement les premiers asiles ?', answer: 'En périphérie des grandes villes pour isoler les patients considérés comme dangereux ou marginaux.' },
+  { question: 'Donne des exemples d’asiles historiques en France.', answer: 'La Pitié-Salpêtrière, Charenton et Sainte-Anne.' },
+  { question: 'Quel était le rôle de l’architecture des asiles ?', answer: 'Organiser la vie des patients, par exemple avec des jardins et espaces structurés.' },
+  { question: 'Qu’a changé l’apparition des neuroleptiques dans les années 1950 ?', answer: 'Elle a permis la sortie progressive des patients des asiles et leur intégration dans des projets de vie extérieurs.' },
+  { question: 'Quel était le rôle de l’hôpital général créé sous Louis XIV ?', answer: 'Enfermer les individus jugés indésirables comme les miséreux, criminels, prostituées et personnes atteintes de troubles mentaux, sans réelle prise en charge médicale.' },
+  { question: 'Quelle était la conception des troubles psychiatriques sous l’Ancien Régime ?', answer: 'Ils étaient assimilés à des comportements déviants et non à des maladies, entraînant une réclusion punitive plutôt qu’un soin.' },
+  { question: 'Quels grands hôpitaux parisiens ont accueilli les aliénés au XVIIe siècle ?', answer: 'Bicêtre, La Salpêtrière, Charenton et Sainte-Anne.' },
+  { question: 'Quelles étaient les conditions de vie à Bicêtre au XVIIIe siècle ?', answer: 'Extrêmement précaires et dégradantes, avec un mélange de forçats, prostituées et aliénés, sans distinction entre malades et criminels.' },
+  { question: 'Qui est Philippe Pinel et quel rôle a-t-il joué dans l’histoire de la psychiatrie ?', answer: 'Médecin aliéniste, directeur médical de Bicêtre puis de la Salpêtrière, il a introduit le traitement moral et libéré les patients de leurs chaînes.' },
+  { question: 'Quel rôle a joué Jean-Baptiste Pussin auprès de Pinel ?', answer: 'Il a mis en place une organisation soignante qui préfigure le métier d’infirmier en psychiatrie.' },
+  { question: 'Quels sont les principes du traitement moral de Pinel ?', answer: 'Détacher les patients, instaurer un cadre de vie structuré avec travail et objectifs, et s’adresser à eux comme des êtres rationnels.' },
+  { question: 'Quel terme commence à remplacer celui de « folie » à la fin du XVIIIe siècle ?', answer: 'Aliénation mentale.' },
+  { question: 'Quelles avancées juridiques introduit le Code pénal de 1810 ?', answer: 'Il établit l’irresponsabilité pénale des malades mentaux (article 64), distinguant criminels et personnes atteintes de troubles psychiatriques.' },
+  { question: 'Quelle loi de 1838 constitue un tournant dans l’histoire de la psychiatrie ?', answer: 'La loi sur l’internement des aliénés, qui impose un asile par département et encadre légalement l’hospitalisation sous contrainte.' },
+  { question: 'Quelles sont les deux formes d’hospitalisation sous contrainte définies au XIXe siècle ?', answer: 'Le placement volontaire (souvent à la demande de la famille et d’un médecin) et le placement d’office (décidé par le préfet pour trouble à l’ordre public).' },
+  { question: 'Quel exemple illustre les abus du placement volontaire ?', answer: 'Camille Claudel, internée à la demande de son frère et d’un médecin, contre sa volonté.' },
+  { question: 'Quel progrès médical du XIXe siècle influence la psychiatrie ?', answer: 'Le modèle anatomoclinique, liant symptômes et lésions d’organe, appliqué avec succès dans d’autres disciplines.' },
+  { question: 'Quelle maladie a joué un rôle clé dans le rapprochement psychiatrie-neurologie au XIXe siècle ?', answer: 'La syphilis, qui provoquait une paralysie générale avec atteintes cérébrales et troubles psychiatriques.' },
+  { question: 'Quelle théorie découle de la découverte des lésions cérébrales dans certains troubles psychiatriques ?', answer: 'La théorie de la dégénérescence héréditaire, selon laquelle certaines familles sont prédestinées à la folie, la violence ou l’alcoolisme.' },
+  { question: 'Quelle distinction s’opère progressivement entre deux disciplines au XIXe siècle ?', answer: 'La neurologie, qui traite des maladies avec lésions visibles, et la psychiatrie, qui prend en charge les troubles sans anomalies décelables.' },
+  { question: 'Quels nouveaux termes apparaissent à la fin du XIXe et début du XXe siècle dans la classification psychiatrique ?', answer: 'Monomanie, psychose et névrose.' },
+  { question: 'Quelle différence était faite entre psychose et névrose ?', answer: 'La psychose désignait des troubles graves avec hallucinations et démence (comme la schizophrénie), la névrose concernait des troubles plus légers comme l’anxiété.' },
+  { question: 'Quel rôle a joué Freud dans la psychiatrie au début du XXe siècle ?', answer: 'Il a introduit la psychanalyse, mettant au centre la parole du patient, l’inconscient et l’histoire personnelle.' },
+  { question: 'Quelle est la différence entre la prise en charge psychiatrique avant et après Freud ?', answer: 'Avant, seuls les internés étaient pris en charge ; après, il devient possible de traiter les patients en ambulatoire ou en cabinet.' },
+  { question: 'Qu’est-ce que la psychothérapie institutionnelle ?', answer: 'Une adaptation de la psychanalyse aux hôpitaux psychiatriques, centrée sur l’interaction entre soignants et patients.' },
+  { question: 'Quelles méthodes expérimentales de traitement ont été tentées entre les deux guerres ?', answer: 'Les chocs thermiques, les cures d’insuline (Sakel), l’induction de crises épileptiques (Cardiazol) et l’électroconvulsivothérapie.' },
+  { question: 'Quelle découverte majeure en psychiatrie a lieu dans les années 1950 ?', answer: 'L’apparition des neuroleptiques (chlorpromazine) qui révolutionne le traitement des psychoses.' },
+  { question: 'Comment les antidépresseurs ont-ils été découverts ?', answer: 'Par hasard, en constatant que l’isoniazide, utilisé contre la tuberculose, améliorait l’humeur des patients.' },
+  { question: 'Quelles classes de médicaments psychiatriques apparaissent après les neuroleptiques et antidépresseurs ?', answer: 'Les benzodiazépines dans les années 60, le lithium comme traitement du trouble bipolaire dans les années 70, et la fluoxétine (Prozac) dans les années 80.' },
+  { question: 'Quelle est la particularité du lithium en psychiatrie ?', answer: 'C’est le traitement de référence du trouble bipolaire, découvert en 1949 mais largement utilisé à partir des années 70.' },
+  { question: 'Quelle est l’idée centrale des thérapies comportementales et cognitives (TCC) ?', answer: 'Les troubles psychiatriques proviennent de conditionnements inadaptés et peuvent être améliorés en modifiant les habitudes et schémas de pensée.' },
+  { question: 'Donne un exemple de prise en charge par TCC.', answer: 'La phobie sociale peut être améliorée par une exposition progressive à la prise de parole en public.' },
+  { question: 'Qu’est-ce qu’un trouble obsessionnel compulsif (TOC) selon les thérapies comportementales ?', answer: 'C’est une amplification pathologique de comportements normaux, comme vérifier excessivement des objets au point de perdre du temps et d’être en souffrance.' },
+  { question: 'Quelle est la méthode thérapeutique principale pour les TOC ?', answer: 'L’exposition avec prévention de la réponse, consistant à tolérer volontairement l’incertitude sans céder aux compulsions.' },
+  { question: 'Que postulent les thérapies cognitives ?', answer: 'Que certains troubles viennent d’un traitement déformé de l’information, par exemple une vision systématiquement négative de la réalité chez les patients dépressifs.' },
+  { question: 'Quel est l’objectif des thérapies cognitives ?', answer: 'Aider le patient à identifier ses biais cognitifs et à les reformuler pour améliorer son bien-être.' },
+  { question: 'Qu’est-ce que la thérapie systémique ?', answer: 'C’est une thérapie familiale qui considère que le trouble affecte toute la famille et travaille sur les dynamiques familiales pour améliorer le soutien du patient.' },
+  { question: 'Qu’est-ce que la remédiation cognitive ?', answer: 'Une approche issue des neurosciences visant à rééduquer certaines fonctions cognitives, comme la rigidité mentale, afin d’améliorer la souplesse cognitive.' },
+  { question: 'Quelles sont les quatre grandes catégories de psychothérapies modernes ?', answer: 'Thérapie comportementale, thérapie cognitive, thérapie systémique et thérapie de remédiation cognitive.' },
+  { question: 'Quels exemples de nouvelles psychothérapies sont apparus récemment ?', answer: 'L’EMDR, la Gestalt-thérapie et la thérapie des schémas.' },
+  { question: 'Quelles sont les deux grandes classifications internationales utilisées aujourd’hui en psychiatrie ?', answer: 'La CIM-11 de l’OMS et le DSM, manuel diagnostique et statistique des troubles mentaux.' },
+  { question: 'Quand la séparation officielle entre neurologie et psychiatrie a-t-elle été actée en France ?', answer: 'En 1968.' },
+  { question: 'Qui est Leo Kanner et quelle a été sa contribution à la pédopsychiatrie ?', answer: 'C’est un pédopsychiatre qui a décrit l’autisme et l’a différencié de la schizophrénie, contribuant à la création de la pédopsychiatrie.' },
+  { question: 'Quelles politiques nazies ont marqué la psychiatrie durant la Seconde Guerre mondiale ?', answer: 'Les stérilisations forcées et l’eugénisme ciblant les personnes atteintes de troubles psychiatriques.' },
+  { question: 'Quelle tragédie a frappé les hôpitaux psychiatriques français pendant la guerre de 1939-1945 ?', answer: 'Une mortalité massive due à la famine, car les ressources alimentaires étaient réservées à la population générale.' },
+  { question: 'Qu’est-ce que la sectorisation psychiatrique ?', answer: 'Un système mis en place après la guerre pour répartir équitablement les soins psychiatriques sur le territoire, avec un secteur couvrant une population définie.' },
+  { question: 'Quels types de soins sont proposés dans un secteur psychiatrique ?', answer: 'Des consultations en CMP, des hospitalisations si nécessaire, des soins à domicile et un accompagnement médico-social.' },
+  { question: 'Quelle est la mission principale de la sectorisation psychiatrique ?', answer: 'Éviter les hospitalisations prolongées et favoriser le maintien du patient dans son milieu de vie.' },
+  { question: 'Comment la psychiatrie française a-t-elle évolué après la découverte des psychotropes dans les années 1950 ?', answer: 'Elle a réduit l’enfermement en asile, favorisé la désinstitutionalisation et intégré davantage les patients dans la société.' },
+  { question: 'Quelles sont les conséquences de la séparation historique entre hôpitaux psychiatriques et hôpitaux généraux ?', answer: 'Une exclusion des patients psychiatriques du système de soins général et une mortalité accrue liée à une mauvaise prise en charge somatique.' },
+  { question: 'Quelle est la couverture théorique d’un secteur psychiatrique adulte ?', answer: 'Entre 70 000 et 100 000 habitants.' },
+  { question: 'Quelle est la différence entre secteur adulte et intersecteur pour enfants ?', answer: 'Le secteur adulte a été créé en 1960, l’intersecteur enfant en 1972, couvrant une zone plus vaste car les besoins pédiatriques sont moins nombreux.' },
+  { question: 'Quelles structures de soins sont obligatoirement présentes dans chaque secteur psychiatrique ?', answer: 'Des centres médico-psychologiques (CMP), des unités d’hospitalisation et des dispositifs de soins ambulatoires.' },
+  { question: 'Quelles étaient les conséquences de l’indépendance historique entre psychiatrie et soins somatiques ?', answer: 'Une mauvaise prise en charge des comorbidités physiques, une exclusion sociale et une espérance de vie réduite d’environ 15 ans chez les patients psychiatriques.' },
+  { question: 'Quelles mesures récentes visent à rapprocher psychiatrie et hôpitaux généraux ?', answer: 'Le développement d’unités psychiatriques dans les hôpitaux généraux et des collaborations interservices (neurologie, médecine interne, endocrinologie).' },
+  { question: 'Quels sont les principaux modes d’exercice de la psychiatrie en France ?', answer: 'Hôpitaux publics, cliniques privées, cabinets libéraux et centres médico-psychologiques.' },
+  { question: 'Quel est le problème majeur de répartition des psychiatres en France ?', answer: 'Une répartition géographique très inégale, avec des zones sous-dotées et d’autres saturées.' },
+  { question: 'Pourquoi le système psychiatrique français est-il saturé ?', answer: 'Parce que tous les patients peuvent consulter directement un psychiatre, y compris pour des troubles légers, ce qui surcharge les spécialistes et retarde la prise en charge des cas graves.' },
+  { question: 'Quels indicateurs montrent la gravité de la situation en France ?', answer: 'Taux de dépression et de suicide parmi les plus élevés d’Europe, forte consommation d’alcool et surconsommation de psychotropes.' },
+  { question: 'Quel paradoxe présente la France dans l’organisation des soins psychiatriques ?', answer: 'Elle dispose de plus de psychiatres que la moyenne européenne mais d’un accès aux soins moins efficace à cause d’un parcours de soins mal structuré.' },
+  { question: 'Quel est le rôle du médecin généraliste dans la prise en charge des troubles psychiatriques en France ?', answer: 'Il est souvent le premier recours, mais il est sous-formé et adresse peu aux psychologues, ce qui limite la détection précoce.' },
+  { question: 'Quelle est la différence avec d’autres pays européens dans le recours aux psychologues ?', answer: 'Dans la plupart des pays, les psychologues constituent un premier niveau de recours avant le psychiatre, alors qu’en France ils sont peu utilisés.' },
+  { question: 'Quelle est la proportion de troubles psychiatriques débutant avant 18 ans ?', answer: 'Environ 75 %, dont 50 % avant 15 ans.' },
+  { question: 'Quels sont les risques d’un retard de prise en charge des troubles psychiatriques ?', answer: 'Souffrance prolongée, isolement social, addictions, handicap psychique et mortalité accrue.' },
+  { question: 'Quelles réformes légales ont marqué l’organisation des soins psychiatriques depuis 2000 ?', answer: 'La loi de 2002 sur les droits des malades, la loi de 2005 sur le handicap, et la réforme des hospitalisations sous contrainte avec contrôle judiciaire.' },
+  { question: 'Quelle est l’importance de la loi de 2002 sur les droits des malades en psychiatrie ?', answer: 'Elle replace le patient au centre des soins, renforce son consentement et améliore l’information délivrée.' },
+  { question: 'Quelle est la principale avancée de la loi de 2005 sur le handicap ?', answer: 'Elle favorise l’inclusion des personnes atteintes de troubles psychiques dans l’école, le logement et l’emploi.' },
+  { question: 'Qu’a introduit la réforme des hospitalisations sous contrainte ?', answer: 'L’obligation de contrôle par un juge des libertés et de la détention dans les 12 jours pour éviter les abus.' },
+  { question: 'Qu’est-ce qu’un Projet Territorial de Santé Mentale (PTSM) ?', answer: 'Un dispositif de coordination locale entre soignants, associations, médico-social et institutions pour améliorer la prise en charge globale.' },
+  { question: 'Quels objectifs poursuit la réorganisation des soins depuis 2016 ?', answer: 'Passer d’une approche centrée sur la maladie à une approche globale intégrant prévention, dépistage, soins et réinsertion sociale.' },
+  { question: 'Quel est le rôle des Agences Régionales de Santé (ARS) dans la psychiatrie ?', answer: 'Elles coordonnent et financent l’organisation territoriale des soins psychiatriques.' },
+  { question: 'Quel changement concerne la formation des étudiants en médecine depuis 2016 ?', answer: 'L’introduction du service sanitaire obligatoire, consistant à réaliser une action de prévention en santé publique.' },
+  { question: 'Quelle réforme de 2016 a amélioré la coordination des soins psychiatriques ?', answer: 'La mise en place des Projets Territoriaux de Santé Mentale (PTSM) qui rassemblent soignants, associations, institutions médico-sociales et usagers.' },
+  { question: 'Quels sont les trois axes principaux de la réforme des soins psychiatriques après 2016 ?', answer: 'La prévention, le diagnostic précoce et l’accompagnement social et professionnel.' },
+  { question: 'Quelles mesures ont été prises pour rapprocher psychiatrie et médecine générale ?', answer: 'Le développement d’unités psychiatriques dans les hôpitaux généraux et la décentralisation des soins.' },
+  { question: 'Quelle loi a marqué un tournant pour l’inclusion des personnes atteintes de troubles psychiques dans la société ?', answer: 'La loi de 2005 sur le handicap.' },
+  { question: 'Quels dispositifs concrets favorisent aujourd’hui l’inclusion sociale et professionnelle des patients ?', answer: 'L’intégration scolaire des enfants avec autisme, l’accès facilité au logement et à l’emploi, et l’accompagnement médico-social.' },
+  { question: 'Quel a été l’impact de la pandémie de COVID-19 sur la santé mentale en France ?', answer: 'Une forte dégradation, surtout chez les jeunes, avec une explosion de la demande en soins psychiatriques dans un système déjà saturé.' },
+  { question: 'Quels dispositifs de prévention récents ont été mis en place en santé mentale ?', answer: 'Les premiers secours en santé mentale (PSSM), inspirés du secourisme physique, pour reconnaître les signes de détresse psychique et orienter la personne.' },
+  { question: 'Qu’est-ce qu’un patient expert en psychiatrie ?', answer: 'Une personne ayant vécu un trouble psychiatrique, formée pour partager son expérience et accompagner d’autres patients.' },
+  { question: 'Qu’est-ce qu’un médiateur de santé pair ?', answer: 'Un ancien patient intégré dans une équipe de soins pour améliorer la communication entre soignants et usagers.' },
+  { question: 'Quelle est la durée actuelle de la formation en psychiatrie en France ?', answer: 'Quatre ans, avec une phase socle, une année en pédopsychiatrie et une spécialisation finale.' },
+  { question: 'Quels sont les grands défis actuels de la psychiatrie en France ?', answer: 'Le dépistage précoce, la pénurie de psychiatres, la saturation du système de soins et la lutte contre la stigmatisation.' },
+  { question: 'Quelle est la prévalence vie entière des troubles psychiatriques dans la population générale ?', answer: 'Environ 30 %.' },
+  { question: 'Quelle proportion de Français nécessitent une prise en charge psychiatrique chaque année ?', answer: 'Environ 9 %.' },
+  { question: 'Quels troubles psychiatriques sévères concernent 3 à 4 % de la population ?', answer: 'La schizophrénie, les troubles bipolaires et les formes sévères de dépression.' },
+  { question: 'Quelle est la surmortalité associée aux troubles psychiatriques ?', answer: 'Une espérance de vie réduite d’environ 15 ans, liée au suicide et aux comorbidités somatiques.' },
+  { question: 'Quelles sont les principales approches thérapeutiques actuelles en psychiatrie ?', answer: 'Psychothérapies (plus de 400 types), psychotropes, stimulations cérébrales, réhabilitation psychosociale.' },
+  { question: 'Quels traitements physiques sont utilisés aujourd’hui en psychiatrie ?', answer: 'L’électro convulsivothérapie sous anesthésie, la luminothérapie, la stimulation magnétique transcrânienne et la stimulation cérébrale profonde.' },
+  { question: 'Quelles sont les grandes classifications internationales des troubles psychiatriques ?', answer: 'La CIM-11 de l’OMS et le DSM-5 utilisé aux États-Unis.' },
+  { question: 'Quelle est la spécificité juridique de la psychiatrie par rapport aux autres disciplines médicales ?', answer: 'C’est la seule discipline qui permet des soins sans consentement, encadrés par la loi.' },
+  { question: 'Quelle est la grande cause nationale en France pour 2025 ?', answer: 'La santé mentale.' },
+  { question: 'Quels sont les objectifs de la grande cause nationale santé mentale 2025 ?', answer: 'Sensibiliser et déstigmatiser, renforcer la prévention et le repérage précoce, améliorer l’accès aux soins et mobiliser la société.' },
+  { question: 'Quelle action concrète est prévue dans le cadre de la grande cause nationale 2025 ?', answer: 'Doubler le nombre de Maisons des Adolescents d’ici 2030.' },
+  { question: 'Quelle est la proportion de la population française concernée par un trouble psychique au cours de la vie ?', answer: '30 %.' },
+  { question: 'Quelle proportion de Français souffrent chaque année d’un trouble psychique nécessitant des soins ?', answer: '9 %.' },
+  { question: 'Quelle est la proportion de femmes touchées par la dépression au cours de leur vie ?', answer: 'Environ 20 %.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

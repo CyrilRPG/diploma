@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Les représentations du corps</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+    <script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+<div class="inner">
+
+<!-- Header -->
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong>- Plateforme de Flashcards</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<!-- Content -->
+<section>
+<header class="main"><div class="header-left"><h1>SHS - Psychologie médicale</h1><h2>Les représentations du corps (FC3)</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+					<style>  /* Header minimal avec contrôles accessibles */
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); color: #888; font-size: 20px; }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; width: 45px; height: 45px; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+</head>
+<body>
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+ <div class="flashcards-container" id="flashcards"></div>
+
+ <script>
+
+const flashcardsData = [
+  { question: "Qu’est-ce que le dualisme platonico-cartésien ?", answer: "Séparation radicale entre l’âme (ou l’esprit) et le corps. Platon : le corps est le tombeau de l’âme. Descartes : res cogitans (substance pensante) vs res extensa (substance étendue). Le corps est une machine." },
+  { question: "Qu’est-ce que le monisme de Spinoza ?", answer: "Il n’y a qu’une seule substance (Dieu/Nature) dont corps et esprit sont deux attributs. Corps et pensée sont parallèles, indissociables. Pas de supériorité de l’esprit sur le corps." },
+  { question: "Qu’est-ce que la thèse de l’homme-machine (La Mettrie, 1747) ?", answer: "Le corps humain est intégralement une machine, y compris le cerveau et la pensée. Position matérialiste radicale : la pensée est un produit de la matière cérébrale." },
+  { question: "Qu’est-ce que l’homme neuronal (Jean-Pierre Changeux) ?", answer: "Thèse contemporaine : l’homme se réduit à son cerveau. La conscience, les émotions et la pensée sont des phénomènes neuronaux. Forme moderne de matérialisme réductionniste." },
+  { question: "Quel rapport Nietzsche entretient-il avec le corps ?", answer: "Nietzsche réhabilite le corps comme “grande raison” face à la “petite raison” de la conscience. Le corps vivant est la source de la volonté de puissance et de la connaissance. Renversement du platonisme." },
+  { question: "Qu’est-ce que la distinction Körper/Leib chez Husserl ?", answer: "Körper : le corps-objet, le corps physique et matériel, observable de l’extérieur\nLeib : le corps-vécu, le corps propre, le corps comme siège de la subjectivité et de l’expérience" },
+  { question: "Quelle est la conception du corps chez Merleau-Ponty ?", answer: "Le corps est le medium fondamental de notre rapport au monde. Il n’est ni pur objet ni pure conscience. C’est par le corps propre que nous percevons, agissons et existons dans le monde." },
+  { question: "Qu’est-ce que la phénoménologie du visage chez Levinas ?", answer: "Le visage d’autrui est une épiphanie éthique : il me convoque à la responsabilité. Le visage est nu, vulnérable, et m’interdit de tuer. Fondement de l’éthique comme philosophie première." },
+  { question: "Qu’est-ce que le constructivisme social appliqué au corps ?", answer: "Le corps n’est pas seulement biologique mais aussi construit socialement : les normes culturelles définissent ce qu’est un corps normal, beau, sain, masculin/féminin, valide/handicapé." },
+  { question: "Comment l’image du corps s’est-elle transformée dans la modernité ?", answer: "Le corps est devenu objet de consommation, de performance et de transformation (chirurgie esthétique, sport, tatouages). Tension entre corps naturel et corps artificialisé." },
+  { question: "Qu’est-ce que le corps fantasmé ?", answer: "Représentation imaginaire du corps, influencée par les idéaux culturels (beauté, minceur, performance). Décalage entre le corps réel et le corps idéalisé, source de souffrance psychique (troubles alimentaires, dysmorphophobie)." },
+  { question: "Comment la différence sociale des sexes est-elle construite selon le cours ?", answer: "La distinction masculin/féminin n’est pas seulement biologique mais aussi socialement construite. Les rôles de genre, les comportements attendus et les représentations corporelles varient selon les cultures et les époques." },
+  { question: "Qu’est-ce que la déconstruction du genre appliquée au corps ?", answer: "Remise en question de la binarité homme/femme comme catégorie naturelle. Le genre est une performance sociale (Butler). Le corps est un lieu de normes imposées que l’on peut déconstruire." },
+  { question: "Comment le racisme et le handicap interrogent-ils les représentations du corps ?", answer: "Le racisme assigne des corps à des catégories hiérarchisées (races). Le handicap révèle les normes du corps “valide” comme construction sociale. Les deux montrent que le corps est un lieu de pouvoir et de discrimination." },
+  { question: "Pourquoi le dualisme corps/esprit est-il problématique en médecine ?", answer: "Il conduit à traiter le corps comme une machine à réparer en ignorant le vécu du patient. La médecine psychosomatique montre que corps et psychisme interagissent constamment." },
+  { question: "Quel est l’intérêt de la phénoménologie pour la pratique médicale ?", answer: "Elle invite à considérer le patient non comme un corps-objet à examiner mais comme un sujet incarné avec un vécu. Le corps malade est un corps-vécu, pas seulement un organisme dysfonctionnel." },
+  { question: "Qu’est-ce que le dualisme moderne en médecine ?", answer: "Persistance de la séparation corps/esprit dans la pratique médicale : spécialités somatiques vs psychiatrie, médecine du corps vs médecine de l’esprit. La médecine holistique tente de dépasser cette dichotomie." },
+  { question: "Comment Descartes justifie-t-il que le corps est une machine ?", answer: "Par l’analogie avec les automates : le corps fonctionne comme une horloge selon des lois mécaniques. Seule l’âme pensante (glande pinéale) distingue l’homme de la machine." },
+  { question: "Qu’est-ce que le schéma corporel ?", answer: "Représentation inconsciente et dynamique du corps dans l’espace. Il permet la coordination motrice et la proprioception. Se distingue de l’image du corps (représentation consciente et affective)." },
+  { question: "Comment la sociologie aborde-t-elle le corps ?", answer: "Le corps est socialement façonné : techniques du corps (Mauss), habitus corporel (Bourdieu), discipline des corps (Foucault). Le corps est un lieu d’inscription des normes sociales et du pouvoir." },
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function showFlashcard(index) {
+  container.innerHTML = "";
+  if (index >= flashcards.length) {
+    container.innerHTML = '<p style="text-align:center; font-size:1.5rem;">Bravo ! Vous avez terminé toutes les flashcards ! 🎉</p>';
+    progressBar.style.width = "100%";
+    localStorage.setItem("completed_" + pageId, "true");
+    return;
+  }
+  const fc = flashcards[index];
+  const card = document.createElement("div");
+  card.className = "flashcard";
+  card.innerHTML = `
+    <div class="flashcard-inner">
+      <div class="flashcard-front"><span>${fc.question}</span></div>
+      <div class="flashcard-back"><span>${fc.answer.replace(/\n/g, '<br>')}</span></div>
+      <div class="check-icon" title="Je savais">&#10004;</div>
+      <svg class="cross-icon" title="Je ne savais pas" viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20" stroke-width="3"/><line x1="20" y1="4" x2="4" y2="20" stroke-width="3"/></svg>
+      <svg class="favorite-icon" title="Ajouter aux favoris" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </div>
+  `;
+  container.appendChild(card);
+  card.querySelector(".flashcard-inner").addEventListener("click", function(e) {
+    if (!e.target.closest('.check-icon') && !e.target.closest('.cross-icon') && !e.target.closest('.favorite-icon')) {
+      card.classList.toggle("show-answer");
+    }
+  });
+  card.querySelector(".check-icon").addEventListener("click", function(e) {
+    e.stopPropagation();
+    card.querySelector(".flashcard-inner").classList.add("slide-right");
+    setTimeout(() => { currentIndex++; localStorage.setItem(progressKey, currentIndex); updateProgress(); showFlashcard(currentIndex); }, 400);
+  });
+  card.querySelector(".cross-icon").addEventListener("click", function(e) {
+    e.stopPropagation();
+    card.querySelector(".flashcard-inner").classList.add("slide-left");
+    flashcards.push(fc);
+    setTimeout(() => { currentIndex++; localStorage.setItem(progressKey, currentIndex); updateProgress(); showFlashcard(currentIndex); }, 400);
+  });
+  const favIcon = card.querySelector(".favorite-icon");
+  const favKey = "fav_" + pageId + "_" + index;
+  if (localStorage.getItem(favKey) === "true") favIcon.classList.add("active");
+  favIcon.addEventListener("click", function(e) {
+    e.stopPropagation();
+    const isActive = favIcon.classList.toggle("active");
+    localStorage.setItem(favKey, isActive);
+  });
+  updateProgress();
+}
+
+showFlashcard(currentIndex);
+</script>
+
+</section>
+</div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="../index.html">Accueil</a></li>
+									<li><a href="../favorites.html">Favoris</a></li>
+									<li>
+										<span class="opener">Physiologie</span>
+										<ul>
+											<li><a href="../Physiologie/fc1.html">Introduction a la physiologie cardio-vasculaire</a></li>
+											<li><a href="../Physiologie/fc2.html">Adaptation de l’apport d’oxygène</a></li>
+											<li><a href="../Physiologie/fc3.html">Organisation du système cardiovasculaire</a></li>
+											<li><a href="../Physiologie/fc4.html">Adaptations à l’effort</a></li>
+											<li><a href="../Physiologie/fc5.html">Introduction à la neurophysiologie</a></li>
+											<li><a href="../Physiologie/fc6.html">Adaptation rénale</a></li>
+											<li><a href="../Physiologie/fc7.html">Bilan de l’eau</a></li>
+											<li><a href="../Physiologie/fc8.html">Contrôle de la croissance</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Anatomie</span>
+										<ul>
+											<li><a href="../Anatomie/tete_cou.html">Tête et cou</a></li>
+											<li><a href="../Anatomie/petit_bassin.html">Le petit bassin</a></li>
+											<li><a href="../Anatomie/odontologie.html">Odontologie</a></li>
+											<li><a href="../Anatomie/appareil_reproducteur.html">Appareil reproducteur</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biophysique</span>
+										<ul>
+											<li><a href="../Biophysique/fc1.html">Physique pour la biophysique</a></li>
+											<li><a href="../Biophysique/fc2.html">Solutions et transport</a></li>
+											<li><a href="../Biophysique/fc3.html">Compartiments liquidiens</a></li>
+											<li><a href="../Biophysique/fc4.html">Transfert electrodiffusif</a></li>
+											<li><a href="../Biophysique/fc5.html">Potentiel de membrane</a></li>
+											<li><a href="../Biophysique/fc6.html">ECG</a></li>
+											<li><a href="../Biophysique/fc7.html">Acide base</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Pharmacologie</span>
+										<ul>
+											<li><a href="../Pharmacologie/fc1.html">Introduction à la pharmacologie</a></li>
+											<li><a href="../Pharmacologie/fc2.html">Règles de prescription</a></li>
+											<li><a href="../Pharmacologie/fc3.html">Les phases de développement clinique</a></li>
+											<li><a href="../Pharmacologie/fc4.html">Encadrement réglementaire de la recherche clinique</a></li>
+											<li><a href="../Pharmacologie/fc5.html">Pharmacocinétique descriptive (FC5)</a></li>
+											<li><a href="../Pharmacologie/fc6.html">Pharmacodynamie</a></li>
+											<li><a href="../Pharmacologie/fc7.html">Pharmscocinétique quantitative</a></li>
+											<li><a href="../Pharmacologie/fc8.html">Causes pharmacocinétiques de variabilité</a></li>
+											<li><a href="../Pharmacologie/fc9.html">Cibles et mécanismes d’actions</a></li>
+											<li><a href="../Pharmacologie/fc10.html">Iatrogénie</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Biostatistiques</span>
+										<ul>
+											<li><a href="../Biostatistiques/fc1.html">Probabilité</a></li>
+											<li><a href="../Biostatistiques/fc2.html">Tests diagnostiques</a></li>
+											<li><a href="../Biostatistiques/fc3.html">Variables aléatoires</a></li>
+											<li><a href="../Biostatistiques/fc4.html">Distribution usuelles</a></li>
+											<li><a href="../Biostatistiques/fc5.html">Échantillon, population et théorème central</a></li>
+											<li><a href="../Biostatistiques/fc6.html">Théorie des tests et degré de signification</a></li>
+											<li><a href="../Biostatistiques/fc7.html">Test de comparaison</a></li>
+											<li><a href="../Biostatistiques/fc8.html">X2</a></li>
+											<li><a href="../Biostatistiques/fc9.html">Principaux types d’études</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDS Biologie</span>
+										<ul>
+											<li><a href="../UEDS_Biologie/fc1.html">Acides aminés</a></li>
+											<li><a href="../UEDS_Biologie/fc2_1.html">Enzymologie (FC2.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc2_2.html">Enzymologie (FC2.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_1.html">Glucides (FC3.1)</a></li>
+											<li><a href="../UEDS_Biologie/fc3_2.html">Glucides (FC3.2)</a></li>
+											<li><a href="../UEDS_Biologie/fc4.html">Réplication procaryote</a></li>
+											<li><a href="../UEDS_Biologie/fc5.html">Transcription</a></li>
+											<li><a href="../UEDS_Biologie/fc6.html">Analyse cellulaire et moléculaire</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">UEDL IGHL</span>
+										<ul>
+											<li><a href="../UEDL_IGHL/fc1.html">La syntaxe</a></li>
+											<li><a href="../UEDL_IGHL/fc2.html">Morphologie</a></li>
+											<li><a href="../UEDL_IGHL/fc3.html">Introduction à l’histoire de la langue</a></li>
+											<li><a href="../UEDL_IGHL/fc4.html">Ancien français</a></li>
+											<li><a href="../UEDL_IGHL/fc5.html">Le moyen français</a></li>
+											<li><a href="../UEDL_IGHL/fc6.html">Français classique, post classique et moderne</a></li>
+											<li><a href="../UEDL_IGHL/fc7.html">Les voyelles</a></li>
+											<li><a href="../UEDL_IGHL/fc8.html">Les consonnes</a></li>
+											<li><a href="../UEDL_IGHL/fc9.html">Le groupe nominal</a></li>
+											<li><a href="../UEDL_IGHL/fc10.html">Le groupe verbal et le système pronominal</a></li>
+											<li><a href="../UEDL_IGHL/fc11.html">Lexicologie historique</a></li>
+											<li><a href="../UEDL_IGHL/fc12.html">Sémantique historique</a></li>
+											<li><a href="../UEDL_IGHL/fc13.html">Dialectologie gallo-romane</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SHS</span>
+										<ul>
+											<li>
+												<span class="opener">Santé numérique</span>
+												<ul>
+													<li><a href="../SHS/definition_acteurs_strategies.html">Définition, acteurs et stratégies nationales</a></li>
+													<li><a href="../SHS/outils_pratiques_numeriques.html">Outils et pratiques numériques en santé</a></li>
+													<li><a href="../SHS/traitement_donnees_sante.html">Traitement des données de santé</a></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Éthique et droit</span>
+												<ul>
+													<li><a href="../SHS/introduction_droit_sante.html">Introduction au droit de la santé</a></li>
+													<li><a href="../SHS/introduction_ethique_medicale.html">Introduction à l’éthique médicale (FC2)</a></li>
+													<li><a href="../SHS/principisme_fin_de_vie.html">Principisme et fin de vie (FC3)</a></li>
+													<li><a href="../SHS/progres_techniques_amp.html">Progrès techniques et AMP (FC4)</a></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Psychologie médicale</span>
+												<ul>
+													<li><a href="../SHS/psycho_emotion_comportement.html">Émotion et comportement (FC1)</a></li>
+													<li><a href="../SHS/psycho_prevention_suicidaires.html">Prévention des conduites suicidaires (FC2)</a></li>
+													<li><a href="../SHS/psycho_representations_corps.html">Les représentations du corps (FC3)</a></li>
+													<li><a href="../SHS/psycho_stress_psychotraumatisme.html">Stress et psycho-traumatisme (FC4)</a></li>
+													<li><a href="../SHS/psycho_developpement_affectif.html">Développement affectif et intellectuel (FC5)</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

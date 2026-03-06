@@ -1,0 +1,464 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Relation soignante</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>SHS</h1><h2>Relation soignante</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Qu’est-ce que la relation soignante ?', answer: 'C’est un lien professionnel entre un soignant et un patient, étendu à l’entourage, partie essentielle des soins.' },
+  { question: 'Depuis quand la relation soignante est-elle reconnue comme importante ?', answer: 'Depuis les années 1990.' },
+  { question: 'Quelle était l’approche historique de la relation soignant-patient ?', answer: 'Paternaliste et biomédicale.' },
+  { question: 'Quelle est l’approche actuelle de la relation soignant-patient ?', answer: 'Une approche globale, centrée sur le patient et intégrant son expérience et son savoir.' },
+  { question: 'Quelles sont les deux dimensions de la formation du soignant ?', answer: 'Formation technique et gestion de la relation soignante.' },
+  { question: 'Que souligne la citation de Charles Honnorat sur la relation médecin-malade ?', answer: 'Elle est source à la fois de bonheur professionnel et de grandes difficultés.' },
+  { question: 'Quelle est la différence entre cliniciens et non-cliniciens ?', answer: 'Les cliniciens prennent en charge directement les patients, les non-cliniciens travaillent en recherche, santé publique, industrie ou enseignement.' },
+  { question: 'Quels types de soignants existant historiquement avant le XVIIIe siècle ?', answer: 'Guérisseurs, moines, sœurs, liés à la religion et utilisant des plantes.' },
+  { question: 'Quelle est la contribution d’Hippocrate au IVe siècle avant J.-C. ?', answer: 'Il rejette les superstitions, fonde l’éthique médicale et affirme des causes naturelles aux maladies.' },
+  { question: 'Quelle évolution a eu lieu au XVIIIe siècle dans la médecine ?', answer: 'Développement des sciences médicales, apparition de la psychiatrie et approche anatomo-clinique.' },
+  { question: 'Comment se caractérisait la relation soignant-patient au XVIIIe siècle ?', answer: 'Paternaliste, modèle actif/passif, le médecin décidant pour le patient.' },
+  { question: 'Quelle est la caractéristique de la médecine contemporaine ?', answer: 'Coopérative et participative avec prise en compte du savoir du patient.' },
+  { question: 'Quels contre-pouvoirs ont influencé la relation soignante moderne ?', answer: 'Les lois sur les droits des patients et associations de malades.' },
+  { question: 'Quels sont les quatre types de relation soignante ?', answer: 'Actif/passif, consensuelle, coopérative, participative.' },
+  { question: 'Dans quels cas observe-t-on une relation actif/passif ?', answer: 'Maladies aiguës graves, chirurgie, réanimation.' },
+  { question: 'Qu’est-ce qu’une relation consensuelle ?', answer: 'Le patient accepte d’emblée la prise en charge proposée par le soignant.' },
+  { question: 'Donne un exemple de relation consensuelle.', answer: 'Pose d’un plâtre, soins dentaires.' },
+  { question: 'Qu’est-ce qu’une relation coopérative ?', answer: 'Le soignant doit convaincre le patient d’adhérer aux soins, patient effecteur.' },
+  { question: 'Donne un exemple de relation coopérative.', answer: 'Prise d’un traitement pour une infection ou hypertension.' },
+  { question: 'Qu’est-ce qu’une relation participative ?', answer: 'Le patient est protagoniste de ses soins et le soignant accompagne.' },
+  { question: 'Donne un exemple de relation participative.', answer: 'Maladies chroniques comme diabète, hypertension, troubles bipolaires.' },
+  { question: 'Quels facteurs personnels influencent la relation du soignant avec son patient ?', answer: 'Âge, personnalité, fatigue, croyances, humeurs.' },
+  { question: 'Quels sont les motifs conscients qui poussent à devenir soignant ?', answer: 'Humanitaires, scientifiques, sociaux.' },
+  { question: 'Quels sont les motifs inconscients qui poussent à devenir soignant ?', answer: 'Désir de réparation, soigner un proche, pression parentale, identification, pouvoir.' },
+  { question: 'Quelle est l’origine du mot patient ?', answer: 'Du latin “pateo, pates” signifiant souffrir.' },
+  { question: 'Quelle différence existe entre patient et malade ?', answer: 'Le patient reçoit des soins, le malade ressent un état de maladie et se comporte socialement comme malade.' },
+  { question: 'Quels sont les trois termes anglais pour décrire la maladie ?', answer: 'Disease, illness, sickness.' },
+  { question: 'Que signifie disease ?', answer: 'Maladie objectivée par des altérations organiques reconnues par le soignant.' },
+  { question: 'Que signifie illness ?', answer: 'Ressenti subjectif de la maladie, perception de souffrance.' },
+  { question: 'Que signifie sickness ?', answer: 'Dimension sociale du fait d’être reconnu et se comporter comme malade.' },
+  { question: 'Qu’est-ce que le partenariat en ACP ?', answer: 'Complémentarité entre expertise du soignant et expérience du patient.' },
+  { question: 'Quelles sont les 4 dimensions de la démarche clinique centrée patient ?', answer: 'Explorer la maladie vécue, comprendre la personne, trouver un terrain d’entente, développer une alliance thérapeutique.' },
+  { question: 'Quelles sont les expériences psychologiques fréquentes chez le malade ?', answer: 'Peur, angoisse, faiblesse, dépendance, souffrance physique et psychologique.' },
+  { question: 'Quelle est la dimension de dépendance du malade ?', answer: 'Dépendance physique pour les soins et psychologique pour la réassurance.' },
+  { question: 'Quelles angoisses sont liées à la maladie ?', answer: 'Peur de la mort, de la souffrance, de la douleur, de la transformation corporelle.' },
+  { question: 'Quelle est la réaction de Grand Corps Malade face à l’hospitalisation ?', answer: 'Sentiment de perte d’intimité et d’autonomie en rééducation.' },
+  { question: 'Qu’illustre Emmanuel Carrère dans son témoignage ?', answer: 'Le fantasme d’une transformation corporelle lors d’un cancer du tibia.' },
+  { question: 'Quels sont les deux temps clés de la décision médicale partagée selon la HAS 2013 ?', answer: 'Échange d’information et délibération.' },
+  { question: 'Quelle est la devise de l’autodétermination du patient ?', answer: 'Pas de décision sur moi sans moi.' },
+  { question: 'Pourquoi les patients développent-ils des mécanismes de défense ?', answer: 'Pour faire face à l’angoisse et s’adapter à la maladie.' },
+  { question: 'Quels sont les trois groupes de réactions psychologiques à la maladie ?', answer: 'Réactions efficaces, intermédiaires, inefficaces.' },
+  { question: 'Donne un exemple de réaction efficace.', answer: 'Humour, maîtrise, sublimation, affirmation de soi.' },
+  { question: 'Donne un exemple de réaction intermédiaire.', answer: 'Régression, intellectualisation, dépendance, isolation.' },
+  { question: 'Donne un exemple de réaction inefficace.', answer: 'Déni, agressivité, clivage, passage à l’acte.' },
+  { question: 'Quelle est la réaction la plus massive face à la maladie ?', answer: 'Le déni.' },
+  { question: 'Que traduit le déni massif ?', answer: 'Une fragilité psychique importante.' },
+  { question: 'Qu’est-ce que la régression comme mécanisme de défense ?', answer: 'Retour à un fonctionnement infantile, dépendance, pensée magique.' },
+  { question: 'Que représente l’agressivité dans les réactions à la maladie ?', answer: 'Attribution de la cause de ses problèmes à l’extérieur et colère exprimée.' },
+  { question: 'Qu’est-ce qu’une réaction d’isolation ?', answer: 'Apathie, détachement émotionnel face à la maladie.' },
+  { question: 'Que signifie la maîtrise comme réaction à la maladie ?', answer: 'Utiliser des rituels pour garder un sentiment de contrôle.' },
+  { question: 'Comment l’humour aide-t-il dans la maladie ?', answer: 'Il permet de relativiser et d’alléger la souffrance.' },
+  { question: 'Quelle est la première caractéristique de la relation soignante ?', answer: 'Elle est asymétrique, le soignant est en position de force, le patient dépendant.' },
+  { question: 'Qu’est-ce que l’asymétrie de statut dans la relation soignante ?', answer: 'Le patient souffre, dépendant et anxieux, face à un soignant capable et puissant.' },
+  { question: 'Qu’est-ce que l’asymétrie d’investissement dans la relation soignante ?', answer: 'Pour le patient la consultation est exceptionnelle, pour le médecin elle est quotidienne.' },
+  { question: 'Quelles sont les attentes du patient dans la relation soignante ?', answer: 'Savoir, guérison, soutien, sécurité, reconnaissance de son statut de malade.' },
+  { question: 'Quelles sont les attentes du soignant dans la relation soignante ?', answer: 'Reconnaissance de son statut, acceptation de ses décisions, relation humaine.' },
+  { question: 'Quel rôle joue le corps dans la relation soignante ?', answer: 'Il est le lieu d’échange, accessible uniquement aux soignants et dans le respect de la pudeur.' },
+  { question: 'Quel rôle joue la parole dans la relation soignante ?', answer: 'Elle structure l’échange, aide au diagnostic, instaure confiance et a un effet thérapeutique.' },
+  { question: 'La relation soignante est-elle un contrat ?', answer: 'Oui, un contrat d’ordre éthique basé sur la responsabilité du soignant.' },
+  { question: 'Quelle puissance a la relation soignante au-delà des soins techniques ?', answer: 'Elle peut avoir un effet thérapeutique, placebo, mais aussi iatrogène si mal gérée.' },
+  { question: 'Quelle étude illustre l’effet positif de la relation soignante sur la guérison ?', answer: 'Des patients avec un rhume guérissent plus vite avec une relation perçue positivement.' },
+  { question: 'Qu’est-ce que le transfert en psychanalyse ?', answer: 'Réactions affectives du patient envers le soignant, positives (confiance) ou négatives (méfiance).' },
+  { question: 'Qu’est-ce que le contre-transfert en psychanalyse ?', answer: 'Réactions affectives du soignant envers le patient, positives ou négatives.' },
+  { question: 'Quand la relation soignante atteint-elle son apogée selon la psychanalyse ?', answer: 'Quand transfert et contre-transfert sont positifs.' },
+  { question: 'Quelles sont les deux qualités essentielles du soignant dans la relation ?', answer: 'Altruisme et empathie.' },
+  { question: 'Qu’est-ce que l’altruisme ?', answer: 'Bienveillance envers autrui, opposée à l’égoïsme.' },
+  { question: 'Quels obstacles limitent l’altruisme du soignant ?', answer: 'Confrontation à la maladie, la souffrance et la mort.' },
+  { question: 'Comment cultiver l’altruisme ?', answer: 'Par la médecine narrative, discussions en équipe, maintien de l’humanité.' },
+  { question: 'Qu’attend-on du soignant : sympathie ou empathie ?', answer: 'Empathie.' },
+  { question: 'Quelle est la différence entre sympathie et empathie ?', answer: 'La sympathie fait souffrir avec le patient, l’empathie consiste à comprendre sans se confondre.' },
+  { question: 'Pourquoi l’empathie est-elle essentielle ?', answer: 'Elle permet au patient de se sentir compris, réduit son isolement et augmente sa satisfaction.' },
+  { question: 'Quels sont les risques d’un excès d’empathie ?', answer: 'Contre-transfert trop positif, épuisement professionnel, rejet ultérieur.' },
+  { question: 'Quelles sont les trois dimensions de l’empathie ?', answer: 'Cognitive, affective et régulation.' },
+  { question: 'Quels sont les déterminants de l’empathie liés au soignant ?', answer: 'Spécialité, expérience, genre, motivations personnelles.' },
+  { question: 'Quelles conditions de travail réduisent l’empathie ?', answer: 'Pression temporelle, anxiété, surcharge, environnement cynique.' },
+  { question: 'Qu’est-ce que la familiarité favorisant l’empathie ?', answer: 'Partager des caractéristiques communes avec le patient (âge, milieu social, vécu).' },
+  { question: 'Quelle légende mythologique illustre la vocation soignante par la douleur ?', answer: 'Le Centaure Chiron, blessé, qui forme Esculape.' },
+  { question: 'Quel est le processus d’empathie ?', answer: 'Accueillir, reconnaître et reformuler les émotions du patient.' },
+  { question: 'Quel est l’effet de nommer les émotions du patient ?', answer: 'Réduction du stress et renforcement de la relation thérapeutique.' },
+  { question: 'Quelle structure cérébrale est impliquée dans la régulation émotionnelle étudiée par IRM ?', answer: 'L’amygdale.' },
+  { question: 'Que montre la roue des émotions de Plutchik dans la relation soignante ?', answer: 'Nommer les émotions atténue encore plus le stress.' },
+  { question: 'Quel est le premier repère pratique de la relation soignante ?', answer: 'La prise de contact.' },
+  { question: 'Que recommande David Khayat sur la prise en charge ?', answer: 'On ne traite pas une maladie mais un être humain malade.' },
+  { question: 'Quels éléments sont essentiels dans la prise de contact ?', answer: 'Connaître le nom, se présenter, préciser son rôle et l’objectif.' },
+  { question: 'Comment lutter contre l’asymétrie soignant-patient dès le contact ?', answer: 'En se présentant clairement et en expliquant sa fonction.' },
+  { question: 'Que faire si l’objectif de l’échange n’est pas établi ?', answer: 'Commencer par une question ouverte et écouter sans interrompre.' },
+  { question: 'Combien de temps dure en moyenne l’expression libre du patient ?', answer: 'Moins de deux minutes.' },
+  { question: 'Comment mettre à l’aise un patient ?', answer: 'Chaleur humaine, sollicitude, respect, absence de jugement.' },
+  { question: 'Quelle attitude recommande Carl Rogers ?', answer: 'Communiquer une sollicitude profonde sans évaluer les pensées ou actes du patient.' },
+  { question: 'Pourquoi ne pas infantiliser le patient ?', answer: 'Parce qu’il faut préserver sa dignité et le respecter comme adulte responsable.' },
+  { question: 'Que signifie structurer l’échange ?', answer: 'Informer sur les étapes, alterner questions ouvertes et fermées, recentrer si besoin.' },
+  { question: 'Quel est le rôle de l’examen physique dans la relation soignante ?', answer: 'Fournir des signes diagnostiques attendus, instaurer une intimité et rassurer.' },
+  { question: 'Que doit toujours précéder l’examen physique ?', answer: 'Une demande d’autorisation explicite.' },
+  { question: 'Quelle proportion de communication passe par le non-verbal en santé ?', answer: 'Environ 70 %.' },
+  { question: 'Quelles sont les principales habiletés communicationnelles ?', answer: 'Questions ouvertes, fermées, respect des silences, reformulation.' },
+  { question: 'Comment le soignant doit-il présenter le plan d’action ?', answer: 'De façon claire, sans jargon, avec explication des risques et bénéfices.' },
+  { question: 'Pourquoi est-il important de conclure l’échange ?', answer: 'Pour redonner la parole au patient et vérifier ses questions ou attentes.' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

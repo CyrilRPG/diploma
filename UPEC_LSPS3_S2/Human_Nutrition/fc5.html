@@ -1,0 +1,477 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Plateforme de Flashcards</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../index.html" class="logo"><strong>Diploma Santé</strong> - UPEC LSPS3 S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Human nutrition</h1><h2>Les vitamines liposolubles</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+{ question: 'Quelle est la définition d’une vitamine selon les sources ?', answer: 'Les vitamines sont des substances vitales pour l’organisme, nécessaires à de nombreux processus physiologiques, mais qui n’ont aucune valeur énergétique.', },
+{ question: 'Pourquoi l’alimentation doit-elle impérativement apporter des vitamines ?', answer: 'À l’exception des vitamines K et D, le corps humain ne peut pas synthétiser les vitamines par lui-même.', },
+{ question: 'Où sont principalement stockées les vitamines liposolubles dans l’organisme ?', answer: 'Elles sont stockées dans les tissus adipeux (notamment pour les vitamines D et E) et, dans une large mesure, dans le foie (notamment pour la vitamine A).', },
+{ question: 'Quel est le risque associé à l’accumulation des vitamines liposolubles ?', answer: 'Leur capacité à s’accumuler dans l’organisme entraîne un risque potentiel de toxicité en cas d’apport trop important, comme c’est le cas pour la vitamine A.', },
+{ question: 'Pourquoi le risque de surdosage est-il moindre pour les vitamines hydrosolubles ?', answer: 'Parce qu’elles sont éliminées par les urines, contrairement aux vitamines liposolubles qui se stockent dans les graisses.', },
+{ question: 'Quelle est la différence d’efficacité entre les compléments alimentaires et les vitamines naturelles ?', answer: 'Les compléments alimentaires ne semblent pas procurer la même protection que les aliments contenant naturellement ces vitamines.', },
+{ question: 'Quelles vitamines liposolubles sont citées dans le plan de cours ?', answer: 'Les vitamines A (rétinoïdes et caroténoïdes), D, E (tocophérols) et K.', },
+{ question: 'À quels processus métaboliques les vitamines B apportent-elles un soutien particulier ?', answer: 'Elles soutiennent les actions impliquant la méthylation, les glucides et les lipides.', },
+{ question: 'Quelles sont les contributions de la vitamine A au métabolisme et aux tissus ?', answer: 'Elle contribue au métabolisme normal du fer, ainsi qu’au maintien de muqueuses, d’une peau et d’une vision normales.', },
+{ question: 'Quel rôle joue la vitamine A vis-à-vis du système immunitaire ?', answer: 'Elle contribue au fonctionnement normal du système immunitaire.', },
+{ question: 'Quel est le principal précurseur de la vitamine A ?', answer: 'Le rétinol est le principal précurseur de la vitamine A.', },
+{ question: 'Quelle est la différence d’origine entre le rétinol et les caroténoïdes ?', answer: 'Le rétinol provient exclusivement des produits d’origine animale, tandis que les caroténoïdes sont des pigments d’origine végétale.', },
+{ question: 'Comment les caroténoïdes comme le β-carotène contribuent-ils à l’apport en vitamine A ?', answer: 'Ils sont transformés en rétinol par l’organisme, agissant ainsi comme des précurseurs de la vitamine A.', },
+{ question: 'Dans quels types de régulations génétiques la vitamine A intervient-elle ?', answer: 'Elle intervient dans l’activation et la répression de l’expression des gènes.', },
+{ question: 'Quelles fonctions physiologiques dépendent de la régulation génétique par la vitamine A ?', answer: 'Le développement de l’embryon, la croissance cellulaire, le renouvellement des tissus (peau, muqueuse intestinale) et le système immunitaire.', },
+{ question: 'Quelle propriété spécifique possède le ß-carotène en plus d’être un précurseur vitaminique ?', answer: 'Il peut agir comme un antioxydant en piégeant les radicaux libres pour neutraliser les molécules instables endommageant les cellules.', },
+{ question: 'Dans quels pigments visuels la vitamine A est-elle présente ?', answer: 'Elle est présente dans les rhodopsines (cellules photoréceptrices de la rétine) et les iodopsines.', },
+{ question: 'De quoi est constitué le pigment visuel rhodopsine ?', answer: 'Il est constitué d’une protéine appelée opsine associée au rétinal, un dérivé de la vitamine A.', },
+{ question: 'Quel changement chimique se produit dans l\'œil lors de l’interaction avec un photon ?', answer: 'Le rétinal subit un changement de conformation, passant d’une structure cis à une structure trans.', },
+{ question: 'Quel est l’apport nutritionnel de référence (PRI) en vitamine A pour un homme de 18 ans et plus ?', answer: 'L’apport de référence est de 750 µg RE/j.', },
+{ question: 'Quel est l’apport nutritionnel de référence (PRI) en vitamine A pour une femme de 18 ans et plus ?', answer: 'L’apport de référence est de 650 µg RE/j.', },
+{ question: 'Quelle est la limite supérieure d’apport (UL) en vitamine A pour un adulte ?', answer: 'La limite supérieure est fixée à 3000 µg RE/j.', },
+{ question: 'Pourquoi les femmes enceintes doivent-elles éviter un excès de vitamine A ?', answer: 'Un excès de rétinol (notamment au 1er trimestre) a des effets tératogènes, provoquant des malformations congénitales du fœtus.', },
+{ question: 'Citez des sources animales riches en rétinol.', answer: 'Le foie, les rognons, les poissons gras et les produits laitiers gras.', },
+{ question: 'Pourquoi a-t-on besoin de graisses pour absorber la vitamine A ?', answer: 'La vitamine A étant liposoluble, sa solubilité et son absorption dépendent de la présence de lipides alimentaires.', },
+{ question: 'Quels végétaux sont riches en provitamine A ?', answer: 'La patate douce, les carottes, les poivrons, le potiron et les légumes vert foncé comme les épinards et les choux.', },
+{ question: 'Qu’est-ce que la xérophtalmie ?', answer: 'C’est la maladie résultant d’une carence en vitamine A, constituant une cause majeure et évitable de cécité chez les enfants dans les pays en développement.', },
+{ question: 'Quels sont les symptômes précoces d’une carence en vitamine A ?', answer: 'La cécité nocturne, caractérisée par une difficulté à voir dans l’obscurité due à une déficience des pigments visuels.', },
+{ question: 'Quels sont les signes oculaires d’une carence avancée en vitamine A ?', answer: 'Une xérose (aspect sec et trouble) de la cornée et de la conjonctive, pouvant mener à une cécité irréversible.', },
+{ question: 'Comment la carence en vitamine A affecte-t-elle la mortalité infantile ?', answer: 'Elle diminue l’immunité, entraînant une susceptibilité accrue aux infections et une augmentation de la mortalité infantile.', },
+{ question: 'Quelles stratégies permettent d’éviter la carence en vitamine A dans les zones endémiques ?', answer: 'La diversification de l’alimentation, l’amélioration de l’hygiène et des suppléments périodiques oraux tous les 6 mois pour les enfants de moins de 5 ans.', },
+{ question: 'Quels sont les symptômes d’une toxicité aiguë à la vitamine A chez l’adulte ?', answer: 'Une dose unique supérieure à 300 mg provoque des nausées, des vomissements et des maux de tête.', },
+{ question: 'Quels organes sont touchés par une toxicité chronique à la vitamine A (7,5-9 mg/jour) ?', answer: 'Le sinus, le système nerveux central, le foie et les os.', },
+{ question: 'Quel paradoxe a été observé concernant la supplémentation en β-carotène chez les fumeurs ?', answer: 'Bien que ce soit un antioxydant, la supplémentation augmente le risque de cancer du poumon et la mortalité chez les fumeurs.', },
+{ question: 'Quelle explication est avancée pour la toxicité du bêta-carotène chez les fumeurs ?', answer: 'Dans l’environnement riche en radicaux libres des poumons des fumeurs, le bêta-carotène pourrait se transformer en composés pro-oxydants.', },
+{ question: 'Quelle est la connexion majeure de la vitamine D dans l’organisme ?', answer: 'Elle possède une connexion importante avec le calcium, notamment pour la formation et la santé des os.', },
+{ question: 'Qu’est-ce que le rachitisme (Maladie de Ricketts) ?', answer: 'C’est une maladie affectant le développement osseux des enfants, rendant les os mous et faibles, ce qui entraîne des déformations.', },
+{ question: 'Qu’est-ce que l’ostéomalacie ?', answer: 'C’est l’équivalent du rachitisme chez l’adulte, se manifestant par une fragilisation des os due à un défaut de minéralisation.', },
+{ question: 'Pourquoi la vitamine D est-elle considérée comme une hormone stéroïde ?', answer: 'Parce qu’elle participe à l’homéostasie du calcium et du phosphore ainsi qu’à la régulation de la prolifération et différenciation cellulaire.', },
+{ question: 'Comment la vitamine D agit-elle sur les cellules osseuses ?', answer: 'Elle pénètre dans les ostéocytes et ostéoblastes pour stimuler leur différenciation en ostéoclastes (cellules matures responsables du remodelage osseux).', },
+{ question: 'Qu’est-ce que le VDR ?', answer: 'C’est le récepteur de la vitamine D qui, une fois lié à son précurseur, stimule l’activité des cellules osseuses matures.', },
+{ question: 'Quelle est la principale source de vitamine D pour l’être humain ?', answer: 'La majeure partie de la production a lieu dans le corps après une exposition de la peau aux rayons UVB du soleil.', },
+{ question: 'Quel est le précurseur de base de la vitamine D dans l’organisme ?', answer: 'Le cholestérol sert de précurseur à la synthèse de la vitamine D.', },
+{ question: 'Décrivez les étapes de synthèse de la vitamine D3 (cholécalciférol).', answer: 'Les UVB transforment le 7-déhydrocholestérol de la peau en pré-vitamine D3, qui est ensuite convertie en vitamine D3 dans le foie et les reins.', },
+{ question: 'Quelle est la forme biologiquement active de la vitamine D ?', answer: 'C’est la 1,25-dihydroxyvitamine D3, produite principalement par les reins.', },
+{ question: 'Quel est le rôle de la forme active de la vitamine D dans l’intestin ?', answer: 'Elle est essentielle pour l’absorption du calcium par les intestins.', },
+{ question: 'Quelle durée d’exposition au soleil est recommandée pour un apport adéquat ?', answer: 'Exposer la peau pendant 15 à 20 minutes en fin de matinée ou dans l’après-midi suffit généralement.', },
+{ question: 'Comment varie la production de vitamine D selon la latitude en Europe du Nord ?', answer: 'Elle est saisonnière, produite principalement d’avril à septembre ; en hiver, la concentration sérique de 25(OH)D chute.', },
+{ question: 'Quel est l’apport adéquat (AI) recommandé en vitamine D pour un adulte ?', answer: 'L’apport recommandé est de 15 µg/j.', },
+{ question: 'Quelles sont les sources alimentaires de vitamine D ?', answer: 'Les poissons gras (hareng, sardines, saumon), le jaune d\'œuf, les produits laitiers et céréales enrichis, les abats (foie) et le beurre.', },
+{ question: 'Quelles populations présentent un risque élevé de carence en vitamine D ?', answer: 'Les nouveau-nés, les femmes enceintes, les personnes âgées (surtout en institution) et les personnes à peau mate ou foncée.', },
+{ question: 'Quelle est la fonction principale de la vitamine E (tocophérols) ?', answer: 'C’est un antioxydant liposoluble qui protège les membranes cellulaires contre les dommages oxydatifs des radicaux libres.', },
+{ question: 'De combien de vitamères se compose la vitamine E ?', answer: 'Elle se compose de 8 vitamères : quatre tocophérols (α, β, γ, δ) et quatre tocotriénols (α, β, γ, δ).', },
+{ question: 'Avec quelle autre vitamine la vitamine E coopère-t-elle dans la membrane ?', answer: 'Elle coopère avec la vitamine C pour combattre la peroxydation lipidique.', },
+{ question: 'Comment la vitamine E neutralise-t-elle un radical libre ?', answer: 'Elle cède un atome d’hydrogène de son groupe hydroxyle au radical libre, stabilisant ce dernier et stoppant la réaction en chaîne.', },
+{ question: 'Quel est le rôle de la vitamine C vis-à-vis de la vitamine E ?', answer: 'La vitamine C régénère la vitamine E après que celle-ci a neutralisé un radical libre, maintenant son efficacité.', },
+{ question: 'Quel est l’apport adéquat (AI) en vitamine E pour un homme adulte ?', answer: 'L’apport recommandé est de 10 mg/j.', },
+{ question: 'Citez les principales sources alimentaires de vitamine E.', answer: 'Les graisses et huiles (tournesol, olive), le germe de blé, les poissons gras, les noix et les graines.', },
+{ question: 'Qu’est-ce que l’ataxie dans le contexte d’une carence en vitamine E ?', answer: 'C’est une perte de coordination musculaire liée à des lésions des nerfs périphériques ou du système nerveux central.', },
+{ question: 'Quelles pathologies peuvent entraîner une carence en vitamine E ?', answer: 'Les maladies hépatiques cholestatiques, la dénutrition sévère, les troubles de l’absorption des lipides et la mucoviscidose.', },
+{ question: 'Quelles sont les trois formes de vitamine K ?', answer: 'La phylloquinone (K1 - origine végétale), les ménaquinones (K2 - origine bactérienne) et la ménadione (K3 - forme synthétique).', },
+{ question: 'Quelle est la fonction majeure de la vitamine K1 ?', answer: 'Elle joue un rôle indispensable dans l’activation des protéines de la coagulation sanguine pour arrêter les saignements.', },
+{ question: 'Quel est le rôle de la vitamine K2 dans le squelette ?', answer: 'Elle participe au métabolisme osseux en favorisant la fixation du calcium sur la matrice de l’os.', },
+{ question: 'Qu’est-ce que le cycle de la vitamine K ?', answer: 'C’est le passage de la forme oxydée (quinone/époxyde) à la forme réduite (quinol) pour permettre l’activation des protéines dépendantes.', },
+{ question: 'Comment les protéines gla sont-elles activées ?', answer: 'La conversion du quinol en époxyde entraîne la formation de résidus carboxyglutamate (gla) sur les protéines, leur permettant de lier le calcium.', },
+{ question: 'Quels facteurs de coagulation sont des protéines dépendantes de la vitamine K ?', answer: 'Les facteurs II, VII, IX et X.', },
+{ question: 'Quelle est la principale protéine gla de l’os minéralisé ?', answer: 'L’ostéocalcine, qui fixe le calcium sur la matrice osseuse après activation par la vitamine K2.', },
+{ question: 'Quel est l’apport adéquat (AI) en vitamine K1 pour un adulte ?', answer: 'L’apport recommandé est de 79 µg/j.', },
+{ question: 'Citez des sources de vitamine K1.', answer: 'Les herbes (persil), le chou frisé, les épinards, le brocoli et les huiles de soja ou de colza.', },
+{ question: 'Où trouve-t-on la vitamine K2 dans l’alimentation ?', answer: 'Dans le foie, la viande de bœuf, le jaune d\'œuf et les produits fermentés (fromages, choux).', },
+{ question: 'Quelles sont les conséquences d’une carence en vitamine K ?', answer: 'Un allongement du temps de prothrombine (temps de coagulation) et l’apparition de maladies hémorragiques.', },
+{ question: 'Pourquoi les nouveau-nés sont-ils à risque de carence en vitamine K ?', answer: 'Leur microbiote intestinal est immature (pas de production endogène), le transfert placentaire est faible et le lait maternel peut être insuffisamment riche.', },
+{ question: 'Qu’est-ce que la maladie hémorragique du nouveau-né ?', answer: 'Elle se caractérise par des ecchymoses, des saignements spontanés ou des hémorragies intracrâniennes fatales dues à un manque de vitamine K à la naissance.', },
+{ question: 'Comment prévient-on la maladie hémorragique du nouveau-né ?', answer: 'Par l’administration d’une dose orale de vitamine K à la naissance ou une dose quotidienne à la mère.', },
+{ question: 'Qu’est-ce qui interfère avec le métabolisme de la vitamine K chez certains patients ?', answer: 'Les traitements par anticoagulants (comme la Warfarine) interfèrent avec le cycle de la vitamine K.', },
+{ question: 'Quel lien existe-t-il entre la vitamine K et l’ostéoporose ?', answer: 'Un statut inférieur en vitamine K altère la fonction de l’ostéocalcine, essentielle à la santé osseuse.', },
+{ question: 'Quelle vitamine est un \'piégeur de radicaux libres\' ?', answer: 'La vitamine E, et le ß-carotène (provitamine A).', },
+{ question: 'Quel organe assure le stockage principal de la vitamine A ?', answer: 'Le foie est le site de stockage majeur de la vitamine A.', }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = "lsps3_Human_Nutrition_fc5";
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = `${progress * 100}%`;
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height="auto"; img.style.maxHeight="150px"; img.style.objectFit="contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const { question, answer } = flashcards[index];
+    const card = document.createElement("div");
+    card.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = '<i class="fas fa-check"></i>';
+    checkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-right");
+      setTimeout(() => {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
+    crossIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("slide-left");
+      setTimeout(() => {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    function updateFav() {
+      if (isFavorite({question, answer})) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite({question, answer});
+      updateFav();
+    });
+    updateFav();
+    card.addEventListener("click", () => {
+      const isAnswerVisible = card.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    card.appendChild(inner);
+    card.appendChild(btnContainer);
+    container.appendChild(card);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = [...originalData];
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Bases moléculaires en oncologie</span><ul>
+<li><a href="../Bases_moleculaire_Oncologie/fc1.html">Introduction au cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc2.html">Bases cellulaires et moléculaires pour comprendre l’oncologie</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc3.html">Oncogenèse des lymphomes T</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc4.html">Exploration des anomalies moléculaires dans les tumeurs</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc5.html">Mécanismes de réparation de l’ADN et cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc6.html">Oncogenèse digestive</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc7.html">Bases de thérapeutique du cancer</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc8.html">Mutation du gène BRAF dans les mélanomes</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc9.html">Lymphome diffus à grandes cellules (DLBCL)</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc10.html">Bases de données</a></li>
+<li><a href="../Bases_moleculaire_Oncologie/fc11.html">Cancer du sein : perspective de l’oncogénétique</a></li>
+</ul></li>
+<li><span class="opener">Human nutrition</span><ul>
+<li><a href="../Human_Nutrition/fc1.html">Métabolisme bioénergétique (révision)</a></li>
+<li><a href="../Human_Nutrition/fc2.html">Anthropométrie, bilan énergétique, valeurs de référence en diététique</a></li>
+<li><a href="../Human_Nutrition/fc3.html">Macronutriments : protéines, glucides et acides gras</a></li>
+<li><a href="../Human_Nutrition/fc4.html">Les micronutriments : minéraux</a></li>
+<li><a href="../Human_Nutrition/fc5.html">Les vitamines liposolubles</a></li>
+<li><a href="../Human_Nutrition/fc5_2.html">Les vitamines hydrosolubles</a></li>
+<li><a href="../Human_Nutrition/fc6.html">Maladies cardiovasculaires</a></li>
+<li><a href="../Human_Nutrition/fc7.html">Alimentation et cancer</a></li>
+<li><a href="../Human_Nutrition/fc8.html">Consommation d’alcool et effets sur la santé</a></li>
+<li><a href="../Human_Nutrition/fc9.html">Interaction régime-maladie : obésité, syndrome métabolique et diabète</a></li>
+<li><a href="../Human_Nutrition/fc10.html">Interventions diététiques et pharmacologiques</a></li>
+</ul></li>
+<li><span class="opener">One Health</span><ul>
+<li><a href="../One_Health/fc1.html">Introduction au concept One Health</a></li>
+<li><a href="../One_Health/fc2.html">Zoonoses et modes de transmission</a></li>
+<li><a href="../One_Health/fc3.html">Émergence et diffusion de la résistance aux antibiotiques</a></li>
+<li><a href="../One_Health/fc4.html">Maladies émergentes transmises de l’animal à l’homme</a></li>
+<li><a href="../One_Health/fc5.html">Mobiliser les professionnels et la population autour des approches One Health</a></li>
+<li><a href="../One_Health/fc6.html">Polluants de l’environnement professionnel</a></li>
+<li><a href="../One_Health/fc7.html">Évaluation, prévention et gestion des risques en santé environnementale</a></li>
+<li><a href="../One_Health/fc8.html">Principales théories, concepts et modèles en sciences sociales (One Health)</a></li>
+<li><a href="../One_Health/fc9.html">Surveillance et investigation en santé publique et santé animale</a></li>
+<li><a href="../One_Health/fc10.html">Biodiversité des plantes et liens avec la santé humaine et animale</a></li>
+<li><a href="../One_Health/fc11.html">Écologie de la faune sauvage</a></li>
+<li><a href="../One_Health/fc12_1.html">Environnement, biodiversité, écologie, évolution des risques (partie 1)</a></li>
+<li><a href="../One_Health/fc12_2.html">Environnement, biodiversité, écologie, évolution des risques (partie 2)</a></li>
+</ul></li>
+<li><span class="opener">Réglementation et éthique de la recherche - droit de la santé</span><ul>
+<li><a href="../Reglementation_Ethique_Recherche/fc1.html">Droit de la santé</a></li>
+<li><a href="../Reglementation_Ethique_Recherche/fc2.html">Réglementation et recherche de la santé</a></li>
+</ul></li>
+<li><span class="opener">Technique de vie et société</span><ul>
+<li><a href="../Technique_Vie_Societe/fc1.html">Vie, technique et société - Introduction</a></li>
+<li><a href="../Technique_Vie_Societe/fc2.html">L’éthique à l’heure de la civilisation technologique</a></li>
+<li><a href="../Technique_Vie_Societe/fc3.html">Le statut des objets techniques et des technologies dans le champ de la santé</a></li>
+<li><a href="../Technique_Vie_Societe/fc4.html">Les droits et devoirs des patients et des praticiens</a></li>
+<li><a href="../Technique_Vie_Societe/fc5.html">Le droit à l’information médicale</a></li>
+<li><a href="../Technique_Vie_Societe/fc6.html">Enjeux et statuts des objets biologiques</a></li>
+<li><a href="../Technique_Vie_Societe/fc7.html">La pensée des bio-objets chez Céline Lafontaine</a></li>
+<li><a href="../Technique_Vie_Societe/fc8.html">La technicisation médicale, une déshumanisation : précisions conceptuelles</a></li>
+<li><a href="../Technique_Vie_Societe/fc9.html">La médecine humaniste face à la biomédecine</a></li>
+<li><a href="../Technique_Vie_Societe/fc10.html">Les médecines alternatives : de la critique humaniste à l’antiscience</a></li>
+<li><a href="../Technique_Vie_Societe/fc11.html">Biomédecine et approche holistique : le modèle biopsychosocial</a></li>
+</ul></li>
+<li><span class="opener">Biotechnologie</span><ul>
+<li><a href="../Biotechnologie/fc1.html">Introduction à la biotechnologie</a></li>
+<li><a href="../Biotechnologie/fc2.html">Reprogrammation cellulaire</a></li>
+<li><a href="../Biotechnologie/fc3.html">Drug Repositioning</a></li>
+<li><a href="../Biotechnologie/fc4.html">Immunothérapie</a></li>
+<li><a href="../Biotechnologie/fc5.html">Principes généraux de la thérapie génétique</a></li>
+<li><a href="../Biotechnologie/fc6.html">Les vésicules extracellulaires</a></li>
+<li><a href="../Biotechnologie/fc7.html">Bioproduction de cellules souches</a></li>
+<li><a href="../Biotechnologie/fc8.html">Stratégies vaccinales</a></li>
+<li><a href="../Biotechnologie/fc9.html">Édition du génome</a></li>
+<li><a href="../Biotechnologie/fc10.html">Biomécanique des biomatériaux</a></li>
+<li><a href="../Biotechnologie/fc11.html">Thérapie cellulaire et moelle osseuse</a></li>
+<li><a href="../Biotechnologie/fc12.html">Peptides thérapeutiques antimicrobiens</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Promotion et prévention</span><ul>
+<li><a href="../SP_Promotion_Prevention/fc1.html">Généralités en santé publique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc2.html">Méthodologie de projet en prévention et promotion de la santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc3.html">Déterminants de santé</a></li>
+<li><a href="../SP_Promotion_Prevention/fc4.html">Méthodes de prévention et de dépistage</a></li>
+<li><a href="../SP_Promotion_Prevention/fc5.html">Vaccins et promotion de la prévention</a></li>
+<li><a href="../SP_Promotion_Prevention/fc6.html">Maladies sexuellement transmissibles</a></li>
+<li><a href="../SP_Promotion_Prevention/fc7.html">Initiation aux soins d’urgence</a></li>
+<li><a href="../SP_Promotion_Prevention/fc8.html">Sédentarité et activité physique</a></li>
+<li><a href="../SP_Promotion_Prevention/fc9.html">Le risque cardio-vasculaire</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Économie de la santé</span><ul>
+<li><a href="../SP_Economie_Sante/fc1.html">Analyse économique de la perte d’autonomie (Dépendance)</a></li>
+<li><a href="../SP_Economie_Sante/fc2.html">Analyse de la perte d’autonomie : Handicap</a></li>
+<li><a href="../SP_Economie_Sante/fc3.html">Les modes de rémunération des médecins libéraux</a></li>
+<li><a href="../SP_Economie_Sante/fc4.html">Les modes de rémunération des établissements de santé</a></li>
+<li><a href="../SP_Economie_Sante/fc5.html">Nutrition, santé et croissance économique</a></li>
+<li><a href="../SP_Economie_Sante/fc6.html">Santé et développement : Santé et pauvreté</a></li>
+<li><a href="../SP_Economie_Sante/fc7.html">Santé et développement : Système et égalité</a></li>
+<li><a href="../SP_Economie_Sante/fc8.html">Santé et environnement</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Géographie de la santé</span><ul>
+<li><a href="../SP_Geographie_Sante/fc1.html">Histoire et concepts de la géographie de la santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc2.html">Liens villes et santé : enjeux des usages de la carte en santé</a></li>
+<li><a href="../SP_Geographie_Sante/fc3.html">Inégalités spatiales de l’offre de soins en France</a></li>
+<li><a href="../SP_Geographie_Sante/fc4.html">Enjeux internationaux des inégalités d’offre de soins</a></li>
+<li><a href="../SP_Geographie_Sante/fc5.html">Enjeux internationaux : le point de vue des patients</a></li>
+<li><a href="../SP_Geographie_Sante/fc6.html">L’accès aux soins des personnes vulnérables</a></li>
+<li><a href="../SP_Geographie_Sante/fc7.html">Alimentation et santé en ville</a></li>
+<li><a href="../SP_Geographie_Sante/fc8.html">Pouvoirs des villes et urbanisme favorable à la santé : espaces verts</a></li>
+<li><a href="../SP_Geographie_Sante/fc9.html">Urbanisme favorable à la santé : personnes âgées</a></li>
+<li><a href="../SP_Geographie_Sante/fc10.html">Urbanisme favorable à la santé : enfants</a></li>
+</ul></li>
+<li><span class="opener">Santé Publique - Gestion de projet de recherche clinique</span><ul>
+<li><a href="../SP_Gestion_Projet_RC/fc1.html">Généralités sur les essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc2.html">Acteurs de la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc3.html">Vigilance, gestion des EIG et sécurité des essais cliniques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc4.html">Structures de soutien à la recherche clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc5.html">Mise en place d’un essai clinique</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc6.html">Le dossier patient, les CRF et les bases de données</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc7.html">Gestion de projet (Le monitoring)</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc8.html">Réglementation sur les échantillons biologiques</a></li>
+<li><a href="../SP_Gestion_Projet_RC/fc9.html">Démarches auprès du MESRI</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>

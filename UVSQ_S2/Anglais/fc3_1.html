@@ -1,0 +1,597 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Diploma Santé - Hospital staff</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="../../assets/css/main.css" />
+<link rel="icon" type="image/jpeg" href="../../images/diploma.jpeg" />
+<script src="../../security.js" defer></script>
+<script src="../../assets/js/favorites.js"></script>
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+<div id="main">
+<div class="inner">
+
+<header id="header">
+<a href="../../index.html" class="logo"><strong>Diploma Santé</strong> - UVSQ S2</a>
+<ul class="icons">
+<li><a href="https://diploma-sante.fr/" class="icon fas fa-globe"><span class="label"></span></a></li>
+<li><a href="https://www.instagram.com/diplomasante/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+<li><a href="#" id="dark-mode-toggle" class="icon fas fa-moon"></a></li>
+</ul>
+</header>
+
+<section>
+<header class="main"><div class="header-left"><h1>Anglais médical</h1><h2>Hospital staff</h2></div><span class="image main"><img src="../../images/banner.png" alt="" /></span></header>
+
+<style>
+  #header { padding: 1rem 0; margin-bottom: 0.5rem; }
+  header.main { margin-top: 1.5rem !important; margin-bottom: 0.8rem !important; padding-bottom: 0.5rem !important; display: flex; align-items: center; gap: 2rem; }
+  header.main .header-left h1, header.main .header-left h2 { flex: 1; margin: 0 !important; }
+  header.main h1 { font-size: 2em !important; line-height: 1.3 !important; }
+  header.main h2 { font-size: 1.3em !important; color: #7f888f !important; }
+  header.main .header-left { flex: 1; display: flex; flex-direction: column; }
+  .image.main { flex: 1; max-height: none !important; overflow: visible !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .image.main img { width: 100% !important; height: auto !important; max-height: 120px !important; object-fit: contain !important; object-position: center; }
+  section { padding-top: 0 !important; }
+  .progress-container { width: 100%; max-width: 1000px; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 0 auto 1rem; border: 1px solid #ddd; }
+  .progress-bar { height: 100%; background-color: #00aeef; width: 0%; transition: width 0.3s; }
+  .flashcards-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: calc(100vh - 250px); padding: 1rem 0; }
+  .flashcard { width: 100%; max-width: 1000px; height: calc(100vh - 340px); min-height: 450px; perspective: 1500px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); background-color: white; transition: transform 0.6s; overflow: visible; transform-style: preserve-3d; }
+  .flashcard.show-answer .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; border-radius: 20px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 3rem; font-size: 2rem; text-align: center; }
+  .flashcard-front { background-color: white; color: #333; box-shadow: inset 0 0 40px rgba(0, 174, 239, 0.15); }
+  .flashcard-back { background-color: #73C3EC; color: white; overflow: visible; transform: rotateY(180deg); box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.5); font-size: 2.2rem; text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .flashcard-button { margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; flex-wrap: wrap; }
+  .check-icon, .cross-icon, .favorite-icon { display: none; position: absolute; cursor: pointer; z-index: 1000; transition: all 0.3s; opacity: 0.8; pointer-events: auto; }
+  .check-icon { top: 30px; left: 30px; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; color: #888; font-size: 20px; }
+  .check-icon i { pointer-events: none; transform: scaleX(-1); }
+  .cross-icon { top: 30px; right: 30px; stroke: #888; align-items: center; justify-content: center; width: 45px; height: 45px; overflow: visible; z-index: 1001; background: rgba(255, 255, 255, 0.95); border-radius: 50%; padding: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: all 0.3s; }
+  body.dark-mode .check-icon, body.dark-mode .cross-icon { background: rgba(50, 50, 50, 0.95); color: #fff; stroke: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  body.dark-mode .check-icon:hover { background: rgba(40, 150, 40, 0.95); color: #fff; }
+  body.dark-mode .cross-icon:hover { background: rgba(150, 40, 40, 0.95); stroke: #fff; }
+  .favorite-icon { bottom: 15px; left: 50%; transform: translateX(-50%); fill: #888; width: 30px; height: 30px; }
+  .favorite-icon.active { fill: #ffd700; }
+  .flashcard.show-answer .check-icon, .flashcard.show-answer .cross-icon, .flashcard.show-answer .favorite-icon { display: flex !important; }
+  .check-icon:hover { stroke: #27ae60; color: #27ae60; opacity: 1; }
+  .cross-icon:hover { stroke: #e74c3c; opacity: 1; }
+  .slide-left { animation: slideLeft 0.4s forwards; }
+  .slide-right { animation: slideRight 0.4s forwards; }
+  @keyframes slideLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+  @keyframes slideRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+  body.dark-mode .flashcard-front { background-color: #2d3436; color: #e2e8f0; }
+  body.dark-mode .flashcard-inner { background-color: #2d3436; }
+  body.dark-mode .progress-container { background-color: #34495e; border-color: #4a5568; }
+  @media screen and (max-width: 768px) { .flashcard { width: 95vw; height: calc(100vh - 180px); min-height: 450px; } }
+</style>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<div class="flashcards-container" id="flashcards"></div>
+
+<script>
+const flashcardsData = [
+  { question: 'Comment dit-on administrateur en anglais ?', answer: 'Administrator' },
+  { question: 'Comment traduit-on administration en anglais ?', answer: 'Administration' },
+  { question: 'Comment dit-on réceptionniste ou agent d’admission en anglais ?', answer: 'Admission clerk ou receptionist' },
+  { question: 'Comment se traduit anesthésiste en anglais ?', answer: 'Anesthesiologist ou anesthetist' },
+  { question: 'Comment dit-on anesthésie en anglais ?', answer: 'Anesthesia' },
+  { question: 'Comment se dit aide-soignant en anglais ?', answer: 'Assistant nurse, auxiliary nurse ou healthcare assistant' },
+  { question: 'Comment traduit-on cardiologue en anglais ?', answer: 'Cardiologist' },
+  { question: 'Comment se dit cardiologie en anglais ?', answer: 'Cardiology' },
+  { question: 'Comment dit-on personnel soignant en anglais ?', answer: 'Caregiving staff ou caregivers' },
+  { question: 'Comment dit-on personnel non soignant en anglais ?', answer: 'Administrative staff' },
+  { question: 'Comment se dit un examen général ou un bilan en anglais ?', answer: 'Check-up' },
+  { question: 'Comment traduit-on chiropratique en anglais ?', answer: 'Chiropractic' },
+  { question: 'Comment se dit chiropraticien en anglais ?', answer: 'Chiropractor' },
+  { question: 'Comment dit-on faire un stage en anglais ?', answer: 'To do an internship ou clinical training' },
+  { question: 'Comment se traduit stage professionnel en anglais ?', answer: 'Internship ou clinical training' },
+  { question: 'Comment dit-on consultant en anglais ?', answer: 'Consultant' },
+  { question: 'Comment se traduit dermatologue en anglais ?', answer: 'Dermatologist' },
+  { question: 'Comment se dit dermatologie en anglais ?', answer: 'Dermatology' },
+  { question: 'Comment traduit-on diagnostic en anglais ?', answer: 'Diagnosis' },
+  { question: 'Comment se dit diététicien en anglais ?', answer: 'Dietitian' },
+  { question: 'Comment se dit diététique en anglais ?', answer: 'Dietetics' },
+  { question: 'Comment dit-on médecin en anglais ?', answer: 'Doctor ou physician' },
+  { question: 'Comment se dit médecin généraliste en anglais ?', answer: 'General practitioner ou GP' },
+  { question: 'Comment traduit-on médecin de famille en anglais ?', answer: 'Family doctor' },
+  { question: 'Comment dit-on urgentiste en anglais ?', answer: 'Emergency doctor' },
+  { question: 'Comment traduit-on examen en anglais ?', answer: 'Examination ou exam' },
+  { question: 'Comment se dit gériatre en anglais ?', answer: 'Geriatrician' },
+  { question: 'Comment se dit gériatrie en anglais ?', answer: 'Geriatrics' },
+  { question: 'Comment se dit gérontologue en anglais ?', answer: 'Gerontologist' },
+  { question: 'Comment se dit gérontologie en anglais ?', answer: 'Gerontology' },
+  { question: 'Comment se dit gynécologue en anglais ?', answer: 'Gynecologist' },
+  { question: 'Comment se dit gynécologie en anglais ?', answer: 'Gynecology' },
+  { question: 'Comment traduit-on santé en anglais ?', answer: 'Health' },
+  { question: 'Comment dit-on soins de santé en anglais ?', answer: 'Healthcare' },
+  { question: 'Comment se traduit cadre de santé en anglais ?', answer: 'Healthcare executive ou health services manager' },
+  { question: 'Comment dit-on professionnel de santé en anglais ?', answer: 'Healthcare practitioner ou health professional' },
+  { question: 'Comment se dit hématologue en anglais ?', answer: 'Hematologist' },
+  { question: 'Comment se dit hématologie en anglais ?', answer: 'Hematology' },
+  { question: 'Comment dit-on interniste en anglais ?', answer: 'Internist' },
+  { question: 'Comment se dit médecine interne en anglais ?', answer: 'Internal medicine' },
+  { question: 'Comment traduit-on cadre en anglais (dans le contexte hospitalier) ?', answer: 'Manager ou executive' },
+  { question: 'Comment dit-on infirmière cadre en anglais ?', answer: 'Nurse supervisor ou charge nurse' },
+  { question: 'Comment se dit cadre supérieur de santé en anglais ?', answer: 'Senior health manager' },
+  { question: 'Comment traduit-on sage-femme en anglais ?', answer: 'Midwife' },
+  { question: 'Comment se dit études de sage-femme en anglais ?', answer: 'Midwifery' },
+  { question: 'Comment traduit-on neurologue en anglais ?', answer: 'Neurologist' },
+  { question: 'Comment se dit neurologie en anglais ?', answer: 'Neurology' },
+  { question: 'Comment se dit infirmière diplômée d’État en anglais ?', answer: 'Registered nurse' },
+  { question: 'Comment se dit infirmière à domicile en anglais ?', answer: 'Home health nurse ou visiting nurse' },
+  { question: 'Comment traduit-on infirmière chef en anglais ?', answer: 'Head nurse' },
+  { question: 'Comment se dit infirmière clinicienne en anglais ?', answer: 'Nurse practitioner' },
+  { question: 'Comment se dit infirmière de garde en anglais ?', answer: 'Nurse on duty' },
+  { question: 'Comment se dit infirmière en soins intensifs en anglais ?', answer: 'Critical-care nurse' },
+  { question: 'Comment se dit infirmière hygiéniste en anglais ?', answer: 'Public-health nurse' },
+  { question: 'Comment se dit infirmière libérale ou indépendante en anglais ?', answer: 'Independent ou self-employed nurse' },
+  { question: 'Comment se dit infirmière instrumentiste en anglais ?', answer: 'Scrub nurse' },
+  { question: 'Comment se dit infirmière d’accueil et d’orientation en anglais ?', answer: 'Admission nurse' },
+  { question: 'Comment se dit infirmière d’annonce en anglais ?', answer: 'Nurse who discloses information ou diagnoses' },
+  { question: 'Comment traduit-on nutritionniste en anglais ?', answer: 'Nutritionist' },
+  { question: 'Comment se dit nutrition en anglais ?', answer: 'Nutrition' },
+  { question: 'Comment se dit obstétricien en anglais ?', answer: 'Obstetrician' },
+  { question: 'Comment se dit obstétrique en anglais ?', answer: 'Obstetrics' },
+  { question: 'Comment traduit-on obstétricien-gynécologue en anglais ?', answer: 'OBGYN (obstetrician-gynecologist)' },
+  { question: 'Comment se dit oncologue en anglais ?', answer: 'Oncologist' },
+  { question: 'Comment se dit oncologie en anglais ?', answer: 'Oncology' },
+  { question: 'Comment traduit-on opération chirurgicale en anglais ?', answer: 'Operation ou surgery' },
+  { question: 'Comment se dit ophtalmologue en anglais ?', answer: 'Ophthalmologist' },
+  { question: 'Comment se dit ophtalmologiste ou spécialiste des yeux en anglais ?', answer: 'Eye specialist' },
+  { question: 'Comment traduit-on garçon de salle en anglais ?', answer: 'Orderly' },
+  { question: 'Comment se dit ostéopathe en anglais ?', answer: 'Osteopath' },
+  { question: 'Comment se dit ostéopathie en anglais ?', answer: 'Osteopathy' },
+  { question: 'Comment se dit ambulancier ou technicien paramédical en anglais ?', answer: 'Paramedic' },
+  { question: 'Comment traduit-on soins préhospitaliers d’urgence en anglais ?', answer: 'Paramedics' },
+  { question: 'Comment se dit puéricultrice en anglais ?', answer: 'Pediatric ou neonatal nurse' },
+  { question: 'Comment se dit puéricultrice de crèche en anglais ?', answer: 'Nursery nurse' },
+  { question: 'Comment se dit puériculture en anglais ?', answer: 'Pediatric nursing ou infant care' },
+  { question: 'Comment se dit puériculture en crèche en anglais ?', answer: 'Nursery nursing' },
+  { question: 'Comment se dit pédiatre en anglais ?', answer: 'Pediatrician' },
+  { question: 'Comment se dit pédiatrie en anglais ?', answer: 'Pediatrics' },
+  { question: 'Comment traduit-on pharmacien en anglais ?', answer: 'Pharmacist' },
+  { question: 'Comment se dit pharmacie en anglais ?', answer: 'Pharmacy' },
+  { question: 'Comment se dit préleveur en anglais ?', answer: 'Phlebotomist' },
+  { question: 'Comment se dit kinésithérapeute en anglais ?', answer: 'Physical therapist ou physiotherapist' },
+  { question: 'Comment se dit kinésithérapie en anglais ?', answer: 'Physical therapy ou physiotherapy' },
+  { question: 'Comment se dit chirurgien esthétique en anglais ?', answer: 'Plastic surgeon' },
+  { question: 'Comment se dit chirurgie esthétique en anglais ?', answer: 'Plastic surgery' },
+  { question: 'Comment se dit podologue en anglais ?', answer: 'Podiatrist ou chiropodist' },
+  { question: 'Comment se dit podologie en anglais ?', answer: 'Podiatry ou chiropody' },
+  { question: 'Comment se dit psychiatre en anglais ?', answer: 'Psychiatrist' },
+  { question: 'Comment se dit psychiatrie en anglais ?', answer: 'Psychiatry' },
+  { question: 'Comment se dit radiologue en anglais ?', answer: 'Radiologist' },
+  { question: 'Comment se dit radiologie en anglais ?', answer: 'Radiology' },
+  { question: 'Comment se dit interne en anglais ?', answer: 'Resident physician, internus, medical resident ou junior doctor' },
+  { question: 'Comment se dit internat en anglais ?', answer: 'Residency' },
+  { question: 'Comment se dit brancardier en anglais ?', answer: 'Stretcher-bearer ou porter' },
+  { question: 'Comment se dit chirurgien en anglais ?', answer: 'Surgeon' },
+  { question: 'Comment se dit chirurgie en anglais ?', answer: 'Surgery' },
+  { question: 'Comment se dit traitement en anglais ?', answer: 'Treatment' },
+  { question: 'Comment se dit soin en anglais ?', answer: 'Care' },
+  { question: 'Comment traduit-on urgences en anglais ?', answer: 'Accident & Emergency department ou Emergency room (ER)' },
+  { question: 'Comment se dit couloir en anglais ?', answer: 'Corridor ou hallway' },
+  { question: 'Comment se dit box du patient en anglais ?', answer: 'Cubicle ou room' },
+  { question: 'Comment se dit portes doubles en anglais ?', answer: 'Double doors' },
+  { question: 'Comment se dit ascenseur en anglais ?', answer: 'Elevator (US) ou lift (Brit)' },
+  { question: 'Comment se dit hall d’entrée en anglais ?', answer: 'Entrance hall' },
+  { question: 'Comment traduit-on dossier médical en anglais ?', answer: 'Medical file ou records' },
+  { question: 'Comment se dit bureau d’accueil en anglais ?', answer: 'Reception desk' },
+  { question: 'Comment se dit laboratoire en anglais ?', answer: 'Laboratory ou lab' },
+  { question: 'Comment se dit morgue en anglais ?', answer: 'Morgue' },
+  { question: 'Comment se dit poste des infirmières en anglais ?', answer: 'Nurses station' },
+  { question: 'Comment se dit bloc opératoire en anglais ?', answer: 'Operating suite ou surgical ward' },
+  { question: 'Comment traduit-on dossier patient en anglais ?', answer: 'Patient’s records' },
+  { question: 'Comment se dit pharmacie en anglais selon le pays ?', answer: 'Pharmacy (US), chemist’s shop (Brit), drugstore (US)' },
+  { question: 'Comment se dit maternité en anglais ?', answer: 'Postnatal ward' },
+  { question: 'Comment se dit aire ou zone d’accueil en anglais ?', answer: 'Reception area ou reception room' },
+  { question: 'Comment se dit chambre en anglais ?', answer: 'Room ou patient room' },
+  { question: 'Comment se dit chambre d’isolement en anglais ?', answer: 'Isolation room' },
+  { question: 'Comment se dit chambre d’observation en anglais ?', answer: 'Observation room' },
+  { question: 'Comment se dit chambre de réanimation en anglais ?', answer: 'Resuscitation room' },
+  { question: 'Comment se dit salle d’attente en anglais ?', answer: 'Waiting room' },
+  { question: 'Comment se dit salle d’examen en anglais ?', answer: 'Examination room' },
+  { question: 'Comment se dit salle d’opération en anglais ?', answer: 'Operating theater ou surgery room' },
+  { question: 'Comment se dit salle de consultation en anglais ?', answer: 'Consultation room ou consulting room' },
+  { question: 'Comment se dit salle de réveil en anglais ?', answer: 'Recovery room' },
+  { question: 'Comment se dit salle de soins en anglais ?', answer: 'Treatment room' },
+  { question: 'Comment se dit salle de surveillance prénatale en anglais ?', answer: 'Antenatal ward' },
+  { question: 'Comment se dit salle de triage en anglais ?', answer: 'Triage room' },
+  { question: 'Comment se dit salle des urgences en anglais ?', answer: 'Casualty ward' },
+  { question: 'Comment se dit salle d’accouchement en anglais ?', answer: 'Delivery room' },
+  { question: 'Comment se dit unité de soins en anglais ?', answer: 'Patient care unit' },
+  { question: 'Comment se dit unité de soins ambulatoires en anglais ?', answer: 'Ambulatory care unit' },
+  { question: 'Comment se dit unité de soins intensifs en anglais ?', answer: 'Intensive care unit (ICU)' },
+  { question: 'Comment se dit unité spécialisée en anglais ?', answer: 'Specialized hospital unit' },
+  { question: 'Comment se dit service d’oncologie en anglais ?', answer: 'Oncology department' },
+  { question: 'Comment se dit service de cardiologie en anglais ?', answer: 'Cardiac care unit' },
+  { question: 'Comment se dit service de maternité en anglais ?', answer: 'Maternity ward' },
+  { question: 'Comment se dit service de radiologie en anglais ?', answer: 'Radiology department' },
+  { question: 'Comment se dit service de soins intensifs en anglais ?', answer: 'Critical care unit' },
+  { question: 'Comment se dit service des grands brûlés en anglais ?', answer: 'Burns unit' },
+  { question: 'Comment se dit service médical en anglais ?', answer: 'Medical unit ou medical ward' },
+  { question: 'Comment se dit fenêtre en anglais ?', answer: 'Window' },
+  { question: 'Comment se dit fauteuil en anglais ?', answer: 'Arm chair' },
+  { question: 'Comment se dit télécommande du lit en anglais ?', answer: 'Bed control' },
+  { question: 'Comment se dit table de nuit en anglais ?', answer: 'Bedside table ou night table' },
+  { question: 'Comment se dit couverture en anglais ?', answer: 'Blanket' },
+  { question: 'Comment se dit placard en anglais ?', answer: 'Cabinet ou cupboard' },
+  { question: 'Comment se dit sonnette en anglais ?', answer: 'Call button ou call bell' },
+  { question: 'Comment se dit rideau séparateur en anglais ?', answer: 'Privacy curtain' },
+  { question: 'Comment se dit tiroir en anglais ?', answer: 'Drawer' },
+  { question: 'Comment se dit blouse d’hôpital en anglais ?', answer: 'Hospital gown' },
+  { question: 'Comment se dit blouse de patient en anglais ?', answer: 'Patient gown' },
+  { question: 'Comment se dit blouse d’un soignant en anglais ?', answer: 'Scrubs ou smocks' },
+  { question: 'Comment se dit chemise de nuit en anglais ?', answer: 'Nightgown' },
+  { question: 'Comment se dit lit d’hôpital en anglais ?', answer: 'Hospital bed' },
+  { question: 'Comment se dit pied à perfusion en anglais ?', answer: 'IV pole ou intravenous stand' },
+  { question: 'Comment se dit oreiller en anglais ?', answer: 'Pillow' },
+  { question: 'Comment se dit draps en anglais ?', answer: 'Sheets' },
+  { question: 'Comment se dit lavabo en anglais ?', answer: 'Sink' },
+  { question: 'Comment se dit poubelle en anglais ?', answer: 'Trash can (US), rubbish bin (Brit), waste bin' },
+  { question: 'Comment se dit moniteur de signes vitaux en anglais ?', answer: 'Vital signs monitor' },
+  { question: 'Comment se dit chaise roulante en anglais ?', answer: 'Wheelchair' },
+  { question: 'Comment se dit paravent en anglais ?', answer: 'Folding screen ou moving screen' },
+  { question: 'Comment se dit barrière de sécurité du lit en anglais ?', answer: 'Bedside rail' },
+  { question: 'Comment se dit plateau repas en anglais ?', answer: 'Tray' },
+  { question: 'Comment se dit potence (au-dessus du lit) en anglais ?', answer: 'Trapeze' },
+  { question: 'Comment se dit store ou volet en anglais ?', answer: 'Blind' },
+  { question: 'Comment se dit admission en anglais ?', answer: 'Admission' },
+  { question: 'Comment se dit rendez-vous en anglais ?', answer: 'Appointment' },
+  { question: 'Comment se dit groupe sanguin en anglais ?', answer: 'Blood type' },
+  { question: 'Comment se dit consultation en anglais ?', answer: 'Consultation' },
+  { question: 'Comment se dit pays en anglais ?', answer: 'Country' },
+  { question: 'Comment se dit adresse actuelle en anglais ?', answer: 'Current address' },
+  { question: 'Comment se dit traitement en cours en anglais ?', answer: 'Current treatment' },
+  { question: 'Comment se dit date de naissance en anglais ?', answer: 'Date of birth (DOB)' },
+  { question: 'Comment se dit nom de famille en anglais ?', answer: 'Family name, last name (US), surname (Brit)' },
+  { question: 'Comment se dit prénom en anglais ?', answer: 'First name ou given name' },
+  { question: 'Comment se dit formulaire en anglais ?', answer: 'Form' },
+  { question: 'Comment se dit taille en anglais ?', answer: 'Height' },
+  { question: 'Comment se dit antécédents en anglais ?', answer: 'History' },
+  { question: 'Comment se dit antécédents familiaux en anglais ?', answer: 'Family history' },
+  { question: 'Comment se dit antécédents médicaux en anglais ?', answer: 'Medical history ou health history' },
+  { question: 'Comment se dit consommation d’alcool en anglais ?', answer: 'Alcohol intake ou alcohol consumption' },
+  { question: 'Comment se dit consommation de tabac en anglais ?', answer: 'Smoking habit ou tobacco consumption' },
+  { question: 'Comment se dit consommation de stupéfiants en anglais ?', answer: 'Narcotic intake' },
+  { question: 'Comment se dit nom de jeune fille en anglais ?', answer: 'Maiden name' },
+  { question: 'Comment se dit marié en anglais ?', answer: 'Married' },
+  { question: 'Comment se dit assurance maladie en anglais ?', answer: 'Medical insurance' },
+  { question: 'Comment se dit donneur d’organe en anglais ?', answer: 'Organ donor' },
+  { question: 'Comment se dit intensité de la douleur en anglais ?', answer: 'Pain level' },
+  { question: 'Comment se dit règles en anglais ?', answer: 'Periods' },
+  { question: 'Comment se dit adresse permanente en anglais ?', answer: 'Permanent address' },
+  { question: 'Comment se dit numéro de téléphone en anglais ?', answer: 'Phone number' },
+  { question: 'Comment se dit emploi actuel en anglais ?', answer: 'Present occupation' },
+  { question: 'Comment se dit numéro de sécurité sociale en anglais ?', answer: 'Social security number' },
+  { question: 'Comment se dit vaccins en anglais ?', answer: 'Vaccines' },
+  { question: 'Comment se dit poids en anglais ?', answer: 'Weight' },
+  { question: 'Comment se dit veuf ou veuve en anglais ?', answer: 'Widower ou widow' },
+  { question: 'Comment se dit code postal en anglais ?', answer: 'Zip code (US) ou postal code (Brit)' },
+  { question: 'Comment se dit paiement en anglais ?', answer: 'Payment' },
+  { question: 'Comment se dit nom de l’assurance en anglais ?', answer: 'Name of the insurance company' },
+  { question: 'Comment se dit allergies alimentaires en anglais ?', answer: 'Food allergies' },
+  { question: 'Comment se dit sur en anglais ?', answer: 'On' },
+  { question: 'Comment se dit sous en anglais ?', answer: 'Under' },
+  { question: 'Comment se dit au-dessus en anglais ?', answer: 'Above' },
+  { question: 'Comment se dit en dessous en anglais ?', answer: 'Below' },
+  { question: 'Comment se dit devant en anglais ?', answer: 'In front of' },
+  { question: 'Comment se dit derrière en anglais ?', answer: 'Behind' },
+  { question: 'Comment se dit dedans ou à l’intérieur en anglais ?', answer: 'In ou inside' },
+  { question: 'Comment se dit dehors ou à l’extérieur en anglais ?', answer: 'Out ou outside' },
+  { question: 'Comment se dit à (lieu) en anglais ?', answer: 'At' },
+  { question: 'Comment se dit à côté de en anglais ?', answer: 'Next to, beside ou by' },
+  { question: 'Comment se dit proche ou pas loin de en anglais ?', answer: 'Near ou close (by)' },
+  { question: 'Comment se dit loin en anglais ?', answer: 'Away ou beyond' },
+  { question: 'Comment se dit en arrière en anglais ?', answer: 'Back ou backward' },
+  { question: 'Comment se dit en avant en anglais ?', answer: 'Forward' },
+  { question: 'Comment se dit à travers en anglais ?', answer: 'Through' },
+  { question: 'Comment se dit monter en anglais ?', answer: 'Up' },
+  { question: 'Comment se dit descendre en anglais ?', answer: 'Down' },
+  { question: 'Comment se dit autour en anglais ?', answer: 'Around' },
+  { question: 'Comment se dit sortir de en anglais ?', answer: 'Out of' },
+  { question: 'Comment se dit descendre de en anglais ?', answer: 'Off of' },
+  { question: 'Comment se dit vers en anglais ?', answer: 'To ou toward' },
+  { question: 'Comment se dit éloigner en anglais ?', answer: 'Away from' },
+  { question: 'Comment se dit passer au-dessus en anglais ?', answer: 'Over' },
+  { question: 'Comment se dit aller dessus en anglais ?', answer: 'Onto' },
+  { question: 'Comment se dit aller dedans en anglais ?', answer: 'Into' },
+  { question: 'Comment se dit à partir de en anglais ?', answer: 'From' },
+  { question: 'Comment se dit longer en anglais ?', answer: 'Along' },
+  { question: 'Comment se dit contre en anglais ?', answer: 'Against' },
+  { question: 'Comment se dit traverser en anglais ?', answer: 'Across' }
+];
+
+const container = document.getElementById("flashcards");
+const progressBar = document.getElementById("progressBar");
+const originalData = [...flashcardsData];
+let flashcards = [...originalData];
+const pageId = location.pathname.split("/").pop().replace(".html","");
+const progressKey = "progress_" + pageId;
+let currentIndex = parseInt(localStorage.getItem(progressKey)) || 0;
+if (currentIndex >= originalData.length) { currentIndex = 0; localStorage.setItem(progressKey, currentIndex); }
+
+function updateProgress() {
+  const total = originalData.length;
+  const progress = Math.min(currentIndex / total, 1);
+  progressBar.style.width = (progress * 100) + "%";
+}
+
+function createContent(content) {
+  if (typeof content === "string") {
+    const div = document.createElement("div");
+    div.textContent = content;
+    return div;
+  }
+  if (typeof content === "object" && content.type === "image") {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    if (content.caption) {
+      const caption = document.createElement("div");
+      caption.textContent = content.caption;
+      caption.style.marginBottom = "6px";
+      caption.style.fontStyle = "italic";
+      caption.style.fontSize = "0.9em";
+      wrapper.appendChild(caption);
+    }
+    const img = document.createElement("img");
+    img.src = content.src;
+    img.alt = content.alt || "";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+    img.style.maxHeight = "150px";
+    img.style.objectFit = "contain";
+    wrapper.appendChild(img);
+    return wrapper;
+  }
+  return document.createElement("div");
+}
+
+function showCard(index) {
+  container.innerHTML = "";
+  if (flashcards[index]) {
+    const card = flashcards[index];
+    const question = card.question;
+    const answer = card.answer;
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("flashcard", "show");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const front = document.createElement("div");
+    front.classList.add("flashcard-front");
+    front.appendChild(createContent(question));
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.appendChild(createContent(answer));
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("button", "large");
+    toggleBtn.textContent = "Voir la réponse";
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.id = "reset";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(toggleBtn);
+    btnContainer.appendChild(resetBtn);
+    const checkIcon = document.createElement("span");
+    checkIcon.classList.add("check-icon");
+    checkIcon.innerHTML = "<i class=\"fas fa-check\"></i>";
+    checkIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-right");
+      setTimeout(function() {
+        currentIndex++;
+        localStorage.setItem(progressKey, currentIndex);
+        updateProgress();
+        showCard(currentIndex);
+      }, 400);
+    });
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("cross-icon");
+    crossIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#888\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>";
+    crossIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      cardEl.classList.add("slide-left");
+      setTimeout(function() {
+        const removed = flashcards.splice(currentIndex, 1)[0];
+        flashcards.splice(currentIndex + 5, 0, removed);
+        showCard(currentIndex);
+      }, 400);
+    });
+    const favIcon = document.createElement("span");
+    favIcon.classList.add("favorite-icon");
+    favIcon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"30\" height=\"30\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg>";
+    function updateFav() {
+      if (typeof isFavorite === "function" && isFavorite({ question: question, answer: answer })) favIcon.classList.add("active");
+      else favIcon.classList.remove("active");
+    }
+    favIcon.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (typeof toggleFavorite === "function") toggleFavorite({ question: question, answer: answer });
+      updateFav();
+    });
+    updateFav();
+    cardEl.addEventListener("click", function() {
+      const isAnswerVisible = cardEl.classList.toggle("show-answer");
+      toggleBtn.textContent = isAnswerVisible ? "Cacher la réponse" : "Voir la réponse";
+    });
+    inner.appendChild(front);
+    inner.appendChild(back);
+    inner.appendChild(checkIcon);
+    inner.appendChild(crossIcon);
+    inner.appendChild(favIcon);
+    cardEl.appendChild(inner);
+    cardEl.appendChild(btnContainer);
+    container.appendChild(cardEl);
+  } else {
+    container.innerHTML = "";
+    const endCard = document.createElement("div");
+    endCard.classList.add("flashcard", "show", "show-answer");
+    const inner = document.createElement("div");
+    inner.classList.add("flashcard-inner");
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.innerHTML = "<p>Plus de flashcard disponible.</p>";
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("flashcard-button");
+    const resetBtn = document.createElement("button");
+    resetBtn.classList.add("button", "large");
+    resetBtn.textContent = "Réinitialiser";
+    resetBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      localStorage.removeItem(progressKey);
+      localStorage.removeItem("completed_" + pageId);
+      flashcards = originalData.slice();
+      currentIndex = 0;
+      updateProgress();
+      showCard(currentIndex);
+    });
+    btnContainer.appendChild(resetBtn);
+    inner.appendChild(back);
+    endCard.appendChild(inner);
+    endCard.appendChild(btnContainer);
+    container.appendChild(endCard);
+    localStorage.setItem("completed_" + pageId, "true");
+    updateProgress();
+  }
+}
+
+showCard(currentIndex);
+updateProgress();
+</script>
+
+</section>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="inner">
+
+<section id="search" class="alt">
+<form method="post" action="#">
+<input type="text" name="query" id="query" placeholder="Rechercher">
+</form>
+</section>
+
+<nav id="menu">
+<header class="major"><h2>Menu</h2></header>
+<ul>
+<li><a href="../index.html">Accueil</a></li>
+<li><a href="../favorites.html">Favoris</a></li>
+<li><span class="opener">Anatomie</span><ul>
+<li><a href="../Anatomie/fc1.html">Oreille</a></li>
+<li><a href="../Anatomie/fc2.html">Rachis et tronc</a></li>
+<li><a href="../Anatomie/fc3.html">Diaphragme et paroi abdominale</a></li>
+<li><a href="../Anatomie/fc4_1.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 1</a></li>
+<li><a href="../Anatomie/fc4_2.html">Appareil circulatoire Cœur, vaisseaux, système lymphatique Parti 2</a></li>
+<li><a href="../Anatomie/fc5.html">Loges cervicales</a></li>
+<li><a href="../Anatomie/fc6.html">Cavités nasales et fosse infra-temporale</a></li>
+<li><a href="../Anatomie/fc7.html">Os maxillaire et mandibule</a></li>
+<li><a href="../Anatomie/fc8.html">Appareil respiratoire</a></li>
+<li><a href="../Anatomie/fc9.html">Appareil digestif</a></li>
+<li><a href="../Anatomie/fc10.html">Système nerveux central (SNC)</a></li>
+<li><a href="../Anatomie/fc11.html">Membres inférieurs</a></li>
+<li><a href="../Anatomie/fc12.html">Appareil locomoteur – Membre supérieur</a></li>
+<li><a href="../Anatomie/fc13.html">Os et articulations du petit bassin</a></li>
+<li><a href="../Anatomie/fc14.html">Diaphragme pelvien et périnée</a></li>
+<li><a href="../Anatomie/fc15.html">Vaisseaux</a></li>
+<li><a href="../Anatomie/fc16.html">Appareil Urinaire</a></li>
+<li><a href="../Anatomie/fc17.html">Appareil génital féminin</a></li>
+<li><a href="../Anatomie/fc18.html">Appareil génital masculin</a></li>
+<li><a href="../Anatomie/fc19.html">Ostéologie Crânienne</a></li>
+<li><a href="../Anatomie/fc20.html">Nerfs crâniens</a></li>
+<li><a href="../Anatomie/fc21.html">Système nerveux périphérique et système nerveux autonome</a></li>
+</ul></li>
+<li><span class="opener">Anglais médical</span><ul>
+<li><a href="../Anglais/fc1.html">Anatomy</a></li>
+<li><a href="../Anglais/fc2.html">Symptoms injuries and conditions</a></li>
+<li><a href="../Anglais/fc3_1.html">Hospital staff</a></li>
+<li><a href="../Anglais/fc3_2.html">Hospital Staff</a></li>
+<li><a href="../Anglais/fc4.html">Medical equipment and procedures</a></li>
+</ul></li>
+<li><span class="opener">ICM</span><ul>
+<li><a href="../ICM/fc1_1.html">Définitions - Composition - Etiquetage - Marque du médicament</a></li>
+<li><a href="../ICM/fc1_2.html">Médicaments et autres produits de santé</a></li>
+<li><a href="../ICM/fc2_1.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc2_2.html">Régulation du médicament</a></li>
+<li><a href="../ICM/fc3.html">Aspects économiques et sociétaux</a></li>
+<li><a href="../ICM/fc4.html">Histoire du médicament</a></li>
+<li><a href="../ICM/fc5.html">Iatrogénèse, pharmacovigilance Pharmaco-épidémiologie, pharmaco-économie</a></li>
+<li><a href="../ICM/fc6_1.html">Cibles et mécanismes d_action des médicaments (2)</a></li>
+<li><a href="../ICM/fc6_2.html">Quantification de l_effet des médicaments mise à jour (2)</a></li>
+<li><a href="../ICM/fc7.html">Conception et développement d’un médicament</a></li>
+<li><a href="../ICM/fc8.html">Développement du médicament essais cliniques</a></li>
+<li><a href="../ICM/fc9.html">Pharmacocinétique</a></li>
+<li><a href="../ICM/fc10.html">Règles de prescription</a></li>
+<li><a href="../ICM/fc11.html">Bon usage du médicament</a></li>
+<li><a href="../ICM/fc12.html">Élément méthodologique des essais cliniques</a></li>
+<li><a href="../ICM/fc13.html">Les différents acteurs dans la recherche clinique</a></li>
+</ul></li>
+<li><span class="opener">Physiologie</span><ul>
+<li><a href="../Physiologie/fc1.html">Introduction a la physiologie</a></li>
+<li><a href="../Physiologie/fc2.html">Thermorégulation</a></li>
+<li><a href="../Physiologie/fc3.html">Compartiment liquidien</a></li>
+<li><a href="../Physiologie/fc4.html">Potentiel de membrane</a></li>
+<li><a href="../Physiologie/fc5.html">Potentiel d_action</a></li>
+<li><a href="../Physiologie/fc6_1.html">Transmission synaptique Partie 1</a></li>
+<li><a href="../Physiologie/fc6_2.html">Transmission synaptique Partie 2</a></li>
+</ul></li>
+<li><span class="opener">SHS</span><ul>
+<li><a href="../SHS/fc1.html">Prise en charge de la maladie chronique Exemple du Diabète</a></li>
+<li><a href="../SHS/fc2.html">L’enquête nationale périnatale ENP (1)</a></li>
+<li><a href="../SHS/fc3.html">Dispositif d’étude de la mortalité maternelle en France (2)</a></li>
+<li><a href="../SHS/fc4.html">Violence et gynecologie</a></li>
+<li><a href="../SHS/fc5.html">Introduction aux systèmes de santé en France, Europe, USA</a></li>
+<li><a href="../SHS/fc6.html">Histoire de la psychiatrie et de ses organisations  soignantes en France</a></li>
+<li><a href="../SHS/fc7.html">Liens entre le corps et l_esprit Parti 1</a></li>
+<li><a href="../SHS/fc8.html">Éthique et société</a></li>
+<li><a href="../SHS/fc9.html">Histoire de la chirurgie</a></li>
+<li><a href="../SHS/fc10.html">Le secret médical</a></li>
+<li><a href="../SHS/fc11.html">Relation soignante</a></li>
+<li><a href="../SHS/fc12.html">Initiation à la sociologie de la santé</a></li>
+<li><a href="../SHS/fc13.html">Physiologie, évaluation et traitement de la douleur (1)</a></li>
+<li><a href="../SHS/fc14.html">Le système de santé français _  Offre de soins, consommation médicale et financement</a></li>
+<li><a href="../SHS/fc15.html">Prévention risque sexuel et sanguin</a></li>
+<li><a href="../SHS/fc16.html">Prévention des infections transmises via l_environnement</a></li>
+<li><a href="../SHS/fc17.html">Prévention des infections transmises par l’air ou les  gouttelettes</a></li>
+<li><a href="../SHS/fc18_1.html">Prévention des infections transmises par contact Partie 1</a></li>
+<li><a href="../SHS/fc18_2.html">Prévention des infections transmises par contact. Partie 2</a></li>
+<li><a href="../SHS/fc19.html">Épistémologie de la médecine et raisonnement clinique</a></li>
+</ul></li>
+</ul></nav>
+
+<footer id="footer">
+<p class="copyright">&copy; Diploma Santé. Tous droits réservés.</p>
+</footer>
+
+</div>
+</div>
+
+</div>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/browser.min.js"></script>
+<script src="../../assets/js/breakpoints.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/darkmode.js"></script>
+<script src="../../assets/js/favorites.js"></script>
+
+</body>
+</html>
